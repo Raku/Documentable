@@ -1,3 +1,40 @@
+use v6.c;
+unit class Perl6::Documentable:ver<0.0.1>;
+
+
+=begin pod
+
+=head1 NAME
+
+Perl6::Documentable
+
+=head1 SYNOPSIS
+
+=begin code :lang<perl6>
+
+use Perl6::Documentable;
+
+=end code
+
+=head1 DESCRIPTION
+
+Perl6::Documentable Represents a piece of Perl 6 that is documented.
+It contains meta data about what is documented
+(for example (kind => 'type', subkinds => ['class'], name => 'Code')
+and in $.pod a reference to the actual documentation.
+
+=head1 AUTHOR
+
+Antonio <antoniogamiz10@gmail.com>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright 2019 Antonio
+
+This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
+
+=end pod
+
 use URI::Escape;
 class Perl6::Documentable {
     # Perl6::Documentable Represents a piece of Perl 6 that is documented.
