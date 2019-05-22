@@ -1,4 +1,5 @@
 use v6;
+
 use OO::Monitors;
 use Perl6::Documentable;
 
@@ -12,6 +13,7 @@ monitor Perl6::Documentable::Registry {
     # * add lots of documentation sections with `add-new`
     # * call .compose
     # * query the registry with .lookup, .get-kinds and .grouped-by
+
 
     has @.documentables;
     has Bool $.composed = False;
@@ -46,4 +48,8 @@ monitor Perl6::Documentable::Registry {
     }
 }
 
+<<<<<<< HEAD
 # vim: expandtab shiftwidth=4 ft=perl6
+=======
+# vim: expandtab shiftwidth=4 ft=perl6
+>>>>>>> f968d391ab2bb59c8c17598f1e748ae36b00b58f
