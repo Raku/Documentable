@@ -1,0 +1,19 @@
+{
+  "authors" : [
+    "Antonio"
+  ],
+  "build-depends" : [ ],
+  "depends" : [ ],
+  "description" : "blah blah blah",
+  "license" : "Artistic-2.0",
+  "name" : "Perl6::Documentable",
+  "perl" : "6.c",
+  "provides" : {
+    "Perl6::Documentable" : "lib/Perl6/Documentable.pm6"
+  },
+  "resources" : [ ],
+  "source-url" : "",
+  "tags" : [ ],
+  "test-depends" : [ ],
+  "version" : "0.0.1"
+}
