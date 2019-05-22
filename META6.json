@@ -12,7 +12,7 @@
     "Perl6::Documentable" : "lib/Perl6/Documentable.pm6"
   },
   "resources" : [ ],
-  "source-url" : "",
+  "source-url" : "https://github.com/antoniogamiz/Perl6-Documentable.git",
   "tags" : [ ],
   "test-depends" : [ ],
   "version" : "0.0.1"
