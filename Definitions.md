@@ -1,3 +1,30 @@
+# How is generated the documentation?
+
+## Doc dir processing
+
+How are processed all pod files in the doc directory? These are the main steps:
+
+1. A `Perl6::Documentable::Registry` object is created (called `$*DR`).
+2. `process-pod-dir` is called (one per dir: Programs, Language, Type, Native):
+   1. Pod files are read and sorted by `:&sorted-by` (cmp by default).
+   2. Each pod file is extracted and `process-pod-source` is called.
+
+## Pod file processing
+
+For each pod file a `Perl6::Documentable` object is created with the following
+attributes:
+
+- `$kind` => name of the dir (Programs, Language, Type, Native).
+- `$name` => the text following =TITLE or, if `$kind==type`, the last word in the text following =TITLE.
+- `$summary` => the text following =SUBTITLE.
+- `$pod` => extracted pod.
+- `$url` => `/$kind/ ~ $rest`. `$rest` is set to the config value `link`. If none is passed then is set to the filename without the extension.
+- `$pod-is-complete`: `True` by default.
+- `$subkinds` => `$kind` (for now).
+- `%type-info` => Only applied to pod files in the Type dir. Map containing two keys:
+  - `subkinds`: one the following values: `class`, `role` or `enum`.
+  - `categories`: one of the following values: `basic`, `composite`, `domain-specific`,`exceptions`,`metamodel` or `core`.
+
 ## What is considered a definition:
 
 Currently there are 8 different candidates of definitions to be indexed, all of them made through a `Pod::Heading` element.
