@@ -131,7 +131,7 @@ class Perl6::Documentable {
             }
             default { proceed; }
         }
-        @definition
+        @definition.append($unambiguous)
     }
 }
 

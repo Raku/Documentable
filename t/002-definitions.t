@@ -22,17 +22,17 @@ my $doc = Perl6::Documentable.new(:kind("Type"),
 {
     my @ignored = $pod.contents[3..13];
     for @ignored -> $heading {
-        nok $doc.parseDefinitionHeader(:heading($heading)), 
+        is  ["False"], $doc.parseDefinitionHeader(:heading($heading)), 
             $heading.contents[0].contents[0].type ~ " format code ignored";
     }
 }
 
 { 
-    is ["p6doc"        , "INTRODUCTION"], $doc.parseDefinitionHeader(:heading($pod.contents[15])), "Type 1 parsed";
-    is [""             , "p6doc"       ], $doc.parseDefinitionHeader(:heading($pod.contents[17])), "Type 1.1 parsed";
-    is ["operator"     , "arrow"       ], $doc.parseDefinitionHeader(:heading($pod.contents[19])), "Type 2 parsed";
-    is ["declarator"   , "anon"        ], $doc.parseDefinitionHeader(:heading($pod.contents[21])), "Type 2.1 parsed";
-    is ["Block"        , "phasers"     ], $doc.parseDefinitionHeader(:heading($pod.contents[23])), "Type 3 parsed";
-    is ["postcircumfix", "( )"         ], $doc.parseDefinitionHeader(:heading($pod.contents[25])), "Type 3.1 parsed";
-    is ["trait"        , "is export"   ], $doc.parseDefinitionHeader(:heading($pod.contents[27])), "Type 4 parsed";
+    is ["p6doc"        , "INTRODUCTION", "True" ], $doc.parseDefinitionHeader(:heading($pod.contents[15])), "Type 1 parsed";
+    is [""             , "p6doc"       , "True"], $doc.parseDefinitionHeader(:heading($pod.contents[17])), "Type 1.1 parsed";
+    is ["operator"     , "arrow"       , "False"], $doc.parseDefinitionHeader(:heading($pod.contents[19])), "Type 2 parsed";
+    is ["declarator"   , "anon"        , "False"], $doc.parseDefinitionHeader(:heading($pod.contents[21])), "Type 2.1 parsed";
+    is ["Block"        , "phasers"     , "False"], $doc.parseDefinitionHeader(:heading($pod.contents[23])), "Type 3 parsed";
+    is ["postcircumfix", "( )"         , "False"], $doc.parseDefinitionHeader(:heading($pod.contents[25])), "Type 3.1 parsed";
+    is ["trait"        , "is export"   , "False"], $doc.parseDefinitionHeader(:heading($pod.contents[27])), "Type 4 parsed";
 }

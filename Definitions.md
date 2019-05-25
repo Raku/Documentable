@@ -6,7 +6,7 @@ The level of the heading does not affect.
 ### Definition candidates
 
 This is done by the method `parseDefinitionHeader` in the class `Perl6::Documentable`.
-It returns: `[ $subking, $name ]`.
+It returns: `[ $subking, $name, $unambiguous ]`.
 
 #### Type 1
 
