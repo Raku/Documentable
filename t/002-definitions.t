@@ -2,7 +2,6 @@ use v6;
 
 use Perl6::Documentable;
 use Pod::Load;
-use Pod::Convenience;
 
 use Test;
 
@@ -36,3 +35,6 @@ my $doc = Perl6::Documentable.new(:kind("Type"),
     is ["postcircumfix", "( )"         , "False"], $doc.parseDefinitionHeader(:heading($pod.contents[25])), "Type 3.1 parsed";
     is ["trait"        , "is export"   , "False"], $doc.parseDefinitionHeader(:heading($pod.contents[27])), "Type 4 parsed";
 }
+
+
+# $doc.find-definitions();
