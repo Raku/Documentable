@@ -1,6 +1,8 @@
 use v6.c;
+
 unit class Perl6::Documentable:ver<0.0.1>;
 
+use Perl6::Utils;
 
 =begin pod
 
@@ -83,6 +85,55 @@ class Perl6::Documentable {
     method categories() {
         @!categories //= @.subkinds
     }
+
+    # returns [$subkind, $name]
+    method parseDefinitionHeader(:$heading) {
+        # check if it's not empty
+        my @header;
+        try {
+            @header := $heading.contents[0].contents;
+            CATCH { return []; }
+        }
+
+        my @definition;
+        my $unambiguous = False; # always index X<>
+        given @header {
+            # type 1 => X<sth|sth>
+            when :(Pod::FormattingCode $) {
+                my $fc := .[0]; 
+                proceed unless $fc.type eq "X";
+                (@definition = $fc.meta[0]:v.flat) ||= '';
+                @definition[1] = textify-guts $fc.contents[0] if @definition == 1;
+                $unambiguous = True;
+            }
+            when :(Str $ where /^The \s \S+ \s \w+$/) {
+                # type 2 => The Foo Infix
+                @definition = .[0].words[2,1];
+            }
+            when :("The ", Pod::FormattingCode $, Str $ where /^\s (\w+)$/) {
+                # type 2.1 => The C<Foo> infix
+                @definition = .[2].words[0], textify-guts .[1].contents[0];
+            }
+            when :(Str $ where {m/^(\w+) \s (\S+)$/}) {
+                # type 3 => Infix Foo
+                @definition = .[0].words[0,1];
+            }
+            when :(Str $ where /^(\w+) \s$/, Pod::FormattingCode $) {
+                # type 3.1 => infix C<Foo>
+                @definition = .[0].words[0], textify-guts .[1].contents[0];
+                proceed if ( # not looking for - baz X<baz>
+                    (@definition[1] // '') eq '' and .[1].type eq 'X'
+                )
+            }
+            when :(Str $ where {m/^trait\s+(\S+\s\S+)$/}) {
+                # trait Infix Foo
+                @definition = .split(/\s+/, 2);
+            }
+            default { proceed; }
+        }
+        @definition
+    }
 }
+
 
 # vim: expandtab shiftwidth=4 ft=perl6
