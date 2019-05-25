@@ -7,7 +7,7 @@ use Test;
 
 plan *;
 
-my $pod = load("./assets/pod-test.pod6")[0];
+my $pod = load("assets/pod-test.pod6")[0];
 
 my $doc = Perl6::Documentable.new(:kind("Type"), 
                                   :$pod, 
