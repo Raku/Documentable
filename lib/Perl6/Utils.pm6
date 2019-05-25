@@ -9,10 +9,10 @@ Pod::Block  and returns a String or a list of Strings.»
 
 =end pod
 
-multi textify-guts (Any:U,       ) { '' }
-multi textify-guts (Str:D      \v) { v }
-multi textify-guts (List:D     \v) { v».&textify-guts.Str }
-multi textify-guts (Pod::Block \v) {
+multi textify-guts (Any:U,       ) is export { '' }
+multi textify-guts (Str:D      \v) is export { v }
+multi textify-guts (List:D     \v) is export { v».&textify-guts.Str }
+multi textify-guts (Pod::Block \v) is export {
     use Pod::To::Text;
     pod2text v;
 }
@@ -25,7 +25,7 @@ is one file in $dir.
 
 =end pod
 
-sub recursive-dir($dir) {
+sub recursive-dir($dir) is export {
     my @todo = $dir;
     gather while @todo {
         my $d = @todo.shift;
