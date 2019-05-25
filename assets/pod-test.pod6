@@ -1,0 +1,64 @@
+=begin pod
+
+=TITLE Debugging
+
+=SUBTITLE Modules and applications used to debug Perl 6 programs
+
+All types of formatting codes. Only the indexing terms should be processed in 
+order to find definitions. The other ones are ignored.
+
+=head2 B<Formatting::Different::X>
+
+=head2 C<Formatting::Different::X>
+
+=head2 E<12345>
+
+=head2 I<Formatting::Different::X>
+
+=head2 K<Formatting::Different::X>
+
+=head2 L<Formatting::Different::X>
+
+=head2 N<Formatting::Different::X>
+
+=head2 P<Formatting::Different::X>
+
+=head2 R<Formatting::Different::X>
+
+=head2 T<Formatting::Different::X>
+
+=head2 U<Formatting::Different::X>
+
+All heads below should be parsed as possible definitions.
+
+=head1 X<INTRODUCTION|p6doc>
+
+    Type 1
+
+=head1 X<p6doc>
+
+    Type 1 without meta info (this has to be indexed as category only)
+
+=head2 The arrow operator
+    
+    Type 2
+
+=head2 The C<anon> declarator
+
+    Type 2.1
+
+=head1 Block phasers
+
+    Type 3
+
+=head2 postcircumfix C«( )»
+
+    Type 3.1
+
+=head2 trait is export
+
+    Type 4
+
+=end pod
+
+# vim: expandtab softtabstop=4 shiftwidth=4 ft=perl6
