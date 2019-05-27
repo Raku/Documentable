@@ -36,5 +36,6 @@ my $doc = Perl6::Documentable.new(:kind("Type"),
     is ["trait"        , "is export"   , "False"], $doc.parseDefinitionHeader(:heading($pod.contents[27])), "Type 4 parsed";
 }
 
-
 # $doc.find-definitions();
+
+done-testing;

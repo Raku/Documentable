@@ -8,3 +8,5 @@ use Perl6::Documentable::Registry;
 
 use-ok 'Perl6::Documentable';
 use-ok 'Perl6::Documentable::Registry';
+
+done-testing;
