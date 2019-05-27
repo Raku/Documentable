@@ -1,13 +1,13 @@
 use v6;
 
 use Perl6::Documentable;
-use Pod::Load;
+use Pod::Convenience;
 
 use Test;
 
 plan *;
 
-my $pod = load("./assets/pod-test.pod6")[0];
+my $pod = extract-pod("assets/pod-test.pod6");
 
 my $doc = Perl6::Documentable.new(:kind("Type"), 
                                   :$pod, 
