@@ -22,10 +22,11 @@ attributes:
 - `$pod-is-complete`: `True` by default.
 - `$subkinds` => `$kind` (for now).
 - `%type-info` => Only applied to pod files in the Type dir. Map containing two keys:
+
   - `subkinds`: one the following values: `class`, `role` or `enum`.
   - `categories`: one of the following values: `basic`, `composite`, `domain-specific`,`exceptions`,`metamodel` or `core`.
 
-## What is considered a definition:
+## What is indexed:
 
 Currently there are 8 different candidates of definitions to be indexed, all of them made through a `Pod::Heading` element.
 The level of the heading does not affect.
@@ -129,3 +130,50 @@ is repeated in Mu.pod6 and Routine.pod6 (check it).
 ```
 
 Whatever Pod::Heading object not included in one of these types is ignored.
+
+Maybe is helpful to know what is being ignored at this momemnt: [gist](https://gist.github.com/antoniogamiz/85bd5d4d5b57e6b91ae1a90a4a4f5395).
+
+Once we have our definition candidate, it still has to pass another test: it has to be one of the
+following cases:
+
+```perl6
+    given $subkinds {
+        when / ^ [in | pre | post | circum | postcircum ] fix | listop / {
+            %attr = :kind<routine>,:categories<operator>;
+        }
+        when 'sub'|'method'|'term'|'routine'|'trait'|'submethod' {
+            %attr = :kind<routine>, :categories($subkinds);
+        }
+        when 'constant'|'variable'|'twigil'|'declarator'|'quote' {
+            %attr = :kind<syntax>, :categories($subkinds);
+        }
+        when $unambiguous {
+            %attr = :kind<syntax>, :categories($subkinds);
+        }
+        default {
+            next;
+        }
+    }
+```
+
+At this point, we have found a valid definition to be indexed, so we add it as a new `Perl6::Documentable` object
+to `$*DR` (that is done [here](https://github.com/perl6/doc/blob/9f36dae596fb672b1eb8b5901a1c99a5cc9b4567/htmlify.p6#L668)).
+
+`%attr` is a hash passed (flatten) to the `Perl6::Documentable` constructor to initialize the `$kind`
+and `$categories` attribute.
+
+Maybe is helpful to know all categories that are being considered [gist](https://gist.github.com/antoniogamiz/ec29efff3a8928ec48f06185a38460d2).
+
+Before continuing with the process of THIS definition, we need to keep searching for more definitions: How? We
+call again the same function (`find-definitions`) with the same \$pod but with the current value of `$i`. Doing so,
+the new call will start searching from where we stopped. That is done [here](https://github.com/perl6/doc/blob/9f36dae596fb672b1eb8b5901a1c99a5cc9b4567/htmlify.p6#L679).
+
+So, now we have to really process the definition:
+
+1. Create a new `Pod::Heading` with the content of the definition.
+   1. We assign it the url [here](https://github.com/perl6/doc/blob/9f36dae596fb672b1eb8b5901a1c99a5cc9b4567/htmlify.p6#L690) (I am taking note of this to keep track of where urls are assigned to fix the problem related).
+2. The subkinds and categories of this definition are "fixed" or "updated". (#TODO: explain more)
+3. The definition is added to `%routines-by-type`, a hash where all definitions will be stored (every key is a
+   name of one pod file).
+
+And that is all as for definitions!
