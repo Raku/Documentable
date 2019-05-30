@@ -1,4 +1,4 @@
-# How is generated the documentation?
+# How is the documentation generated?
 
 ## Doc dir processing
 
@@ -6,7 +6,9 @@ How are processed all pod files in the doc directory? These are the main steps:
 
 1. A `Perl6::Documentable::Registry` object is created (called `$*DR`).
 2. `process-pod-dir` is called (one per dir: Programs, Language, Type, Native):
-   1. Pod files are read and sorted by `:&sorted-by` (cmp by default).
+   1. Pod files are read and sorted by `:&sorted-by` (cmp by default): ([line](https://github.com/perl6/doc/blob/9f36dae596fb672b1eb8b5901a1c99a5cc9b4567/htmlify.p6#L200)) `sorted-by` is a hash 
+   where every key is the name of a Perl6 Type and its value is a number. The names are taken from the
+   type-graph file and sorted alphabetically. An example can be found [here](https://gist.github.com/antoniogamiz/b11c504439901a82c7497fe6363bbef2).
    2. Each pod file is extracted and `process-pod-source` is called.
 
 ## Pod file processing
@@ -18,11 +20,11 @@ attributes:
 - `$name` => the text following =TITLE or, if `$kind==type`, the last word in the text following =TITLE.
 - `$summary` => the text following =SUBTITLE.
 - `$pod` => extracted pod.
-- `$url` => `/$kind/ ~ $rest`. `$rest` is set to the config value `link`. If none is passed then is set to the filename without the extension.
+- `$url` => `/$kind/ ~ $rest`. `$rest` is set to the config value `link` (you have to set it in the pod configuration:
+ `=begin pod :link<url>`). If none is passed then is set to the filename without the extension.
 - `$pod-is-complete`: `True` by default.
 - `$subkinds` => `$kind` (for now).
 - `%type-info` => Only applied to pod files in the Type dir. Map containing two keys:
-
   - `subkinds`: one the following values: `class`, `role` or `enum`.
   - `categories`: one of the following values: `basic`, `composite`, `domain-specific`,`exceptions`,`metamodel` or `core`.
 
