@@ -14,16 +14,6 @@ use Perl6::Documentable;
 
 Perl6::Documentable Represents a piece of Perl 6 that is documented. It contains meta data about what is documented (for example (kind => 'type', subkinds => ['class'], name => 'Code') and in \$.pod a reference to the actual documentation.
 
-# AUTHOR
-
-Antonio <antoniogamiz10@gmail.com>
-
-# COPYRIGHT AND LICENSE
-
-Copyright 2019 Antonio
-
-This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
-
 ## Perl6::Documentable
 
 ```perl6
@@ -116,3 +106,20 @@ In this case `$summary="A basic introductory example of a Perl 6 program"`.
 ### \$.origin
 
 Documentable object that this one was extracted from, if any. Not used.
+
+# AUTHOR
+
+Moritz Lenz <@moritz>
+Jonathan Worthington <@jnthn>
+Richard <@finanalyst>
+Will Coleda <@coke>
+Aleks-Daniel <@AlexDaniel>
+Sam S <@smls>
+Alexander Moquin <@Mouq>
+Antonio <antoniogamiz10@gmail.com>
+
+# COPYRIGHT AND LICENSE
+
+Copyright 2019 Antonio
+
+This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
