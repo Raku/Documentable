@@ -39,3 +39,31 @@ sub recursive-dir($dir) is export {
         }
     }
 }
+
+=begin pod
+
+This function comes from Pod::Convenience
+
+=end pod
+
+sub first-code-block(@pod) is export {
+    @pod.first(* ~~ Pod::Block::Code).contents.grep(Str).join;
+}
+
+=begin pod
+
+This function comes from Pod::Conveniencie
+
+=end pod
+
+sub pod-lower-headings(@content, :$to = 1) is export {
+    my $by = @content.first(Pod::Heading).level;
+    return @content unless $by > $to;
+    my @new-content;
+    for @content {
+        @new-content.append: $_ ~~ Pod::Heading
+            ?? Pod::Heading.new: :level(.level - $by + $to) :contents[.contents]
+            !! $_;
+    }
+    @new-content;
+}
