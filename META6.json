@@ -1,7 +1,7 @@
 {
   "authors": ["@moritz", "@finanalyst", "@tbrowder", "@AlexDaniel"],
   "build-depends": [],
-  "depends": ["Pod::Load:ver<0.5.4+>"],
+    "depends": ["Pod::Load:ver<0.5.4+>","OO::Monitors"],
   "description": "Represents a piece of Perl 6 that is documented.",
   "license": "Artistic-2.0",
   "name": "Perl6::Documentable",
