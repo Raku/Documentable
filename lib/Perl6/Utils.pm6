@@ -2,29 +2,20 @@ use v6.c;
 unit class Perl6::Utils:ver<0.0.1>;
 
 
-=begin pod
-
-This set of functions take a Pod::Block or a list of
-Pod::Block  and returns a String or a list of Strings.»
-
-=end pod
-
+#| Takes Pods and returns strings
 multi textify-guts (Any:U,       ) is export { '' }
 multi textify-guts (Str:D      \v) is export { v }
 multi textify-guts (List:D     \v) is export { v».&textify-guts.Str }
 multi textify-guts (Pod::Block \v) is export {
+    # core module
     use Pod::To::Text;
     pod2text v;
 }
 
 
-=begin pod
 
-This function returns a List of IO objects. Each IO object
-is one file in $dir.
-
-=end pod
-
+#|This function returns a List of IO objects. Each IO object
+#|is one file in $dir.
 sub recursive-dir($dir) is export {
     my @todo = $dir;
     gather while @todo {
@@ -40,24 +31,20 @@ sub recursive-dir($dir) is export {
     }
 }
 
-=begin pod
 
-This function comes from Pod::Convenience
-
-=end pod
-
+#| Returns the first Pod::BLock::Code found in an array
+#| of Pod elements. This function comes from Pod::Convenience.
 sub first-code-block(@pod) is export {
     @pod.first(* ~~ Pod::Block::Code).contents.grep(Str).join;
 }
 
-=begin pod
 
-This function comes from Pod::Conveniencie
-
-=end pod
-
+#| Lower the level of all headings in an array of Pod elements.
+#| Takes as reference the level of the first heading found.
 sub pod-lower-headings(@content, :$to = 1) is export {
+    # first heading element level as reference
     my $by = @content.first(Pod::Heading).level;
+    # levels cannot be negative
     return @content unless $by > $to;
     my @new-content;
     for @content {
