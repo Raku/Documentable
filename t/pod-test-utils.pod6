@@ -1,0 +1,21 @@
+=begin pod
+
+=head2 Head2
+
+This is some random and immportant text.
+
+=head2 Head2
+
+=head3 Head3
+
+=head2 Head2
+
+=head4 Head4
+
+=begin code
+    say "Some code";
+=end code
+
+=end pod
+
+# vim: expandtab softtabstop=4 shiftwidth=4 ft=perl6
