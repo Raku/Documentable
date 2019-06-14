@@ -86,7 +86,7 @@ method categories() {
 }
 
 # returns [$subkind, $name]
-method parseDefinitionHeader(:$heading) {
+method parse-definition-header(:$heading) {
     # check if it's not empty
     my @header;
     try {
@@ -133,7 +133,7 @@ method parseDefinitionHeader(:$heading) {
     @definition.append($unambiguous)
 }
 
-method classifyIndex(:$sk, :$unambiguous = False) {
+method classify-index(:$sk, :$unambiguous = False) {
     my $subkinds = $sk.lc;
     my %attr;
 
