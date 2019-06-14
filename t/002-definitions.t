@@ -35,4 +35,24 @@ subtest {
     is ["trait"        , "is export"   , "False"], $doc.parseDefinitionHeader(:heading($pod.contents[27])), "Type 4 parsed";
 }, "All definition types detected";
 
+
+subtest {
+    for <infix prefix postfix circumfix postcircumfix listop> {
+        test-index-classification($_, False, "operator", "routine");
+    }
+    for <sub method term routine trait submethod> {
+        test-index-classification($_, False, $_, "routine");
+    }
+    for <constant variable twigil declarator quote> {
+        test-index-classification($_, False, $_, "syntax");
+    }
+    test-index-classification("whatever", True, "whatever", "syntax");
+}, "All types of definitions classified correctly";
+
+sub test-index-classification($str, $unambiguous, $categories, $kind) {
+    my %attr = $doc.classifyIndex(:sk($str), :unambiguous($unambiguous));
+    is %attr<categories>, $categories, "$str categories classified correctly";    
+    is %attr<kind>, $kind            , "$str kind classified correctly";
+}
+
 done-testing;
