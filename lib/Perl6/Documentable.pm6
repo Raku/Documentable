@@ -133,5 +133,33 @@ method parseDefinitionHeader(:$heading) {
     @definition.append($unambiguous)
 }
 
+method classifyIndex(:$sk, :$unambiguous = False) {
+    my $subkinds = $sk.lc;
+    my %attr;
+
+    given $subkinds {
+        when / ^ [in | pre | post | circum | postcircum ] fix | listop / {
+            %attr = :kind<routine>,
+                    :categories<operator>;
+        }
+        when 'sub'|'method'|'term'|'routine'|'trait'|'submethod' {
+            %attr = :kind<routine>,
+                    :categories($subkinds);
+        }
+        when 'constant'|'variable'|'twigil'|'declarator'|'quote' {
+            %attr = :kind<syntax>,
+                    :categories($subkinds);
+        }
+        when $unambiguous {
+            %attr = :kind<syntax>,
+                    :categories($subkinds);
+        }
+        default {
+            return;
+        }
+    }
+
+    return %attr;
+}
 
 # vim: expandtab shiftwidth=4 ft=perl6
