@@ -90,7 +90,34 @@ In this case `$summary="A basic introductory example of a Perl 6 program"`.
 
 ### \$.origin
 
-Documentable object that this one was extracted from, if any. Not used.
+Documentable object that this one was extracted from, if any. This is used for nested
+definitions. Let's see an example:
+
+```perl6
+=begin pod
+
+Every one of this valid definitions is represented by a Perl6::Documentable object
+after have been processed.
+
+=head1 method a
+
+=head2 method b
+
+    In both cases $origin points to the Documentable object representing
+    the method a.
+
+=head2 method c
+
+=head1 method d
+
+    $origin in this case points to the Perl6::Documentable object
+    containing the pod source.
+=end pod
+
+```
+
+Two or more definitions are nested if they appears one after another and if the first one
+has a greater heading level than the second one.
 
 ### method parseDefinitionHeader
 
