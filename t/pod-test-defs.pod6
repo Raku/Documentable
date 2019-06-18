@@ -14,8 +14,6 @@ This heading should not be indexed!
 
 This should be indexed!
 
-AAAAA
-
 =head2 method any
 
 This should be indexed and subparsing should be done!
@@ -24,9 +22,13 @@ This should be indexed and subparsing should be done!
 
 Subparsing!
 
-=head2 method mro
+=head2 routine mro
 
 At this point the last subparsing should have stopped.
+
+Defined as
+
+    multi sub    mro(*@list  --> Seq:D)
 
 =end pod
 
