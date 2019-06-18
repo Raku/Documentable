@@ -54,3 +54,13 @@ sub pod-lower-headings(@content, :$to = 1) is export {
     }
     @new-content;
 }
+
+#| Takes a String and a url and returns a L<> formatting
+#| pod element.
+sub pod-link($text, $url) is export {
+    Pod::FormattingCode.new(
+        type     => 'L',
+        contents => [$text],
+        meta     => [$url],
+    );
+}
