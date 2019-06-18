@@ -57,7 +57,7 @@ has Str $.summary = '';
 #| the Documentable that this one was extracted from, if any
 has $.origin;
 
-#| Definitios indexed in this pod
+#| Definitions indexed in this pod
 has @.defs;
 
 # Remove itemization from incoming arrays
@@ -165,12 +165,7 @@ method classify-index(:$sk, :$unambiguous = False) {
     return %attr;
 }
 
-method find-definitions(:$pod, :$origin, :$min-level = -1) {
-    # Runs through the pod content, and looks for headings.
-    # If a heading is a definition, like "class FooBar", processes
-    # the class and gives the rest of the pod to find-definitions,
-    # which will return how far the definition of "class FooBar" extends.
-    # We then continue parsing from after that point.
+method find-definitions(:$pod = self.pod, :$origin = self, :$min-level = -1) {
     my @pod-section := $pod ~~ Positional ?? @$pod !! $pod.contents;
     my int $i = 0;
     my int $len = +@pod-section;
