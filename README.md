@@ -8,6 +8,26 @@ Perl6::Documentable
 
 ```perl6
 use Perl6::Documentable;
+use Pod::Load;
+
+# get a pod source
+my $pod = load("some-amaizing-pod-file.pod6")[0];
+
+# create the first Documentable object from a pod
+my $doc = Perl6::Documentable.new(:kind("Type"),
+                                  :$pod,
+                                  :name("testing"),
+                                  :url("/Type/test"),
+                                  :summary(""),
+                                  :pod-is-complete,
+                                  :subkinds("Type")
+                                );
+
+# process it!
+$doc.find-definitions();
+
+# and use it!
+$doc.defs;
 ```
 
 # DESCRIPTION
@@ -37,15 +57,21 @@ One of the following values: `language`, `programs` or `type`.
 
 ### Str @.subkinds
 
-Can take one of the following values: `class`,`role`,`enum`,`prefix`,`infix`, etc. Currently, in the official doc, is always set to the same value as [`$kind`](https://github.com/perl6/doc/blob/f328984196e33e4aec2d4c0a94e973a04447689f/htmlify.p6#L363).
+Can take one of the following values: `<infix prefix postfix circumfix postcircumfix listop sub method term routine trait submethod constant variable twigil declarator quote>`. In addition, it can take the value of the
+meta part in a `X<>` definition, which is unambiguous.
 
 ### Str @.categories
 
-Not used
+It is assigned with what `classify-index` returns. Its value will be one of the following (\$subkind
+is obtained using `parse-definition`):
+
+If `$subkind` is one of `<infix prefix postfix circumfix postcircumfix listop>`, `@categories` will be set to `operator`. Otherwise, it will be set to `$subkind`.
 
 ### Str \$.name
 
 Name of the Pod. Usually is set to the filename without the file extension `.pod6`.
+
+If it's a definition, it will be set to the value correspondent to `$name` returned by `parse-definition-header`.
 
 ### Str \$.url
 
@@ -63,11 +89,15 @@ It will be set to `/$kind/$link`. By default `$link=$filename`.
 
 ### \$.pod
 
-Perl6 Pod Structure.
+Perl6 Pod Structure (obtained using `Pod::Load` module).
 
 ### Bool \$.pod-is-complete
 
-Indicates if the Pod is complete (in the official doc generation is always set to [True](https://github.com/perl6/doc/blob/f328984196e33e4aec2d4c0a94e973a04447689f/htmlify.p6#L303)).
+Indicates if the Pod represented by the `Perl6::Documentable` object is completed. A Pod is completed if
+represents the whole pod source, that's to say, the `$.pod` attribute contains an entire pod file.
+
+It will be considered incomplete if the `Perl6::Documentable` object represents a definition. In that case
+the `$.pod` attribute will only contain the part corresponding to the definition.
 
 ### Str \$.summary
 
@@ -119,6 +149,12 @@ after have been processed.
 Two or more definitions are nested if they appears one after another and if the first one
 has a greater heading level than the second one.
 
+### Array @.defs
+
+This is one of the most important attributes of a `Perl6::Documentable` object. It contains all definitions
+found and processed corresponding to the pod of `$.origin` stored in more `Perl6::Documentable` objects. In
+general, all of them will have `pod-is-complete` set to `false`.
+
 ### method parseDefinitionHeader
 
 ```perl6
@@ -153,7 +189,32 @@ If `$subkind` takes one of the following values `<infix prefix postfix circumfix
 
 If `$subkind` is one of `<infix prefix postfix circumfix postcircumfix listop>`, `$categories` will be set to `operator`. Otherwise, it will be set to `$subkind`.
 
-# AUTHOR
+### method find-definitions
+
+```perl6
+method find-definitions (
+    Array               $pod       = self.pod,
+    Perl6::Documentable $origin    = self,
+    Int                 $min-level = -1
+) Int
+```
+
+It is a recursive function used to populate `@.defs`. It runs through the pod content
+and looks for headings. If is a heading is a definition, like `=head2 method mro`. Then
+processes it and gives the rest of the pod to find-definitions again, which will return
+how far the definition of `head2 method mro` extends. We then continue parsing from after
+that point.
+
+When we find a new definition, a new `Perl6::Documentable` object is created and initialized to:
+
+- `$origin`: to `$origin`.
+- `$pod`: It will be populated with the pod section corresponding to the definition and its subdefinitions (all valid headers with a greater level until one with the same or lower level is found).
+- `$pod-is-complete`: to `false` beacuse it's a definition.
+- `name`: To `$name` obtained with `parse-definition-header`.
+- `subkind`: To `$subkind` obtained with `parse-definition-header`.
+- `kind` and `categories`: to the return value of `classify-index`. If `$subkind` is `routine`, then it will be overwritten (TODO: resolve this).
+
+# AUTHORS
 
 Moritz Lenz <@moritz>
 Jonathan Worthington <@jnthn>
