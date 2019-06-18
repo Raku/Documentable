@@ -6,7 +6,7 @@ use Test;
 use Perl6::Utils;
 plan *;
 
-my $pod = load("t/Any.pod6")[0];
+my $pod = load("t/pod-test-defs.pod6")[0];
 
 my $doc = Perl6::Documentable.new(:kind("Type"), 
                                   :$pod, 
