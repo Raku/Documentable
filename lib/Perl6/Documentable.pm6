@@ -54,8 +54,11 @@ has     $.pod;
 has Bool $.pod-is-complete;
 has Str $.summary = '';
 
-# the Documentable that this one was extracted from, if any
+#| the Documentable that this one was extracted from, if any
 has $.origin;
+
+#| Definitios indexed in this pod
+has @.defs;
 
 # Remove itemization from incoming arrays
 method new (:$categories = [], :$subkinds = [], *%_) {
@@ -160,6 +163,84 @@ method classify-index(:$sk, :$unambiguous = False) {
     }
 
     return %attr;
+}
+
+method find-definitions(:$pod, :$origin, :$min-level = -1) {
+    # Runs through the pod content, and looks for headings.
+    # If a heading is a definition, like "class FooBar", processes
+    # the class and gives the rest of the pod to find-definitions,
+    # which will return how far the definition of "class FooBar" extends.
+    # We then continue parsing from after that point.
+    my @pod-section := $pod ~~ Positional ?? @$pod !! $pod.contents;
+    my int $i = 0;
+    my int $len = +@pod-section;
+    while $i < $len {
+        NEXT {$i = $i + 1}
+        my $pod-element := @pod-section[$i];
+        # only headers are possible definitions
+        next unless $pod-element ~~ Pod::Heading;
+        # if we have found a heading with a lower level, then the subparse
+        # has been finished
+        return $i if $pod-element.level <= $min-level;
+
+        # get definition data
+        my @definitions = self.parse-definition-header(:heading($pod-element));
+        next unless @definitions > 1;
+        # assign the correct kind and category
+        my %attr = self.classify-index(:sk(@definitions[0]), :unambiguous(@definitions[2]));
+        next unless %attr;
+
+
+        # At this point we have a valid definition
+        my $created = Perl6::Documentable.new(
+            :$origin,
+            :pod[],
+            :!pod-is-complete,
+            :name(@definitions[1]),
+            :subkinds(@definitions[0]),
+            |%attr
+        );
+        @!defs.push: $created;
+
+        my $new-i = $i;
+        { # in order to execute the once block, this {} is compulsory
+            # Preform sub-parse, checking for definitions elsewhere in the pod
+            # And updating $i to be after the places we've already searched
+            once {
+                $new-i = $i + self.find-definitions:
+                    :pod(@pod-section[$i+1..*]),
+                    :origin($created),
+                    :min-level(@pod-section[$i].level);
+            };
+        }
+
+        my $new-head = Pod::Heading.new(
+            :level(@pod-section[$i].level),
+            :contents[pod-link "($origin.name()) @definitions[0] @definitions[1]",
+                $created.url ~ "#$origin.human-kind() $origin.name()".subst(:g, /\s+/, '_')
+            ]
+        );
+        my @orig-chunk = flat $new-head, @pod-section[$i ^.. $new-i];
+        my $chunk = $created.pod.append: pod-lower-headings(@orig-chunk, :to(%attr<kind> eq 'type' ?? 0 !! 2));
+        
+        if @definitions[0] eq 'routine' {
+            # Determine proper subkinds
+            my Str @subkinds = first-code-block($chunk)\
+                .match(:g, /:s ^ 'multi'? (sub|method)»/)\
+                .>>[0]>>.Str.unique;
+
+            note "The subkinds of routine $created.name() in $origin.name()"
+                 ~ " cannot be determined. Are you sure that routine is"
+                 ~ " actually defined in $origin.name()'s file?"
+                unless @subkinds;
+
+            $created.subkinds   = @subkinds;
+            $created.categories = @subkinds;
+        }        
+
+        $i = $new-i + 1;
+    }
+    return $i;
 }
 
 # vim: expandtab shiftwidth=4 ft=perl6
