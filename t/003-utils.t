@@ -14,7 +14,7 @@ subtest {
     "    say \"Some code\";\n", "First code block detected";
 
     my @new-headings = pod-lower-headings(@pod[0].contents);
-    my @new-levels = [ $_.level if $_ ~~ Pod::Heading for @new-headings ];
+    my @new-levels = @new-headings.grep( * ~~ Pod::Heading ).map( *.level );
     is-deeply @new-levels, [1,1,2,1,3], "Headings levels lowered";
     is-deeply pod-lower-headings(@pod[0].contents, :to(3)), @pod[0].contents,
     "Does not change if heading cannot be lowered";
