@@ -1,5 +1,5 @@
 use v6.c;
-unit class Perl6::Utils:ver<0.0.1>;
+unit module Perl6::Utils:ver<0.0.1>;
 
 
 #| Takes Pods and returns strings
