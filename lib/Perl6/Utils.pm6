@@ -32,8 +32,8 @@ sub recursive-dir($dir) is export {
 }
 
 
-#| Returns the first Pod::BLock::Code found in an array
-#| of Pod elements. This function comes from Pod::Convenience.
+#| Returns all lines contained inthe first Pod::BLock::Code found in 
+#| an array of Pod elements. This function comes from Pod::Convenience.
 sub first-code-block(@pod) is export {
     @pod.first(* ~~ Pod::Block::Code).contents.grep(Str).join;
 }
