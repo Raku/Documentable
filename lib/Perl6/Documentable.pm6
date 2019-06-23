@@ -70,6 +70,7 @@ my sub english-list (*@l) {
         ?? @l[0..*-2].join(', ') ~ " and @l[*-1]"
         !! ~@l[0]
 }
+
 method human-kind() {   # SCNR
     $.kind eq 'language'
         ?? 'language documentation'
@@ -84,6 +85,7 @@ method url() {
         !! ("", $.kind, $.name).map(&uri_escape).join('/')
         ;
 }
+
 method categories() {
     @!categories //= @.subkinds
 }
@@ -158,11 +160,25 @@ method classify-index(:$sk, :$unambiguous = False) {
                     :categories($subkinds);
         }
         default {
-            return;
+            return %attr;
         }
     }
 
     return %attr;
+}
+
+method determineSubkinds($name, $origin-name, $code) {
+    my Str @subkinds = $code\
+        .match(:g, /:s ^ 'multi'? (sub|method)»/)\
+        .>>[0]>>.Str.unique;
+
+    note "The subkinds of routine $name in $origin-name"
+            ~ " cannot be determined. Are you sure that routine is"
+            ~ " actually defined in $origin-name 's file?"
+        unless @subkinds;
+
+    return @subkinds;
+
 }
 
 method find-definitions(:$pod = self.pod, :$origin = self, :$min-level = -1) {
@@ -197,41 +213,35 @@ method find-definitions(:$pod = self.pod, :$origin = self, :$min-level = -1) {
         );
         @!defs.push: $created;
 
-        my $new-i = $i;
-        { # in order to execute the once block, this {} is compulsory
-            # Preform sub-parse, checking for definitions elsewhere in the pod
-            # And updating $i to be after the places we've already searched
-            once {
-                $new-i = $i + self.find-definitions:
+        # Preform sub-parse, checking for definitions elsewhere in the pod
+        # And updating $i to be after the places we've already searched
+        my $new-i = $i + self.find-definitions:
                     :pod(@pod-section[$i+1..*]),
                     :origin($created),
                     :min-level(@pod-section[$i].level);
-            };
-        }
 
+        # setup the new pod piece
         my $new-head = Pod::Heading.new(
             :level(@pod-section[$i].level),
             :contents[pod-link "($origin.name()) @definitions[0] @definitions[1]",
                 $created.url ~ "#$origin.human-kind() $origin.name()".subst(:g, /\s+/, '_')
             ]
         );
+
         my @orig-chunk = flat $new-head, @pod-section[$i ^.. $new-i];
         my $chunk = $created.pod.append: pod-lower-headings(@orig-chunk, :to(%attr<kind> eq 'type' ?? 0 !! 2));
         
+        # routines may have been defined as sub, method, etc.
+        # so we need to determine the proper subkinds
         if @definitions[0] eq 'routine' {
-            # Determine proper subkinds
-            my Str @subkinds = first-code-block($chunk)\
-                .match(:g, /:s ^ 'multi'? (sub|method)»/)\
-                .>>[0]>>.Str.unique;
-
-            note "The subkinds of routine $created.name() in $origin.name()"
-                 ~ " cannot be determined. Are you sure that routine is"
-                 ~ " actually defined in $origin.name()'s file?"
-                unless @subkinds;
-
-            $created.subkinds   = @subkinds;
-            $created.categories = @subkinds;
-        }        
+            my @sk = self.determineSubkinds(
+                                            $created.name,
+                                            $origin.name,
+                                            first-code-block($chunk)
+                                           );
+            $created.subkinds   = @sk;
+            $created.categories = @sk;
+        } 
 
         $i = $new-i + 1;
     }
