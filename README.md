@@ -155,6 +155,74 @@ This is one of the most important attributes of a `Perl6::Documentable` object. 
 found and processed corresponding to the pod of `$.origin` stored in more `Perl6::Documentable` objects. In
 general, all of them will have `pod-is-complete` set to `false`.
 
+### method human-kind
+
+```perl6
+method human-kind (
+) return Str
+```
+
+Returns the transformation of `$.kind` to a "more human" version. That means:
+
+- If `$.kind` is equal to `language` then it returns `language documentation`.
+- Otherwise, if `@.categories` is equal to `operator` then is set to `@.subkinds operator`. If not, it's set to the result of calling `english-list` with `@.subkinds` or `$.kind` if the previous one is not defined.
+
+Examples:
+
+```
+declarator
+do (statement prefix)
+```
+
+Note: `english-list` is a helper function which join a list using commas and add a final "and" word:
+
+```
+my @a = ["a","b","c"];
+english-list(@a) # OUTPUT: a, b and c
+```
+
+### method url
+
+```perl6
+method url (
+) return Str
+```
+
+Sets `$.url` to:
+
+- If `$.kind` is equal to `operator` then will be set to the concatenation of:
+  - `/language/operators#`
+  - `@.subkinds $.name` (replacing the spaces with an underscores).
+
+Examples
+
+```
+/language/101-basics#index-entry-v6_(Basics)-v6
+/language/101-basics#index-entry-statement_(Basics)-statement
+/language/101-basics#index-entry-lexical
+```
+
+- Otherwise, it will be set to the concatenation (separator="/") of `$.kind` and `$.name`.
+
+Examples
+
+```
+/syntax/block
+/syntax/stable%20sort
+```
+
+`uri_escape` routine from `URI::Escape` is applied every time an attribute is used.
+
+### method categories
+
+```perl6
+method categories (
+) return Array
+```
+
+Returns `@.categories`. If `@.categories` if it's not defined, sets `@.categories` to the same value
+as `@.subkinds`.
+
 ### method parseDefinitionHeader
 
 ```perl6
