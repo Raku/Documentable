@@ -51,8 +51,8 @@ subtest {
 
 sub test-index-classification($str, $unambiguous, $categories, $kind) {
     my %attr = $doc.classify-index(:sk($str), :unambiguous($unambiguous));
-    is %attr<categories>, $categories, "$str categories classified correctly";    
-    is %attr<kind>, $kind            , "$str kind classified correctly";
+    is %attr<categories>, $categories, "$str classified correctly";    
+    is %attr<kind>, $kind            , "$str kind correct";
 }
 
 done-testing;
