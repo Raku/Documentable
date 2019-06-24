@@ -43,36 +43,30 @@ This library is free software; you can redistribute it and/or modify it under th
 
 =end pod
 
-
-# Perl6::Documentable::Registry collects pieces of Perl 6 documentation
-# in the form of Perl6::Documentable objects, and enables
-# lookups of these pieces of documentation.
-#
-# The general usage pattern is:
-# * create an instance with .new();
-# * add lots of documentation sections with `add-new`
-# * call .compose
-# * query the registry with .lookup, .get-kinds and .grouped-by
-
-
 has @.documentables;
 has Bool $.composed = False;
 has %!cache;
 has %!grouped-by;
 has @!kinds;
+
 method add-new(*%args) {
     die "Cannot add something to a composed registry" if $.composed;
     @!documentables.append: my $d = Perl6::Documentable.new(|%args);
     $d;
 }
+
 method compose() {
+    my @new-docs = [ ($_.defs.Slip, $_.refs.Slip).Slip for @!documentables ];
+    @!documentables = flat @!documentables, @new-docs;
     @!kinds = @.documentables>>.kind.unique;
     $!composed = True;
 }
+
 method grouped-by(Str $what) {
     die "You need to compose this registry first" unless $.composed;
     %!grouped-by{$what} ||= @!documentables.classify(*."$what"());
 }
+
 method lookup(Str $what, Str :$by!) {
     unless %!cache{$by}:exists {
         for @!documentables -> $d {
