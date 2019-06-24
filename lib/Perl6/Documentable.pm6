@@ -305,4 +305,8 @@ method register-reference(:$pod!, :$origin, :$url) {
     }
 }
 
+method get-documentables() {
+    return flat @!defs, @!refs;
+}
+
 # vim: expandtab shiftwidth=4 ft=perl6

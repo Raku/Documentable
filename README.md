@@ -339,6 +339,15 @@ That's done for every element in meta, that means, if meta has 2 elements, then 
 
 If there is not meta, then the pod content is taken as name.
 
+### method get-documentables
+
+```perl6
+method get-documentables (
+) Returns Array
+```
+
+Returns all `Documentable` objects (`@.defs`+`@.refs`).
+
 # AUTHORS
 
 Moritz Lenz <@moritz>
