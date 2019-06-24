@@ -59,6 +59,8 @@ has $.origin;
 
 #| Definitions indexed in this pod
 has @.defs;
+#| References indexed in this pod
+has @.refs;
 
 # Remove itemization from incoming arrays
 method new (:$categories = [], :$subkinds = [], *%_) {
@@ -90,7 +92,9 @@ method categories() {
     @!categories //= @.subkinds
 }
 
-# returns [$subkind, $name]
+# Definitions logic
+
+#| Returns [$subkind, $name]
 method parse-definition-header(:$heading) {
     # check if it's not empty
     my @header;
@@ -246,6 +250,59 @@ method find-definitions(:$pod = self.pod, :$origin = self, :$min-level = -1) {
         $i = $new-i + 1;
     }
     return $i;
+}
+
+# References logic
+
+method find-references(:$pod = self.pod, :$url = self.url, :$origin = self) {
+    if $pod ~~ Pod::FormattingCode && $pod.type eq 'X' {
+        my $index-name-attr = "";
+        my $index-text = recurse-until-str($pod).join;
+        my @indices = $pod.meta;
+        $index-name-attr = qq[index-entry{@indices ?? '-' !! ''}{@indices.join('-')}{$index-text ?? '-' !! ''}$index-text]
+                           .subst('_', '__', :g).subst(' ', '_', :g).subst('%', '%25', :g).subst('#', '%23', :g);
+
+       self.register-reference(:$pod, :$origin, url => $url ~ '#' ~ $index-name-attr);
+    }
+    elsif $pod.?contents {
+        for $pod.contents -> $sub-pod {
+            self.find-references(:pod($sub-pod), :$url, :$origin) if $sub-pod ~~ Pod::Block;
+        }
+    }
+}
+
+method register-reference(:$pod!, :$origin, :$url) {
+    if $pod.meta {
+        for @( $pod.meta ) -> $meta {
+            my $name;
+            if $meta.elems > 1 {
+                my $last = textify-guts $meta[*-1];
+                my $rest = $meta[0..*-2]».&textify-guts.join;
+                $name = "$last ($rest)";
+            }
+            else {
+                $name = textify-guts $meta;
+            }
+            @!refs.push: Perl6::Documentable.new(
+                                                :$pod,
+                                                :$origin,
+                                                :$url,
+                                                :kind<reference>,
+                                                :subkinds['reference'],
+                                                :$name,
+                                                );
+        }
+    }
+    elsif $pod.contents[0] -> $name {
+        @!refs.push: Perl6::Documentable.new(
+                                            :$pod,
+                                            :$origin,
+                                            :$url,
+                                            :kind<reference>,
+                                            :subkinds['reference'],
+                                            :name(textify-guts $name),
+                                            );
+    }
 }
 
 # vim: expandtab shiftwidth=4 ft=perl6

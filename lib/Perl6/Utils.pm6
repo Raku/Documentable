@@ -66,5 +66,5 @@ sub pod-link($text, $url) is export {
 }
 
 #| Accepts a Pod::Block and returns a concatenation of all subpods content
-multi sub recurse-until-str(Str:D $s){ $s }
-multi sub recurse-until-str(Pod::Block $n){ $n.contents>>.&recurse-until-str().join }
+multi sub recurse-until-str(Str:D $s) is export { $s }
+multi sub recurse-until-str(Pod::Block $n) is export { $n.contents>>.&recurse-until-str().join }
