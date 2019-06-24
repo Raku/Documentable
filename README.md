@@ -49,6 +49,9 @@ Perl6::Documentable Represents a piece of Perl 6 that is documented. It contains
     has Str $.summary = '';
 
     has $.origin;
+
+    has @.defs;
+    has @.refs;
 ```
 
 ### Str \$.kind
@@ -153,6 +156,11 @@ has a greater heading level than the second one.
 
 This is one of the most important attributes of a `Perl6::Documentable` object. It contains all definitions
 found and processed corresponding to the pod of `$.origin` stored in more `Perl6::Documentable` objects. In
+general, all of them will have `pod-is-complete` set to `false`.
+
+### Array @.refs
+
+It contains all references found and processed corresponding to pod `$.origin`, stored in more `Perl6::Documentable` objects. In
 general, all of them will have `pod-is-complete` set to `false`.
 
 ### method human-kind
