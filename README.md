@@ -348,15 +348,102 @@ method get-documentables (
 
 Returns all `Documentable` objects (`@.defs`+`@.refs`).
 
+## Perl6::Documentable::Registry
+
+```perl6
+    has @.documentables;
+    has Bool $.composed = False;
+    has %!cache;
+    has %!grouped-by;
+    has @!kinds;
+```
+
+### @.documentables
+
+If it's not composed, it will contain only `Documentable` objects with `pod-is-complete` set to true. After being composed, it will contain all `Documentable` objects obtained from processing the previous ones.
+
+### Bool \$.composed
+
+Boolean showing if the registry is composed.
+
+### %!cache
+
+This Hash object works as a cache for `lookup` method. When you call the first time that method, using a `$by` Str, a `$by` key is created and all `Documentables` object are classified by that attribute in another Hash (that another Hash is the value associated to the key `$by`).
+
+### %!grouped-by
+
+This is quite similar to the previous one. It stores all documentables objects classified by theirs attributes, but it only returns groups of them (the other one was a two layer hash structure).
+
+### @!kinds
+
+Array containing all different types of `$kinds` found in every `Documentable`.
+
+### method add-new
+
+```perl6
+method add-new(
+    *%args
+) return Perl6::Documentable;
+```
+
+Creates a `Documentable` object passing `|%args` to the constructor and returns the new object.
+
+### method compose
+
+```perl6
+method compose (
+) return Boolean;
+```
+
+Initialize `@!kinds` and join all `Documentable` objects found in every element of `@!documentables`.
+
+After that, sets `$!composed` to True and returns it.
+
+### method grouped-by
+
+```perl6
+method grouped-by(
+    Str $what
+) returns Array[Documentable];
+```
+
+The first time is called initializes a key `$what`, with the result of classifying `@!documentables` by `$what`. `$what` needs to be the name of an attribute of a `Documentable` object, `kind`, for instance.
+
+This result is stored in `%!grouped-by` so next time you call it will be faster.
+
+### method lookup
+
+```perl6
+method lookup(
+    Str $what,
+    Str $by
+) returns Array[Documentable];
+```
+
+This method uses `%!cache`, which is a two layer Hash object. That means, you first consult it with one key, `$by`, and that returns another Hash, which is consulted with the key `$what`.
+
+So, `$by` has to be the name of an attribute of `Documentable`. Elements in `@!documentables` will be classified following that attribute. Then, `$what` must be one of the possible values that the attribute `$by` can take.
+
+In this setting, `lookup` will return the `Documentable` objects in `@!documentables` which attribute `$by` be equal to `$what`.
+
+This result is stored in `%!grouped-by` so next time you call it will be faster.
+
 # AUTHORS
 
 Moritz Lenz <@moritz>
+
 Jonathan Worthington <@jnthn>
+
 Richard <@finanalyst>
+
 Will Coleda <@coke>
+
 Aleks-Daniel <@AlexDaniel>
+
 Sam S <@smls>
+
 Alexander Moquin <@Mouq>
+
 Antonio <antoniogamiz10@gmail.com>
 
 # COPYRIGHT AND LICENSE
