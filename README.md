@@ -282,6 +282,55 @@ When we find a new definition, a new `Perl6::Documentable` object is created and
 - `subkind`: To `$subkind` obtained with `parse-definition-header`.
 - `kind` and `categories`: to the return value of `classify-index`. If `$subkind` is `routine`, then it will be overwritten (TODO: resolve this).
 
+### method find-references
+
+```perl6
+method find-references (
+    :$pod    = self.pod,
+    :$url    = self.url,
+    :$origin = self
+) returns Mu;
+```
+
+It goes through all the pod tree recursively searching for `X<>` elements (`Pod::FormattingCode`). When one is found, `register-reference` is called with the pod fragment associated to that element, the same origin and the next url:
+
+```
+$url ~ '#' ~ index-entry-$pod.meta-$index-text
+```
+
+Where `$pod.meta` could be an Arrray. In that case all its elements will be joined using `-`. `$index-text` is the result of calling `recurse-until-str` with the pod fragment. Normally, it always returns the left part of the `X<>` element.
+
+Examples:
+
+```
+/Type/test#index-entry-url-new_reference
+/Type/test#index-entry-meta_part-no_meta_part
+```
+
+Note: all "\_" are replaced by two underscores and all " " are replaced by an underscore.
+
+### method register-reference
+
+```perl6
+method register-reference (
+    :$pod!
+    :$origin
+    :$url
+) returns Mu;
+```
+
+Every time it's called it adds a new `Documentable` object to `@.refs`, with `$kind` and `$subkinds` set to references. Name attr, is taken from the meta part: the last element becomes the first and the rest are written just after.
+
+Example:
+
+```
+Given the meta ["some", "reference"], the name would be: "reference (some)"
+```
+
+That's done for every element in meta, that means, if meta has 2 elements, then 2 `Documentable` objetcs will be added (you can specify several elements in a `X<>` using `;`).
+
+If there is not meta, then the pod content is taken as name.
+
 # AUTHORS
 
 Moritz Lenz <@moritz>
