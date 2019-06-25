@@ -1,5 +1,5 @@
 {
-  "authors": ["@moritz", "@finanalyst", "@tbrowder", "@AlexDaniel"],
+  "authors": ["@moritz", "@finanalyst", "@tbrowder", "@AlexDaniel", "@antoniogamiz"],
   "build-depends": [],
   "depends": ["Pod::Load:ver<0.5.4+>"],
   "description": "Represents a piece of Perl 6 that is documented.",
