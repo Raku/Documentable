@@ -1,5 +1,6 @@
 use v6.c;
 use Perl6::Documentable;
+use Pod::Utilities;
 
 unit class Perl6::Documentable::Registry:ver<0.0.1>;
 
@@ -55,6 +56,8 @@ method add-new(*%args) {
     $d;
 }
 
+# consulting logic
+
 method compose() {
     my @new-docs = [ ($_.defs.Slip, $_.refs.Slip).Slip for @!documentables ];
     @!documentables = flat @!documentables, @new-docs;
@@ -79,4 +82,34 @@ method lookup(Str $what, Str :$by!) {
 method get-kinds() {
     die "You need to compose this registry first" unless $.composed;
     @!kinds;
+}
+
+# processing logic
+
+method process-pod-source(:$kind, :$pod, :$filename) {
+    my Str $link = $pod.config<link> // $filename;
+
+    # set proper name ($filename by default)
+    my $name = recurse-until-str(first-title($pod.contents)) || $filename;
+    $name = $name.split(/\s+/)[*-1] if $kind eq "type";
+    note "$filename does not have a =TITLE" unless $name;
+
+    # summary is obtained from =SUBTITLE
+    my $summary = recurse-until-str(first-subtitle($pod.contents)) || '';
+    note "$filename does not have a =SUBTITLE" unless $summary;
+
+    my $origin = self.add-new(
+        :$kind,
+        :$name,
+        :$pod,
+        :url("/$kind/$link"),
+        :$summary,
+        :pod-is-complete(True),
+        :subkinds($kind),
+    );
+
+    $origin.find-definitions();
+    $origin.find-references();
+
+    return $origin;
 }
