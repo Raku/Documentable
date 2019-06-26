@@ -1,5 +1,11 @@
 {
-  "authors": ["@moritz", "@finanalyst", "@tbrowder", "@AlexDaniel", "@antoniogamiz"],
+  "authors": [
+    "@moritz",
+    "@finanalyst",
+    "@tbrowder",
+    "@AlexDaniel",
+    "@antoniogamiz"
+  ],
   "build-depends": [],
   "depends": ["Pod::Load:ver<0.5.4+>"],
   "description": "Represents a piece of Perl 6 that is documented.",
@@ -13,6 +19,6 @@
   "resources": [],
   "source-url": "https://github.com/antoniogamiz/Perl6-Documentable.git",
   "tags": [],
-  "test-depends": ["Test::META"],
+  "test-depends": ["Test::META", "Pod::Utilities"],
   "version": "0.0.1"
 }
