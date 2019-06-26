@@ -428,6 +428,27 @@ In this setting, `lookup` will return the `Documentable` objects in `@!documenta
 
 This result is stored in `%!grouped-by` so next time you call it will be faster.
 
+### method process-pod-source
+
+```perl6
+method process-pod-source(
+    Str        :$kind,
+    Pod::Block :$pod,
+    Str        :$filename
+) return Perl6::Documentable;
+```
+
+This method takes a pod source, initializes `Perl6::Documentable` object with it and add
+it to the registry. Returns the `Documentable` created.
+
+How it is initialized?
+
+- `$name` is set to `$filename` by default. If a `=TITLE` element is found, then it is set to its contents. In addition, if `$kind` is `type`, `$name` will be set to the last word of the content.
+- `$summary` is set to the content of the first `=SUBTITLE` element.
+- `$pod-is-complete` is set to `True` (becuase it's a complete pod).
+- `$url` is set to `/$kind/$link`, where `$link` is set to `$filename` is a `link` value is not set in the pod configuration.
+- `$kind` and `$subkinds` are set to `$kind`.
+
 # AUTHORS
 
 Moritz Lenz <@moritz>
