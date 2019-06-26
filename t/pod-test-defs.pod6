@@ -10,6 +10,8 @@
 
 This heading should not be indexed!
 
+Some reference X<aa|aa>.
+
 =head2 method ACCEPTS
 
 This should be indexed!
