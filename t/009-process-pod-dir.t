@@ -8,12 +8,12 @@ plan *;
 
 my $registry = Perl6::Documentable::Registry.new;
 
-$registry.process-pod-dir(:topdir("t"), :dir("process-pod-dir"), :!output);
+$registry.process-pod-dir(:topdir("t"), :dir("recursive"), :!output);
 
 
 my $expected = Perl6::Documentable::Registry.new.process-pod-source(
-    kind     => "process-pod-dir",
-    pod      => load("t/process-pod-dir/processing.pod6")[0],
+    kind     => "recursive",
+    pod      => load("t/recursive/processing.pod6")[0],
     filename => "processing"
 );
 
