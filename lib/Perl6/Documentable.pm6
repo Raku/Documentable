@@ -2,7 +2,8 @@ use v6.c;
 
 unit class Perl6::Documentable:ver<0.0.1>;
 
-use Perl6::Utils;
+use Pod::Utilities;
+use Pod::Utilities::Build;
 use URI::Escape;
 
 =begin pod

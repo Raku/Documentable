@@ -1,5 +1,7 @@
 use v6.c;
 use Perl6::Documentable;
+use Perl6::Utils;
+use Pod::Load;
 use Pod::Utilities;
 
 unit class Perl6::Documentable::Registry:ver<0.0.1>;
@@ -112,4 +114,17 @@ method process-pod-source(:$kind, :$pod, :$filename) {
     $origin.find-references();
 
     return $origin;
+}
+
+method process-pod-dir(:$topdir, :$dir) {
+    my @pod-sources = get-pod-names(:$topdir, :$dir);
+
+    my $kind  = $dir.lc;
+    $kind = 'type' if $kind eq 'native';
+
+    for @pod-sources.kv -> $num, (:key($filename), :value($file)) {
+        printf "% 4d/%d: % -40s => %s\n", $num+1, +@pod-sources, $file.path, "$kind/$filename";
+        my $pod = load($file.path)[0];
+        self.process-pod-source :$kind, :$pod, :$filename;
+    }
 }

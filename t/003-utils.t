@@ -1,7 +1,7 @@
 use v6;
 
-use Perl6::Utils;
 use Test;
+use Perl6::Utils;
 
 plan 2;
 

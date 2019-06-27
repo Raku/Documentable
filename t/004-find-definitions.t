@@ -2,7 +2,8 @@ use v6;
 
 use Perl6::Documentable;
 use Pod::Load;
-use Perl6::Utils;
+use Pod::Utilities;
+use Pod::Utilities::Build;
 use Test;
 
 plan *;
