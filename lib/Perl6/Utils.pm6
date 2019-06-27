@@ -19,7 +19,6 @@ sub recursive-dir($dir) is export {
     }
 }
 
-
 #| What does the following array look like?
 #| + an array of sorted pairs
 #|  - the sort key defaults to the base filename  stripped of '.pod6'.
@@ -28,7 +27,7 @@ sub recursive-dir($dir) is export {
 #|    - key:   base filename stripped of its ending .pod6
 #|    - value: filename relative to the "$topdir/$dir" directory
 sub get-pod-names(:$topdir, :$dir) is export {
-    recursive-dir("$topdir/$dir/")
+    my @pods = recursive-dir("$topdir/$dir/")
         .grep({.path ~~ / '.pod6' $/})
         .map({
                .path.subst("$topdir/$dir/", '')
@@ -36,4 +35,5 @@ sub get-pod-names(:$topdir, :$dir) is export {
                .subst(:g,    '/',  '::')
                => $_
             });
+    return @pods;
 }
