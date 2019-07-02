@@ -3,13 +3,13 @@ use v6;
 use Test;
 use Perl6::Utils;
 
-plan 4;
+plan *;
 
 # recursive dir
 
-my @dir-files = recursive-dir("lib/Perl6/Documentable/");
+my @dir-files = recursive-dir("t/recursive/");
 
-my @result = ["lib/Perl6/Documentable/Registry.pm6"].IO;
+my @result = ["t/recursive/processing.pod6"].IO;
 
 is-deeply @dir-files, @result, "Recursive dir";
 
