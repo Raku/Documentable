@@ -1,6 +1,6 @@
 =begin pod
 
-=TITLE class Types
+=TITLE class Any
 
 =SUBTITLE types
 

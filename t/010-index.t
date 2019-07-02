@@ -18,12 +18,31 @@ $registry.compose;
 
 my %indexes = programs => (["Programs", "/programs/programs", "programs"                  ],),
               language => (["Language", "/language/language", "language"                  ],),
-              type     => (["Types"   , "/type/types"       , ("class",), "types", "class"],);
+              type     => (["Any"     , "/type/Any"         , ("class",), "types", "class"],);
 
 subtest {
     for <programs language type> {
         is-deeply $registry."{$_}-index"(), %indexes{$_}, "$_ index";
     }
-}, "Index logic";
+
+    my @expected := (
+        ["index-language", "/routine/index-language", ("method",), (("Language", "/language/language"),)],
+        ["index-programs", "/routine/index-programs", ("method",), (("Programs", "/programs/programs"),)],
+        ["index-types"   , "/routine/index-types"   , ("method",), (("Any"     , "/type/Any"         ),)]
+    );
+    is-deeply $registry.routine-index, @expected, "routine index";
+}, "Main indexes";
+
+subtest {
+    my @type-subindex := ([("class",), "Any", "/type/Any", "class"],);
+    is-deeply $registry.type-subindex(category => "basic"), @type-subindex, "Basic subindex";
+
+    my @routines := (
+        ["index-language", "/routine/index-language", ("method",), (("Language", "/language/language"),)],
+        ["index-programs", "/routine/index-programs", ("method",), (("Programs", "/programs/programs"),)],
+        ["index-types"   , "/routine/index-types"   , ("method",), (("Any"     , "/type/Any"         ),)]
+    );
+    is-deeply $registry.routine-subindex(category => "method"), @routines, "Routines subindex";
+}, "Sub indexes";
 
 done-testing;
