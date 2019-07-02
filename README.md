@@ -10,6 +10,8 @@ In this repository you can find all logic responsible of generate the [official 
   - [Processing methods](#processing-methods)
   - [Indexing methods](#indexing-methods)
 - [Perl6::Utils](#perl6utils)
+- [Resources](#resources)
+  - [Templates](#templates)
 - [Authors](#authors)
 
 ## Perl6::Documentable
@@ -597,6 +599,27 @@ sub pod-path-from-url (
 ```
 
 Determine the path to source POD from the POD object's url attribute.
+
+## Resources
+
+### Templates
+
+#### [head.html](template/head.html)
+
+Some meta info and stylesheet for every page in the doc site.
+
+#### [header.html](template/header.html)
+
+Header of every HTML page in the doc site. `MENU` will be replaced by `Perl6::Documentable::To::HTML` with the
+generated menu.
+
+#### [footer.html](template/footer.html)
+
+Footer for every page in the site. `SOURCEURL`, `SOURCECOMMIT` and `DATETIME` will be replaced by `Perl6::Documentable::To::HTML`.
+
+#### [search_template.js](template/search_template.js)
+
+Search funtion for the doc site. It uses [Sift 4](https://siderite.blogspot.com/2014/11/super-fast-and-accurate-string-distance.html) algorithm for strings comparison.
 
 # AUTHORS
 

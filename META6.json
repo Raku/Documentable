@@ -14,9 +14,15 @@
   "perl": "6.c",
   "provides": {
     "Perl6::Documentable": "lib/Perl6/Documentable.pm6",
-    "Perl6::Documentable::Registry": "lib/Perl6/Documentable/Registry.pm6"
+    "Perl6::Documentable::Registry": "lib/Perl6/Documentable/Registry.pm6",
+    "Perl6::Documentable::To::HTML": "lib/Perl6/Documentable/To/HTML.pm6"
   },
-  "resources": [],
+  "resources": [
+    "template/head.html",
+    "template/header.html",
+    "template/footer.html",
+    "template/search_template.js"
+  ],
   "source-url": "https://github.com/antoniogamiz/Perl6-Documentable.git",
   "tags": [],
   "test-depends": [
