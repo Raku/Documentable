@@ -25,3 +25,5 @@ subtest {
         is-deeply $registry."{$_}-index"(), %indexes{$_}, "$_ index";
     }
 }, "Index logic";
+
+done-testing;
