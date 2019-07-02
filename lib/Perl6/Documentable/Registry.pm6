@@ -175,12 +175,37 @@ method type-index() {
 
 method type-subindex(:$category) {
     self.lookup("type", :by<kind>)\
-            .grep({$category ⊆ .categories})\ # XXX
-            .categorize(*.name).sort(*.key)>>.value
-            .map({[
-                .map({slip .subkinds // Nil}).unique.List,
-                .[0].name, 
-                .[0].url,
-                .[0].subkinds[0]
-            ]})
+    .grep({$category ⊆ .categories})\ # XXX
+    .categorize(*.name).sort(*.key)>>.value
+    .map({[
+        .map({slip .subkinds // Nil}).unique.List,
+        .[0].name, 
+        .[0].url,
+        .[0].subkinds[0]
+    ]})
+}
+
+method routine-index {
+    [
+        self.lookup("routine", :by<kind>)\
+        .categorize(*.name).sort(*.key)>>.value
+        .map({[
+            .[0].name, 
+            .[0].url,
+            .map({.subkinds // Nil}).flat.unique.List,
+            $_>>.origin.map({.name, .url}).List
+        ]}).cache.Slip
+    ].flat   
+}
+
+method routine-subindex(:$category) {
+    self.lookup("routine", :by<kind>)\
+    .grep({$category ⊆ .categories})\ # XXX
+    .categorize(*.name).sort(*.key)>>.value
+    .map({[
+        .[0].name, 
+        .[0].url,
+        .map({slip .subkinds // Nil}).unique.List,
+        $_>>.origin.map({.name, .url}).List
+    ]})
 }
