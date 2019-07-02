@@ -129,3 +129,38 @@ method process-pod-dir(:$topdir, :$dir, :$output = True) {
         self.process-pod-source(:$kind, :$pod, :$filename);
     }
 }
+
+# indexing logic
+
+method programs-index() {
+    self.lookup("programs", :by<kind>).map({[ .name, .url, .summary ]});
+}
+
+method language-index() {
+    self.lookup("language", :by<kind>).map({[ .name, .url, .summary ]});
+}
+
+method type-index() {
+    [
+        self.lookup("type", :by<kind>)\
+        .categorize(*.name).sort(*.key)>>.value
+        .map({[
+            .[0].name, .[0].url,
+            .map({.subkinds // Nil}).flat.unique.join(", "),
+            .[0].summary,
+            .[0].subkinds[0]
+        ]}).cache.Slip
+    ].flat
+}
+
+method type-subindex(:$category) {
+    self.lookup("type", :by<kind>)\
+            .grep({$category ⊆ .categories})\ # XXX
+            .categorize(*.name).sort(*.key)>>.value
+            .map({[
+                .map({slip .subkinds // Nil}).unique.join(", "),
+                .[0].name, 
+                .[0].url,
+                .[0].subkinds[0]
+            ]})
+}
