@@ -3,9 +3,9 @@ use v6;
 use Test;
 use Perl6::Utils;
 
-plan 2;
+plan 4;
 
-# recursive dir
+recursive dir
 
 my @dir-files = recursive-dir("lib/Perl6/Documentable/");
 
@@ -25,5 +25,10 @@ my @expected = [
     ];
 
 is-deeply @pod-names.sort, @expected.sort, "Pod names";
+
+subtest {
+    is pod-path-from-url("/types/Any"), "Types/Any.pod6", "basic case";
+    is pod-path-from-url("/types/Any::Mu"), "Types/Any/Mu.pod6", "two layers";
+}, "pod path";
 
 done-testing;

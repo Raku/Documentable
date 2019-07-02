@@ -37,3 +37,12 @@ sub get-pod-names(:$topdir, :$dir) is export {
             });
     return @pods;
 }
+
+#| Determine path to source POD from the POD object's url attribute
+sub pod-path-from-url($url) is export {
+    my $pod-path = $url.subst('::', '/', :g) ~ '.pod6';
+    $pod-path.subst-mutate(/^\//, '');  # trim leading slash from path
+    $pod-path = $pod-path.tc;
+
+    return $pod-path;
+}
