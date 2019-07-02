@@ -24,6 +24,6 @@ my @expected = [
         "Type::types" => "t/doc-replica/Type/types.pod6".IO
     ];
 
-is-deeply @pod-names, @expected, "Pod names";
+is-deeply @pod-names.sort, @expected.sort, "Pod names";
 
 done-testing;
