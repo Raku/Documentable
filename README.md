@@ -574,6 +574,6 @@ Antonio <antoniogamiz10@gmail.com>
 
 # COPYRIGHT AND LICENSE
 
-Copyright 2019 Antonio
+Copyright 2019 Perl6 Team
 
 This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
