@@ -146,7 +146,7 @@ method type-index() {
         .categorize(*.name).sort(*.key)>>.value
         .map({[
             .[0].name, .[0].url,
-            .map({.subkinds // Nil}).flat.unique.join(", "),
+            .map({.subkinds // Nil}).flat.unique.List,
             .[0].summary,
             .[0].subkinds[0]
         ]}).cache.Slip
@@ -158,7 +158,7 @@ method type-subindex(:$category) {
             .grep({$category ⊆ .categories})\ # XXX
             .categorize(*.name).sort(*.key)>>.value
             .map({[
-                .map({slip .subkinds // Nil}).unique.join(", "),
+                .map({slip .subkinds // Nil}).unique.List,
                 .[0].name, 
                 .[0].url,
                 .[0].subkinds[0]
