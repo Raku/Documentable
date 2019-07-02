@@ -5,7 +5,7 @@ use Perl6::Utils;
 
 plan 4;
 
-recursive dir
+# recursive dir
 
 my @dir-files = recursive-dir("lib/Perl6/Documentable/");
 
