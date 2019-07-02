@@ -9,6 +9,7 @@ In this repository you can find all logic responsible of generate the [official 
   - [Consulting methods](#consulting-methods)
   - [Processing methods](#processing-methods)
   - [Indexing methods](#indexing-methods)
+- [Perl6::Utils](#perl6utils)
 - [Authors](#authors)
 
 ## Perl6::Documentable
@@ -553,6 +554,49 @@ method routine-subindex (
 
 Same as `routine-index` but you can filter by `$category`. You can pass one of the following
 categories: `<sub method term operator trait submethod>`.
+
+## Perl6::Utils
+
+Some auxiliar functions to ease the job.
+
+#### sub recursive-dir
+
+```perl6
+sub recursive-dir (
+    Str :$dir
+) return Array;
+```
+
+This function returns a List of IO objects. Each IO object is one file in `$dir`.
+
+#### sub get-pod-names
+
+```perl6
+sub get-pod-names (
+    Str :$topdir
+    Str :$dir
+) return Array;
+```
+
+What does the following array look like? An array of sorted pairs
+
+- the sort key defaults to the base filename stripped of '.pod6'.
+- any other sort order has to be processed separately as in 'Language'.
+
+The sorted pairs (regardless of how they are sorted) must consist of:
+
+- key: base filename stripped of its ending .pod6
+- value: filename relative to the "$topdir/$dir" directory
+
+#### sub pod-path-from-url
+
+```perl6
+sub pod-path-from-url (
+    Str $url
+) return Str;
+```
+
+Determine the path to source POD from the POD object's url attribute.
 
 # AUTHORS
 
