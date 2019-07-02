@@ -3,6 +3,7 @@ use Perl6::Documentable;
 use Perl6::Utils;
 use Pod::Load;
 use Pod::Utilities;
+use Perl6::TypeGraph;
 
 unit class Perl6::Documentable::Registry:ver<0.0.1>;
 
@@ -51,6 +52,13 @@ has Bool $.composed = False;
 has %!cache;
 has %!grouped-by;
 has @!kinds;
+has $.tg;
+
+# setup
+
+submethod BUILD () {
+    $!tg = Perl6::TypeGraph.new-from-file;
+}
 
 method add-new(*%args) {
     die "Cannot add something to a composed registry" if $.composed;
@@ -100,6 +108,17 @@ method process-pod-source(:$kind, :$pod, :$filename) {
     my $summary = recurse-until-str(first-subtitle($pod.contents)) || '';
     note "$filename does not have a =SUBTITLE" unless $summary;
 
+    # type-graph sets the correct subkind and categories
+    my %type-info;
+    if $kind eq "type" {
+        if $!tg.types{$name} -> $type {
+            %type-info = :subkinds($type.packagetype), :categories($type.categories);
+        }
+        else {
+            %type-info = :subkinds<class>;
+        }
+    }
+
     my $origin = self.add-new(
         :$kind,
         :$name,
@@ -108,6 +127,7 @@ method process-pod-source(:$kind, :$pod, :$filename) {
         :$summary,
         :pod-is-complete(True),
         :subkinds($kind),
+        |%type-info
     );
 
     $origin.find-definitions();
