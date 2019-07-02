@@ -378,6 +378,16 @@ This is quite similar to the previous one. It stores all documentables objects c
 
 Array containing all different types of `$kinds` found in every `Documentable`.
 
+### \$.tg
+
+Instance of a Perl6::TypeGraph object (from this [module](https://github.com/antoniogamiz/Perl6-TypeGraph)).
+
+This object is responsible of give us the correct categories and subkinds of a type. For instance, it sets the category of a type to `domain-specific`, `exception`, etc., which is used in the index generation.
+
+### submethod BUILD
+
+In this method the attribute `$.tg` is configured as specified in the [documentation module](https://github.com/antoniogamiz/Perl6-TypeGraph).
+
 ### method add-new
 
 ```perl6
