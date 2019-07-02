@@ -19,6 +19,6 @@
   "resources": [],
   "source-url": "https://github.com/antoniogamiz/Perl6-Documentable.git",
   "tags": [],
-  "test-depends": ["Test::META", "Pod::Utilities"],
+  "test-depends": ["Test::META", "Pod::Utilities", "Perl6::TypeGraph"],
   "version": "0.0.1"
 }
