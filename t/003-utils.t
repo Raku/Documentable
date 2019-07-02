@@ -21,7 +21,7 @@ my @pod-names = get-pod-names(topdir => "t",
 my @expected = [
         "Language::language" => "t/doc-replica/Language/language.pod6".IO,
         "Programs::programs" => "t/doc-replica/Programs/programs.pod6".IO,
-        "Type::types" => "t/doc-replica/Type/types.pod6".IO
+        "Type::Any" => "t/doc-replica/Type/Any.pod6".IO
     ];
 
 is-deeply @pod-names.sort, @expected.sort, "Pod names";
