@@ -493,12 +493,39 @@ method type-index (
 It takes all `Documentable` objects in the `Registry` with `kind` set to `type`.
 After that makes a `map` extracting the following elements: `[$name, $url, $subkinds, $summary]`.
 
+### method type-subindex
+
+```perl6
+method type-subindex (
+  Str :$category
+) return Array;
+```
+
+Same as `type-index` but you can filter by `$category`. You can pass one of the following
+categories: `<basic composite domain-specific exceptions>`.
+
 ### method routine-index
 
 ```perl6
 method routine-index (
 ) return Array;
 ```
+
+It takes all `Documentable` objects in the `Registry` with `kind` set to `routine`.
+After that makes a `map` extracting the following elements: `[$name, $url, $subkinds, $from]`.
+Where `$from` is an array of `[$name, $url]` containing the names and urls of the `Documentable`
+objects where the routine was found.
+
+### method routine-subindex
+
+```perl6
+method routine-subindex (
+  Str :$category
+) return Array;
+```
+
+Same as `routine-index` but you can filter by `$category`. You can pass one of the following
+categories: `<sub method term operator trait submethod>`.
 
 # AUTHORS
 
