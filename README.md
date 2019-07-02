@@ -1,10 +1,19 @@
 [![Build Status](https://travis-ci.org/antoniogamiz/Perl6-Documentable.svg?branch=master)](https://travis-ci.org/antoniogamiz/Perl6-Documentable)
 
-# NAME
+In this repository you can find all logic responsible of generate the [official documentation of Perl6](https://docs.perl6.org/).
 
-Perl6::Documentable
+## Table of contents
 
-# SYNOPSIS
+- [Perl6::Documentable](#perl6documentable)
+- [Perl6::Documentable::Registry](#perl6documentableregistry)
+  - [Consulting methods](#consulting-methods)
+  - [Processing methods](#processing-methods)
+  - [Indexing methods](#indexing-methods)
+- [Authors](#authors)
+
+## Perl6::Documentable
+
+### SYNOPSIS
 
 ```perl6
 use Perl6::Documentable;
@@ -30,11 +39,11 @@ $doc.find-definitions();
 $doc.defs;
 ```
 
-# DESCRIPTION
+### DESCRIPTION
 
 Perl6::Documentable Represents a piece of Perl 6 that is documented. It contains meta data about what is documented (for example (kind => 'type', subkinds => ['class'], name => 'Code') and in \$.pod a reference to the actual documentation.
 
-## Perl6::Documentable
+### Perl6::Documentable
 
 ```perl6
     has Str $.kind;
@@ -54,29 +63,29 @@ Perl6::Documentable Represents a piece of Perl 6 that is documented. It contains
     has @.refs;
 ```
 
-### Str \$.kind
+#### Str \$.kind
 
 One of the following values: `language`, `programs` or `type`.
 
-### Str @.subkinds
+#### Str @.subkinds
 
 Can take one of the following values: `<infix prefix postfix circumfix postcircumfix listop sub method term routine trait submethod constant variable twigil declarator quote>`. In addition, it can take the value of the
 meta part in a `X<>` definition, which is unambiguous.
 
-### Str @.categories
+#### Str @.categories
 
 It is assigned with what `classify-index` returns. Its value will be one of the following (\$subkind
 is obtained using `parse-definition`):
 
 If `$subkind` is one of `<infix prefix postfix circumfix postcircumfix listop>`, `@categories` will be set to `operator`. Otherwise, it will be set to `$subkind`.
 
-### Str \$.name
+#### Str \$.name
 
 Name of the Pod. Usually is set to the filename without the file extension `.pod6`.
 
 If it's a definition, it will be set to the value correspondent to `$name` returned by `parse-definition-header`.
 
-### Str \$.url
+#### Str \$.url
 
 Static url to the processed file. Its value can be specified in the Pod configuration as follows:
 
@@ -90,7 +99,7 @@ Static url to the processed file. Its value can be specified in the Pod configur
 
 It will be set to `/$kind/$link`. By default `$link=$filename`.
 
-### \$.pod
+#### \$.pod
 
 Perl6 Pod Structure (obtained using `Pod::Load` module).
 
@@ -102,7 +111,7 @@ represents the whole pod source, that's to say, the `$.pod` attribute contains a
 It will be considered incomplete if the `Perl6::Documentable` object represents a definition. In that case
 the `$.pod` attribute will only contain the part corresponding to the definition.
 
-### Str \$.summary
+#### Str \$.summary
 
 Subtitle of the pod.
 
@@ -121,7 +130,7 @@ Subtitle of the pod.
 
 In this case `$summary="A basic introductory example of a Perl 6 program"`.
 
-### \$.origin
+#### \$.origin
 
 Documentable object that this one was extracted from, if any. This is used for nested
 definitions. Let's see an example:
@@ -152,18 +161,18 @@ after have been processed.
 Two or more definitions are nested if they appears one after another and if the first one
 has a greater heading level than the second one.
 
-### Array @.defs
+#### Array @.defs
 
 This is one of the most important attributes of a `Perl6::Documentable` object. It contains all definitions
 found and processed corresponding to the pod of `$.origin` stored in more `Perl6::Documentable` objects. In
 general, all of them will have `pod-is-complete` set to `false`.
 
-### Array @.refs
+#### Array @.refs
 
 It contains all references found and processed corresponding to pod `$.origin`, stored in more `Perl6::Documentable` objects. In
 general, all of them will have `pod-is-complete` set to `false`.
 
-### method human-kind
+#### method human-kind
 
 ```perl6
 method human-kind (
@@ -189,7 +198,7 @@ my @a = ["a","b","c"];
 english-list(@a) # OUTPUT: a, b and c
 ```
 
-### method url
+#### method url
 
 ```perl6
 method url (
@@ -221,7 +230,7 @@ Examples
 
 `uri_escape` routine from `URI::Escape` is applied every time an attribute is used.
 
-### method categories
+#### method categories
 
 ```perl6
 method categories (
@@ -231,7 +240,7 @@ method categories (
 Returns `@.categories`. If `@.categories` if it's not defined, sets `@.categories` to the same value
 as `@.subkinds`.
 
-### method parseDefinitionHeader
+#### method parseDefinitionHeader
 
 ```perl6
 method parseDefinitionHeader (
@@ -249,7 +258,7 @@ unambiguous.
   - `Infix Foo`: `Foo` will be considered as `$name` and `Infix` as the `$subkind`. `Foo` can be written using `C<Foo>` or other format code.
   - `trait Infix Foo`: `Infix Foo` will be considered as `$name` and `trait` as the `$subkind`.
 
-### method classifyIndex
+#### method classifyIndex
 
 ```perl6
 method classifyIndex (
@@ -265,7 +274,7 @@ If `$subkind` takes one of the following values `<infix prefix postfix circumfix
 
 If `$subkind` is one of `<infix prefix postfix circumfix postcircumfix listop>`, `$categories` will be set to `operator`. Otherwise, it will be set to `$subkind`.
 
-### method find-definitions
+#### method find-definitions
 
 ```perl6
 method find-definitions (
@@ -290,7 +299,7 @@ When we find a new definition, a new `Perl6::Documentable` object is created and
 - `subkind`: To `$subkind` obtained with `parse-definition-header`.
 - `kind` and `categories`: to the return value of `classify-index`. If `$subkind` is `routine`, then it will be overwritten (TODO: resolve this).
 
-### method find-references
+#### method find-references
 
 ```perl6
 method find-references (
@@ -317,7 +326,7 @@ Examples:
 
 Note: all "\_" are replaced by two underscores and all " " are replaced by an underscore.
 
-### method register-reference
+#### method register-reference
 
 ```perl6
 method register-reference (
@@ -339,7 +348,7 @@ That's done for every element in meta, that means, if meta has 2 elements, then 
 
 If there is not meta, then the pod content is taken as name.
 
-### method get-documentables
+#### method get-documentables
 
 ```perl6
 method get-documentables (
@@ -358,37 +367,39 @@ Returns all `Documentable` objects (`@.defs`+`@.refs`).
     has @!kinds;
 ```
 
-### @.documentables
+#### @.documentables
 
 If it's not composed, it will contain only `Documentable` objects with `pod-is-complete` set to true. After being composed, it will contain all `Documentable` objects obtained from processing the previous ones.
 
-### Bool \$.composed
+#### Bool \$.composed
 
 Boolean showing if the registry is composed.
 
-### %!cache
+#### %!cache
 
 This Hash object works as a cache for `lookup` method. When you call the first time that method, using a `$by` Str, a `$by` key is created and all `Documentables` object are classified by that attribute in another Hash (that another Hash is the value associated to the key `$by`).
 
-### %!grouped-by
+#### %!grouped-by
 
 This is quite similar to the previous one. It stores all documentables objects classified by theirs attributes, but it only returns groups of them (the other one was a two layer hash structure).
 
-### @!kinds
+#### @!kinds
 
 Array containing all different types of `$kinds` found in every `Documentable`.
 
-### \$.tg
+#### \$.tg
 
 Instance of a Perl6::TypeGraph object (from this [module](https://github.com/antoniogamiz/Perl6-TypeGraph)).
 
 This object is responsible of give us the correct categories and subkinds of a type. For instance, it sets the category of a type to `domain-specific`, `exception`, etc., which is used in the index generation.
 
-### submethod BUILD
+#### submethod BUILD
 
 In this method the attribute `$.tg` is configured as specified in the [documentation module](https://github.com/antoniogamiz/Perl6-TypeGraph).
 
-### method add-new
+### Processing methods
+
+#### method add-new
 
 ```perl6
 method add-new(
@@ -398,7 +409,7 @@ method add-new(
 
 Creates a `Documentable` object passing `|%args` to the constructor and returns the new object.
 
-### method compose
+#### method compose
 
 ```perl6
 method compose (
@@ -409,36 +420,7 @@ Initialize `@!kinds` and join all `Documentable` objects found in every element 
 
 After that, sets `$!composed` to True and returns it.
 
-### method grouped-by
-
-```perl6
-method grouped-by(
-    Str $what
-) returns Array[Documentable];
-```
-
-The first time is called initializes a key `$what`, with the result of classifying `@!documentables` by `$what`. `$what` needs to be the name of an attribute of a `Documentable` object, `kind`, for instance.
-
-This result is stored in `%!grouped-by` so next time you call it will be faster.
-
-### method lookup
-
-```perl6
-method lookup(
-    Str $what,
-    Str $by
-) returns Array[Documentable];
-```
-
-This method uses `%!cache`, which is a two layer Hash object. That means, you first consult it with one key, `$by`, and that returns another Hash, which is consulted with the key `$what`.
-
-So, `$by` has to be the name of an attribute of `Documentable`. Elements in `@!documentables` will be classified following that attribute. Then, `$what` must be one of the possible values that the attribute `$by` can take.
-
-In this setting, `lookup` will return the `Documentable` objects in `@!documentables` which attribute `$by` be equal to `$what`.
-
-This result is stored in `%!grouped-by` so next time you call it will be faster.
-
-### method process-pod-source
+#### method process-pod-source
 
 ```perl6
 method process-pod-source(
@@ -459,11 +441,56 @@ How it is initialized?
 - `$url` is set to `/$kind/$link`, where `$link` is set to `$filename` is a `link` value is not set in the pod configuration.
 - `$kind` and `$subkinds` are set to `$kind`.
 
-## Indexing
+#### method process-pod-source
+
+```perl6
+method process-pod-source(
+    Str     :$topdir,
+    Str     :$dir,
+    Boolean :$output
+) return Mu;
+```
+
+Reads all pod files in `$topdir/$dir/` and calls `process-pod-source` (with `$kind=$dir`) once for each file.
+
+If `$output` is set to `True`, then a progress message will be printed every time a new file is processed.
+
+### Consulting methods
+
+#### method grouped-by
+
+```perl6
+method grouped-by(
+    Str $what
+) returns Array[Documentable];
+```
+
+The first time is called initializes a key `$what`, with the result of classifying `@!documentables` by `$what`. `$what` needs to be the name of an attribute of a `Documentable` object, `kind`, for instance.
+
+This result is stored in `%!grouped-by` so next time you call it will be faster.
+
+#### method lookup
+
+```perl6
+method lookup(
+    Str $what,
+    Str $by
+) returns Array[Documentable];
+```
+
+This method uses `%!cache`, which is a two layer Hash object. That means, you first consult it with one key, `$by`, and that returns another Hash, which is consulted with the key `$what`.
+
+So, `$by` has to be the name of an attribute of `Documentable`. Elements in `@!documentables` will be classified following that attribute. Then, `$what` must be one of the possible values that the attribute `$by` can take.
+
+In this setting, `lookup` will return the `Documentable` objects in `@!documentables` which attribute `$by` be equal to `$what`.
+
+This result is stored in `%!grouped-by` so next time you call it will be faster.
+
+### Indexing methods
 
 All `*-index` methods are used to generate the main index in the doc site ([Language](https://docs.perl6.org/language.html), [Types](https://docs.perl6.org/types.html), ...).
 
-### method programs-index
+#### method programs-index
 
 ```perl6
 method programs-index (
@@ -473,7 +500,7 @@ method programs-index (
 It takes all `Documentable` objects in the `Registry` with `kind` set to `programs`.
 After that makes a `map` extracting the following elements: `[$name, $url, $summary]`.
 
-### method language-index
+#### method language-index
 
 ```perl6
 method language-index (
@@ -483,7 +510,7 @@ method language-index (
 It takes all `Documentable` objects in the `Registry` with `kind` set to `language`.
 After that makes a `map` extracting the following elements: `[$name, $url, $summary]`.
 
-### method type-index
+#### method type-index
 
 ```perl6
 method type-index (
@@ -493,7 +520,7 @@ method type-index (
 It takes all `Documentable` objects in the `Registry` with `kind` set to `type`.
 After that makes a `map` extracting the following elements: `[$name, $url, $subkinds, $summary]`.
 
-### method type-subindex
+#### method type-subindex
 
 ```perl6
 method type-subindex (
@@ -504,7 +531,7 @@ method type-subindex (
 Same as `type-index` but you can filter by `$category`. You can pass one of the following
 categories: `<basic composite domain-specific exceptions>`.
 
-### method routine-index
+#### method routine-index
 
 ```perl6
 method routine-index (
@@ -516,7 +543,7 @@ After that makes a `map` extracting the following elements: `[$name, $url, $subk
 Where `$from` is an array of `[$name, $url]` containing the names and urls of the `Documentable`
 objects where the routine was found.
 
-### method routine-subindex
+#### method routine-subindex
 
 ```perl6
 method routine-subindex (
