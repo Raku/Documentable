@@ -449,6 +449,47 @@ How it is initialized?
 - `$url` is set to `/$kind/$link`, where `$link` is set to `$filename` is a `link` value is not set in the pod configuration.
 - `$kind` and `$subkinds` are set to `$kind`.
 
+## Indexing
+
+All `*-index` methods are used to generate the main index in the doc site ([Language](https://docs.perl6.org/language.html), [Types](https://docs.perl6.org/types.html), ...).
+
+### method programs-index
+
+```perl6
+method programs-index (
+) return Array;
+```
+
+It takes all `Documentable` objects in the `Registry` with `kind` set to `programs`.
+After that makes a `map` extracting the following elements: `[$name, $url, $summary]`.
+
+### method language-index
+
+```perl6
+method language-index (
+) return Array;
+```
+
+It takes all `Documentable` objects in the `Registry` with `kind` set to `language`.
+After that makes a `map` extracting the following elements: `[$name, $url, $summary]`.
+
+### method type-index
+
+```perl6
+method type-index (
+) return Array;
+```
+
+It takes all `Documentable` objects in the `Registry` with `kind` set to `type`.
+After that makes a `map` extracting the following elements: `[$name, $url, $subkinds, $summary]`.
+
+### method routine-index
+
+```perl6
+method routine-index (
+) return Array;
+```
+
 # AUTHORS
 
 Moritz Lenz <@moritz>
