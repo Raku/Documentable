@@ -16,9 +16,9 @@ for <Type Language Programs> {
 
 $registry.compose;
 
-my %indexes= programs => (["Programs", "/programs/programs", "programs"                 ],),
-             language => (["Language", "/language/language", "language"                 ],),
-             type     => (["Types"   , "/type/types"       , ("type",) , "types", "type"],);
+my %indexes = programs => (["Programs", "/programs/programs", "programs"                  ],),
+              language => (["Language", "/language/language", "language"                  ],),
+              type     => (["Types"   , "/type/types"       , ("class",), "types", "class"],);
 
 subtest {
     for <programs language type> {
