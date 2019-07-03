@@ -7,9 +7,9 @@ use Perl6::Documentable::Registry;
 use Perl6::Documentable::To::HTML;
 
 sub MAIN (
-    Str  :$topdir,
-    Bool :v(:verbose($v)),
-    Bool :$cache = True
+    Str  :$topdir         = "doc",
+    Bool :v(:verbose($v)) = False,
+    Bool :c(:$cache)      = False
 ) {
 
     # debug function
@@ -19,7 +19,7 @@ sub MAIN (
 
     #===================================================================
 
-    DEBUG("Processing phase...")
+    DEBUG("Processing phase...");
     my $registry = Perl6::Documentable::Registry.new(use-cache => $cache,
                                                      verbose   => $v
                                                     );
@@ -30,7 +30,7 @@ sub MAIN (
 
     #===================================================================
 
-    DEBUG("HTML generation phase...")
+    DEBUG("HTML generation phase...");
     for $registry.lookup("programs", :by<kind>).list -> $doc {
         DEBUG("Writing program document for {$doc.name} ...");
         my $pod-path = pod-path-from-url($doc.url);
@@ -43,5 +43,12 @@ sub MAIN (
         spurt "html{$doc.url}.html", p2h($doc.pod, 'language', :pod-path($pod-path));
     }
 
+    for $registry.lookup("type", :by<kind>).list -> $doc {
+        DEBUG("Writing type document for {$doc.name} ...");
+        my $pod-path = pod-path-from-url($doc.url);
+        spurt "html{$doc.url}.html", p2h($doc.pod, 'type', :pod-path($pod-path));
+    }
+
     #===================================================================
+
 }
