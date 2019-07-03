@@ -4,6 +4,7 @@ use Perl6::Utils;
 use Pod::Load;
 use Pod::Utilities;
 use Perl6::TypeGraph;
+use Pod::To::Cached;
 
 unit class Perl6::Documentable::Registry:ver<0.0.1>;
 
@@ -54,16 +55,38 @@ has %!grouped-by;
 has @!kinds;
 has $.tg;
 
+has $.pod-cache;
+has $.use-cache = False;
+
+has Bool $.verbose;
+
 # setup
 
-submethod BUILD () {
+submethod BUILD (:$use-cache, :$verbose) {
+    $!verbose = $verbose;
     $!tg = Perl6::TypeGraph.new-from-file;
+    if ($use-cache) {
+        $!use-cache = True;
+        $!pod-cache = Pod::To::Cached.new(:source("doc"), :path(".pod-cache"), :$verbose);
+        $!pod-cache.update-cache;
+    }
 }
 
 method add-new(*%args) {
     die "Cannot add something to a composed registry" if $.composed;
     @!documentables.append: my $d = Perl6::Documentable.new(|%args);
     $d;
+}
+
+method load($path is copy) {
+    if ($!use-cache) {
+        # set path to Pod::To::Cached format
+        my $new-path = $path.subst(/doc\//, "")
+                       .subst(/\.pod6/, "").lc;
+        $!pod-cache.pod( $new-path )[0];
+    } else {
+        load($path)[0];
+    }
 }
 
 # consulting logic
@@ -136,16 +159,15 @@ method process-pod-source(:$kind, :$pod, :$filename) {
     return $origin;
 }
 
-method process-pod-dir(:$topdir, :$dir, :$output = True) {
+method process-pod-dir(:$topdir, :$dir) {
     my @pod-sources = get-pod-names(:$topdir, :$dir);
 
     my $kind  = $dir.lc;
     $kind = 'type' if $kind eq 'native';
 
     for @pod-sources.kv -> $num, (:key($filename), :value($file)) {
-        printf "% 4d/%d: % -40s => %s\n", $num+1, +@pod-sources, $file.path, "$kind/$filename"
-        if $output;
-        my $pod = load($file.path)[0];
+        printf "% 4d/%d: % -40s => %s\n", $num+1, +@pod-sources, $file.path, "$kind/$filename" if $!verbose;
+        my $pod = self.load($file.path);
         self.process-pod-source(:$kind, :$pod, :$filename);
     }
 }
