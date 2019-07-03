@@ -203,6 +203,7 @@ method type-subindex(:$category) {
         .map({slip .subkinds // Nil}).unique.List,
         .[0].name, 
         .[0].url,
+        .[0].summary,
         .[0].subkinds[0]
     ]})
 }
@@ -225,9 +226,9 @@ method routine-subindex(:$category) {
     .grep({$category ⊆ .categories})\ # XXX
     .categorize(*.name).sort(*.key)>>.value
     .map({[
+        .map({slip .subkinds // Nil}).unique.List,
         .[0].name, 
         .[0].url,
-        .map({slip .subkinds // Nil}).unique.List,
         $_>>.origin.map({.name, .url}).List
     ]})
 }

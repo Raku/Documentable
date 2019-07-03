@@ -34,13 +34,13 @@ subtest {
 }, "Main indexes";
 
 subtest {
-    my @type-subindex := ([("class",), "Any", "/type/Any", "class"],);
+    my @type-subindex := ([("class",), "Any", "/type/Any", "types", "class"],);
     is-deeply $registry.type-subindex(category => "basic"), @type-subindex, "Basic subindex";
 
     my @routines := (
-        ["index-language", "/routine/index-language", ("method",), (("Language", "/language/language"),)],
-        ["index-programs", "/routine/index-programs", ("method",), (("Programs", "/programs/programs"),)],
-        ["index-types"   , "/routine/index-types"   , ("method",), (("Any"     , "/type/Any"         ),)]
+        [("method",), "index-language", "/routine/index-language", (("Language", "/language/language"),)],
+        [("method",), "index-programs", "/routine/index-programs", (("Programs", "/programs/programs"),)],
+        [("method",), "index-types"   , "/routine/index-types"   , (("Any"     , "/type/Any"         ),)]
     );
     is-deeply $registry.routine-subindex(category => "method"), @routines, "Routines subindex";
 }, "Sub indexes";
