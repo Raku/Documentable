@@ -4,7 +4,7 @@ use Perl6::Utils;
 use Pod::To::HTML;
 use Perl6::Documentable::Registry;
 
-unit class Perl6::Documentable::To::HTML:ver<0.0.1>;
+unit module Perl6::Documentable::To::HTML:ver<0.0.1>;
 
 =begin pod
 
@@ -36,36 +36,25 @@ This library is free software; you can redistribute it and/or modify it under th
 
 =end pod
 
-#| hardcoded menu
-has @.menu;
+# hardcoded menu (TODO => generate it automatically)
+my @menu = ('language', ''        ) => (),
+           ('type'    , 'Types'   ) => <basic composite domain-specific exceptions>,
+           ('routine' , 'Routines') => <sub method term operator trait submethod  >,
+           ('programs', ''        ) => (),
+           ('https://webchat.freenode.net/?channels=#perl6', 'Chat with us') => (); 
 
-#| head template
-has $.head-template-path;
-#| header template
-has $.header-template-path;
-#| footer template
-has $.footer-template-path;
+# templates
+my $head-template-path   = %?RESOURCES ?? %?RESOURCES<template/head.html>   !! "template/head.html";
+my $header-template-path = %?RESOURCES ?? %?RESOURCES<template/header.html> !! "template/header.html";
+my $footer-template-path = %?RESOURCES ?? %?RESOURCES<template/footer.html> !! "template/footer.html";
 
-submethod BUILD() {
-    # hardcoded menu (TODO => generate it automatically)
-    @!menu = ('language', ''        ) => (),
-             ('type'    , 'Types'   ) => <basic composite domain-specific exceptions>,
-             ('routine' , 'Routines') => <sub method term operator trait submethod  >,
-             ('programs', ''        ) => (),
-             ('https://webchat.freenode.net/?channels=#perl6', 'Chat with us') => (); 
-
-    # templates
-    $!head-template-path   = %?RESOURCES ?? %?RESOURCES<template/head.html>   !! "template/head.html";
-    $!header-template-path = %?RESOURCES ?? %?RESOURCES<template/header.html> !! "template/header.html";
-    $!footer-template-path = %?RESOURCES ?? %?RESOURCES<template/footer.html> !! "template/footer.html";
-}
 
 #| Return the HTML header for every page
-method header-html($current-selection, $pod-path) {
-    state $header = slurp $!header-template-path;
+sub header-html($current-selection, $pod-path) is export {
+    state $header = slurp $header-template-path;
     my $menu-items = [~]
         q[<div class="menu-items dark-green"><a class='menu-item darker-green' href='https://perl6.org'><strong>Perl&nbsp;6 homepage</strong></a> ],
-        @!menu>>.key.map(-> ($dir, $name) {qq[
+        @menu>>.key.map(-> ($dir, $name) {qq[
             <a class="menu-item {$dir eq $current-selection ?? "selected darker-green" !! ""}"
                 href="{ $dir ~~ /https/ ?? $dir !! "/$dir.html" }">
                 { $name || $dir.wordcase }
@@ -74,7 +63,7 @@ method header-html($current-selection, $pod-path) {
         q[</div>];
 
     my $sub-menu-items = '';
-    state %sub-menus = @!menu>>.key>>[0] Z=> @!menu>>.value;
+    state %sub-menus = @menu>>.key>>[0] Z=> @menu>>.value;
     if %sub-menus{$current-selection} -> $_ {
         $sub-menu-items = [~]
             q[<div class="menu-items darker-green">],
@@ -106,8 +95,8 @@ method header-html($current-selection, $pod-path) {
 }
 
 #| Return the footer HTML for every page
-method footer-html($pod-path) is export {
-    my $footer = slurp $!footer-template-path;
+sub footer-html($pod-path) is export {
+    my $footer = slurp $footer-template-path;
     $footer.subst-mutate(/DATETIME/, ~DateTime.now.utc.truncated-to('seconds'));
     my $pod-url;
     my $edit-url;
@@ -129,22 +118,14 @@ method footer-html($pod-path) is export {
 }
 
 #| Main method to transform a Pod to HTML.
-method p2h($pod, $selection = 'nothing selected', :$pod-path = Nil) {
+sub p2h($pod, $selection = 'nothing selected', :$pod-path = Nil) is export {
+    state $head = slurp $head-template-path;
     pod2html $pod,
-        :url(&rewrite-url-logged),
+        :url(&rewrite-url),
         :$head,
         :header(header-html($selection, $pod-path)),
         :footer(footer-html($pod-path)),
         :default-title("Perl 6 Documentation"),
         :css-url(''), # disable Pod::To::HTML's default CSS
     ;
-}
-
-#| Main method, responsible of orchestrate
-method setup() {
-    my $registry = Perl6::Documentable::Registry.new;
-
-    for <Language Programs Type Native> {
-        $registry.process-pod-dir(:topdir("doc"), :dir($_));
-    }
 }
