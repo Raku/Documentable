@@ -9,6 +9,7 @@ In this repository you can find all logic responsible of generate the [official 
   - [Consulting methods](#consulting-methods)
   - [Processing methods](#processing-methods)
   - [Indexing methods](#indexing-methods)
+- [Perl6::Documentable::To::HTML](#perl6documentabletohtml)
 - [Perl6::Utils](#perl6utils)
 - [Resources](#resources)
   - [Templates](#templates)
@@ -557,6 +558,48 @@ method routine-subindex (
 
 Same as `routine-index` but you can filter by `$category`. You can pass one of the following
 categories: `<sub method term operator trait submethod>`.
+
+## Perl6::Documentable::To::HTML
+
+~~~perl6
+has @.menu;
+
+has $.head-template-path;
+has $.header-template-path;
+has $.footer-template-path;
+~~~
+
+#### has @.menu
+
+Hardcoded menu (initialized in `submethod BUILD`).
+
+#### has *-template-path
+
+Path to the main templates. 
+
+#### method header-html
+
+~~~perl6
+method header-html (
+    Str $current-selection,
+    Str $pod-path
+) return Str;
+~~~
+
+Returns the HTML header for every page. `$current-selection` has to be set to one element of the menu. If that element has a submenu, it will be created too.
+
+`$pod-path` is the path relative to `doc` with the extension `.pod6`. Used to the edit buttom url.
+
+#### method footer-html
+
+~~~perl6
+method footer-html (
+    Str $pod-path
+) return Str;
+~~~
+
+Returns the HTML footer for every page. `$pod-path` is the path relative to `doc` with the extension `.pod6`. Used to the edit buttom url.
+
 
 ## Perl6::Utils
 
