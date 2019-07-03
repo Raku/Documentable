@@ -5,6 +5,7 @@ use v6.c;
 use Perl6::Utils;
 use Perl6::Documentable::Registry;
 use Perl6::Documentable::To::HTML;
+use Pod::Load;
 
 sub MAIN (
     Str  :$topdir         = "doc",
@@ -27,6 +28,12 @@ sub MAIN (
         $registry.process-pod-dir(:topdir($topdir), :dir($_));
     }
     $registry.compose;
+
+    #===================================================================
+
+    say 'Writing html/index.html and html/404.html...';
+    spurt 'html/index.html', p2h(load('doc/HomePage.pod6')[0], :pod-path('HomePage.pod6'));
+    spurt 'html/404.html', p2h(load('doc/404.pod6')[0], :pod-path('404.pod6'));
 
     #===================================================================
 
