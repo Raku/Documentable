@@ -2,6 +2,7 @@
 
 use v6.c;
 
+use Perl6::Utils;
 use Perl6::Documentable::Registry;
 use Perl6::Documentable::To::HTML;
 
@@ -11,7 +12,14 @@ sub MAIN (
     Bool :$cache = True
 ) {
 
-    # processing logic
+    # debug function
+    sub DEBUG($msg) {
+        say $msg if $v;
+    }
+
+    #===================================================================
+
+    DEBUG("Processing phase...")
     my $registry = Perl6::Documentable::Registry.new(use-cache => $cache,
                                                      verbose   => $v
                                                     );
@@ -20,6 +28,20 @@ sub MAIN (
     }
     $registry.compose;
 
-    # html generation
+    #===================================================================
 
+    DEBUG("HTML generation phase...")
+    for $registry.lookup("programs", :by<kind>).list -> $doc {
+        DEBUG("Writing program document for {$doc.name} ...");
+        my $pod-path = pod-path-from-url($doc.url);
+        spurt "html{$doc.url}.html", p2h($doc.pod, 'programs', :pod-path($pod-path));
+    }
+
+    for $registry.lookup("language", :by<kind>).list -> $doc {
+        DEBUG("Writing language document for {$doc.name} ...");
+        my $pod-path = pod-path-from-url($doc.url);
+        spurt "html{$doc.url}.html", p2h($doc.pod, 'language', :pod-path($pod-path));
+    }
+
+    #===================================================================
 }
