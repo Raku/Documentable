@@ -6,6 +6,7 @@ use Perl6::Utils;
 use Perl6::Documentable::Registry;
 use Perl6::Documentable::To::HTML;
 use Pod::Load;
+use Pod::Utilities::Build;
 
 sub MAIN (
     Str  :$topdir         = "doc",
@@ -24,6 +25,7 @@ sub MAIN (
     my $registry = Perl6::Documentable::Registry.new(use-cache => $cache,
                                                      verbose   => $v
                                                     );
+    # <Language Programs Type Native>
     for <Language Programs Type Native> {
         $registry.process-pod-dir(:topdir($topdir), :dir($_));
     }
@@ -31,7 +33,7 @@ sub MAIN (
 
     #===================================================================
 
-    say 'Writing html/index.html and html/404.html...';
+    DEBUG("Writing html/index.html and html/404.html...");
     spurt 'html/index.html', p2h(load('doc/HomePage.pod6')[0], :pod-path('HomePage.pod6'));
     spurt 'html/404.html', p2h(load('doc/404.pod6')[0], :pod-path('404.pod6'));
 
@@ -58,4 +60,29 @@ sub MAIN (
 
     #===================================================================
 
+    DEBUG("Index generation phase...");
+    
+    DEBUG("Writing html/programs.html ...");
+    spurt 'html/programs.html', p2h(programs-index-html($registry.programs-index), "programs");
+
+    DEBUG("Writing html/language.html ...");
+    spurt 'html/language.html', p2h(language-index-html($registry.language-index), "language");
+
+    DEBUG("Writing html/type.html ...");
+    spurt 'html/type.html', p2h(type-index-html($registry.type-index), "type");
+
+    DEBUG("Writing html/routine.html ...");
+    spurt 'html/routine.html', p2h(routine-index-html($registry.routine-index), "routine");
+
+    for <basic composite domain-specific exceptions> -> $category {
+        DEBUG("Writing html/type-$category.html ...");
+        spurt "html/type-$category.html", 
+        p2h(type-subindex-html($registry.type-subindex(:$category), $category), "type");        
+    }
+
+    for <sub method term operator trait submethod> -> $category {
+        DEBUG("Writing html/routine-$category.html ...");
+        spurt "html/routine-$category.html", 
+        p2h(routine-subindex-html($registry.routine-subindex(:$category), $category), "routine");        
+    }
 }
