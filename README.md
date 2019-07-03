@@ -600,6 +600,18 @@ sub pod-path-from-url (
 
 Determine the path to source POD from the POD object's url attribute.
 
+#### sub svg-for-file
+
+```perl6
+sub svg-for-file (
+    Str $file
+) return Str;
+```
+
+Return the SVG for the given file, without its XML header
+
+For instance, given: `t/html/basic.svg`, it will return `t/html/basic-without-xml.svg`.
+
 ## Resources
 
 ### Templates

@@ -31,4 +31,7 @@ subtest {
     is pod-path-from-url("/types/Any::Mu"), "Types/Any/Mu.pod6", "two layers";
 }, "pod path";
 
+my $svg-without-xml = slurp "t/html/basic-without-xml.svg";
+is svg-for-file("t/html/basic.svg"), $svg-without-xml, "svg-for-file";
+
 done-testing;

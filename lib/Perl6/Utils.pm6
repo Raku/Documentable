@@ -46,3 +46,8 @@ sub pod-path-from-url($url) is export {
 
     return $pod-path;
 }
+
+#| Return the SVG for the given file, without its XML header
+sub svg-for-file($file) is export {
+    .substr: .index: '<svg' given $file.IO.slurp;
+}
