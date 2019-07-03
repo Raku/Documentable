@@ -7,7 +7,12 @@
     "@antoniogamiz"
   ],
   "build-depends": [],
-  "depends": ["Pod::Load:ver<0.5.4+>"],
+  "depends": [
+    "Pod::Load:ver<0.5.4+>",
+    "Pod::To::HTML:ver<0.6.1+>",
+    "Pod::To::Cached",
+    "URI::Escape"
+  ],
   "description": "Represents a piece of Perl 6 that is documented.",
   "license": "Artistic-2.0",
   "name": "Perl6::Documentable",
@@ -29,7 +34,9 @@
     "Test::META",
     "Pod::Utilities",
     "Perl6::TypeGraph",
-    "Pod::To::HTML:ver<0.6.1+>"
+    "Pod::To::HTML:ver<0.6.1+>",
+    "Pod::To::Cached",
+    "URI::Escape"
   ],
   "version": "0.0.1"
 }
