@@ -58,12 +58,12 @@ has $.tg;
 has $.pod-cache;
 has $.use-cache = False;
 
-has Bool $.verbose = True;
+has Bool $.verbose;
 
 # setup
 
 submethod BUILD (:$use-cache?, :$verbose?, :$topdir? = "doc") {
-    $!verbose = $verbose || True;
+    $!verbose = $verbose || False;
     $!tg = Perl6::TypeGraph.new-from-file;
     if ($use-cache) {
         $!use-cache = True;
