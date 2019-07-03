@@ -149,3 +149,90 @@ sub typegraph-fragment($podname) is export {
               CONTENTS_END
  ]
 }
+
+# index html generation
+
+sub programs-index-html($index) is export {
+    pod-with-title(
+        'Perl 6 Programs Documentation',
+        pod-table($index.map({[
+            pod-link(.[0], .[1]), .[2]
+        ]}))
+    )
+}
+
+sub language-index-html($index) is export {
+    pod-with-title(
+        'Perl 6 Language Documentation',
+        pod-block("Tutorials, general reference, migration guides and meta pages for the Perl 6 language."),
+        pod-table($index.map({[
+            pod-link(.[0], .[1]), .[2]
+        ]}))
+        )
+}
+
+sub type-index-html($index) is export {
+    pod-with-title(
+            "Perl 6 Types",
+            pod-block(
+                'This is a list of ', pod-bold('all'), ' built-in Types' ~
+                " that are documented here as part of the Perl 6 language. " ~
+                "Use the above menu to narrow it down topically."
+            ),
+            pod-table(
+                :headers[<Name  Type  Description>],
+                $index.map({[ # XXX => use hashes
+                    pod-link(.[0], .[1]), .[2],
+                    .[4] ne "role" ?? .[3] !! Pod::FormattingCode.new(:type<I>, contents => [.[3]]) 
+                ]}),
+            )
+        )    
+}
+
+sub type-subindex-html($index, $category) is export {
+    pod-with-title(
+            "Perl 6 $category Types",
+            pod-table(
+                $index.map({[ # XXX => use hashes
+                    .[0].join(", "),
+                    pod-link(.[1], .[2]),
+                    .[4] ne "role" ?? .[3] !! Pod::FormattingCode.new(:type<I>, contents => [.[3]]) 
+                ]})
+            )
+        )
+}
+
+sub routine-index-html($index) is export {
+    pod-with-title(
+            "Perl 6 Routines",
+            pod-block(
+                'This is a list of ', pod-bold('all'), ' built-in routines' ~
+                " that are documented here as part of the Perl 6 language. " ~
+                "Use the above menu to narrow it down topically."
+            ),
+            pod-table(
+                :headers[<Name  Type  Description>],
+                $index.map({[ # XXX => use hashes
+                    pod-link(.[0], .[1]), .[2].join(", "),
+                    pod-block("(From ", .[3].map({
+                        pod-link(|$_)
+                    }).reduce({$^a,", ",$^b}),")") 
+                ]})
+            )
+        )    
+}
+
+sub routine-subindex-html($index, $category) is export {
+    pod-with-title(
+            "Perl 6 $category Routines",
+            pod-table(
+                $index.map({[ # XXX => use hashes
+                    .[0].join(", "),
+                    pod-link(.[1], .[2]),
+                    pod-block("(From ", .[3].map({
+                        pod-link(|$_)
+                    }).reduce({$^a,", ",$^b}),")") 
+                ]})
+            )
+        )
+}
