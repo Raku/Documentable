@@ -1,0 +1,25 @@
+#! /usr/bin/env perl6
+
+use v6.c;
+
+use Perl6::Documentable::Registry;
+use Perl6::Documentable::To::HTML;
+
+sub MAIN (
+    Str  :$topdir,
+    Bool :v(:verbose($v)),
+    Bool :$cache = True
+) {
+
+    # processing logic
+    my $registry = Perl6::Documentable::Registry.new(use-cache => $cache,
+                                                     verbose   => $v
+                                                    );
+    for <Language Programs Type Native> {
+        $registry.process-pod-dir(:topdir($topdir), :dir($_));
+    }
+    $registry.compose;
+
+    # html generation
+
+}
