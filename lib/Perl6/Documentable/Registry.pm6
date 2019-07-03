@@ -78,7 +78,7 @@ method add-new(*%args) {
     $d;
 }
 
-method load($path is copy) {
+method load($path) {
     if ($!use-cache) {
         # set path to Pod::To::Cached format
         my $new-path = $path.subst(/doc\//, "")

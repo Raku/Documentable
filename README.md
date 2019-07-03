@@ -370,6 +370,12 @@ Returns all `Documentable` objects (`@.defs`+`@.refs`).
     has %!cache;
     has %!grouped-by;
     has @!kinds;
+    has $.tg;
+
+    has $.pod-cache;
+    has $.use-cache = False;
+
+    has Bool $.verbose;
 ```
 
 #### @.documentables
@@ -398,9 +404,15 @@ Instance of a Perl6::TypeGraph object (from this [module](https://github.com/ant
 
 This object is responsible of give us the correct categories and subkinds of a type. For instance, it sets the category of a type to `domain-specific`, `exception`, etc., which is used in the index generation.
 
+#### \$.pod-cache
+
+Cache of pod files. Object from [Pod::To::Cached](https://github.com/finanalyst/pod-cached).
+
 #### submethod BUILD
 
 In this method the attribute `$.tg` is configured as specified in the [documentation module](https://github.com/antoniogamiz/Perl6-TypeGraph).
+
+In addition, if `$.use-cache` is set to `True`, then a cache will be created and updated.
 
 ### Processing methods
 
@@ -413,6 +425,16 @@ method add-new(
 ```
 
 Creates a `Documentable` object passing `|%args` to the constructor and returns the new object.
+
+#### method load
+
+```perl6
+method load(
+    Str $path
+) return Pod::Named;
+```
+
+Loads a pod from a file. If `$.use-cache` is set to `True`, `Pod::Cached` will be used. Otherwise, `Pod::Load`.
 
 #### method compose
 
@@ -561,45 +583,28 @@ categories: `<sub method term operator trait submethod>`.
 
 ## Perl6::Documentable::To::HTML
 
-~~~perl6
-has @.menu;
+#### sub header-html
 
-has $.head-template-path;
-has $.header-template-path;
-has $.footer-template-path;
-~~~
-
-#### has @.menu
-
-Hardcoded menu (initialized in `submethod BUILD`).
-
-#### has *-template-path
-
-Path to the main templates. 
-
-#### method header-html
-
-~~~perl6
-method header-html (
+```perl6
+sub header-html (
     Str $current-selection,
     Str $pod-path
 ) return Str;
-~~~
+```
 
 Returns the HTML header for every page. `$current-selection` has to be set to one element of the menu. If that element has a submenu, it will be created too.
 
 `$pod-path` is the path relative to `doc` with the extension `.pod6`. Used to the edit buttom url.
 
-#### method footer-html
+#### sub footer-html
 
-~~~perl6
-method footer-html (
+```perl6
+sub footer-html (
     Str $pod-path
 ) return Str;
-~~~
+```
 
 Returns the HTML footer for every page. `$pod-path` is the path relative to `doc` with the extension `.pod6`. Used to the edit buttom url.
-
 
 ## Perl6::Utils
 
@@ -655,6 +660,10 @@ sub svg-for-file (
 Return the SVG for the given file, without its XML header
 
 For instance, given: `t/html/basic.svg`, it will return `t/html/basic-without-xml.svg`.
+
+#### URL logic
+
+This one is quite a mess, it will be a todo for now.
 
 ## Resources
 
