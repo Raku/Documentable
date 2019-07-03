@@ -26,7 +26,9 @@
     "template/head.html",
     "template/header.html",
     "template/footer.html",
-    "template/search_template.js"
+    "template/search_template.js",
+    "scripts/app.pl",
+    "scripts/app-start"
   ],
   "source-url": "https://github.com/antoniogamiz/Perl6-Documentable.git",
   "tags": [],
