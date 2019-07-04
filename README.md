@@ -598,7 +598,7 @@ method language-index (
 ```
 
 It takes all `Documentable` objects in the `Registry` with `kind` set to `language`.
-After that makes a `map` and creates the follwing `Hash` for each one:
+After that makes a `map` and creates the following `Hash` for each one:
 
 ```
 %(
