@@ -97,6 +97,12 @@ method compose() {
     my @new-docs = [ ($_.defs.Slip, $_.refs.Slip).Slip for @!documentables ];
     @!documentables = flat @!documentables, @new-docs;
     @!kinds = @.documentables>>.kind.unique;
+
+    # compose types
+    self.lookup("type", :by<kind>).list -> $doc {
+        self.compose-type($doc);
+    }
+    
     $!composed = True;
 }
 
