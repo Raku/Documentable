@@ -56,10 +56,10 @@ has %!cache;
 has %!grouped-by;
 has @!kinds;
 has $.tg;
+has %!routines-by-type;
 
 has $.pod-cache;
 has $.use-cache = False;
-
 has Bool $.verbose;
 
 # setup
@@ -99,10 +99,13 @@ method compose() {
     @!kinds = @.documentables>>.kind.unique;
 
     # compose types
-    self.lookup("type", :by<kind>).list -> $doc {
+    for self.lookup("type", :by<kind>).list -> $doc {
         self.compose-type($doc);
     }
-    
+
+    %!routines-by-type = self.lookup("routine", :by<kind>)
+    .classify({.origin ?? .origin.name !! .name});
+
     $!composed = True;
 }
 
@@ -201,9 +204,9 @@ method compose-type($doc) {
 }
 
 #| Returns the HTML to show the typegraph image
-sub typegraph-fragment($podname) {
+sub typegraph-fragment($podname is copy) {
     state $template = slurp "template/tg-fragment.html";
-    
+    $podname = "Any"; # temporal workaround    
     my $figure = $template.subst("PATH", $podname)
                           .subst("ESC_PATH", uri_escape($podname))
                           .subst("SVG", svg-for-file("html/images/type-graph-$podname.svg")); 
