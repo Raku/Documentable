@@ -396,7 +396,7 @@ This is quite similar to the previous one. It stores all documentables objects c
 
 #### @!kinds
 
-Array containing all different types of `$kinds` found in every `Documentable`.
+Array containing all different types of `$kinds` found in every `Documentable`. Set when `compose` is called.
 
 #### \$.tg
 
@@ -483,6 +483,15 @@ Reads all pod files in `$topdir/$dir/` and calls `process-pod-source` (with `$ki
 If `$output` is set to `True`, then a progress message will be printed every time a new file is processed.
 
 ### Consulting methods
+
+#### method get-kinds
+
+```perl6
+method get-kinds(
+) return Array
+```
+
+Returns an array containing all `kind` values after processing the pod collection. Currently there are only 6 different values: `[language programs type syntax reference routine]`.
 
 #### method grouped-by
 
