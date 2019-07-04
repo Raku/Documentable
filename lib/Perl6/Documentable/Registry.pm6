@@ -1,11 +1,13 @@
 use v6.c;
+
 use Perl6::Documentable;
 use Perl6::Utils;
 use Pod::Load;
 use Pod::Utilities;
+use Pod::Utilities::Build;
 use Perl6::TypeGraph;
 use Pod::To::Cached;
-
+use URI::Escape;
 unit class Perl6::Documentable::Registry:ver<0.0.1>;
 
 
@@ -178,6 +180,31 @@ method process-pod-dir(:$topdir, :$dir) {
         self.process-pod-source(:$kind, :$pod, :$filename);
     }
 }
+
+method compose-type($doc) {
+    sub href_escape($ref) {
+        # only valid for things preceded by a protocol, slash, or hash
+        return uri_escape($ref).subst('%3A%3A', '::', :g);
+    }    
+
+    my $pod     = $doc.pod;
+    my $podname = $doc.name;
+    my $type    = $!tg.types{$podname};
+
+    { $pod.contents.append: typegraph-fragment($podname) } unless !$type;
+}
+
+#| Returns the HTML to show the typegraph image
+sub typegraph-fragment($podname) {
+    state $template = slurp "template/tg-fragment.html";
+    
+    my $figure = $template.subst("PATH", $podname)
+                          .subst("ESC_PATH", uri_escape($podname))
+                          .subst("SVG", svg-for-file("html/images/type-graph-$podname.svg")); 
+    
+    return [pod-heading("Type Graph"), 
+            Pod::Raw.new: :target<html>, contents => [$figure]]
+} 
 
 # =================================================================================
 # Indexing logic
