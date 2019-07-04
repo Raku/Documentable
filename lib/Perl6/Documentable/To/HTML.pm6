@@ -136,29 +136,6 @@ sub p2h($pod, $selection = 'nothing selected', :$pod-path = Nil) is export {
 }
 
 # =================================================================================
-# Typegraph fragment only applied to Types.
-# =================================================================================
-
-#| Returns the HTML to show the typegraph image
-sub typegraph-fragment($podname) is export {
- [
-     pod-heading("Type Graph"),
-     Pod::Raw.new: :target<html>, contents => q:to/CONTENTS_END/;
-              <figure>
-                <figcaption>Type relations for
-                  <code>\qq[$podname]</code></figcaption>
-                \qq[&svg-for-file("html/images/type-graph-$podname.svg")]
-                <p class="fallback">
-                  <a rel="alternate"
-                    href="/images/type-graph-\qq[&uri_escape($podname)].svg"
-                    type="image/svg+xml">Expand above chart</a>
-                </p>
-              </figure>
-              CONTENTS_END
- ]
-}
-
-# =================================================================================
 # Pod source to HTML
 # =================================================================================
 
