@@ -117,7 +117,9 @@ method get-kinds() {
     @!kinds;
 }
 
+# =================================================================================
 # processing logic
+# =================================================================================
 
 method process-pod-source(:$kind, :$pod, :$filename) {
     my Str $link = $pod.config<link> // $filename;
@@ -172,7 +174,9 @@ method process-pod-dir(:$topdir, :$dir) {
     }
 }
 
-# indexing logic
+# =================================================================================
+# Indexing logic
+# =================================================================================
 
 method programs-index() {
     self.lookup("programs", :by<kind>).map({%(
@@ -240,4 +244,23 @@ method routine-subindex(:$category) {
         url      => .[0].url,
         origins  => $_>>.origin.map({.name, .url}).List
     )})
+}
+
+# =================================================================================
+# search index logic
+# =================================================================================
+
+#| workaround for 5to6-perlfunc
+my %p5to6-functions;
+sub find-p5to6-functions(:$pod!, :$url, :$origin) {
+  if $pod ~~ Pod::Heading && $pod.level == 2  {
+      # Add =head2 function names to hash
+      my $func-name = ~$pod.contents[0].contents;
+      %p5to6-functions{$func-name} = 1;
+  }
+  elsif $pod.?contents {
+      for $pod.contents -> $sub-pod {
+          find-p5to6-functions(:pod($sub-pod), :$url, :$origin) if $sub-pod ~~ Pod::Block;
+      }
+  }
 }
