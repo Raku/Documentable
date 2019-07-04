@@ -521,38 +521,70 @@ All `*-index` methods are used to generate the main index in the doc site ([Lang
 
 ```perl6
 method programs-index (
-) return Array;
+) return Array[Hash];
 ```
 
 It takes all `Documentable` objects in the `Registry` with `kind` set to `programs`.
-After that makes a `map` extracting the following elements: `[$name, $url, $summary]`.
+After that makes a `map` and creates the follwing `Hash` for each one:
+
+```
+%(
+    name    => ...
+    url     => ...
+    summary => ...
+)
+```
+
+Note: `...` means that is the attribute of the Documentable.
 
 #### method language-index
 
 ```perl6
 method language-index (
-) return Array;
+) return Array[Hash];
 ```
 
 It takes all `Documentable` objects in the `Registry` with `kind` set to `language`.
-After that makes a `map` extracting the following elements: `[$name, $url, $summary]`.
+After that makes a `map` and creates the follwing `Hash` for each one:
+
+```
+%(
+    name    => ...
+    url     => ...
+    summary => ...
+)
+```
+
+Note: `...` means that is the attribute of the Documentable.
 
 #### method type-index
 
 ```perl6
 method type-index (
-) return Array;
+) return Array[Hash];
 ```
 
 It takes all `Documentable` objects in the `Registry` with `kind` set to `type`.
-After that makes a `map` extracting the following elements: `[$name, $url, $subkinds, $summary]`.
+After that makes a `map` and creates the follwing `Hash` for each one:
+
+```
+%(
+    name     => ...
+    url      => ...
+    subkinds => ...
+    summary  => ...
+    subkind  => first subkind
+)
+```
+
+Note: `...` means that is the attribute of the Documentable.
 
 #### method type-subindex
 
 ```perl6
 method type-subindex (
   Str :$category
-) return Array;
+) return Array[Hash];
 ```
 
 Same as `type-index` but you can filter by `$category`. You can pass one of the following
@@ -566,16 +598,28 @@ method routine-index (
 ```
 
 It takes all `Documentable` objects in the `Registry` with `kind` set to `routine`.
-After that makes a `map` extracting the following elements: `[$name, $url, $subkinds, $from]`.
+After that makes a `map` and creates the follwing `Hash` for each one:
+
+```
+%(
+    name     => ...
+    url      => ...
+    subkinds => ...
+    origins  => $from
+)
+```
+
 Where `$from` is an array of `[$name, $url]` containing the names and urls of the `Documentable`
 objects where the routine was found.
+
+Note: `...` means that is the attribute of the Documentable.
 
 #### method routine-subindex
 
 ```perl6
 method routine-subindex (
   Str :$category
-) return Array;
+) return Array[Hash];
 ```
 
 Same as `routine-index` but you can filter by `$category`. You can pass one of the following

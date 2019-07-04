@@ -16,9 +16,10 @@ for <Type Language Programs> {
 
 $registry.compose;
 
-my %indexes = programs => (["Programs", "/programs/programs", "programs"                  ],),
-              language => (["Language", "/language/language", "language"                  ],),
-              type     => (["Any"     , "/type/Any"         , ("class",), "types", "class"],);
+my %indexes = programs => (%(:name("Programs"), :url("/programs/programs"), :summary("programs")),),
+              language => (%(:name("Language"), :url("/language/language"), :summary("language")),),
+              type     => (%(:name("Any"     ), :url("/type/Any"         ), :subkinds(("class",)),
+                            :summary("types"), :subkind("class")),);
 
 subtest {
     for <programs language type> {
@@ -26,22 +27,22 @@ subtest {
     }
 
     my @expected := (
-        ["index-language", "/routine/index-language", ("method",), (("Language", "/language/language"),)],
-        ["index-programs", "/routine/index-programs", ("method",), (("Programs", "/programs/programs"),)],
-        ["index-types"   , "/routine/index-types"   , ("method",), (("Any"     , "/type/Any"         ),)]
+        %(:name("index-language"), :url("/routine/index-language"), :subkinds(("method",)), :origins((("Language", "/language/language"),))),
+        %(:name("index-programs"), :url("/routine/index-programs"), :subkinds(("method",)), :origins((("Programs", "/programs/programs"),))),
+        %(:name("index-types")   , :url("/routine/index-types")   , :subkinds(("method",)), :origins((("Any"     , "/type/Any"         ),)))
     );
     is-deeply $registry.routine-index, @expected, "routine index";
 }, "Main indexes";
 
 subtest {
-    my @type-subindex := ([("class",), "Any", "/type/Any", "types", "class"],);
+    my @type-subindex := (%(:name("Any"), :url("/type/Any"), :subkinds(("class",)), :summary("types"), :subkind("class")),);
     is-deeply $registry.type-subindex(category => "basic"), @type-subindex, "Basic subindex";
 
-    my @routines := (
-        [("method",), "index-language", "/routine/index-language", (("Language", "/language/language"),)],
-        [("method",), "index-programs", "/routine/index-programs", (("Programs", "/programs/programs"),)],
-        [("method",), "index-types"   , "/routine/index-types"   , (("Any"     , "/type/Any"         ),)]
-    );
+    my @routines := 
+        %(:subkinds(("method",)), :name("index-language"), :url("/routine/index-language"), :origins((("Language", "/language/language"),))),
+        %(:subkinds(("method",)), :name("index-programs"), :url("/routine/index-programs"), :origins((("Programs", "/programs/programs"),))),
+        %(:subkinds(("method",)), :name("index-types"   ), :url("/routine/index-types"   ), :origins((("Any"     , "/type/Any"         ),)));
+
     is-deeply $registry.routine-subindex(category => "method"), @routines, "Routines subindex";
 }, "Sub indexes";
 

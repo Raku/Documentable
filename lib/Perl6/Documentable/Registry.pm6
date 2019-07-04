@@ -175,23 +175,32 @@ method process-pod-dir(:$topdir, :$dir) {
 # indexing logic
 
 method programs-index() {
-    self.lookup("programs", :by<kind>).map({[ .name, .url, .summary ]});
+    self.lookup("programs", :by<kind>).map({%(
+        name    => .name, 
+        url     => .url, 
+        summary => .summary 
+    )});
 }
 
 method language-index() {
-    self.lookup("language", :by<kind>).map({[ .name, .url, .summary ]});
+    self.lookup("language", :by<kind>).map({%(
+        name    => .name, 
+        url     => .url, 
+        summary => .summary
+    )});
 }
 
 method type-index() {
     [
         self.lookup("type", :by<kind>)\
         .categorize(*.name).sort(*.key)>>.value
-        .map({[
-            .[0].name, .[0].url,
-            .map({.subkinds // Nil}).flat.unique.List,
-            .[0].summary,
-            .[0].subkinds[0]
-        ]}).cache.Slip
+        .map({%(
+            name     => .[0].name, 
+            url      => .[0].url,
+            subkinds => .map({.subkinds // Nil}).flat.unique.List,
+            summary  => .[0].summary,
+            subkind  => .[0].subkinds[0]
+        )}).cache.Slip
     ].flat
 }
 
@@ -199,25 +208,25 @@ method type-subindex(:$category) {
     self.lookup("type", :by<kind>)\
     .grep({$category ⊆ .categories})\ # XXX
     .categorize(*.name).sort(*.key)>>.value
-    .map({[
-        .map({slip .subkinds // Nil}).unique.List,
-        .[0].name, 
-        .[0].url,
-        .[0].summary,
-        .[0].subkinds[0]
-    ]})
+    .map({%(
+        name     => .[0].name, 
+        url      => .[0].url,
+        subkinds => .map({slip .subkinds // Nil}).unique.List,
+        summary  => .[0].summary,
+        subkind  => .[0].subkinds[0]
+    )})
 }
 
 method routine-index {
     [
         self.lookup("routine", :by<kind>)\
         .categorize(*.name).sort(*.key)>>.value
-        .map({[
-            .[0].name, 
-            .[0].url,
-            .map({.subkinds // Nil}).flat.unique.List,
-            $_>>.origin.map({.name, .url}).List
-        ]}).cache.Slip
+        .map({%(
+            name     => .[0].name,
+            url      => .[0].url,
+            subkinds =>.map({.subkinds // Nil}).flat.unique.List,
+            origins  => $_>>.origin.map({.name, .url}).List
+        )}).cache.Slip
     ].flat   
 }
 
@@ -225,10 +234,10 @@ method routine-subindex(:$category) {
     self.lookup("routine", :by<kind>)\
     .grep({$category ⊆ .categories})\ # XXX
     .categorize(*.name).sort(*.key)>>.value
-    .map({[
-        .map({slip .subkinds // Nil}).unique.List,
-        .[0].name, 
-        .[0].url,
-        $_>>.origin.map({.name, .url}).List
-    ]})
+    .map({%(
+        subkinds => .map({slip .subkinds // Nil}).unique.List,
+        name     => .[0].name, 
+        url      => .[0].url,
+        origins  => $_>>.origin.map({.name, .url}).List
+    )})
 }
