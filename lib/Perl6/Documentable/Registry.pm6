@@ -158,6 +158,11 @@ method process-pod-source(:$kind, :$pod, :$filename) {
     $origin.find-definitions();
     $origin.find-references();
 
+    # Special handling for 5to6-perlfunc
+    if $link.contains('5to6-perlfunc') {
+      find-p5to6-functions(:$pod, :$origin, :url("/$kind/$link"));
+    }
+
     return $origin;
 }
 
@@ -263,4 +268,32 @@ sub find-p5to6-functions(:$pod!, :$url, :$origin) {
           find-p5to6-functions(:pod($sub-pod), :$url, :$origin) if $sub-pod ~~ Pod::Block;
       }
   }
+}
+
+method generate-search-index() {
+    sub escape(Str $s) {
+        $s.trans([</ \\ ">] => [<\\/ \\\\ \\">]);
+    }
+
+    my @items = self.get-kinds.map(-> $kind {
+        self.lookup($kind, :by<kind>).categorize({escape .name})\
+            .pairs.sort({.key}).map: -> (:key($name), :value(@docs)) {
+                qq[[\{ category: "{
+                    ( @docs > 1 ?? $kind !! @docs.[0].subkinds[0] ).wordcase
+                }", value: "$name",
+                    url: " {rewrite-url(@docs.[0].url).subst(｢\｣, ｢%5c｣, :g).subst('"', '\"', :g).subst(｢?｣, ｢%3F｣, :g) }" \}
+                  ]]
+            }
+    }).flat;
+
+    # Add p5to6 functions to JavaScript search index
+    @items.append: %p5to6-functions.keys.map( {
+      my $url = "/language/5to6-perlfunc#" ~ $_.subst(' ', '_', :g);
+      sprintf(
+        q[[{ category: "5to6-perlfunc", value: "%s", url: "%s" }]],
+        $_, $url
+      );
+    });
+
+    return @items;
 }
