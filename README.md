@@ -634,6 +634,21 @@ method routine-subindex (
 Same as `routine-index` but you can filter by `$category`. You can pass one of the following
 categories: `<sub method term operator trait submethod>`.
 
+#### method generate-search-index
+
+```perl6
+method generate-search-index (
+) return Array[Str];
+```
+
+Returns an array whose items are in the following format: `{category: "", value: "", url: ""}`.
+
+This array is initialized calling `lookup` with every possible value of `kind` (see `get-kinds`). `category`
+is set to `kind` or to `subkind` if `lookup` returns more than one `Documentable` object. `value` is set to the
+name of the `Documentable` and `url` too.
+
+You can see the current search index [here](https://gist.github.com/antoniogamiz/05971277d081c4806c7cc3867a66b1b4).
+
 ## Perl6::Documentable::To::HTML
 
 #### sub header-html
