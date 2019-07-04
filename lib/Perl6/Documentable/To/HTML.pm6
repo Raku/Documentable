@@ -156,7 +156,7 @@ sub programs-index-html($index) is export {
     pod-with-title(
         'Perl 6 Programs Documentation',
         pod-table($index.map({[
-            pod-link(.[0], .[1]), .[2]
+            pod-link(.<name>, .<url>), .<summary>
         ]}))
     )
 }
@@ -166,7 +166,7 @@ sub language-index-html($index) is export {
         'Perl 6 Language Documentation',
         pod-block("Tutorials, general reference, migration guides and meta pages for the Perl 6 language."),
         pod-table($index.map({[
-            pod-link(.[0], .[1]), .[2]
+            pod-link(.<name>, .<url>), .<summary>
         ]}))
         )
 }
@@ -181,10 +181,10 @@ sub type-index-html($index) is export {
             ),
             pod-table(
                 :headers[<Name  Type  Description>],
-                $index.map({[ # XXX => use hashes
-                    pod-link(.[0], .[1]), .[2],
-                    .[4] ne "role" ?? .[3] !! Pod::FormattingCode.new(:type<I>, contents => [.[3]]) 
-                ]}),
+                $index.map({[
+                    pod-link(.<name>, .<url>), .<subkinds>,
+                    .<subkind> ne "role" ?? .<summary> !! Pod::FormattingCode.new(:type<I>, contents => [.<summary>]) 
+                ]})
             )
         )    
 }
@@ -193,10 +193,10 @@ sub type-subindex-html($index, $category) is export {
     pod-with-title(
             "Perl 6 $category Types",
             pod-table(
-                $index.map({[ # XXX => use hashes
-                    .[0].join(", "),
-                    pod-link(.[1], .[2]),
-                    .[4] ne "role" ?? .[3] !! Pod::FormattingCode.new(:type<I>, contents => [.[3]]) 
+                $index.map({[
+                    .<subkinds>.join(", "),
+                    pod-link(.<name>, .<url>),
+                    .<subkind> ne "role" ?? .<summary> !! Pod::FormattingCode.new(:type<I>, contents => [.<summary>]) 
                 ]})
             )
         )
@@ -212,9 +212,9 @@ sub routine-index-html($index) is export {
             ),
             pod-table(
                 :headers[<Name  Type  Description>],
-                $index.map({[ # XXX => use hashes
-                    pod-link(.[0], .[1]), .[2].join(", "),
-                    pod-block("(From ", .[3].map({
+                $index.map({[
+                    pod-link(.<name>, .<url>), .<subkinds>.join(", "),
+                    pod-block("(From ", .<origins>.map({
                         pod-link(|$_)
                     }).reduce({$^a,", ",$^b}),")") 
                 ]})
@@ -226,10 +226,10 @@ sub routine-subindex-html($index, $category) is export {
     pod-with-title(
             "Perl 6 $category Routines",
             pod-table(
-                $index.map({[ # XXX => use hashes
-                    .[0].join(", "),
-                    pod-link(.[1], .[2]),
-                    pod-block("(From ", .[3].map({
+                $index.map({[
+                    .<subkinds>.join(", "),
+                    pod-link(.<name>, .<url>),
+                    pod-block("(From ", .<origins>.map({
                         pod-link(|$_)
                     }).reduce({$^a,", ",$^b}),")") 
                 ]})
