@@ -4,6 +4,8 @@ In this repository you can find all logic responsible of generate the [official 
 
 ## Table of contents
 
+- [Installation](#installation)
+- [Usage](#usage)
 - [Perl6::Documentable](#perl6documentable)
 - [Perl6::Documentable::Registry](#perl6documentableregistry)
   - [Consulting methods](#consulting-methods)
@@ -15,6 +17,48 @@ In this repository you can find all logic responsible of generate the [official 
   - [Templates](#templates)
   - [HTML](#html)
 - [Authors](#authors)
+
+## Installation
+
+```
+$ zef install Perl6::Documentable
+```
+
+## Usage
+
+```
+bin/documentable [--topdir=<Str>] [-v|--verbose] [-c|--cache] [-p|--pods] [-s|--search-index] [-i|--indexes] [-a|--all]
+```
+
+#### --topdir <Str>
+
+Directory where the pod files are stored. Set to `doc` by default.
+
+#### -v, --verbose
+
+Be more verbose/talkative during the operation. Useful for debugging
+and seeing what's going on "under the hood".
+
+#### -c, --cache
+
+Usage of a cache of pod ([cached used](https://github.com/finanalyst/pod-cached)). Set to `True`
+by default.
+
+#### -p, --pods
+
+Generate one HTML page for every pod file.
+
+#### -s, --search-index
+
+Generate the search file `search.js`.
+
+#### -i, --indexes
+
+Generate all index files.
+
+#### -a, --all
+
+Equivalent to `-p -s -i`.
 
 ## Perl6::Documentable
 
