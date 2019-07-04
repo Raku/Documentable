@@ -38,6 +38,10 @@ This library is free software; you can redistribute it and/or modify it under th
 
 =end pod
 
+# =================================================================================
+# All this code is used in every page generated
+# =================================================================================
+
 # hardcoded menu (TODO => generate it automatically)
 my @menu = ('language', ''        ) => (),
            ('type'    , 'Types'   ) => <basic composite domain-specific exceptions>,
@@ -131,6 +135,10 @@ sub p2h($pod, $selection = 'nothing selected', :$pod-path = Nil) is export {
     ;
 }
 
+# =================================================================================
+# Typegraph fragment only applied to Types.
+# =================================================================================
+
 #| Returns the HTML to show the typegraph image
 sub typegraph-fragment($podname) is export {
  [
@@ -150,29 +158,40 @@ sub typegraph-fragment($podname) is export {
  ]
 }
 
-# index html generation
+# =================================================================================
+# Pod source to HTML
+# =================================================================================
+
+sub source-html($kind, $doc) is export {
+    my $pod-path = pod-path-from-url($doc.url);
+    p2h($doc.pod, $kind, :pod-path($pod-path));
+}
+
+# =================================================================================
+# Indexing logic
+# =================================================================================
 
 sub programs-index-html($index) is export {
-    pod-with-title(
+    p2h(pod-with-title(
         'Perl 6 Programs Documentation',
         pod-table($index.map({[
             pod-link(.<name>, .<url>), .<summary>
         ]}))
-    )
+    ), "programs")
 }
 
 sub language-index-html($index) is export {
-    pod-with-title(
+    p2h(pod-with-title(
         'Perl 6 Language Documentation',
         pod-block("Tutorials, general reference, migration guides and meta pages for the Perl 6 language."),
         pod-table($index.map({[
             pod-link(.<name>, .<url>), .<summary>
         ]}))
-        )
+    ), "language")
 }
 
 sub type-index-html($index) is export {
-    pod-with-title(
+    p2h(pod-with-title(
             "Perl 6 Types",
             pod-block(
                 'This is a list of ', pod-bold('all'), ' built-in Types' ~
@@ -186,11 +205,11 @@ sub type-index-html($index) is export {
                     .<subkind> ne "role" ?? .<summary> !! Pod::FormattingCode.new(:type<I>, contents => [.<summary>]) 
                 ]})
             )
-        )    
+    ), "type")    
 }
 
 sub type-subindex-html($index, $category) is export {
-    pod-with-title(
+    p2h(pod-with-title(
             "Perl 6 $category Types",
             pod-table(
                 $index.map({[
@@ -199,11 +218,11 @@ sub type-subindex-html($index, $category) is export {
                     .<subkind> ne "role" ?? .<summary> !! Pod::FormattingCode.new(:type<I>, contents => [.<summary>]) 
                 ]})
             )
-        )
+    ), "type")
 }
 
 sub routine-index-html($index) is export {
-    pod-with-title(
+    p2h(pod-with-title(
             "Perl 6 Routines",
             pod-block(
                 'This is a list of ', pod-bold('all'), ' built-in routines' ~
@@ -219,11 +238,11 @@ sub routine-index-html($index) is export {
                     }).reduce({$^a,", ",$^b}),")") 
                 ]})
             )
-        )    
+    ), "routine")    
 }
 
 sub routine-subindex-html($index, $category) is export {
-    pod-with-title(
+    p2h(pod-with-title(
             "Perl 6 $category Routines",
             pod-table(
                 $index.map({[
@@ -234,5 +253,5 @@ sub routine-subindex-html($index, $category) is export {
                     }).reduce({$^a,", ",$^b}),")") 
                 ]})
             )
-        )
+    ), "routine")
 }
