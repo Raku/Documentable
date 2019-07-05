@@ -98,13 +98,14 @@ method compose() {
     @!documentables = flat @!documentables, @new-docs;
     @!kinds = @.documentables>>.kind.unique;
 
+    #| this needs to be first because is used by compose-type
+    %!routines-by-type = self.lookup("routine", :by<kind>)
+    .classify({.origin ?? .origin.name !! .name});
+
     # compose types
     for self.lookup("type", :by<kind>).list -> $doc {
         self.compose-type($doc);
     }
-
-    %!routines-by-type = self.lookup("routine", :by<kind>)
-    .classify({.origin ?? .origin.name !! .name});
 
     $!composed = True;
 }
@@ -204,12 +205,62 @@ method compose-type($doc) {
     my $pod     = $doc.pod;
     my $podname = $doc.name;
     my $type    = $!tg.types{$podname};
+    
+    {return;} unless $type;
 
-    { $pod.contents.append: typegraph-fragment($podname) } unless !$type;
+    $pod.contents.append: self.typegraph-fragment($podname);
+
+    my @roles-todo = $type.roles;
+    my %roles-seen;
+    while @roles-todo.shift -> $role {
+        next unless %!routines-by-type{$role.name};
+        next if %roles-seen{$role.name}++;
+        @roles-todo.append: $role.roles;
+        $pod.contents.append:
+            pod-heading("Routines supplied by role $role"),
+            pod-block(
+                "$podname does role ",
+                pod-link($role.name, "/type/{href_escape ~$role.name}"),
+                ", which provides the following routines:",
+            ),
+            %!routines-by-type{$role.name}.list.map({.pod}),
+        ;
+    }
+
+    for $type.mro.skip -> $class {
+        if $type.name ne "Any" {
+            next if $class.name ~~ "Any" | "Mu";
+        }
+        next unless %!routines-by-type{$class.name};
+        $pod.contents.append:
+            pod-heading("Routines supplied by class $class"),
+            pod-block(
+                "$podname inherits from class ",
+                pod-link($class.name, "/type/{href_escape ~$class}"),
+                ", which provides the following routines:",
+            ),
+            %!routines-by-type{$class.name}.list.map({.pod}),
+        ;
+        for $class.roles -> $role {
+            next unless %!routines-by-type{$role.name};
+            $pod.contents.append:
+                pod-heading("Routines supplied by role $role"),
+                pod-block(
+                    "$podname inherits from class ",
+                    pod-link($class.name, "/type/{href_escape ~$class}"),
+                    ", which does role ",
+                    pod-link($role.name, "/type/{href_escape ~$role}"),
+                    ", which provides the following routines:",
+                ),
+                %!routines-by-type{$role.name}.list.map({.pod}),
+            ;
+        }
+    }
+
 }
 
-#| Returns the HTML to show the typegraph image
-sub typegraph-fragment($podname) {
+#| Returns the fragment to show the typegraph image
+method typegraph-fragment($podname) {
     state $template = slurp "template/tg-fragment.html";
     my $svg-path;
     if ("html/images/type-graph-$podname.svg".IO.e) {
