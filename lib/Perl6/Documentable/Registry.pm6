@@ -190,6 +190,11 @@ method process-pod-dir(:$topdir, :$dir) {
     }
 }
 
+# =================================================================================
+# Composing types logic
+# =================================================================================
+
+#| Completes a type pod with inherited routines
 method compose-type($doc) {
     sub href_escape($ref) {
         # only valid for things preceded by a protocol, slash, or hash
@@ -204,12 +209,17 @@ method compose-type($doc) {
 }
 
 #| Returns the HTML to show the typegraph image
-sub typegraph-fragment($podname is copy) {
+sub typegraph-fragment($podname) {
     state $template = slurp "template/tg-fragment.html";
-    $podname = "Any"; # temporal workaround    
+    my $svg-path;
+    if ("html/images/type-graph-$podname.svg".IO.e) {
+        $svg-path = "html/images/type-graph-$podname.svg";
+    } else {
+        $svg-path = "html/images/404.svg";
+    }
     my $figure = $template.subst("PATH", $podname)
                           .subst("ESC_PATH", uri_escape($podname))
-                          .subst("SVG", svg-for-file("html/images/type-graph-$podname.svg")); 
+                          .subst("SVG", svg-for-file($svg-path)); 
     
     return [pod-heading("Type Graph"), 
             Pod::Raw.new: :target<html>, contents => [$figure]]
