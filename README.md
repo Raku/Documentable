@@ -99,21 +99,20 @@ $doc.defs;
 
 ### DESCRIPTION
 
-Perl6::Documentable Represents a piece of Perl 6 that is documented. It contains meta data about what is documented (for example (kind => 'type', subkinds => ['class'], name => 'Code') and in \$.pod a reference to the actual documentation.
+Perl6::Documentable represents a piece of Perl 6 that is documented. It contains meta data about what is documented (for example (kind => 'type', subkinds => ['class'], name => 'Code') and in \$.pod a reference to the actual documentation.
 
 ### Perl6::Documentable
 
 ```perl6
-    has Str $.kind;
-    has Bool $.section;
-    has Str @.subkinds;
-    has Str @.categories;
+    has Str  $.kind;
+    has Str  @.subkinds;
+    has Str  @.categories;
 
-    has Str $.name;
-    has Str $.url;
-    has     $.pod;
+    has Str  $.name;
+    has Str  $.url;
+    has      $.pod;
     has Bool $.pod-is-complete;
-    has Str $.summary = '';
+    has Str  $.summary = '';
 
     has $.origin;
 
@@ -123,25 +122,31 @@ Perl6::Documentable Represents a piece of Perl 6 that is documented. It contains
 
 #### Str \$.kind
 
-One of the following values: `language`, `programs` or `type`.
+This value is highly used in the documentation process, it can take six different values: `[language programs type syntax reference routine]`.
+
+The first three ones are **only** set when the source pod files are processed (see [process-pod-dir](#method-process-pod-dir) and [process-pod-source](#method-process-pod-source)). In this case, the value of `kind` can tell you where this pod source comes from.
+
+`syntax` and `routine` values are only set by [find-definitions](#method-find-definitions), as result of calling [classify-index](#method-classify-index).
+
+`reference` is only set by [register-reference](#method-register-reference), whenever a new reference element is found.
 
 #### Str @.subkinds
 
-Can take one of the following values: `<infix prefix postfix circumfix postcircumfix listop sub method term routine trait submethod constant variable twigil declarator quote>`. In addition, it can take the value of the
-meta part in a `X<>` definition, which is unambiguous.
+Can take one of the following values: `<infix prefix postfix circumfix postcircumfix listop sub method term routine trait submethod constant variable twigil declarator quote>`.
+
+In addition, it can take the value of the meta part in a `X<>` definition, which is unambiguous (see [find-definitions](#method-find-definitions)).
 
 #### Str @.categories
 
-It is assigned with what `classify-index` returns. Its value will be one of the following (\$subkind
-is obtained using `parse-definition`):
+It is assigned with what [classify-index](#method-classify-index) returns. Its value will be one of [this list](https://gist.github.com/antoniogamiz/b01f8e088501d5736c4c9194eb6a0671).
 
-If `$subkind` is one of `<infix prefix postfix circumfix postcircumfix listop>`, `@categories` will be set to `operator`. Otherwise, it will be set to `$subkind`.
+In addition, if the `Perl6::Documentable` object comes from a type pod source, this category will be replaced by the information given by `Perl6::TypeGraph` (see [process-pod-source](#method-process-pod-source)).
 
 #### Str \$.name
 
 Name of the Pod. Usually is set to the filename without the file extension `.pod6`.
 
-If it's a definition, it will be set to the value correspondent to `$name` returned by `parse-definition-header`.
+If it's a definition, it will be set to `$name` (part of what [parse-definition-header](#method-parse-definition-header) returns).
 
 #### Str \$.url
 
@@ -157,17 +162,17 @@ Static url to the processed file. Its value can be specified in the Pod configur
 
 It will be set to `/$kind/$link`. By default `$link=$filename`.
 
+This value is only set by `Perl6::Documentable` objects representing a complete pod file (that means, those with [pod-is-complete](#bool-pod-is-complete) set to `True`).
+
 #### \$.pod
 
-Perl6 Pod Structure (obtained using `Pod::Load` module).
+Perl6 Pod Structure.
 
-### Bool \$.pod-is-complete
+#### Bool \$.pod-is-complete
 
-Indicates if the Pod represented by the `Perl6::Documentable` object is completed. A Pod is completed if
-represents the whole pod source, that's to say, the `$.pod` attribute contains an entire pod file.
+Indicates if the Pod represented by the `Perl6::Documentable` object is completed. A Pod is completed if itrepresents the whole pod source, that's to say, the `$.pod` attribute contains an entire pod file.
 
-It will be considered incomplete if the `Perl6::Documentable` object represents a definition. In that case
-the `$.pod` attribute will only contain the part corresponding to the definition.
+It will be considered incomplete if the `Perl6::Documentable` object represents a definition or a reference. In that case the `$.pod` attribute will only contain the part corresponding to the definition or the reference.
 
 #### Str \$.summary
 
@@ -190,14 +195,12 @@ In this case `$summary="A basic introductory example of a Perl 6 program"`.
 
 #### \$.origin
 
-Documentable object that this one was extracted from, if any. This is used for nested
-definitions. Let's see an example:
+Documentable object that this one was extracted from, if any. This is used for nested definitions. Let's see an example:
 
 ```perl6
 =begin pod
 
-Every one of this valid definitions is represented by a Perl6::Documentable object
-after have been processed.
+Every one of this valid definitions is represented by a Perl6::Documentable object after being processed.
 
 =head1 method a
 
@@ -212,23 +215,23 @@ after have been processed.
 
     $origin in this case points to the Perl6::Documentable object
     containing the pod source.
-=end pod
 
+=end pod
 ```
 
-Two or more definitions are nested if they appears one after another and if the first one
-has a greater heading level than the second one.
+Two or more definitions are nested if they appears one after another and if the second one has a greater heading level than the second one.
 
 #### Array @.defs
 
-This is one of the most important attributes of a `Perl6::Documentable` object. It contains all definitions
-found and processed corresponding to the pod of `$.origin` stored in more `Perl6::Documentable` objects. In
-general, all of them will have `pod-is-complete` set to `false`.
+It contains all definitions found in [\$.pod](#pod). All of them have `pod-is-complete` set to `false`.
+
+See [find-definitions](#method-find-definitions) for more information.
 
 #### Array @.refs
 
-It contains all references found and processed corresponding to pod `$.origin`, stored in more `Perl6::Documentable` objects. In
-general, all of them will have `pod-is-complete` set to `false`.
+It contains all references found in [\$.pod](#pod). All of them have `pod-is-complete` set to `false`.
+
+See [find-references](#method-find-references) for more information.
 
 #### method human-kind
 
@@ -237,7 +240,7 @@ method human-kind (
 ) return Str
 ```
 
-Returns the transformation of `$.kind` to a "more human" version. That means:
+Returns the transformation of `$.kind` to a "more understable" version. That means:
 
 - If `$.kind` is equal to `language` then it returns `language documentation`.
 - Otherwise, if `@.categories` is equal to `operator` then is set to `@.subkinds operator`. If not, it's set to the result of calling `english-list` with `@.subkinds` or `$.kind` if the previous one is not defined.
@@ -263,7 +266,9 @@ method url (
 ) return Str
 ```
 
-Sets `$.url` to:
+It will return the attribute [url](#url) of the object if it was passed when it was created (as is done in [process-pod-source](#method-process-pod-source)).
+
+Otherwise. sets [url](#url) to:
 
 - If `$.kind` is equal to `operator` then will be set to the concatenation of:
   - `/language/operators#`
@@ -277,7 +282,7 @@ Examples
 /language/101-basics#index-entry-lexical
 ```
 
-- Otherwise, it will be set to the concatenation (separator="/") of `$.kind` and `$.name`.
+- If not, it will be set to the concatenation (using "/") of `$.kind` and `$.name`.
 
 Examples
 
@@ -295,10 +300,9 @@ method categories (
 ) return Array
 ```
 
-Returns `@.categories`. If `@.categories` if it's not defined, sets `@.categories` to the same value
-as `@.subkinds`.
+Returns `@.categories`. If `@.categories` it's not defined, sets `@.categories` to the same value as `@.subkinds` and returns it.
 
-#### method parseDefinitionHeader
+#### method parse-definition-header
 
 ```perl6
 method parseDefinitionHeader (
@@ -306,9 +310,7 @@ method parseDefinitionHeader (
 ) return [$subkind, $name, $unambiguous]
 ```
 
-This method takes a `Pod::Heading` object and parse a possible definition. If found,
-it returns the `$subkind`, `$name` and a boolean value indicating if the definion is
-unambiguous.
+This method takes a `Pod::Heading` object and parse a possible definition. If found, it returns the `$subkind`, `$name` and a boolean value indicating if the definion is unambiguous.
 
 - What headings are considered a definition?
   - `X<$name|$subkind>`: this is considered an `unambiguous` definition, that's to say, no matter what appers inside the `X<>` it will be indexed. `$unambiguous` will be set to to `true` in this case, `false` otherwise.
@@ -325,8 +327,7 @@ method classifyIndex (
 ) return Hash
 ```
 
-Given a subkind `$sk` (obtained with `parseDefinitionHeader`), it will return a `Hash` object
-containing the `kind` and the `categories` of the definition, if any.
+Given a subkind `$sk` (obtained with `parseDefinitionHeader`), it will return a `Hash` object containing the `kind` and the `categories` of the definition, if any.
 
 If `$subkind` takes one of the following values `<infix prefix postfix circumfix postcircumfix listop sub method term routine trait submethod>`, `$kind` will be set to `routine`. If it is one of `<constant variable twigil declarator quote>` or `$unambiguous` is true, `$kind` will be set to `syntax`.
 
@@ -339,14 +340,11 @@ method find-definitions (
     Array               $pod       = self.pod,
     Perl6::Documentable $origin    = self,
     Int                 $min-level = -1
-) Int
+) returns Int
 ```
 
-It is a recursive function used to populate `@.defs`. It runs through the pod content
-and looks for headings. If is a heading is a definition, like `=head2 method mro`. Then
-processes it and gives the rest of the pod to find-definitions again, which will return
-how far the definition of `head2 method mro` extends. We then continue parsing from after
-that point.
+It is a recursive function used to populate `@.defs`. It runs through the pod content and looks for headings. If that heading is a definition, like `=head2 method mro`. Then processes it and gives the rest of the pod to [find-definitions](#method-find-definitions) again, which will return
+how far the definition of `head2 method mro` extends. We then continue parsing from after that point.
 
 When we find a new definition, a new `Perl6::Documentable` object is created and initialized to:
 
@@ -364,7 +362,7 @@ method find-references (
     :$pod    = self.pod,
     :$url    = self.url,
     :$origin = self
-) returns Mu;
+) returns Mu
 ```
 
 It goes through all the pod tree recursively searching for `X<>` elements (`Pod::FormattingCode`). When one is found, `register-reference` is called with the pod fragment associated to that element, the same origin and the next url:
@@ -391,7 +389,7 @@ method register-reference (
     :$pod!
     :$origin
     :$url
-) returns Mu;
+) returns Mu
 ```
 
 Every time it's called it adds a new `Documentable` object to `@.refs`, with `$kind` and `$subkinds` set to references. Name attr, is taken from the meta part: the last element becomes the first and the rest are written just after.
@@ -531,10 +529,10 @@ How it is initialized?
 - `$url` is set to `/$kind/$link`, where `$link` is set to `$filename` is a `link` value is not set in the pod configuration.
 - `$kind` and `$subkinds` are set to `$kind`.
 
-#### method process-pod-source
+#### method process-pod-
 
 ```perl6
-method process-pod-source(
+method process-pod-dir(
     Str     :$topdir,
     Str     :$dir,
     Boolean :$output

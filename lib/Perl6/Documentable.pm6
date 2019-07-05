@@ -44,16 +44,15 @@ This library is free software; you can redistribute it and/or modify it under th
 # (for example (kind => 'type', subkinds => ['class'], name => 'Code')
 # and in $.pod a reference to the actual documentation.
 
-has Str $.kind;        # type, language doc, routine, module
-has Bool $.section;     # for Language doc list breakdown by sections
-has Str @.subkinds;    # class/role/enum, sub/method, prefix/infix/...
-has Str @.categories;  # basic type, exception, operator...
+has Str  $.kind;        # type, language doc, routine, module
+has Str  @.subkinds;    # class/role/enum, sub/method, prefix/infix/...
+has Str  @.categories;  # basic type, exception, operator...
 
-has Str $.name;
-has Str $.url;
-has     $.pod;
+has Str  $.name;
+has Str  $.url;
+has      $.pod;
 has Bool $.pod-is-complete;
-has Str $.summary = '';
+has Str  $.summary = '';
 
 #| the Documentable that this one was extracted from, if any
 has $.origin;
@@ -172,7 +171,7 @@ method classify-index(:$sk, :$unambiguous = False) {
     return %attr;
 }
 
-method determineSubkinds($name, $origin-name, $code) {
+method determine-subkinds($name, $origin-name, $code) {
     my Str @subkinds = $code\
         .match(:g, /:s ^ 'multi'? (sub|method)»/)\
         .>>[0]>>.Str.unique;
@@ -183,7 +182,6 @@ method determineSubkinds($name, $origin-name, $code) {
         unless @subkinds;
 
     return @subkinds;
-
 }
 
 method find-definitions(:$pod = self.pod, :$origin = self, :$min-level = -1) {
@@ -239,7 +237,7 @@ method find-definitions(:$pod = self.pod, :$origin = self, :$min-level = -1) {
         # routines may have been defined as sub, method, etc.
         # so we need to determine the proper subkinds
         if @definitions[0] eq 'routine' {
-            my @sk = self.determineSubkinds(
+            my @sk = self.determine-subkinds(
                                             $created.name,
                                             $origin.name,
                                             first-code-block($chunk)
