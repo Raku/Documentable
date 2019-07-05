@@ -27,7 +27,8 @@ $ zef install Perl6::Documentable
 ## Usage
 
 ```
-bin/documentable [--topdir=<Str>] [-v|--verbose] [-c|--cache] [-p|--pods] [-s|--search-index] [-i|--indexes] [-a|--all]
+bin/documentable [--topdir=<Str>] [-v|--verbose] [-c|--cache] [-p|--pods] [-s|--search-index]
+                 [-i|--indexes] [-t|--type-images] [-f|--force] [-a|--all]
 ```
 
 #### --topdir <Str>
@@ -55,6 +56,14 @@ Generate the search file `search.js`.
 #### -i, --indexes
 
 Generate all index files.
+
+#### -t, --type-images
+
+Generate and write (if necessary) all typegraph svg files.
+
+#### -f, --force
+
+If specified, typegraph svg files will be forcibly generated and written.
 
 #### -a, --all
 

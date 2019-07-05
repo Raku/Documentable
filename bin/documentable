@@ -7,14 +7,17 @@ use Perl6::Documentable::Registry;
 use Perl6::Documentable::To::HTML;
 use Pod::Load;
 use Pod::Utilities::Build;
+use Perl6::TypeGraph::Viz;
 
 sub MAIN (
     Str  :$topdir              = "doc",
     Bool :v(:verbose($v))      = False,
-    Bool :c(:$cache)           = True,
+    Bool :c(:$cache)           = True ,
     Bool :p(:pods($p))         = False,
     Bool :s(:search-index($s)) = False,
     Bool :i(:indexes($i))      = False,
+    Bool :t(:type-images($t))  = False,
+    Bool :f(:force($f))        = False,
     Bool :a(:$all)             = False
 ) {
 
@@ -23,19 +26,31 @@ sub MAIN (
         say $msg if $v;
     }
 
+    DEBUG("Setting Perl6::Documentable::Registry...");
+    my $registry = Perl6::Documentable::Registry.new(use-cache => $cache,
+                                                    verbose   => $v
+                                                );
+                                                
+    #===================================================================
+
+    if ($t || $all) {
+        DEBUG("Writing type-graph representations...");
+        my $viz = Perl6::TypeGraph::Viz.new;
+        $viz.write-type-graph-images(path       => "html/images", 
+                                    force      => $f,
+                                    type-graph => $registry.tg)
+    }
+
     #===================================================================
 
     DEBUG("Processing phase...");
-    my $registry = Perl6::Documentable::Registry.new(use-cache => $cache,
-                                                     verbose   => $v
-                                                    );
     for <Language Programs Type Native> {
         $registry.process-pod-dir(:topdir($topdir), :dir($_));
     }
     $registry.compose;
 
     #===================================================================
-
+    
     DEBUG("Writing html/index.html and html/404.html...");
     spurt 'html/index.html', p2h(load('doc/HomePage.pod6')[0], :pod-path('HomePage.pod6'));
     spurt 'html/404.html', p2h(load('doc/404.pod6')[0], :pod-path('404.pod6'));
@@ -85,10 +100,12 @@ sub MAIN (
         }
 
     }
+    
     #===================================================================
 
     if ($s || $all ) {
         DEBUG("Writing search file...");
         spurt "html/js/search.js", search-file($registry.generate-search-index);
     }
+
 }
