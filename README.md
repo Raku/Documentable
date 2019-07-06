@@ -408,7 +408,7 @@ If there is not meta, then the pod content is taken as name.
 
 ```perl6
 method get-documentables (
-) Returns Array
+) returns Array
 ```
 
 Returns all `Documentable` objects (`@.defs`+`@.refs`).
@@ -422,38 +422,44 @@ Returns all `Documentable` objects (`@.defs`+`@.refs`).
     has %!grouped-by;
     has @!kinds;
     has $.tg;
+    has %!routines-by-type;
 
     has $.pod-cache;
     has $.use-cache = False;
-
     has Bool $.verbose;
 ```
 
 #### @.documentables
 
-If it's not composed, it will contain only `Documentable` objects with `pod-is-complete` set to true. After being composed, it will contain all `Documentable` objects obtained from processing the previous ones.
+If it's not composed, it will contain only `Perl6::Documentable` objects with [pod-is-complete](#pod-is-complete) set to `True`, that means, coming from pod files. After being composed, it will contain all `Perl6::Documentable` objects obtained from processing the previous ones ([@.defs](#defs) and [@.refs](#refs)).
+
+See [processing-pod-source](#method-processing-pod-source).
 
 #### Bool \$.composed
 
-Boolean showing if the registry is composed.
+Boolean indicating if the registry is composed. See [compose](#method-compose).
 
 #### %!cache
 
-This Hash object works as a cache for `lookup` method. When you call the first time that method, using a `$by` Str, a `$by` key is created and all `Documentables` object are classified by that attribute in another Hash (that another Hash is the value associated to the key `$by`).
+This `Hash` object works as a cache for [lookup](#method-lookup) method.
+
+See [lookup](#method-lookup) for more information.
 
 #### %!grouped-by
 
-This is quite similar to the previous one. It stores all documentables objects classified by theirs attributes, but it only returns groups of them (the other one was a two layer hash structure).
+This `Hash` object works as a cache for [grouped-by](#method-grouped-by) method.
+
+See [grouped-by](#method-grouped-by) for more information.
 
 #### @!kinds
 
-Array containing all different types of `$kinds` found in every `Documentable`. Set when `compose` is called.
+Array containing all different values of `$kinds` found in [@!documentables](#documentables). Set when `compose` is called.
 
 #### \$.tg
 
-Instance of a Perl6::TypeGraph object (from this [module](https://github.com/antoniogamiz/Perl6-TypeGraph)).
+Instance of a `Perl6::TypeGraph` object (from this [Perl6::TypeGraph module](https://github.com/antoniogamiz/Perl6-TypeGraph)).
 
-This object is responsible of give us the correct categories and subkinds of a type. For instance, it sets the category of a type to `domain-specific`, `exception`, etc., which is used in the index generation.
+This object is responsible of giving us the correct categories and subkinds of a type. For instance, it sets the category of a type to `domain-specific`, `exception`, etc., which is used in the index generation.
 
 #### %!routines-by-type
 
@@ -468,11 +474,31 @@ See [compose](#method-compose) to see how it's initialized.
 
 Cache of pod files. Object from [Pod::To::Cached](https://github.com/finanalyst/pod-cached).
 
+#### Bool \$.use-cache
+
+Flag to indicate the use of a cache to load the pods.`True` by default.
+
+This the [cache module](https://github.com/finanalyst/pod-cached/) used.
+
+#### Bool \$.verbose
+
+Useful information will be printed if set to `True` (`False` by default).
+
 #### submethod BUILD
 
-In this method the attribute `$.tg` is configured as specified in the [documentation module](https://github.com/antoniogamiz/Perl6-TypeGraph).
+```perl6
+submethod BUILD (
+    Bool :$use-cache?,
+    Bool :$verbose?,
+    Str  :$top-dir? = "doc"
+) returns Perl6::Documentable::Registry
+```
+
+In this method the attribute `$.tg` is configured as specified in the [module documentation](https://github.com/antoniogamiz/Perl6-TypeGraph).
 
 In addition, if `$.use-cache` is set to `True`, then a cache will be created and updated.
+
+If [\$.verbose](#bool-verbose), then useful information will be printed.
 
 ### Processing methods
 
@@ -484,7 +510,9 @@ method add-new(
 ) return Perl6::Documentable;
 ```
 
-Creates a `Documentable` object passing `|%args` to the constructor and returns the new object.
+Creates a `Perl6::Documentable` object passing a flatten version of `%args` to the constructor and returns the new created object.
+
+You can see what attributes can be passed in [Perl6::Documentable](#perl6documentable).
 
 #### method load
 
@@ -494,7 +522,7 @@ method load(
 ) return Pod::Named;
 ```
 
-Loads a pod from a file. If `$.use-cache` is set to `True`, `Pod::Cached` will be used. Otherwise, `Pod::Load`.
+Loads a pod from a file. If `$.use-cache` is set to `True`, [Pod::Cached](https://github.com/finanalyst/pod-cached/) will be used. Otherwise, [Pod::Load](https://github.com/JJ/p6-pod-load).
 
 #### method compose
 
@@ -503,11 +531,12 @@ method compose (
 ) return Boolean;
 ```
 
-Initialize `@!kinds` and join all `Documentable` objects found in every element of `@!documentables`. It also compose every `Documentable` with `kind` set to `type`, calling `compose-type`.
+This methods does several things:
 
-`%!routines-by-type` is set, grouping the `Perl6::Documentable` collection by `kind="routine"` using [lookup](#method-lookup). Then the result is classified by `name`. You may think that after this process, `%!routines-by-type` contains more things, apart from the "routines by type". You are right! But we do not care because we will consult this `Hash` using the names of the types, so we will get what we want.
-
-Finally, `$!composed` is set to `True` and returns it.
+1. Initialize [@!kinds](#kinds) and join all `Perl6::Documentable` objects found in every element of [@!documentables](#documentables) (that means all [@.defs](#defs) and [@.refs](#refs) attributes).
+2. Composes every `Perl6::Documentable` object in [@.documentables](#documentables) with `kind` set to `type`, calling [compose-type](#method-compose-type).
+3. `%!routines-by-type` is set, grouping the `Perl6::Documentable` collection by `kind="routine"` using [lookup](#method-lookup). Then the result is classified by [name](#name). You may think that after this process, `%!routines-by-type` contains more things, apart from the "routines by type". You are right! But we do not care because we will consult this `Hash` using the names of the types, so we will get what we want anyway.
+4. Finally, [\$!composed](#composed) is set to `True` and returns it.
 
 #### method process-pod-source
 
@@ -519,17 +548,17 @@ method process-pod-source(
 ) return Perl6::Documentable;
 ```
 
-This method takes a pod source, initializes `Perl6::Documentable` object with it and add it to the registry. Returns the `Documentable` created.
+This method takes a pod source, initializes a `Perl6::Documentable` object with it and add it to the registry. Returns the `Perl6::Documentable` created.
 
 How it is initialized?
 
-- `$name` is set to `$filename` by default. If a `=TITLE` element is found, then it is set to its contents. In addition, if `$kind` is `type`, `$name` will be set to the last word of the content.
+- `$name` is set to `$filename` by default. If a `=TITLE` element is found, then it is set to its contents. In addition, if `$kind` is `type`, `$name` will be set to the last word of that content.
 - `$summary` is set to the content of the first `=SUBTITLE` element.
 - `$pod-is-complete` is set to `True` (becuase it's a complete pod).
 - `$url` is set to `/$kind/$link`, where `$link` is set to `$filename` is a `link` value is not set in the pod configuration.
 - `$kind` and `$subkinds` are set to `$kind`.
 
-#### method process-pod-
+#### method process-pod-dir
 
 ```perl6
 method process-pod-dir(
@@ -539,9 +568,7 @@ method process-pod-dir(
 ) return Mu;
 ```
 
-Reads all pod files in `$topdir/$dir/` and calls `process-pod-source` (with `$kind=$dir`) once for each file.
-
-If `$output` is set to `True`, then a progress message will be printed every time a new file is processed.
+Reads all pod files (using [load](#method-load)) in `$topdir/$dir/` and calls `process-pod-source` (with `$kind=$dir`), once for each file.
 
 #### method compose-type
 
@@ -588,12 +615,12 @@ Returns an array containing all `kind` values after processing the pod collectio
 ```perl6
 method grouped-by(
     Str $what
-) returns Array[Documentable];
+) returns Array[Perl6::Documentable];
 ```
 
-The first time it is called it initializes a key `$what`, with the result of classifying `@!documentables` by `$what`. `$what` needs to be the name of an attribute of a `Documentable` object, `kind`, for instance.
+The first time it is called it initializes a key `$what`, with the result of classifying [@!documentables](#documentables) by `$what`. `$what` needs to be the name of an attribute of a `Perl6::Documentable` object: `kind`, for instance.
 
-This result is stored in `%!grouped-by` so the next time it's called it will be faster.
+This result is stored in [%!grouped-by](#grouped-by) so the next time it's called it will be faster.
 
 #### method lookup
 
@@ -604,13 +631,13 @@ method lookup(
 ) returns Array[Documentable];
 ```
 
-This method uses `%!cache`, which is a two-layer Hash object. That means you first consult it with one key, `$by`, and that returns another Hash which is consulted with the key `$what`.
+This method uses [%!cache](#cache), which is a two-layer `Hash` object. That means you first consult it with one key, `$by`, and that returns another `Hash` which is consulted with the key `$what`.
 
-So, `$by` has to be the name of an attribute of `Documentable`. Elements in `@!documentables` will be classified following that attribute. Then, `$what` must be one of the possible values that the attribute `$by` can take.
+So, `$by` has to be the name of an attribute of `Perl6::Documentable` class. Elements in [@!documentables](#documentables) will be classified following that attribute. Then, `$what` must be one of the possible values that the attribute `$by` can take.
 
-In this setting, `lookup` will return the `Documentable` objects in `@!documentables` whose attribute `$by` is equal to `$what`.
+In this setting, `lookup` will return the `Perl6::Documentable` objects in [@!documentables](#documentables) whose attribute `$by` is equal to `$what`.
 
-This result is stored in `%!grouped-by` so the next time it's called it will be faster.
+This result is stored in [%!cache](#cache) so the next time it's called it will be faster.
 
 ### Indexing methods
 
