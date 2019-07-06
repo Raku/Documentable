@@ -260,13 +260,14 @@ method compose-type($doc) {
 }
 
 #| Returns the fragment to show the typegraph image
-method typegraph-fragment($podname) {
+method typegraph-fragment($podname is copy) {
     state $template = slurp "template/tg-fragment.html";
     my $svg-path;
     if ("html/images/type-graph-$podname.svg".IO.e) {
         $svg-path = "html/images/type-graph-$podname.svg";
     } else {
         $svg-path = "html/images/404.svg";
+        $podname  = "404";
     }
     my $figure = $template.subst("PATH", $podname)
                           .subst("ESC_PATH", uri_escape($podname))

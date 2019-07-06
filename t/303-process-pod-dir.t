@@ -8,7 +8,7 @@ plan *;
 
 my $registry = Perl6::Documentable::Registry.new;
 
-$registry.process-pod-dir(:topdir("t"), :dir("recursive"), :!output);
+$registry.process-pod-dir(:topdir("t"), :dir("recursive"));
 
 
 my $expected = Perl6::Documentable::Registry.new.process-pod-source(

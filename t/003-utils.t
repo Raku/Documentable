@@ -16,12 +16,10 @@ is-deeply @dir-files, @result, "Recursive dir";
 # get pod names
 
 my @pod-names = get-pod-names(topdir => "t",
-                              dir => "doc-replica");
+                              dir => "recursive");
 
 my @expected = [
-        "Language::language" => "t/doc-replica/Language/language.pod6".IO,
-        "Programs::programs" => "t/doc-replica/Programs/programs.pod6".IO,
-        "Type::Any" => "t/doc-replica/Type/Any.pod6".IO
+        "processing" => "t/recursive/processing.pod6".IO,
     ];
 
 is-deeply @pod-names.sort, @expected.sort, "Pod names";
