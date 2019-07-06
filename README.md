@@ -650,8 +650,8 @@ method programs-index (
 ) return Array[Hash];
 ```
 
-It takes all `Documentable` objects in the `Registry` with `kind` set to `programs`.
-After that it makes a `map` and creates the follwing `Hash` for each one:
+It takes all `Perl6::Documentable` objects in the `Perl6::Documentable::Registry` with `kind` set to `programs`.
+After that it makes a `map` and creates the following `Hash` for each one:
 
 ```
 %(
@@ -670,7 +670,7 @@ method language-index (
 ) return Array[Hash];
 ```
 
-It takes all `Documentable` objects in the `Registry` with `kind` set to `language`.
+It takes all `Perl6::Documentable` objects in the `Perl6::Documentable::Registry` with `kind` set to `language`.
 After that it makes a `map` and creates the following `Hash` for each one:
 
 ```
@@ -690,8 +690,7 @@ method type-index (
 ) return Array[Hash];
 ```
 
-It takes all `Documentable` objects in the `Registry` with `kind` set to `type`.
-After that it makes a `map` and creates the follwing `Hash` for each one:
+It takes all `Perl6::Documentable` objects in the `Perl6::Documentable::Registry` with `kind` set to `type`. After that it makes a `map` and creates the fololwing `Hash` for each one:
 
 ```
 %(
@@ -713,8 +712,7 @@ method type-subindex (
 ) return Array[Hash];
 ```
 
-Same as `type-index` but you can filter by `$category`. You can pass one of the following
-categories: `<basic composite domain-specific exceptions>`.
+Same as `type-index` but you can filter by `$category`. You can pass one of the following categories: `<basic composite domain-specific exceptions>`.
 
 #### method routine-index
 
@@ -723,8 +721,7 @@ method routine-index (
 ) return Array;
 ```
 
-It takes all `Documentable` objects in the `Registry` with `kind` set to `routine`.
-After that it makes a `map` and creates the following `Hash` for each one:
+It takes all `Perl6::Documentable` objects in the `Perl6::Documentable::Registry` with `kind` set to `routine`. After that it makes a `map` and creates the following `Hash` for each one:
 
 ```
 %(
@@ -735,8 +732,7 @@ After that it makes a `map` and creates the following `Hash` for each one:
 )
 ```
 
-Where `$from` is an array of `[$name, $url]` containing the names and urls of the `Documentable`
-objects where the routine was found.
+Where `$from` is an array of `[$name, $url]` containing the names and urls of the `Perl6::Documentable` objects where the routine was found.
 
 Note: `...` means that is the attribute of the Documentable.
 
@@ -748,8 +744,7 @@ method routine-subindex (
 ) return Array[Hash];
 ```
 
-Same as `routine-index` but you can filter by `$category`. You can pass one of the following
-categories: `<sub method term operator trait submethod>`.
+Same as `routine-index` but you can filter by `$category`. You can pass one of the following categories: `<sub method term operator trait submethod>`.
 
 #### method generate-search-index
 
@@ -760,9 +755,7 @@ method generate-search-index (
 
 Returns an array whose items are in the following format: `{category: "", value: "", url: ""}`.
 
-This array is initialized calling `lookup` with every possible value of `kind` (see `get-kinds`). `category`
-is set to `kind` or to `subkind` if `lookup` returns more than one `Documentable` object. `value` is set to the
-name of the `Documentable` and `url` too.
+This array is initialized calling `lookup` with every possible value of `kind` (see `get-kinds`). `category` is set to `kind` or to `subkind` if `lookup` returns more than one `Documentable` object. `value` is set to the name of the `Documentable` and `url` too.
 
 You can see the current search index [here](https://gist.github.com/antoniogamiz/05971277d081c4806c7cc3867a66b1b4).
 
