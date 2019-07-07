@@ -286,7 +286,7 @@ method programs-index() {
         name    => .name, 
         url     => .url, 
         summary => .summary 
-    )});
+    )}).cache;
 }
 
 method language-index() {
@@ -294,7 +294,7 @@ method language-index() {
         name    => .name, 
         url     => .url, 
         summary => .summary
-    )});
+    )}).cache;
 }
 
 method type-index() {
@@ -308,7 +308,7 @@ method type-index() {
             summary  => .[0].summary,
             subkind  => .[0].subkinds[0]
         )}).cache.Slip
-    ].flat
+    ].flat.cache
 }
 
 method type-subindex(:$category) {
@@ -321,10 +321,10 @@ method type-subindex(:$category) {
         subkinds => .map({slip .subkinds // Nil}).unique.List,
         summary  => .[0].summary,
         subkind  => .[0].subkinds[0]
-    )})
+    )}).cache
 }
 
-method routine-index {
+method routine-index() {
     [
         self.lookup("routine", :by<kind>)\
         .categorize(*.name).sort(*.key)>>.value
@@ -334,7 +334,7 @@ method routine-index {
             subkinds =>.map({.subkinds // Nil}).flat.unique.List,
             origins  => $_>>.origin.map({.name, .url}).List
         )}).cache.Slip
-    ].flat   
+    ].flat.cache 
 }
 
 method routine-subindex(:$category) {
