@@ -11,7 +11,8 @@
     "Pod::Load:ver<0.5.4+>",
     "Pod::To::HTML:ver<0.6.1+>",
     "Pod::To::Cached",
-    "URI::Escape"
+    "URI::Escape",
+    "File::Temp"
   ],
   "description": "Represents a piece of Perl 6 that is documented.",
   "license": "Artistic-2.0",
