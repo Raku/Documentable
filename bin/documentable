@@ -2,12 +2,16 @@
 
 use v6.c;
 
+use File::Temp;
 use Perl6::Utils;
 use Perl6::Documentable::Registry;
 use Perl6::Documentable::To::HTML;
 use Pod::Load;
 use Pod::Utilities::Build;
 use Perl6::TypeGraph::Viz;
+use JSON::Fast;
+
+my %*POD2HTML-CALLBACKS;
 
 sub MAIN (
     Str  :$topdir              = "doc",
@@ -18,6 +22,7 @@ sub MAIN (
     Bool :i(:indexes($i))      = False,
     Bool :t(:type-images($t))  = False,
     Bool :f(:force($f))        = False,
+    Bool :$highlight           = False,
     Bool :a(:$all)             = False
 ) {
 
@@ -25,6 +30,12 @@ sub MAIN (
     sub DEBUG($msg) {
         say $msg if $v;
     }
+
+    # highlights workaround
+    DEBUG("Starting highlight process...");
+    highlight-code-blocks if $highlight;
+
+    #===================================================================
 
     DEBUG("Creating subdirectories...");
     for <programs type language routine images syntax> {
@@ -117,3 +128,40 @@ sub MAIN (
     }
 
 }
+
+sub highlight-code-blocks {
+    my $proc;
+    my $proc-supply;
+    my $coffee-exe = './highlights/node_modules/coffee-script/bin/coffee'.IO.e??'./highlights/node_modules/coffee-script/bin/coffee'!!'./highlights/node_modules/coffeescript/bin/coffee';
+
+    if ! $coffee-exe.IO.f {
+        say "Could not find $coffee-exe, did you run `make init-highlights`?";
+        exit 1;
+    }
+    $proc = Proc::Async.new($coffee-exe, './highlights/highlight-filename-from-stdin.coffee', :r, :w);
+    $proc-supply = $proc.stdout.lines;
+
+    $proc.start andthen say "Starting highlights worker thread" unless $proc.started;
+    %*POD2HTML-CALLBACKS = code => sub (:$node, :&default) {
+        for @($node.contents) -> $c {
+            if $c !~~ Str {
+                # some nested formatting code => we can't highlight this
+                return default($node);
+            }
+        }
+        my ($tmp_fname, $tmp_io) = tempfile;
+        $tmp_io.spurt: $node.contents.join, :close;
+        my $html;
+        my $promise = Promise.new;
+        my $tap = $proc-supply.tap( -> $json {
+            my $parsed-json = from-json($json);
+            if $parsed-json<file> eq $tmp_fname {
+                $promise.keep($parsed-json<html>);
+                $tap.close();
+            }
+        } );
+        $proc.say($tmp_fname);
+        await $promise;
+        $promise.result;
+    }
+}  

@@ -29,7 +29,7 @@ $ zef install Perl6::Documentable
 
 ```
 bin/documentable [--topdir=<Str>] [-v|--verbose] [-c|--cache] [-p|--pods] [-s|--search-index]
-                 [-i|--indexes] [-t|--type-images] [-f|--force] [-a|--all]
+                 [-i|--indexes] [-t|--type-images] [-f|--force] [-a|--all] [--highlight]
 ```
 
 #### --topdir <Str>
@@ -66,9 +66,13 @@ Generate and write (if necessary) all typegraph svg files.
 
 If specified, typegraph svg files will be forcibly generated and written.
 
+#### --highlight
+
+If specified, code blocks will be highlighted using [atom-language-perl6](https://github.com/perl6/atom-language-perl6).
+
 #### -a, --all
 
-Equivalent to `-p -s -i`.
+Equivalent to `-p -s -i -t`.
 
 ## Perl6::Documentable
 
