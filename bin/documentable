@@ -77,7 +77,7 @@ sub MAIN (
         spurt 'html/programs.html', programs-index-html($registry.programs-index);
 
         DEBUG("Writing html/language.html ...");
-        spurt 'html/language.html', language-index-html($registry.language-index);
+        spurt 'html/language.html', language-index-html($registry.language-index, True);
 
         DEBUG("Writing html/type.html ...");
         spurt 'html/type.html', type-index-html($registry.type-index);

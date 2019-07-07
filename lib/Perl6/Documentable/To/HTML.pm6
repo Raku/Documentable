@@ -5,6 +5,7 @@ use Pod::Utilities::Build;
 use URI::Escape;
 use Pod::To::HTML;
 use Perl6::Documentable::Registry;
+use JSON::Fast;
 
 unit module Perl6::Documentable::To::HTML:ver<0.0.1>;
 
@@ -157,13 +158,34 @@ sub programs-index-html($index) is export {
     ), "programs")
 }
 
-sub language-index-html($index) is export {
+sub language-index-html($index, $manage = False) is export {
+
+    my @content = [];
+    if ($manage) {
+        my $path = "resources/language-order-control.json".IO.e ?? 
+                   "resources/language-order-control.json"      !! 
+                   %?RESOURCES<resources/language-order-control.json>;
+        my $json = slurp $path;
+        my @data = from-json($json).list;
+        for @data -> %section {
+            @content.push: [
+                pod-heading( %section.<section>, :level(2)),
+                pod-table(
+                    %section.<pods>.cache.map(-> %p {
+                    my %i = $index.grep({$_.<name> eq %p.<name>})[0];
+                    [pod-link(%i.<name>, %i.<file>), %i.<summary>]
+                }))
+            ]
+        }
+    } else {
+        @content = pod-table($index.map({[
+            pod-link(.<name>, .<url>), .<summary>
+        ]}))
+    }
     p2h(pod-with-title(
         'Perl 6 Language Documentation',
         pod-block("Tutorials, general reference, migration guides and meta pages for the Perl 6 language."),
-        pod-table($index.map({[
-            pod-link(.<name>, .<url>), .<summary>
-        ]}))
+        @content
     ), "language")
 }
 
