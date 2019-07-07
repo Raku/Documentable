@@ -323,10 +323,10 @@ This method takes a `Pod::Heading` object and parse a possible definition. If fo
   - `Infix Foo`: `Foo` will be considered as `$name` and `Infix` as the `$subkind`. `Foo` can be written using `C<Foo>` or other format code.
   - `trait Infix Foo`: `Infix Foo` will be considered as `$name` and `trait` as the `$subkind`.
 
-#### method classifyIndex
+#### method classify-index
 
 ```perl6
-method classifyIndex (
+method classify-index (
     Str  :$sk,
     Bool :$unambiguous
 ) return Hash
