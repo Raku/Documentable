@@ -173,7 +173,7 @@ sub language-index-html(@index, $manage = False) is export {
                 pod-table(
                     %section.<pods>.cache.map(-> %p {
                     my %i = @index.grep({$_.<name> eq %p.<name>})[0];
-                    [pod-link(%i.<name>, %i.<file>), %i.<summary>]
+                    [pod-link(%i.<name>, %i.<url>), %i.<summary>]
                 }))
             ]
         }

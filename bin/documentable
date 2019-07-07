@@ -26,6 +26,13 @@ sub MAIN (
         say $msg if $v;
     }
 
+    DEBUG("Creating subdirectories...");
+    for <programs type language routine images syntax> {
+        mkdir "html/$_" unless "html/$_".IO ~~ :e;
+    }
+
+    #===================================================================
+
     DEBUG("Setting Perl6::Documentable::Registry...");
     my $registry = Perl6::Documentable::Registry.new(use-cache => $cache,
                                                     verbose   => $v
@@ -105,6 +112,7 @@ sub MAIN (
 
     if ($s || $all ) {
         DEBUG("Writing search file...");
+        mkdir 'html/js';
         spurt "html/js/search.js", search-file($registry.generate-search-index);
     }
 
