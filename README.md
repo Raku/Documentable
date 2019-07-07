@@ -785,6 +785,27 @@ sub footer-html (
 
 Returns the HTML footer for every page. `$pod-path` is the path relative to `doc` with the extension `.pod6`. Used to the edit buttom url.
 
+#### sub \*-index-html
+
+```perl6
+sub *-index-html (
+    Array[Hash] @index
+) return Str
+```
+
+Takes the index generated the `Perl6::Documentable::Registry` and return its HTML version.
+
+Notes: in `language-index-html` you have and additional parameter:
+
+```perl6
+sub *-index-html (
+    Array[Hash] @index,
+    Bool        $manage = False
+) return Str
+```
+
+This parameter is used to sort the index elements in a certain way (following the configuration file [language-order-control.json](resources/language-order-control.json)).
+
 ## Perl6::Utils
 
 Some auxiliar functions to ease the job.
@@ -908,3 +929,7 @@ Antonio <antoniogamiz10@gmail.com>
 Copyright 2019 Perl6 Team
 
 This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
+
+```
+
+```
