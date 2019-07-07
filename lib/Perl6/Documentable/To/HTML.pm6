@@ -149,16 +149,16 @@ sub source-html($kind, $doc) is export {
 # Indexing logic
 # =================================================================================
 
-sub programs-index-html($index) is export {
+sub programs-index-html(@index) is export {
     p2h(pod-with-title(
         'Perl 6 Programs Documentation',
-        pod-table($index.map({[
+        pod-table(@index.map({[
             pod-link(.<name>, .<url>), .<summary>
         ]}))
     ), "programs")
 }
 
-sub language-index-html($index, $manage = False) is export {
+sub language-index-html(@index, $manage = False) is export {
 
     my @content = [];
     if ($manage) {
@@ -172,13 +172,13 @@ sub language-index-html($index, $manage = False) is export {
                 pod-heading( %section.<section>, :level(2)),
                 pod-table(
                     %section.<pods>.cache.map(-> %p {
-                    my %i = $index.grep({$_.<name> eq %p.<name>})[0];
+                    my %i = @index.grep({$_.<name> eq %p.<name>})[0];
                     [pod-link(%i.<name>, %i.<file>), %i.<summary>]
                 }))
             ]
         }
     } else {
-        @content = pod-table($index.map({[
+        @content = pod-table(@index.map({[
             pod-link(.<name>, .<url>), .<summary>
         ]}))
     }
@@ -189,7 +189,7 @@ sub language-index-html($index, $manage = False) is export {
     ), "language")
 }
 
-sub type-index-html($index) is export {
+sub type-index-html(@index) is export {
     p2h(pod-with-title(
             "Perl 6 Types",
             pod-block(
@@ -199,7 +199,7 @@ sub type-index-html($index) is export {
             ),
             pod-table(
                 :headers[<Name  Type  Description>],
-                $index.map({[
+                @index.map({[
                     pod-link(.<name>, .<url>), .<subkinds>,
                     .<subkind> ne "role" ?? .<summary> !! Pod::FormattingCode.new(:type<I>, contents => [.<summary>]) 
                 ]})
@@ -207,11 +207,11 @@ sub type-index-html($index) is export {
     ), "type")    
 }
 
-sub type-subindex-html($index, $category) is export {
+sub type-subindex-html(@index, $category) is export {
     p2h(pod-with-title(
             "Perl 6 $category Types",
             pod-table(
-                $index.map({[
+                @index.map({[
                     .<subkinds>.join(", "),
                     pod-link(.<name>, .<url>),
                     .<subkind> ne "role" ?? .<summary> !! Pod::FormattingCode.new(:type<I>, contents => [.<summary>]) 
@@ -220,7 +220,7 @@ sub type-subindex-html($index, $category) is export {
     ), "type")
 }
 
-sub routine-index-html($index) is export {
+sub routine-index-html(@index) is export {
     p2h(pod-with-title(
             "Perl 6 Routines",
             pod-block(
@@ -230,7 +230,7 @@ sub routine-index-html($index) is export {
             ),
             pod-table(
                 :headers[<Name  Type  Description>],
-                $index.map({[
+                @index.map({[
                     pod-link(.<name>, .<url>), .<subkinds>.join(", "),
                     pod-block("(From ", .<origins>.map({
                         pod-link(|$_)
@@ -240,11 +240,11 @@ sub routine-index-html($index) is export {
     ), "routine")    
 }
 
-sub routine-subindex-html($index, $category) is export {
+sub routine-subindex-html(@index, $category) is export {
     p2h(pod-with-title(
             "Perl 6 $category Routines",
             pod-table(
-                $index.map({[
+                @index.map({[
                     .<subkinds>.join(", "),
                     pod-link(.<name>, .<url>),
                     pod-block("(From ", .<origins>.map({
