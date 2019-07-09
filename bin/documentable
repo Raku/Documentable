@@ -25,6 +25,8 @@ sub MAIN (
     Bool :$highlight           = False,
     Bool :a(:$all)             = False
 ) {
+    # to track the time
+    my $now;
 
     # debug function
     sub DEBUG($msg) {
@@ -43,14 +45,17 @@ sub MAIN (
     }
 
     #===================================================================
-
+    
+    $now = now;
     DEBUG("Setting Perl6::Documentable::Registry...");
     my $registry = Perl6::Documentable::Registry.new(use-cache => $cache,
                                                     verbose   => $v
                                                 );
-                                                
+    print-time("Setting up the registry", $now);    
+    
     #===================================================================
-
+    
+    $now = now;
     if ($t || $all) {
         DEBUG("Writing type-graph representations...");
         my $viz = Perl6::TypeGraph::Viz.new;
@@ -58,15 +63,18 @@ sub MAIN (
                                     force      => $f,
                                     type-graph => $registry.tg)
     }
-
+    print-time("Typegraph representations", $now);
+    
     #===================================================================
-
+    
+    $now = now;
     DEBUG("Processing phase...");
     for <Language Programs Type Native> {
         $registry.process-pod-dir(:topdir($topdir), :dir($_));
     }
     $registry.compose;
-
+    print-time("Processing pods", $now);
+    
     #===================================================================
     
     DEBUG("Writing html/index.html and html/404.html...");
@@ -74,7 +82,8 @@ sub MAIN (
     spurt 'html/404.html', p2h(load('doc/404.pod6')[0], :pod-path('404.pod6'));
 
     #===================================================================
-
+    
+    $now = now;
     if ($p || $all ) {
         DEBUG("HTML generation phase...");
         for <programs language type> -> $kind {
@@ -84,11 +93,12 @@ sub MAIN (
             }
         }
     }
+    print-time("Writing source files", $now);
 
     #===================================================================
 
+    $now = now;
     if ($i || $all) {
-
         DEBUG("Index generation phase...");
 
         DEBUG("Writing html/programs.html ...");
@@ -116,9 +126,9 @@ sub MAIN (
             spurt "html/routine-$category.html", 
             routine-subindex-html($registry.routine-subindex(:$category), $category);        
         }
-
     }
-    
+    print-time("Writing index files", $now);    
+
     #===================================================================
 
     if ($s || $all ) {
@@ -165,3 +175,8 @@ sub highlight-code-blocks {
         $promise.result;
     }
 }  
+
+sub print-time($phase, $start) {
+    my $now = now;
+    say "\e[1;36m$phase has taken {$now-$start} seconds \e[0m";
+}
