@@ -8,8 +8,8 @@ use Pod::Utilities::Build;
 use Perl6::TypeGraph;
 use Pod::To::Cached;
 use URI::Escape;
-unit class Perl6::Documentable::Registry:ver<0.0.1>;
 
+unit class Perl6::Documentable::Registry:ver<0.0.1>;
 
 =begin pod
 
