@@ -2,6 +2,7 @@
 
 use v6.c;
 
+use lib "lib";
 use File::Temp;
 use Perl6::Utils;
 use Perl6::Documentable::Registry;
@@ -18,6 +19,7 @@ sub MAIN (
     Bool :v(:verbose($v))      = False,
     Bool :c(:$cache)           = True ,
     Bool :p(:pods($p))         = False,
+    Bool :k(:kind($k))         = False,
     Bool :s(:search-index($s)) = False,
     Bool :i(:indexes($i))      = False,
     Bool :t(:type-images($t))  = False,
@@ -55,15 +57,17 @@ sub MAIN (
     
     #===================================================================
     
-    $now = now;
     if ($t || $all) {
+        $now = now;
+        
         DEBUG("Writing type-graph representations...");
         my $viz = Perl6::TypeGraph::Viz.new;
         $viz.write-type-graph-images(path       => "html/images", 
                                     force      => $f,
-                                    type-graph => $registry.tg)
+                                    type-graph => $registry.tg);
+        
+        print-time("Typegraph representations", $now);
     }
-    print-time("Typegraph representations", $now);
     
     #===================================================================
     
@@ -83,8 +87,8 @@ sub MAIN (
 
     #===================================================================
     
-    $now = now;
     if ($p || $all ) {
+        $now = now;
         DEBUG("HTML generation phase...");
         for <programs language type> -> $kind {
             for $registry.lookup($kind, :by<kind>).list -> $doc {
@@ -92,13 +96,31 @@ sub MAIN (
                 spurt "html{$doc.url}.html", source-html($kind, $doc);
             }
         }
+        print-time("Writing source files", $now);
     }
-    print-time("Writing source files", $now);
 
     #===================================================================
 
-    $now = now;
+    if ($k || $all) {
+        $now = now;
+        DEBUG("Writing routine files...");
+        generate-kind-files($registry,"routine").map({
+          spurt "html/routine/{replace-badchars-with-goodnames .[0]}.html", .[1];
+        });
+        print-time("Writing routine files", $now);    
+
+        $now = now;
+        DEBUG("Writing syntax files...");
+        generate-kind-files($registry,"syntax").map({
+          spurt "html/syntax/{replace-badchars-with-goodnames .[0]}.html", .[1];
+        });
+        print-time("Writing syntax files", $now);    
+    }
+
+    #===================================================================
+
     if ($i || $all) {
+        $now = now;
         DEBUG("Index generation phase...");
 
         DEBUG("Writing html/programs.html ...");
@@ -126,8 +148,8 @@ sub MAIN (
             spurt "html/routine-$category.html", 
             routine-subindex-html($registry.routine-subindex(:$category), $category);        
         }
+        print-time("Writing index files", $now);    
     }
-    print-time("Writing index files", $now);    
 
     #===================================================================
 
