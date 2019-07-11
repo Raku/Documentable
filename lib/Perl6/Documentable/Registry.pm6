@@ -199,7 +199,10 @@ method compose-type($doc) {
 
 #| Returns the fragment to show the typegraph image
 method typegraph-fragment($podname is copy) {
-    state $template = slurp "template/tg-fragment.html";
+    my $filename = "resources/template/tg-fragment.html".IO.e   ?? 
+                   "resources/template/tg-fragment.html"        !! 
+                   %?RESOURCES<template/head.html>;
+    state $template = slurp $filename;
     my $svg-path;
     if ("html/images/type-graph-$podname.svg".IO.e) {
         $svg-path = "html/images/type-graph-$podname.svg";

@@ -51,9 +51,15 @@ my @menu = ('language', ''        ) => (),
            ('https://webchat.freenode.net/?channels=#perl6', 'Chat with us') => (); 
 
 # templates
-my $head-template-path   = "resources/template/head.html".IO.e   ?? "template/head.html"   !! %?RESOURCES<template/head.html>;
-my $header-template-path = "resources/template/header.html".IO.e ?? "template/header.html" !! %?RESOURCES<template/header.html>;
-my $footer-template-path = "resources/template/footer.html".IO.e ?? "template/footer.html" !! %?RESOURCES<template/footer.html>;
+my $head-template-path   = "resources/template/head.html".IO.e   ?? 
+                           "resources/template/head.html"        !! 
+                           %?RESOURCES<template/head.html>;
+my $header-template-path = "resources/template/header.html".IO.e ?? 
+                           "resources/template/header.html"      !! 
+                           %?RESOURCES<template/header.html>;
+my $footer-template-path = "resources/template/footer.html".IO.e ?? 
+                           "resources/template/footer.html"      !! 
+                           %?RESOURCES<template/footer.html>;
 
 #| Return the HTML header for every page
 sub header-html($current-selection, $pod-path) is export {
