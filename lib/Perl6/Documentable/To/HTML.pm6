@@ -117,7 +117,11 @@ sub footer-html($pod-path) is export {
     }
     $footer.subst-mutate(/SOURCEURL/, $pod-url);
     $footer.subst-mutate(/EDITURL/, $edit-url);
-    state $source-commit = qx/git rev-parse --short HEAD/.chomp;
+    state $source-commit;
+    try {
+        $source-commit = qx/git rev-parse --short HEAD/.chomp;
+        CATCH { $source-commit=''; }
+    }
     $footer.subst-mutate(:g, /SOURCECOMMIT/, $source-commit);
 
     return $footer;
