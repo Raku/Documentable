@@ -1,14 +1,17 @@
 use v6.c;
 
+use Perl6::Documentable::Processing;
 use Perl6::Documentable::Registry;
 use Test;
 
 plan *;
 
-my $registry = Perl6::Documentable::Registry.new(use-cache => False);
+my $registry = Perl6::Documentable::Registry.new;
 
-$registry.process-pod-dir(topdir => "t", 
-                          dir    => "type");
+process-pod-dir(
+    topdir => "t", 
+    dir    => "type"
+).map({$registry.add-new: $_});
 
 $registry.compose;
 

@@ -1,18 +1,17 @@
 use v6.c;
 
+use Perl6::Documentable::Processing;
 use Perl6::Documentable::Registry;
 use Test;
 
 plan *;
 
-my $registry = Perl6::Documentable::Registry.new;
-
-
-for <Type Language Programs> {
-    $registry.process-pod-dir(topdir => "t/doc-replica", 
-                              dir    => $_,
-                              output => False);
-}
+my $registry = process-pod-collection(
+    :!cache,
+    :!verbose,
+    :topdir("t/doc-replica"),
+    :dirs(["Type", "Language", "Programs"])
+);
 
 $registry.compose;
 
@@ -25,6 +24,10 @@ my @expected = [
  qq[[\{ category: "Method", value: "index-types", url: " /routine/index-types" \}\n]]
 ];
 
-is-deeply $registry.generate-search-index, @expected, "Basic use";
+my @index = $registry.generate-search-index.grep({
+    $_ ~~ / ^ [<!before perlfunc> .]* $ /
+});
+
+is-deeply @index, @expected, "Basic use";
 
 done-testing;
