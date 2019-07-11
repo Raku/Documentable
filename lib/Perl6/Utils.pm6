@@ -2,7 +2,7 @@ use v6.c;
 
 use URI::Escape;
 
-unit module Perl6::Utils:ver<0.0.1>;
+unit module Perl6::Utils;
 
 #|This function returns a List of IO objects. Each IO object
 #|is one file in $dir.

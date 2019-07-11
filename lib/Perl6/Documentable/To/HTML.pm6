@@ -7,7 +7,7 @@ use Pod::To::HTML;
 use Perl6::Documentable::Registry;
 use JSON::Fast;
 
-unit module Perl6::Documentable::To::HTML:ver<0.0.1>;
+unit module Perl6::Documentable::To::HTML;
 
 =begin pod
 
@@ -204,7 +204,7 @@ sub language-index-html(@index, $manage = False) is export {
     if ($manage) {
         my $path = "resources/language-order-control.json".IO.e ?? 
                    "resources/language-order-control.json"      !! 
-                   %?RESOURCES<resources/language-order-control.json>;
+                   %?RESOURCES<language-order-control.json>;
         my $json = slurp $path;
         my @data = from-json($json).list;
         for @data -> %section {

@@ -33,7 +33,7 @@
     "template/header.html",
     "template/footer.html",
     "template/search_template.js",
-    "resources/language-order-control.json"
+    "language-order-control.json"
   ],
   "source-url": "https://github.com/antoniogamiz/Perl6-Documentable.git",
   "tags": [],

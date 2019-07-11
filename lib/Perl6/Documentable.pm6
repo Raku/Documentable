@@ -1,6 +1,6 @@
 use v6.c;
 
-unit class Perl6::Documentable:ver<0.0.1>;
+unit class Perl6::Documentable;
 
 use Pod::Utilities;
 use Pod::Utilities::Build;
