@@ -62,7 +62,7 @@ has Bool $.verbose;
 
 # setup
 
-submethod BUILD (:$verbose?, :$topdir? = "doc") {
+submethod BUILD (:$verbose?) {
     $!verbose = $verbose || False;
     $!tg = Perl6::TypeGraph.new-from-file;
 
@@ -305,10 +305,14 @@ method generate-search-index() {
 
     # Add p5to6 functions to JavaScript search index
     my %f; 
-    find-p5to6-functions(
-        pod => load("doc/Language/5to6-perlfunc.pod6")[0],
-        functions => %f
-    );
+    try {
+        find-p5to6-functions(
+            pod => load("doc/Language/5to6-perlfunc.pod6")[0],
+            functions => %f
+        );
+        CATCH {return @items; }
+    }
+    
     @items.append: %f.keys.map( {
       my $url = "/language/5to6-perlfunc#" ~ $_.subst(' ', '_', :g);
         qq[[\{ category: "5to6-perlfunc", value: "{$_}", url: "{$url}" \}\n]]
