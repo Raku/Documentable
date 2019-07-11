@@ -127,3 +127,17 @@ sub rewrite-url($s) is export {
 
     return %cache{$s} = $r;
 }
+
+#| workaround for 5to6-perlfunc
+sub find-p5to6-functions(:$pod!, :%functions) is export {
+  if $pod ~~ Pod::Heading && $pod.level == 2  {
+      # Add =head2 function names to hash
+      my $func-name = ~$pod.contents[0].contents;
+      %functions{$func-name} = 1;
+  }
+  elsif $pod.?contents {
+      for $pod.contents -> $sub-pod {
+          find-p5to6-functions(:pod($sub-pod), :%functions) if $sub-pod ~~ Pod::Block;
+      }
+  }
+}
