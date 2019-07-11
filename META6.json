@@ -11,6 +11,8 @@
     "Pod::Load:ver<0.5.4+>",
     "Pod::To::HTML:ver<0.6.1+>",
     "Pod::To::Cached",
+    "Pod::Utilities",
+    "Pod::Utilities::Build",
     "URI::Escape",
     "File::Temp"
   ],
