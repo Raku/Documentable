@@ -1,6 +1,7 @@
 use v6;
 
 use Perl6::Documentable;
+use Perl6::Documentable::Processing;
 use Pod::Load;
 use Pod::Utilities;
 use Pod::Utilities::Build;
@@ -10,7 +11,7 @@ plan *;
 
 my $pod = load("t/pod-test-references.pod6")[0];
 
-my $doc = Perl6::Documentable.new(:kind("Type"), 
+my $origin = Perl6::Documentable.new(:kind("Type"), 
                                   :$pod, 
                                   :name("testing"), 
                                   :url("/Type/test"),
@@ -19,7 +20,8 @@ my $doc = Perl6::Documentable.new(:kind("Type"),
                                   :subkinds("Type")
                                 );
 
-$doc.find-references();
+my @refs;
+find-references(:$pod, :$origin, url => $origin.url, :@refs);
 
 my @names := ("url", " meta (multi)", "part", "nometa");
 my %urls = 
@@ -29,13 +31,13 @@ my %urls =
     "nometa"        => "/Type/test#index-entry-nometa";
 
 subtest {
-    for $doc.refs -> $ref { 
+    for @refs -> $ref { 
         is $ref.name ∈ @names, True, "$ref.name() detected";
     }
 }, "Reference detection";
 
 subtest {
-    for $doc.refs -> $ref { 
+    for @refs -> $ref { 
         is $ref.url, %urls{$ref.name()}, "$ref.name() url";
     }
 }, "URL handling";

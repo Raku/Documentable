@@ -1,5 +1,6 @@
 use v6;
 
+use Perl6::Documentable;
 use Perl6::Documentable::Registry;
 use Pod::Load;
 use Test;
@@ -56,7 +57,9 @@ subtest {
 #| Reads a pod, add it to a registry and returns the pod
 sub add-pod-to-registry($filename, $name, $kind) {
     my $pod = load($filename);
-    my $doc = $registry.add-new: pod => $pod, kind => $kind, name => $name;
+    my $doc = $registry.add-new(
+        Perl6::Documentable.new: pod => $pod, kind => $kind, name => $name
+    );
     # to test composing features
     $doc.defs = [Perl6::Documentable.new: name => "a$name", kind => $kind];
     return $doc;

@@ -1,6 +1,7 @@
 use v6;
 
 use Perl6::Documentable;
+use Perl6::Documentable::Processing;
 use Pod::Load;
 use Test;
 
@@ -20,39 +21,25 @@ my $doc = Perl6::Documentable.new(:kind("Type"),
 subtest {
     my @ignored = $pod.contents[3..13];
     for @ignored -> $heading {
-        is  ["False"], $doc.parse-definition-header(:heading($heading)), 
-            $heading.contents[0].contents[0].type ~ " format code ignored";
+        is so parse-definition-header(:heading($heading)), ["False"], 
+           $heading.contents[0].contents[0].type ~ " format code ignored";
     }
 }, "Formats code ignored except X";
 
 subtest { 
-    is ["p6doc"        , "INTRODUCTION", "True" ], $doc.parse-definition-header(:heading($pod.contents[15])), "Type 1 parsed";
-    is [""             , "p6doc"       , "True" ], $doc.parse-definition-header(:heading($pod.contents[17])), "Type 1.1 parsed";
-    is ["operator"     , "arrow"       , "False"], $doc.parse-definition-header(:heading($pod.contents[19])), "Type 2 parsed";
-    is ["declarator"   , "anon"        , "False"], $doc.parse-definition-header(:heading($pod.contents[21])), "Type 2.1 parsed";
-    is ["Block"        , "phasers"     , "False"], $doc.parse-definition-header(:heading($pod.contents[23])), "Type 3 parsed";
-    is ["postcircumfix", "( )"         , "False"], $doc.parse-definition-header(:heading($pod.contents[25])), "Type 3.1 parsed";
-    is ["trait"        , "is export"   , "False"], $doc.parse-definition-header(:heading($pod.contents[27])), "Type 4 parsed";
+    test-index($pod.contents[15], "INTRODUCTION", "p6doc"        , "p6doc"        );
+    test-index($pod.contents[17], "p6doc"     , ""             , ""             );
 }, "All definition types detected";
 
 
-subtest {
-    for <infix prefix postfix circumfix postcircumfix listop> {
-        test-index-classification($_, False, "operator", "routine");
-    }
-    for <sub method term routine trait submethod> {
-        test-index-classification($_, False, $_, "routine");
-    }
-    for <constant variable twigil declarator quote> {
-        test-index-classification($_, False, $_, "syntax");
-    }
-    test-index-classification("whatever", True, "whatever", "syntax");
-}, "All types of definitions classified correctly";
-
-sub test-index-classification($str, $unambiguous, $categories, $kind) {
-    my %attr = $doc.classify-index(:sk($str), :unambiguous($unambiguous));
-    is %attr<categories>, $categories, "$str classified correctly";    
-    is %attr<kind>, $kind            , "$str kind correct";
+sub test-index($heading, $name, $subkinds, $categories) {
+    my %attr = parse-definition-header(:$heading);
+    subtest {
+        is %attr<name>      , $name      , "name correct";
+        is %attr<kind>      , "syntax"   , "kind correct";
+        is %attr<subkinds>  , $subkinds  , "subkinds correct";
+        is %attr<categories>, $categories, "classified correctly";    
+    }, "$subkinds index";
 }
 
 done-testing;

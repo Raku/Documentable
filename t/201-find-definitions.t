@@ -1,6 +1,7 @@
 use v6;
 
 use Perl6::Documentable;
+use Perl6::Documentable::Processing;
 use Pod::Load;
 use Pod::Utilities;
 use Pod::Utilities::Build;
@@ -10,7 +11,7 @@ plan *;
 
 my $pod = load("t/pod-test-defs.pod6")[0];
 
-my $doc = Perl6::Documentable.new(:kind("Type"), 
+my $origin = Perl6::Documentable.new(:kind("Type"), 
                                   :$pod, 
                                   :name("testing"), 
                                   :url("/Type/test"),
@@ -19,17 +20,20 @@ my $doc = Perl6::Documentable.new(:kind("Type"),
                                   :subkinds("Type")
                                 );
 
-$doc.find-definitions();
 
 my @names      := ("ACCEPTS", "any", "mro", "root");
 my @subkinds   := ("method" , "sub"               );
 my @categories := ("method" , "sub"               );
 
+my @defs;
+
+find-definitions(:$pod, :$origin, :@defs);
+
 subtest {
-  is-deeply @names     , $doc.defs».name.sort, "Names detected";
-  is-deeply @subkinds  , $doc.defs».subkinds.tree(*.Slip, *.Slip).unique.sort, 
+  is-deeply @names     , @defs».name.sort, "Names detected";
+  is-deeply @subkinds  , @defs».subkinds.tree(*.Slip, *.Slip).unique.sort, 
   "Subkinds detected";
-  is-deeply @categories, $doc.defs».categories.tree(*.Slip, *.Slip).unique.sort,
+  is-deeply @categories, @defs».categories.tree(*.Slip, *.Slip).unique.sort,
   "Categories detected";
 }, "All definitions found";
 
@@ -38,14 +42,14 @@ subtest {
 # except for "method root" that is subparsed and its origin must point
 # to "method any"
 subtest {
-  my @defs = $doc.defs.grep({.name ne "root"});
-  for @defs -> $d {
-    is-deeply $doc, $d.origin, "Correct origin in $d.name()";
+  my @definitions = @defs.grep({.name ne "root"});
+  for @definitions -> $d {
+    is-deeply $origin, $d.origin, "Correct origin in $d.name()";
   }
 
-  my $rootmethod = get-def("root");
-  my $origin     = get-def("any");
-  is-deeply $rootmethod.origin, $origin, "Subparsing origin set";
+  my $root-method = get-def("root");
+  my $root-origin     = get-def("any");
+  is-deeply $root-method.origin, $root-origin, "Subparsing origin set";
 }, "Subparsing structure";
 
 # Correct scope detection is checked converting the entire pod of the 
@@ -65,7 +69,7 @@ subtest {
 
 #| returns a specific definition
 sub get-def($name) {
-  $doc.defs.grep({ .name eq $name }).first;
+  @defs.grep({ .name eq $name }).first;
 }
 
 sub test-scope($name, $str) {

@@ -2,14 +2,13 @@ use v6.c;
 
 use Perl6::Documentable;
 use Perl6::Utils;
+use Perl6::TypeGraph;
 use Pod::Load;
 use Pod::Utilities;
 use Pod::Utilities::Build;
-use Perl6::TypeGraph;
-use Pod::To::Cached;
 use URI::Escape;
 
-unit class Perl6::Documentable::Registry:ver<0.0.1>;
+unit class Perl6::Documentable::Registry;
 
 =begin pod
 
@@ -59,36 +58,20 @@ has $.tg;
 has %!routines-by-type;
 
 has $.pod-cache;
-has $.use-cache = False;
 has Bool $.verbose;
 
 # setup
 
-submethod BUILD (:$use-cache?, :$verbose?, :$topdir? = "doc") {
+submethod BUILD (:$verbose?) {
     $!verbose = $verbose || False;
     $!tg = Perl6::TypeGraph.new-from-file;
-    if ($use-cache) {
-        $!use-cache = True;
-        $!pod-cache = Pod::To::Cached.new(:source($topdir), :path(".pod-cache"), :$verbose);
-        $!pod-cache.update-cache;
-    }
+
 }
 
-method add-new(*%args) {
+method add-new($d) {
     die "Cannot add something to a composed registry" if $.composed;
-    @!documentables.append: my $d = Perl6::Documentable.new(|%args);
+    @!documentables.append: $d;
     $d;
-}
-
-method load($path) {
-    if ($!use-cache) {
-        # set path to Pod::To::Cached format
-        my $new-path = $path.subst(/doc\//, "")
-                       .subst(/\.pod6/, "").lc;
-        $!pod-cache.pod( $new-path )[0];
-    } else {
-        load($path)[0];
-    }
 }
 
 # consulting logic
@@ -132,51 +115,6 @@ method get-kinds() {
 # =================================================================================
 # processing logic
 # =================================================================================
-
-method process-pod-source(:$kind, :$pod, :$filename) {
-    my Str $link = $pod.config<link> // $filename;
-
-    # set proper name ($filename by default)
-    my $name = recurse-until-str(first-title($pod.contents)) || $filename;
-    $name = $name.split(/\s+/)[*-1] if $kind eq "type";
-    note "$filename does not have a =TITLE" unless $name;
-
-    # summary is obtained from =SUBTITLE
-    my $summary = recurse-until-str(first-subtitle($pod.contents)) || '';
-    note "$filename does not have a =SUBTITLE" unless $summary;
-
-    # type-graph sets the correct subkind and categories
-    my %type-info;
-    if $kind eq "type" {
-        if $!tg.types{$name} -> $type {
-            %type-info = :subkinds($type.packagetype), :categories($type.categories);
-        }
-        else {
-            %type-info = :subkinds<class>;
-        }
-    }
-
-    my $origin = self.add-new(
-        :$kind,
-        :$name,
-        :$pod,
-        :url("/$kind/$link"),
-        :$summary,
-        :pod-is-complete(True),
-        :subkinds($kind),
-        |%type-info
-    );
-
-    $origin.find-definitions();
-    $origin.find-references();
-
-    # Special handling for 5to6-perlfunc
-    if $link.contains('5to6-perlfunc') {
-      find-p5to6-functions(:$pod, :$origin, :url("/$kind/$link"));
-    }
-
-    return $origin;
-}
 
 method process-pod-dir(:$topdir, :$dir) {
     my @pod-sources = get-pod-names(:$topdir, :$dir);
@@ -353,21 +291,6 @@ method routine-subindex(:$category) {
 # search index logic
 # =================================================================================
 
-#| workaround for 5to6-perlfunc
-my %p5to6-functions;
-sub find-p5to6-functions(:$pod!, :$url, :$origin) {
-  if $pod ~~ Pod::Heading && $pod.level == 2  {
-      # Add =head2 function names to hash
-      my $func-name = ~$pod.contents[0].contents;
-      %p5to6-functions{$func-name} = 1;
-  }
-  elsif $pod.?contents {
-      for $pod.contents -> $sub-pod {
-          find-p5to6-functions(:pod($sub-pod), :$url, :$origin) if $sub-pod ~~ Pod::Block;
-      }
-  }
-}
-
 method generate-search-index() {
     sub escape(Str $s) {
         $s.trans([</ \\ ">] => [<\\/ \\\\ \\">]);
@@ -381,7 +304,16 @@ method generate-search-index() {
     }).flat;
 
     # Add p5to6 functions to JavaScript search index
-    @items.append: %p5to6-functions.keys.map( {
+    my %f; 
+    try {
+        find-p5to6-functions(
+            pod => load("doc/Language/5to6-perlfunc.pod6")[0],
+            functions => %f
+        );
+        CATCH {return @items; }
+    }
+    
+    @items.append: %f.keys.map( {
       my $url = "/language/5to6-perlfunc#" ~ $_.subst(' ', '_', :g);
         qq[[\{ category: "5to6-perlfunc", value: "{$_}", url: "{$url}" \}\n]]
     });

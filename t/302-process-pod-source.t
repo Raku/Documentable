@@ -1,24 +1,27 @@
 use v6;
 
-use Perl6::Documentable::Registry;
+use Perl6::Documentable::Processing;
 use Pod::Load;
 use Test;
 
 plan *;
 
-my $registry = Perl6::Documentable::Registry.new;
 
 my $pod = load("t/pod-test-defs.pod6").first;
 
-my $doc1 = $registry.process-pod-source(kind     => "test", 
-                             pod      => $pod  ,
-                             filename => "pod-test-defs");
+my $doc1 = process-pod-source( 
+    kind     => "test", 
+    pod      => $pod  ,
+    filename => "pod-test-defs"
+);
 
 $pod.config = link => "custom";
 
-my $doc2 = $registry.process-pod-source(kind     => "type", 
-                             pod      => $pod  ,
-                             filename => "pod-test-defs");
+my $doc2 = process-pod-source(
+    kind     => "type", 
+    pod      => $pod  ,
+    filename => "pod-test-defs"
+);
 
 subtest {
     is $doc1.name                 , "class Any"              , "Name";

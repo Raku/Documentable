@@ -5,10 +5,10 @@ use v6.c;
 use lib "lib";
 use File::Temp;
 use Perl6::Utils;
-use Perl6::Documentable::Registry;
+use Perl6::Documentable::Processing;
 use Perl6::Documentable::To::HTML;
 use Pod::Load;
-use Pod::Utilities::Build;
+use Perl6::TypeGraph;
 use Perl6::TypeGraph::Viz;
 use JSON::Fast;
 
@@ -45,15 +45,6 @@ sub MAIN (
     for <programs type language routine images syntax> {
         mkdir "html/$_" unless "html/$_".IO ~~ :e;
     }
-
-    #===================================================================
-    
-    $now = now;
-    DEBUG("Setting Perl6::Documentable::Registry...");
-    my $registry = Perl6::Documentable::Registry.new(use-cache => $cache,
-                                                    verbose   => $v
-                                                );
-    print-time("Setting up the registry", $now);    
     
     #===================================================================
     
@@ -62,9 +53,10 @@ sub MAIN (
         
         DEBUG("Writing type-graph representations...");
         my $viz = Perl6::TypeGraph::Viz.new;
+        my $tg   = Perl6::TypeGraph.new-from-file;
         $viz.write-type-graph-images(path       => "html/images", 
                                     force      => $f,
-                                    type-graph => $registry.tg);
+                                    type-graph => $tg);
         
         print-time("Typegraph representations", $now);
     }
@@ -73,12 +65,15 @@ sub MAIN (
     
     $now = now;
     DEBUG("Processing phase...");
-    for <Language Programs Type Native> {
-        $registry.process-pod-dir(:topdir($topdir), :dir($_));
-    }
+    my $registry = process-pod-collection(
+        :$cache,
+        :verbose($v),
+        :$topdir,
+        dirs => ["Language", "Type", "Programs", "Native"]
+    );
     $registry.compose;
     print-time("Processing pods", $now);
-    
+
     #===================================================================
     
     DEBUG("Writing html/index.html and html/404.html...");
