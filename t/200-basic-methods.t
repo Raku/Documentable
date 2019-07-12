@@ -22,15 +22,15 @@ my $doc3 = Perl6::Documentable.new(:kind("random"),
                                  );
 
 
-subtest {
+subtest "human-kind method" => {
     is $doc1.human-kind, "language documentation", "Language";
     is $doc2.human-kind, "type operator"         , "Operator";
     is $doc3.human-kind, "even and more"         , "No operator case";
-}, "human-kind method";
+}
 
-subtest {
+subtest "url method" => {
     is $doc2.url, "/language/operators#type_doc2", "Url case #1";
     is $doc1.url, "/language/testing", "Url case #2";
-}, "url method";
+}
 
 done-testing;

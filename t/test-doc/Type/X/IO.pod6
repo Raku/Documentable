@@ -1,8 +1,10 @@
 =begin pod
 
-=TITLE Debugging
+=TITLE role X::IO
 
-=SUBTITLE Modules and applications used to debug Perl 6 programs
+=SUBTITLE IO related error
+
+    role X::IO does X::OS {}
 
 All types of formatting codes. Only the indexing terms should be processed in 
 order to find definitions. The other ones are ignored.
@@ -29,35 +31,27 @@ order to find definitions. The other ones are ignored.
 
 =head2 U<Formatting::Different::X>
 
-All heads below should be parsed as possible definitions.
+All heads below should be parsed as possible definitions, but ignored afterwards.
 
 =head1 X<INTRODUCTION|p6doc>
 
-    Type 1
+    Unambiguous definition.
 
 =head1 X<p6doc>
 
-    Type 1 without meta info (this has to be indexed as category only)
+    Unambiguous definition without meta info (this has to be indexed as category only)
+
+All definitions below should be indexed as valid definitions, following => https://github.com/antoniogamiz/Perl6-Documentable.
 
 =head2 The arrow operator
-    
-    Type 2
 
 =head2 The C<anon> declarator
 
-    Type 2.1
-
 =head1 Block phasers
-
-    Type 3
 
 =head2 postcircumfix C«( )»
 
-    Type 3.1
-
 =head2 trait is export
-
-    Type 4
 
 =end pod
 

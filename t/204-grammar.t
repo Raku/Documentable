@@ -25,13 +25,13 @@ for <constant variable twigil declarator quote> {
 test-definition("trait", "is export", "routine", "trait", "trait", "trait is export");
 
 sub test-definition($infix, $name, $kind, $subkind, $category, $line) {
-    subtest {
+    subtest "$infix detection" => {
         my $g = parse-definition($line);
         is $g.dname    , $name    , "name detected";
         is $g.dkind    , $kind    , "kind detected";
         is $g.dsubkind , $subkind , "subkind detected";
         is $g.dcategory, $category, "category detected";
-    }, "$infix detection";
+    }
 }
 
 sub parse-definition($line) {

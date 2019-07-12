@@ -10,27 +10,27 @@ plan *;
 my $registry = process-pod-collection(
     :!cache,
     :!verbose,
-    :topdir("t/doc-replica"),
+    :topdir("t/test-doc"),
     :dirs(["Type", "Language", "Programs"])
 );
 
 $registry.compose;
 
-subtest {
+subtest "Main indexes" => {
     test-index("programs-index", &programs-index-html);
     test-index("type-index"    , &type-index-html    );
     test-index("language-index", &language-index-html);
     test-index("routine-index" , &routine-index-html );
-}, "Main indexes";
+}
 
-subtest {
+subtest "Subindexes" => {
     for <basic composite domain-specific exceptions> {
         test-index( "type-subindex", &type-subindex-html, $_);
     }
     for <sub method term operator trait submethod> {
         test-index( "routine-subindex", &routine-subindex-html, $_);
     }
-}, "Subindexes";
+}
 
 sub test-index($type, &to-html, $category?) {
     subtest {

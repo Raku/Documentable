@@ -2,15 +2,13 @@
 
 =TITLE class Any
 
-=SUBTITLE Thing/object
+=SUBTITLE any
 
     class Any is Mu {}
 
 =head1 Methods
 
 This heading should not be indexed!
-
-Some reference X<aa|aa>.
 
 =head2 method ACCEPTS
 
