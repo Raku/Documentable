@@ -1,0 +1,33 @@
+version: 2
+
+variables:
+  linux: &linux
+    machine: true
+  install-rakudo: &install-rakudo
+    run:
+      name: Build and install rakudo
+      command: |
+        git clone https://github.com/rakudo/rakudo.git $HOME/rakudo
+        cd $HOME/rakudo
+        perl Configure.pl --gen-moar --gen-nqp --make-install
+  test-documentable: &test-documentable
+    run:
+      name: Run tests
+      command: |
+        echo "Working!"
+
+jobs:
+  test-linux:
+    <<: *linux
+    environment:
+      PATH: /home/circleci/rakudo/install/share/perl6/site/bin:/home/circleci/rakudo/install/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    steps:
+      - checkout
+      - *install-rakudo
+      - *test-documentable
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test-linux
