@@ -10,11 +10,17 @@ variables:
         git clone https://github.com/rakudo/rakudo.git $HOME/rakudo
         cd $HOME/rakudo
         perl Configure.pl --gen-moar --gen-nqp --make-install
+  install-dependencies: &install-dependencies
+    run:
+      name: Install dependencies
+      command: |
+        ZEF_BUILD="/home/circleci/rakudo/install/share/perl6/site/bin"
+        git clone https://github.com/ugexe/zef.git && cd zef && perl6 -Ilib bin/zef install .
   test-documentable: &test-documentable
     run:
       name: Run tests
       command: |
-        echo "Working!"
+        zef install .
 
 jobs:
   test-linux:
@@ -24,6 +30,7 @@ jobs:
     steps:
       - checkout
       - *install-rakudo
+      - *install-dependencies
       - *test-documentable
 
 workflows:
