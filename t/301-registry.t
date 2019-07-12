@@ -9,8 +9,8 @@ plan *;
 
 my $registry = Perl6::Documentable::Registry.new;
 
-my $doc1 = add-pod-to-registry("t/pod-test-references.pod6", "p1", "test1");
-my $doc2 = add-pod-to-registry("t/pod-test-defs.pod6"      , "p2", "test2");
+my $doc1 = add-pod-to-registry("t/test-doc/Programs/02-reading-docs.pod6", "p1", "test1");
+my $doc2 = add-pod-to-registry("t/test-doc/Native/int.pod6"   , "p2", "test2");
 
 subtest {
     is-deeply $doc1, get-doc("p1"), "Pod 1 added";

@@ -7,19 +7,19 @@ plan *;
 
 # recursive dir
 
-my @dir-files = recursive-dir("t/recursive/");
+my @dir-files = recursive-dir("t/test-doc/Native/");
 
-my @result = ["t/recursive/processing.pod6"].IO;
+my @result = ["t/test-doc/Native/int.pod6"].IO;
 
 is-deeply @dir-files, @result, "Recursive dir";
 
 # get pod names
 
-my @pod-names = get-pod-names(topdir => "t",
-                              dir => "recursive");
+my @pod-names = get-pod-names(topdir => "t/test-doc",
+                              dir => "Native");
 
 my @expected = [
-        "processing" => "t/recursive/processing.pod6".IO,
+        "int" => "t/test-doc/Native/int.pod6".IO,
     ];
 
 is-deeply @pod-names.sort, @expected.sort, "Pod names";

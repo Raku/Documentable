@@ -10,7 +10,7 @@ plan *;
 my $registry = process-pod-collection(
     :!cache,
     :!verbose,
-    :topdir("t/doc-replica"),
+    :topdir("t/test-doc"),
     :dirs(["Type", "Language", "Programs"])
 );
 

@@ -2,34 +2,40 @@ use v6;
 
 use Perl6::Documentable;
 use Perl6::Documentable::Processing;
+use Pod::Utilities::Build;
 use Pod::Load;
 use Test;
 
 plan *;
 
-my $pod = load("t/pod-test.pod6")[0];
+subtest "Formats code ignored except X" => {
+    my @formatting-codes = <B C E I K LN P R T U>;
+    my @headings = @formatting-codes.map({
+        pod-heading(
+            Pod::FormattingCode.new(
+                type     => $_,
+                contents => ["heading"]
+            )
+        )
+    });
 
-my $doc = Perl6::Documentable.new(:kind("Type"), 
-                                  :$pod, 
-                                  :name("pod-test"), 
-                                  :url("/Type/test"),
-                                  :summary(""),
-                                  :pod-is-complete,
-                                  :subkinds("Type")
-                                );
-
-subtest {
-    my @ignored = $pod.contents[3..13];
-    for @ignored -> $heading {
+    for @headings -> $heading {
         is so parse-definition-header(:heading($heading)), ["False"], 
            $heading.contents[0].contents[0].type ~ " format code ignored";
     }
-}, "Formats code ignored except X";
+}
 
-subtest { 
-    test-index($pod.contents[15], "INTRODUCTION", "p6doc"        , "p6doc"        );
-    test-index($pod.contents[17], "p6doc"     , ""             , ""             );
-}, "All definition types detected";
+my $head = pod-heading(
+            Pod::FormattingCode.new(
+                type     => "X",
+                contents => ["INTRODUCTION"],
+                meta     => ["p6doc"]
+            )
+);
+
+subtest "Index X<> heading" => { 
+    test-index($head, "INTRODUCTION", "p6doc"        , "p6doc"        );
+}
 
 
 sub test-index($heading, $name, $subkinds, $categories) {

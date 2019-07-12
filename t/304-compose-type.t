@@ -9,19 +9,19 @@ plan *;
 my $registry = Perl6::Documentable::Registry.new;
 
 process-pod-dir(
-    topdir => "t", 
-    dir    => "type"
+    topdir => "t/test-doc",
+    dir    => "Type"
 ).map({$registry.add-new: $_});
 
 $registry.compose;
 
-subtest {
+subtest "Typegraph fragment" => {
     is-deeply $registry.typegraph-fragment("ejiff"),
               $registry.typegraph-fragment("fffff"),
               "Default svg image"; 
-}, "Typegraph fragment";
+}
 
-subtest {
+subtest "Composing types" => {
     my $associative = get-complete-doc("Associative");
     my $map         = get-complete-doc("Map");
     is-deeply $map.pod.contents[11].first,
@@ -38,8 +38,7 @@ subtest {
               get-definition($associative, "of").pod,
               "Routines by role done by a parent class";
 
-}, "Composing types";
-
+}
 
 #| Returns a specific documentable object from a registry
 sub get-complete-doc($name) {

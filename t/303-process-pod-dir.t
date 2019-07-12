@@ -6,18 +6,18 @@ use Test;
 
 plan *;
 
-my @documentables = process-pod-dir(:topdir("t"), :dir("recursive"));
+my @documentables = process-pod-dir(:topdir("t/test-doc"), :dir("Native"));
 
 my $expected = process-pod-source(
-    kind     => "recursive",
-    pod      => load("t/recursive/processing.pod6")[0],
-    filename => "processing"
+    kind     => "type",
+    pod      => load("t/test-doc/Native/int.pod6")[0],
+    filename => "int"
 );
 
-subtest {
-    for <name pod kind subkinds categories url pod-is-complete summary defs refs> {
+subtest "process pod dir" => {
+    for <name pod kind subkinds categories url pod-is-complete summary> {
         is-deeply @documentables[0]."$_"(), $expected."$_"(), "$_";
     }
-}, "process pod dir";
+}
 
 done-testing;

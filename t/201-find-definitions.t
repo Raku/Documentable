@@ -9,16 +9,17 @@ use Test;
 
 plan *;
 
-my $pod = load("t/pod-test-defs.pod6")[0];
+my $pod = load("t/test-doc/Native/int.pod6")[0];
 
-my $origin = Perl6::Documentable.new(:kind("Type"), 
-                                  :$pod, 
-                                  :name("testing"), 
-                                  :url("/Type/test"),
-                                  :summary(""),
-                                  :pod-is-complete,
-                                  :subkinds("Type")
-                                );
+my $origin = Perl6::Documentable.new(
+    :kind("type"), 
+    :$pod, 
+    :name("int"), 
+    :url("/Native/int"),
+    :summary("Native"),
+    :pod-is-complete,
+    :subkinds("class")
+);
 
 
 my @names      := ("ACCEPTS", "any", "mro", "root");
@@ -38,7 +39,7 @@ subtest {
 }, "All definitions found";
 
 
-# In pod-test-defs, all definitions origin must point to the pod source
+# In Native/int.pod6, all definitions origin must point to the pod source
 # except for "method root" that is subparsed and its origin must point
 # to "method any"
 subtest {
@@ -56,10 +57,10 @@ subtest {
 # definition to String and compare the result
 subtest {
     my @definitions = (
-       "ACCEPTS", "  (testing) method ACCEPTS This should be indexed!",
-       "any"    , "  (testing) method any This should be indexed and subparsing should be done!     method root Subparsing!",
+       "ACCEPTS", "  (int) method ACCEPTS This should be indexed!",
+       "any"    , "  (int) method any This should be indexed and subparsing should be done!     method root Subparsing!",
        "root"   , "  (any) method root Subparsing!",
-       "mro"    , "  (testing) routine mro At this point the last subparsing should have stopped. Defined as     multi sub    mro(*@list  --> Seq:D)"
+       "mro"    , "  (int) routine mro At this point the last subparsing should have stopped. Defined as     multi sub    mro(*@list  --> Seq:D)"
     );
     for @definitions -> $name, $str {
       test-scope($name, $str);

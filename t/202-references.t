@@ -9,7 +9,7 @@ use Test;
 
 plan *;
 
-my $pod = load("t/pod-test-references.pod6")[0];
+my $pod = load("t/test-doc/Programs/02-reading-docs.pod6")[0];
 
 my $origin = Perl6::Documentable.new(:kind("Type"), 
                                   :$pod, 
