@@ -24,18 +24,18 @@ my $doc2 = process-pod-source(
     filename => "int"
 );
 
-subtest {
+subtest "Basic attributes" => {
     is $doc2.name                 , "class int"              , "Name";
     is $doc1.name                 , "int"                    , "Name of a type";
     is $doc1.summary              , "Native"                 , "Summary as=SUBTITLE";
     is $doc1.pod-is-complete      , True                     , "Pod is complete";
     is $doc1.subkinds             , "class"                  , "Subkinds";
     is-deeply $doc1.pod           , $pod                     , "Pod";
-}, "Basic attributes";
+}
 
-subtest {
+subtest "Url setting" => {
     is $doc1.url, "/type/int", "Normal link";
     is $doc2.url, "/language/custom"       , "Link from config";
-}, "Url setting";
+}
 
 done-testing;

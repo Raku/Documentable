@@ -30,16 +30,16 @@ my %urls =
     "part"          => "/Type/test#index-entry-multi__meta-part-no_meta_part",
     "nometa"        => "/Type/test#index-entry-nometa";
 
-subtest {
+subtest "Reference detection" => {
     for @refs -> $ref { 
         is $ref.name ∈ @names, True, "$ref.name() detected";
     }
-}, "Reference detection";
+}
 
-subtest {
+subtest "URL handling" => {
     for @refs -> $ref { 
         is $ref.url, %urls{$ref.name()}, "$ref.name() url";
     }
-}, "URL handling";
+}
 
 done-testing;
