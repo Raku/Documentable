@@ -27,8 +27,16 @@ $ zef install Perl6::Documentable
 
 ## Usage
 
+Before generate any documents you should execute:
+
 ```
-bin/documentable [--topdir=<Str>] [-v|--verbose] [-c|--cache] [-p|--pods] [-s|--search-index]
+documentable setup
+```
+
+in order to download the necessary files to the site (CSS, svg, ...). Alternatively, you can add your own.
+
+```
+documentable [--topdir=<Str>] [-v|--verbose] [-c|--cache] [-p|--pods] [-s|--search-index]
                  [-i|--indexes] [-t|--type-images] [-f|--force] [-a|--all] [--highlight] [-k|--kind]
 ```
 
