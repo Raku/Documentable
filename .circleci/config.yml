@@ -26,7 +26,7 @@ variables:
         git clone https://github.com/antoniogamiz/mini-doc
         cd mini-doc
         documentable setup
-        documentable start --topdir=test-doc -v -a
+        documentable start --topdir=test-doc -v -p -s -k -i
 jobs:
   test-linux:
     <<: *linux
