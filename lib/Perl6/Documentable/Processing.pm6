@@ -223,13 +223,12 @@ sub find-references(:$pod, :$url, :$origin, :@refs) is export {
 
 #| Given a pod, creates as many references as possible.
 #| Remember X<aa|a,b,;c,d,> => meta: [[a,b],[c,d]]
-sub create-references(:$pod!, :$origin, :$url) {
+sub create-references(:$pod!, :$origin, :$url) is export {
     my @refs;
     if $pod.meta {
         for @( $pod.meta ) -> $meta {
             my $name;
             if $meta.elems > 1 {
-                #! we should use trim to avoid spaces problem
                 my $last = textify-guts $meta[*-1];
                 my $rest = $meta[0..*-2]».&textify-guts.join;
                 $name = "$last ($rest)";
@@ -243,7 +242,7 @@ sub create-references(:$pod!, :$origin, :$url) {
                                                 :$url,
                                                 :kind<reference>,
                                                 :subkinds['reference'],
-                                                :$name,
+                                                :name($name.trim),
                                                 );
         }
     }
@@ -254,7 +253,7 @@ sub create-references(:$pod!, :$origin, :$url) {
                                             :$url,
                                             :kind<reference>,
                                             :subkinds['reference'],
-                                            :name(textify-guts $name),
+                                            :name(textify-guts($name)),
                                             );
     }
     return @refs;
