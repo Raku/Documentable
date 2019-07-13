@@ -203,16 +203,18 @@ method typegraph-fragment($podname is copy) {
                    "resources/template/tg-fragment.html"        !! 
                    %?RESOURCES<template/head.html>;
     state $template = slurp $filename;
-    my $svg-path;
+    my $svg;
     if ("html/images/type-graph-$podname.svg".IO.e) {
-        $svg-path = "html/images/type-graph-$podname.svg";
+        $svg = svg-for-file(
+            slurp zef-path("html/images/type-graph-$podname.svg");
+        );
     } else {
-        $svg-path = "html/images/404.svg";
+        $svg = "<svg></svg>";
         $podname  = "404";
     }
     my $figure = $template.subst("PATH", $podname)
                           .subst("ESC_PATH", uri_escape($podname))
-                          .subst("SVG", svg-for-file($svg-path)); 
+                          .subst("SVG", $svg); 
     
     return [pod-heading("Type Graph"), 
             Pod::Raw.new: :target<html>, contents => [$figure]]

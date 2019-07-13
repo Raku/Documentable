@@ -51,15 +51,9 @@ my @menu = ('language', ''        ) => (),
            ('https://webchat.freenode.net/?channels=#perl6', 'Chat with us') => (); 
 
 # templates
-my $head-template-path   = "resources/template/head.html".IO.e   ?? 
-                           "resources/template/head.html"        !! 
-                           %?RESOURCES<template/head.html>;
-my $header-template-path = "resources/template/header.html".IO.e ?? 
-                           "resources/template/header.html"      !! 
-                           %?RESOURCES<template/header.html>;
-my $footer-template-path = "resources/template/footer.html".IO.e ?? 
-                           "resources/template/footer.html"      !! 
-                           %?RESOURCES<template/footer.html>;
+my $head-template-path   = zef-path("resources/template/head.html"  );
+my $header-template-path = zef-path("resources/template/header.html");
+my $footer-template-path = zef-path("resources/template/footer.html");
 
 #| Return the HTML header for every page
 sub header-html($current-selection, $pod-path) is export {
@@ -93,7 +87,7 @@ sub header-html($current-selection, $pod-path) is export {
       $edit-url = qq[
       <div align="right">
         <button title="Edit this page"  class="pencil" onclick="location='https://github.com/perl6/doc/edit/master/doc/$pod-path'">
-        {svg-for-file("html/images/pencil.svg")}
+        {svg-for-file(zef-path("html/images/pencil.svg"))}
         </button>
       </div>]
     }

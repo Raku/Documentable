@@ -128,6 +128,10 @@ sub rewrite-url($s) is export {
     return %cache{$s} = $r;
 }
 
+sub zef-path($filename) is export {
+    $filename.IO.e ?? $filename !! %?RESOURCES{$filename}
+}
+
 #| workaround for 5to6-perlfunc
 sub find-p5to6-functions(:$pod!, :%functions) is export {
   if $pod ~~ Pod::Heading && $pod.level == 2  {
