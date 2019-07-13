@@ -51,9 +51,9 @@ my @menu = ('language', ''        ) => (),
            ('https://webchat.freenode.net/?channels=#perl6', 'Chat with us') => (); 
 
 # templates
-my $head-template-path   = zef-path("resources/template/head.html"  );
-my $header-template-path = zef-path("resources/template/header.html");
-my $footer-template-path = zef-path("resources/template/footer.html");
+my $head-template-path   = zef-path("template/head.html"  );
+my $header-template-path = zef-path("template/header.html");
+my $footer-template-path = zef-path("template/footer.html");
 
 #| Return the HTML header for every page
 sub header-html($current-selection, $pod-path) is export {
@@ -91,7 +91,6 @@ sub header-html($current-selection, $pod-path) is export {
         </button>
       </div>]
     }
-
     $header.subst('MENU', $menu-items ~ $sub-menu-items)
             .subst('EDITURL', $edit-url)
             .subst: 'CONTENT_CLASS',
@@ -118,7 +117,7 @@ sub footer-html($pod-path) is export {
     $footer.subst-mutate(/SOURCEURL/, $pod-url);
     $footer.subst-mutate(/EDITURL/, $edit-url);
     
-    state $source-commit = qx/git rev-parse --short HEAD/.chomp unless !".git".IO.e;
+    state $source-commit = (qx/git rev-parse --short HEAD/.chomp unless !".git".IO.e) // '';
 
     $footer.subst-mutate(:g, /SOURCECOMMIT/, $source-commit);
 

@@ -206,7 +206,7 @@ method typegraph-fragment($podname is copy) {
     my $svg;
     if ("html/images/type-graph-$podname.svg".IO.e) {
         $svg = svg-for-file(
-            slurp zef-path("html/images/type-graph-$podname.svg");
+            zef-path("html/images/type-graph-$podname.svg")
         );
     } else {
         $svg = "<svg></svg>";
