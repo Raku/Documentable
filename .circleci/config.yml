@@ -24,9 +24,11 @@ variables:
 
         # test one build
         git clone https://github.com/antoniogamiz/mini-doc
+        zef install https://github.com/antoniogamiz/Perl6-LinkHealth.git
         cd mini-doc
         documentable setup
         documentable start --topdir=test-doc -v -p -s -k -i
+        linkhealth --doc-dir=html
 jobs:
   test-linux:
     <<: *linux
