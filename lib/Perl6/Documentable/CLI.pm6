@@ -1,4 +1,4 @@
-use v6.c;
+use v6;
 
 use File::Temp;
 use Perl6::Utils;
@@ -11,13 +11,19 @@ use JSON::Fast;
 
 
 package Perl6::Documentable::CLI {
+
+    sub RUN-MAIN(|c) is export {
+        my %*SUB-MAIN-OPTS = :named-anywhere;
+        CORE::<&RUN-MAIN>(|c)
+    }
+
     my %*POD2HTML-CALLBACKS;
 
-    proto MAIN(|) is export { {*} }
+    proto MAIN(|) is export { * }
 
     #| Downloads default assets to generate the site
     multi MAIN(
-        'setup'
+        "setup"
     ) {
         DEBUG("Setting up the directory...");
         shell q:to/END/;
@@ -30,20 +36,21 @@ package Perl6::Documentable::CLI {
         }
     }
 
+    #| Start the documentation generation with the specified options
     multi MAIN (
-        Str  :$topdir              = "doc",
-        Bool :v(:verbose($v))      = False,
-        Bool :c(:$cache)           = True ,
-        Bool :p(:pods($p))         = False,
-        Bool :k(:kind($k))         = False,
-        Bool :s(:search-index($s)) = False,
-        Bool :i(:indexes($i))      = False,
-        Bool :t(:type-images($t))  = False,
-        Bool :f(:force($f))        = False,
-        Bool :$highlight           = False,
-        Bool :a(:$all)             = False
+        "start"                           ,
+        Str  :$topdir              = "doc", #= Directory where is stored the pod collection
+        Bool :v(:verbose($v))      = False, #= Prints progress information
+        Bool :c(:$cache)           = True , #= Enables the use of a precompiled cache
+        Bool :p(:pods($p))         = False, #= Generates the HTML files corresponding to sources
+        Bool :k(:kind($k))         = False, #= Generates per kind files
+        Bool :s(:search-index($s)) = False, #= Generates the search index
+        Bool :i(:indexes($i))      = False, #= Generates the indexes files
+        Bool :t(:type-images($t))  = False, #= Write typegraph visualizations
+        Bool :f(:force($f))        = False, #= Force the regeneration of the typegraph visualizations
+        Bool :$highlight           = False, #= Highlights the code blocks
+        Bool :a(:$all)             = False  #= Equivalent to -t -p -k -i -s
     ) {
-
         if (!"./html".IO.e || !"./assets".IO.e) {
             say q:to/END/;
                 (error) html and/or assets directories cannot be found. You can 
@@ -94,8 +101,8 @@ package Perl6::Documentable::CLI {
         #===================================================================
         
         DEBUG("Writing html/index.html and html/404.html...", $v);
-        spurt 'html/index.html', p2h(load('doc/HomePage.pod6')[0], :pod-path('HomePage.pod6'));
-        spurt 'html/404.html', p2h(load('doc/404.pod6')[0], :pod-path('404.pod6'));
+        spurt 'html/index.html', p2h(load($topdir~'/HomePage.pod6')[0], :pod-path('HomePage.pod6'));
+        spurt 'html/404.html', p2h(load($topdir~'/404.pod6')[0], :pod-path('404.pod6'));
 
         #===================================================================
         
