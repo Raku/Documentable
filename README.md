@@ -38,7 +38,8 @@ in order to download the necessary files to the site (CSS, svg, ...). Alternativ
 ```
 documentable setup
 documentable start [--topdir=<Str>] [-v|--verbose] [-c|--cache] [-p|--pods] [-s|--search-index]
-                 [-i|--indexes] [-t|--type-images] [-f|--force] [-a|--all] [--highlight] [-k|--kind]
+                  [-i|--indexes] [-t|--type-images] [-f|--force] [-a|--all] [--highlight]
+                  [-k|--kind] [--manage]
 ```
 
 #### --topdir <Str>
@@ -82,6 +83,10 @@ If specified, code blocks will be highlighted using [atom-language-perl6](https:
 #### -k, --kind
 
 If specified, kind files will be written for `syntax` and `routine`.
+
+#### --manage
+
+Flag to sort the Language page in sections, as described in [language-order-control.json](resources/language-order-control.json).
 
 #### -a, --all
 

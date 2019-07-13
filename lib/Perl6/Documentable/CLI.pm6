@@ -49,6 +49,7 @@ package Perl6::Documentable::CLI {
         Bool :t(:type-images($t))  = False, #= Write typegraph visualizations
         Bool :f(:force($f))        = False, #= Force the regeneration of the typegraph visualizations
         Bool :$highlight           = False, #= Highlights the code blocks
+        Bool :$manage              = False, #= Sort Language page
         Bool :a(:$all)             = False  #= Equivalent to -t -p -k -i -s
     ) {
         if (!"./html".IO.e || !"./assets".IO.e) {
@@ -146,7 +147,7 @@ package Perl6::Documentable::CLI {
             spurt 'html/programs.html', programs-index-html($registry.programs-index);
 
             DEBUG("Writing html/language.html ...", $v);
-            spurt 'html/language.html', language-index-html($registry.language-index, True);
+            spurt 'html/language.html', language-index-html($registry.language-index, $manage);
 
             DEBUG("Writing html/type.html ...", $v);
             spurt 'html/type.html', type-index-html($registry.type-index);
