@@ -124,7 +124,7 @@ sub parse-definition-header(:$heading) is export {
 
 sub determine-subkinds($name, $origin-name, $code) {
     my Str @subkinds = $code\
-        .match(:g, /:s ^ 'multi'? (sub|method)»/)\
+        .match(:g, /:s (sub|method)»/)\
         .>>[0]>>.Str.unique;
 
     note "The subkinds of routine $name in $origin-name"
