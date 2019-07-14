@@ -1,7 +1,7 @@
 use v6.c;
 use Test;
 
-plan 8;
+plan 9;
 
 use Perl6::Utils;
 use Perl6::Documentable;
