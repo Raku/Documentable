@@ -2,6 +2,7 @@ use v6;
 
 use File::Temp;
 use Perl6::Utils;
+use Perl6::Documentable::Update;
 use Perl6::Documentable::Processing;
 use Perl6::Documentable::To::HTML;
 use Perl6::Documentable::To::HTML::Wrapper;
@@ -181,6 +182,33 @@ package Perl6::Documentable::CLI {
         }
 
     }
+
+    #| Check which pod files have changed and regenerate its HTML files.
+    multi MAIN (
+        "update",
+        :$topdir = "doc" #= Directory where is stored the pod collection
+    ) {
+        DEBUG("Checking for changes...");
+        my $program = "use Pod::To::Cached; Pod::To::Cached.new(:source('cache'), :verbose).update-cache;";
+        my $proc   = run("perl6", "-e", $program, :out, :err);
+        my @lines = $proc.err.slurp(:close).Str.split("\n");
+
+        if (+@lines > 4) {
+            # firsts and lasts two lines are useless output
+            @lines = @lines = @lines.Array[2, *-3].unique;
+            # format: Caching namefile
+            my @modified = @lines.map({.split(" ")[1]});
+            @modified = @modified.map({ .split("/")[*-1].tc });
+            
+            DEBUG(+@modified ~ " file(s) modified. Starting regeneratiion ...");
+
+            my $now = now;
+            update-pod-collection(:$topdir, :filenames(@modified));
+            print-time("Updating files", $now);
+        } else {
+            DEBUG("Everything already updated. There are no changes.")
+        }
+    }
 }
 
 
@@ -219,14 +247,4 @@ sub highlight-code-blocks {
         await $promise;
         $promise.result;
     }
-}  
-
-sub print-time($phase, $start) {
-    my $now = now;
-    say "\e[1;36m$phase has taken {$now-$start} seconds \e[0m";
-}
-
-# debug function
-sub DEBUG($msg, $v = True) {
-    say $msg if $v;
 }

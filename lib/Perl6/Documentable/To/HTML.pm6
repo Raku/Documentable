@@ -46,7 +46,7 @@ sub generate-kind-file($name, @docs, $kind) is export {
             .pod.list,
         })
     );
-    [$name, p2h($pod, $kind)];
+    return [$name, p2h($pod, $kind)];
 }
 
 sub generate-kind($registry, $kind) is export {
