@@ -266,6 +266,7 @@ sub configure-load-function(:$cache, :$topdir = "doc", :$verbose = True) {
     if ($cache) {
         use Pod::To::Cached;
         $pod-cache = Pod::To::Cached.new(:source($topdir), :path(".pod-cache"), :$verbose);
+        $pod-cache.update-cache;
         sub load-cached ($path) {
             # set path to Pod::To::Cached format
             my $new-path = $path.subst(/$topdir\//, "")
