@@ -2,7 +2,6 @@ use v6.c;
 
 use Perl6::Utils;
 use Pod::Utilities::Build;
-use Pod::To::HTML;
 use JSON::Fast;
 use Perl6::Documentable::To::HTML::Wrapper;
 
@@ -21,38 +20,41 @@ sub source-html($kind, $doc) is export {
 # per kind file logic
 # =================================================================================
 
-sub generate-kind-files($registry, $kind) is export {
+sub generate-kind-file($name, @docs, $kind) is export {
+    my @subkinds = @docs.map({slip .subkinds}).unique;
+    my $subkind = @subkinds == 1 ?? @subkinds[0] !! $kind;
+    my $pod = pod-with-title(
+        "$subkind $name",
+        pod-block("Documentation for $subkind ", pod-code($name), " assembled from the following types:"),
+        @docs.map({
+            pod-heading("{.origin.human-kind} {.origin.name}"),
+            pod-block("From ",
+                pod-link(.origin.name,
+                            .origin.url ~ '#' ~ (.subkinds~'_' if .subkinds ~~ /fix/) ~
+                            (
+                                if .subkinds ~~ /fix/ { '' }
+                                # It looks really weird, but in reality, it checks the pod content,
+                                # then extracts a link(e.g. '(Type) routine foo'), then this string
+                                # splits by space character and we take a correct category name.
+                                # It works with sub/method/term/routine/*fix types, so all our links
+                                # here are correct.
+                                else {
+                                    .pod[0].contents[0].contents.Str.split(' ')[1] ~ '_';
+                                }
+                            ) ~ .name.subst(' ', '_')),
+            ),
+            .pod.list,
+        })
+    );
+    [$name, p2h($pod, $kind)];
+}
+
+sub generate-kind($registry, $kind) is export {
     [
         $registry.lookup($kind, :by<kind>)
         .categorize({.name})
         .kv.map: -> $name, @docs {
-
-            my @subkinds = @docs.map({slip .subkinds}).unique;
-            my $subkind = @subkinds == 1 ?? @subkinds[0] !! $kind;
-            my $pod = pod-with-title(
-                "$subkind $name",
-                pod-block("Documentation for $subkind ", pod-code($name), " assembled from the following types:"),
-                @docs.map({
-                    pod-heading("{.origin.human-kind} {.origin.name}"),
-                    pod-block("From ",
-                        pod-link(.origin.name,
-                                 .origin.url ~ '#' ~ (.subkinds~'_' if .subkinds ~~ /fix/) ~
-                                  (
-                                      if .subkinds ~~ /fix/ { '' }
-                                      # It looks really weird, but in reality, it checks the pod content,
-                                      # then extracts a link(e.g. '(Type) routine foo'), then this string
-                                      # splits by space character and we take a correct category name.
-                                      # It works with sub/method/term/routine/*fix types, so all our links
-                                      # here are correct.
-                                      else {
-                                          .pod[0].contents[0].contents.Str.split(' ')[1] ~ '_';
-                                      }
-                                  ) ~ .name.subst(' ', '_')),
-                    ),
-                    .pod.list,
-                })
-            );
-            [$name, p2h($pod, $kind)];
+            generate-kind-file($name, @docs, $kind);
         }
     ]
 }
