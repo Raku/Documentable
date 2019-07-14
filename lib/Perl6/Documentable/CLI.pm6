@@ -4,6 +4,7 @@ use File::Temp;
 use Perl6::Utils;
 use Perl6::Documentable::Processing;
 use Perl6::Documentable::To::HTML;
+use Perl6::Documentable::To::HTML::Wrapper;
 use Pod::Load;
 use Perl6::TypeGraph;
 use Perl6::TypeGraph::Viz;
@@ -124,14 +125,14 @@ package Perl6::Documentable::CLI {
         if ($k || $all) {
             $now = now;
             DEBUG("Writing routine files...", $v);
-            generate-kind-files($registry,"routine").map({
+            generate-kind($registry,"routine").map({
             spurt "html/routine/{replace-badchars-with-goodnames .[0]}.html", .[1];
             });
             print-time("Writing routine files", $now);    
 
             $now = now;
             DEBUG("Writing syntax files...", $v);
-            generate-kind-files($registry,"syntax").map({
+            generate-kind($registry,"syntax").map({
             spurt "html/syntax/{replace-badchars-with-goodnames .[0]}.html", .[1];
             });
             print-time("Writing syntax files", $now);    
