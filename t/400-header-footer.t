@@ -1,6 +1,6 @@
 use v6.c;
 
-use Perl6::Documentable::To::HTML;
+use Perl6::Documentable::To::HTML::Wrapper;
 use Test;
 
 plan *;
