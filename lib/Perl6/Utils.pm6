@@ -145,3 +145,13 @@ sub find-p5to6-functions(:$pod!, :%functions) is export {
       }
   }
 }
+
+sub print-time($phase, $start) is export {
+    my $now = now;
+    say "\e[1;36m$phase has taken {$now-$start} seconds \e[0m";
+}
+
+# debug function
+sub DEBUG($msg, $v = True) is export {
+    say $msg if $v;
+}

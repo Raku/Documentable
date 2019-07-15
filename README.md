@@ -11,6 +11,7 @@ In this repository you can find all logic responsible of generate the [official 
   - [Consulting methods](#consulting-methods)
   - [Indexing methods](#indexing-methods)
 - [Perl6::Documentable::Processing](#perl6documentableprocessing)
+- [Perl6::Documentable::Update](#perl6documentableupdate)
 - [Perl6::Documentable::To::HTML::Wrapper](#perl6documentabletohtmlwrapper)
 - [Perl6::Documentable::To::HTML](#perl6documentabletohtml)
 - [Perl6::Utils](#perl6utils)
@@ -34,13 +35,19 @@ Before generate any documents you should execute:
 documentable setup
 ```
 
-in order to download the necessary files to the site (CSS, svg, ...). Alternatively, you can add your own.
+in order to download the necessary files to generate the site (CSS, svg, ...). Alternatively, you can add your own.
 
 ```
+# setup the working directory
 documentable setup
+
+# generate the documentation
 documentable start [--topdir=<Str>] [-v|--verbose] [-c|--cache] [-p|--pods] [-s|--search-index]
                   [-i|--indexes] [-t|--type-images] [-f|--force] [-a|--all] [--highlight]
                   [-k|--kind] [--manage]
+
+# update the documentation when a pod file has been modified
+documentable update [--topdir=<Str>]
 ```
 
 #### --topdir <Str>
@@ -837,6 +844,65 @@ Given the meta ["some", "reference"], the name would be: "reference (some)"
 That's done for every element in meta, that means, if meta has 2 elements, then 2 [Perl6::Documentable](#perl6documentable) objetcs will be added (you can specify several elements in a `X<>` using `;`).
 
 If there is no meta part, then the pod content is taken as name.
+
+## Perl6::Documentable::Update
+
+This module is responsible of updating the HTML documents of those files that have changed.
+
+#### sub update-pod-collection
+
+```perl6
+sub update-pod-collection (
+    Str        :$topdir,
+    Array[Str] :$filenames
+) return Mu
+```
+
+Updates all HTML documents in filenames using update-file.
+
+#### sub update-indexes
+
+```perl6
+sub update-indexes(
+    Array[Str]                      @kinds,
+    Perl6::Documentable::Registry   $registry
+) return Mu
+```
+
+Regenerates those indexes related to a given kinds.
+
+#### sub update-file
+
+```perl6
+sub update-file (
+    Str                           $filename,
+    Perl6::Documentable::Registry $registry
+) return Mu
+```
+
+Given the name of a modified file, regenerates and rewrite all HTML documents related/coming from this file.
+
+#### sub update-per-kind-files
+
+```perl6
+sub update-per-kind-files (
+    Str                 $kind,
+    Perl6::Documentable $doc,
+    Hash                %documentables
+) return Mu
+```
+
+Given a kind and a Perl6::Documentable object, regenerates and rewrites all files related to that kind, related to \$doc.
+
+#### sub update-registry
+
+```perl6
+sub update-registry (
+    Str :$topdir
+) return Perl6::Documentable::Registry
+```
+
+Reprocess the pod collection and returns an updated [Perl6::Documentable::Registry](#perl6documentableregistry) object.
 
 ## Perl6::Documentable::To::HTML::Wrapper
 

@@ -29,6 +29,10 @@ variables:
         documentable setup
         documentable start --topdir=test-doc -v -p -s -k -i
         linkhealth --doc-dir=html
+
+        # update option
+        echo "dd" >> test-doc/Type/Any.pod6
+        documentable update --topdir=test-doc
 jobs:
   test-linux:
     <<: *linux
