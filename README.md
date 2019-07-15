@@ -860,6 +860,17 @@ sub update-pod-collection (
 
 Updates all HTML documents in filenames using update-file.
 
+#### sub update-indexes
+
+```perl6
+sub update-indexes(
+    Array[Str]                      @kinds,
+    Perl6::Documentable::Registry   $registry
+) return Mu
+```
+
+Regenerates those indexes related to a given kinds.
+
 #### sub update-file
 
 ```perl6

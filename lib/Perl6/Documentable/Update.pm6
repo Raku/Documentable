@@ -10,7 +10,42 @@ use Perl6::Documentable::To::HTML;
 sub update-pod-collection(:$topdir, :$filenames) is export {
     my @filenames = $filenames ~~ Positional ?? @$filenames !! [$filenames];
     my $registry = update-registry(:$topdir);
-    @filenames.map({update-file($_, $registry)});
+    
+    my @kinds = @filenames.map({update-file($_, $registry)}).unique;
+    
+    update-indexes(@kinds, $registry);
+}
+
+#| Regenerates those indexes related to a given kinds.
+sub update-indexes(@kinds, $registry) {
+    spurt 'html/routine.html', routine-index-html($registry.routine-index);
+    for <sub method term operator trait submethod> -> $category {
+        DEBUG("Writing html/routine-$category.html ...");
+        spurt "html/routine-$category.html", 
+        routine-subindex-html($registry.routine-subindex(:$category), $category);        
+    }
+    for @kinds -> $kind {
+        given $kind {
+            when "type" {
+                DEBUG("Writing html/type.html ...");
+                spurt 'html/type.html', type-index-html($registry.type-index);
+                for <basic composite domain-specific exceptions> -> $category {
+                    DEBUG("Writing html/type-$category.html ...");
+                    spurt "html/type-$category.html", 
+                    type-subindex-html($registry.type-subindex(:$category), $category);        
+                }
+            }
+            when "language" {
+                DEBUG("Writing html/language.html ...");
+                spurt 'html/language.html', language-index-html($registry.language-index, True);
+
+            }
+            when "programs" {
+                DEBUG("Writing html/programs.html ...");
+                spurt 'html/programs.html', programs-index-html($registry.programs-index);
+            }
+        }
+    }
 }
 
 #| Given the name of a modified file, regenerates and rewrite all HTML documents
@@ -32,7 +67,10 @@ sub update-file($filename, $registry) {
     # syntax files
     update-per-kind-files("syntax", $doc, %syntax-docs);
     # routine files
-    update-per-kind-files("routine", $doc, %routine-docs);
+    update-per-kind-files("routine", $doc, %routine-docs);    
+
+    # used by update-pod-collection to regenerate the indexes
+    return $doc.kind; 
 }
 
 #| Given a kind and a Perl6::Documentable object, regenerates and rewrites
