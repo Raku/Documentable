@@ -250,7 +250,7 @@ See [find-references](#sub-find-references) for more information.
 #### method human-kind
 
 ```perl6
-method human-kind (
+method human-kind(
 ) return Str
 ```
 
@@ -276,7 +276,7 @@ english-list(@a) # OUTPUT: a, b and c
 #### method url
 
 ```perl6
-method url (
+method url(
 ) return Str
 ```
 
@@ -285,7 +285,7 @@ Work in progress :D.
 #### method categories
 
 ```perl6
-method categories (
+method categories(
 ) return Array
 ```
 
@@ -294,7 +294,7 @@ Returns `@.categories`. If `@.categories` it's not defined, sets `@.categories` 
 #### method get-documentables
 
 ```perl6
-method get-documentables (
+method get-documentables(
 ) returns Array
 ```
 
@@ -360,7 +360,7 @@ Useful information will be printed if set to `True` (`False` by default).
 #### submethod BUILD
 
 ```perl6
-submethod BUILD (
+submethod BUILD(
     Bool :$verbose?,
 ) returns Perl6::Documentable::Registry
 ```
@@ -387,7 +387,7 @@ Example:
 use Perl6::Documentble::Processing;
 use Pod::Load;
 
-my $doc = processing-pod-source (
+my $doc = processing-pod-source(
     pod      => load("pod.pod6"),
     origin   => Perl6::Documentable.new,
     filename => "pod"
@@ -400,7 +400,7 @@ $registry.add-new: $doc;
 #### method compose
 
 ```perl6
-method compose (
+method compose(
 ) return Boolean;
 ```
 
@@ -414,7 +414,7 @@ This methods does several things:
 ```perl6
 use Perl6::Documentable::Processing;
 
-my $registry = process-pod-collectiion(
+my $registry = process-pod-collection(
     :cache,
     :verbose,
     :topdir("doc"),
@@ -432,7 +432,7 @@ say $registry.documentables;
 #### method compose-type
 
 ```perl6
-method compose-type (
+method compose-type(
     Perl6::Documentable $doc
 ) return Mu;
 ```
@@ -450,7 +450,7 @@ Otherwise, three things will be added in this order:
 #### method typegraph-fragment
 
 ```perl6
-method typegraph-fragment (
+method typegraph-fragment(
     Str $podname
 ) return Array[Pod::Block];
 ```
@@ -516,7 +516,7 @@ All `*-index` methods are used to generate the main index in the doc site ([Lang
 #### method programs-index
 
 ```perl6
-method programs-index (
+method programs-index(
 ) return Array[Hash];
 ```
 
@@ -536,7 +536,7 @@ Note: `...` means that is the attribute of the [Perl6::Documentable](#perl6docum
 #### method language-index
 
 ```perl6
-method language-index (
+method language-index(
 ) return Array[Hash];
 ```
 
@@ -556,7 +556,7 @@ Note: `...` it means that is the attribute of the Documentable.
 #### method type-index
 
 ```perl6
-method type-index (
+method type-index(
 ) return Array[Hash];
 ```
 
@@ -577,7 +577,7 @@ Note: `...` means that is the attribute of the Documentable.
 #### method type-subindex
 
 ```perl6
-method type-subindex (
+method type-subindex(
   Str :$category
 ) return Array[Hash];
 ```
@@ -587,7 +587,7 @@ Same as `type-index` but you can filter by `$category`. You can pass one of the 
 #### method routine-index
 
 ```perl6
-method routine-index (
+method routine-index(
 ) return Array;
 ```
 
@@ -609,7 +609,7 @@ Note: `...` means that is the attribute of the Documentable.
 #### method routine-subindex
 
 ```perl6
-method routine-subindex (
+method routine-subindex(
   Str :$category
 ) return Array[Hash];
 ```
@@ -619,7 +619,7 @@ Same as `routine-index` but you can filter by `$category`. You can pass one of t
 #### method generate-search-index
 
 ```perl6
-method generate-search-index (
+method generate-search-index(
 ) return Array[Str];
 ```
 
@@ -636,7 +636,7 @@ This is the module where all processing happens. It takes a pod collection and r
 #### sub process-pod-collection
 
 ```perl6
-sub process-pod-collection (
+sub process-pod-collection(
     Bool       :$cache,
     Bool       :$verbose,
     Str        :$topdir,
@@ -651,7 +651,7 @@ If `:$cache` is `True`, pods will be extracted from a cache, if possible.
 Example:
 
 ```perl6
-my $registry = process-pod-collection (
+my $registry = process-pod-collection(
     cache => True,
     verbose => True,
     topdir => "doc",
@@ -662,7 +662,7 @@ my $registry = process-pod-collection (
 #### sub process-pod-dir
 
 ```perl6
-sub process-pod-dir (
+sub process-pod-dir(
     Str  :$topdir,
     Str  :$dir,
     Sub  :&load = configure-load-function(:!cache),
@@ -677,13 +677,13 @@ It returns an array containing all [Perl6::Documentable] objects (one per file) 
 Example:
 
 ```perl6
-my @documentables = process-pod-dir (
+my @documentables = process-pod-dir(
     topdir  => "doc",
     dir     => "Type",
     verbose => False # no output
 ); # without cache
 
-my @documentables = process-pod-dir (
+my @documentables = process-pod-dir(
     topdir  => "doc",
     load    => configure-load-function(:cache),
     dir     => "Type",
@@ -694,7 +694,7 @@ my @documentables = process-pod-dir (
 #### sub process-pod-source
 
 ```perl6
-sub process-pod-source (
+sub process-pod-source(
     Str        :$kind,
     Pod::Named :$pod,
     Str        :$filename
@@ -715,7 +715,7 @@ How it is initialized?
 #### sub parse-definition-header
 
 ```perl6
-sub parse-definition-header (
+sub parse-definition-header(
     Pod::Heading :$heading
 ) return Hash
 ```
@@ -754,7 +754,7 @@ First two types are parsed by [Perl6::Documentable::Processing::Grammar](lib/Per
 #### sub determine-subkinds
 
 ```perl6
-sub determine-subkinds (
+sub determine-subkinds(
     Str $name,
     Str $origin-name,
     Str $code
@@ -768,7 +768,7 @@ This is necessary because some functions are declared with several signatures.
 #### sub find-definitions
 
 ```perl6
-sub find-definitions (
+sub find-definitions(
     Array                      :$pod,
     Perl6::Documentable        :$origin,
     Int                        :$min-level = -1,
@@ -807,7 +807,7 @@ say @documentables;
 #### sub find-references
 
 ```perl6
-sub find-references (
+sub find-references(
     Array                      :$pod,
     Str                        :$url,
     Perl6::Documentable        :$origin,
@@ -826,7 +826,7 @@ $url ~ '#' ~ index-entry-$pod.meta-$index-text
 #### sub create-references
 
 ```perl6
-sub create-references (
+sub create-references(
     Pod::FormatingCode  :$pod,
     Perl6::Documentable :$origin,
     Str                 :$url
@@ -852,7 +852,7 @@ This module is responsible of updating the HTML documents of those files that ha
 #### sub update-pod-collection
 
 ```perl6
-sub update-pod-collection (
+sub update-pod-collection(
     Str        :$topdir,
     Array[Str] :$filenames
 ) return Mu
@@ -874,7 +874,7 @@ Regenerates those indexes related to a given kinds.
 #### sub update-file
 
 ```perl6
-sub update-file (
+sub update-file(
     Str                           $filename,
     Perl6::Documentable::Registry $registry
 ) return Mu
@@ -885,7 +885,7 @@ Given the name of a modified file, regenerates and rewrite all HTML documents re
 #### sub update-per-kind-files
 
 ```perl6
-sub update-per-kind-files (
+sub update-per-kind-files(
     Str                 $kind,
     Perl6::Documentable $doc,
     Hash                %documentables
@@ -897,7 +897,7 @@ Given a kind and a Perl6::Documentable object, regenerates and rewrites all file
 #### sub update-registry
 
 ```perl6
-sub update-registry (
+sub update-registry(
     Str :$topdir
 ) return Perl6::Documentable::Registry
 ```
@@ -911,7 +911,7 @@ This module takes a pod and wrap it in our HTML template, adding a header and a 
 #### sub header-html
 
 ```perl6
-sub header-html (
+sub header-html(
     Str $current-selection,
     Str $pod-path
 ) return Str;
@@ -924,7 +924,7 @@ Returns the HTML header for every page. `$current-selection` has to be set to on
 #### sub footer-html
 
 ```perl6
-sub footer-html (
+sub footer-html(
     Str $pod-path
 ) return Str;
 ```
@@ -948,7 +948,7 @@ Takes a pod a return its HTML page. `$selection` is an element from `@menu`, it 
 #### sub \*-index-html
 
 ```perl6
-sub *-index-html (
+sub *-index-html(
     Array[Hash] @index
 ) return Str
 ```
@@ -958,7 +958,7 @@ Takes the index generated the [Perl6::Documentable::Registry](#perl6documentable
 Notes: in `language-index-html` you have and additional parameter:
 
 ```perl6
-sub *-index-html (
+sub *-index-html(
     Array[Hash] @index,
     Bool        $manage = False
 ) return Str
@@ -996,7 +996,7 @@ Some auxiliar functions to ease the job.
 #### sub recursive-dir
 
 ```perl6
-sub recursive-dir (
+sub recursive-dir(
     Str :$dir
 ) return Array;
 ```
@@ -1006,7 +1006,7 @@ This function returns a List of IO objects. Each IO object is one file in `$dir`
 #### sub get-pod-names
 
 ```perl6
-sub get-pod-names (
+sub get-pod-names(
     Str :$topdir
     Str :$dir
 ) return Array;
@@ -1025,7 +1025,7 @@ The sorted pairs (regardless of how they are sorted) must consist of:
 #### sub pod-path-from-url
 
 ```perl6
-sub pod-path-from-url (
+sub pod-path-from-url(
     Str $url
 ) return Str;
 ```
@@ -1035,7 +1035,7 @@ Determine the path to source POD from the POD object's url attribute.
 #### sub svg-for-file
 
 ```perl6
-sub svg-for-file (
+sub svg-for-file(
     Str $file
 ) return Str;
 ```
