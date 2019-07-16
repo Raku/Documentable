@@ -28,7 +28,7 @@ variables:
         cd mini-doc
         documentable setup
         documentable start --topdir=test-doc -v -p -s -k -i
-        linkhealth --doc-dir=html
+        linkhealth --html-dir=html
 
         # update option
         echo "dd" >> test-doc/Type/Any.pod6

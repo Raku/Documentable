@@ -209,6 +209,18 @@ package Perl6::Documentable::CLI {
             DEBUG("Everything already updated. There are no changes.")
         }
     }
+
+    #| Delete files created by "documentable setup"
+    multi MAIN (
+        "clean"
+    ) {
+        DEBUG("Cleaning up the directory...");
+        shell q:to/END/;
+            rm -rf html && rm -rf assets && rm -rf highlights \
+            && rm app.pl && rm app-start
+        END
+
+    }
 }
 
 
