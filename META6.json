@@ -45,7 +45,7 @@
   "test-depends": [
     "Test::META",
     "Pod::Utilities",
-    "Perl6::TypeGraph",
+    "Perl6::TypeGraph:ver<0.0.3>",
     "Pod::To::HTML:ver<0.6.1+>",
     "Pod::To::Cached",
     "URI::Escape"
