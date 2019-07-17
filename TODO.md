@@ -16,4 +16,38 @@
 
 * $pod-cache is a package lexical. It should be part of a class. global variables → action at a distance → bad
 
-* Improve synopsis for all modules. 
+* Improve synopsis for all modules.
+
+* Grammars are classes, need to be documented and tested too.
+
+* name and compose-name should maybe use a better token, like for instance perl6 identifier. (also better composite-name or something like that)
+
+* def1 is capturing the (t|t)
+
+* Maybe def1,def2,def3 should be called something different.
+
+* Not clear syntax is exhaustive. For instance, "do" as a prefix and other statement prefixes are not in the "language" area.
+
+* Also, Perl6::Documentable::Processing::Grammar is less than awesome (LTA). Pod::Documentable::Heading::Grammar maybe, or PodUnit Grammar, or something like that.
+
+* Update should probably not be a class, and again, this should actually just be part of a Pod::Documentable. $topdir is what we are hauling back and forth, and also the registry. So maybe this should be part of a Perl6::Documentable::Collection class.
+
+* Maybe we should parallelize writing files? They are independent of each other, we might get a small improvement...
+
+* Remember to set the authorship documentation of every section correctly.
+
+* compose-type is too long, and should probably be split in several subroutines.
+
+* is type-graph cached?
+
+* Did you take something from Pod::Htmlify?
+
+* All text that mentions Perl 6 and somesuch should probably be left to specific modules for the documentation. If we keep it that way, it can't be too generic.
+
+* The wrapper also needs git, because it calls it. I'm not sure that's specified anywhere, and it might also too specific. Wrapper should go, probably.
+
+* CLI uses also wget. This might not work for Windows; or tar or anything. Not clear what those assets are, also? If it's run from the actual documentation dir, they might want to have their own assets... 
+
+* Do you need to run Pod::To::Cached as an external program? You can capture output of anything (or request specific functionality)
+
+* rm -rf is very dangerous. There might be production-only stuff in html. Keep track of what you've created, and delete only that.
