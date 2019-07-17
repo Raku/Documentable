@@ -27,9 +27,9 @@ use Perl6::Documentable;
 =head1 DESCRIPTION
 
 Perl6::Documentable Represents a piece of Perl 6 that is documented.
-It contains meta data about what is documented
-(for example (kind => 'type', subkinds => ['class'], name => 'Code')
-and in $.pod a reference to the actual documentation.
+It contains metadata about what is documented
+(for example C<(kind => 'type', subkinds => ['class'], name => 'Code')>, 
+and  a reference to the actual documentation in C<$.pod>.
 
 =head1 AUTHOR
 
