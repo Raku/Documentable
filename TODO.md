@@ -15,3 +15,5 @@
 * find-references and create references should better be spun off to a new module so that they can be properly defined and tested. Probably change the ifs to multiple dispatch instead, much clearer that way.
 
 * $pod-cache is a package lexical. It should be part of a class. global variables → action at a distance → bad
+
+* Improve synopsis for all modules. 
