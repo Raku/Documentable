@@ -1,0 +1,17 @@
+=begin pod :tag<perl6>
+
+=TITLE Operators
+
+=SUBTITLE operators
+
+=head1 Operator precedence
+
+In an expression like C<1 + 2 * 3>, the C<2 * 3> is evaluated first.
+
+=head1 Metaoperators
+
+Metaoperators can be parameterized with other operators or subroutines.
+
+=end pod
+
+# vim: expandtab softtabstop=4 shiftwidth=4 ft=perl6

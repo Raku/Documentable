@@ -1,0 +1,58 @@
+=begin pod
+
+=TITLE role X::IO
+
+=SUBTITLE IO related error
+
+    role X::IO does X::OS {}
+
+All types of formatting codes. Only the indexing terms should be processed in 
+order to find definitions. The other ones are ignored.
+
+=head2 B<Formatting::Different::X>
+
+=head2 C<Formatting::Different::X>
+
+=head2 E<12345>
+
+=head2 I<Formatting::Different::X>
+
+=head2 K<Formatting::Different::X>
+
+=head2 L<Formatting::Different::X>
+
+=head2 N<Formatting::Different::X>
+
+=head2 P<Formatting::Different::X>
+
+=head2 R<Formatting::Different::X>
+
+=head2 T<Formatting::Different::X>
+
+=head2 U<Formatting::Different::X>
+
+All heads below should be parsed as possible definitions, but ignored afterwards.
+
+=head1 X<INTRODUCTION|p6doc>
+
+    Unambiguous definition.
+
+=head1 X<p6doc>
+
+    Unambiguous definition without meta info (this has to be indexed as category only)
+
+All definitions below should be indexed as valid definitions, following => https://github.com/antoniogamiz/Perl6-Documentable.
+
+=head2 The arrow operator
+
+=head2 The C<anon> declarator
+
+=head1 Block phasers
+
+=head2 postcircumfix C«( )»
+
+=head2 trait is export
+
+=end pod
+
+# vim: expandtab softtabstop=4 shiftwidth=4 ft=perl6
