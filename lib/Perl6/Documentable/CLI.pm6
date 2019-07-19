@@ -194,8 +194,8 @@ package Perl6::Documentable::CLI {
         my @lines = $proc.err.slurp(:close).Str.split("\n");
 
         if (+@lines > 4) {
-            # firsts and lasts two lines are useless output
-            @lines = @lines = @lines.Array[2, *-3].unique;
+            # first and last two lines are useless output
+            @lines = @lines.Array[2, *-3].unique;
             # format: Caching namefile
             my @modified = @lines.map({.split(" ")[1]});
             @modified = @modified.map({ .split("/")[*-1].tc });
