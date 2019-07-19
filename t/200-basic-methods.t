@@ -5,21 +5,34 @@ use Test;
 
 plan *;
 
-my $doc1 = Perl6::Documentable.new(:kind("language"), 
-                                  :name("testing"), 
-                                  :subkinds("type")
-                                );
+=begin pod
 
-my $doc2 = Perl6::Documentable.new(:kind("operator"),
-                                   :name("doc2"),
-                                   :categories("operator")
-                                   :subkinds("type")
-                                 );
+Some pod
 
-my $doc3 = Perl6::Documentable.new(:kind("random"), 
-                                   :categories("nooperator")
-                                   :subkinds(["even", "more"])
-                                 );
+=end pod
+
+my $doc1 = Perl6::Documentable.new(
+  :pod($=pod[0]),
+  :kind("language"),
+  :name("testing"),
+  :subkinds("type")
+);
+
+my $doc2 = Perl6::Documentable.new(
+  :pod($=pod[0]),
+  :kind("operator"),
+  :name("doc1"),
+  :categories("operator")
+  :subkinds("type")
+);
+
+my $doc3 = Perl6::Documentable.new(
+  :pod($=pod[0]),
+  :kind("random"),
+  :name("doc2")
+  :categories("nooperator")
+  :subkinds(["even", "more"])
+);
 
 
 subtest "human-kind method" => {
@@ -29,7 +42,7 @@ subtest "human-kind method" => {
 }
 
 subtest "url method" => {
-    is $doc2.url, "/language/operators#type_doc2", "Url case #1";
+    is $doc2.url, "/language/operators#type_doc1", "Url case #1";
     is $doc1.url, "/language/testing", "Url case #2";
 }
 

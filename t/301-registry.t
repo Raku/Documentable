@@ -28,7 +28,7 @@ my @expected := (
 
 subtest "Composing" => {
     is $registry.composed, True, "Composed set to True";
-    is-deeply $registry.documentables.sort({.name})>>.name, 
+    is-deeply $registry.documentables.sort({.name})>>.name,
     @expected, "Composing docs";
 }
 
@@ -61,7 +61,12 @@ sub add-pod-to-registry($filename, $name, $kind) {
         Perl6::Documentable.new: pod => $pod, kind => $kind, name => $name
     );
     # to test composing features
-    $doc.defs = [Perl6::Documentable.new: name => "a$name", kind => $kind];
+    $doc.defs = [
+        Perl6::Documentable.new(
+            name => "a$name",
+            kind => $kind,
+            pod  => []
+        )];
     return $doc;
 }
 

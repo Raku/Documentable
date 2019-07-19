@@ -9,6 +9,7 @@ use URI::Escape;
 use Perl6::Documentable::Processing::Grammar;
 use Perl6::Documentable::Processing::Actions;
 
+use Perl6::Documentable::LogTimelineSchema;
 
 =begin pod
 
@@ -28,7 +29,7 @@ use Perl6::Documentable;
 
 Perl6::Documentable Represents a piece of Perl 6 that is documented.
 It contains metadata about what is documented
-(for example C<(kind => 'type', subkinds => ['class'], name => 'Code')>, 
+(for example C<(kind => 'type', subkinds => ['class'], name => 'Code')>,
 and  a reference to the actual documentation in C<$.pod>.
 
 =head1 AUTHOR
@@ -67,8 +68,20 @@ has @.defs;
 has @.refs;
 
 # Remove itemization from incoming arrays
-method new (:$categories = [], :$subkinds = [], *%_) {
-    nextwith |%_, :categories($categories.list), :subkinds($subkinds.list);
+method new (
+    Str :$name!,
+        :$categories = [],
+        :$subkinds   = [],
+        :$pod!,
+        *%_
+) {
+    return self.bless(
+                :$pod,
+                :$name,
+                :categories($categories.list),
+                :subkinds($subkinds.list),
+                |%_
+            );
 }
 
 my sub english-list (*@l) {
