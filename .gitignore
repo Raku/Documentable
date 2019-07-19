@@ -77,4 +77,6 @@ highlights/*
 package-lock.json
 *.epub
 .vscode
-
+app.pl
+app-start
+Makefile
