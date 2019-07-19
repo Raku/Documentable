@@ -29,7 +29,7 @@ package Perl6::Documentable::CLI {
     ) {
         DEBUG("Setting up the directory...");
         shell q:to/END/;
-            wget https://github.com/antoniogamiz/Perl6-Documentable/releases/download/v1.0.0/assets.tar.gz \
+            wget https://github.com/antoniogamiz/Perl6-Documentable/releases/download/v1.1.2/assets.tar.gz \
             && tar xvzf assets.tar.gz && mv assets tmp && cp -a tmp/* . \
             && rm assets.tar.gz && rm -rf tmp
         END
@@ -217,7 +217,8 @@ package Perl6::Documentable::CLI {
         DEBUG("Cleaning up the directory...");
         shell q:to/END/;
             rm -rf html && rm -rf assets && rm -rf highlights \
-            && rm app.pl && rm app-start
+            && rm app.pl && rm app-start && rm Makefile \
+            && rm -rf template
         END
 
     }
