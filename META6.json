@@ -14,7 +14,8 @@
     "Pod::Utilities",
     "Pod::Utilities::Build",
     "URI::Escape",
-    "File::Temp"
+    "File::Temp",
+    "Log::Timeline:ver<0.3>"
   ],
   "description": "Represents a piece of Perl 6 that is documented.",
   "license": "Artistic-2.0",
@@ -22,6 +23,7 @@
   "perl": "6.c",
   "provides": {
     "Perl6::Documentable": "lib/Perl6/Documentable.pm6",
+    "Perl6::Documentable::LogTimelineSchema": "lib/Perl6/Documentable/LogTimelineSchema.pm6",
     "Perl6::Documentable::CLI": "lib/Perl6/Documentable/CLI.pm6",
     "Perl6::Documentable::Update": "lib/Perl6/Documentable/Update.pm6",
     "Perl6::Documentable::Registry": "lib/Perl6/Documentable/Registry.pm6",

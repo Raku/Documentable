@@ -12,6 +12,7 @@ use Perl6::Documentable::Registry;
 use Perl6::Documentable::Processing::Grammar;
 use Perl6::Documentable::Processing::Actions;
 
+
 sub process-pod-collection(:$cache, :$verbose, :$topdir, :@dirs) is export {
     my &load = configure-load-function(:$cache, :$topdir, :$verbose);
 
