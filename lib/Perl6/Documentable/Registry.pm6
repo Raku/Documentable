@@ -14,50 +14,10 @@ use Perl6::Documentable::LogTimelineSchema;
 
 unit class Perl6::Documentable::Registry;
 
-=begin pod
-
-=head1 NAME
-
-Perl6::Documentable::Registry
-
-=head1 SYNOPSIS
-
-=begin code :lang<perl6>
-
-use Perl6::Documentable::Registry;
-
-=end code
-
-=head1 DESCRIPTION
-
-Perl6::Documentable::Registry collects pieces of Perl 6 documentation
-in the form of Perl6::Documentable objects, and enables
-lookups of these pieces of documentation.
-
-The general usage pattern is:
-
-* create an instance with .new();
-* add lots of documentation sections with `add-new`
-* call .compose
-* query the registry with .lookup, .get-kinds and .grouped-by
-
-=head1 AUTHOR
-
-Antonio <antoniogamiz10@gmail.com>
-
-=head1 COPYRIGHT AND LICENSE
-
-Copyright 2019 Antonio
-
-This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
-
-=end pod
-
 has                  @.documentables;
 has                  @.definitions;
 has Bool             $.composed;
 has                  %!cache;
-has                  %!grouped-by;
 has Perl6::TypeGraph $.tg;
 has                  %!routines-by-type;
 
@@ -147,11 +107,6 @@ method compose() {
     }
 
     $!composed = True;
-}
-
-method grouped-by(Str $what) {
-    die "You need to compose this registry first" unless $.composed;
-    %!grouped-by{$what} ||= @!documentables.classify(*."$what"());
 }
 
 method lookup(Str $what, Str :$by!) {
