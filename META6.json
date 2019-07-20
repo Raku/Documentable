@@ -8,13 +8,12 @@
   ],
   "build-depends": [],
   "depends": [
-    "Pod::Load:ver<0.5.4+>",
-    "Pod::To::HTML:ver<0.6.1+>",
-    "Pod::To::Cached",
-    "Pod::Utilities",
-    "Pod::Utilities::Build",
-    "URI::Escape",
-    "File::Temp",
+    "Pod::Load:ver<0.5.4>",
+    "Pod::To::HTML:ver<0.6.1>",
+    "Pod::To::Cached:ver<0.3.1>",
+    "Pod::Utilities:ver<0.0.1>",
+    "URI::Escape:ver<0.2.2>",
+    "File::Temp:ver<0.0.6>",
     "Log::Timeline:ver<0.3>"
   ],
   "description": "Represents a piece of Perl 6 that is documented.",
@@ -45,12 +44,12 @@
   "source-url": "https://github.com/antoniogamiz/Perl6-Documentable.git",
   "tags": [],
   "test-depends": [
-    "Test::META",
-    "Pod::Utilities",
+    "Test::META:ver<0.0.16>",
+    "Pod::Utilities:ver<0.0.1>",
     "Perl6::TypeGraph:ver<0.0.3>",
-    "Pod::To::HTML:ver<0.6.1+>",
-    "Pod::To::Cached",
-    "URI::Escape"
+    "Pod::To::HTML:ver<0.6.1>",
+    "Pod::To::Cached:<0.3.1>",
+    "URI::Escape:ver<0.2.2>"
   ],
-  "version": "1.1.2"
+  "version": "1.1.3"
 }
