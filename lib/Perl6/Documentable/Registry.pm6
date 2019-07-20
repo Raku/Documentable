@@ -1,12 +1,16 @@
 use v6.c;
 
-use Perl6::Documentable;
-use Perl6::Utils;
-use Perl6::TypeGraph;
 use Pod::Load;
 use Pod::Utilities;
+use Pod::To::Cached;
 use Pod::Utilities::Build;
+
 use URI::Escape;
+use Perl6::Utils;
+use Perl6::TypeGraph;
+use Perl6::Documentable::File;
+
+use Perl6::Documentable::LogTimelineSchema;
 
 unit class Perl6::Documentable::Registry;
 
@@ -49,37 +53,89 @@ This library is free software; you can redistribute it and/or modify it under th
 
 =end pod
 
-has @.documentables;
-has Bool $.composed = False;
-has %!cache;
-has %!grouped-by;
-has @!kinds;
-has $.tg;
-has %!routines-by-type;
+has                  @.documentables;
+has                  @.definitions;
+has Bool             $.composed;
+has                  %!cache;
+has                  %!grouped-by;
+has Perl6::TypeGraph $.tg;
+has                  %!routines-by-type;
 
-has $.pod-cache;
+has Pod::To::Cached $.pod-cache;
+has Bool            $.use-cache;
+
 has Bool $.verbose;
+has Str  $.topdir;
 
-# setup
+submethod BUILD (
+    Str     :$topdir?    = "doc",
+            :@dirs       = [],
+    Bool    :$verbose?   = True,
+    Bool    :$use-cache? = True,
+) {
+    $!verbose     = $verbose;
+    $!use-cache   = $use-cache;
+    $!tg          = Perl6::TypeGraph.new-from-file;
+    $!topdir      = $topdir;
 
-submethod BUILD (:$verbose?) {
-    $!verbose = $verbose || False;
-    $!tg = Perl6::TypeGraph.new-from-file;
+    # init cache if needed
+    if ( $!use-cache ) {
+        $!pod-cache = Pod::To::Cached.new(
+            source => $!topdir,
+            :$!verbose
+        );
+        $!pod-cache.update-cache;
+    }
 
+    # initialize the registry
+    for @dirs -> $dir {
+        self.process-pod-dir(:$dir).map(
+            -> $documentable {
+            self.add-new( $documentable )
+        });
+    }
 }
 
-method add-new($d) {
+method add-new(Perl6::Documentable :$doc --> Perl6::Documentable) {
     die "Cannot add something to a composed registry" if $.composed;
-    @!documentables.append: $d;
-    $d;
+    @!documentables.append: $doc;
+    $doc;
 }
 
+method load (Str :$path --> Pod::Block::Named) {
+    my $topdir = $!topdir;
+    if ( $!use-cache ) {
+        # topdir/dir/file.pod6 => dir/file
+        my $new-path = $path.subst(/$topdir\//, "")
+                       .subst(/\.pod6/, "").lc;
+        return $!pod-cache.pod( $new-path ).first;
+    } else {
+        return load($path).first;
+    }
+}
+
+method process-pod-dir(Str :$dir --> Array) {
+    # pods to process
+    my @pod-files = get-pod-names(:$!topdir, :$dir);
+
+    for @pod-files.kv -> $num, (:key($filename), :value($file)) {
+        Perl6::Documentable::LogTimeline::New.log: :$filename, -> {
+            my $doc =Perl6::Documentable::File.new(
+                dir      => $dir,
+                pod      => self.load(path => $file.path),
+                filename => $filename,
+                tg       => $!tg
+            );
+
+            $doc.process;
+            @!documentables.append: $doc;
+        }
+    }
+}
 # consulting logic
 
 method compose() {
-    my @new-docs = [ ($_.defs.Slip, $_.refs.Slip).Slip for @!documentables ];
-    @!documentables = flat @!documentables, @new-docs;
-    @!kinds = @.documentables>>.kind.unique;
+    @!definitions = [$_.defs.Slip for @!documentables];
 
     #| this needs to be first because is used by compose-type
     %!routines-by-type = self.lookup("routine", :by<kind>)
@@ -107,28 +163,6 @@ method lookup(Str $what, Str :$by!) {
     %!cache{$by}{$what} // [];
 }
 
-method get-kinds() {
-    die "You need to compose this registry first" unless $.composed;
-    @!kinds;
-}
-
-# =================================================================================
-# processing logic
-# =================================================================================
-
-method process-pod-dir(:$topdir, :$dir) {
-    my @pod-sources = get-pod-names(:$topdir, :$dir);
-
-    my $kind  = $dir.lc;
-    $kind = 'type' if $kind eq 'native';
-
-    for @pod-sources.kv -> $num, (:key($filename), :value($file)) {
-        printf "% 4d/%d: % -40s => %s\n", $num+1, +@pod-sources, $file.path, "$kind/$filename" if $!verbose;
-        my $pod = self.load($file.path);
-        self.process-pod-source(:$kind, :$pod, :$filename);
-    }
-}
-
 # =================================================================================
 # Composing types logic
 # =================================================================================
@@ -138,12 +172,12 @@ method compose-type($doc) {
     sub href_escape($ref) {
         # only valid for things preceded by a protocol, slash, or hash
         return uri_escape($ref).subst('%3A%3A', '::', :g);
-    }    
+    }
 
     my $pod     = $doc.pod;
     my $podname = $doc.name;
     my $type    = $!tg.types{$podname};
-    
+
     {return;} unless $type;
 
     $pod.contents.append: self.typegraph-fragment($podname);
@@ -199,8 +233,8 @@ method compose-type($doc) {
 
 #| Returns the fragment to show the typegraph image
 method typegraph-fragment($podname is copy) {
-    my $filename = "resources/template/tg-fragment.html".IO.e   ?? 
-                   "resources/template/tg-fragment.html"        !! 
+    my $filename = "resources/template/tg-fragment.html".IO.e   ??
+                   "resources/template/tg-fragment.html"        !!
                    %?RESOURCES<template/head.html>;
     state $template = slurp $filename;
     my $svg;
@@ -214,11 +248,11 @@ method typegraph-fragment($podname is copy) {
     }
     my $figure = $template.subst("PATH", $podname)
                           .subst("ESC_PATH", uri_escape($podname))
-                          .subst("SVG", $svg); 
-    
-    return [pod-heading("Type Graph"), 
+                          .subst("SVG", $svg);
+
+    return [pod-heading("Type Graph"),
             Pod::Raw.new: :target<html>, contents => [$figure]]
-} 
+}
 
 # =================================================================================
 # Indexing logic
@@ -226,16 +260,16 @@ method typegraph-fragment($podname is copy) {
 
 method programs-index() {
     self.lookup("programs", :by<kind>).map({%(
-        name    => .name, 
-        url     => .url, 
-        summary => .summary 
+        name    => .name,
+        url     => .url,
+        summary => .summary
     )}).cache;
 }
 
 method language-index() {
     self.lookup("language", :by<kind>).map({%(
-        name    => .name, 
-        url     => .url, 
+        name    => .name,
+        url     => .url,
         summary => .summary
     )}).cache;
 }
@@ -245,7 +279,7 @@ method type-index() {
         self.lookup("type", :by<kind>)\
         .categorize(*.name).sort(*.key)>>.value
         .map({%(
-            name     => .[0].name, 
+            name     => .[0].name,
             url      => .[0].url,
             subkinds => .map({.subkinds // Nil}).flat.unique.List,
             summary  => .[0].summary,
@@ -259,7 +293,7 @@ method type-subindex(:$category) {
     .grep({$category ⊆ .categories})\ # XXX
     .categorize(*.name).sort(*.key)>>.value
     .map({%(
-        name     => .[0].name, 
+        name     => .[0].name,
         url      => .[0].url,
         subkinds => .map({slip .subkinds // Nil}).unique.List,
         summary  => .[0].summary,
@@ -277,7 +311,7 @@ method routine-index() {
             subkinds =>.map({.subkinds // Nil}).flat.unique.List,
             origins  => $_>>.origin.map({.name, .url}).List
         )}).cache.Slip
-    ].flat.cache 
+    ].flat.cache
 }
 
 method routine-subindex(:$category) {
@@ -286,7 +320,7 @@ method routine-subindex(:$category) {
     .categorize(*.name).sort(*.key)>>.value
     .map({%(
         subkinds => .map({slip .subkinds // Nil}).unique.List,
-        name     => .[0].name, 
+        name     => .[0].name,
         url      => .[0].url,
         origins  => $_>>.origin.map({.name, .url}).List
     )})
@@ -298,7 +332,7 @@ method routine-subindex(:$category) {
 
 method generate-search-index() {
     sub escape(Str $s) {
-        $s.trans([</ \\ ">] => [<\\/ \\\\ \\">]);
+        $s.trans([</List \\ ">] => [<\\/ \\\\ \\">]);
     }
 
     my @items = self.get-kinds.map(-> $kind {
@@ -309,7 +343,7 @@ method generate-search-index() {
     }).flat;
 
     # Add p5to6 functions to JavaScript search index
-    my %f; 
+    my %f;
     try {
         find-p5to6-functions(
             pod => load("doc/Language/5to6-perlfunc.pod6")[0],
@@ -317,7 +351,7 @@ method generate-search-index() {
         );
         CATCH {return @items; }
     }
-    
+
     @items.append: %f.keys.map( {
       my $url = "/language/5to6-perlfunc#" ~ $_.subst(' ', '_', :g);
         qq[[\{ category: "5to6-perlfunc", value: "{$_}", url: "{$url}" \}\n]]
