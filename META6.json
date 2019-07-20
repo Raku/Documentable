@@ -22,13 +22,14 @@
   "perl": "6.c",
   "provides": {
     "Perl6::Documentable": "lib/Perl6/Documentable.pm6",
+    "Perl6::Documentable::File": "lib/Perl6/Documentable/File.pm6",
+    "Perl6::Documentable::Derived": "lib/Perl6/Documentable/Derived.pm6",
     "Perl6::Documentable::LogTimelineSchema": "lib/Perl6/Documentable/LogTimelineSchema.pm6",
     "Perl6::Documentable::CLI": "lib/Perl6/Documentable/CLI.pm6",
     "Perl6::Documentable::Update": "lib/Perl6/Documentable/Update.pm6",
     "Perl6::Documentable::Registry": "lib/Perl6/Documentable/Registry.pm6",
-    "Perl6::Documentable::Processing": "lib/Perl6/Documentable/Processing.pm6",
-    "Perl6::Documentable::Processing::Grammar": "lib/Perl6/Documentable/Processing/Grammar.pm6",
-    "Perl6::Documentable::Processing::Actions": "lib/Perl6/Documentable/Processing/Actions.pm6",
+    "Perl6::Documentable::Heading::Grammar": "lib/Perl6/Documentable/Heading/Grammar.pm6",
+    "Perl6::Documentable::Heading::Actions": "lib/Perl6/Documentable/Heading/Actions.pm6",
     "Perl6::Documentable::To::HTML": "lib/Perl6/Documentable/To/HTML.pm6",
     "Perl6::Documentable::To::HTML::Wrapper": "lib/Perl6/Documentable/To/HTML/Wrapper.pm6",
     "Perl6::Utils": "lib/Perl6/Utils.pm6"
