@@ -1,5 +1,3 @@
-use v6.c;
-
 use Pod::Load;
 use Pod::Utilities;
 use Pod::To::Cached;
@@ -8,6 +6,7 @@ use Pod::Utilities::Build;
 use URI::Escape;
 use Perl6::Utils;
 use Perl6::TypeGraph;
+use Perl6::Documentable;
 use Perl6::Documentable::File;
 
 use Perl6::Documentable::LogTimelineSchema;
@@ -17,9 +16,9 @@ unit class Perl6::Documentable::Registry;
 has                  @.documentables;
 has                  @.definitions;
 has Bool             $.composed;
-has                  %!cache;
+has                  %.cache;
 has Perl6::TypeGraph $.tg;
-has                  %!routines-by-type;
+has                  %.routines-by-type;
 
 has Pod::To::Cached $.pod-cache;
 has Bool            $.use-cache;
@@ -42,7 +41,8 @@ submethod BUILD (
     if ( $!use-cache ) {
         $!pod-cache = Pod::To::Cached.new(
             source => $!topdir,
-            :$!verbose
+            :$!verbose,
+            path   => "." ~ $!topdir
         );
         $!pod-cache.update-cache;
     }
@@ -50,13 +50,13 @@ submethod BUILD (
     # initialize the registry
     for @dirs -> $dir {
         self.process-pod-dir(:$dir).map(
-            -> $documentable {
-            self.add-new( $documentable )
+            -> $doc {
+            self.add-new( :$doc )
         });
     }
 }
 
-method add-new(Perl6::Documentable :$doc --> Perl6::Documentable) {
+method add-new(Perl6::Documentable::File :$doc --> Perl6::Documentable::File) {
     die "Cannot add something to a composed registry" if $.composed;
     @!documentables.append: $doc;
     $doc;
@@ -88,7 +88,7 @@ method process-pod-dir(Str :$dir --> Array) {
             );
 
             $doc.process;
-            @!documentables.append: $doc;
+            self.add-new: :$doc;
         }
     }
 }
@@ -97,30 +97,27 @@ method process-pod-dir(Str :$dir --> Array) {
 method compose() {
     @!definitions = [$_.defs.Slip for @!documentables];
 
-    #| this needs to be first because is used by compose-type
-    %!routines-by-type = self.lookup("routine", :by<kind>)
-    .classify({.origin ?? .origin.name !! .name});
+
+    %!routines-by-type = @!definitions.grep({.kind eq Kind::Routine})
+                                      .classify({.origin.name});
 
     # compose types
-    for self.lookup("type", :by<kind>).list -> $doc {
+    my @types = @!documentables.grep({.kind eq Kind::Type}).list;
+    for @types -> $doc {
         self.compose-type($doc);
     }
 
     $!composed = True;
 }
 
-method lookup(Str $what, Str :$by!) {
+method lookup(Kind $what, Str :$by!) {
     unless %!cache{$by}:exists {
-        for @!documentables -> $d {
+        for @!documentables.Slip, @!definitions.Slip -> $d {
             %!cache{$by}{$d."$by"()}.append: $d;
         }
     }
-    %!cache{$by}{$what} // [];
+    %!cache{$by}{$what.gist} // [];
 }
-
-# =================================================================================
-# Composing types logic
-# =================================================================================
 
 #| Completes a type pod with inherited routines
 method compose-type($doc) {
@@ -285,17 +282,23 @@ method routine-subindex(:$category) {
 # search index logic
 # =================================================================================
 
-method generate-search-index() {
-    sub escape(Str $s) {
-        $s.trans([</List \\ ">] => [<\\/ \\\\ \\">]);
-    }
+method new-search-entry(Str :$category, Str :$value, Str :$url) {
+    qq[[\{ category: "{$category}", value: "{$value}", url: "{$url}" \}\n]]
+}
 
-    my @items = self.get-kinds.map(-> $kind {
-        self.lookup($kind, :by<kind>).categorize({escape .name})\
-            .pairs.sort({.key}).map: -> (:key($name), :value(@docs)) {
-                qq[[\{ category: "{( @docs > 1 ?? $kind !! @docs.[0].subkinds[0] ).wordcase}", value: "$name", url: " {rewrite-url(@docs.[0].url).subst(｢\｣, ｢%5c｣, :g).subst('"', '\"', :g).subst(｢?｣, ｢%3F｣, :g) }" \}\n]]
-            }
-    }).flat;
+#! this function is a mess, it needs to be fixed
+method generate-search-index() {
+    my @items;
+    for Kind::Type, Kind::Programs, Kind::Language, Kind::Syntax, Kind::Routine -> $kind {
+        @items.append: self.lookup($kind, :by<kind>).categorize({.name}) #! use punycode here too
+                      .pairs.sort({.key}).map: -> (:key($name), :value(@docs)) {
+                          self.new-search-entry(
+                              category => ( @docs > 1 ?? $kind.gist !! @docs.[0].subkinds[0] ).wordcase,
+                              value    => $name,
+                              url      => "#"
+                          )
+                      }
+    }
 
     # Add p5to6 functions to JavaScript search index
     my %f;
@@ -304,12 +307,16 @@ method generate-search-index() {
             pod => load("doc/Language/5to6-perlfunc.pod6")[0],
             functions => %f
         );
-        CATCH {return @items; }
+        CATCH {return @items;}
     }
 
     @items.append: %f.keys.map( {
-      my $url = "/language/5to6-perlfunc#" ~ $_.subst(' ', '_', :g);
-        qq[[\{ category: "5to6-perlfunc", value: "{$_}", url: "{$url}" \}\n]]
+        my $url = "/language/5to6-perlfunc#" ~ $_.subst(' ', '_', :g);
+        self.new-search-entry(
+            category => "5to6-perlfunc",
+            value    => $_,
+            url      => $url
+        )
     });
 
     return @items;

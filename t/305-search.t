@@ -1,16 +1,14 @@
 use v6.c;
 
-use Perl6::Documentable::Processing;
 use Perl6::Documentable::Registry;
 use Test;
 
 plan *;
 
-my $registry = process-pod-collection(
-    :!cache,
-    :!verbose,
+my $registry = Perl6::Documentable::Registry.new(
     :topdir("t/test-doc"),
-    :dirs(["Language"])
+    :dirs(["Language"]),
+    :verbose(False)
 );
 
 $registry.compose;
