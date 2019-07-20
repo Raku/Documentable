@@ -1,6 +1,6 @@
 =begin pod
 
-=TITLE Debugging
+=TITLE Reading
 
 =SUBTITLE Modules and applications used to debug Perl 6 programs
 

@@ -2,27 +2,28 @@ use v6.c;
 
 use Test;
 
-use Perl6::Documentable::Processing::Grammar;
-use Perl6::Documentable::Processing::Actions;
+use Perl6::Documentable;
+use Perl6::Documentable::Heading::Grammar;
+use Perl6::Documentable::Heading::Actions;
 
 plan *;
 
 for <infix prefix postfix circumfix listop> {
-    test-definition($_, "foo", "routine", $_, "operator", "The foo $_");
-    test-definition($_, "foo", "routine", $_, "operator", "$_ foo");
+    test-definition($_, "foo", Kind::Routine, $_, "operator", "The foo $_");
+    test-definition($_, "foo", Kind::Routine, $_, "operator", "$_ foo"    );
 }
 
 for <sub method term routine submethod trait> {
-    test-definition($_, "foo", "routine", $_, $_, "The foo $_");
-    test-definition($_, "foo", "routine", $_, $_, "$_ foo");
+    test-definition($_, "foo", Kind::Routine, $_, $_, "The foo $_");
+    test-definition($_, "foo", Kind::Routine, $_, $_, "$_ foo"    );
 }
 
 for <constant variable twigil declarator quote> {
-    test-definition($_, "foo", "syntax", $_, $_, "The foo $_");
-    test-definition($_, "foo", "syntax", $_, $_, "$_ foo");
+    test-definition($_, "foo", Kind::Syntax, $_, $_, "The foo $_");
+    test-definition($_, "foo", Kind::Syntax, $_, $_, "$_ foo"    );
 }
 
-test-definition("trait", "is export", "routine", "trait", "trait", "trait is export");
+test-definition("trait", "is export", Kind::Routine, "trait", "trait", "trait is export");
 
 sub test-definition($infix, $name, $kind, $subkind, $category, $line) {
     subtest "$infix detection" => {
@@ -35,9 +36,9 @@ sub test-definition($infix, $name, $kind, $subkind, $category, $line) {
 }
 
 sub parse-definition($line) {
-    Perl6::Documentable::Processing::Grammar.parse(
+    Perl6::Documentable::Heading::Grammar.parse(
         $line,
-        :actions(Perl6::Documentable::Processing::Actions.new)
+        :actions(Perl6::Documentable::Heading::Actions.new)
     ).actions;
 }
 
