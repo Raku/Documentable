@@ -3,7 +3,7 @@ use v6;
 use File::Temp;
 use Perl6::Utils;
 use Perl6::Documentable::Update;
-use Perl6::Documentable::Processing;
+use Perl6::Documentable::Registry;
 use Perl6::Documentable::To::HTML;
 use Perl6::Documentable::To::HTML::Wrapper;
 use Pod::Load;
@@ -56,7 +56,7 @@ package Perl6::Documentable::CLI {
     ) {
         if (!"./html".IO.e || !"./assets".IO.e) {
             say q:to/END/;
-                (error) html and/or assets directories cannot be found. You can 
+                (error) html and/or assets directories cannot be found. You can
                 get the defaults by executing:
 
                     documentable setup
@@ -74,41 +74,41 @@ package Perl6::Documentable::CLI {
         highlight-code-blocks if $highlight;
 
         #===================================================================
-        
+
         if ($t || $all) {
             $now = now;
-            
+
             DEBUG("Writing type-graph representations...", $v);
             my $viz = Perl6::TypeGraph::Viz.new;
             my $tg   = Perl6::TypeGraph.new-from-file;
-            $viz.write-type-graph-images(path       => "html/images", 
+            $viz.write-type-graph-images(path       => "html/images",
                                         force      => $f,
                                         type-graph => $tg);
-            
+
             print-time("Typegraph representations", $now);
         }
-        
+
         #===================================================================
-        
+
         $now = now;
         DEBUG("Processing phase...", $v);
-        my $registry = process-pod-collection(
+        my $registry = Perl6::Documentable::Registry.new(
             :$cache,
-            :verbose($v),
             :$topdir,
-            dirs => ["Language", "Type", "Programs", "Native"]
+            :dirs(["Language", "Type", "Programs", "Native"]),
+            :verbose($v)
         );
         $registry.compose;
         print-time("Processing pods", $now);
 
         #===================================================================
-        
+
         DEBUG("Writing html/index.html and html/404.html...", $v);
         spurt 'html/index.html', p2h(load($topdir~'/HomePage.pod6')[0], :pod-path('HomePage.pod6'));
         spurt 'html/404.html', p2h(load($topdir~'/404.pod6')[0], :pod-path('404.pod6'));
 
         #===================================================================
-        
+
         if ($p || $all ) {
             $now = now;
             DEBUG("HTML generation phase...", $v);
@@ -129,14 +129,14 @@ package Perl6::Documentable::CLI {
             generate-kind($registry,"routine").map({
             spurt "html/routine/{replace-badchars-with-goodnames .[0]}.html", .[1];
             });
-            print-time("Writing routine files", $now);    
+            print-time("Writing routine files", $now);
 
             $now = now;
             DEBUG("Writing syntax files...", $v);
             generate-kind($registry,"syntax").map({
             spurt "html/syntax/{replace-badchars-with-goodnames .[0]}.html", .[1];
             });
-            print-time("Writing syntax files", $now);    
+            print-time("Writing syntax files", $now);
         }
 
         #===================================================================
@@ -161,16 +161,16 @@ package Perl6::Documentable::CLI {
 
             for <basic composite domain-specific exceptions> -> $category {
                 DEBUG("Writing html/type-$category.html ...", $v);
-                spurt "html/type-$category.html", 
-                type-subindex-html($registry.type-subindex(:$category), $category);        
+                spurt "html/type-$category.html",
+                type-subindex-html($registry.type-subindex(:$category), $category);
             }
 
             for <sub method term operator trait submethod> -> $category {
                 DEBUG("Writing html/routine-$category.html ...", $v);
-                spurt "html/routine-$category.html", 
-                routine-subindex-html($registry.routine-subindex(:$category), $category);        
+                spurt "html/routine-$category.html",
+                routine-subindex-html($registry.routine-subindex(:$category), $category);
             }
-            print-time("Writing index files", $now);    
+            print-time("Writing index files", $now);
         }
 
         #===================================================================
@@ -199,7 +199,7 @@ package Perl6::Documentable::CLI {
             # format: Caching namefile
             my @modified = @lines.map({.split(" ")[1]});
             @modified = @modified.map({ .split("/")[*-1].tc });
-            
+
             DEBUG(+@modified ~ " file(s) modified. Starting regeneratiion ...");
 
             my $now = now;

@@ -3,16 +3,16 @@ use v6.c;
 unit class Perl6::Documentable::Update;
 
 use Perl6::Utils;
-use Perl6::Documentable::Processing;
+use Perl6::Documentable::Registry;
 use Perl6::Documentable::To::HTML;
 
 #| Updates all HTML documents in filenames using update-file.
 sub update-pod-collection(:$topdir, :$filenames) is export {
     my @filenames = $filenames ~~ Positional ?? @$filenames !! [$filenames];
     my $registry = update-registry(:$topdir);
-    
+
     my @kinds = @filenames.map({update-file($_, $registry)}).unique;
-    
+
     update-indexes(@kinds, $registry);
 }
 
@@ -21,8 +21,8 @@ sub update-indexes(@kinds, $registry) {
     spurt 'html/routine.html', routine-index-html($registry.routine-index);
     for <sub method term operator trait submethod> -> $category {
         DEBUG("Writing html/routine-$category.html ...");
-        spurt "html/routine-$category.html", 
-        routine-subindex-html($registry.routine-subindex(:$category), $category);        
+        spurt "html/routine-$category.html",
+        routine-subindex-html($registry.routine-subindex(:$category), $category);
     }
     for @kinds -> $kind {
         given $kind {
@@ -31,8 +31,8 @@ sub update-indexes(@kinds, $registry) {
                 spurt 'html/type.html', type-index-html($registry.type-index);
                 for <basic composite domain-specific exceptions> -> $category {
                     DEBUG("Writing html/type-$category.html ...");
-                    spurt "html/type-$category.html", 
-                    type-subindex-html($registry.type-subindex(:$category), $category);        
+                    spurt "html/type-$category.html",
+                    type-subindex-html($registry.type-subindex(:$category), $category);
                 }
             }
             when "language" {
@@ -56,7 +56,7 @@ sub update-file($filename, $registry) {
     state %routine-docs = $registry.lookup("routine", :by<kind>)
                                    .categorize({.name});
     my $doc = $registry.documentables.grep({.pod-is-complete})
-              .grep({ 
+              .grep({
                   .url.split("/")[*-1] eq $filename || # language/something
                   .url.split("/")[*-1] eq $filename.tc # type/Class
                }).first;
@@ -67,10 +67,10 @@ sub update-file($filename, $registry) {
     # syntax files
     update-per-kind-files("syntax", $doc, %syntax-docs);
     # routine files
-    update-per-kind-files("routine", $doc, %routine-docs);    
+    update-per-kind-files("routine", $doc, %routine-docs);
 
     # used by update-pod-collection to regenerate the indexes
-    return $doc.kind; 
+    return $doc.kind;
 }
 
 #| Given a kind and a Perl6::Documentable object, regenerates and rewrites
@@ -90,12 +90,12 @@ sub update-per-kind-files($kind, $doc, %documentables) {
 sub update-registry(:$topdir) {
     my $now = now;
     DEBUG("Processing the collection...");
-    my $registry = process-pod-collection(
-        :cache,
-        :!verbose,
+    my $registry = Perl6::Documentable::Registry.new(
         :$topdir,
-        dirs => ["Language", "Type", "Programs", "Native"]
+        :dirs(["Language", "Type", "Programs", "Native"]),
+        :!verbose
     );
+
     $registry.compose;
     print-time("Processing the collection", $now);
     return $registry;
