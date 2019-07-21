@@ -1,7 +1,7 @@
 use Perl6::Documentable;
 use Perl6::Documentable::Derived;
-use Perl6::Documentable::Processing::Grammar;
-use Perl6::Documentable::Processing::Actions;
+use Perl6::Documentable::Heading::Grammar;
+use Perl6::Documentable::Heading::Actions;
 
 use Pod::Utilities;
 use Pod::Utilities::Build;
@@ -26,15 +26,15 @@ method new (
     # kind setting
     my $kind;
     given $dir {
-        when "Language" {$kind = Kind::Language}
-        when "Programs" {$kind = Kind::Programs}
-        when "Native"   {$kind = Kind::Type    }
-        when "Type"     {$kind = Kind::Type    }
+        when "Language" { $kind = Kind::Language }
+        when "Programs" { $kind = Kind::Programs }
+        when "Native"   { $kind = Kind::Type     }
+        when "Type"     { $kind = Kind::Type     }
     }
 
     # proper name from =TITLE
     my $name = recurse-until-str(first-title($pod.contents)) || $filename;
-    $name = $name.split(/\s+/)[*-1] if $dir eq "Type";
+    $name = $name.split(/\s+/)[*-1] if $kind eq Kind::Type;
     note "$filename does not have a =TITLE" unless $name;
 
     # summary from =SUBTITLE
@@ -44,7 +44,7 @@ method new (
     # type-graph sets the correct subkind and categories
     my @subkinds;
     my @categories;
-    if $dir eq "Type" {
+    if $kind eq Kind::Type {
         if $tg.types{$name} -> $type {
             @subkinds   = $type.packagetype,
             @categories = $type.categories;
@@ -52,6 +52,8 @@ method new (
         else {
             @subkinds = "class";
         }
+    } else {
+        @subkinds = $kind.gist;
     }
 
     nextwith(
@@ -86,9 +88,9 @@ method parse-definition-header(Pod::Heading :$heading --> Hash) {
                 categories => $header.meta[0]:v.flat.cache || ();
 
     } else {
-        my $g = Perl6::Documentable::Processing::Grammar.parse(
+        my $g = Perl6::Documentable::Heading::Grammar.parse(
             textify-guts(@header),
-            :actions(Perl6::Documentable::Processing::Actions.new)
+            :actions(Perl6::Documentable::Heading::Actions.new)
         ).actions;
 
         # no match, no valid definition

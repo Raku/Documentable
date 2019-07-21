@@ -1,17 +1,16 @@
 use v6.c;
 
+use Perl6::Documentable::Registry;
 use Perl6::Documentable::To::HTML;
-use Perl6::Documentable::Processing;
 
 use Test;
 
 plan *;
 
-my $registry = process-pod-collection(
-    :!cache,
-    :!verbose,
+my $registry = Perl6::Documentable::Registry.new(
     :topdir("t/test-doc"),
-    :dirs(["Type", "Language", "Programs"])
+    :dirs(["Type"]),
+    :verbose(False)
 );
 
 $registry.compose;

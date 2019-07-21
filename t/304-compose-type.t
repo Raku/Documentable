@@ -6,19 +6,18 @@ use Test;
 
 plan *;
 
-my $registry = Perl6::Documentable::Registry.new;
-
-process-pod-dir(
-    topdir => "t/test-doc",
-    dir    => "Type"
-).map({$registry.add-new: $_});
+my $registry = Perl6::Documentable::Registry.new(
+    :topdir("t/test-doc"),
+    :dirs(["Type"]),
+    :verbose(False)
+);
 
 $registry.compose;
 
 subtest "Typegraph fragment" => {
     is-deeply $registry.typegraph-fragment("ejiff"),
               $registry.typegraph-fragment("fffff"),
-              "Default svg image"; 
+              "Default svg image";
 }
 
 subtest "Composing types" => {
@@ -33,7 +32,7 @@ subtest "Composing types" => {
               get-definition($cool, "abs").pod,
               "Routines by class";
 
-    my $hash        = get-complete-doc("Hash"       );
+    my $hash = get-complete-doc("Hash");
     is-deeply $hash.pod.contents[14].first,
               get-definition($associative, "of").pod,
               "Routines by role done by a parent class";
@@ -43,9 +42,8 @@ subtest "Composing types" => {
 #| Returns a specific documentable object from a registry
 sub get-complete-doc($name) {
     $registry.documentables.grep({
-      .name eq $name 
-      and .pod-is-complete 
-      })[0];
+      .name eq $name
+    })[0];
 }
 
 sub get-definition($doc, $name) {

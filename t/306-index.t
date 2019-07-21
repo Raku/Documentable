@@ -1,21 +1,18 @@
-use v6.c;
-
-use Perl6::Documentable::Processing;
+use Perl6::Documentable::Registry;
 use Test;
 
 plan *;
 
-my $registry = process-pod-collection(
-    :!cache,
-    :!verbose,
+my $registry = Perl6::Documentable::Registry.new(
     :topdir("t/test-doc"),
-    :dirs(["Type", "Language", "Programs"])
+    :dirs(["Type"]),
+    :verbose(False)
 );
 
 $registry.compose;
 
 my @programs-index = (
-    %(:name("Debugging"), :url("/programs/01-debugging"), :summary("debugging")), 
+    %(:name("Debugging"), :url("/programs/01-debugging"), :summary("debugging")),
 );
 my @language-index = (
     %(:name("Terms")    , :url("/language/terms")       , :summary("terms")    ),
@@ -40,7 +37,7 @@ subtest "Main index generation" => {
 my @type-subindex := (
     %(:name("Any"), :url("/type/Any"), :subkinds(("class",)), :summary("types"), :subkind("class")),
 );
-my @routine-subindex := ( 
+my @routine-subindex := (
     %(:subkinds(("method",)), :name("index-language"), :url("/routine/index-language"), :origins((("Language", "/language/language"),))),
     %(:subkinds(("method",)), :name("index-programs"), :url("/routine/index-programs"), :origins((("Programs", "/programs/programs"),))),
     %(:subkinds(("method",)), :name("index-types"   ), :url("/routine/index-types"   ), :origins((("Any"     , "/type/Any"         ),)))

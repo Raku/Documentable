@@ -97,7 +97,6 @@ method process-pod-dir(Str :$dir --> Array) {
 method compose() {
     @!definitions = [$_.defs.Slip for @!documentables];
 
-
     %!routines-by-type = @!definitions.grep({.kind eq Kind::Routine})
                                       .classify({.origin.name});
 
@@ -211,7 +210,7 @@ method typegraph-fragment($podname is copy) {
 # =================================================================================
 
 method programs-index() {
-    self.lookup("programs", :by<kind>).map({%(
+    self.lookup(Kind::Programs, :by<kind>).map({%(
         name    => .name,
         url     => .url,
         summary => .summary
@@ -219,7 +218,7 @@ method programs-index() {
 }
 
 method language-index() {
-    self.lookup("language", :by<kind>).map({%(
+    self.lookup(Kind::Language, :by<kind>).map({%(
         name    => .name,
         url     => .url,
         summary => .summary
@@ -228,7 +227,7 @@ method language-index() {
 
 method type-index() {
     [
-        self.lookup("type", :by<kind>)\
+        self.lookup(Kind::Type, :by<kind>)\
         .categorize(*.name).sort(*.key)>>.value
         .map({%(
             name     => .[0].name,
@@ -241,7 +240,7 @@ method type-index() {
 }
 
 method type-subindex(:$category) {
-    self.lookup("type", :by<kind>)\
+    self.lookup(Kind::Type, :by<kind>)\
     .grep({$category ⊆ .categories})\ # XXX
     .categorize(*.name).sort(*.key)>>.value
     .map({%(
@@ -255,7 +254,7 @@ method type-subindex(:$category) {
 
 method routine-index() {
     [
-        self.lookup("routine", :by<kind>)\
+        self.lookup(Kind::Routine, :by<kind>)\
         .categorize(*.name).sort(*.key)>>.value
         .map({%(
             name     => .[0].name,
@@ -267,7 +266,7 @@ method routine-index() {
 }
 
 method routine-subindex(:$category) {
-    self.lookup("routine", :by<kind>)\
+    self.lookup(Kind::Routine, :by<kind>)\
     .grep({$category ⊆ .categories})\ # XXX
     .categorize(*.name).sort(*.key)>>.value
     .map({%(
