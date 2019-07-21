@@ -2,6 +2,8 @@
 
 In this repository you can find all logic responsible of generate the [official documentation of Perl6](https://docs.perl6.org/) or any other repository that follows the same specification. Could be used for modules that include a substantial amount of documentation, for instance.
 
+**Note**: this documentation is outdated. Please, refer to [docs/reference](docs/reference) (still incompleted though).
+
 ## Table of contents
 
 - [Installation](#installation)
@@ -32,7 +34,6 @@ If you have already downloaded this repo,
 ```
 $ zef install .
 ```
-
 
 ## Usage
 
