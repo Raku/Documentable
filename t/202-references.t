@@ -1,7 +1,4 @@
-use v6;
-
 use Perl6::Documentable;
-use Perl6::Documentable::Processing;
 use Pod::Load;
 use Pod::Utilities;
 use Pod::Utilities::Build;

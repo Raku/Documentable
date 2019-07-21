@@ -1,6 +1,3 @@
-use v6.c;
-
-use Perl6::Documentable::Processing;
 use Perl6::Documentable::Registry;
 use Test;
 
