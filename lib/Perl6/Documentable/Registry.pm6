@@ -31,6 +31,7 @@ submethod BUILD (
             :@dirs       = [],
     Bool    :$verbose?   = True,
     Bool    :$use-cache? = True,
+    Bool    :$update     = True
 ) {
     $!verbose     = $verbose;
     $!use-cache   = $use-cache;
@@ -44,7 +45,7 @@ submethod BUILD (
             :$!verbose,
             path   => "." ~ $!topdir
         );
-        $!pod-cache.update-cache;
+        $!pod-cache.update-cache if $update;
     }
 
     # initialize the registry
@@ -292,7 +293,7 @@ method generate-search-index() {
         @items.append: self.lookup($kind, :by<kind>).categorize({.name}) #! use punycode here too
                       .pairs.sort({.key}).map: -> (:key($name), :value(@docs)) {
                           self.new-search-entry(
-                              category => ( @docs > 1 ?? $kind.gist !! @docs.[0].subkinds[0] ).wordcase,
+                              category => ( @docs > 1 ?? $kind.gist !! @docs.[0].subkinds[0] || $kind.gist ).wordcase,
                               value    => $name,
                               url      => "#"
                           )

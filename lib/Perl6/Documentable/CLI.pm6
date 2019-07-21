@@ -6,6 +6,7 @@ use Perl6::Documentable::Update;
 use Perl6::Documentable::Registry;
 use Perl6::Documentable::To::HTML;
 use Perl6::Documentable::To::HTML::Wrapper;
+use Perl6::Documentable;
 use Pod::Load;
 use Perl6::TypeGraph;
 use Perl6::TypeGraph::Viz;
@@ -112,7 +113,7 @@ package Perl6::Documentable::CLI {
         if ($p || $all ) {
             $now = now;
             DEBUG("HTML generation phase...", $v);
-            for <programs language type> -> $kind {
+            for Kind::Programs, Kind::Language, Kind::Type -> $kind {
                 for $registry.lookup($kind, :by<kind>).list -> $doc {
                     DEBUG("Writing $kind document for {$doc.name} ...", $v);
                     spurt "html{$doc.url}.html", source-html($kind, $doc);
@@ -126,15 +127,15 @@ package Perl6::Documentable::CLI {
         if ($k || $all) {
             $now = now;
             DEBUG("Writing routine files...", $v);
-            generate-kind($registry,"routine").map({
+            generate-kind($registry, Kind::Routine).map({
             spurt "html/routine/{replace-badchars-with-goodnames .[0]}.html", .[1];
             });
             print-time("Writing routine files", $now);
 
             $now = now;
             DEBUG("Writing syntax files...", $v);
-            generate-kind($registry,"syntax").map({
-            spurt "html/syntax/{replace-badchars-with-goodnames .[0]}.html", .[1];
+            generate-kind($registry, Kind::Syntax).map({
+                spurt "html/syntax/{replace-badchars-with-goodnames .[0]}.html", .[1];
             });
             print-time("Writing syntax files", $now);
         }

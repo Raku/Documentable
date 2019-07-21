@@ -94,6 +94,7 @@ sub update-registry(:$topdir) {
         :$topdir,
         :dirs(["Language", "Type", "Programs", "Native"]),
         :!verbose
+        :!update
     );
 
     $registry.compose;
