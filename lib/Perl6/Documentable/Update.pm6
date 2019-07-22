@@ -52,9 +52,9 @@ sub update-indexes(@kinds, $registry) {
 #| Given the name of a modified file, regenerates and rewrite all HTML documents
 #| related/coming from this file.
 sub update-file($filename, $registry) {
-    state %syntax-docs  = $registry.lookup("syntax", :by<kind>)
+    state %syntax-docs  = $registry.lookup(Kind::Syntax, :by<kind>)
                                    .categorize({.name});
-    state %routine-docs = $registry.lookup("routine", :by<kind>)
+    state %routine-docs = $registry.lookup(Kind::Routine, :by<kind>)
                                    .categorize({.name});
     my $doc = $registry.documentables.grep({.pod-is-complete})
               .grep({
