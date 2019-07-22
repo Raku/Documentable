@@ -1,5 +1,3 @@
-use v6.c;
-
 use Perl6::Utils;
 use Pod::Utilities::Build;
 use JSON::Fast;
@@ -76,8 +74,8 @@ sub language-index-html(@index, $manage = False) is export {
 
     my @content = [];
     if ($manage) {
-        my $path = "resources/language-order-control.json".IO.e ?? 
-                   "resources/language-order-control.json"      !! 
+        my $path = "resources/language-order-control.json".IO.e ??
+                   "resources/language-order-control.json"      !!
                    %?RESOURCES<language-order-control.json>;
         my $json = slurp $path;
         my @data = from-json($json).list;
@@ -115,10 +113,10 @@ sub type-index-html(@index) is export {
                 :headers[<Name  Type  Description>],
                 @index.map({[
                     pod-link(.<name>, .<url>), .<subkinds>,
-                    .<subkind> ne "role" ?? .<summary> !! Pod::FormattingCode.new(:type<I>, contents => [.<summary>]) 
+                    .<subkind> ne "role" ?? .<summary> !! Pod::FormattingCode.new(:type<I>, contents => [.<summary>])
                 ]})
             )
-    ), "type")    
+    ), "type")
 }
 
 sub type-subindex-html(@index, $category) is export {
@@ -128,7 +126,7 @@ sub type-subindex-html(@index, $category) is export {
                 @index.map({[
                     .<subkinds>.join(", "),
                     pod-link(.<name>, .<url>),
-                    .<subkind> ne "role" ?? .<summary> !! Pod::FormattingCode.new(:type<I>, contents => [.<summary>]) 
+                    .<subkind> ne "role" ?? .<summary> !! Pod::FormattingCode.new(:type<I>, contents => [.<summary>])
                 ]})
             )
     ), "type")
@@ -148,10 +146,10 @@ sub routine-index-html(@index) is export {
                     pod-link(.<name>, .<url>), .<subkinds>.join(", "),
                     pod-block("(From ", .<origins>.map({
                         pod-link(|$_)
-                    }).reduce({$^a,", ",$^b}),")") 
+                    }).reduce({$^a,", ",$^b}),")")
                 ]})
             )
-    ), "routine")    
+    ), "routine")
 }
 
 sub routine-subindex-html(@index, $category) is export {
@@ -163,7 +161,7 @@ sub routine-subindex-html(@index, $category) is export {
                     pod-link(.<name>, .<url>),
                     pod-block("(From ", .<origins>.map({
                         pod-link(|$_)
-                    }).reduce({$^a,", ",$^b}),")") 
+                    }).reduce({$^a,", ",$^b}),")")
                 ]})
             )
     ), "routine")

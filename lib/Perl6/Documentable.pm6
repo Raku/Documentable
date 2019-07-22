@@ -1,6 +1,9 @@
+unit module Perl6::Documentable;
 
+#| Enum to classify all "kinds" of Perl6::Documentable
 enum Kind is export <Type Language Programs Syntax Reference Routine>;
 
+#| Everything documented inherits from this classed
 class Perl6::Documentable {
 
     has Str  $.name;
@@ -36,6 +39,12 @@ class Perl6::Documentable {
         return @!categories if @!categories;
         return @!subkinds;
     }
+}
+
+#| Every type of page generated, must implements this role
+role Perl6::Documentable::DocPage {
+    method render (| --> Hash) { ... }
+    method url    (| --> Str ) { ... }
 }
 
 # vim: expandtab shiftwidth=4 ft=perl6

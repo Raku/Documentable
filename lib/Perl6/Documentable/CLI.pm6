@@ -4,6 +4,9 @@ use File::Temp;
 use Perl6::Utils;
 use Perl6::Documentable::Update;
 use Perl6::Documentable::Registry;
+use Perl6::Documentable::DocPage::Source;
+use Perl6::Documentable::DocPage::Kind;
+use Perl6::Documentable::DocPage::Index;
 use Perl6::Documentable::To::HTML;
 use Perl6::Documentable::To::HTML::Wrapper;
 use Perl6::Documentable;
@@ -64,7 +67,8 @@ package Perl6::Documentable::CLI {
                 END
             exit(1);
         }
-
+        #===================================================================
+        my @docs; # all these doducments will be written
         #===================================================================
 
         # to track the time
@@ -113,31 +117,35 @@ package Perl6::Documentable::CLI {
         if ($p || $all ) {
             $now = now;
             DEBUG("HTML generation phase...", $v);
-            for Kind::Programs, Kind::Language, Kind::Type -> $kind {
-                for $registry.lookup($kind, :by<kind>).list -> $doc {
-                    DEBUG("Writing $kind document for {$doc.name} ...", $v);
-                    spurt "html{$doc.url}.html", source-html($kind, $doc);
+
+            @docs.append: $registry.documentables.map(-> $doc {
+                given $doc.kind {
+                    when Kind::Type {
+                        Perl6::Documentable::DocPage::Source::Type.new.render($registry, $doc.name);
+                    }
+                    when Kind::Language {
+                        Perl6::Documentable::DocPage::Source::Language.new.render($registry, $doc.name);
+                    }
+                    when Kind::Programs {
+                        Perl6::Documentable::DocPage::Source::Programs.new.render($registry, $doc.name);
+                    }
                 }
-            }
-            print-time("Writing source files", $now);
+            }).Slip;
+
+            print-time("Generate source files", $now);
         }
 
         #===================================================================
 
         if ($k || $all) {
             $now = now;
-            DEBUG("Writing routine files...", $v);
-            generate-kind($registry, Kind::Routine).map({
-            spurt "html/routine/{replace-badchars-with-goodnames .[0]}.html", .[1];
-            });
-            print-time("Writing routine files", $now);
-
-            $now = now;
-            DEBUG("Writing syntax files...", $v);
-            generate-kind($registry, Kind::Syntax).map({
-                spurt "html/syntax/{replace-badchars-with-goodnames .[0]}.html", .[1];
-            });
-            print-time("Writing syntax files", $now);
+            DEBUG("Writing per kind files...", $v);
+            for Kind::Routine, Kind::Syntax -> $kind {
+                @docs.append: $registry.lookup($kind, :by<kind>).map({.name}).unique.map(-> $name {
+                    Perl6::Documentable::DocPage::Kind.new.render($registry, $name, $kind)
+                }).Slip;
+            }
+            print-time("Generate per kind files", $now);
         }
 
         #===================================================================
@@ -146,31 +154,22 @@ package Perl6::Documentable::CLI {
             $now = now;
             DEBUG("Index generation phase...", $v);
 
-            DEBUG("Writing html/programs.html ...", $v);
-            spurt 'html/programs.html', programs-index-html($registry.programs-index);
+            # main indexes
+            @docs.push(Perl6::Documentable::DocPage::Index::Language.new.render($registry, $manage));
+            @docs.push(Perl6::Documentable::DocPage::Index::Programs.new.render($registry));
+            @docs.push(Perl6::Documentable::DocPage::Index::Type.new.render($registry));
+            @docs.push(Perl6::Documentable::DocPage::Index::Routine.new.render($registry));
 
-            DEBUG("Writing html/language.html ...", $v);
-            spurt 'html/language.html', language-index-html($registry.language-index, $manage);
-
-            DEBUG("Writing html/type.html ...", $v);
-            spurt 'html/type.html', type-index-html($registry.type-index);
-
-            DEBUG("Writing html/routine.html ...", $v);
-            spurt 'html/routine.html', routine-index-html($registry.routine-index);
-
-            DEBUG("Subindex generation phase...", $v);
-
+            # subindexes
             for <basic composite domain-specific exceptions> -> $category {
-                DEBUG("Writing html/type-$category.html ...", $v);
-                spurt "html/type-$category.html",
-                type-subindex-html($registry.type-subindex(:$category), $category);
-            }
-
+                @docs.push(
+                    Perl6::Documentable::DocPage::SubIndex::Type.new.render($registry, $category)
+            )}
             for <sub method term operator trait submethod> -> $category {
-                DEBUG("Writing html/routine-$category.html ...", $v);
-                spurt "html/routine-$category.html",
-                routine-subindex-html($registry.routine-subindex(:$category), $category);
-            }
+                @docs.push(
+                    Perl6::Documentable::DocPage::SubIndex::Routine.new.render($registry, $category)
+            )}
+
             print-time("Writing index files", $now);
         }
 
@@ -182,6 +181,8 @@ package Perl6::Documentable::CLI {
             spurt "html/js/search.js", search-file($registry.generate-search-index);
         }
 
+        # now we can write all files "parallely"
+        @docs.map(-> $doc { spurt "html{$doc<url>}.html", $doc<document> });
     }
 
     #| Check which pod files have changed and regenerate its HTML files.
