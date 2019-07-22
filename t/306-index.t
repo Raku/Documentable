@@ -1,4 +1,5 @@
 use Perl6::Documentable::Registry;
+use Perl6::Documentable::DocPage::Index;
 use Test;
 
 plan *;
@@ -27,11 +28,16 @@ my @routine-index = (
     %(:name("index-types")   , :url("/routine/index-types")   , :subkinds(("method",)), :origins((("Any"     , "/type/Any"         ),)))
 );
 
+my @index;
 subtest "Main index generation" => {
-    test-index("programs-index", @programs-index);
-    test-index("language-index", @language-index);
-    test-index("type-index"    , @type-index    );
-    test-index("routine-index" , @routine-index );
+    @index = Perl6::Documentable::DocPage::Index::Programs.new.compose($registry);
+    test-index(@index, @programs-index, "program index" );
+    @index = Perl6::Documentable::DocPage::Index::Language.new.compose($registry);
+    test-index(@index, @language-index, "language index");
+    @index = Perl6::Documentable::DocPage::Index::Type.new.compose($registry);
+    test-index(@index, @type-index    , "type index"    );
+    @index = Perl6::Documentable::DocPage::Index::Routine.new.compose($registry);
+    test-index(@index, @routine-index, "routine index"  );
 };
 
 my @type-subindex := (
@@ -44,13 +50,14 @@ my @routine-subindex := (
 );
 
 subtest "Subindex generation" => {
-    test-index("type-subindex"   , @type-subindex   );
-    test-index("routine-subindex", @routine-subindex);
+    @index = Perl6::Documentable::DocPage::SubIndex::Type.new.compose($registry, "type");
+    test-index(@index, @type-subindex   , "type subindex"   );
+    @index = Perl6::Documentable::DocPage::SubIndex::Routine.new.compose($registry, "method");
+    test-index(@index, @routine-subindex, "routine subindex");
 }
 
-sub test-index($kind, @index) {
-    subtest "$kind" => {
-        my @index = $registry."$kind"();
+sub test-index(@index, @expected, $msg) {
+    subtest $msg => {
         for @index -> %entry {
             test-index-entry(@index, %entry);
         }

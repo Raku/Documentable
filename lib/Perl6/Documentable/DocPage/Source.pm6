@@ -129,6 +129,7 @@ class Perl6::Documentable::DocPage::Source::Type
                 ;
             }
         }
+        $doc;
     }
 
     method render($registry, $name) {

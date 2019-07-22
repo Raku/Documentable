@@ -1,8 +1,7 @@
 use v6.c;
 
 use Perl6::Documentable::Registry;
-use Perl6::Documentable::To::HTML;
-
+use Perl6::Documentable::DocPage::Index;
 use Test;
 
 plan *;
@@ -15,32 +14,38 @@ my $registry = Perl6::Documentable::Registry.new(
 
 $registry.compose;
 
+my $index; my $fragment;
 subtest "Main indexes" => {
-    test-index("programs-index", &programs-index-html);
-    test-index("type-index"    , &type-index-html    );
-    test-index("language-index", &language-index-html);
-    test-index("routine-index" , &routine-index-html );
+    $index = Perl6::Documentable::DocPage::Index::Programs.new;
+    test-index("programs-index", $index.compose($registry), $index.render($registry));
+    $index = Perl6::Documentable::DocPage::Index::Type.new;
+    test-index("type-index"    , $index.compose($registry), $index.render($registry));
+    $index = Perl6::Documentable::DocPage::Index::Language.new;
+    test-index("language-index", $index.compose($registry), $index.render($registry));
+    $index = Perl6::Documentable::DocPage::Index::Routine.new;
+    test-index("routine-index" , $index.compose($registry), $index.render($registry));
 }
 
 subtest "Subindexes" => {
+    $index = Perl6::Documentable::DocPage::SubIndex::Type.new;
     for <basic composite domain-specific exceptions> {
-        test-index( "type-subindex", &type-subindex-html, $_);
-    }
+        test-index(
+            "type-subindex",
+            $index.compose($registry, $_),
+            $index.render($registry, $_)
+        )}
+
+    $index = Perl6::Documentable::DocPage::SubIndex::Routine.new;
     for <sub method term operator trait submethod> {
-        test-index( "routine-subindex", &routine-subindex-html, $_);
-    }
+        test-index(
+            "routine-subindex",
+            $index.compose($registry, $_),
+            $index.render($registry, $_)
+        )}
 }
 
-sub test-index($type, &to-html, $category?) {
+sub test-index($type, @index, $fragment) {
     subtest {
-        my @index; my $fragment;
-        if (defined $category) {
-            @index    = $registry."$type"(:$category);
-            $fragment = &to-html(@index, $category)
-        } else {
-            @index    = $registry."$type"();
-            $fragment = &to-html(@index)
-        }
         for @index -> %i {
                 is so $fragment ~~ /:s {%i<name>}/, True, "{%i<name>} found in $type";
                 is so $fragment ~~ /:s {%i<url>}/ , True, "{%i<url>} found in $type";

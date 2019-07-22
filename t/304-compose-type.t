@@ -1,4 +1,5 @@
 use Perl6::Documentable::Registry;
+use Perl6::Documentable::DocPage::Source;
 use Test;
 
 plan *;
@@ -11,18 +12,22 @@ my $registry = Perl6::Documentable::Registry.new(
 
 $registry.compose;
 
+my $document = Perl6::Documentable::DocPage::Source::Type.new;
+
 subtest "Typegraph fragment" => {
-    is-deeply $registry.typegraph-fragment("ejiff"),
-              $registry.typegraph-fragment("fffff"),
+    is-deeply $document.typegraph-fragment("ejiff"),
+              $document.typegraph-fragment("fffff"),
               "Default svg image";
 }
 
 subtest "Composing types" => {
     my $associative = get-complete-doc("Associative");
     my $map         = get-complete-doc("Map");
-    is-deeply $map.pod.contents[11].first,
+    my $pod = $document.compose-type($registry,$map).pod;
+    is-deeply $pod.contents[11].first,
               get-definition($associative, "of").pod,
               "Routines by role";
+
 
     my $cool = get-complete-doc("Cool");
     is-deeply $map.pod.contents[14].first,
@@ -30,7 +35,8 @@ subtest "Composing types" => {
               "Routines by class";
 
     my $hash = get-complete-doc("Hash");
-    is-deeply $hash.pod.contents[14].first,
+    $pod = $document.compose-type($registry,$hash).pod;
+    is-deeply $pod.contents[14].first,
               get-definition($associative, "of").pod,
               "Routines by role done by a parent class";
 

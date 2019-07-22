@@ -17,7 +17,7 @@ class Perl6::Documentable::DocPage::Index::Language
         )}).cache;
     }
 
-    method render($registry, $manage) {
+    method render($registry, $manage = False) {
         my @index = self.compose($registry);
         my @content = [];
         if ($manage) {
