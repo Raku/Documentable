@@ -13,6 +13,7 @@ use Perl6::Documentable::LogTimelineSchema;
 unit class Perl6::Documentable::File is Perl6::Documentable;
 
 has Str  $.summary;
+has Str  $.url;
 #| Definitions indexed in this pod
 has @.defs;
 
@@ -24,12 +25,12 @@ method new (
                      :$pod!
 ) {
     # kind setting
-    my $kind;
+    my $kind; my $url;
     given $dir {
-        when "Language" { $kind = Kind::Language }
-        when "Programs" { $kind = Kind::Programs }
-        when "Native"   { $kind = Kind::Type     }
-        when "Type"     { $kind = Kind::Type     }
+        when "Language" { $kind = Kind::Language; $url = "/language/$filename"; }
+        when "Programs" { $kind = Kind::Programs; $url = "/programs/$filename"; }
+        when "Native"   { $kind = Kind::Type    ; $url = "/type/$filename"    ; }
+        when "Type"     { $kind = Kind::Type    ; $url = "/type/$filename"    ; }
     }
 
     # proper name from =TITLE
@@ -61,6 +62,7 @@ method new (
         :$kind,
         :$name,
         :$summary,
+        :$url
         :@subkinds,
         :@categories
     );
@@ -150,14 +152,6 @@ method find-definitions(
         $i = $new-i + 1;
     }
     return $i;
-}
-
-method url() {
-    given $.kind {
-        when Programs { "/programs/$.name" }
-        when Type     { "/type/$.name"     }
-        when Language { "/language/$.name" }
-    }
 }
 
 # vim: expandtab shiftwidth=4 ft=perl6

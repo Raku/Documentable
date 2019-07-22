@@ -35,8 +35,8 @@ subtest "Basic attributes" => {
 }
 
 subtest "Url setting" => {
-    is $doc1.url, "/type/int", "Normal link";
-    is $doc2.url, "/language/class int"       , "Link from config";
+    is $doc1.url, "/type/int"    , "Normal link";
+    is $doc2.url, "/language/int", "Link from config";
 }
 
 done-testing;

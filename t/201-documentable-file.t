@@ -16,10 +16,11 @@ my $tg  = Perl6::TypeGraph.new-from-file;
 my $doc = Perl6::Documentable::File.new(
     :dir("Type"),
     :$pod,
-    :$tg
+    :$tg,
+    :filename("int")
 );
 
-$doc.process();
+$doc.process;
 
 my @names      := ("ACCEPTS", "any", "mro", "root");
 my @subkinds   := ("method" , "sub"               );
