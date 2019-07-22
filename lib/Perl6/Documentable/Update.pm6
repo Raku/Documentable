@@ -56,8 +56,7 @@ sub update-file($filename, $registry) {
                                    .categorize({.name});
     state %routine-docs = $registry.lookup(Kind::Routine, :by<kind>)
                                    .categorize({.name});
-    my $doc = $registry.documentables.grep({.pod-is-complete})
-              .grep({
+    my $doc = $registry.documentables.grep({
                   .url.split("/")[*-1] eq $filename || # language/something
                   .url.split("/")[*-1] eq $filename.tc # type/Class
                }).first;
