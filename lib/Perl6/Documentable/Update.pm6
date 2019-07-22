@@ -3,6 +3,7 @@ use v6.c;
 unit class Perl6::Documentable::Update;
 
 use Perl6::Utils;
+use Perl6::Documentable;
 use Perl6::Documentable::Registry;
 use Perl6::Documentable::To::HTML;
 
@@ -65,9 +66,9 @@ sub update-file($filename, $registry) {
     spurt "html{$doc.url}.html", source-html($doc.kind,$doc);
 
     # syntax files
-    update-per-kind-files("syntax", $doc, %syntax-docs);
+    update-per-kind-files(Kind::Syntax, $doc, %syntax-docs);
     # routine files
-    update-per-kind-files("routine", $doc, %routine-docs);
+    update-per-kind-files(Kind::Routine, $doc, %routine-docs);
 
     # used by update-pod-collection to regenerate the indexes
     return $doc.kind;
