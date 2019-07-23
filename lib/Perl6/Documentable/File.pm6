@@ -136,7 +136,7 @@ method find-definitions(
         );
         @defs.push: $created;
 
-        # Preform sub-parse, checking for definitions elsewhere in the pod
+        # Perform sub-parse, checking for definitions elsewhere in the pod
         # And updating $i to be after the places we've already searched
         my $new-i = $i + self.find-definitions(
                         :pod(@pod-section[$i+1..*]),
