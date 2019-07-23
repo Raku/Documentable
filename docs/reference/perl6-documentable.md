@@ -31,16 +31,7 @@ The pod representing the documented piece. It does not have to be the whole file
 
 #### enum kind
 
-Enum taking one of the following values: `<Type Language Programs Syntax Reference Routine>`.
-
-This atributte tells you where the documented piece comes from:
-
-- `Type`: from Type dir.
-- `Language`: from Language dir.
-- `Programs`: from Program dir.
-- `Syntax`: section of a pod file.
-- `Routine`: section of a pod file.
-- `Reference`: from a `X<> element.
+One element from [Kind](#enum-kind).
 
 #### Str @subkinds
 
