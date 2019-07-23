@@ -6,46 +6,12 @@ use Pod::To::HTML;
 
 unit module Perl6::Documentable::To::HTML::Wrapper;
 
-=begin pod
-
-=head1 NAME
-
-Perl6::Documentable::To::HTML
-
-=head1 SYNOPSIS
-
-=begin code :lang<perl6>
-
-use Perl6::Documentable::To::HTML::Wrapper;
-
-=end code
-
-=head1 DESCRIPTION
-
-Perl6::Documentable::To::HTML takes a Perl6::Documentable::Registry object and generate a full set of HTML files.
-
-=head1 AUTHOR
-
-Antonio <antoniogamiz10@gmail.com>
-
-=head1 COPYRIGHT AND LICENSE
-
-Copyright 2019 Perl6 Team
-
-This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
-
-=end pod
-
-# =================================================================================
-# All this code generates a wrapper for every HTML page generated
-# =================================================================================
-
 # hardcoded menu (TODO => generate it automatically)
 my @menu = ('language', ''        ) => (),
            ('type'    , 'Types'   ) => <basic composite domain-specific exceptions>,
            ('routine' , 'Routines') => <sub method term operator trait submethod  >,
            ('programs', ''        ) => (),
-           ('https://webchat.freenode.net/?channels=#perl6', 'Chat with us') => (); 
+           ('https://webchat.freenode.net/?channels=#perl6', 'Chat with us') => ();
 
 # templates
 my $head-template-path   = zef-path("template/head.html"  );
@@ -62,7 +28,7 @@ sub header-html($current-selection, $pod-path) is export {
                 href="{ $dir ~~ /https/ ?? $dir !! "/$dir.html" }">
                 { $name || $dir.wordcase }
             </a>
-        ]}), 
+        ]}),
         q[</div>];
 
     my $sub-menu-items = '';
@@ -113,7 +79,7 @@ sub footer-html($pod-path) is export {
     }
     $footer.subst-mutate(/SOURCEURL/, $pod-url);
     $footer.subst-mutate(/EDITURL/, $edit-url);
-    
+
     state $source-commit = (qx/git rev-parse --short HEAD/.chomp unless !".git".IO.e) // '';
 
     $footer.subst-mutate(:g, /SOURCECOMMIT/, $source-commit);
