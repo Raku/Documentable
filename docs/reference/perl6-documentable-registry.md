@@ -40,7 +40,7 @@ Instance of `Perl6::TypeGraph` class.
 
 #### %.routines-by-type
 
-Every key in this Hash is a name of a Type and its value is all routines (`Perl6::Documentable::Derived` with Kind::Routine) found in that type.
+Every key in this Hash is a name of a Type and its value is all routines (`Perl6::Documentable::Derived` with kind set to Kind::Routine) found in that type.
 
 `.compose` needs to be executed before use this attribute.
 
@@ -100,3 +100,29 @@ method compose(
 ```
 
 Initialize `@.definitions` and `%.routines-by-type`.
+
+#### method lookup
+
+```perl6
+method lookup(
+    Str $what,
+    Str $by
+) return Hash
+```
+
+This is your best friend, `lookup` will give you everything you want to know. This method classify all the content in `@.defs` and `@.definitions`. How is that done? By `$by` (pun intended). Once is classified, you must specify what value of `$by` the returned objects must have.
+
+_Important:_ you must execute `.compose` before using this method.
+
+Let's see an example:
+
+```
+# suppose we have a registry ready
+my $registry = Perl6::Documentable::Registry.new(...);
+
+# query all Documentables with kind set to Routine
+$registry.lookup(Kind::Routine, :by<kind>);
+
+# query all Documentables with kind set to Type
+$registry.lookup(Kind::Type, :by<kind>);
+```
