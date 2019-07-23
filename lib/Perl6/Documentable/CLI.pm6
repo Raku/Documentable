@@ -1,9 +1,6 @@
-use v6;
-
 use Perl6::Documentable;
 use Perl6::Documentable::Registry;
 
-use Perl6::Documentable::Update;
 use Perl6::Documentable::DocPage::Source;
 use Perl6::Documentable::DocPage::Kind;
 use Perl6::Documentable::DocPage::Index;
@@ -117,7 +114,7 @@ package Perl6::Documentable::CLI {
 
         if ($p || $all ) {
             $now = now;
-            DEBUG("HTML generation phase...", $v);
+            DEBUG("Generating source files...", $v);
 
             @docs.append: $registry.documentables.map(-> $doc {
                 given $doc.kind {
@@ -140,7 +137,7 @@ package Perl6::Documentable::CLI {
 
         if ($k || $all) {
             $now = now;
-            DEBUG("Writing per kind files...", $v);
+            DEBUG("Generating per kind files...", $v);
             for Kind::Routine, Kind::Syntax -> $kind {
                 @docs.append: $registry.lookup($kind, :by<kind>).map({.name}).unique.map(-> $name {
                     Perl6::Documentable::DocPage::Kind.new.render($registry, $name, $kind)
@@ -153,7 +150,7 @@ package Perl6::Documentable::CLI {
 
         if ($i || $all) {
             $now = now;
-            DEBUG("Index generation phase...", $v);
+            DEBUG("Generating indexes...", $v);
 
             # main indexes
             @docs.push(Perl6::Documentable::DocPage::Index::Language.new.render($registry, $manage));
@@ -171,7 +168,7 @@ package Perl6::Documentable::CLI {
                     Perl6::Documentable::DocPage::SubIndex::Routine.new.render($registry, $category)
             )}
 
-            print-time("Writing index files", $now);
+            print-time("Generating index files", $now);
         }
 
         #===================================================================
@@ -186,8 +183,10 @@ package Perl6::Documentable::CLI {
             spurt "html/js/search.js", $template;
         }
 
-        # now we can write all files "parallely"
+        DEBUG("Writing all generated files...", $v);
+        # .race(:4batch, :2degree)
         @docs.map(-> $doc { spurt "html{$doc<url>}.html", $doc<document> });
+        print-time("Writing generated files", $now);
     }
 
     #| Check which pod files have changed and regenerate its HTML files.
@@ -285,7 +284,7 @@ package Perl6::Documentable::CLI {
                 }
             }
         }
-
+        @docs.map(-> $doc { spurt "html{$doc<url>}.html", $doc<document> });
         print-time("Updating files", $now);
     }
 
