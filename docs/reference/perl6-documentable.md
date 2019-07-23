@@ -1,4 +1,19 @@
-## Perl6::Documentable
+## enum Kind
+
+Each and every one of the things documented has a `kind` value. This value can tell you "where that documented piece" comes from. There are six different possible values:
+
+| Value     | Origin                           |
+| --------- | -------------------------------- |
+| Type      | Complete pod from Type dir       |
+| Language  | Complete pod from Language dir   |
+| Programs  | Complete pod from Programs dir   |
+| Syntax    | Pod fragment from a complete pod |
+| Routine   | Pod fragment from a complete pod |
+| Reference | X<> element                      |
+
+See `Perl6::Documentable::Heading::*` to see when `Syntax` or `Routine` is assigned.
+
+## class Perl6::Documentable
 
 `Perl6::Documentable` represents a piece of Perl 6 that is documented.
 
@@ -65,3 +80,18 @@ my $doc = Perl6::Documentable.new(
 
 $doc.human-kind() # output: ternary operator
 ```
+
+## Perl6::Documentable::DocPage
+
+This is the role that every page must implement. `render` is the method called when you want to generate the HTML document. In `url` you must specify the url where this file will be written to.
+
+So, if you want to add a new page, what should you do? First you should check out if it fits in some of the existing modules (`Index`, `Source` or `Kind`). In that case, you only need to add a new class representing the new page type. You can add as many methods as you want (see the other classes as reference). In the end, remember that only `render` will be called to generate the page. `render` must return a Hash containing:
+
+```perl6
+%(
+    document => String containing the html
+    url      => URL assigned to the document
+)
+```
+
+I strongly recommend you to use `p2h` fro `Perl6::Documentable::To::HTML::Wrapper` to get the same style in all pages.
