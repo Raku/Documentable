@@ -10,7 +10,7 @@ class Perl6::Documentable::DocPage::Index::Language
     does Perl6::Documentable::DocPage {
 
     method compose($registry) {
-        $registry.lookup(Kind::Language, :by<kind>).map({%(
+        $registry.lookup(Kind::Language.gist, :by<kind>).map({%(
             name    => .name,
             url     => .url,
             summary => .summary
@@ -57,7 +57,7 @@ class Perl6::Documentable::DocPage::Index::Programs
     does Perl6::Documentable::DocPage {
 
     method compose($registry) {
-        $registry.lookup(Kind::Programs, :by<kind>).map({%(
+        $registry.lookup(Kind::Programs.gist, :by<kind>).map({%(
             name    => .name,
             url     => .url,
             summary => .summary
@@ -84,7 +84,7 @@ class Perl6::Documentable::DocPage::Index::Type
 
     method compose($registry) {
         [
-            $registry.lookup(Kind::Type, :by<kind>)\
+            $registry.lookup(Kind::Type.gist, :by<kind>)\
             .categorize(*.name).sort(*.key)>>.value
             .map({%(
                 name     => .[0].name,
@@ -124,7 +124,7 @@ class Perl6::Documentable::DocPage::SubIndex::Type
     does Perl6::Documentable::DocPage {
 
     method compose($registry, $category) {
-        $registry.lookup(Kind::Type, :by<kind>)\
+        $registry.lookup(Kind::Type.gist, :by<kind>)\
         .grep({$category ⊆ .categories})\ # XXX
         .categorize(*.name).sort(*.key)>>.value
         .map({%(
@@ -160,7 +160,7 @@ class Perl6::Documentable::DocPage::Index::Routine
 
     method compose($registry) {
         [
-            $registry.lookup(Kind::Routine, :by<kind>)\
+            $registry.lookup(Kind::Routine.gist, :by<kind>)\
             .categorize(*.name).sort(*.key)>>.value
             .map({%(
                 name     => .[0].name,
@@ -201,7 +201,7 @@ class Perl6::Documentable::DocPage::SubIndex::Routine
     does Perl6::Documentable::DocPage {
 
     method compose($registry, $category) {
-        $registry.lookup(Kind::Routine, :by<kind>)\
+        $registry.lookup(Kind::Routine.gist, :by<kind>)\
             .grep({$category ⊆ .categories})\ # XXX
             .categorize(*.name).sort(*.key)>>.value
             .map({%(

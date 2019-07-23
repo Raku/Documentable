@@ -38,7 +38,7 @@ class Perl6::Documentable::DocPage::Kind
     }
 
     method render($registry, $name, $kind) {
-        my %documents = $registry.lookup($kind, :by<kind>)
+        my %documents = $registry.lookup($kind.gist, :by<kind>)
                                  .categorize({.name});
         return %(
             document => p2h(self.compose($name, %documents{$name}, $kind), $kind) ,

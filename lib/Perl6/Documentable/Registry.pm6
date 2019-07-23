@@ -104,7 +104,7 @@ method compose() {
     $!composed = True;
 }
 
-method lookup(Kind $what, Str :$by!) {
+method lookup(Str $what, Str :$by!) {
     unless %!cache{$by}:exists {
         for @!documentables.Slip, @!definitions.Slip -> $d {
             %!cache{$by}{$d."$by"()}.append: $d;
@@ -125,7 +125,7 @@ method new-search-entry(Str :$category, Str :$value, Str :$url) {
 method generate-search-index() {
     my @items;
     for Kind::Type, Kind::Programs, Kind::Language, Kind::Syntax, Kind::Routine -> $kind {
-        @items.append: self.lookup($kind, :by<kind>).categorize({.name}) #! use punycode here too
+        @items.append: self.lookup($kind.gist, :by<kind>).categorize({.name}) #! use punycode here too
                       .pairs.sort({.key}).map: -> (:key($name), :value(@docs)) {
                           self.new-search-entry(
                               category => ( @docs > 1 ?? $kind.gist !! @docs.[0].subkinds[0] || $kind.gist ).wordcase,

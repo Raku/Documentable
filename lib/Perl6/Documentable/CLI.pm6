@@ -139,7 +139,7 @@ package Perl6::Documentable::CLI {
             $now = now;
             DEBUG("Generating per kind files...", $v);
             for Kind::Routine, Kind::Syntax -> $kind {
-                @docs.append: $registry.lookup($kind, :by<kind>).map({.name}).unique.map(-> $name {
+                @docs.append: $registry.lookup($kind.gist, :by<kind>).map({.name}).unique.map(-> $name {
                     Perl6::Documentable::DocPage::Kind.new.render($registry, $name, $kind)
                 }).Slip;
             }
@@ -228,9 +228,9 @@ package Perl6::Documentable::CLI {
 
         my @kinds; # to know what indexes to regenerate
         # regenerate source files and per kind files
-        state %syntax-docs  = $registry.lookup(Kind::Syntax, :by<kind>)
+        state %syntax-docs  = $registry.lookup(Kind::Syntax.gist, :by<kind>)
                                     .categorize({.name});
-        state %routine-docs = $registry.lookup(Kind::Routine, :by<kind>)
+        state %routine-docs = $registry.lookup(Kind::Routine.gist, :by<kind>)
                                     .categorize({.name});
         for @files -> $filename {
             my $doc = $registry.documentables.grep({
