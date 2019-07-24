@@ -338,3 +338,13 @@ sub highlight-code-blocks {
         $promise.result;
     }
 }
+
+sub print-time($phase, $start) {
+    my $now = now;
+    say "\e[1;36m$phase has taken {$now-$start} seconds \e[0m";
+}
+
+# debug function
+sub DEBUG($msg, $v = True) {
+    say $msg if $v;
+}
