@@ -187,7 +187,15 @@ You can set this up with the default Makefile (obtained using `documentable setu
 To build the styles, you need to have a SASS compiler. You can either install
 the `sass` command
 
+```
     $ sudo apt-get install ruby-sass
+```
+
+#### git (OPTIONAL)
+
+If you generate the documentation from the repo where it's located, the last sha of the last commit will be added to every HTML page, in order to see the exact point where it was created from.
+
+If `git` is not found, then nothing will be done.
 
 ## FAQ
 
