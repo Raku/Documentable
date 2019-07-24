@@ -140,6 +140,55 @@ Test files follow this convention:
 - From 300 to 399: [Perl6::Documentable::Registry](#perl6documentableregistry) related tests.
 - From 400 to 499: `Perl6::Documentable::Registry::To::HTML` related tests.
 
+## Dependencies installation
+
+#### Rakudo
+
+You need Perl 6 installed. You can install the Rakudo Perl 6 compiler by
+downloading the latest Rakudo Star release from
+[rakudo.org/downloads/star/](http://rakudo.org/downloads/star/).
+
+#### Zef
+
+[Zef](https://modules.perl6.org/repo/zef) is a Perl 6 module installer. If you
+installed Rakudo Star package, it should already be there. Feel free to
+use any other module installer for the modules needed (see below).
+
+#### Mojolicious / Web Server
+
+Mojolicious is written in Perl 5, so assuming that you use
+[`cpanm`](https://metacpan.org/pod/App::cpanminus),
+install this now:
+
+```
+    $ cpanm -vn Mojolicious
+```
+
+#### GraphViz
+
+To generate the svg files for the typegraph representation you need to have installed `graphviz`. If you use Ubuntu/Debian:
+
+```
+    $ sudo apt-get install graphviz
+```
+
+#### Highlight (OPTIONAL)
+
+This is necessary to appli highlighting to the code examples in the documentation. You can skip it, but have in mind that all code examples will appear with the same color (black).
+
+You can set this up with the default Makefile (obtained using `documentable setup`):
+
+```
+    make init-highlights
+```
+
+#### SASS Compiler
+
+To build the styles, you need to have a SASS compiler. You can either install
+the `sass` command
+
+    $ sudo apt-get install ruby-sass
+
 ## FAQ
 
 _Question:_ Do I need to regenerate all pages when I have only changed one?
