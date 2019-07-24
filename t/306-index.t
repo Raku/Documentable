@@ -7,7 +7,7 @@ plan *;
 my $registry = Perl6::Documentable::Registry.new(
     :topdir("t/test-doc"),
     :dirs(["Type"]),
-    :verbose(False)
+    :!verbose
 );
 
 $registry.compose;
