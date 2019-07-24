@@ -7,7 +7,7 @@ token subkind  { <routine> | <syntax> | <operator> }
 token name     { \S* }
 token compose-name { .* }
 
-rule def1 {^\s*(T|t)'he' <name> <subkind>\s*$}
+rule def1 {^\s*[T|t]'he' <name> <subkind>\s*$}
 rule def2 {^\s*<subkind> <name>\s*$}
 rule def3 {^\s*'trait' <compose-name>\s*$}
 
