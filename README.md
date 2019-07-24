@@ -201,6 +201,8 @@ Is not your question here? Then, please [raise an issue](https://github.com/anto
 
 # AUTHORS
 
+Antonio Gámiz Delgado <@antoniogamiz>
+
 Moritz Lenz <@moritz>
 
 Jonathan Worthington <@jnthn>
@@ -213,9 +215,23 @@ Aleks-Daniel <@AlexDaniel>
 
 Sam S <@smls>
 
+Juan Julián Merelo Guervós <@JJ>
+
+MorayJ <@MorayJ>
+
+Zoffix <@zoffixnet>
+
+Tison <@TisonKun>
+
+Samantha Mcvey <@samcv>
+
+Altai-Man <@Altai-man>
+
+Tom Browder <@tbrowder>
+
 Alexander Moquin <@Mouq>
 
-Antonio <antoniogamiz10@gmail.com>
+Wenzel P. P. Peppmeyer <@gfldex>
 
 # COPYRIGHT AND LICENSE
 
