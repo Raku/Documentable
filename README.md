@@ -197,6 +197,10 @@ If you generate the documentation from the repo where it's located, the last sha
 
 If `git` is not found, then nothing will be done.
 
+#### wget and tar
+
+This programs are used by `documentable setup` to download the default assets and extract them. If you are on Ubuntu/Debian you will not have any problem (probably). If you are using Windows I recommend you to download the assets yourself from [this link](https://github.com/antoniogamiz/Perl6-Documentable/releases/download/v1.1.2/assets.tar.gz).
+
 ## FAQ
 
 _Question:_ Do I need to regenerate all pages when I have only changed one?
