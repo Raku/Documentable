@@ -1,8 +1,28 @@
 # To do some issues
 
+- [ ] name and compose-name should maybe use a better token, like for instance perl6 identifier. (also better composite-name or something like that). Maybe def1,def2,def3 should be called something different.
+
+_Status:_ I'm working hard on this one. Think of good names is the hardest thing in programming I think.
+
+- [ ] find-references and create references should better be spun off to a new module so that they can be properly defined and tested. Probably change the ifs to multiple dispatch instead, much clearer that way.
+
+_Status:_ This logic is currently disabled. First I want to get working all the others URLs. After that, I will add this part following the given feedback.
+
 - [ ] Perl6::Utils is too generic. Move it down to Perl6::Documentable::Utils or spin it off somewhere else.
 
 _Status:_ this will be handled when the url problem is solved.
+
+- [ ] Not clear syntax is exhaustive. For instance, "do" as a prefix and other statement prefixes are not in the "language" area.
+
+_Status:_ discussing with @JJ.
+
+- [ ] compose-type is too long, and should probably be split in several subroutines.
+
+_Status:_
+
+- [ ] Do you need to run Pod::To::Cached as an external program? You can capture output of anything (or request specific functionality)
+
+_Status:_ Discussing with Richard in [this issue](https://github.com/finanalyst/pod-cached/issues/16).
 
 - [x] Also, not clear what those functions do. Some, like print-time, look a bit useless. There are two type of functions: IO and URL. Maybe create two different modules. In general, try and refactor because some of them might better belong as a method.
 
@@ -22,31 +42,21 @@ _Status:_ This was done since the beginning, it is called `Perl6::Documentable::
 
 _Status:_ completed. See `Perl6::Documentable::File`
 
-- [ ] find-references and create references should better be spun off to a new module so that they can be properly defined and tested. Probably change the ifs to multiple dispatch instead, much clearer that way.
-
 _Status:_
 
 - [x] \$pod-cache is a package lexical. It should be part of a class. global variables → action at a distance → bad
 
 _Status:_ completed. See `Perl6::Documnetable::Registry`.
 
-- [ ] Improve synopsis for all modules. _Status:_
+- [x] Improve synopsis for all modules. _Status:_ To avoid overload the code files, I have a better documentation under doc/ dir. It contains more examples and explanations about "why do that" rather than "what does that".
 
 - [x] Grammars are classes, need to be documented and tested too.
 
 _Status:_ completed. [Tests](https://github.com/antoniogamiz/Perl6-Documentable/blob/master/t/204-grammar.t) and [documentation](https://github.com/antoniogamiz/Perl6-Documentable/blob/master/docs/reference/perl6-documentable-heading-grammar.md).
 
-- [ ] name and compose-name should maybe use a better token, like for instance perl6 identifier. (also better composite-name or something like that). Maybe def1,def2,def3 should be called something different.
-
-_Status:_ I'm working hard on this one. Think of good names is the hardest thing in programming I think.
-
 - [x] def1 is capturing the (t|t)
 
-_Status:_
-
-- [ ] Not clear syntax is exhaustive. For instance, "do" as a prefix and other statement prefixes are not in the "language" area.
-
-_Status:_ discussing with @JJ.
+_Status:_ Solved.
 
 - [x] Also, Perl6::Documentable::Processing::Grammar is less than awesome (LTA). Pod::Documentable::Heading::Grammar maybe, or PodUnit Grammar, or something like that.
 
@@ -65,9 +75,9 @@ _Status:_ I have tried to parallelize everything. Two problems:
 
 _Status:_ All authors are included in the main README.md.
 
-- [ ] compose-type is too long, and should probably be split in several subroutines. _Status:_
+- [x] is type-graph cached?
 
-- [ ] is type-graph cached? _Status:_
+_Status:_ Yes, it is.
 
 - [x] All text that mentions Perl 6 and somesuch should probably be left to specific modules for the documentation. If we keep it that way, it can't be too generic.
 
@@ -80,10 +90,6 @@ _Status:_ Clarified in the dependencies section. This wrapper is needed because 
 - [x] CLI uses also wget. This might not work for Windows; or tar or anything. Not clear what those assets are, also? If it's run from the actual documentation dir, they might want to have their own assets...
 
 _Status:_ Clarified everything in the README.
-
-- [ ] Do you need to run Pod::To::Cached as an external program? You can capture output of anything (or request specific functionality)
-
-_Status:_
 
 - [x] rm -rf is very dangerous. There might be production-only stuff in html. Keep track of what you've created, and delete only that.
 

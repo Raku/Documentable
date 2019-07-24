@@ -36,7 +36,7 @@ subtest "Composing types" => {
 
     my $hash = get-complete-doc("Hash");
     $pod = $document.compose-type($registry,$hash).pod;
-    is-deeply $pod.contents[14].first,
+    is-deeply $pod.contents[17].first,
               get-definition($associative, "of").pod,
               "Routines by role done by a parent class";
 
