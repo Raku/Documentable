@@ -6,6 +6,8 @@
     "@AlexDaniel",
     "@antoniogamiz"
   ],
+  "api": 1,
+  "auth": "Perl6 Team",
   "build-depends": [],
   "depends": [
     "Pod::Load:ver<0.5.4>",
