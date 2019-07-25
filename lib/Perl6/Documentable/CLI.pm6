@@ -7,6 +7,7 @@ use Perl6::Documentable::DocPage::Index;
 use Perl6::Documentable::To::HTML::Wrapper;
 
 use Pod::Load;
+use Pod::To::Cached;
 use File::Temp;
 use Perl6::Utils;
 use Perl6::TypeGraph;
@@ -197,35 +198,26 @@ package Perl6::Documentable::CLI {
     ) {
         DEBUG("Checking for changes...");
         my $now = now;
-        my @docs;
-        # get the filenames of the changed files from stdout
-        my $program = "use Pod::To::Cached; Pod::To::Cached.new(:path('.{$topdir}'), :verbose, :source('{$topdir}')).update-cache;";
-        my $proc   = run("perl6", "-e", $program, :out, :err);
-        my @lines = $proc.err.slurp(:close).Str.split("\n");
-        my @files;
-        if (+@lines > 4) {
-            # first and last two lines are useless output
-            @files = @lines.Array[2, *-3].unique;
-            # format: Caching namefile
-            @files = @files.map({.split(" ")[1]});
-            @files = @files.map({ .split("/")[*-1].tc });
 
-            DEBUG(+@files ~ " file(s) modified. Starting regeneratiion ...");
+        my $cache = Pod::To::Cached.new(:path(".{$topdir}"), :verbose, :source($topdir));
+        my @files = $cache.list-files(<Valid>);
 
-        } else {
+        {
             DEBUG("Everything already updated. There are no changes.");
             exit 0;
-        }
+        } unless @files;
+
+        DEBUG(+@files ~ " file(s) modified. Starting regeneratiion ...");
 
         # update the registry
         my $registry = Perl6::Documentable::Registry.new(
             :$topdir,
             :dirs(["Language", "Type", "Programs", "Native"]),
             :!verbose,
-            :!update
         );
         $registry.compose;
 
+        my @docs; # files to write
         my @kinds; # to know what indexes to regenerate
         # regenerate source files and per kind files
         state %syntax-docs  = $registry.lookup(Kind::Syntax.gist, :by<kind>)
@@ -234,19 +226,18 @@ package Perl6::Documentable::CLI {
                                     .categorize({.name});
         for @files -> $filename {
             my $doc = $registry.documentables.grep({
-                        .url.split("/")[*-1] eq $filename || # language/something
-                        .url.split("/")[*-1] eq $filename.tc # type/Class
+                        .url.lc eq "/" ~ $filename.lc # language/something type/Any
                     }).first;
 
             given $doc.kind { # source
                 when Kind::Type {
-                    Perl6::Documentable::DocPage::Source::Type.new.render($registry, $doc.name);
+                    @docs.push(Perl6::Documentable::DocPage::Source::Type.new.render($registry, $doc.name));
                 }
                 when Kind::Language {
-                    Perl6::Documentable::DocPage::Source::Language.new.render($registry, $doc.name);
+                    @docs.push(Perl6::Documentable::DocPage::Source::Language.new.render($registry, $doc.name));
                 }
                 when Kind::Programs {
-                    Perl6::Documentable::DocPage::Source::Programs.new.render($registry, $doc.name);
+                    @docs.push(Perl6::Documentable::DocPage::Source::Programs.new.render($registry, $doc.name));
                 }
             }
             # per kind
@@ -273,7 +264,6 @@ package Perl6::Documentable::CLI {
                 }
                 when Kind::Programs {
                     @docs.push(Perl6::Documentable::DocPage::Index::Programs.new.render($registry));
-
                 }
                 when Kind::Type {
                     @docs.push(Perl6::Documentable::DocPage::Index::Type.new.render($registry));
