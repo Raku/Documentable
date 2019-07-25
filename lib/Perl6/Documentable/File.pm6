@@ -79,15 +79,22 @@ method parse-definition-header(Pod::Heading :$heading --> Hash) {
         @header := $heading.contents[0].contents;
         CATCH { return %(); }
     }
+
     my %attr;
     if ( @header[0] ~~ Pod::FormattingCode ) {
-        my $header = @header.first;
-        return %() if $header.type ne "X";
+        my $fc = @header.first;
+        return %() if $fc.type ne "X";
 
-        %attr = name       => textify-guts($header.contents[0]),
+        my @meta = $fc.meta[0]:v.flat.cache;
+        my $name = (@meta > 1) ?? @meta[1]
+                               !! textify-guts($fc.contents[0]);
+
+        if ($.name eq "Grammars") {$name.say}
+
+        %attr = name       => $name,
                 kind       => Kind::Syntax,
-                subkinds   => $header.meta[0]:v.flat.cache || (),
-                categories => $header.meta[0]:v.flat.cache || ();
+                subkinds   => @meta || (),
+                categories => @meta || ();
 
     } else {
         my $g = Perl6::Documentable::Heading::Grammar.parse(

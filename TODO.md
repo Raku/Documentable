@@ -16,13 +16,13 @@ _Status:_ this will be handled when the url problem is solved.
 
 _Status:_ discussing with @JJ.
 
-- [ ] compose-type is too long, and should probably be split in several subroutines.
+- [x] compose-type is too long, and should probably be split in several subroutines.
 
-_Status:_
+_Status:_ Done and tested.
 
-- [ ] Do you need to run Pod::To::Cached as an external program? You can capture output of anything (or request specific functionality)
+- [x] Do you need to run Pod::To::Cached as an external program? You can capture output of anything (or request specific functionality)
 
-_Status:_ Discussing with Richard in [this issue](https://github.com/finanalyst/pod-cached/issues/16).
+_Status:_ Discussed with Richard in [this issue](https://github.com/finanalyst/pod-cached/issues/16). Now I'm using `.list-files`.
 
 - [x] Also, not clear what those functions do. Some, like print-time, look a bit useless. There are two type of functions: IO and URL. Maybe create two different modules. In general, try and refactor because some of them might better belong as a method.
 
