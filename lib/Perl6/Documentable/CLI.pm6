@@ -185,7 +185,6 @@ package Perl6::Documentable::CLI {
         }
 
         DEBUG("Writing all generated files...", $v);
-        # .race(:4batch, :2degree)
         @docs.map(-> $doc { spurt "html{$doc<url>}.html", $doc<document> });
         print-time("Writing generated files", $now);
     }

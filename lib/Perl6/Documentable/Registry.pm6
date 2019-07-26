@@ -129,18 +129,6 @@ method new-search-entry(Str :$category, Str :$value, Str :$url) {
 
 method generate-search-index() {
     my @entries;
-    for <Routine Syntax> -> $kind {
-        @entries.append:  self.lookup($kind, :by<kind>)
-                          .categorize({escape .name})
-                          .pairs.sort({.key})
-                          .map( -> (:key($name), :value(@docs)) {
-                                self.new-search-entry(
-                                    category => @docs > 1 ?? $kind.gist !! @docs[0].subkinds[0] || '',
-                                    value    => $name~"d",
-                                    url      => escape-json(@docs.first.url)
-                                )
-                        });
-    }
 
     for <Type Language Programs> -> $kind {
         @entries.append: self.lookup($kind, :by<kind>).map(-> $doc {
@@ -151,6 +139,27 @@ method generate-search-index() {
             )
         }).Slip;
     }
+
+    for <Routine Syntax> -> $kind {
+        @entries.append:  self.lookup($kind, :by<kind>)
+                          .categorize({escape .name})
+                          .pairs.sort({.key})
+                          .map( -> (:key($name), :value(@docs)) {
+                                self.new-search-entry(
+                                    category => @docs > 1 ?? $kind.gist !! @docs[0].subkinds[0] || '',
+                                    value    => $name,
+                                    url      => escape-json("/{$kind.lc}/{replace-badchars-with-goodnames $name}")
+                                )
+                        });
+    }
+
+    @entries.append: self.lookup('Reference', :by<kind>).map(-> $doc {
+        self.new-search-entry(
+                category => $doc.kind.gist,
+                value    => escape($doc.name),
+                url      => escape-json($doc.url)
+            )
+    }).Slip;
 
     # Add p5to6 functions to JavaScript search index
     my %f;

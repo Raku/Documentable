@@ -84,7 +84,10 @@ method parse-definition-header(Pod::Heading :$heading --> Hash) {
     }
 
     my %attr;
-    if ( @header[0] ~~ Pod::FormattingCode ) {
+    if (
+        @header[0] ~~ Pod::FormattingCode and
+        +@header eq 1 # avoid =headn X<> and X<>
+    ) {
         my $fc = @header.first;
         return %() if $fc.type ne "X";
 
@@ -141,7 +144,12 @@ method find-definitions(
             :pod[],
             |%attr
         );
-
+        # if ($.name eq 'Any') { %attr<subkinds>.perl.say }
+        if (%attr<subkinds>.Str.contains("Any") ) {
+            say $.name;
+            say self.^mro;
+            say %attr;
+        }
         @!defs.push: $created;
 
         # Perform sub-parse, checking for definitions elsewhere in the pod
