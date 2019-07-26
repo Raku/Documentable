@@ -47,4 +47,21 @@ role Perl6::Documentable::DocPage {
     method url    (| --> Str ) { ... }
 }
 
+# these chars cannot appear in a unix filesystem path
+sub good-name($name is copy --> Str) is export {
+    # / => $SOLIDUS
+    # % => $PERCENT_SIGN
+    # ^ => $CIRCUMFLEX_ACCENT
+    my @badchars  = ["/", "%", "^"];
+    my @goodchars = @badchars
+                    .map({ '$' ~ .uniname      })
+                    .map({ .subst(' ', '_', :g)});
+
+    loop (my int $i = 0; $i < 3; $i++) {
+        $name = $name.subst(@badchars[$i], @goodchars[$i], :g)
+    }
+
+    return $name;
+}
+
 # vim: expandtab shiftwidth=4 ft=perl6

@@ -148,7 +148,7 @@ method generate-search-index() {
                                 self.new-search-entry(
                                     category => @docs > 1 ?? $kind.gist !! @docs[0].subkinds[0] || '',
                                     value    => $name,
-                                    url      => escape-json("/{$kind.lc}/{replace-badchars-with-goodnames $name}")
+                                    url      => escape-json("/{$kind.lc}/{good-name($name)}")
                                 )
                         });
     }
