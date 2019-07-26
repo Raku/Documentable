@@ -12,7 +12,7 @@
   "depends": [
     "Pod::Load:ver<0.5.4>",
     "Pod::To::HTML:ver<0.6.1>",
-    "Pod::To::Cached:ver<0.3.1>",
+    "Pod::To::Cached:ver<0.3.2>",
     "Pod::Utilities:ver<0.0.1>",
     "URI:ver<0.2.2>",
     "File::Temp:ver<0.0.6>",
