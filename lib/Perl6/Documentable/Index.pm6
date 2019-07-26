@@ -32,6 +32,11 @@ method new(
     );
 }
 
-method url() { '#' }
+method url() {
+    my $index-text = recurse-until-str($.pod).join;
+    my @indices    = $.pod.meta;
+    qq[index-entry{@indices ?? '-' !! ''}{@indices.join('-')}{$index-text ?? '-' !! ''}$index-text]
+    .subst('_', '__', :g).subst(' ', '_', :g).subst('%', '%25', :g).subst("#", '%23', :g);
+}
 
 # vim: expandtab shiftwidth=4 ft=perl6
