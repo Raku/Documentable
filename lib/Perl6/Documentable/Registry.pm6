@@ -121,18 +121,39 @@ method new-search-entry(Str :$category, Str :$value, Str :$url) {
     qq[[\{ category: "{$category}", value: "{$value}", url: "{$url}" \}\n]]
 }
 
-#! this function is a mess, it needs to be fixed
+#| We need to escape names like \. Otherwise, if we convert them to JSON, we
+#| would have "\", and " would be escaped.
+sub escape(Str $s) {
+    $s.trans([</ \\ ">] => [<\\/ \\\\ \\">]);
+}
+
+sub escape-json(Str $s) {
+    $s.subst(｢\｣, ｢%5c｣, :g).subst('"', '\"', :g).subst(｢?｣, ｢%3F｣, :g)
+}
+
 method generate-search-index() {
-    my @items;
-    for Kind::Type, Kind::Programs, Kind::Language, Kind::Syntax, Kind::Routine -> $kind {
-        @items.append: self.lookup($kind.gist, :by<kind>).categorize({.name}) #! use punycode here too
-                      .pairs.sort({.key}).map: -> (:key($name), :value(@docs)) {
-                          self.new-search-entry(
-                              category => ( @docs > 1 ?? $kind.gist !! @docs.[0].subkinds[0] || $kind.gist ).wordcase,
-                              value    => $name,
-                              url      => "#"
-                          )
-                      }
+    my @entries;
+    for <Routine Syntax> -> $kind {
+        @entries.append:  self.lookup($kind, :by<kind>)
+                          .categorize({escape .name})
+                          .pairs.sort({.key})
+                          .map( -> (:key($name), :value(@docs)) {
+                                self.new-search-entry(
+                                    category => @docs > 1 ?? $kind.gist !! @docs[0].subkinds[0] || '',
+                                    value    => $name~"d",
+                                    url      => escape-json(@docs.first.url)
+                                )
+                        });
+    }
+
+    for <Type Language Programs> -> $kind {
+        @entries.append: self.lookup($kind, :by<kind>).map(-> $doc {
+            self.new-search-entry(
+                category => $doc.subkinds[0],
+                value    => $doc.name,
+                url      => $doc.url
+            )
+        }).Slip;
     }
 
     # Add p5to6 functions to JavaScript search index
@@ -142,10 +163,10 @@ method generate-search-index() {
             pod => load("doc/Language/5to6-perlfunc.pod6")[0],
             functions => %f
         );
-        CATCH {return @items;}
+        CATCH {return @entries;}
     }
 
-    @items.append: %f.keys.map( {
+    @entries.append: %f.keys.map( {
         my $url = "/language/5to6-perlfunc#" ~ $_.subst(' ', '_', :g);
         self.new-search-entry(
             category => "5to6-perlfunc",
@@ -154,5 +175,5 @@ method generate-search-index() {
         )
     });
 
-    return @items;
+    return @entries;
 }
