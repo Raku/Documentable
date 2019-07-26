@@ -15,6 +15,7 @@ unit class Perl6::Documentable::Registry;
 
 has                  @.documentables;
 has                  @.definitions;
+has                  @.references;
 has Bool             $.composed;
 has                  %.cache;
 has Perl6::TypeGraph $.tg;
@@ -97,6 +98,7 @@ method process-pod-dir(Str :$dir --> Array) {
 
 method compose() {
     @!definitions = [$_.defs.Slip for @!documentables];
+    @!references  = [$_.refs.Slip for @!documentables];
 
     %!routines-by-type = @!definitions.grep({.kind eq Kind::Routine})
                                       .classify({.origin.name});
@@ -105,8 +107,12 @@ method compose() {
 }
 
 method lookup(Str $what, Str :$by!) {
+    my @docs = @!documentables.Slip,
+               @!definitions.Slip,
+               @!references.Slip;
+
     unless %!cache{$by}:exists {
-        for @!documentables.Slip, @!definitions.Slip -> $d {
+        for @docs -> $d {
             %!cache{$by}{$d."$by"()}.append: $d;
         }
     }
@@ -119,16 +125,6 @@ method lookup(Str $what, Str :$by!) {
 
 method new-search-entry(Str :$category, Str :$value, Str :$url) {
     qq[[\{ category: "{$category}", value: "{$value}", url: "{$url}" \}\n]]
-}
-
-#| We need to escape names like \. Otherwise, if we convert them to JSON, we
-#| would have "\", and " would be escaped.
-sub escape(Str $s) {
-    $s.trans([</ \\ ">] => [<\\/ \\\\ \\">]);
-}
-
-sub escape-json(Str $s) {
-    $s.subst(｢\｣, ｢%5c｣, :g).subst('"', '\"', :g).subst(｢?｣, ｢%3F｣, :g)
 }
 
 method generate-search-index() {
@@ -176,4 +172,14 @@ method generate-search-index() {
     });
 
     return @entries;
+}
+
+#| We need to escape names like \. Otherwise, if we convert them to JSON, we
+#| would have "\", and " would be escaped.
+sub escape(Str $s) {
+    $s.trans([</ \\ ">] => [<\\/ \\\\ \\">]);
+}
+
+sub escape-json(Str $s) {
+    $s.subst(｢\｣, ｢%5c｣, :g).subst('"', '\"', :g).subst(｢?｣, ｢%3F｣, :g)
 }

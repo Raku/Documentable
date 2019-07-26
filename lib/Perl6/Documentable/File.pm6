@@ -1,5 +1,6 @@
 use Perl6::Documentable;
 use Perl6::Documentable::Derived;
+use Perl6::Documentable::Index;
 use Perl6::Documentable::Heading::Grammar;
 use Perl6::Documentable::Heading::Actions;
 
@@ -16,6 +17,8 @@ has Str  $.summary;
 has Str  $.url;
 #| Definitions indexed in this pod
 has @.defs;
+#| References indexed in this pod
+has @.refs;
 
 # Remove itemization from incoming arrays
 method new (
@@ -69,8 +72,8 @@ method new (
 }
 
 method process() {
-    # parse the pod to obtain more information
-    self.find-definitions(:$.pod, :defs(@.defs));
+    self.find-definitions(:$.pod);
+    self.find-references(:$.pod);
 }
 
 method parse-definition-header(Pod::Heading :$heading --> Hash) {
@@ -88,8 +91,6 @@ method parse-definition-header(Pod::Heading :$heading --> Hash) {
         my @meta = $fc.meta[0]:v.flat.cache;
         my $name = (@meta > 1) ?? @meta[1]
                                !! textify-guts($fc.contents[0]);
-
-        if ($.name eq "Grammars") {$name.say}
 
         %attr = name       => $name,
                 kind       => Kind::Syntax,
@@ -116,7 +117,6 @@ method parse-definition-header(Pod::Heading :$heading --> Hash) {
 method find-definitions(
         :$pod,
     Int :$min-level = -1,
-        :@defs
     --> Int
 ) {
 
@@ -141,14 +141,14 @@ method find-definitions(
             :pod[],
             |%attr
         );
-        @defs.push: $created;
+
+        @!defs.push: $created;
 
         # Perform sub-parse, checking for definitions elsewhere in the pod
         # And updating $i to be after the places we've already searched
         my $new-i = $i + self.find-definitions(
                         :pod(@pod-section[$i+1..*]),
                         :min-level(@pod-section[$i].level),
-                        :defs(@defs)
                     );
 
         $created.compose(
@@ -159,6 +159,31 @@ method find-definitions(
         $i = $new-i + 1;
     }
     return $i;
+}
+
+method find-references(:$pod) {
+    if $pod ~~ Pod::FormattingCode && $pod.type eq 'X' {
+       if ($pod.meta) {
+           for @( $pod.meta ) -> $meta {
+               @!refs.push: Perl6::Documentable::Index.new(
+                   pod    => $pod,
+                   meta   => $meta,
+                   origin => self
+               )
+           }
+       } else {
+            @!refs.push: Perl6::Documentable::Index.new(
+                pod    => $pod,
+                meta   => $pod.contents[0],
+                origin => self
+            )
+       }
+    }
+    elsif $pod.?contents {
+        for $pod.contents -> $sub-pod {
+            self.find-references(:pod($sub-pod)) if $sub-pod ~~ Pod::Block;
+        }
+    }
 }
 
 # vim: expandtab shiftwidth=4 ft=perl6
