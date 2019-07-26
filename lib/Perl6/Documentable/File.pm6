@@ -95,7 +95,7 @@ method parse-definition-header(Pod::Heading :$heading --> Hash) {
         my $name = (@meta > 1) ?? @meta[1]
                                !! textify-guts($fc.contents[0]);
 
-        %attr = name       => $name,
+        %attr = name       => $name.trim,
                 kind       => Kind::Syntax,
                 subkinds   => @meta || (),
                 categories => @meta || ();
