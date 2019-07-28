@@ -1,6 +1,6 @@
 unit module Perl6::Documentable::DocPage::Source;
 
-use Perl6::Utils;
+use Perl6::Documentable::Utils::IO;
 use URI::Escape;
 use Pod::Utilities::Build;
 use Perl6::Documentable;

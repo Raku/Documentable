@@ -1,7 +1,5 @@
-use v6;
-
 use Test;
-use Perl6::Utils;
+use Perl6::Documentable::Utils::IO;
 
 plan *;
 

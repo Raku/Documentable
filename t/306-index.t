@@ -1,6 +1,7 @@
+use Test;
+
 use Perl6::Documentable::Registry;
 use Perl6::Documentable::DocPage::Index;
-use Test;
 
 plan *;
 

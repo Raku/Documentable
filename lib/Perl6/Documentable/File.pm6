@@ -144,12 +144,7 @@ method find-definitions(
             :pod[],
             |%attr
         );
-        # if ($.name eq 'Any') { %attr<subkinds>.perl.say }
-        if (%attr<subkinds>.Str.contains("Any") ) {
-            say $.name;
-            say self.^mro;
-            say %attr;
-        }
+
         @!defs.push: $created;
 
         # Perform sub-parse, checking for definitions elsewhere in the pod

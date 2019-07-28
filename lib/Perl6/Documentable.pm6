@@ -64,4 +64,18 @@ sub good-name($name is copy --> Str) is export {
     return $name;
 }
 
+sub rewrite-url($s) is export {
+    given $s {
+        when {.starts-with: 'http' or
+              .starts-with: '#'    or
+              .starts-with: 'irc'     } { $s }
+        default {
+            my @parts   = $s.split: '/';
+            my $name    = good-name(@parts[*-1]);
+            my $new-url = @parts[0..*-2].join('/') ~ '/' ~ $name;
+            $new-url;
+        }
+    }
+}
+
 # vim: expandtab shiftwidth=4 ft=perl6

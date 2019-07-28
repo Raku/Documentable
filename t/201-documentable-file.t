@@ -1,5 +1,3 @@
-use v6;
-
 use Perl6::Documentable;
 use Perl6::Documentable::File;
 use Perl6::TypeGraph;

@@ -38,7 +38,7 @@
 
     "Perl6::Documentable::CLI"              : "lib/Perl6/Documentable/CLI.pm6",
     "Perl6::Documentable::LogTimelineSchema": "lib/Perl6/Documentable/LogTimelineSchema.pm6",
-    "Perl6::Utils"                          : "lib/Perl6/Utils.pm6"
+    "Perl6::Documentable::Utils::IO"        : "lib/Perl6/Documentable/Utils/IO.pm6"
   },
   "resources": [
     "html/images/pencil.svg",
