@@ -105,8 +105,6 @@ package Perl6::Documentable::CLI {
         $registry.compose;
         print-time("Processing pods", $now);
 
-        $registry.definitions.elems.say;
-        exit 0;
         #===================================================================
 
         DEBUG("Writing html/index.html and html/404.html...", $v);

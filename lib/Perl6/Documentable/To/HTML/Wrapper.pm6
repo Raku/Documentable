@@ -1,4 +1,5 @@
 use Perl6::Documentable::Utils::IO;
+use Perl6::Documentable;
 use URI::Escape;
 use Pod::To::HTML;
 
