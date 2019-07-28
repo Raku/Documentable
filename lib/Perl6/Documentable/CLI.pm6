@@ -9,7 +9,7 @@ use Perl6::Documentable::To::HTML::Wrapper;
 use Pod::Load;
 use Pod::To::Cached;
 use File::Temp;
-use Perl6::Utils;
+use Perl6::Documentable::Utils::IO;
 use Perl6::TypeGraph;
 use Perl6::TypeGraph::Viz;
 use JSON::Fast;
