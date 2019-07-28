@@ -1,5 +1,3 @@
-use v6.c;
-
 use Perl6::Utils;
 use URI::Escape;
 use Pod::To::HTML;
