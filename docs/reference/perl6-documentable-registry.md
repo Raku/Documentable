@@ -30,6 +30,12 @@ One per pod file found in every specified `dir` of `topdir`.
 
 `.compose` needs to be executed before use this attribute.
 
+#### Perl6::Documentable::Index @.references
+
+**All** references found in every pod file.
+
+`.compose` needs to be executed before use this attribute.
+
 #### Bool \$.composed
 
 Flag to indicate if the registry is composed. Once it's composed, you should not edite it.

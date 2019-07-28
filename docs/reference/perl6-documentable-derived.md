@@ -108,4 +108,4 @@ method url(
 ) return Str
 ```
 
-Url of this definition. Work in progress.
+Returns the URL associated to this fragment.

@@ -34,9 +34,17 @@ say $doc.defs.map({.name})
 
 A brief description of the pod content. It comes from `=SUBTITLE` element.
 
-#### Perl6::Documentable::Derived @defs
+#### Str \$.url
+
+Path where the HTML page of this object will be written. The URL assigned is `/$.kind.gist/$.name`.
+
+#### Perl6::Documentable::Derived @.defs
 
 Array containing all definitions found in the entire pod. Each and every one of the definitions is represented with a `Perl6::Documentable::Derived` object.
+
+#### Perl6::Documentable::Index @.refs
+
+Array containing all references found in the entire pod. Each and every one of the definitions is represented with a `Perl6::Documentable::Index` object.
 
 ### Methods
 
@@ -94,11 +102,10 @@ First two types are parsed by [Perl6::Documentable::Processing::Grammar](lib/Per
 method find-definitions(
         :$pod,
     Int :$min-level = -1, # do not used this
-        :@defs
 ) return Int
 ```
 
-This function takes `$.pod` and returns an array of `Perl6::Documentable::Derived` objects containing all definitions found in the pod. It runs through the pod content and looks for valid headings.
+This function takes `$.pod` and initializes `@.defs` with all definitions found in the pod. It runs through the pod content and looks for valid headings.
 
 When we find a new definition, a new `Perl6::Documentable::Derived` object is created and initialized to:
 
@@ -115,7 +122,6 @@ use Perl6::TypeGraph;
 
 my $pod = load("type/Any.pod6").first;
 my $tg  = Perl6::TypeGraph.new-from-file;
-my @derived;
 
 my $origin = Perl6::Documentable::File.new(
     dir      => "Type", # used to determine the kind
@@ -126,12 +132,46 @@ my $origin = Perl6::Documentable::File.new(
 
 $origin.find-definitions(
     :$pod
-    :@derived
 )
 
 # this array contains the names of all
 # definitions found
-say @derived.map({.name});
+say $origin.defs.map({.name});
+```
+
+#### method find-references
+
+```perl6
+method find-references(
+        :$pod,
+) return Mu
+```
+
+This function takes `$.pod` and initializes `@.refs` with all references found in the pod.
+
+Example:
+
+```perl6
+use Pod::Load;
+use Perl6::TypeGraph;
+
+my $pod = load("type/Any.pod6").first;
+my $tg  = Perl6::TypeGraph.new-from-file;
+
+my $origin = Perl6::Documentable::File.new(
+    dir      => "Type", # used to determine the kind
+    filename => "Any" , # Type/int.pod6 => int
+    tg       => $tg   , # to complete the information about Type pods
+    pod      => $pod  , # the pod
+);
+
+$origin.find-references(
+    :$pod
+)
+
+# this array contains the names of all
+# references found
+say $origin.refs.map({.name});
 ```
 
 #### method url
