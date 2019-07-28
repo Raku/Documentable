@@ -1,5 +1,3 @@
-use v6;
-
 use Perl6::Documentable;
 use Test;
 
@@ -46,6 +44,23 @@ subtest 'human-kind' => {
 
 subtest 'categories' => {
   is-deeply $doc3.categories(), ["method", "sub"], "categories eq to sk";
+}
+
+subtest 'good-name' => {
+  is good-name("/"), '$SOLIDUS'          , "/ replaced";
+  is good-name("%"), '$PERCENT_SIGN'     , "% replaced";
+  is good-name("^"), '$CIRCUMFLEX_ACCENT', "^ replaced";
+  is good-name("") , ""                  , "nothing replaced";
+}
+
+subtest 'rewrite-url' => {
+  is rewrite-url('https://thor'), 'https://thor'         , "external links invariant";
+  is rewrite-url('#thor')       , '#thor'                , "internal links invariant";
+  is rewrite-url('irc://thor')  , 'irc://thor'           , "irc      links invariant";
+  is rewrite-url("/good/link")  , '/good/link'           , "good link";
+  is rewrite-url("/simple")     , '/simple'              , "simple link";
+  is rewrite-url('/a/^')        , '/a/$CIRCUMFLEX_ACCENT', "^ replaced";
+  is rewrite-url('/a/%')        , '/a/$PERCENT_SIGN'     , "% replaced";
 }
 
 done-testing;

@@ -1,6 +1,5 @@
 unit module Perl6::Documentable::DocPage::Kind;
 
-use Perl6::Utils;
 use URI::Escape;
 use Pod::Utilities::Build;
 use Perl6::Documentable;
@@ -47,6 +46,6 @@ class Perl6::Documentable::DocPage::Kind
     }
 
     method url($name, $kind) {
-        "/{$kind.gist.lc}/{replace-badchars-with-goodnames $name}"
+        "/{$kind.gist.lc}/{good-name($name)}"
     }
 }

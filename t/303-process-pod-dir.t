@@ -1,9 +1,8 @@
-use v6;
+use Test;
 
 use Perl6::Documentable::Registry;
 use Perl6::TypeGraph;
 use Pod::Load;
-use Test;
 
 plan *;
 

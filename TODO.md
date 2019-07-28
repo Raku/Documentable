@@ -4,17 +4,17 @@
 
 _Status:_ I'm working hard on this one. Think of good names is the hardest thing in programming I think.
 
-- [ ] find-references and create references should better be spun off to a new module so that they can be properly defined and tested. Probably change the ifs to multiple dispatch instead, much clearer that way.
-
-_Status:_ This logic is currently disabled. First I want to get working all the others URLs. After that, I will add this part following the given feedback.
-
-- [ ] Perl6::Utils is too generic. Move it down to Perl6::Documentable::Utils or spin it off somewhere else.
-
-_Status:_ this will be handled when the url problem is solved.
-
 - [ ] Not clear syntax is exhaustive. For instance, "do" as a prefix and other statement prefixes are not in the "language" area.
 
 _Status:_ discussing with @JJ.
+
+- [x] find-references and create references should better be spun off to a new module so that they can be properly defined and tested. Probably change the ifs to multiple dispatch instead, much clearer that way.
+
+_Status:_ Done.
+
+- [x] Perl6::Utils is too generic. Move it down to Perl6::Documentable::Utils or spin it off somewhere else.
+
+_Status:_ Done.
 
 - [x] compose-type is too long, and should probably be split in several subroutines.
 

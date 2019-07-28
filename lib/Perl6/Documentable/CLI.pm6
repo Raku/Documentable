@@ -9,7 +9,7 @@ use Perl6::Documentable::To::HTML::Wrapper;
 use Pod::Load;
 use Pod::To::Cached;
 use File::Temp;
-use Perl6::Utils;
+use Perl6::Documentable::Utils::IO;
 use Perl6::TypeGraph;
 use Perl6::TypeGraph::Viz;
 use JSON::Fast;
@@ -185,7 +185,6 @@ package Perl6::Documentable::CLI {
         }
 
         DEBUG("Writing all generated files...", $v);
-        # .race(:4batch, :2degree)
         @docs.map(-> $doc { spurt "html{$doc<url>}.html", $doc<document> });
         print-time("Writing generated files", $now);
     }

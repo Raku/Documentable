@@ -47,4 +47,35 @@ role Perl6::Documentable::DocPage {
     method url    (| --> Str ) { ... }
 }
 
+# these chars cannot appear in a unix filesystem path
+sub good-name($name is copy --> Str) is export {
+    # / => $SOLIDUS
+    # % => $PERCENT_SIGN
+    # ^ => $CIRCUMFLEX_ACCENT
+    my @badchars  = ["/", "%", "^"];
+    my @goodchars = @badchars
+                    .map({ '$' ~ .uniname      })
+                    .map({ .subst(' ', '_', :g)});
+
+    loop (my int $i = 0; $i < 3; $i++) {
+        $name = $name.subst(@badchars[$i], @goodchars[$i], :g)
+    }
+
+    return $name;
+}
+
+sub rewrite-url($s) is export {
+    given $s {
+        when {.starts-with: 'http' or
+              .starts-with: '#'    or
+              .starts-with: 'irc'     } { $s }
+        default {
+            my @parts   = $s.split: '/';
+            my $name    = good-name(@parts[*-1]);
+            my $new-url = @parts[0..*-2].join('/') ~ '/' ~ $name;
+            $new-url;
+        }
+    }
+}
+
 # vim: expandtab shiftwidth=4 ft=perl6

@@ -1,6 +1,5 @@
-use v6.c;
-
-use Perl6::Utils;
+use Perl6::Documentable::Utils::IO;
+use Perl6::Documentable;
 use URI::Escape;
 use Pod::To::HTML;
 

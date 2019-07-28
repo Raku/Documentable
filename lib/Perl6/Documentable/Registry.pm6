@@ -4,7 +4,7 @@ use Pod::To::Cached;
 use Pod::Utilities::Build;
 
 use URI::Escape;
-use Perl6::Utils;
+use Perl6::Documentable::Utils::IO;
 use Perl6::TypeGraph;
 use Perl6::Documentable;
 use Perl6::Documentable::File;
@@ -15,6 +15,7 @@ unit class Perl6::Documentable::Registry;
 
 has                  @.documentables;
 has                  @.definitions;
+has                  @.references;
 has Bool             $.composed;
 has                  %.cache;
 has Perl6::TypeGraph $.tg;
@@ -97,6 +98,7 @@ method process-pod-dir(Str :$dir --> Array) {
 
 method compose() {
     @!definitions = [$_.defs.Slip for @!documentables];
+    @!references  = [$_.refs.Slip for @!documentables];
 
     %!routines-by-type = @!definitions.grep({.kind eq Kind::Routine})
                                       .classify({.origin.name});
@@ -105,8 +107,12 @@ method compose() {
 }
 
 method lookup(Str $what, Str :$by!) {
+    my @docs = @!documentables.Slip,
+               @!definitions.Slip,
+               @!references.Slip;
+
     unless %!cache{$by}:exists {
-        for @!documentables.Slip, @!definitions.Slip -> $d {
+        for @docs -> $d {
             %!cache{$by}{$d."$by"()}.append: $d;
         }
     }
@@ -121,31 +127,52 @@ method new-search-entry(Str :$category, Str :$value, Str :$url) {
     qq[[\{ category: "{$category}", value: "{$value}", url: "{$url}" \}\n]]
 }
 
-#! this function is a mess, it needs to be fixed
 method generate-search-index() {
-    my @items;
-    for Kind::Type, Kind::Programs, Kind::Language, Kind::Syntax, Kind::Routine -> $kind {
-        @items.append: self.lookup($kind.gist, :by<kind>).categorize({.name}) #! use punycode here too
-                      .pairs.sort({.key}).map: -> (:key($name), :value(@docs)) {
-                          self.new-search-entry(
-                              category => ( @docs > 1 ?? $kind.gist !! @docs.[0].subkinds[0] || $kind.gist ).wordcase,
-                              value    => $name,
-                              url      => "#"
-                          )
-                      }
+    my @entries;
+
+    for <Type Language Programs> -> $kind {
+        @entries.append: self.lookup($kind, :by<kind>).map(-> $doc {
+            self.new-search-entry(
+                category => $doc.subkinds[0],
+                value    => $doc.name,
+                url      => $doc.url
+            )
+        }).Slip;
     }
 
+    for <Routine Syntax> -> $kind {
+        @entries.append:  self.lookup($kind, :by<kind>)
+                          .categorize({escape .name})
+                          .pairs.sort({.key})
+                          .map( -> (:key($name), :value(@docs)) {
+                                self.new-search-entry(
+                                    category => @docs > 1 ?? $kind.gist !! @docs[0].subkinds[0] || '',
+                                    value    => $name,
+                                    url      => escape-json("/{$kind.lc}/{good-name($name)}")
+                                )
+                        });
+    }
+
+    @entries.append: self.lookup('Reference', :by<kind>).map(-> $doc {
+        self.new-search-entry(
+                category => $doc.kind.gist,
+                value    => escape($doc.name),
+                url      => escape-json($doc.url)
+            )
+    }).Slip;
+
     # Add p5to6 functions to JavaScript search index
+    # this code will go
     my %f;
     try {
         find-p5to6-functions(
             pod => load("doc/Language/5to6-perlfunc.pod6")[0],
             functions => %f
         );
-        CATCH {return @items;}
+        CATCH {return @entries;}
     }
 
-    @items.append: %f.keys.map( {
+    @entries.append: %f.keys.map( {
         my $url = "/language/5to6-perlfunc#" ~ $_.subst(' ', '_', :g);
         self.new-search-entry(
             category => "5to6-perlfunc",
@@ -154,5 +181,29 @@ method generate-search-index() {
         )
     });
 
-    return @items;
+    return @entries;
+}
+
+#| We need to escape names like \. Otherwise, if we convert them to JSON, we
+#| would have "\", and " would be escaped.
+sub escape(Str $s) {
+    $s.trans([</ \\ ">] => [<\\/ \\\\ \\">]);
+}
+
+sub escape-json(Str $s) {
+    $s.subst(｢\｣, ｢%5c｣, :g).subst('"', '\"', :g).subst(｢?｣, ｢%3F｣, :g)
+}
+
+#| workaround for 5to6-perlfunc, this code will go
+sub find-p5to6-functions(:$pod!, :%functions) {
+  if $pod ~~ Pod::Heading && $pod.level == 2  {
+      # Add =head2 function names to hash
+      my $func-name = ~$pod.contents[0].contents;
+      %functions{$func-name} = 1;
+  }
+  elsif $pod.?contents {
+      for $pod.contents -> $sub-pod {
+          find-p5to6-functions(:pod($sub-pod), :%functions) if $sub-pod ~~ Pod::Block;
+      }
+  }
 }
