@@ -1,59 +1,57 @@
-use Perl6::Documentable;
+use Perl6::Documentable::File;
+use Perl6::Documentable::Index;
 use Pod::Load;
 use Pod::Utilities;
 use Pod::Utilities::Build;
+use Perl6::TypeGraph;
+
 use Test;
 
-plan 0;
+plan *;
 
-# TEMPORARILY DELETED ALL LOGIC RELATED TO REFERENCES
+my $pod = load("t/test-doc/Programs/02-reading-docs.pod6")[0];
+my $tg  = Perl6::TypeGraph.new-from-file;
+my $origin = Perl6::Documentable::File.new(
+    dir      => "Type",
+    pod      => $pod,
+    tg       => $tg,
+    filename => "test",
+);
 
-# my $pod = load("t/test-doc/Programs/02-reading-docs.pod6")[0];
+$origin.process();
 
-# my $origin = Perl6::Documentable.new(:kind("Type"),
-#                                   :$pod,
-#                                   :name("testing"),
-#                                   :url("/Type/test"),
-#                                   :summary(""),
-#                                   :pod-is-complete,
-#                                   :subkinds("Type")
-#                                 );
+my @names := ("url", "meta (multi)", "part", "nometa");
+my %urls =
+    "url"           => "/type/test#index-entry-url-new_reference",
+    "meta (multi)"  => "/type/test#index-entry-multi__meta-part-no_meta_part",
+    "part"          => "/type/test#index-entry-multi__meta-part-no_meta_part",
+    "nometa"        => "/type/test#index-entry-nometa";
 
-# my @refs;
-# find-references(:$pod, :$origin, url => $origin.url, :@refs);
+subtest "Reference detection" => {
+    for $origin.refs -> $ref {
+        is $ref.name ∈ @names, True, "$ref.name() detected";
+    }
+}
 
-# my @names := ("url", "meta (multi)", "part", "nometa");
-# my %urls =
-#     "url"           => "/Type/test#index-entry-url-new_reference",
-#     "meta (multi)"  => "/Type/test#index-entry-multi__meta-part-no_meta_part",
-#     "part"          => "/Type/test#index-entry-multi__meta-part-no_meta_part",
-#     "nometa"        => "/Type/test#index-entry-nometa";
+subtest "URL handling" => {
+    for $origin.refs -> $ref {
+        is $ref.url, %urls{$ref.name()}, "$ref.name() url";
+    }
+}
 
-# subtest "Reference detection" => {
-#     for @refs -> $ref {
-#         is $ref.name ∈ @names, True, "$ref.name() detected";
-#     }
-# }
-
-# subtest "URL handling" => {
-#     for @refs -> $ref {
-#         is $ref.url, %urls{$ref.name()}, "$ref.name() url";
-#     }
-# }
-
-# subtest "leading whitespace references" => {
-#     my $reference =    Pod::FormattingCode.new(
-#         type     => 'X',
-#         meta => [["meta", " meta1"]],
-#     );
-#     my @references = create-references(
-#         pod    => $reference,
-#         origin => Perl6::Documentable.new(:pod([]), :name("origin")),
-#         url    => ""
-#     );
-#     for @references -> $ref {
-#         is $ref.name.starts-with(" "), False, "leading whitespace";
-#     }
-# }
+subtest "leading whitespace references" => {
+    my $reference = Pod::FormattingCode.new(
+        type     => 'X',
+        meta => [["meta", " meta1"]],
+    );
+    my @references = Perl6::Documentable::Index.new(
+        pod    => $reference,
+        origin => Perl6::Documentable::File,
+        meta   => [["meta", " meta1"]]
+    );
+    for @references -> $ref {
+        is $ref.name.starts-with(" "), False, "leading whitespace";
+    }
+}
 
 done-testing;
