@@ -47,10 +47,11 @@ subtest 'categories' => {
 }
 
 subtest 'good-name' => {
-  is good-name("/"), '$SOLIDUS'          , "/ replaced";
-  is good-name("%"), '$PERCENT_SIGN'     , "% replaced";
-  is good-name("^"), '$CIRCUMFLEX_ACCENT', "^ replaced";
-  is good-name("") , ""                  , "nothing replaced";
+  is good-name("/")  , '$SOLIDUS'          , "/ replaced";
+  is good-name("%")  , '$PERCENT_SIGN'     , "% replaced";
+  is good-name("^")  , '$CIRCUMFLEX_ACCENT', "^ replaced";
+  is good-name("")   , ""                  , "nothing replaced";
+  is good-name("%20"), "%20"               , "no escape %xx";
 }
 
 subtest 'rewrite-url' => {

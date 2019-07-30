@@ -52,13 +52,18 @@ sub good-name($name is copy --> Str) is export {
     # / => $SOLIDUS
     # % => $PERCENT_SIGN
     # ^ => $CIRCUMFLEX_ACCENT
-    my @badchars  = ["/", "%", "^"];
+    my @badchars  = ["/", "^", "%"];
     my @goodchars = @badchars
                     .map({ '$' ~ .uniname      })
                     .map({ .subst(' ', '_', :g)});
 
-    loop (my int $i = 0; $i < 3; $i++) {
-        $name = $name.subst(@badchars[$i], @goodchars[$i], :g)
+    $name = $name.subst(@badchars[0], @goodchars[0], :g);
+    $name = $name.subst(@badchars[1], @goodchars[1], :g);
+
+    # if it contains escaped sequences (like %20) we do not
+    # escape %
+    if ( ! ($name ~~ /\%\d\d/) ) {
+        $name = $name.subst(@badchars[2], @goodchars[2], :g);
     }
 
     return $name;
