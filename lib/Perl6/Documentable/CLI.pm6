@@ -44,7 +44,7 @@ package Perl6::Documentable::CLI {
     #| Start the documentation generation with the specified options
     multi MAIN (
         "start"                           ,
-        Str  :$topdir              = "doc", #= Directory where is stored the pod collection
+        Str  :$topdir              = "doc", #= Directory where the pod collection is stored
         Bool :v(:verbose($v))      = False, #= Prints progress information
         Bool :c(:$cache)           = True , #= Enables the use of a precompiled cache
         Bool :p(:pods($p))         = False, #= Generates the HTML files corresponding to sources
@@ -192,7 +192,7 @@ package Perl6::Documentable::CLI {
     #| Check which pod files have changed and regenerate its HTML files.
     multi MAIN (
         "update",
-        :$topdir = "doc", #= Directory where is stored the pod collection
+        Str :$topdir = "doc", #= Directory where the pod collection is stored
         :$manage = True   #= Sort Language page
     ) {
         DEBUG("Checking for changes...");
