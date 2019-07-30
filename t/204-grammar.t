@@ -3,12 +3,13 @@ use Test;
 use Perl6::Documentable;
 use Perl6::Documentable::Heading::Grammar;
 use Perl6::Documentable::Heading::Actions;
+use Pod::Utilities; #! delete
 
 plan *;
 
 for <infix prefix postfix circumfix listop> {
     test-definition($_, "foo", Kind::Routine, $_, "operator", "The foo $_");
-    test-definition($_, "foo", Kind::Routine, $_, "operator", "$_ foo"    );
+    test-definition($_, "\{ \}", Kind::Routine, $_, "operator", "$_ \{ \}"    );
 }
 
 for <sub method term routine submethod trait> {
@@ -21,7 +22,10 @@ for <constant variable twigil declarator quote> {
     test-definition($_, "foo", Kind::Syntax, $_, $_, "$_ foo"    );
 }
 
-test-definition("trait", "is export", Kind::Routine, "trait", "trait", "trait is export");
+subtest "name with whitespaces" => {
+    test-definition("trait", "is export", Kind::Routine, "trait", "trait", "trait is export");
+    test-definition("term", '{ }', Kind::Routine, "term", "term", 'term { }');
+}
 
 sub test-definition($infix, $name, $kind, $subkind, $category, $line) {
     subtest "$infix detection" => {

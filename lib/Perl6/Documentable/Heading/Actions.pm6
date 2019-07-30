@@ -11,6 +11,10 @@ method name($/) {
     $!dname = $/.Str;
 }
 
+method single-name($/) {
+    $!dname = $/.Str;
+}
+
 method subkind($/) {
     $!dsubkind = $/.Str;
 }
@@ -28,11 +32,4 @@ method routine($/) {
 method syntax($/) {
     $!dkind     = Kind::Syntax;
     $!dcategory = $/.Str;
-}
-
-method def3($/) {
-    $!dname = $/<compose-name>.Str;
-    $!dkind     = Kind::Routine;
-    $!dsubkind  = "trait";
-    $!dcategory = "trait";
 }
