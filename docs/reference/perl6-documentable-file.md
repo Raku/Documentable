@@ -10,7 +10,7 @@ use Perl6::TypeGraph;
 use Perl6::Documentable::File;
 
 my $tg  = Perl6::TypeGraph.new-from-file;
-my $pod = load("Type/int.pod6");
+my $pod = load("Type/int.pod6")[0];
 my $doc = Perl6::Documentable::File.new(
     dir      => "Type", # used to determine the kind
     filename => "int" , # Type/int.pod6 => int
