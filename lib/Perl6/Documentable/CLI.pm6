@@ -99,7 +99,7 @@ package Perl6::Documentable::CLI {
         my $registry = Perl6::Documentable::Registry.new(
             :$cache,
             :$topdir,
-            :dirs(["Language", "Type", "Programs", "Native"]),
+            :dirs( DOCUMENTABLE-DIRS ),
             :verbose($v)
         );
         $registry.compose;
@@ -211,7 +211,7 @@ package Perl6::Documentable::CLI {
         # update the registry
         my $registry = Perl6::Documentable::Registry.new(
             :$topdir,
-            :dirs(["Language", "Type", "Programs", "Native"]),
+            :dirs(DOCUMENTABLE-DIRS),
             :!verbose,
         );
         $registry.compose;
