@@ -18,6 +18,8 @@ my $registry = Perl6::Documentable::Registry.new(
 $registry.compose;
 ```
 
+**Note:** If you set `use-cache` to `True`, a new directory with the name `.cache-$topdir` will be created, to be used as a cache. Please be sure to delete the directory with the same name, if it exists. Otherwise, an error will be thrown.
+
 ### Attributes
 
 #### Perl6::Documentable::File @.documentables
