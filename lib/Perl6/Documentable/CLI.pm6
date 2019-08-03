@@ -74,8 +74,10 @@ package Perl6::Documentable::CLI {
         my $now;
 
         # highlights workaround
-        DEBUG("Starting highlight process...", $v);
-        highlight-code-blocks if $highlight;
+        if ($highlight) {
+            DEBUG("Starting highlight process...", $v);
+            highlight-code-blocks();
+        }
 
         #===================================================================
 

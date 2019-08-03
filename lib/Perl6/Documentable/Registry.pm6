@@ -46,7 +46,7 @@ submethod BUILD (
         if ($cache-dir.IO.e) {
             note "$cache-dir directory will be used as a cache. " ~
                  "Please do not use any other directory with "    ~
-                 "this name."
+                 "this name." if $!verbose;
         }
 
         $!pod-cache = Pod::To::Cached.new(
@@ -72,16 +72,19 @@ method add-new(Perl6::Documentable::File :$doc --> Perl6::Documentable::File) {
     $doc;
 }
 
-method load (Str :$path --> Pod::Block::Named) {
+method load (Str :$path --> Positional[Pod::Block::Named]) {
     my $topdir = $!topdir;
+    my Pod::Block::Named @pods;
     if ( $!use-cache ) {
         # topdir/dir/file.pod6 => dir/file
         my $new-path = $path.subst(/$topdir\//, "")
                        .subst(/\.pod6/, "").lc;
-        return $!pod-cache.pod( $new-path ).first;
+        @pods = $!pod-cache.pod( $new-path );
     } else {
-        return load($path).first;
+        @pods = load($path);
     }
+
+    return @pods;
 }
 
 method process-pod-dir(Str :$dir --> Array) {
@@ -89,16 +92,19 @@ method process-pod-dir(Str :$dir --> Array) {
     my @pod-files = get-pod-names(:$!topdir, :$dir);
 
     for @pod-files.kv -> $num, (:key($filename), :value($file)) {
-        Perl6::Documentable::LogTimeline::New.log: :$filename, -> {
-            my $doc =Perl6::Documentable::File.new(
-                dir      => $dir,
-                pod      => self.load(path => $file.path),
-                filename => $filename,
-                tg       => $!tg
-            );
+        my @pod-fragments = self.load(path => $file.path);
+        for @pod-fragments -> $pod {
+            Perl6::Documentable::LogTimeline::New.log: :$filename, -> {
+                my $doc =Perl6::Documentable::File.new(
+                    dir      => $dir,
+                    pod      => $pod,
+                    filename => $filename,
+                    tg       => $!tg
+                );
 
-            $doc.process;
-            self.add-new: :$doc;
+                $doc.process;
+                self.add-new: :$doc;
+            }
         }
     }
 }
