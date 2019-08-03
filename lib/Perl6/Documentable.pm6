@@ -6,7 +6,7 @@ enum Kind is export <Type Language Programs Syntax Reference Routine>;
 #| List of the subdirectories that contain indexable pods by default
 constant DOCUMENTABLE-DIRS is export = ["Language", "Type", "Programs", "Native"];
 
-#| Everything documented inherits from this classed
+#| Everything documented inherits from this class
 class Perl6::Documentable {
 
     has Str  $.name;
