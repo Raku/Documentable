@@ -80,5 +80,4 @@ package-lock.json
 app.pl
 app-start
 Makefile
-.doc
-.t
+.cache-*
