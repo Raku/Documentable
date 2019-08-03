@@ -42,9 +42,9 @@ submethod BUILD (
     # init cache if needed
     if ( $!use-cache ) {
         $!pod-cache = Pod::To::Cached.new(
-            source => $!topdir,
+            source      => $!topdir,
             :$!verbose,
-            path   => "." ~ $!topdir
+            path        => ".cache-" ~ $!topdir
         );
         $!pod-cache.update-cache if $update;
     }
