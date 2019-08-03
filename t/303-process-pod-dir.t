@@ -27,4 +27,33 @@ subtest "process pod dir" => {
     }
 }
 
+subtest "multi-class support" => {
+    my $reg = Perl6::Documentable::Registry.new(
+        :topdir("t/test-doc"),
+        :dirs(["Native"]),
+        :verbose(False)
+    );
+
+    my @docs = $registry.documentables.grep({
+        .name eq any(<pod1 pod2>)
+    });
+
+    # expected documentables
+    my @pods = load("t/test-doc/Native/multi-class.pod6");
+    my $doc1 = Perl6::Documentable::File.new(
+        dir      => "Native",
+        pod      => @pods[0],
+        filename => "multi-class",
+        tg       => $tg
+    );
+    my $doc2 = Perl6::Documentable::File.new(
+        dir      => "Native",
+        pod      => @pods[1],
+        filename => "multi-class",
+        tg       => $tg
+    );
+
+    is-deeply @docs, [$doc1, $doc2], "multi-class file declaration";
+}
+
 done-testing;
