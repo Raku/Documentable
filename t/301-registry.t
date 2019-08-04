@@ -17,13 +17,13 @@ $registry.compose;
 subtest "Composing" => {
     is $registry.composed, True, "Composed set to True";
     is-deeply $registry.documentables.map({.name}).sort,
-              ("Debugging", "Reading", "int"),
+              ("Debugging", "Reading", "int", "pod1", "pod2"),
               "Composing docs";
 }
 
 subtest "Lookup by kind" => {
     is $registry.lookup(Kind::Type.gist, by => "kind").map({.name}).sort,
-       ["int"],
+       ["int", "pod1", "pod2"],
        "Lookup by Kind::Type";
     is $registry.lookup(Kind::Programs.gist, by => "kind").map({.name}).sort,
        ["Debugging", "Reading"],

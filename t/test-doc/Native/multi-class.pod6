@@ -1,0 +1,15 @@
+=begin pod
+
+=TITLE pod1
+
+=SUBTITLE pod1
+
+=end pod
+
+=begin pod
+
+=TITLE pod2
+
+=SUBTITLE pod2
+
+=end pod
