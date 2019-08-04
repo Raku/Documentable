@@ -1,5 +1,7 @@
 # To do some issues
 
+* [ ] Are generated elements cached? Can you add stuff to the cache?
+
 - [ ] name and compose-name should maybe use a better token, like for instance perl6 identifier. (also better composite-name or something like that). Maybe def1,def2,def3 should be called something different.
 
 _Status:_ I'm working hard on this one. Think of good names is the hardest thing in programming I think.
