@@ -1,5 +1,7 @@
 # To do some issues
 
+* [ ] In multi-class files, can we add metadata to `=begin pod` in the same way we did before? 
+
 * [ ] Are generated elements cached? Can you add stuff to the cache?
 
 - [ ] name and compose-name should maybe use a better token, like for instance perl6 identifier. (also better composite-name or something like that). Maybe def1,def2,def3 should be called something different.
