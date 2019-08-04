@@ -250,3 +250,5 @@ Wenzel P. P. Peppmeyer <@gfldex>
 Copyright 2019 Perl6 Team
 
 This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
+
+This module uses [Semantic Versioning](https://semver.org/).
