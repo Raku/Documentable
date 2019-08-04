@@ -23,7 +23,9 @@ my $expected = Perl6::Documentable::File.new(
 
 subtest "process pod dir" => {
     for <name pod kind subkinds categories url summary> {
-        is-deeply $registry.documentables[0]."$_"(), $expected."$_"(), "$_";
+        is-deeply $registry.documentables.grep({.name eq "int"})[0]."$_"(),
+                  $expected."$_"(),
+                  "$_";
     }
 }
 

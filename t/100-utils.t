@@ -14,7 +14,7 @@ is-deeply @dir-files, @result, "Recursive dir";
 # get pod names
 
 my @pod-names = get-pod-names(topdir => "t/test-doc",
-                              dir => "Native");
+                              dir => "Native").sort;
 
 my @expected = [
         "int"         => "t/test-doc/Native/int.pod6".IO,
