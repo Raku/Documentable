@@ -17,9 +17,9 @@ my @pod-names = get-pod-names(topdir => "t/test-doc",
                               dir => "Native").sort;
 
 my @expected = [
-        "int"         => "t/test-doc/Native/int.pod6".IO,
         "multi-class" => "t/test-doc/Native/multi-class.pod6".IO,
-    ];
+        "int"         => "t/test-doc/Native/int.pod6".IO,
+    ].sort;
 
 is-deeply @pod-names.sort, @expected.sort, "Pod names";
 
