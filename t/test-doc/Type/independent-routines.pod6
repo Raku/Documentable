@@ -1,0 +1,20 @@
+=begin pod :kind("Type") :subkind("class") :category("basic")
+
+=TITLE Independent routines
+
+=SUBTITLE Routines not defined within any class or role.
+
+These routines are defined in different files together with a class, but are not
+actually attached to any particular class or role.
+
+=head2 sub exit
+
+Defined as:
+    multi sub exit()
+    multi sub exit(Int(Any) $status)
+
+Exits the current process with return code C<$status>.
+
+=end pod
+
+# vim: expandtab softtabstop=4 shiftwidth=4 ft=perl6

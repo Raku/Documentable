@@ -1,4 +1,4 @@
-=begin pod
+=begin pod :kind("Type") :subkind("class") :category("basic")
 
 =TITLE pod1
 
@@ -6,7 +6,7 @@
 
 =end pod
 
-=begin pod
+=begin pod :kind("Type") :subkind("class") :category("basic")
 
 =TITLE pod2
 
