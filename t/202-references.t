@@ -20,10 +20,10 @@ my $origin = Perl6::Documentable::File.new(
 
 my @names := ("url", "meta (multi)", "part", "nometa");
 my %urls =
-    "url"           => "/type/test#index-entry-url-new_reference",
-    "meta (multi)"  => "/type/test#index-entry-multi__meta-part-no_meta_part",
-    "part"          => "/type/test#index-entry-multi__meta-part-no_meta_part",
-    "nometa"        => "/type/test#index-entry-nometa";
+    "url"           => "/programs/test#index-entry-url-new_reference",
+    "meta (multi)"  => "/programs/test#index-entry-multi__meta-part-no_meta_part",
+    "part"          => "/programs/test#index-entry-multi__meta-part-no_meta_part",
+    "nometa"        => "/programs/test#index-entry-nometa";
 
 subtest "Reference detection" => {
     for $origin.refs -> $ref {

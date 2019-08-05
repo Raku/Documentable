@@ -9,9 +9,8 @@ plan *;
 my $registry = Perl6::Documentable::Registry.new(
     :topdir("t/test-doc"),
     :dirs(["Programs", "Native"]),
-    :verbose(False)
+    :verbose(False),
 );
-
 $registry.compose;
 
 subtest "Composing" => {

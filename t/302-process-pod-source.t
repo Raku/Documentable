@@ -15,27 +15,24 @@ my $doc1 = Perl6::Documentable::File.new(
     tg       => $tg
 );
 
-$pod.config = link => "custom";
-
 # change the kind to test the setting of attributes like <name>
 my $doc2 = Perl6::Documentable::File.new(
     dir      => "Language",
-    pod      => $pod,
+    pod      => load("t/test-doc/Language/operators.pod6")[0],
     filename => "int",
     tg       => $tg
 );
 
 subtest "Basic attributes" => {
-    is $doc2.name                 , "class int"              , "Name";
+    is $doc2.name                 , "Operators"               , "Name";
     is $doc1.name                 , "int"                    , "Name of a type";
     is $doc1.summary              , "Native"                 , "Summary as=SUBTITLE";
-    is $doc1.subkinds             , "class basic"            , "Subkinds";
+    is $doc1.subkinds             , "class"                  , "Subkinds";
     is-deeply $doc1.pod           , $pod                     , "Pod";
 }
 
 subtest "Url setting" => {
     is $doc1.url, "/type/int"    , "Normal link";
-    is $doc2.url, "/language/int", "Link from config";
 }
 
 done-testing;
