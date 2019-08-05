@@ -95,10 +95,8 @@ method process-pod-dir(Str :$dir --> Array) {
         for @pod-fragments -> $pod {
             Perl6::Documentable::LogTimeline::New.log: :$filename, -> {
                 my $doc =Perl6::Documentable::File.new(
-                    dir      => $dir,
                     pod      => $pod,
                     filename => $filename,
-                    tg       => $!tg
                 );
 
                 self.add-new: :$doc;

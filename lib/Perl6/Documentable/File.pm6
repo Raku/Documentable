@@ -7,7 +7,6 @@ use Perl6::Documentable::Heading::Actions;
 use Pod::Utilities;
 use Pod::Utilities::Build;
 use URI::Escape;
-use Perl6::TypeGraph;
 
 use Perl6::Documentable::LogTimelineSchema;
 
@@ -46,10 +45,8 @@ class Perl6::Documentable::File is Perl6::Documentable {
 
     # Remove itemization from incoming arrays
     method new (
-        Str              :$dir!,
-        Str              :$filename,
-        Perl6::TypeGraph :$tg!,
-                        :$pod!
+        Str :$filename,
+            :$pod!
     ) {
         # kind and url setting
         my $kind = $pod.config<kind>;
