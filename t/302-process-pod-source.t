@@ -1,26 +1,20 @@
 use Test;
 
 use Perl6::Documentable::File;
-use Perl6::TypeGraph;
 use Pod::Load;
 
 plan *;
 
 my $pod = load("t/test-doc/Native/int.pod6").first;
-my $tg  = Perl6::TypeGraph.new-from-file;
 my $doc1 = Perl6::Documentable::File.new(
-    dir      => "Type",
     pod      => $pod,
     filename => "int",
-    tg       => $tg
 );
 
 # change the kind to test the setting of attributes like <name>
 my $doc2 = Perl6::Documentable::File.new(
-    dir      => "Language",
     pod      => load("t/test-doc/Language/operators.pod6")[0],
     filename => "int",
-    tg       => $tg
 );
 
 subtest "Basic attributes" => {

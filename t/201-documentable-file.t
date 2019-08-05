@@ -1,6 +1,5 @@
 use Perl6::Documentable;
 use Perl6::Documentable::File;
-use Perl6::TypeGraph;
 use Pod::Load;
 use Pod::Utilities;
 use Pod::Utilities::Build;
@@ -9,12 +8,9 @@ use Test;
 plan *;
 
 my $pod = load("t/test-doc/Native/int.pod6")[0];
-my $tg  = Perl6::TypeGraph.new-from-file;
 
 my $doc = Perl6::Documentable::File.new(
-    :dir("Type"),
     :$pod,
-    :$tg,
     :filename("int")
 );
 
@@ -103,7 +99,6 @@ subtest "Index X<> heading" => {
 
 =end pod
 
-
 subtest '=TITLE =SUBTITLE compulsory' => {
   test-exception($=pod[0], "=TITLE and =SUBTITLE");
   test-exception($=pod[1], "=TITLE");
@@ -135,9 +130,7 @@ sub test-scope($name, $str) {
 
 sub test-exception($pod, $msg) {
   dies-ok { Perl6::Documentable::File.new(
-              :dir("Type"),
               :$pod,
-              :$tg,
               :filename("int")
   )}, $msg;
 }

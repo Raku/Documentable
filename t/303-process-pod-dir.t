@@ -1,7 +1,6 @@
 use Test;
 
 use Perl6::Documentable::Registry;
-use Perl6::TypeGraph;
 use Pod::Load;
 
 plan *;
@@ -12,13 +11,9 @@ my $registry = Perl6::Documentable::Registry.new(
     :verbose(False)
 );
 
-my $tg = Perl6::TypeGraph.new-from-file;
-
 my $expected = Perl6::Documentable::File.new(
-    dir      => "Type",
     pod      => load("t/test-doc/Native/int.pod6")[0],
     filename => "int",
-    tg       => $tg
 );
 
 subtest "process pod dir" => {
@@ -43,16 +38,12 @@ subtest "multi-class support" => {
     # expected documentables
     my @pods = load("t/test-doc/Native/multi-class.pod6");
     my $doc1 = Perl6::Documentable::File.new(
-        dir      => "Native",
         pod      => @pods[0],
         filename => "multi-class",
-        tg       => $tg
     );
     my $doc2 = Perl6::Documentable::File.new(
-        dir      => "Native",
         pod      => @pods[1],
         filename => "multi-class",
-        tg       => $tg
     );
 
     is-deeply @docs, [$doc1, $doc2], "multi-class file declaration";
