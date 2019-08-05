@@ -25,6 +25,16 @@ class X::Documentable::SubtitleNotFound is Exception {
     }
 }
 
+class X::Documentable::MissingMetadata is Exception {
+    has $.filename;
+    has $.metadata;
+    method message() {
+        "$.metadata not found in $.filename pod file config. \n"                ~
+        "The first line of the pod should contain: \n"                          ~
+        "=begin pod :kind('<value>') :subkind('<value>') :category('<value>') \n"
+    }
+}
+
 class Perl6::Documentable::File is Perl6::Documentable {
 
     has Str  $.summary;
@@ -41,38 +51,27 @@ class Perl6::Documentable::File is Perl6::Documentable {
         Perl6::TypeGraph :$tg!,
                         :$pod!
     ) {
-        # kind setting
-        my $kind; my $url;
-        given $dir {
-            when "Language" { $kind = Kind::Language; $url = "/language/$filename"; }
-            when "Programs" { $kind = Kind::Programs; $url = "/programs/$filename"; }
-            when "Native"   { $kind = Kind::Type    ; $url = "/type/$filename"    ; }
-            when "Type"     { $kind = Kind::Type    ; $url = "/type/$filename"    ; }
-        }
+        # kind and url setting
+        my $kind = $pod.config<kind>;
+        die X::Documentable::MissingMetadata.new(:$filename, metadata => "kind") unless $kind;
+        my $url = "/{$kind.lc}/$filename";
 
         # proper name from =TITLE
-        my $name = recurse-until-str(first-title($pod.contents)) || $filename;
+        my $title = $pod.contents[0];
+        die X::Documentable::TitleNotFound.new(:$filename)
+        unless ($title ~~ Pod::Block::Named and $title.name eq "TITLE");
+        my $name = recurse-until-str($title);
         $name = $name.split(/\s+/)[*-1] if $kind eq Kind::Type;
-        die X::Documentable::TitleNotFound.new(filename => $filename) unless $name;
 
         # summary from =SUBTITLE
-        my $summary = recurse-until-str(first-subtitle($pod.contents)) || '';
-        die X::Documentable::SubtitleNotFound.new(filename => $filename) unless $summary;
+        my $subtitle = $pod.contents[1];
+        die X::Documentable::SubtitleNotFound.new(:$filename)
+        unless ($subtitle ~~ Pod::Block::Named and $subtitle.name eq "SUBTITLE");
+        my $summary = recurse-until-str($subtitle);
 
         # type-graph sets the correct subkind and categories
-        my @subkinds;
-        my @categories;
-        if $kind eq Kind::Type {
-            if $tg.types{$name} -> $type {
-                @subkinds   = $type.packagetype,
-                @categories = $type.categories;
-            }
-            else {
-                @subkinds = "class";
-            }
-        } else {
-            @subkinds = $kind.gist;
-        }
+        my @subkinds   = $pod.config<subkind>.List;
+        my @categories = $pod.config<category>.List;
 
         nextwith(
             :$pod,

@@ -90,7 +90,6 @@ method load (Str :$path --> Positional[Pod::Block::Named]) {
 method process-pod-dir(Str :$dir --> Array) {
     # pods to process
     my @pod-files = get-pod-names(:$!topdir, :$dir);
-
     for @pod-files.kv -> $num, (:key($filename), :value($file)) {
         my @pod-fragments = self.load(path => $file.path);
         for @pod-fragments -> $pod {
