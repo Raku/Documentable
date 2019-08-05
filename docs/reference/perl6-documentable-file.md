@@ -26,6 +26,8 @@ say $doc.defs.map({.name})
 say $doc.refs.map({.name})
 ```
 
+**Note:** `=TITLE` and `=SUBTITLE` elements must be present at the beginning of the file, otherwise, a `X::Documentable::TitleNotFound` or `X::Documentable::SubtitleNotFound` exception will be thrown.
+
 ### Attributes
 
 #### Str summary

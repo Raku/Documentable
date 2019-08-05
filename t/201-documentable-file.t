@@ -85,6 +85,31 @@ subtest "Index X<> heading" => {
     test-index($head, "INTRODUCTION", "p6doc"        , "p6doc"        );
 }
 
+# check exceptions
+
+=begin pod
+
+=end pod
+
+=begin pod
+
+=TITLE test
+
+=end pod
+
+=begin pod
+
+=SUBTITLE test
+
+=end pod
+
+
+subtest '=TITLE =SUBTITLE compulsory' => {
+  test-exception($=pod[0], "=TITLE and =SUBTITLE");
+  test-exception($=pod[1], "=TITLE");
+  test-exception($=pod[2], "=SUBTITLE");
+}
+
 # ======== auxliar functions ===============
 
 sub test-index($heading, $name, $subkinds, $categories) {
@@ -106,6 +131,15 @@ sub test-scope($name, $str) {
   is textify-guts(get-def($name).pod),
      $str,
      "Scope detection in $name";
+}
+
+sub test-exception($pod, $msg) {
+  dies-ok { Perl6::Documentable::File.new(
+              :dir("Type"),
+              :$pod,
+              :$tg,
+              :filename("int")
+  )}, $msg;
 }
 
 done-testing;
