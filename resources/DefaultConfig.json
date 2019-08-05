@@ -1,0 +1,87 @@
+{
+  "menu": [
+    {
+      "name": "language",
+      "display-name": "Language",
+      "submenus": [
+        {
+          "name": "beginning",
+          "display-name": "At the beginning"
+        },
+        {
+          "name": "migration",
+          "display-name": "Migration guides"
+        },
+        {
+          "name": "tutorial",
+          "display-name": "Tutorials"
+        },
+        {
+          "name": "fundamental",
+          "display-name": "Fundamental topics"
+        },
+        {
+          "name": "advanced",
+          "display-name": "Advanced topics"
+        }
+      ]
+    },
+    {
+      "name": "type",
+      "display-name": "Types",
+      "submenus": [
+        {
+          "name": "basic",
+          "display-name": "Basic"
+        },
+        {
+          "name": "composite",
+          "display-name": "Composite"
+        },
+        {
+          "name": "domain-specific",
+          "display-name": "Domain-specific"
+        },
+        {
+          "name": "exception",
+          "display-name": "Exceptions"
+        }
+      ]
+    },
+    {
+      "name": "routine",
+      "display-name": "Routines",
+      "submenus": [
+        {
+          "name": "sub",
+          "display-name": "Sub"
+        },
+        {
+          "name": "method",
+          "display-name": "Method"
+        },
+        {
+          "name": "term",
+          "display-name": "Term"
+        },
+        {
+          "name": "operator",
+          "display-name": "Operator"
+        },
+        {
+          "name": "trait",
+          "display-name": "Trait"
+        },
+        {
+          "name": "submethod",
+          "display-name": "Submethod"
+        }
+      ]
+    },
+    {
+      "name": "programs",
+      "display-name": "Programs",
+      "submenus": []
+    }
+  ]
+}
