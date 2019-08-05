@@ -11,6 +11,20 @@ use Perl6::TypeGraph;
 
 use Perl6::Documentable::LogTimelineSchema;
 
+class X::Documentable::TitleNotFound is Exception {
+    has $.filename;
+    method message() {
+        "=TITLE element not found in $.filename pod file."
+    }
+}
+
+class X::Documentable::SubtitleNotFound is Exception {
+    has $.filename;
+    method message() {
+        "=SUBTITLE element not found in $.filename pod file."
+    }
+}
+
 class Perl6::Documentable::File is Perl6::Documentable {
 
     has Str  $.summary;
@@ -39,11 +53,11 @@ class Perl6::Documentable::File is Perl6::Documentable {
         # proper name from =TITLE
         my $name = recurse-until-str(first-title($pod.contents)) || $filename;
         $name = $name.split(/\s+/)[*-1] if $kind eq Kind::Type;
-        note "$filename does not have a =TITLE" unless $name;
+        die X::Documentable::TitleNotFound.new(filename => $filename) unless $name;
 
         # summary from =SUBTITLE
         my $summary = recurse-until-str(first-subtitle($pod.contents)) || '';
-        note "$filename does not have a =SUBTITLE" unless $summary;
+        die X::Documentable::SubtitleNotFound.new(filename => $filename) unless $summary;
 
         # type-graph sets the correct subkind and categories
         my @subkinds;
