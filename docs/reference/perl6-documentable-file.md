@@ -19,13 +19,11 @@ my $doc = Perl6::Documentable::File.new(
 );
 ```
 
-Now you have your object initialized (`kind`, `subkind`, etc.). But if you want to get more information, like the definitions inside that pod, you need to call `.process()`
+Now you have your object initialized (`kind`, `subkind`, etc.) and you can access the definitions and references found:
 
 ```perl6
-$doc.process();
-
-# and you already can use the definitions!
 say $doc.defs.map({.name})
+say $doc.refs.map({.name})
 ```
 
 ### Attributes

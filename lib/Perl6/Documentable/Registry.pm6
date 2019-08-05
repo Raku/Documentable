@@ -102,7 +102,6 @@ method process-pod-dir(Str :$dir --> Array) {
                     tg       => $!tg
                 );
 
-                $doc.process;
                 self.add-new: :$doc;
             }
         }

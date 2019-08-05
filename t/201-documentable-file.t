@@ -18,8 +18,6 @@ my $doc = Perl6::Documentable::File.new(
     :filename("int")
 );
 
-$doc.process;
-
 my @names      := ("ACCEPTS", "any", "mro", "root");
 my @subkinds   := ("method" , "sub"               );
 my @categories := ("method" , "sub"               );

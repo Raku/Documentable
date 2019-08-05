@@ -18,8 +18,6 @@ my $origin = Perl6::Documentable::File.new(
     filename => "test",
 );
 
-$origin.process();
-
 my @names := ("url", "meta (multi)", "part", "nometa");
 my %urls =
     "url"           => "/type/test#index-entry-url-new_reference",
