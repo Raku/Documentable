@@ -83,17 +83,19 @@ subtest "Index X<> heading" => {
 
 # check exceptions
 
-=begin pod
+=begin pod :kind("Type") :subkind(" ") :category(" ")
+
+Test
 
 =end pod
 
-=begin pod
+=begin pod :kind("Type") :subkind(" ") :category(" ")
 
 =TITLE test
 
 =end pod
 
-=begin pod
+=begin pod :kind("Type") :subkind(" ") :category(" ")
 
 =SUBTITLE test
 

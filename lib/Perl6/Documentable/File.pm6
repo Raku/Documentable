@@ -49,8 +49,8 @@ class Perl6::Documentable::File is Perl6::Documentable {
             :$pod!
     ) {
         # kind and url setting
-        my $kind = $pod.config<kind>;
-        die X::Documentable::MissingMetadata.new(:$filename, metadata => "kind") unless $kind;
+        my $kind = Kind(Kind.enums{ $pod.config<kind> });
+        die X::Documentable::MissingMetadata.new(:$filename, metadata => "kind") unless defined $kind;
         my $url = "/{$kind.lc}/$filename";
 
         # proper name from =TITLE
@@ -66,7 +66,7 @@ class Perl6::Documentable::File is Perl6::Documentable {
         unless ($subtitle ~~ Pod::Block::Named and $subtitle.name eq "SUBTITLE");
         my $summary = recurse-until-str($subtitle);
 
-        # type-graph sets the correct subkind and categories
+        # use metadata in pod config
         my @subkinds   = $pod.config<subkind>.List;
         my @categories = $pod.config<category>.List;
 

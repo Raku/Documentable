@@ -11,7 +11,7 @@ class Perl6::Documentable {
 
     has Str  $.name;
     has      $.pod;
-    has      $.kind;
+    has Kind $.kind;
     has      @.subkinds   = [];
     has      @.categories = [];
 
