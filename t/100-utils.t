@@ -9,7 +9,7 @@ my @dir-files = recursive-dir("t/test-doc/Native/");
 
 my @result = ["t/test-doc/Native/int.pod6".IO, "t/test-doc/Native/multi-class.pod6".IO ];
 
-is-deeply @dir-files, @result, "Recursive dir";
+is-deeply @dir-files.sort, @result.sort, "Recursive dir";
 
 # get pod names
 
