@@ -38,11 +38,11 @@ submethod BUILD (
     $!verbose     = $verbose;
     $!use-cache   = $use-cache;
     $!tg          = Perl6::TypeGraph.new-from-file;
-    $!topdir      = $topdir;
+    $!topdir      = $topdir.IO.absolute;
 
     # init cache if needed
     if ( $!use-cache ) {
-        my $cache-dir = ".cache-$!topdir";
+        my $cache-dir = cache-path($!topdir);
 
         if ($cache-dir.IO.e) {
             note "$cache-dir directory will be used as a cache. " ~
@@ -53,7 +53,7 @@ submethod BUILD (
         $!pod-cache = Pod::To::Cached.new(
             source      => $!topdir,
             :$!verbose,
-            path        => ".cache-" ~ $!topdir
+            path        => $cache-dir
         );
         $!pod-cache.update-cache if $update;
     }
@@ -78,8 +78,9 @@ method load (Str :$path --> Positional[Pod::Block::Named]) {
     my Pod::Block::Named @pods;
     if ( $!use-cache ) {
         # topdir/dir/file.pod6 => dir/file
-        my $new-path = $path.subst(/$topdir\//, "")
-                       .subst(/\.pod6/, "").lc;
+        my $new-path = $path.subst(/$topdir/, "")
+                       .subst(/\.pod6/, "").lc
+                       .subst(/^\//, ''); # leading /
         @pods = $!pod-cache.pod( $new-path );
     } else {
         @pods = load($path);

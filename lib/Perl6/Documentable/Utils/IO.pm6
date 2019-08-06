@@ -53,3 +53,9 @@ sub svg-for-file($file) is export {
 sub zef-path($filename) is export {
     $filename.IO.e ?? $filename !! %?RESOURCES{$filename}
 }
+
+# /home/path => /home/.cache-path
+sub cache-path($path is copy) is export {
+    my $new-path = $path.IO.dirname ~ "/.cache-" ~ $path.IO.basename;
+    $new-path.subst(/^\/\//, "/") # avoid /a => //.cache-a
+}
