@@ -28,11 +28,11 @@ class Perl6::Documentable::Config::MenuEntry  {
 
     has Str $.name;
     has Str $.display-name;
-
+    has @!submenus;
     submethod BUILD (
         Str :$name!,
         Str :$display-name!,
-        :@submenus!
+        :@!submenus!
     ) {}
 }
 
