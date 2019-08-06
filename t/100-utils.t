@@ -7,20 +7,22 @@ plan *;
 
 my @dir-files = recursive-dir("t/test-doc/Native/");
 
-my @result = ["t/test-doc/Native/int.pod6"].IO;
+my @result = ["t/test-doc/Native/int.pod6".IO, "t/test-doc/Native/multi-class.pod6".IO ];
 
-is-deeply @dir-files, @result, "Recursive dir";
+is-deeply @dir-files.sort, @result.sort, "Recursive dir";
 
 # get pod names
 
 my @pod-names = get-pod-names(topdir => "t/test-doc",
-                              dir => "Native");
+                              dir => "Native").sort;
 
 my @expected = [
-        "int" => "t/test-doc/Native/int.pod6".IO,
+        "int"         => "t/test-doc/Native/int.pod6".IO,
+        "multi-class" => "t/test-doc/Native/multi-class.pod6".IO,
     ];
 
-is-deeply @pod-names.sort, @expected.sort, "Pod names";
+is @pod-names[0] eq @expected[0], True, "Pod names";
+is @pod-names[1] eq @expected[1], True, "Pod names";
 
 subtest "pod path" => {
     is pod-path-from-url("/types/Any"), "Types/Any.pod6", "basic case";

@@ -3,29 +3,23 @@ use Perl6::Documentable::Index;
 use Pod::Load;
 use Pod::Utilities;
 use Pod::Utilities::Build;
-use Perl6::TypeGraph;
 
 use Test;
 
 plan *;
 
 my $pod = load("t/test-doc/Programs/02-reading-docs.pod6")[0];
-my $tg  = Perl6::TypeGraph.new-from-file;
 my $origin = Perl6::Documentable::File.new(
-    dir      => "Type",
     pod      => $pod,
-    tg       => $tg,
     filename => "test",
 );
 
-$origin.process();
-
 my @names := ("url", "meta (multi)", "part", "nometa");
 my %urls =
-    "url"           => "/type/test#index-entry-url-new_reference",
-    "meta (multi)"  => "/type/test#index-entry-multi__meta-part-no_meta_part",
-    "part"          => "/type/test#index-entry-multi__meta-part-no_meta_part",
-    "nometa"        => "/type/test#index-entry-nometa";
+    "url"           => "/programs/test#index-entry-url-new_reference",
+    "meta (multi)"  => "/programs/test#index-entry-multi__meta-part-no_meta_part",
+    "part"          => "/programs/test#index-entry-multi__meta-part-no_meta_part",
+    "nometa"        => "/programs/test#index-entry-nometa";
 
 subtest "Reference detection" => {
     for $origin.refs -> $ref {

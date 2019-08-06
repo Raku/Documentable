@@ -7,7 +7,7 @@ token subkind     { <routine> | <syntax> | <operator> }
 token name        { .*  } # is rw
 token single-name { \S* } # infix
 
-rule def1 {^\s*[T|t]'he' <single-name> <subkind>\s*$}
-rule def2 {^\s*<subkind> <name>\s*$}
+rule the-foo-infix {^\s*[T|t]'he' <single-name> <subkind>\s*$}
+rule infix-foo     {^\s*<subkind> <name>\s*$}
 
-rule TOP { <def1> | <def2> }
+rule TOP { <the-foo-infix> | <infix-foo> }

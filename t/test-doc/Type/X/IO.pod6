@@ -1,4 +1,4 @@
-=begin pod
+=begin pod :kind("Type") :subkind("role") :category("exception")
 
 =TITLE role X::IO
 
@@ -6,7 +6,7 @@
 
     role X::IO does X::OS {}
 
-All types of formatting codes. Only the indexing terms should be processed in 
+All types of formatting codes. Only the indexing terms should be processed in
 order to find definitions. The other ones are ignored.
 
 =head2 B<Formatting::Different::X>

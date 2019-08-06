@@ -6,7 +6,7 @@
     "@AlexDaniel",
     "@antoniogamiz"
   ],
-  "api": 1,
+  "api": 2,
   "auth": "Perl6 Team",
   "build-depends": [],
   "depends": [
@@ -23,22 +23,22 @@
   "name": "Perl6::Documentable",
   "perl": "6.c",
   "provides": {
-    "Perl6::Documentable"                  : "lib/Perl6/Documentable.pm6",
-    "Perl6::Documentable::File"            : "lib/Perl6/Documentable/File.pm6",
-    "Perl6::Documentable::Derived"         : "lib/Perl6/Documentable/Derived.pm6",
-    "Perl6::Documentable::Index"           : "lib/Perl6/Documentable/Index.pm6",
-    "Perl6::Documentable::Registry"        : "lib/Perl6/Documentable/Registry.pm6",
+    "Perl6::Documentable": "lib/Perl6/Documentable.pm6",
+    "Perl6::Documentable::File": "lib/Perl6/Documentable/File.pm6",
+    "Perl6::Documentable::Derived": "lib/Perl6/Documentable/Derived.pm6",
+    "Perl6::Documentable::Index": "lib/Perl6/Documentable/Index.pm6",
+    "Perl6::Documentable::Registry": "lib/Perl6/Documentable/Registry.pm6",
     "Perl6::Documentable::Heading::Grammar": "lib/Perl6/Documentable/Heading/Grammar.pm6",
     "Perl6::Documentable::Heading::Actions": "lib/Perl6/Documentable/Heading/Actions.pm6",
 
-    "Perl6::Documentable::DocPage::Kind"    : "lib/Perl6/Documentable/DocPage/Kind.pm6",
-    "Perl6::Documentable::DocPage::Index"   : "lib/Perl6/Documentable/DocPage/Index.pm6",
-    "Perl6::Documentable::DocPage::Source"  : "lib/Perl6/Documentable/DocPage/Source.pm6",
+    "Perl6::Documentable::DocPage::Kind": "lib/Perl6/Documentable/DocPage/Kind.pm6",
+    "Perl6::Documentable::DocPage::Index": "lib/Perl6/Documentable/DocPage/Index.pm6",
+    "Perl6::Documentable::DocPage::Source": "lib/Perl6/Documentable/DocPage/Source.pm6",
     "Perl6::Documentable::To::HTML::Wrapper": "lib/Perl6/Documentable/To/HTML/Wrapper.pm6",
 
-    "Perl6::Documentable::CLI"              : "lib/Perl6/Documentable/CLI.pm6",
+    "Perl6::Documentable::CLI": "lib/Perl6/Documentable/CLI.pm6",
     "Perl6::Documentable::LogTimelineSchema": "lib/Perl6/Documentable/LogTimelineSchema.pm6",
-    "Perl6::Documentable::Utils::IO"        : "lib/Perl6/Documentable/Utils/IO.pm6"
+    "Perl6::Documentable::Utils::IO": "lib/Perl6/Documentable/Utils/IO.pm6"
   },
   "resources": [
     "html/images/pencil.svg",
@@ -58,5 +58,5 @@
     "Pod::To::Cached:<0.3.2>",
     "URI:ver<0.2.2>"
   ],
-  "version": "1.1.3"
+  "version": "2.1.2"
 }

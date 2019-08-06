@@ -57,12 +57,8 @@ resources/assets/cache
 links.txt
 links.tmp
 xt/aspell.pws
-highlights/node_modules
 **/npm-debug.log
-highlights/atom-language-perl6/
 .DS_store
-highlights/package-lock.json
-.pod-cache
 retest
 build/
 node_modules/
@@ -80,5 +76,4 @@ package-lock.json
 app.pl
 app-start
 Makefile
-.doc
-.t
+.cache-*

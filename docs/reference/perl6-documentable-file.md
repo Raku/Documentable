@@ -6,27 +6,31 @@ You can create one by typing:
 
 ```perl6
 use Pod::Load;
-use Perl6::TypeGraph;
 use Perl6::Documentable::File;
 
-my $tg  = Perl6::TypeGraph.new-from-file;
 my $pod = load("Type/int.pod6")[0];
 my $doc = Perl6::Documentable::File.new(
-    dir      => "Type", # used to determine the kind
     filename => "int" , # Type/int.pod6 => int
-    tg       => $tg   , # to complete the information about Type pods
     pod      => $pod  , # the pod
 );
 ```
 
-Now you have your object initialized (`kind`, `subkind`, etc.). But if you want to get more information, like the definitions inside that pod, you need to call `.process()`
+Now you have your object initialized (`kind`, `subkind`, etc.) and you can access the definitions and references found:
 
 ```perl6
-$doc.process();
-
-# and you already can use the definitions!
 say $doc.defs.map({.name})
+say $doc.refs.map({.name})
 ```
+
+**Note 1:** `=TITLE` and `=SUBTITLE` elements must be present at the beginning of the file, otherwise, a `X::Documentable::TitleNotFound` or `X::Documentable::SubtitleNotFound` exception will be thrown.
+
+**Note 2:** Some additional config muts be present in the pod passed to to the constructor: The first line of the pod file should be something like:
+
+```
+=begin pod :kind("<value>") :subkind("<value>") :category("<value>")
+```
+
+These attributes are used to classify the pods. If any of these values is missing, a `X::Documentable::MissingMetadata` exception will be thrown.
 
 ### Attributes
 
@@ -118,15 +122,11 @@ Example:
 
 ```perl6
 use Pod::Load;
-use Perl6::TypeGraph;
 
 my $pod = load("type/Any.pod6").first;
-my $tg  = Perl6::TypeGraph.new-from-file;
 
 my $origin = Perl6::Documentable::File.new(
-    dir      => "Type", # used to determine the kind
     filename => "Any" , # Type/int.pod6 => int
-    tg       => $tg   , # to complete the information about Type pods
     pod      => $pod  , # the pod
 );
 
@@ -153,15 +153,11 @@ Example:
 
 ```perl6
 use Pod::Load;
-use Perl6::TypeGraph;
 
 my $pod = load("type/Any.pod6").first;
-my $tg  = Perl6::TypeGraph.new-from-file;
 
 my $origin = Perl6::Documentable::File.new(
-    dir      => "Type", # used to determine the kind
     filename => "Any" , # Type/int.pod6 => int
-    tg       => $tg   , # to complete the information about Type pods
     pod      => $pod  , # the pod
 );
 

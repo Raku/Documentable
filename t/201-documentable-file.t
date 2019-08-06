@@ -1,6 +1,5 @@
 use Perl6::Documentable;
 use Perl6::Documentable::File;
-use Perl6::TypeGraph;
 use Pod::Load;
 use Pod::Utilities;
 use Pod::Utilities::Build;
@@ -9,16 +8,11 @@ use Test;
 plan *;
 
 my $pod = load("t/test-doc/Native/int.pod6")[0];
-my $tg  = Perl6::TypeGraph.new-from-file;
 
 my $doc = Perl6::Documentable::File.new(
-    :dir("Type"),
     :$pod,
-    :$tg,
     :filename("int")
 );
-
-$doc.process;
 
 my @names      := ("ACCEPTS", "any", "mro", "root");
 my @subkinds   := ("method" , "sub"               );
@@ -87,6 +81,32 @@ subtest "Index X<> heading" => {
     test-index($head, "INTRODUCTION", "p6doc"        , "p6doc"        );
 }
 
+# check exceptions
+
+=begin pod :kind("Type") :subkind(" ") :category(" ")
+
+Test
+
+=end pod
+
+=begin pod :kind("Type") :subkind(" ") :category(" ")
+
+=TITLE test
+
+=end pod
+
+=begin pod :kind("Type") :subkind(" ") :category(" ")
+
+=SUBTITLE test
+
+=end pod
+
+subtest '=TITLE =SUBTITLE compulsory' => {
+  test-exception($=pod[0], "=TITLE and =SUBTITLE");
+  test-exception($=pod[1], "=TITLE");
+  test-exception($=pod[2], "=SUBTITLE");
+}
+
 # ======== auxliar functions ===============
 
 sub test-index($heading, $name, $subkinds, $categories) {
@@ -108,6 +128,13 @@ sub test-scope($name, $str) {
   is textify-guts(get-def($name).pod),
      $str,
      "Scope detection in $name";
+}
+
+sub test-exception($pod, $msg) {
+  dies-ok { Perl6::Documentable::File.new(
+              :$pod,
+              :filename("int")
+  )}, $msg;
 }
 
 done-testing;
