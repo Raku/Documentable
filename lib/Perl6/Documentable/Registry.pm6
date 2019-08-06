@@ -16,6 +16,7 @@ unit class Perl6::Documentable::Registry;
 has                  @.documentables;
 has                  @.definitions;
 has                  @.references;
+has                  @.docs;
 has Bool             $.composed;
 has                  %.cache;
 has Perl6::TypeGraph $.tg;
@@ -104,12 +105,13 @@ method process-pod-dir(Str :$dir --> Array) {
         }
     }
 }
+
 # consulting logic
 
 method compose() {
     @!definitions = [$_.defs.Slip for @!documentables];
     @!references  = [$_.refs.Slip for @!documentables];
-
+    @!docs = @!documentables.Slip, @!definitions.Slip, @!references.Slip;
     %!routines-by-type = @!definitions.grep({.kind eq Kind::Routine})
                                       .classify({.origin.name});
 
@@ -117,16 +119,17 @@ method compose() {
 }
 
 method lookup(Str $what, Str :$by!) {
-    my @docs = @!documentables.Slip,
-               @!definitions.Slip,
-               @!references.Slip;
 
     unless %!cache{$by}:exists {
-        for @docs -> $d {
+        for @!docs -> $d {
             %!cache{$by}{$d."$by"()}.append: $d;
         }
     }
     %!cache{$by}{$what.gist} // [];
+}
+
+method docs-for(Str $name) {
+    @!docs.grep({.name eq $name})
 }
 
 # =================================================================================
