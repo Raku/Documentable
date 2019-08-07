@@ -82,6 +82,10 @@
       "name": "programs",
       "display-name": "Programs",
       "submenus": []
+    },
+    {
+      "name": "https://webchat.freenode.net/?channels=#perl6",
+      "display-name": "Chat with us"
     }
   ]
 }

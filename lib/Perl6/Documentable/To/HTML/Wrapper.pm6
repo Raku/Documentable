@@ -63,7 +63,7 @@ method menu($selected, $pod-path?, :$disable-submenu = False) {
       $edit-url = qq[
       <div align="right">
         <button title="Edit this page"  class="pencil" onclick="location='https://github.com/perl6/doc/edit/master/doc/$pod-path'">
-        {svg-for-file("html/images/pencil.svg")}
+        {svg-for-file(zef-path("html/images/pencil.svg"))}
         </button>
       </div>]
     }

@@ -61,7 +61,7 @@ class Perl6::Documentable::Config {
             @!menu-entries.push: Perl6::Documentable::Config::MenuEntry.new(
                 name         => %menu-entry<name>.lc,
                 display-name => %menu-entry<display-name>,
-                submenus     => %menu-entry<submenus>.list || ()
+                submenus     => %menu-entry<submenus> || ()
             )
         }
     }
