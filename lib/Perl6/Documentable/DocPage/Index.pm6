@@ -1,10 +1,10 @@
 unit module Perl6::Documentable::DocPage::Index;
 
+use Perl6::Documentable;
+
+use JSON::Fast;
 use URI::Escape;
 use Pod::Utilities::Build;
-use Perl6::Documentable;
-use Perl6::Documentable::To::HTML::Wrapper;
-
 
 class Perl6::Documentable::DocPage::Index::Language
     does Perl6::Documentable::DocPage {
@@ -41,13 +41,13 @@ class Perl6::Documentable::DocPage::Index::Language
                 pod-link(.<name>, .<url>), .<summary>
             ]}))
         }
-        my $page = p2h(pod-with-title(
+        my $pod = pod-with-title(
             'Perl 6 Language Documentation',
             pod-block("Tutorials, general reference, migration guides and meta pages for the Perl 6 language."),
             @content
-        ), "language");
+        );
 
-        return %(document => $page, url => self.url);
+        return %(document => $pod, url => self.url);
     }
 
     method url() {return "/language"}
@@ -66,14 +66,14 @@ class Perl6::Documentable::DocPage::Index::Programs
 
     method render($registry) {
         my @index = self.compose($registry);
-        my $page = p2h(pod-with-title(
+        my $pod = pod-with-title(
             'Perl 6 Programs Documentation',
             pod-table(@index.map({[
                 pod-link(.<name>, .<url>), .<summary>
             ]}))
-        ), "programs");
+        );
 
-        return %(document => $page, url => self.url);
+        return %(document => $pod, url => self.url);
     }
 
     method url() {return "/programs"}
@@ -98,7 +98,7 @@ class Perl6::Documentable::DocPage::Index::Type
 
     method render($registry) {
         my @index = self.compose($registry);
-        my $page  = p2h(pod-with-title(
+        my $pod   = pod-with-title(
                 "Perl 6 Types",
                 pod-block(
                     'This is a list of ', pod-bold('all'), ' built-in Types' ~
@@ -112,9 +112,9 @@ class Perl6::Documentable::DocPage::Index::Type
                         .<subkind> ne "role" ?? .<summary> !! Pod::FormattingCode.new(:type<I>, contents => [.<summary>])
                     ]})
                 )
-        ), "type");
+        );
 
-        return %(document => $page, url => self.url);
+        return %(document => $pod, url => self.url);
     }
 
     method url() {return "/type"}
@@ -138,7 +138,7 @@ class Perl6::Documentable::DocPage::SubIndex::Type
 
     method render($registry, $category) {
         my @index = self.compose($registry, $category);
-        my $page  = p2h(pod-with-title(
+        my $pod   = pod-with-title(
             "Perl 6 $category Types",
             pod-table(
                 @index.map({[
@@ -147,9 +147,9 @@ class Perl6::Documentable::DocPage::SubIndex::Type
                     .<subkind> ne "role" ?? .<summary> !! Pod::FormattingCode.new(:type<I>, contents => [.<summary>])
                 ]})
             )
-         ), "type");
+         );
 
-        return %(document => $page, url => self.url($category));
+        return %(document => $pod, url => self.url($category));
     }
 
     method url($category) {return "/type-$category"}
@@ -173,7 +173,7 @@ class Perl6::Documentable::DocPage::Index::Routine
 
     method render($registry) {
         my @index = self.compose($registry);
-        my $page  = p2h(pod-with-title(
+        my $pod   = pod-with-title(
             "Perl 6 Routines",
             pod-block(
                 'This is a list of ', pod-bold('all'), ' built-in routines' ~
@@ -189,9 +189,9 @@ class Perl6::Documentable::DocPage::Index::Routine
                     }).reduce({$^a,", ",$^b}),")")
                 ]})
             )
-        ), "routine");
+        );
 
-        return %(document => $page, url => self.url);
+        return %(document => $pod, url => self.url);
     }
 
     method url() {return "/routine"}
@@ -214,7 +214,7 @@ class Perl6::Documentable::DocPage::SubIndex::Routine
 
     method render($registry, $category) {
         my @index = self.compose($registry, $category);
-        my $page  = p2h(pod-with-title(
+        my $pod   = pod-with-title(
             "Perl 6 $category Routines",
             pod-table(
                 @index.map({[
@@ -225,9 +225,9 @@ class Perl6::Documentable::DocPage::SubIndex::Routine
                     }).reduce({$^a,", ",$^b}),")")
                 ]})
             )
-        ), "routine");
+        );
 
-        return %(document => $page, url => self.url($category));
+        return %(document => $pod, url => self.url($category));
     }
 
     method url($category) {return "/routine-$category"}

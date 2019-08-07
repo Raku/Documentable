@@ -4,7 +4,6 @@ use Perl6::Documentable::Utils::IO;
 use URI::Escape;
 use Pod::Utilities::Build;
 use Perl6::Documentable;
-use Perl6::Documentable::To::HTML::Wrapper;
 
 class Perl6::Documentable::DocPage::Source::Language
     does Perl6::Documentable::DocPage {
@@ -14,7 +13,7 @@ class Perl6::Documentable::DocPage::Source::Language
         my $doc = @docs.grep({.name eq $name})[0];
         my $pod-path = pod-path-from-url($doc.url);
         return %(
-            document => p2h($doc.pod, $doc.kind, :pod-path($pod-path)),
+            document => $doc.pod,
             url      => self.url($doc)
         );
     }
@@ -32,7 +31,7 @@ class Perl6::Documentable::DocPage::Source::Programs
         my $doc = @docs.grep({.name eq $name})[0];
         my $pod-path = pod-path-from-url($doc.url);
         return %(
-            document => p2h($doc.pod, $doc.kind, :pod-path($pod-path)),
+            document => $doc.pod,
             url      => self.url($doc)
         );
     }
@@ -154,7 +153,7 @@ class Perl6::Documentable::DocPage::Source::Type
         self.compose-type($registry, $doc);
         my $pod-path = pod-path-from-url($doc.url);
         return %(
-            document => p2h($doc.pod, $doc.kind, :pod-path($pod-path)),
+            document => $doc.pod,
             url      => self.url($doc)
         );
     }

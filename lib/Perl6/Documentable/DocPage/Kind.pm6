@@ -3,7 +3,6 @@ unit module Perl6::Documentable::DocPage::Kind;
 use URI::Escape;
 use Pod::Utilities::Build;
 use Perl6::Documentable;
-use Perl6::Documentable::To::HTML::Wrapper;
 
 class Perl6::Documentable::DocPage::Kind
     does Perl6::Documentable::DocPage {
@@ -40,7 +39,7 @@ class Perl6::Documentable::DocPage::Kind
         my %documents = $registry.lookup($kind.gist, :by<kind>)
                                  .categorize({.name});
         return %(
-            document => p2h(self.compose($name, %documents{$name}, $kind), $kind) ,
+            document => self.compose($name, %documents{$name}, $kind),
             url      => self.url($name, $kind)
         );
     }
