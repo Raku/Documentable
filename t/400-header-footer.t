@@ -7,7 +7,7 @@ use Perl6::Documentable::To::HTML::Wrapper;
 
 plan *;
 
-my $config  = Perl6::Documentable::Config.new(:filename("./resources/config.json");
+my $config  = Perl6::Documentable::Config.new(:filename("./resources/config.json"));
 my $wrapper = Perl6::Documentable::To::HTML::Wrapper.new(menu-entries => $config.menu-entries);
 
 subtest "HTML header" => {
