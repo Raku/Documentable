@@ -39,7 +39,7 @@ method submenu-entry(
     qq[<a class="menu-item" href="{$href}"> {$entry.display-name} </a> ]
 }
 
-method menu($selected, $pod-path?) {
+method menu($selected, $pod-path?, :$disable-submenu = False) {
     # main menu
     my $menu-items = (self.menu-entry($_, $selected.lc) for @!menu-entries).join;
     $menu-items = [~] q[<div class="menu-items dark-green"><a class='menu-item darker-green' href='https://perl6.org'><strong>Perl&nbsp;6 homepage</strong></a> ],
@@ -47,13 +47,15 @@ method menu($selected, $pod-path?) {
                       q[</div>];
     # sub menu
     my $submenu-items = '';
-    my $selected-menu = @!menu-entries.grep({.name eq $selected.lc});
-    my @selected-submenu = $selected-menu ?? $selected-menu.[0].submenus !! ();
-    if (@selected-submenu) {
-        $submenu-items = [~] q[<div class="menu-items darker-green">],
-                                qq[<a class="menu-item" href="/{$selected.lc}.html">All</a>],
-                                (self.submenu-entry($_, $selected.lc) for @selected-submenu).join,
-                             q[</div>];
+    if (!$disable-submenu) {
+        my $selected-menu = @!menu-entries.grep({.name eq $selected.lc});
+        my @selected-submenu = $selected-menu ?? $selected-menu.[0].submenus !! ();
+        if (@selected-submenu) {
+            $submenu-items = [~] q[<div class="menu-items darker-green">],
+                                    qq[<a class="menu-item" href="/{$selected.lc}.html">All</a>],
+                                    (self.submenu-entry($_, $selected.lc) for @selected-submenu).join,
+                                q[</div>];
+        }
     }
 
     my $edit-url = "";
@@ -74,12 +76,12 @@ method footer() {
     $!footer.subst(/DATETIME/, ~DateTime.now.utc.truncated-to('seconds'));
 }
 
-method render($pod, $selected = '', :$pod-path?) {
+method render($pod, $selected = '', :$disable-submenu, :$pod-path?) {
     pod2html(
         $pod,
         url           => &rewrite-url,
         head          => $!head,
-        header        => self.menu($selected, $pod-path),
+        header        => self.menu($selected, $pod-path, :$disable-submenu),
         footer        => self.footer,
         default-title => "Perl 6 Documentation",
         css-url       => ''

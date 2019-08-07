@@ -36,6 +36,7 @@
     "Perl6::Documentable::DocPage::Kind": "lib/Perl6/Documentable/DocPage/Kind.pm6",
     "Perl6::Documentable::DocPage::Index": "lib/Perl6/Documentable/DocPage/Index.pm6",
     "Perl6::Documentable::DocPage::Source": "lib/Perl6/Documentable/DocPage/Source.pm6",
+    "Perl6::Documentable::DocPage::Factory": "lib/Perl6/Documentable/DocPage/Factory.pm6",
     "Perl6::Documentable::To::HTML::Wrapper": "lib/Perl6/Documentable/To/HTML/Wrapper.pm6",
 
     "Perl6::Documentable::CLI": "lib/Perl6/Documentable/CLI.pm6",
@@ -48,7 +49,8 @@
     "template/header.html",
     "template/footer.html",
     "template/search_template.js",
-    "language-order-control.json"
+    "language-order-control.json",
+    "config.json"
   ],
   "source-url": "https://github.com/antoniogamiz/Perl6-Documentable.git",
   "tags": [],

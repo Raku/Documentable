@@ -59,7 +59,8 @@ class Perl6::Documentable::DocPage::Factory {
 
         my Str $html = $!wrapper.render( %pod-to-render<document>,
                                          $doc.kind.gist,
-                                         :pod-path-from-url($doc.url)
+                                         :pod-path-from-url($doc.url),
+                                         disable-submenu => $doc.kind eq Kind::Language
                                         );
         return %(
             document => $html,
@@ -96,6 +97,7 @@ class Perl6::Documentable::DocPage::Factory {
 
         my Str $html = $!wrapper.render( %pod-to-render<document>,
                                          $kind.gist,
+                                         disable-submenu => $kind eq Kind::Language
                                         );
         return %(
             document => $html,

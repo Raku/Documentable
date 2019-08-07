@@ -50,7 +50,7 @@ class Perl6::Documentable::Config {
     has $.filename;
     has Perl6::Documentable::Config::MenuEntry @.menu-entries;
 
-    submethod BUILD (:$filename) {
+    submethod BUILD (Str :$filename) {
         my $json = slurp zef-path($filename);
         %!config = from-json($json);
 
