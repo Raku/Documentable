@@ -32,4 +32,13 @@ subtest "pod path" => {
 my $svg-without-xml = slurp "t/html/basic-without-xml.svg";
 is svg-for-file("t/html/basic.svg"), $svg-without-xml, "svg-for-file";
 
+subtest 'cache path' => {
+    is cache-path("doc")     , "./.cache-doc"     , "dir only";
+    is cache-path("doc/")    , "./.cache-doc"     , "trailing /";
+    is cache-path("/doc")    , "/.cache-doc"    , "leading /";
+    is cache-path("dir/doc") , "dir/.cache-doc" , "compose dir";
+    is cache-path("/dir/doc"), "/dir/.cache-doc", "compose dir + leading /";
+    is cache-path("dir/doc/"), "dir/.cache-doc" , "compose dir + trailing /";
+}
+
 done-testing;

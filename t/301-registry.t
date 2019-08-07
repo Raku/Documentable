@@ -29,4 +29,9 @@ subtest "Lookup by kind" => {
        "Lookup by Kind::Programs";
 }
 
+subtest 'docs-for' => {
+    my $doc = $registry.docs.grep({.name eq "int"});
+    is-deeply $registry.docs-for("int"), $doc, "basic search";
+}
+
 done-testing;

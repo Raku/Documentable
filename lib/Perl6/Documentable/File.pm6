@@ -49,8 +49,10 @@ class Perl6::Documentable::File is Perl6::Documentable {
             :$pod!
     ) {
         # kind and url setting
+        die X::Documentable::MissingMetadata.new(:$filename, metadata => "kind")
+        unless self.check-metadata($pod);
+
         my $kind = Kind(Kind.enums{ $pod.config<kind> });
-        die X::Documentable::MissingMetadata.new(:$filename, metadata => "kind") unless defined $kind;
         my $url = "/{$kind.lc}/$filename";
 
         # proper name from =TITLE
@@ -84,6 +86,12 @@ class Perl6::Documentable::File is Perl6::Documentable {
     submethod TWEAK(:$pod) {
         self.find-definitions(:$pod);
         self.find-references(:$pod);
+    }
+
+    method check-metadata($pod) {
+        return defined $pod.config<kind> and
+               defined $pod.config<subkind> and
+               defined $pod.config<category>
     }
 
     method parse-definition-header(Pod::Heading :$heading --> Hash) {

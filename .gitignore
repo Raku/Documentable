@@ -77,3 +77,5 @@ app.pl
 app-start
 Makefile
 .cache-*
+.t
+

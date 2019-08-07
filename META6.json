@@ -61,5 +61,5 @@
     "URI:ver<0.2.2>",
     "JSON::Fast:ver<0.9.18>"
   ],
-  "version": "2.1.0"
+  "version": "2.1.3"
 }

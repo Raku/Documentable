@@ -219,7 +219,7 @@ Moritz Lenz <@moritz>
 
 Jonathan Worthington <@jnthn>
 
-Richard <@finanalyst>
+Richard Hainsworth<@finanalyst>
 
 Will Coleda <@coke>
 

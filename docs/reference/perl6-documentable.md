@@ -1,4 +1,4 @@
-## enum Kind
+## `enum` Kind
 
 Each and every one of the things documented has a `kind` value. This value can tell you "where that documented piece" comes from. There are six different possible values:
 
@@ -9,13 +9,13 @@ Each and every one of the things documented has a `kind` value. This value can t
 | Programs  | Complete pod from Programs dir   |
 | Syntax    | Pod fragment from a complete pod |
 | Routine   | Pod fragment from a complete pod |
-| Reference | X<> element                      |
+| Reference | Element generated via X<>        |
 
-See `Perl6::Documentable::Heading::*` to see when `Syntax` or `Routine` is assigned.
+See `Perl6::Documentable::Heading::*` to understand when `Syntax` or `Routine` is assigned.
 
 ## class Perl6::Documentable
 
-`Perl6::Documentable` represents a piece of Perl 6 that is documented.
+`Perl6::Documentable` represents a self-contained Perl 6 documentation element.
 
 This class is the base for `Perl6::Documentable::File` and `Perl6::Documentable::Derived`. You should use both of them instead, since this one only represents what every documented piece must have.
 
