@@ -1,8 +1,14 @@
 use Test;
 
+
+use Perl6::Documentable::Config;
+use Perl6::Documentable::Utils::IO;
 use Perl6::Documentable::To::HTML::Wrapper;
 
 plan *;
+
+my $config  = Perl6::Documentable::Config.new(filename => zef-path("config.json"));
+my $wrapper = Perl6::Documentable::To::HTML::Wrapper.new(menu-entries => $config.menu-entries);
 
 subtest "HTML header" => {
     for <language type routine programs> {
@@ -11,24 +17,21 @@ subtest "HTML header" => {
 }
 
 subtest "Type submenu" => {
-    my $fragment = header-html("type", "podtest");
+    my $fragment = $wrapper.menu("type", "podtest");
     for <basic composite domain-specific exceptions> {
         is so $fragment ~~ /$_/, True, "$_ submenu found";
     }
 }
 
 subtest "Routine submenu" => {
-    my $fragment = header-html("routine", "podtest");
+    my $fragment = $wrapper.menu("routine", "podtest");
     for <sub method term operator trait submethod> {
         is so $fragment ~~ /$_/, True, "$_ submenu found";
     }
 }
 
-is so footer-html(Any) ~~ /:s the sources at/, True,
-   "podpath not defined";
-
 sub test-selection($selection) {
-    my $fragment = header-html($selection, "podtest");
+    my $fragment = $wrapper.menu($selection, "podtest");
     is so $fragment ~~ /:s selected darker\-green/, True,
     "$selection selection found";
 }
