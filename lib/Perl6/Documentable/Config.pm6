@@ -19,8 +19,8 @@ class Perl6::Documentable::Config::SubMenuEntry {
     has Str $.display-name;
 
     submethod BUILD (
-        Str :$name!,
-        Str :$display-name!,
+        Str :$!name!,
+        Str :$!display-name!,
     ) {}
 }
 
@@ -28,20 +28,29 @@ class Perl6::Documentable::Config::MenuEntry  {
 
     has Str $.name;
     has Str $.display-name;
-    has @!submenus;
+    has @.submenus;
+
     submethod BUILD (
-        Str :$name!,
-        Str :$display-name!,
-        :@!submenus!
-    ) {}
+        Str :$!name!,
+        Str :$!display-name!,
+        :@submenus!
+    ) {
+        @!submenus = @submenus.map({
+            Perl6::Documentable::Config::SubMenuEntry.new(
+                name         => $_<name>.lc,
+                display-name => $_<display-name>,
+            )
+        })
+    }
 }
 
 class Perl6::Documentable::Config {
 
     has %.config;
+    has $.filename;
     has Perl6::Documentable::Config::MenuEntry @.menu-entries;
 
-    submethod BUILD ($filename = "DefaultConfig.json") {
+    submethod BUILD (:$filename) {
         my $json = slurp zef-path($filename);
         %!config = from-json($json);
 
@@ -49,10 +58,10 @@ class Perl6::Documentable::Config {
         unless %!config<menu>;
 
         for %!config<menu>.list -> %menu-entry {
-            Perl6::Documentable::Config::MenuEntry.new(
-                name         => %menu-entry<name>,
+            @!menu-entries.push: Perl6::Documentable::Config::MenuEntry.new(
+                name         => %menu-entry<name>.lc,
                 display-name => %menu-entry<display-name>,
-                submenus     => %menu-entry<submenus>.list
+                submenus     => %menu-entry<submenus>.list || ()
             )
         }
     }
