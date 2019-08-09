@@ -49,7 +49,6 @@
     "template/header.html",
     "template/footer.html",
     "template/search_template.js",
-    "language-order-control.json",
     "config.json"
   ],
   "source-url": "https://github.com/antoniogamiz/Perl6-Documentable.git",
@@ -63,5 +62,5 @@
     "URI:ver<0.2.2>",
     "JSON::Fast:ver<0.9.18>"
   ],
-  "version": "2.1.3"
+  "version": "2.2.0"
 }
