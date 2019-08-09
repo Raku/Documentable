@@ -78,4 +78,4 @@ app-start
 Makefile
 .cache-*
 .t
-
+.*

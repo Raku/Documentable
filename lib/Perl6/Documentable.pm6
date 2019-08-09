@@ -1,7 +1,9 @@
 unit module Perl6::Documentable;
 
 #| Enum to classify all "kinds" of Perl6::Documentable
-enum Kind is export <Type Language Programs Syntax Reference Routine>;
+enum Kind is export (Type      => "type"     , Language => "language",
+                     Programs  => "programs" , Syntax   => "syntax"  ,
+                     Reference => "reference", Routine  => "routine" );
 
 #| List of the subdirectories that contain indexable pods by default
 constant DOCUMENTABLE-DIRS is export = ["Language", "Type", "Programs", "Native"];

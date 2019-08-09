@@ -7,7 +7,7 @@ use URI::Escape;
 use Perl6::Documentable::Utils::IO;
 use Perl6::TypeGraph;
 use Perl6::Documentable;
-use Perl6::Documentable::File;
+use Perl6::Documentable::Primary;
 
 use Perl6::Documentable::LogTimelineSchema;
 
@@ -67,7 +67,7 @@ submethod BUILD (
     }
 }
 
-method add-new(Perl6::Documentable::File :$doc --> Perl6::Documentable::File) {
+method add-new(Perl6::Documentable::Primary :$doc --> Perl6::Documentable::Primary) {
     die "Cannot add something to a composed registry" if $.composed;
     @!documentables.append: $doc;
     $doc;
@@ -96,7 +96,7 @@ method process-pod-dir(Str :$dir --> Array) {
         my @pod-fragments = self.load(path => $file.path);
         for @pod-fragments -> $pod {
             Perl6::Documentable::LogTimeline::New.log: :$filename, -> {
-                my $doc =Perl6::Documentable::File.new(
+                my $doc =Perl6::Documentable::Primary.new(
                     pod      => $pod,
                     filename => $filename,
                 );
@@ -126,7 +126,7 @@ method lookup(Str $what, Str :$by!) {
             %!cache{$by}{$d."$by"()}.append: $d;
         }
     }
-    %!cache{$by}{$what.gist} // [];
+    %!cache{$by}{$what} // [];
 }
 
 method docs-for(Str $name) {

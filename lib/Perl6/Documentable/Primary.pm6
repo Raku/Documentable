@@ -1,5 +1,5 @@
 use Perl6::Documentable;
-use Perl6::Documentable::Derived;
+use Perl6::Documentable::Secondary;
 use Perl6::Documentable::Index;
 use Perl6::Documentable::Heading::Grammar;
 use Perl6::Documentable::Heading::Actions;
@@ -34,7 +34,7 @@ class X::Documentable::MissingMetadata is Exception {
     }
 }
 
-class Perl6::Documentable::File is Perl6::Documentable {
+class Perl6::Documentable::Primary is Perl6::Documentable {
 
     has Str  $.summary;
     has Str  $.url;
@@ -52,7 +52,8 @@ class Perl6::Documentable::File is Perl6::Documentable {
         die X::Documentable::MissingMetadata.new(:$filename, metadata => "kind")
         unless self.check-metadata($pod);
 
-        my $kind = Kind(Kind.enums{ $pod.config<kind> });
+        my $kind = Kind( $pod.config<kind>.lc );
+
         my $url = "/{$kind.lc}/$filename";
 
         # proper name from =TITLE
@@ -157,7 +158,7 @@ class Perl6::Documentable::File is Perl6::Documentable {
             next unless %attr;
 
             # At this point we have a valid definition
-            my $created = Perl6::Documentable::Derived.new(
+            my $created = Perl6::Documentable::Secondary.new(
                 :origin(self),
                 :pod[],
                 |%attr

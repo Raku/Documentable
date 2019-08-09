@@ -1,5 +1,5 @@
 use Perl6::Documentable;
-use Perl6::Documentable::File;
+use Perl6::Documentable::Primary;
 use Pod::Load;
 use Pod::Utilities;
 use Pod::Utilities::Build;
@@ -9,7 +9,7 @@ plan *;
 
 my $pod = load("t/test-doc/Native/int.pod6")[0];
 
-my $doc = Perl6::Documentable::File.new(
+my $doc = Perl6::Documentable::Primary.new(
     :$pod,
     :filename("int")
 );
@@ -131,7 +131,7 @@ sub test-scope($name, $str) {
 }
 
 sub test-exception($pod, $msg) {
-  dies-ok { Perl6::Documentable::File.new(
+  dies-ok { Perl6::Documentable::Primary.new(
               :$pod,
               :filename("int")
   )}, $msg;

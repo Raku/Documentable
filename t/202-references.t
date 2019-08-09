@@ -1,4 +1,4 @@
-use Perl6::Documentable::File;
+use Perl6::Documentable::Primary;
 use Perl6::Documentable::Index;
 use Pod::Load;
 use Pod::Utilities;
@@ -9,7 +9,7 @@ use Test;
 plan *;
 
 my $pod = load("t/test-doc/Programs/02-reading-docs.pod6")[0];
-my $origin = Perl6::Documentable::File.new(
+my $origin = Perl6::Documentable::Primary.new(
     pod      => $pod,
     filename => "test",
 );
@@ -40,7 +40,7 @@ subtest "leading whitespace references" => {
     );
     my @references = Perl6::Documentable::Index.new(
         pod    => $reference,
-        origin => Perl6::Documentable::File,
+        origin => Perl6::Documentable::Primary,
         meta   => [["meta", " meta1"]]
     );
     for @references -> $ref {

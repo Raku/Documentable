@@ -1,10 +1,8 @@
 use Perl6::Documentable;
 use Perl6::Documentable::Registry;
 
-use Perl6::Documentable::DocPage::Source;
-use Perl6::Documentable::DocPage::Kind;
-use Perl6::Documentable::DocPage::Index;
-use Perl6::Documentable::To::HTML::Wrapper;
+use Perl6::Documentable::Config;
+use Perl6::Documentable::DocPage::Factory;
 
 use Pod::Load;
 use Pod::To::Cached;
@@ -44,18 +42,19 @@ package Perl6::Documentable::CLI {
     #| Start the documentation generation with the specified options
     multi MAIN (
         "start"                           ,
-        Str  :$topdir              = "doc", #= Directory where the pod collection is stored
-        Bool :v(:verbose($v))      = False, #= Prints progress information
-        Bool :c(:$cache)           = True , #= Enables the use of a precompiled cache
-        Bool :p(:pods($p))         = False, #= Generates the HTML files corresponding to sources
-        Bool :k(:kind($k))         = False, #= Generates per kind files
-        Bool :s(:search-index($s)) = False, #= Generates the search index
-        Bool :i(:indexes($i))      = False, #= Generates the indexes files
-        Bool :t(:type-images($t))  = False, #= Write typegraph visualizations
-        Bool :f(:force($f))        = False, #= Force the regeneration of the typegraph visualizations
-        Bool :$highlight           = False, #= Highlights the code blocks
-        Bool :$manage              = False, #= Sort Language page
-        Bool :a(:$all)             = False  #= Equivalent to -t -p -k -i -s
+        Str  :$topdir              = "doc",         #= Directory where the pod collection is stored
+        Str  :$conf                = "config.json", #= Configuration file
+        Bool :v(:verbose($v))      = False,         #= Prints progress information
+        Bool :c(:$cache)           = True ,         #= Enables the use of a precompiled cache
+        Bool :p(:pods($p))         = False,         #= Generates the HTML files corresponding to sources
+        Bool :k(:kind($k))         = False,         #= Generates per kind files
+        Bool :s(:search-index($s)) = False,         #= Generates the search index
+        Bool :i(:indexes($i))      = False,         #= Generates the indexes files
+        Bool :t(:type-images($t))  = False,         #= Write typegraph visualizations
+        Bool :f(:force($f))        = False,         #= Force the regeneration of the typegraph visualizations
+        Bool :$highlight           = False,         #= Highlights the code blocks
+        Bool :$manage              = False,         #= Sort Language page
+        Bool :a(:$all)             = False          #= Equivalent to -t -p -k -i -s
     ) {
         if (!"./html".IO.e || !"./assets".IO.e) {
             say q:to/END/;
@@ -66,12 +65,16 @@ package Perl6::Documentable::CLI {
                 END
             exit(1);
         }
-        #===================================================================
-        my @docs; # all these doducments will be written in disk
-        #===================================================================
 
+        #==========================setup====================================
+
+        my $config  = Perl6::Documentable::Config.new(filename => $conf);
+        # all these doducments will be written in disk
+        my @docs;
         # to track the time
         my $now;
+
+        #===================================================================
 
         # highlights workaround
         if ($highlight) {
@@ -107,11 +110,13 @@ package Perl6::Documentable::CLI {
         $registry.compose;
         print-time("Processing pods", $now);
 
+        my $factory = Perl6::Documentable::DocPage::Factory.new(:$config, :$registry);
+
         #===================================================================
 
         DEBUG("Writing html/index.html and html/404.html...", $v);
-        spurt 'html/index.html', p2h(load($topdir~'/HomePage.pod6')[0], :pod-path('HomePage.pod6'));
-        spurt 'html/404.html', p2h(load($topdir~'/404.pod6')[0], :pod-path('404.pod6'));
+        @docs.push($factory.generate-home-page() );
+        @docs.push($factory.generate-error-page());
 
         #===================================================================
 
@@ -120,17 +125,7 @@ package Perl6::Documentable::CLI {
             DEBUG("Generating source files...", $v);
 
             @docs.append: $registry.documentables.map(-> $doc {
-                given $doc.kind {
-                    when Kind::Type {
-                        Perl6::Documentable::DocPage::Source::Type.new.render($registry, $doc.name);
-                    }
-                    when Kind::Language {
-                        Perl6::Documentable::DocPage::Source::Language.new.render($registry, $doc.name);
-                    }
-                    when Kind::Programs {
-                        Perl6::Documentable::DocPage::Source::Programs.new.render($registry, $doc.name);
-                    }
-                }
+                $factory.generate-primary($doc)
             }).Slip;
 
             print-time("Generate source files", $now);
@@ -142,8 +137,8 @@ package Perl6::Documentable::CLI {
             $now = now;
             DEBUG("Generating per kind files...", $v);
             for Kind::Routine, Kind::Syntax -> $kind {
-                @docs.append: $registry.lookup($kind.gist, :by<kind>).map({.name}).unique.map(-> $name {
-                    Perl6::Documentable::DocPage::Kind.new.render($registry, $name, $kind)
+                @docs.append: $registry.lookup($kind.Str, :by<kind>).map({.name}).unique.map(-> $name {
+                    $factory.generate-secondary($kind, $name)
                 }).Slip;
             }
             print-time("Generate per kind files", $now);
@@ -155,21 +150,18 @@ package Perl6::Documentable::CLI {
             $now = now;
             DEBUG("Generating indexes...", $v);
 
-            # main indexes
-            @docs.push(Perl6::Documentable::DocPage::Index::Language.new.render($registry, $manage));
-            @docs.push(Perl6::Documentable::DocPage::Index::Programs.new.render($registry));
-            @docs.push(Perl6::Documentable::DocPage::Index::Type.new.render($registry));
-            @docs.push(Perl6::Documentable::DocPage::Index::Routine.new.render($registry));
+            @docs.push($factory.generate-index(Kind::Language, $manage));
+            @docs.push($factory.generate-index(Kind::Type             ));
+            @docs.push($factory.generate-index(Kind::Programs         ));
+            @docs.push($factory.generate-index(Kind::Routine          ));
 
             # subindexes
             for <basic composite domain-specific exceptions> -> $category {
-                @docs.push(
-                    Perl6::Documentable::DocPage::SubIndex::Type.new.render($registry, $category)
-            )}
+                @docs.push($factory.generate-subindex(Kind::Type, $category))
+            }
             for <sub method term operator trait submethod> -> $category {
-                @docs.push(
-                    Perl6::Documentable::DocPage::SubIndex::Routine.new.render($registry, $category)
-            )}
+                @docs.push( $factory.generate-subindex(Kind::Routine, $category))
+            }
 
             print-time("Generating index files", $now);
         }
@@ -194,19 +186,20 @@ package Perl6::Documentable::CLI {
     #| Check which pod files have changed and regenerate its HTML files.
     multi MAIN (
         "update",
-        Str :$topdir = "doc", #= Directory where the pod collection is stored
-        :$manage = True   #= Sort Language page
+        Str  :$topdir = "doc",      #= Directory where the pod collection is stored
+        Bool :$manage = True,       #= Sort Language page
+        Str  :$conf = "config.json" #= Configuration file
     ) {
         DEBUG("Checking for changes...");
         my $now = now;
 
-        my $cache = Pod::To::Cached.new(:path(".{$topdir}"), :verbose, :source($topdir));
+        my $cache = Pod::To::Cached.new(:path(".cache-{$topdir}"), :verbose, :source($topdir));
         my @files = $cache.list-files(<Valid>);
 
-        {
+        if (! @files) {
             DEBUG("Everything already updated. There are no changes.");
             exit 0;
-        } unless @files;
+        }
 
         DEBUG(+@files ~ " file(s) modified. Starting regeneratiion ...");
 
@@ -218,63 +211,46 @@ package Perl6::Documentable::CLI {
         );
         $registry.compose;
 
+        # configuration
+        my $config  = Perl6::Documentable::Config.new(filename => $conf);
+        my $factory = Perl6::Documentable::DocPage::Factory.new(:$config, :$registry);
         my @docs; # files to write
         my @kinds; # to know what indexes to regenerate
-        # regenerate source files and per kind files
-        state %syntax-docs  = $registry.lookup(Kind::Syntax.gist, :by<kind>)
-                                    .categorize({.name});
-        state %routine-docs = $registry.lookup(Kind::Routine.gist, :by<kind>)
-                                    .categorize({.name});
+
         for @files -> $filename {
             my $doc = $registry.documentables.grep({
                         .url.lc eq "/" ~ $filename.lc # language/something type/Any
                     }).first;
 
-            given $doc.kind { # source
-                when Kind::Type {
-                    @docs.push(Perl6::Documentable::DocPage::Source::Type.new.render($registry, $doc.name));
-                }
-                when Kind::Language {
-                    @docs.push(Perl6::Documentable::DocPage::Source::Language.new.render($registry, $doc.name));
-                }
-                when Kind::Programs {
-                    @docs.push(Perl6::Documentable::DocPage::Source::Programs.new.render($registry, $doc.name));
-                }
-            }
+            @docs.push($factory.generate-primary($doc));
+
             # per kind
             my @routine-docs = $doc.defs.grep({.kind eq Kind::Routine}).map({.name});
-            @docs.push: @routine-docs.map(-> $name {
-                Perl6::Documentable::DocPage::Kind.new.render($registry, $name, Kind::Routine)
-            }).Slip;
+            @docs.push: @routine-docs.map(-> $name { $factory.generate-secondary(Kind::Routine, $name) }).Slip;
+
             my @syntax-docs = $doc.defs.grep({.kind eq Kind::Syntax}).map({.name});
-            @docs.push: @syntax-docs.map(-> $name {
-                Perl6::Documentable::DocPage::Kind.new.render($registry, $name, Kind::Syntax)
-            }).Slip;
+            @docs.push: @syntax-docs.map(-> $name { $factory.generate-secondary(Kind::Syntax, $name) }).Slip;
+
         }
 
         #regenerate indexes
-        @docs.push(Perl6::Documentable::DocPage::Index::Routine.new.render($registry));
+        @docs.push($factory.generate-index(Kind::Routine));
         for <sub method term operator trait submethod> -> $category {
-            @docs.push(
-                Perl6::Documentable::DocPage::SubIndex::Routine.new.render($registry, $category)
-        )}
+            @docs.push($factory.generate-subindex(Kind::Routine, $category));
+        }
         for @kinds -> $kind {
             given $kind {
-                when Kind::Language {
-                    @docs.push(Perl6::Documentable::DocPage::Index::Language.new.render($registry, $manage));
-                }
-                when Kind::Programs {
-                    @docs.push(Perl6::Documentable::DocPage::Index::Programs.new.render($registry));
-                }
+                when Kind::Language { @docs.push($factory.generate-index(Kind::Language, $manage)); }
+                when Kind::Programs { @docs.push($factory.generate-index(Kind::Programs)); }
                 when Kind::Type {
-                    @docs.push(Perl6::Documentable::DocPage::Index::Type.new.render($registry));
+                    @docs.push($factory.generate-index(Kind::Type));
                     for <basic composite domain-specific exceptions> -> $category {
-                        @docs.push(
-                            Perl6::Documentable::DocPage::SubIndex::Type.new.render($registry, $category)
-                    )}
+                        @docs.push( $factory.generate-subindex(Kind::Type, $category) )
+                    }
                 }
             }
         }
+
         @docs.map(-> $doc { spurt "html{$doc<url>}.html", $doc<document> });
         print-time("Updating files", $now);
     }
@@ -289,7 +265,6 @@ package Perl6::Documentable::CLI {
             && rm app.pl && rm app-start && rm Makefile \
             && rm -rf template
         END
-
     }
 }
 

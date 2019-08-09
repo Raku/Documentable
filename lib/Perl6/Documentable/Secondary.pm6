@@ -2,7 +2,7 @@ use Perl6::Documentable;
 use Pod::Utilities;
 use Pod::Utilities::Build;
 
-unit class Perl6::Documentable::Derived is Perl6::Documentable;
+unit class Perl6::Documentable::Secondary is Perl6::Documentable;
 
 has $.origin;
 
