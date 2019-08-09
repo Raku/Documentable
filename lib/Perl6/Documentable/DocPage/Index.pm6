@@ -17,24 +17,23 @@ class Perl6::Documentable::DocPage::Index::Language
         )}).cache;
     }
 
-    method render($registry, $manage = False) {
+    method generate-section($registry, %category) {
+        my $heading = pod-heading(%category<display-text>, :level(2));
+        my @docs    = $registry.lookup(Kind::Language.Str, :by<kind>)
+                               .grep({.categories eq %category<name>});
+        my @table = @docs.map(-> $doc {
+            [pod-link($doc.name, $doc.url), $doc.summary]
+        });
+
+        [$heading, pod-table(@table)]
+    }
+
+    method render($registry, $manage = False, @categories = []) {
         my @index = self.compose($registry);
         my @content = [];
         if ($manage) {
-            my $path = "resources/language-order-control.json".IO.e ??
-                    "resources/language-order-control.json"      !!
-                    %?RESOURCES<language-order-control.json>;
-            my $json = slurp $path;
-            my @data = from-json($json).list;
-            for @data -> %section {
-                @content.push: [
-                    pod-heading( %section.<section>, :level(2)),
-                    pod-table(
-                        %section.<pods>.cache.map(-> %p {
-                        my %i = @index.grep({$_.<name> eq %p.<name>})[0];
-                        [pod-link(%i.<name>, %i.<url>), %i.<summary>]
-                    }))
-                ]
+            for @categories -> %category {
+                @content.push: self.generate-section($registry, %category);
             }
         } else {
             @content = pod-table(@index.map({[

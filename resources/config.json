@@ -2,6 +2,7 @@
   "kinds": [
     {
       "kind": "language",
+      "sort": "1",
       "display-text": "Language",
       "categories": [
         {

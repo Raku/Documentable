@@ -83,7 +83,12 @@ class Perl6::Documentable::DocPage::Factory {
                 Perl6::Documentable::DocPage::Index::Type.new.render($!registry);
             }
             when Kind::Language {
-                Perl6::Documentable::DocPage::Index::Language.new.render($!registry, $manage);
+                my @categories = $!config.get-categories(Kind::Language);
+                Perl6::Documentable::DocPage::Index::Language.new.render(
+                    $!registry,
+                    $!config.get-kind-config(Kind::Language).sort || False,
+                    @categories
+                );
             }
             when Kind::Programs {
                 Perl6::Documentable::DocPage::Index::Programs.new.render($!registry);
