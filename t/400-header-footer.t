@@ -8,7 +8,7 @@ use Perl6::Documentable::To::HTML::Wrapper;
 plan *;
 
 my $config  = Perl6::Documentable::Config.new(:filename("config.json"));
-my $wrapper = Perl6::Documentable::To::HTML::Wrapper.new(menu-entries => $config.menu-entries);
+my $wrapper = Perl6::Documentable::To::HTML::Wrapper.new(:$config);
 
 subtest "HTML header" => {
     for <language type routine programs> {

@@ -21,10 +21,10 @@ subtest "Composing" => {
 }
 
 subtest "Lookup by kind" => {
-    is $registry.lookup(Kind::Type.gist, by => "kind").map({.name}).sort,
+    is $registry.lookup(Kind::Type.Str, :by<kind>).map({.name}).sort,
        ["int", "pod1", "pod2"],
        "Lookup by Kind::Type";
-    is $registry.lookup(Kind::Programs.gist, by => "kind").map({.name}).sort,
+    is $registry.lookup(Kind::Programs.Str, :by<kind>).map({.name}).sort,
        ["Debugging", "Reading"],
        "Lookup by Kind::Programs";
 }

@@ -52,7 +52,8 @@ class Perl6::Documentable::File is Perl6::Documentable {
         die X::Documentable::MissingMetadata.new(:$filename, metadata => "kind")
         unless self.check-metadata($pod);
 
-        my $kind = Kind(Kind.enums{ $pod.config<kind> });
+        my $kind = Kind( $pod.config<kind>.lc );
+
         my $url = "/{$kind.lc}/$filename";
 
         # proper name from =TITLE

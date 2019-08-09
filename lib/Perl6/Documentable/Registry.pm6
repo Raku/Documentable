@@ -126,7 +126,7 @@ method lookup(Str $what, Str :$by!) {
             %!cache{$by}{$d."$by"()}.append: $d;
         }
     }
-    %!cache{$by}{$what.gist} // [];
+    %!cache{$by}{$what} // [];
 }
 
 method docs-for(Str $name) {

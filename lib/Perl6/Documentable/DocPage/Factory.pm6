@@ -19,13 +19,11 @@ class Perl6::Documentable::DocPage::Factory {
    has Perl6::Documentable::To::HTML::Wrapper $.wrapper;
 
     method BUILD(
-        Perl6::Documentable::Config :$config,
+        Perl6::Documentable::Config :$!config,
         Perl6::Documentable::Registry :$registry
     ) {
         $!registry = $registry;
-        $!wrapper = Perl6::Documentable::To::HTML::Wrapper.new(
-            menu-entries => $config.menu-entries
-        )
+        $!wrapper = Perl6::Documentable::To::HTML::Wrapper.new(:$!config)
     }
 
     method generate-home-page() {
@@ -33,7 +31,7 @@ class Perl6::Documentable::DocPage::Factory {
         %(
           document => $!wrapper.render($pod, :pod-path("HomePage.pod6")),
           url => '/index'
-          )
+        )
     }
 
     method generate-error-page() {
@@ -41,7 +39,7 @@ class Perl6::Documentable::DocPage::Factory {
         %(
           document => $!wrapper.render($pod, :pod-path("404.pod6")),
           url => '/404'
-          )
+        )
     }
 
     method generate-primary($doc) {
@@ -58,7 +56,7 @@ class Perl6::Documentable::DocPage::Factory {
         }
 
         my Str $html = $!wrapper.render( %pod-to-render<document>,
-                                         $doc.kind.gist,
+                                         $doc.kind.Str,
                                          :pod-path-from-url($doc.url),
                                          disable-submenu => $doc.kind eq Kind::Language
                                         );
@@ -71,7 +69,7 @@ class Perl6::Documentable::DocPage::Factory {
     method generate-secondary(Kind $kind, Str $name) {
         my %pod-to-render = Perl6::Documentable::DocPage::Kind.new.render($!registry, $name, $kind);
         my Str $html = $!wrapper.render( %pod-to-render<document>,
-                                         $kind.gist,
+                                         $kind.Str,
                                         );
         return %(
             document => $html,
@@ -96,8 +94,7 @@ class Perl6::Documentable::DocPage::Factory {
         }
 
         my Str $html = $!wrapper.render( %pod-to-render<document>,
-                                         $kind.gist,
-                                         disable-submenu => $kind eq Kind::Language
+                                         $kind.Str,
                                         );
         return %(
             document => $html,
@@ -116,7 +113,7 @@ class Perl6::Documentable::DocPage::Factory {
         }
 
         my Str $html = $!wrapper.render( %pod-to-render<document>,
-                                         $kind.gist,
+                                         $kind.Str,
                                         );
         return %(
             document => $html,

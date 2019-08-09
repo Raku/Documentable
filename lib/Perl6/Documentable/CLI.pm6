@@ -137,7 +137,7 @@ package Perl6::Documentable::CLI {
             $now = now;
             DEBUG("Generating per kind files...", $v);
             for Kind::Routine, Kind::Syntax -> $kind {
-                @docs.append: $registry.lookup($kind.gist, :by<kind>).map({.name}).unique.map(-> $name {
+                @docs.append: $registry.lookup($kind.Str, :by<kind>).map({.name}).unique.map(-> $name {
                     $factory.generate-secondary($kind, $name)
                 }).Slip;
             }

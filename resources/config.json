@@ -1,91 +1,86 @@
 {
-  "menu": [
+  "kinds": [
     {
-      "name": "language",
-      "display-name": "Language",
-      "submenus": [
+      "kind": "language",
+      "display-text": "Language",
+      "categories": [
         {
           "name": "beginning",
-          "display-name": "At the beginning"
+          "display-text": "At the beginning"
         },
         {
           "name": "migration",
-          "display-name": "Migration guides"
+          "display-text": "Migration guides"
         },
         {
           "name": "tutorial",
-          "display-name": "Tutorials"
+          "display-text": "Tutorials"
         },
         {
           "name": "fundamental",
-          "display-name": "Fundamental topics"
+          "display-text": "Fundamental topics"
         },
         {
           "name": "advanced",
-          "display-name": "Advanced topics"
+          "display-text": "Advanced topics"
         }
       ]
     },
     {
-      "name": "type",
-      "display-name": "Types",
-      "submenus": [
+      "kind": "type",
+      "display-text": "Types",
+      "categories": [
         {
           "name": "basic",
-          "display-name": "Basic"
+          "display-text": "Basic"
         },
         {
           "name": "composite",
-          "display-name": "Composite"
+          "display-text": "Composite"
         },
         {
           "name": "domain-specific",
-          "display-name": "Domain-specific"
+          "display-text": "Domain-specific"
         },
         {
           "name": "exception",
-          "display-name": "Exceptions"
+          "display-text": "Exceptions"
         }
       ]
     },
     {
-      "name": "routine",
-      "display-name": "Routines",
-      "submenus": [
+      "kind": "routine",
+      "display-text": "Routines",
+      "categories": [
         {
           "name": "sub",
-          "display-name": "Sub"
+          "display-text": "Sub"
         },
         {
           "name": "method",
-          "display-name": "Method"
+          "display-text": "Method"
         },
         {
           "name": "term",
-          "display-name": "Term"
+          "display-text": "Term"
         },
         {
           "name": "operator",
-          "display-name": "Operator"
+          "display-text": "Operator"
         },
         {
           "name": "trait",
-          "display-name": "Trait"
+          "display-text": "Trait"
         },
         {
           "name": "submethod",
-          "display-name": "Submethod"
+          "display-text": "Submethod"
         }
       ]
     },
     {
-      "name": "programs",
-      "display-name": "Programs",
-      "submenus": []
-    },
-    {
-      "name": "https://webchat.freenode.net/?channels=#perl6",
-      "display-name": "Chat with us"
+      "kind": "programs",
+      "display-text": "Programs"
     }
   ]
 }
