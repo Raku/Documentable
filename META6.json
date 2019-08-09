@@ -26,8 +26,8 @@
   "provides": {
     "Perl6::Documentable": "lib/Perl6/Documentable.pm6",
     "Perl6::Documentable::Config": "lib/Perl6/Documentable/Config.pm6",
-    "Perl6::Documentable::File": "lib/Perl6/Documentable/File.pm6",
-    "Perl6::Documentable::Derived": "lib/Perl6/Documentable/Derived.pm6",
+    "Perl6::Documentable::Primary": "lib/Perl6/Documentable/Primary.pm6",
+    "Perl6::Documentable::Secondary": "lib/Perl6/Documentable/Secondary.pm6",
     "Perl6::Documentable::Index": "lib/Perl6/Documentable/Index.pm6",
     "Perl6::Documentable::Registry": "lib/Perl6/Documentable/Registry.pm6",
     "Perl6::Documentable::Heading::Grammar": "lib/Perl6/Documentable/Heading/Grammar.pm6",

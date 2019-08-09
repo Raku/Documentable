@@ -4,8 +4,8 @@ plan *;
 
 use Perl6::Documentable;
 use Perl6::Documentable::Config;
-use Perl6::Documentable::File;
-use Perl6::Documentable::Derived;
+use Perl6::Documentable::Primary;
+use Perl6::Documentable::Secondary;
 use Perl6::Documentable::DocPage::Kind;
 use Perl6::Documentable::DocPage::Source;
 use Perl6::Documentable::DocPage::Index;
@@ -17,8 +17,8 @@ use Perl6::Documentable::Heading::Actions;
 
 use-ok 'Perl6::Documentable';
 use-ok 'Perl6::Documentable::Config';
-use-ok 'Perl6::Documentable::File';
-use-ok 'Perl6::Documentable::Derived';
+use-ok 'Perl6::Documentable::Primary';
+use-ok 'Perl6::Documentable::Secondary';
 use-ok 'Perl6::Documentable::DocPage::Kind';
 use-ok 'Perl6::Documentable::DocPage::Source';
 use-ok 'Perl6::Documentable::DocPage::Index';

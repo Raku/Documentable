@@ -11,7 +11,7 @@ my $registry = Perl6::Documentable::Registry.new(
     :verbose(False)
 );
 
-my $expected = Perl6::Documentable::File.new(
+my $expected = Perl6::Documentable::Primary.new(
     pod      => load("t/test-doc/Native/int.pod6")[0],
     filename => "int",
 );
@@ -37,11 +37,11 @@ subtest "multi-class support" => {
 
     # expected documentables
     my @pods = load("t/test-doc/Native/multi-class.pod6");
-    my $doc1 = Perl6::Documentable::File.new(
+    my $doc1 = Perl6::Documentable::Primary.new(
         pod      => @pods[0],
         filename => "multi-class",
     );
-    my $doc2 = Perl6::Documentable::File.new(
+    my $doc2 = Perl6::Documentable::Primary.new(
         pod      => @pods[1],
         filename => "multi-class",
     );
