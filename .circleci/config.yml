@@ -14,6 +14,7 @@ variables:
     run:
       name: Install dependencies
       command: |
+        echo "zef setp"
         ZEF_BUILD="/home/circleci/rakudo/install/share/perl6/site/bin"
         git clone https://github.com/ugexe/zef.git && cd zef && perl6 -Ilib bin/zef install .
   test-documentable: &test-documentable
@@ -33,6 +34,12 @@ variables:
         # update option
         echo "dd" >> test-doc/Type/Any.pod6
         documentable update --topdir=test-doc
+
+        # build docs
+        cd ..
+        sudo apt-get install graphviz
+        documentable setup
+        documentable start --topdir=docs -v -a
 jobs:
   test-linux:
     <<: *linux
@@ -43,9 +50,36 @@ jobs:
       - *install-rakudo
       - *install-dependencies
       - *test-documentable
-
+      - persist_to_workspace:
+          root: ./
+          paths: html
+  docs-deploy:
+    docker:
+      - image: node:8.10.0
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ./
+      - run:
+          name: Install and configure dependencies
+          command: |
+            npm install -g --silent gh-pages@2.0.1
+            git config user.email "antoniogamiz@gmail.com"
+            git config user.name "ci-build"
+      - add_ssh_keys:
+          fingerprints:
+            - "8a:fb:97:e9:33:14:74:35:85:65:33:f5:34:22:7c:37"
+      - run:
+          name: Deploy docs to gh-pages branch
+          command: gh-pages --dotfiles --message "[skip ci] Updates" --dist ./html
 workflows:
   version: 2
   test:
     jobs:
       - test-linux
+      - docs-deploy:
+          requires:
+            - test-linux
+          filters:
+            branches:
+              only: master
