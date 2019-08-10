@@ -12,7 +12,7 @@
   "depends": [
     "Pod::Load:ver<0.5.4>",
     "Pod::To::HTML:ver<0.6.1>",
-    "Pod::To::Cached:ver<0.3.2>",
+    "Pod::To::Cached:ver<0.3.3+>",
     "Perl6::TypeGraph:ver<0.0.4>",
     "Pod::Utilities:ver<0.0.1>",
     "URI:ver<0.2.2>",
@@ -59,7 +59,7 @@
     "Pod::Utilities:ver<0.0.1>",
     "Perl6::TypeGraph:ver<0.0.4>",
     "Pod::To::HTML:ver<0.6.1>",
-    "Pod::To::Cached:<0.3.2>",
+    "Pod::To::Cached:<0.3.3+>",
     "URI:ver<0.2.2>",
     "JSON::Fast:ver<0.9.18>"
   ],
