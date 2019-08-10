@@ -1,0 +1,14 @@
+
+=begin pod :kind("type") :subkind("class") :category("basic")
+
+=TITLE class Perl6::Documentable::Secondary
+
+=SUBTITLE Represents a self-contained Perl 6 documentation element.
+
+    class Perl6::Documentable::Secondary is Perl6::Documentable {}
+
+An instance of this object is used to represented a fragment of documentation
+found in a C<Perl6::Documentable::Primary> object. What parts are considered a
+C<Perl6::Documentable::Secondary> object? See L<indexing|/language/indexing>.
+
+=end pod

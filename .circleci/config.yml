@@ -39,6 +39,7 @@ variables:
         cd ..
         sudo apt-get install graphviz
         git checkout docs-assets
+        git checkout master -- docs
         documentable start --topdir=docs -v -a
 jobs:
   test-linux:

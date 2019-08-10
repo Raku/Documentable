@@ -1,4 +1,3 @@
-
 =begin pod :kind("type") :subkind("class") :category("basic")
 
 =TITLE class Perl6::Documentable::Primary
