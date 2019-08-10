@@ -56,14 +56,13 @@ package Perl6::Documentable::CLI {
         Bool :$manage              = False,         #= Sort Language page
         Bool :a(:$all)             = False          #= Equivalent to -t -p -k -i -s
     ) {
-        if (!"./html".IO.e || !"./assets".IO.e) {
-            say q:to/END/;
-                (error) html and/or assets directories cannot be found. You can
-                get the defaults by executing:
+        if (!"./html".IO.e || !"./assets".IO.e || !"./templates".IO.e) {
+            note q:to/END/;
+                (warning) html and/or assets and/or templates directories
+                cannot be found. You can get the defaults by executing:
 
                     documentable setup
                 END
-            exit(1);
         }
 
         #==========================setup====================================

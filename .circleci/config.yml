@@ -38,7 +38,7 @@ variables:
         # build docs
         cd ..
         sudo apt-get install graphviz
-        documentable setup
+        git checkout docs-assets
         documentable start --topdir=docs -v -a
 jobs:
   test-linux:
@@ -76,7 +76,10 @@ workflows:
   version: 2
   test:
     jobs:
-      - test-linux
+      - test-linux:
+          filters:
+            branches:
+              only: master
       - docs-deploy:
           requires:
             - test-linux
