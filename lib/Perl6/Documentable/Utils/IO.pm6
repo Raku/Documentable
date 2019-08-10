@@ -6,6 +6,7 @@ sub recursive-dir($dir) is export {
     my @todo = $dir;
     gather while @todo {
         my $d = @todo.shift;
+        next if ! $d.IO.e;
         for dir($d) -> $f {
             if $f.f {
                 take $f;
