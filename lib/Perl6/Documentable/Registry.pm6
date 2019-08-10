@@ -175,26 +175,6 @@ method generate-search-index() {
             )
     }).Slip;
 
-    # Add p5to6 functions to JavaScript search index
-    # this code will go
-    my %f;
-    try {
-        find-p5to6-functions(
-            pod => load("doc/Language/5to6-perlfunc.pod6")[0],
-            functions => %f
-        );
-        CATCH {return @entries;}
-    }
-
-    @entries.append: %f.keys.map( {
-        my $url = "/language/5to6-perlfunc#" ~ $_.subst(' ', '_', :g);
-        self.new-search-entry(
-            category => "5to6-perlfunc",
-            value    => $_,
-            url      => $url
-        )
-    });
-
     return @entries;
 }
 
@@ -206,18 +186,4 @@ sub escape(Str $s) {
 
 sub escape-json(Str $s) {
     $s.subst(｢\｣, ｢%5c｣, :g).subst('"', '\"', :g).subst(｢?｣, ｢%3F｣, :g)
-}
-
-#| workaround for 5to6-perlfunc, this code will go
-sub find-p5to6-functions(:$pod!, :%functions) {
-  if $pod ~~ Pod::Heading && $pod.level == 2  {
-      # Add =head2 function names to hash
-      my $func-name = ~$pod.contents[0].contents;
-      %functions{$func-name} = 1;
-  }
-  elsif $pod.?contents {
-      for $pod.contents -> $sub-pod {
-          find-p5to6-functions(:pod($sub-pod), :%functions) if $sub-pod ~~ Pod::Block;
-      }
-  }
 }

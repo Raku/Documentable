@@ -18,9 +18,7 @@ my @expected = [
     category => "Language", value => "Terms", url => "language/terms"
 ];
 
-my @index = $registry.generate-search-index.grep({
-    $_ ~~ / ^ [<!before perlfunc> .]* $ /
-});
+my @index = $registry.generate-search-index;
 
 subtest "search index generation" => {
     for @index Z @expected -> $entry {
