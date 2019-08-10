@@ -27,7 +27,7 @@ class Perl6::Documentable {
 
     method english-list () {
         return '' unless @!subkinds.elems;
-        @@!subkinds > 1
+        @!subkinds > 1
                     ?? @!subkinds[0..*-2].join(", ") ~ " and @!subkinds[*-1]"
                     !! @!subkinds[0]
     }
