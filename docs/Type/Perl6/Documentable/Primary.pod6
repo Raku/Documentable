@@ -1,0 +1,117 @@
+
+=begin pod :kind("type") :subkind("class") :category("basic")
+
+=TITLE class Perl6::Documentable::Primary
+
+=SUBTITLE Represents a self-contained Perl 6 documentation element.
+
+    class Perl6::Documentable::Primary {}
+
+An instance of this object is used to represented every pod block found, following this format:
+
+=begin code
+
+=begin pod :kind("<kind>") :subkind("<subkind>") :category("<category>")
+
+=TITLE title
+
+=SUBTITLE subtitle
+
+(...)
+
+=end pod
+
+If at least one of these elements is missing, a exception will be thrown.
+
+=head1 Methods
+
+=head2 method kind
+
+Defined as
+
+    method kind(--> Kind)
+
+Returns C<$!kind>. See L<Kind|/type/Kind> to get more info.
+
+=end pod
+
+=begin pod :kind("type") :subkind("class") :category("exception")
+
+=TITLE class X::Documentable::TitleNotFound
+
+=SUBTITLE Pod format related error
+
+    X::Documentable::TitleNotFound is Exception {}
+
+The given C<$pod> structure does not have a C<=TITLE> element. Remember, all C<=begin pod =end pod>
+must follow the format:
+
+=begin code
+
+=begin pod :kind("<kind>") :subkind("<subkind>") :category("<category>")
+
+=TITLE title
+
+=SUBTITLE subtitle
+
+(...)
+
+=end pod
+
+=end code
+
+=end pod
+
+=begin pod :kind("type") :subkind("class") :category("exception")
+
+=TITLE class X::Documentable::SubtitleNotFound
+
+=SUBTITLE Pod format related error
+
+    X::Documentable::SubtitleNotFound is Exception {}
+
+The given C<$pod> structure does not have a C<=SUBTITLE> element. Remember, all C<=begin pod =end pod>
+must follow the format:
+
+=begin code
+
+=begin pod :kind("<kind>") :subkind("<subkind>") :category("<category>")
+
+=TITLE title
+
+=SUBTITLE subtitle
+
+(...)
+
+=end pod
+
+=end code
+
+=end pod
+
+=begin pod :kind("type") :subkind("class") :category("exception")
+
+=TITLE class X::Documentable::MissingMetadata
+
+=SUBTITLE Pod format related error
+
+    X::Documentable::MissingMetadata is Exception {}
+
+Some of the obligatory three metada elements is missing. Remember, all C<=begin pod =end pod>
+must follow the format:
+
+=begin code
+
+=begin pod :kind("<kind>") :subkind("<subkind>") :category("<category>")
+
+=TITLE title
+
+=SUBTITLE subtitle
+
+(...)
+
+=end pod
+
+=end code
+
+=end pod
