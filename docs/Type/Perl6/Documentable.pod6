@@ -1,0 +1,12 @@
+
+=begin pod :kind("type") :subkind("class") :category("basic")
+
+=TITLE class Perl6::Documentable
+
+=SUBTITLE Thing/object
+
+    class Perl6::Documentable
+
+Init documentation
+
+=end pod
