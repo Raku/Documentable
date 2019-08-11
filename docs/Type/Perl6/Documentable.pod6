@@ -7,12 +7,20 @@
 
     class Perl6::Documentable {}
 
-This class is the base for L<Perl6::Documentable::File|/type/Perl6::Documentable::File>
+This class is the base for L<Perl6::Documentable::Primary|/type/Perl6::Documentable::Secondary>
 and L<Perl6::Documentable::Derived|/type/Perl6::Documentable::Derived>.
 
 Everything documented is represented by a child class of C<Perl6::Documentable>.
 
 =head1 Methods
+
+=head2 submethod BUILD
+
+Defined as
+
+    submethod BUILD(:$!name, :$!kind!, :@!subkinds, :@!categories, :$!pod!)
+
+Returns a C<Perl6::Documentable> object correctly initialized.
 
 =head2 method name
 
@@ -51,14 +59,6 @@ Returns C<@!subkinds>.
 
 Returns C<@!categories>. If C<@!categories> is not defined, C<@!subkinds> will
 be returned instead.
-
-=head2 method BUILD
-
-Defined as
-
-    submethod BUILD(:$!name, :$!kind!, :@!subkinds, :@!categories, :$!pod!)
-
-Returns a C<Perl6::Documentable> object correctly initialized.
 
 =head2 method english-list
 

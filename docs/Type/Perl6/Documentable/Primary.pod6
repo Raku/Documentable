@@ -6,7 +6,7 @@
 
     class Perl6::Documentable::Primary {}
 
-An instance of this object is used to represented every pod block found.
+An instance of this object is used to represent every pod block found.
 
 =head1 Methods
 

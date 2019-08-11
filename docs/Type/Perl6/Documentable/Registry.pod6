@@ -1,0 +1,16 @@
+
+=begin pod :kind("type") :subkind("class") :category("basic")
+
+=TITLE class Perl6::Documentable::Registry
+
+=SUBTITLE Container of all our knowledge.
+
+    class Perl6::Documentable::Registry {}
+
+An instance of this object is used to deal with a collection of L<Perl6::Documentable|/type/Perl6::Documentable>
+objects. This is the most importante class in the module and the one you will use the most. It gives
+you an API to access all the processed documentation.
+
+=head1 Methods
+
+=end pod
