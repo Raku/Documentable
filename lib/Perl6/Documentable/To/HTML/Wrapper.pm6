@@ -12,7 +12,8 @@ has Str $.footer;
 
 has Perl6::Documentable::Config $.config;
 
-has &.rewrite;
+has     &.rewrite;
+has Str $.prefix;
 
 submethod BUILD(
     Perl6::Documentable::Config :$!config,
@@ -22,8 +23,10 @@ submethod BUILD(
     $!footer = slurp zef-path("template/footer.html");
 
     if ($!config.url-prefix) {
-        &!rewrite = &rewrite-url.assuming(*, "/" ~ $!config.url-prefix);
+        $!prefix  = "/" ~ $!config.url-prefix;
+        &!rewrite = &rewrite-url.assuming(*, $!prefix);
     } else {
+        $!prefix = "";
         &!rewrite = &rewrite-url;
     }
 }
@@ -33,7 +36,7 @@ method menu-entry(
     Str $selected
 ) {
     my $class = $selected eq %entry<kind> ?? "selected darker-green" !! "";
-    my $href  = "/" ~ %entry<kind> ~ ".html";
+    my $href  = $!prefix ~ "/" ~ %entry<kind> ~ ".html";
     qq[ <a class="menu-item {$class}" href="{$href}"> { %entry<display-text> } </a>]
 }
 
@@ -41,7 +44,7 @@ method submenu-entry(
     %entry,
     $parent
 ) {
-    my $href = "/" ~ $parent ~ "-" ~ %entry<name> ~ ".html";
+    my $href = $!prefix ~  "/" ~ $parent ~ "-" ~ %entry<name> ~ ".html";
     qq[<a class="menu-item" href="{$href}"> {%entry<display-text>} </a> ]
 }
 
@@ -56,8 +59,9 @@ method menu($selected, $pod-path?) {
     my $submenu-items = '';
     my @submenu = $!config.get-categories(Kind( $selected ));
     if (@submenu and $selected ne "language") {
+        my $href = $!prefix ~ "/" ~ $selected;
         $submenu-items = [~] q[<div class="menu-items darker-green">],
-                                qq[<a class="menu-item" href="/{$selected}.html">All</a>],
+                                qq[<a class="menu-item" href="{$href}.html">All</a>],
                                 @submenu.map(-> %entry {self.submenu-entry(%entry, $selected)}).join,
                             q[</div>];
     }

@@ -80,6 +80,15 @@ Defined as
 Returns C<@.refs>. C<@.refs> is an array containing all
 L<Perl6::Documentable::Index|/type/Perl6::Documentable::Index> objects found in the C<$.pod>.
 
+=head2 method check-pod
+
+Defined as
+
+    method check-pod($pod, $filename?)
+
+Check if a pod block (C<=begin pod =end pod>) follows the specified format. It checks for the
+existance of a C<=TITLE> and C<=SUBTITLE> elements and the three metadata values.
+
 =end pod
 
 =begin pod :kind("type") :subkind("class") :category("exception")

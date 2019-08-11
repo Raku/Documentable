@@ -49,25 +49,18 @@ class Perl6::Documentable::Primary is Perl6::Documentable {
         Str :$filename!,
             :$pod!
     ) {
+        self.check-pod($pod, $filename);
         # kind and url setting
-        die X::Documentable::MissingMetadata.new(:$filename, metadata => "kind")
-        unless self.check-metadata($pod);
-
         my $kind = Kind( $pod.config<kind>.lc );
-
         my $url = "/{$kind.lc}/$filename";
 
         # proper name from =TITLE
         my $title = $pod.contents[0];
-        die X::Documentable::TitleNotFound.new(:$filename)
-        unless ($title ~~ Pod::Block::Named and $title.name eq "TITLE");
         my $name = recurse-until-str($title);
         $name = $name.split(/\s+/)[*-1] if $kind eq Kind::Type;
 
         # summary from =SUBTITLE
         my $subtitle = $pod.contents[1];
-        die X::Documentable::SubtitleNotFound.new(:$filename)
-        unless ($subtitle ~~ Pod::Block::Named and $subtitle.name eq "SUBTITLE");
         my $summary = recurse-until-str($subtitle);
 
         # use metadata in pod config
@@ -91,10 +84,24 @@ class Perl6::Documentable::Primary is Perl6::Documentable {
         self.find-references(:$pod);
     }
 
-    method check-metadata($pod) {
-        return defined $pod.config<kind> and
-               defined $pod.config<subkind> and
-               defined $pod.config<category>
+    method check-pod($pod, $filename?) {
+        # check title
+        my $title = $pod.contents[0];
+        die X::Documentable::TitleNotFound.new(:$filename)
+        unless ($title ~~ Pod::Block::Named and $title.name eq "TITLE");
+
+        # check subtitle
+        my $subtitle = $pod.contents[1];
+        die X::Documentable::SubtitleNotFound.new(:$filename)
+        unless ($subtitle ~~ Pod::Block::Named and $subtitle.name eq "SUBTITLE");
+
+        # check metadata
+        my $correct-metadata = $pod.config<kind>    and
+                               $pod.config<subkind> and
+                               $pod.config<category>;
+
+        die X::Documentable::MissingMetadata.new(:$filename, metadata => "kind")
+        unless $correct-metadata;
     }
 
     method parse-definition-header(Pod::Heading :$heading --> Hash) {
