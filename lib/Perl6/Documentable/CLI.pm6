@@ -156,7 +156,7 @@ package Perl6::Documentable::CLI {
             @docs.push($factory.generate-index(Kind::Routine          ));
 
             # subindexes
-            for <basic composite domain-specific exceptions> -> $category {
+            for <basic composite domain-specific exception> -> $category {
                 @docs.push($factory.generate-subindex(Kind::Type, $category))
             }
             for <sub method term operator trait submethod> -> $category {
@@ -244,7 +244,7 @@ package Perl6::Documentable::CLI {
                 when Kind::Programs { @docs.push($factory.generate-index(Kind::Programs)); }
                 when Kind::Type {
                     @docs.push($factory.generate-index(Kind::Type));
-                    for <basic composite domain-specific exceptions> -> $category {
+                    for <basic composite domain-specific exception> -> $category {
                         @docs.push( $factory.generate-subindex(Kind::Type, $category) )
                     }
                 }

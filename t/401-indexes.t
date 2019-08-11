@@ -27,7 +27,7 @@ subtest "Main indexes" => {
 
 subtest "Subindexes" => {
     $index = Perl6::Documentable::DocPage::SubIndex::Type.new;
-    for <basic composite domain-specific exceptions> {
+    for <basic composite domain-specific exception> {
         test-index(
             "type-subindex",
             $index.compose($registry, $_),

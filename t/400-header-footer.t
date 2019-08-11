@@ -18,7 +18,7 @@ subtest "HTML header" => {
 
 subtest "Type submenu" => {
     my $fragment = $wrapper.menu("type", "podtest");
-    for <basic composite domain-specific exceptions> {
+    for <basic composite domain-specific exception> {
         is so $fragment ~~ /$_/, True, "$_ submenu found";
     }
 }
