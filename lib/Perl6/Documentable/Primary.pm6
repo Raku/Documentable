@@ -168,15 +168,6 @@ class Perl6::Documentable::Primary is Perl6::Documentable {
             my %attr = self.parse-definition-header(:heading($pod-element));
             next unless %attr;
 
-            # At this point we have a valid definition
-            my $created = Perl6::Documentable::Secondary.new(
-                :origin(self),
-                :pod[],
-                |%attr
-            );
-
-            @!defs.push: $created;
-
             # Perform sub-parse, checking for definitions elsewhere in the pod
             # And updating $i to be after the places we've already searched
             my $new-i = $i + self.find-definitions(
@@ -184,10 +175,14 @@ class Perl6::Documentable::Primary is Perl6::Documentable {
                             :min-level(@pod-section[$i].level),
                         );
 
-            $created.compose(
-                level   => $pod-element.level,
-                content => @pod-section[$i ^.. $new-i]
+            # At this point we have a valid definition
+            my $created = Perl6::Documentable::Secondary.new(
+                origin => self,
+                pod => @pod-section[$i .. $new-i],
+                |%attr
             );
+
+            @!defs.push: $created;
 
             $i = $new-i + 1;
         }

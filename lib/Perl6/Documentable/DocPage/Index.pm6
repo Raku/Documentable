@@ -161,12 +161,14 @@ class Perl6::Documentable::DocPage::Index::Routine
         [
             $registry.lookup(Kind::Routine.Str, :by<kind>)\
             .categorize(*.name).sort(*.key)>>.value
-            .map({%(
+            .map({
+            %(
                 name     => .[0].name,
                 url      => .[0].url,
                 subkinds =>.map({.subkinds // Nil}).flat.unique.List,
-                origins  => $_>>.origin.map({.name, .url}).List
-            )}).cache.Slip
+                origins  => $_.map({.origin.name, .url-in-origin}).List
+            )
+            }).cache.Slip
         ].flat.cache
     }
 

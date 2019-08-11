@@ -15,8 +15,8 @@ my $doc = Perl6::Documentable::Primary.new(
 );
 
 my @names      := ("ACCEPTS", "any", "mro", "root");
-my @subkinds   := ("method" , "sub"               );
-my @categories := ("method" , "sub"               );
+my @subkinds   := ("method" , "routine"           );
+my @categories := ("method" , "routine"           );
 
 my @defs;
 
