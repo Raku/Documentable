@@ -34,9 +34,6 @@ package Perl6::Documentable::CLI {
             && tar xvzf assets.tar.gz && mv assets tmp && cp -a tmp/* . \
             && rm assets.tar.gz && rm -rf tmp
         END
-        for <programs type language routine images syntax> {
-            mkdir "html/$_" unless "html/$_".IO ~~ :e;
-        }
     }
 
     #| Start the documentation generation with the specified options
@@ -63,6 +60,10 @@ package Perl6::Documentable::CLI {
 
                     documentable setup
                 END
+        }
+
+        for <programs type language routine images syntax> {
+            mkdir "html/$_" unless "html/$_".IO ~~ :e;
         }
 
         #==========================setup====================================

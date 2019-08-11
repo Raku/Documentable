@@ -38,6 +38,7 @@ class Perl6::Documentable::Primary is Perl6::Documentable {
 
     has Str  $.summary;
     has Str  $.url;
+    has Str  $.filename;
     #| Definitions indexed in this pod
     has @.defs;
     #| References indexed in this pod
@@ -45,7 +46,7 @@ class Perl6::Documentable::Primary is Perl6::Documentable {
 
     # Remove itemization from incoming arrays
     method new (
-        Str :$filename,
+        Str :$filename!,
             :$pod!
     ) {
         # kind and url setting
@@ -80,7 +81,8 @@ class Perl6::Documentable::Primary is Perl6::Documentable {
             :$summary,
             :$url
             :@subkinds,
-            :@categories
+            :@categories,
+            :$filename
         );
     }
 

@@ -6,7 +6,17 @@
 
     class Perl6::Documentable::Primary {}
 
-An instance of this object is used to represented every pod block found, following this format:
+An instance of this object is used to represented every pod block found.
+
+=head1 Methods
+
+=head2 method new
+
+Defined as
+
+    method new(Str :$filename!, :$pod!)
+
+C<$pod> must follow this format:
 
 =begin code
 
@@ -20,17 +30,55 @@ An instance of this object is used to represented every pod block found, followi
 
 =end pod
 
+=end code
+
 If at least one of these elements is missing, a exception will be thrown.
 
-=head1 Methods
+C<$filename> is the name of the file containing the pod. This attribute is useful
+because several pods can be present in the same file, at the same time.
 
-=head2 method kind
+=head2 method filename
 
 Defined as
 
-    method kind(--> Kind)
+    method filename()
 
-Returns C<$!kind>. See L<Kind|/type/Kind> to get more info.
+Returns the value of C<$!filename>. It's the filename where the pod block came from.
+
+=head2 method summary
+
+Defined as
+
+    method summary()
+
+Returns C<$!summary>. This value is obtained using the C<=SUBTITLE> pod element.
+
+=head2 method url
+
+Defined as
+
+    method url()
+
+Returns the following string: C</$!kind.Str/$filename>. So, if you have a C<$pod> block with C<$kind>
+set to C<Kind::Type>, stored in a file called C<mytype.pod6>, its url will be C</type/mytype>.
+
+=head2 method defs
+
+Defined as
+
+    method defs()
+
+Returns C<@.defs>. C<@.defs> is an array containing all
+L<Perl6::Documentable::Secondary|/type/Perl6::Documentable::Secondary> objects found in the C<$.pod>.
+
+=head2 method refs
+
+Defined as
+
+    method refs()
+
+Returns C<@.refs>. C<@.refs> is an array containing all
+L<Perl6::Documentable::Index|/type/Perl6::Documentable::Index> objects found in the C<$.pod>.
 
 =end pod
 
