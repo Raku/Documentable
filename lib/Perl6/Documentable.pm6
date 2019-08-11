@@ -74,7 +74,7 @@ sub good-name($name is copy --> Str) is export {
     return $name;
 }
 
-sub rewrite-url($s) is export {
+sub rewrite-url($s, $prefix?) is export {
     given $s {
         when {.starts-with: 'http' or
               .starts-with: '#'    or
@@ -83,7 +83,10 @@ sub rewrite-url($s) is export {
             my @parts   = $s.split: '/';
             my $name    = good-name(@parts[*-1]);
             my $new-url = @parts[0..*-2].join('/') ~ '/' ~ $name;
-            $new-url;
+
+            return $new-url unless $prefix;
+            return $prefix ~ $new-url if ($new-url ~~ /^\//);
+            return $prefix ~ "/" ~ $new-url;
         }
     }
 }

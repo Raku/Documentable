@@ -12,12 +12,20 @@ has Str $.footer;
 
 has Perl6::Documentable::Config $.config;
 
+has &.rewrite;
+
 submethod BUILD(
-    Perl6::Documentable::Config :$!config
+    Perl6::Documentable::Config :$!config,
 ) {
     $!head   = slurp zef-path("template/head.html"  );
     $!header = slurp zef-path("template/header.html");
     $!footer = slurp zef-path("template/footer.html");
+
+    if ($!config.url-prefix) {
+        &!rewrite = &rewrite-url.assuming(*, "/" ~ $!config.url-prefix);
+    } else {
+        &!rewrite = &rewrite-url;
+    }
 }
 
 method menu-entry(
@@ -75,7 +83,7 @@ method footer() {
 method render($pod, $selected = '', :$pod-path?) {
     pod2html(
         $pod,
-        url           => &rewrite-url,
+        url           => &!rewrite,
         head          => $!head,
         header        => self.menu($selected, $pod-path),
         footer        => self.footer,

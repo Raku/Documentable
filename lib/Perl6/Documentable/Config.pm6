@@ -18,6 +18,7 @@ class Perl6::Documentable::Config {
 
     has %.config;
     has @.kinds;
+    has Str $.url-prefix;
     has $.filename;
 
     submethod BUILD (Str :$filename) {
@@ -31,6 +32,8 @@ class Perl6::Documentable::Config {
             die X::Documentable::Config::InvalidConfig.new("$kind entry missing inside 'kinds'")
             unless %!config<kinds>.grep({.<kind> eq $kind});
         }
+
+        $!url-prefix = %!config<url-prefix> || '';
     }
 
     method get-kind-config(Kind $kind) {
