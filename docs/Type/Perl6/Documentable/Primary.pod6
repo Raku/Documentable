@@ -60,7 +60,10 @@ Defined as
     method url()
 
 Returns the following string: C</$!kind.Str/$filename>. So, if you have a C<$pod> block with C<$kind>
-set to C<Kind::Type>, stored in a file called C<mytype.pod6>, its url will be C</type/mytype>.
+set to C<Kind::Language>, stored in a file called C<lang.pod6>, its url will be C</language/lang>.
+
+If C<$kind> is equal to C<Kind::Type>, instead of C<$filename>, C<$name> will be taken (to avoid problems
+with multi-type definitions in a single file).
 
 =head2 method defs
 
@@ -137,6 +140,61 @@ L<Perl6::Documentable::Heading::Actions|/type/Perl6::Documentable::Heading::Acti
 returned C<Hash>.
 
 =end item
+
+=head2 method find-definitions
+
+Defined as
+
+    method find-definitions(:$pod, Int :$min-level = -1 --> Int)
+
+This method initializes the attribute C<@.defs>. It runs through the pod content and looks for
+valid headings. When a new definition is found, a `Perl6::Documentable::Secondary` object is
+created with the result of calling C<parse-definition-header> (if the result is non-empty) and C<self>
+as C<origin>.
+
+C<$pod> is populated with the pod section corresponding to that header and its subdefinitions
+(all valid headers with a greater level until one with the same or lower level is found).
+
+For instance, if we found the following pod section:
+
+=begin code
+
+=head3 header
+
+Some text
+
+=head4 header with a greater level!
+
+More text
+
+=head3 another header with the same level!
+
+=end code
+
+In this case, C<$pod> will be set to:
+
+=begin code
+
+=head3 header
+
+Some text
+
+=head4 header with a greater level!
+
+More text
+
+=end code
+
+=head2 method find-references
+
+Defined as
+
+    method find-references(:$pod)
+
+Similar to C<find-definitions>. It runs through the pod recursively finding all C<X<>> elements.
+
+The behaviour of C<X<>> elements is being discussed here: L<https://github.com/perl6/doc/issues/1410>.
+Any feedback is welcomed.
 
 =end pod
 

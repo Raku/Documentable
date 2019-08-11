@@ -50,18 +50,20 @@ class Perl6::Documentable::Primary is Perl6::Documentable {
             :$pod!
     ) {
         self.check-pod($pod, $filename);
-        # kind and url setting
         my $kind = Kind( $pod.config<kind>.lc );
-        my $url = "/{$kind.lc}/$filename";
 
         # proper name from =TITLE
         my $title = $pod.contents[0];
         my $name = recurse-until-str($title);
         $name = $name.split(/\s+/)[*-1] if $kind eq Kind::Type;
-
         # summary from =SUBTITLE
         my $subtitle = $pod.contents[1];
         my $summary = recurse-until-str($subtitle);
+
+        my $url = do given $kind {
+            when    Kind::Type {"/{$kind.Str}/$name"    }
+            default            {"/{$kind.Str}/$filename"}
+        }
 
         # use metadata in pod config
         my @subkinds   = $pod.config<subkind>.List;
