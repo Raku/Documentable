@@ -6,7 +6,7 @@ In this repository you can find all logic responsible of generate the [official 
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [Documentation](/docs)
+- [Documentation](https://antoniogamiz.github.io/Perl6-Documentable/)
 - [What is being generated](#what-is-being-generated)
 - [Default templates](#default-templates)
 - [Tests](#ŧests)
@@ -97,10 +97,6 @@ If specified, code blocks will be highlighted using [atom-language-perl6](https:
 
 If specified, "kind" files will be written for `syntax` and `routine`.
 
-#### --manage
-
-Flag to sort the Language page in sections, as described in [language-order-control.json](resources/language-order-control.json).
-
 #### -a, --all
 
 Equivalent to `-p -s -i -t`.
@@ -129,16 +125,6 @@ That command will download the [latest assets tar](https://github.com/antoniogam
 - `template` dir containing the default templates used.
 - Two files to run the server (`app-start` and `app.pl`).
 - A Makefile to configure highlighting (`make init-highlights`) and easily start a dev server with `make run`.
-
-## Tests
-
-Test files follow this convention:
-
-- From 0 to 99: basic tests, not related with the core functionality of the module.
-- From 100-199: `Perl6::Utils` related tests.
-- From 200 to 299: [Perl6::Documentable](#perl6documentable) related tests.
-- From 300 to 399: [Perl6::Documentable::Registry](#perl6documentableregistry) related tests.
-- From 400 to 499: `Perl6::Documentable::Registry::To::HTML` related tests.
 
 ## Dependencies installation
 
@@ -190,12 +176,6 @@ the `sass` command
 ```
     $ sudo apt-get install ruby-sass
 ```
-
-#### git (OPTIONAL)
-
-If you generate the documentation from the repo where it's located, the last sha of the last commit will be added to every HTML page, in order to see the exact point where it was created from.
-
-If `git` is not found, then nothing will be done.
 
 #### wget and tar
 

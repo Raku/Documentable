@@ -1,0 +1,113 @@
+=begin pod :kind("Language") :subkind("Language") :category("setup")
+
+=TITLE Pod6 Format
+
+=SUBTITLE How to write Pod6 files for Perl6::Documentable
+
+In C<Perl6::Documentable>, the documentation units are B<pod blocks>. Each and every
+one of this I<pod block>, is represented by a L<Perl6::Documentable::Primary|/type/Perl6::Documentable::Primary>
+object. You could write this I<pod blocks> in a lot of ways, so it would hard to detect some
+needed data to generate a "useful" site. For this reason, you need to follow some basic requirements
+when writing documentation.
+
+=head2 Inline metadata
+
+You need to specify three different values for each I<pod block>:
+
+=item C<kind>: this value will be used to categorize the documentation block in menus. See L<Kind|/type/Kind>.
+=item C<subkind>: more specific categorization. I recommend you to use values from L<Perl6::Documentable::Heading::Grammar|/type/Perl6::Documentable::Heading::Grammar>.
+=begin item
+C<category>: submeno categorization. You will find some big menus corresponding
+to C<kinds>, and inside each C<kind>, there will be as many menus as different
+values for C<category>. B<Note:> you need to specify these values in the L<configuration file|/language/configuration-file>.
+=end item
+
+Example: if you have a class that you want to document, you would write the pod6 file as:
+
+=begin code
+
+=begin pod :kind("Type") :subkind("class") :category("processing")
+
+(...)
+
+=end pod
+
+=head2 Main headers
+
+You must always specify a C<=TITLE> and C<=SUBTITLE> element.
+
+=begin item
+
+The content of this element, if C<kind> is set to C<"type">, will be used to
+set the name of the L<Perl6::Documentable::Primary|/type/Perl6::Documentable::Primary> object. So,
+if you are documenting a type, you will need to write the title as follows:
+
+=begin code
+
+=TITLE class YourClass
+
+YourClass will be considered as name!
+
+=TITLE role YourRole
+
+YourRole will be considered as name!
+
+=TITLE enum YourEnum
+
+YourEnum will be considered as name!
+
+=end code
+
+If it's not a type, then the full content of this element will be considered as name.
+
+=end item
+
+=item C<=SUBTITLE> element will be used as C<$summary> attribute in L<Perl6::Documentable::Primary|/type/Perl6::Documentable::Primary>.
+
+=end code
+
+And that's all, at the end, all your pod blocks should be something like:
+
+=begin code
+
+=begin pod :kind(<kind>) :subkind(<subkind>) :category(<category>)
+
+=TITLE Something
+
+=SUBTITLE Minimal description of Something
+
+=end pod
+
+=end code
+
+=head2 Multiclass file support
+
+Sometimes is a pain to create a new file for every class, role or enum you want to document.
+Even sometimes, you in the same code file a enum, some related exceptions, and who knows more, so
+the possibility to write all its documentation in the same file looks like quite useful. You are
+lucky! With C<Perl6::Documentable> you can do that!.
+
+You only need to write more than one pod block in the same file (following the previoues rules, of course).
+For instance, let's document two different types: (the following code is in the same file)
+
+=begin code
+
+=begin pod :kind("type") :subkind("class") :category("destruction")
+
+=TITLE class Ultra::Weapon
+
+=SUBTITLE Destruction weapon
+
+=end pod
+
+=begin pod :kind("type") :subkind("role") :category("exception")
+
+=TITLE role X::IO
+
+=SUBTITLE IO related
+
+=end pod
+
+=end code
+
+=end pod

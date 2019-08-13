@@ -1,0 +1,42 @@
+=begin pod :kind("Language") :subkind("Language") :category("setup")
+
+=TITLE Configuration file
+
+=SUBTITLE How to configure Perl6::Documentable
+
+=head2 Basics
+
+C<Perl6::Documentable> uses a JSON file to read the custom configuration. You
+have three different options to specify it:
+
+=item Creates a file called C<config.json> in the same directory where C<Perl6::Documentable> will be executed.
+=item Provide a custom path to a JSON file with the C<--conf> option.
+=item Do nothing. In that case, the L<default configuration file|https://github.com/antoniogamiz/Perl6-Documentable/blob/master/resources/config.json> will be used.
+
+=head2 C<kinds> entry
+
+This entry follow the format:
+
+=begin code
+"kinds": [
+    ...
+]
+=end code
+
+Where each one of the elements is written as:
+
+=begin code
+{
+    "kind": "a kind name (see Kind)",
+    "display-text": "text to be displayed in the menu buttom",
+    "categories": [
+        "name": "sort name to be used by Perl6::Documentable and link",
+        "displat-text": "text to be displayed in the menu buttom"
+    ]
+}
+=end code
+
+=item The value of C<kind> must be the stringification of one element of L<Kind|/type/Kind>.
+=item The values of C<name> specified in C<categories> has to be the same used in the metadata (see L<document-format|/language/document-format>).
+
+=end pod
