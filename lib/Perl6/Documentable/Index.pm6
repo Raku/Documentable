@@ -5,21 +5,21 @@ use Pod::Utilities::Build;
 unit class Perl6::Documentable::Index is Perl6::Documentable;
 
 has $.origin;
-has $.meta;
+has @.meta;
 
 method new(
     :$pod!,
-    :$meta!,
+    :@meta!,
     :$origin!
 ) {
 
     my $name;
-    if $meta.elems > 1 {
-        my $last = textify-guts $meta[*-1];
-        my $rest = $meta[0..*-2];
+    if @meta.elems > 1 {
+        my $last = textify-guts @meta[*-1];
+        my $rest = @meta[0..*-2];
         $name = "$last ($rest)";
     } else {
-        $name = textify-guts $meta;
+        $name = textify-guts @meta;
     }
 
     nextwith(
@@ -28,7 +28,7 @@ method new(
         name     => $name.trim,
         :$pod,
         :$origin,
-        :$meta
+        :@meta
     );
 }
 
