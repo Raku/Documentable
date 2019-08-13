@@ -1,4 +1,4 @@
-# classes
+[basic]
 class Perl6::Documentable
 class Perl6::Documentable::Registry
 class Perl6::Documentable::Primary is Perl6::Documentable
@@ -8,6 +8,7 @@ class Perl6::Documentable::Config
 class Perl6::Documentable::Heading::Actions
 class Perl6::Documentable::Heading::Grammar
 
+[basic]
 class Perl6::Documentable::DocPage::Factory
 class Perl6::Documentable::DocPage::Index::Language
 class Perl6::Documentable::DocPage::Index::Programs
@@ -19,18 +20,16 @@ class Perl6::Documentable::DocPage::Kind
 class Perl6::Documentable::DocPage::Source::Type
 class Perl6::Documentable::DocPage::Source::Language
 class Perl6::Documentable::DocPage::Source::Programs
-
 class Perl6::Documentable::To::HTML::Wrapper
 
-# roles
+[basic]
 role Perl6::Documentable::DocPage
 
-# exceptions
+[exceptions]
 class X::Documentable::TitleNotFound
 class X::Documentable::SubtitleNotFound
 class X::Documentable::MissingMetadata
-
 class X::Documentable::Config::InvalidConfig
 
-# enums
+[basic]
 enum Kind

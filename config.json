@@ -1,4 +1,6 @@
 {
+  "title-page": "Perl6::Documentable",
+  "pod-root-path": "https://github.com/antoniogamiz/Perl6-Documentable/tree/master/docs",
   "kinds": [
     {
       "kind": "language",
