@@ -33,10 +33,15 @@ submethod BUILD (
             :@dirs       = [],
     Bool    :$verbose    = True,
     Bool    :$use-cache  = True,
+    Str     :$typegraph-file?
 ) {
     $!verbose     = $verbose;
     $!use-cache   = $use-cache;
-    $!tg          = Perl6::TypeGraph.new-from-file;
+    if ($typegraph-file) {
+        $!tg = Perl6::TypeGraph.new-from-file($typegraph-file);
+    } else {
+        $!tg = Perl6::TypeGraph.new-from-file;
+    }
     $!topdir      = $topdir.IO.absolute;
 
     # init cache if needed
