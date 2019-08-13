@@ -32,6 +32,8 @@ Example: if you have a class that you want to document, you would write the pod6
 
 =end pod
 
+=end code
+
 =head2 Main headers
 
 You must always specify a C<=TITLE> and C<=SUBTITLE> element.
@@ -43,7 +45,7 @@ set the name of the L<Perl6::Documentable::Primary|/type/Perl6::Documentable::Pr
 if you are documenting a type, you will need to write the title as follows:
 
 =begin code
-
+=begin pod
 =TITLE class YourClass
 
 YourClass will be considered as name!
@@ -55,7 +57,7 @@ YourRole will be considered as name!
 =TITLE enum YourEnum
 
 YourEnum will be considered as name!
-
+=end pod
 =end code
 
 If it's not a type, then the full content of this element will be considered as name.
@@ -63,8 +65,6 @@ If it's not a type, then the full content of this element will be considered as 
 =end item
 
 =item C<=SUBTITLE> element will be used as C<$summary> attribute in L<Perl6::Documentable::Primary|/type/Perl6::Documentable::Primary>.
-
-=end code
 
 And that's all, at the end, all your pod blocks should be something like:
 
