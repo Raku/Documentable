@@ -50,7 +50,6 @@ package Perl6::Documentable::CLI {
         Bool :t(:type-images($t))  = False,            #= Write typegraph visualizations
         Bool :f(:force($f))        = False,            #= Force the regeneration of the typegraph visualizations
         Bool :$highlight           = False,            #= Highlights the code blocks
-        Bool :$manage              = False,            #= Sort Language page
         Str  :$typegraph-file      = "type-graph.txt", #= TypeGraph file
         Bool :a(:$all)             = False             #= Equivalent to -t -p -k -i -s,
     ) {
@@ -152,7 +151,7 @@ package Perl6::Documentable::CLI {
             $now = now;
             DEBUG("Generating indexes...", $v);
 
-            @docs.push($factory.generate-index(Kind::Language, $manage));
+            @docs.push($factory.generate-index(Kind::Language         ));
             @docs.push($factory.generate-index(Kind::Type             ));
             @docs.push($factory.generate-index(Kind::Programs         ));
             @docs.push($factory.generate-index(Kind::Routine          ));

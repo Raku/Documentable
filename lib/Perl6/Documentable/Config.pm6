@@ -19,7 +19,9 @@ class Perl6::Documentable::Config {
     has %.config;
     has @.kinds;
     has Str $.url-prefix;
-    has $.filename;
+    has Str $.filename;
+    has Str $.title-page;
+    has Str $.pod-root-path;
 
     submethod BUILD (Str :$filename) {
         my $json = slurp zef-path($filename);
@@ -34,6 +36,14 @@ class Perl6::Documentable::Config {
         }
 
         $!url-prefix = %!config<url-prefix> || '';
+        die X::Documentable::Config::InvalidConfig.new("'title-page' entry missing")
+        unless %!config<title-page>;
+
+        die X::Documentable::Config::InvalidConfig.new("'pod-root-path' entry missing")
+        unless %!config<pod-root-path>;
+
+        $!title-page = %!config<title-page>;
+        $!pod-root-path = %!config<pod-root-path>;
     }
 
     method get-kind-config(Kind $kind) {

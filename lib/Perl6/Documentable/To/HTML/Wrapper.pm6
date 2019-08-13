@@ -15,6 +15,9 @@ has Perl6::Documentable::Config $.config;
 has     &.rewrite;
 has Str $.prefix;
 
+has Str $.title-page;
+has Str $.pod-root-path;
+
 submethod BUILD(
     Perl6::Documentable::Config :$!config,
 ) {
@@ -29,6 +32,9 @@ submethod BUILD(
         $!prefix = "";
         &!rewrite = &rewrite-url;
     }
+
+    $!title-page = $!config.title-page;
+    $!pod-root-path = $!config.pod-root-path;
 }
 
 method menu-entry(
@@ -68,9 +74,10 @@ method menu($selected, $pod-path?) {
 
     my $edit-url = "";
     if defined $pod-path {
+      my $edit-path = $!pod-root-path ~ $pod-path;
       $edit-url = qq[
       <div align="right">
-        <button title="Edit this page"  class="pencil" onclick="location='https://github.com/perl6/doc/edit/master/doc/$pod-path'">
+        <button title="Edit this page"  class="pencil" onclick="location='{$edit-url}'">
         {svg-for-file(zef-path("html/images/pencil.svg"))}
         </button>
       </div>]
@@ -91,7 +98,7 @@ method render($pod, $selected = '', :$pod-path?) {
         head          => $!head,
         header        => self.menu($selected, $pod-path),
         footer        => self.footer,
-        default-title => "Perl 6 Documentation",
+        default-title => $!title-page,
         css-url       => ''
     )
 }

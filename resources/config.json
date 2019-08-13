@@ -1,4 +1,6 @@
 {
+  "title-page": "Perl6 Documentation",
+  "pod-root-path": "https://github.com/perl6/doc/edit/master/doc/",
   "kinds": [
     {
       "kind": "language",
