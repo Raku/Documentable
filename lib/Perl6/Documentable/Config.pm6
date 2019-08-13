@@ -9,6 +9,8 @@ class X::Documentable::Config::InvalidConfig is Exception {
 
     has $.msg;
 
+    submethod BUILD(:$!msg) {}
+
     method message() {
         $.msg;
     }
@@ -27,19 +29,14 @@ class Perl6::Documentable::Config {
         my $json = slurp zef-path($filename);
         %!config = from-json($json);
         @!kinds  = %!config<kinds>.list;
-        die X::Documentable::Config::InvalidConfig.new("'kinds' entry missing")
+        die X::Documentable::Config::InvalidConfig.new(:msg("'kinds' entry missing"))
         unless %!config<kinds>;
 
-        for <language type routine programs> -> $kind {
-            die X::Documentable::Config::InvalidConfig.new("$kind entry missing inside 'kinds'")
-            unless %!config<kinds>.grep({.<kind> eq $kind});
-        }
-
         $!url-prefix = %!config<url-prefix> || '';
-        die X::Documentable::Config::InvalidConfig.new("'title-page' entry missing")
+        die X::Documentable::Config::InvalidConfig.new(:msg("'title-page' entry missing"))
         unless %!config<title-page>;
 
-        die X::Documentable::Config::InvalidConfig.new("'pod-root-path' entry missing")
+        die X::Documentable::Config::InvalidConfig.new(:msg("'pod-root-path' entry missing"))
         unless %!config<pod-root-path>;
 
         $!title-page = %!config<title-page>;
