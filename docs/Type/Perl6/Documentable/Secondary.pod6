@@ -35,7 +35,7 @@ C<$.kind> equal to C<Kind::Routine>), whose name is C<fff>, then it will return 
 =head2 method url-in-origin
 
 Defined as
-
+newdef
     method url-in-origin
 
 Returns a URL pointing to the HTML file associated to B<its origin>, with an additional fragment

@@ -9,8 +9,216 @@
 
 An instance of this object is used to deal with a collection of L<Perl6::Documentable|/type/Perl6::Documentable>
 objects. This is the most importante class in the module and the one you will use the most. It gives
-you an API to access all the processed documentation.
+you an API to access all the processed documentation. We can say this class is our source of
+information.
 
 =head1 Methods
+
+=head2 method documentables
+
+Defined as
+
+    method documentables(--> Array[Perl6::Documentable::Primary])
+
+Returns an C<Array> containing all L<Perl6::Documentable::Primary|/type/Perl6::Documentable::Primary>
+objects created.
+
+=head2 method definitions
+
+Defined as
+
+    method definitions(--> Array[Perl6::Documentable::Secondary])
+
+Returns an C<Array> containing all L<Perl6::Documentable::Secondary|/type/Perl6::Documentable::Secondary>
+objects created.
+
+=head2 method references
+
+Defined as
+
+    method references(--> Array[Perl6::Documentable::Index])
+
+Returns an C<Array> containing all L<Perl6::Documentable::References|/type/Perl6::Documentable::References>
+objects created.
+
+=head2 method docs
+
+Defined as
+
+    method docs(--> Array[Perl6::Documentable])
+
+Returns an C<Array> containing all L<Perl6::Documentable|/type/Perl6::Documentable>
+objects created. Equivalent to join C<documentables>, C<definitions> and C<references>.
+
+=head2 method composed
+
+Defined as
+
+        method composed(--> Bool)
+
+Returns a C<Bool> indicating is the registry is composed.
+
+=head2 method tg
+
+Defined as
+
+        method tg(--> Perl6::TypeGraph)
+
+Returns the instance of L<Perl6::TypeGraph|https://github.com/antoniogamiz/Perl6-TypeGraph> used
+to complete the type files.
+
+=head2 method routines-by-type
+
+Defined as
+
+        method  routines-by-type(--> Hash)
+
+Returns a C<Hash> with the following structure:
+
+=item C<key>: name of a type.
+=item C<value>: all L<Perl6::Documentable::Secondary|/type/Perl6::Documentable::Secondary> objects found in that type.
+
+So, if you have a class C<Any>, with two methods, C<method1> and C<method2> then:
+
+=begin code
+
+my $registry = (suppose it's correctly initialized);
+
+# This will return two Perl6::Documentable::Secondary objects containing the
+# definition of method1 and method2.
+say $registry.routines-by-type<Any>;
+
+=end code
+
+=head2 method pod-cache
+
+Defined as
+
+        method pod-cache(--> Pod::To::Cached)
+
+Returns the instance of L<Pod::To::Cached|https://github.com/finanalyst/pod-cached> used
+to cache pod6 files.
+
+=head2 method use-cache
+
+Defined as
+
+        method use-cache(--> Bool)
+
+Returns a C<Bool> indicating is the registry is using a cache.
+
+=head2 method topdir
+
+Defined as
+
+        method topdir(--> Str)
+
+Returns a C<Str> indicating the directory used as C<$topdir>.
+
+
+=head2 submethod BUILD
+
+Defined as
+
+    submethod BUILD(Str :$topdir = "doc", :@dirs = [], Bool :$verbose = True,
+                    Bool :$use-cache = True)
+
+Creates a new instance of the class.
+
+=item C<$topdir>: directory containing all the pod6 sources.
+=item C<@dirs>: subdirectories of C<$topdir> containing pod6 sources.
+=item C<$verbose>: if C<True>, additional information will be printed.
+=item C<$use-cache>: use L<Pod::To::Cached|https://github.com/finanalyst/pod-cached> to create a pod6 cache.
+
+Example:
+
+=begin code
+
+use Perl6::Documentable::Registry;
+
+my $registry = Perl6::Documentable::Registry.new(
+    topdir    => "doc",                # doc containing the pod collection
+    dirs      => ["Type", "Language"], # dirs to process
+    verbose   => True,
+    use-cache => True                  # recommended
+);
+
+# to complete the processing and initialize some attributes
+$registry.compose;
+
+=end code
+
+B<Note:> if C<$use-cache> is set to C<False>, L<Pod::Load|https://github.com/JJ/p6-pod-load> will be
+used instead.
+
+=head2 method add-new
+
+Defined as
+
+    method add-new(--> Perl6::Documentable::Primary)
+
+Adds a new L<Perl6::Documentable::Primary|/type/Perl6::Documentable::Primary> object to the registry
+and returns it.
+
+B<Warning:> if the registry is composed, you cannot add new objects to it.
+
+=head2 method load
+
+Defined as
+
+    method load(Str :$path --> Positional[Pod::Block::Named])
+
+Loads a new pod6 file and returns it. It will load it from the cache if C<use-cache> is set to C<True>.
+
+=head2 method process-pod-dir
+
+Defined as
+
+    method process-pod-dir(Str :$dir --> Array[Perl6::Documentable::Primary])
+
+Returns an C<Array> containing all L<Perl6::Documentable::Primary|/type/Perl6::Documentable::Primary> objects
+created after processing the contents of C<$topdir/$dir>.
+
+=head2 method compose
+
+Defined as
+
+    method compose(--> Bool)
+
+=item Compose the registry (initalize C<@.docs> and C<%.routines-by-type>).
+=item Returns the new value of C<$.composed>.
+
+=head2 method lookup
+
+Defined as
+
+    method lookup(Str $what, Str $by --> Hash)
+
+This method will classify all L<Perl6::Documentable|/type/Perl6::Documentable> objects in the C<Perl6::Documentable::Registry>
+using the attribute C<$by> and will return all of those whose attribute C<$by> is set to C<$what>.
+
+This queris are cached the first time they are made, so next calls to this method will be faster.
+
+Example:
+
+=begin code
+
+my $registry = (... initialize ...)
+
+# query all Perl6::Documentable objects with $.kind
+# set to Kind::Type
+$registry.lookup(Kind::Type.Str, :by<kind>)
+
+=end code
+
+=head2 method docs-for
+
+Defined as
+
+    method docs-for(Str $name)
+
+Returns all L<Perl6::Documentable|/type/Perl6::Documentable> objects with C<$.name> set to C<$name>.
+
+Equivalent to C<.lookup($name, :by<name>)>.
 
 =end pod
