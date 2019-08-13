@@ -29,11 +29,10 @@ has Bool $.verbose;
 has Str  $.topdir;
 
 submethod BUILD (
-    Str     :$topdir?    = "doc",
+    Str     :$topdir     = "doc",
             :@dirs       = [],
-    Bool    :$verbose?   = True,
-    Bool    :$use-cache? = True,
-    Bool    :$update     = True
+    Bool    :$verbose    = True,
+    Bool    :$use-cache  = True,
 ) {
     $!verbose     = $verbose;
     $!use-cache   = $use-cache;
@@ -55,7 +54,7 @@ submethod BUILD (
             :$!verbose,
             path        => $cache-dir
         );
-        $!pod-cache.update-cache if $update;
+        $!pod-cache.update-cache;
     }
 
     # initialize the registry
