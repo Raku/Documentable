@@ -42,7 +42,7 @@ class Perl6::Documentable::DocPage::Factory {
         )
     }
 
-    method generate-primary($doc) {
+    method generate-primary(Perl6::Documentable::Primary $doc) {
         my %pod-to-render = do given $doc.kind {
             when Kind::Type {
                 Perl6::Documentable::DocPage::Source::Type.new.render($!registry, $doc.name);
@@ -77,7 +77,7 @@ class Perl6::Documentable::DocPage::Factory {
         )
     }
 
-    method generate-index(Kind $kind, $manage?) {
+    method generate-index(Kind $kind) {
         my %pod-to-render = do given $kind {
             when Kind::Type {
                 Perl6::Documentable::DocPage::Index::Type.new.render($!registry);

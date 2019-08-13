@@ -9,6 +9,7 @@ class Perl6::Documentable::DocPage::Source::Language
     does Perl6::Documentable::DocPage {
 
     method render($registry, $name) {
+        say "============primary docpage language==============";
         state @docs = $registry.documentables.grep({.kind eq Kind::Language});
         my $doc = @docs.grep({.name eq $name})[0];
         my $pod-path = pod-path-from-url($doc.url);
