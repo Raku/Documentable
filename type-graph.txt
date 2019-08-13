@@ -1,0 +1,36 @@
+# classes
+class Perl6::Documentable
+class Perl6::Documentable::Registry
+class Perl6::Documentable::Primary is Perl6::Documentable
+class Perl6::Documentable::Secondary is Perl6::Documentable
+class Perl6::Documentable::Index is Perl6::Documentable
+class Perl6::Documentable::Config
+class Perl6::Documentable::Heading::Actions
+class Perl6::Documentable::Heading::Grammar
+
+class Perl6::Documentable::DocPage::Factory
+class Perl6::Documentable::DocPage::Index::Language
+class Perl6::Documentable::DocPage::Index::Programs
+class Perl6::Documentable::DocPage::Index::Type
+class Perl6::Documentable::DocPage::SubIndex::Type
+class Perl6::Documentable::DocPage::Index::Routine
+class Perl6::Documentable::DocPage::SubIndex::Routine
+class Perl6::Documentable::DocPage::Kind
+class Perl6::Documentable::DocPage::Source::Type
+class Perl6::Documentable::DocPage::Source::Language
+class Perl6::Documentable::DocPage::Source::Programs
+
+class Perl6::Documentable::To::HTML::Wrapper
+
+# roles
+role Perl6::Documentable::DocPage
+
+# exceptions
+class X::Documentable::TitleNotFound
+class X::Documentable::SubtitleNotFound
+class X::Documentable::MissingMetadata
+
+class X::Documentable::Config::InvalidConfig
+
+# enums
+enum Kind
