@@ -99,13 +99,12 @@ enum Kind is export (Type      => "type"     , Language => "language",
 
 =end code
 
-=table
-    Kind::Type Complete pod marked with C<:kind("type")>
-    Kind::Language Complete pod marked with C<:kind("language")>
-    Kind::Programs Complete pod marked with C<:kind("programs")>
-    Kind::Syntax Pod fragment from a complete pod
-    Kind::Routine Pod fragment from a complete pod
-    Kind::Reference Element generated via "X<>"
+=item Kind::Type Complete pod marked with C<:kind("type")>.
+=item Kind::Language Complete pod marked with C<:kind("language")>.
+=item Kind::Programs Complete pod marked with C<:kind("programs")>.
+=item Kind::Syntax Pod fragment from a complete pod.
+=item Kind::Routine Pod fragment from a complete pod.
+=item Kind::Reference Element generated via "X<>".
 
 You can assign the first three values manually, setting the metadata of a pod section:
 

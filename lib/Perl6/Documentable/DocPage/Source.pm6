@@ -48,7 +48,7 @@ class Perl6::Documentable::DocPage::Source::Type
         # zef relative paths to resources
         my $filename = "resources/template/tg-fragment.html".IO.e   ??
                        "resources/template/tg-fragment.html"        !!
-                       %?RESOURCES<template/head.html>;
+                       %?RESOURCES<template/tg-fragment.html>;
         state $template = slurp $filename;
         my $svg;
         if ("html/images/type-graph-$podname.svg".IO.e) {

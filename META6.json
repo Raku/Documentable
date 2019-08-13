@@ -49,6 +49,7 @@
     "template/head.html",
     "template/header.html",
     "template/footer.html",
+    "template/tg-fragment.html",
     "template/search_template.js",
     "config.json"
   ],
