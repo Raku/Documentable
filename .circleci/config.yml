@@ -1,22 +1,6 @@
 version: 2
 
 variables:
-  linux: &linux
-    machine: true
-  install-rakudo: &install-rakudo
-    run:
-      name: Build and install rakudo
-      command: |
-        git clone https://github.com/rakudo/rakudo.git $HOME/rakudo
-        cd $HOME/rakudo
-        perl Configure.pl --gen-moar --gen-nqp --make-install
-  install-dependencies: &install-dependencies
-    run:
-      name: Install dependencies
-      command: |
-        echo "zef setp"
-        ZEF_BUILD="/home/circleci/rakudo/install/share/perl6/site/bin"
-        git clone https://github.com/ugexe/zef.git && cd zef && perl6 -Ilib bin/zef install .
   test-documentable: &test-documentable
     run:
       name: Run tests
@@ -37,19 +21,21 @@ variables:
 
         # build docs
         cd ..
-        sudo apt-get install graphviz
         git checkout docs-assets
         git checkout master -- docs
-        documentable start --topdir=docs -v -a
+
+        ATOMDIR="./highlights/atom-language-perl6";  \
+        if [ -d "$$ATOMDIR" ]; then (cd "$$ATOMDIR" && git pull); \
+        else git clone https://github.com/perl6/atom-language-perl6 "$$ATOMDIR"; \
+        fi; cd highlights; npm install .; cd ..
+
+        documentable start --topdir=docs -v -a --highlight
 jobs:
   test-linux:
-    <<: *linux
-    environment:
-      PATH: /home/circleci/rakudo/install/share/perl6/site/bin:/home/circleci/rakudo/install/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    docker:
+      - image: antoniogamiz/documentable
     steps:
       - checkout
-      - *install-rakudo
-      - *install-dependencies
       - *test-documentable
       - persist_to_workspace:
           root: ./
