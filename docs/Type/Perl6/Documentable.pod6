@@ -7,8 +7,8 @@
 
     class Perl6::Documentable {}
 
-This class is the base for L<Perl6::Documentable::Primary|/type/Perl6::Documentable::Secondary>
-and L<Perl6::Documentable::Derived|/type/Perl6::Documentable::Derived>.
+This class is the base for L<Perl6::Documentable::Primary|/type/Perl6::Documentable::Primary>
+and L<Perl6::Documentable::Secondary|/type/Perl6::Documentable::Secondary>.
 
 Everything documented is represented by a child class of C<Perl6::Documentable>.
 
@@ -28,7 +28,7 @@ Defined as
 
     method name(--> Str)
 
-Returns C<$!name>. Have in mind this value is not unique, so there could be more than one
+Returns C<$!name>. You must have in mind that this value is not unique, so there could be more than one
 C<Perl6::Documentable> instance with the same name.
 
 =head2 method kind
@@ -99,14 +99,15 @@ enum Kind is export (Type      => "type"     , Language => "language",
 
 =end code
 
-=item Kind::Type Complete pod marked with C<:kind("type")>.
-=item Kind::Language Complete pod marked with C<:kind("language")>.
-=item Kind::Programs Complete pod marked with C<:kind("programs")>.
-=item Kind::Syntax Pod fragment from a complete pod.
-=item Kind::Routine Pod fragment from a complete pod.
-=item Kind::Reference Element generated via "X<>".
+=item C<Kind::Type>: Complete pod marked with C<:kind("type")>.
+=item C<Kind::Language>: Complete pod marked with C<:kind("language")>.
+=item C<Kind::Programs>: Complete pod marked with C<:kind("programs")>.
+=item C<Kind::Syntax>: Pod fragment from a complete pod.
+=item C<Kind::Routine>: Pod fragment from a complete pod.
+=item C<Kind::Reference>: Element generated via C<X<>>.
 
-You can assign the first three values manually, setting the metadata of a pod section:
+You can assign the first three values manually, setting the metadata of a pod section
+as follows:
 
 =begin code
 
@@ -119,17 +120,5 @@ You can assign the first three values manually, setting the metadata of a pod se
 C<Kind::Syntax> and C<Kind::Routine> are automatically assigned by
 L<Perl6::Documentable::Primary|/type/Perl6::Documentable::Primary> using
 L<Perl6::Documentable::Heading::Grammar|/type/Perl6::Documentable::Heading::Grammar>.
-
-=end pod
-
-=begin pod :kind("type") :subkind("role") :category("basic")
-
-=TITLE role Perl6::Documentable::DocPage
-
-=SUBTITLE Pod to be rendered and its url
-
-Defined as
-
-    class Perl6::Documentable::DocPage
 
 =end pod

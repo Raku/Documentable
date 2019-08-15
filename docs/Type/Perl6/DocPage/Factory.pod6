@@ -1,5 +1,5 @@
 
-=begin pod :kind("type") :subkind("class") :category("basic")
+=begin pod :kind("type") :subkind("class") :category("html-generation")
 
 =TITLE class Perl6::Documentable::DocPage::Factory
 

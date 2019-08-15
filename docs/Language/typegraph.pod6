@@ -1,0 +1,33 @@
+=begin pod :kind("Language") :subkind("Language") :category("setup")
+
+=TITLE TypeGraph representations
+
+=SUBTITLE How to setup Perl6::TypeGraph
+
+So you have an amazing hierarchy in the types defined in your module and wants
+to show it in your documentation? L<Perl6::TypeGraph|https://github.com/antoniogamiz/Perl6-TypeGraph>
+will let you do it!
+
+=heaed2 TypeGraph file
+
+At this moment, L<Perl6::TypeGraph|https://github.com/antoniogamiz/Perl6-TypeGraph> is not able
+to automatically detect the hierarchy of a documented class, so you need to provide it with a file
+containing that hierarchy.
+
+You two options to specify this file:
+
+=item Use the C<--typegraph-file> to specify a custom path.
+=item Creates a file called C<type-graph.txt> file in your module directory.
+
+How to write this file? You need to follow a very easy syntax:
+
+=begin code
+[name of the category]
+# you can write comments too!
+Name::Of::A::Class is Parent::Class does A::ROle
+=end code
+
+You can check the L<type-graph.txt file|https://github.com/antoniogamiz/Perl6-Documentable/blob/docs-assets/type-graph.txt>
+used by C<Perl6::Documentable> as an example.
+
+=end pod

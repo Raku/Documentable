@@ -78,6 +78,10 @@ Returns the categories of a C<$kind>.
 
 =SUBTITLE Invalid configuration file
 
+Defined as
+
+    class X::Documentable::Config::InvalidConfig is Exception {}
+
 Some kind of error was produced while parsing the configuration file.
 
 =end pod
