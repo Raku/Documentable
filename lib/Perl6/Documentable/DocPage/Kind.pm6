@@ -28,11 +28,8 @@ class Perl6::Documentable::DocPage::Kind
                                  .categorize({.name});
         return %(
             document => self.compose($name, %documents{$name}, $kind),
-            url      => self.url($name, $kind)
+            url      => %documents{$name}[0].url
         );
     }
 
-    method url($name, $kind) {
-        "/{$kind.Str.lc}/{good-name($name)}"
-    }
 }

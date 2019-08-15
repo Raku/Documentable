@@ -46,10 +46,12 @@ class Perl6::Documentable::DocPage::Index::Language
             @content
         );
 
-        return %(document => $pod, url => self.url);
+        return %(
+            document => $pod,
+            url => "/language"
+        );
     }
 
-    method url() {return "/language"}
 }
 
 class Perl6::Documentable::DocPage::Index::Programs
@@ -72,10 +74,13 @@ class Perl6::Documentable::DocPage::Index::Programs
             ]}))
         );
 
-        return %(document => $pod, url => self.url);
+        return %(
+            document => $pod,
+            url => "/programs"
+        );
+
     }
 
-    method url() {return "/programs"}
 }
 
 class Perl6::Documentable::DocPage::Index::Type
@@ -113,10 +118,13 @@ class Perl6::Documentable::DocPage::Index::Type
                 )
         );
 
-        return %(document => $pod, url => self.url);
+        return %(
+            document => $pod,
+            url => "/type"
+        );
+
     }
 
-    method url() {return "/type"}
 }
 
 class Perl6::Documentable::DocPage::SubIndex::Type
@@ -148,10 +156,12 @@ class Perl6::Documentable::DocPage::SubIndex::Type
             )
          );
 
-        return %(document => $pod, url => self.url($category));
+        return %(
+            document => $pod,
+            url => "/type-$category"
+        );
     }
 
-    method url($category) {return "/type-$category"}
 }
 
 class Perl6::Documentable::DocPage::Index::Routine
@@ -192,10 +202,12 @@ class Perl6::Documentable::DocPage::Index::Routine
             )
         );
 
-        return %(document => $pod, url => self.url);
+        return %(
+            document => $pod,
+            url => "/routine"
+        );
     }
 
-    method url() {return "/routine"}
 }
 
 class Perl6::Documentable::DocPage::SubIndex::Routine
@@ -228,8 +240,10 @@ class Perl6::Documentable::DocPage::SubIndex::Routine
             )
         );
 
-        return %(document => $pod, url => self.url($category));
+        return %(
+            document => $pod,
+            url => "/routine-$category"
+        );
     }
 
-    method url($category) {return "/routine-$category"}
 }

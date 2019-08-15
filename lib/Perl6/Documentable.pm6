@@ -49,7 +49,6 @@ class Perl6::Documentable {
 #| Every type of page generated, must implement this role
 role Perl6::Documentable::DocPage {
     method render (| --> Hash) { ... }
-    method url    (| --> Str ) { ... }
 }
 
 # these chars cannot appear in a unix filesystem path

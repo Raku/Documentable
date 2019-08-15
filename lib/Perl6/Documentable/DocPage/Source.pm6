@@ -14,12 +14,8 @@ class Perl6::Documentable::DocPage::Source::Language
         my $pod-path = pod-path-from-url($doc.url);
         return %(
             document => $doc.pod,
-            url      => self.url($doc)
+            url      => $doc.url
         );
-    }
-
-    method url($doc) {
-        $doc.url
     }
 }
 
@@ -32,13 +28,10 @@ class Perl6::Documentable::DocPage::Source::Programs
         my $pod-path = pod-path-from-url($doc.url);
         return %(
             document => $doc.pod,
-            url      => self.url($doc)
+            url      => $doc.url
         );
     }
 
-    method url($doc) {
-        $doc.url
-    }
 }
 
 class Perl6::Documentable::DocPage::Source::Type
@@ -154,11 +147,8 @@ class Perl6::Documentable::DocPage::Source::Type
         my $pod-path = pod-path-from-url($doc.url);
         return %(
             document => $doc.pod,
-            url      => self.url($doc)
+            url      => $doc.url
         );
     }
 
-    method url($doc) {
-        $doc.url
-    }
 }
