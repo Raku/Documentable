@@ -23,12 +23,7 @@ variables:
         cd ..
         git checkout docs-assets
         git checkout master -- docs
-
-        ATOMDIR="./highlights/atom-language-perl6";  \
-        if [ -d "$$ATOMDIR" ]; then (cd "$$ATOMDIR" && git pull); \
-        else git clone https://github.com/perl6/atom-language-perl6 "$$ATOMDIR"; \
-        fi; cd highlights; npm install .; cd ..
-
+        ls /highlights
         documentable start --topdir=docs -v -a --highlight
 jobs:
   test-linux:

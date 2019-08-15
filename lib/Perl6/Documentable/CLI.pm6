@@ -1,3 +1,4 @@
+use v6;
 use Perl6::Documentable;
 use Perl6::Documentable::Registry;
 
@@ -19,8 +20,6 @@ package Perl6::Documentable::CLI {
         my %*SUB-MAIN-OPTS = :named-anywhere;
         CORE::<&RUN-MAIN>(|c)
     }
-
-    my %*POD2HTML-CALLBACKS;
 
     proto MAIN(|) is export { * }
 
@@ -77,9 +76,16 @@ package Perl6::Documentable::CLI {
         #===================================================================
 
         # highlights workaround
+        my %*POD2HTML-CALLBACKS;
         if ($highlight) {
             DEBUG("Starting highlight process...", $v);
-            highlight-code-blocks();
+            my $proc;
+            my $proc-supply;
+            my $coffee-exe = "/highlights/node_modules/coffeescript/bin/coffee";
+
+            $proc = Proc::Async.new($coffee-exe, "/highlights/highlight-filename-from-stdin.coffee", :r, :w);
+            $proc-supply = $proc.stdout.lines;
+            highlight-code-blocks($proc, $proc-supply);
         }
 
         #===================================================================
@@ -271,19 +277,9 @@ package Perl6::Documentable::CLI {
     }
 }
 
-sub highlight-code-blocks {
-    my $proc;
-    my $proc-supply;
-    my $coffee-exe = './highlights/node_modules/coffee-script/bin/coffee'.IO.e??'./highlights/node_modules/coffee-script/bin/coffee'!!'./highlights/node_modules/coffeescript/bin/coffee';
-
-    if ! $coffee-exe.IO.f {
-        say "Could not find $coffee-exe, did you run `make init-highlights`?";
-        exit 1;
-    }
-    $proc = Proc::Async.new($coffee-exe, './highlights/highlight-filename-from-stdin.coffee', :r, :w);
-    $proc-supply = $proc.stdout.lines;
-
+sub highlight-code-blocks($proc, $proc-supply) is export {
     $proc.start andthen say "Starting highlights worker thread" unless $proc.started;
+
     %*POD2HTML-CALLBACKS = code => sub (:$node, :&default) {
         for @($node.contents) -> $c {
             if $c !~~ Str {
@@ -306,6 +302,7 @@ sub highlight-code-blocks {
         await $promise;
         $promise.result;
     }
+
 }
 
 sub print-time($phase, $start) {
