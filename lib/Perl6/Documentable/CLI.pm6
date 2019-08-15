@@ -151,16 +151,18 @@ package Perl6::Documentable::CLI {
             $now = now;
             DEBUG("Generating indexes...", $v);
 
-            @docs.push($factory.generate-index(Kind::Language         ));
-            @docs.push($factory.generate-index(Kind::Type             ));
-            @docs.push($factory.generate-index(Kind::Programs         ));
-            @docs.push($factory.generate-index(Kind::Routine          ));
+            @docs.push($factory.generate-index(Kind::Language ));
+            @docs.push($factory.generate-index(Kind::Type     ));
+            @docs.push($factory.generate-index(Kind::Programs ));
+            @docs.push($factory.generate-index(Kind::Routine  ));
 
             # subindexes
-            for <basic composite domain-specific exception> -> $category {
+            my @subindex-name = $config.get-kind-config(Kind::Type).<categories>.map({.<name>});
+            for @subindex-name -> $category {
                 @docs.push($factory.generate-subindex(Kind::Type, $category))
             }
-            for <sub method term operator trait submethod> -> $category {
+            @subindex-name = $config.get-kind-config(Kind::Routine).<categories>.map({.<name>});
+            for @subindex-name -> $category {
                 @docs.push( $factory.generate-subindex(Kind::Routine, $category))
             }
 
