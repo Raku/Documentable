@@ -77,7 +77,7 @@ method menu($selected, $pod-path?) {
       my $edit-path = $!pod-root-path ~ $pod-path;
       $edit-url = qq[
       <div align="right">
-        <button title="Edit this page"  class="pencil" onclick="location='{$edit-url}'">
+        <button title="Edit this page"  class="pencil" onclick="location='{$edit-path}'">
         {svg-for-file(zef-path("html/images/pencil.svg"))}
         </button>
       </div>]

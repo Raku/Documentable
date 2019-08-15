@@ -44,7 +44,6 @@ class Perl6::Documentable::Primary is Perl6::Documentable {
     #| References indexed in this pod
     has @.refs;
 
-    # Remove itemization from incoming arrays
     method new (
         Str :$filename!,
             :$pod!
