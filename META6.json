@@ -34,9 +34,9 @@
     "Perl6::Documentable::Heading::Grammar": "lib/Perl6/Documentable/Heading/Grammar.pm6",
     "Perl6::Documentable::Heading::Actions": "lib/Perl6/Documentable/Heading/Actions.pm6",
 
-    "Perl6::Documentable::DocPage::Kind": "lib/Perl6/Documentable/DocPage/Kind.pm6",
+    "Perl6::Documentable::DocPage::Secondary": "lib/Perl6/Documentable/DocPage/Secondary.pm6",
     "Perl6::Documentable::DocPage::Index": "lib/Perl6/Documentable/DocPage/Index.pm6",
-    "Perl6::Documentable::DocPage::Source": "lib/Perl6/Documentable/DocPage/Source.pm6",
+    "Perl6::Documentable::DocPage::Primary": "lib/Perl6/Documentable/DocPage/Primary.pm6",
     "Perl6::Documentable::DocPage::Factory": "lib/Perl6/Documentable/DocPage/Factory.pm6",
     "Perl6::Documentable::To::HTML::Wrapper": "lib/Perl6/Documentable/To/HTML/Wrapper.pm6",
 

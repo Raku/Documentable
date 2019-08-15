@@ -8,8 +8,8 @@ use Perl6::Documentable::Registry;
 
 # html generation
 use Perl6::Documentable::To::HTML::Wrapper;
-use Perl6::Documentable::DocPage::Source;
-use Perl6::Documentable::DocPage::Kind;
+use Perl6::Documentable::DocPage::Primary;
+use Perl6::Documentable::DocPage::Secondary;
 use Perl6::Documentable::DocPage::Index;
 
 class Perl6::Documentable::DocPage::Factory {
@@ -45,13 +45,13 @@ class Perl6::Documentable::DocPage::Factory {
     method generate-primary(Perl6::Documentable::Primary $doc) {
         my %pod-to-render = do given $doc.kind {
             when Kind::Type {
-                Perl6::Documentable::DocPage::Source::Type.new.render($!registry, $doc.name);
+                Perl6::Documentable::DocPage::Primary::Type.new.render($!registry, $doc.name);
             }
             when Kind::Language {
-                Perl6::Documentable::DocPage::Source::Language.new.render($!registry, $doc.name);
+                Perl6::Documentable::DocPage::Primary::Language.new.render($!registry, $doc.name);
             }
             when Kind::Programs {
-                Perl6::Documentable::DocPage::Source::Programs.new.render($!registry, $doc.name);
+                Perl6::Documentable::DocPage::Primary::Programs.new.render($!registry, $doc.name);
             }
         }
 
@@ -66,7 +66,7 @@ class Perl6::Documentable::DocPage::Factory {
     }
 
     method generate-secondary(Kind $kind, Str $name) {
-        my %pod-to-render = Perl6::Documentable::DocPage::Kind.new.render($!registry, $name, $kind);
+        my %pod-to-render = Perl6::Documentable::DocPage::Secondary.new.render($!registry, $name, $kind);
         my Str $html = $!wrapper.render( %pod-to-render<document>,
                                          $kind.Str,
                                         );

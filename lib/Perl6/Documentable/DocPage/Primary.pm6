@@ -1,11 +1,11 @@
-unit module Perl6::Documentable::DocPage::Source;
+unit module Perl6::Documentable::DocPage::Primary;
 
 use Perl6::Documentable::Utils::IO;
 use URI::Escape;
 use Pod::Utilities::Build;
 use Perl6::Documentable;
 
-class Perl6::Documentable::DocPage::Source::Language
+class Perl6::Documentable::DocPage::Primary::Language
     does Perl6::Documentable::DocPage {
 
     method render($registry, $name) {
@@ -19,7 +19,7 @@ class Perl6::Documentable::DocPage::Source::Language
     }
 }
 
-class Perl6::Documentable::DocPage::Source::Programs
+class Perl6::Documentable::DocPage::Primary::Programs
     does Perl6::Documentable::DocPage {
 
     method render($registry, $name) {
@@ -34,7 +34,7 @@ class Perl6::Documentable::DocPage::Source::Programs
 
 }
 
-class Perl6::Documentable::DocPage::Source::Type
+class Perl6::Documentable::DocPage::Primary::Type
     does Perl6::Documentable::DocPage {
 
     method typegraph-fragment($podname is copy) {

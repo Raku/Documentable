@@ -1,10 +1,10 @@
-unit module Perl6::Documentable::DocPage::Kind;
+unit module Perl6::Documentable::DocPage::Secondary;
 
 use URI::Escape;
 use Pod::Utilities::Build;
 use Perl6::Documentable;
 
-class Perl6::Documentable::DocPage::Kind
+class Perl6::Documentable::DocPage::Secondary
     does Perl6::Documentable::DocPage {
 
     method compose($name, @docs, $kind) {
