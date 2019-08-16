@@ -31,6 +31,7 @@
     "Perl6::Documentable::Secondary": "lib/Perl6/Documentable/Secondary.pm6",
     "Perl6::Documentable::Index": "lib/Perl6/Documentable/Index.pm6",
     "Perl6::Documentable::Registry": "lib/Perl6/Documentable/Registry.pm6",
+    "Perl6::Documentable::Search": "lib/Perl6/Documentable/Search.pm6",
     "Perl6::Documentable::Heading::Grammar": "lib/Perl6/Documentable/Heading/Grammar.pm6",
     "Perl6::Documentable::Heading::Actions": "lib/Perl6/Documentable/Heading/Actions.pm6",
 
