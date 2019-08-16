@@ -50,7 +50,8 @@ package Perl6::Documentable::CLI {
         Bool :f(:force($f))        = False,            #= Force the regeneration of the typegraph visualizations
         Bool :$highlight           = False,            #= Highlights the code blocks
         Str  :$typegraph-file      = "type-graph.txt", #= TypeGraph file
-        Bool :a(:$all)             = False             #= Equivalent to -t -p -k -i -s,
+        Str  :$highlight-path      = "./highlights",  #=
+        Bool :a(:$all)             = False             #= Equivalent to -t -p -k -i -s
     ) {
         if (!"./html".IO.e || !"./assets".IO.e || !"./templates".IO.e) {
             note q:to/END/;
@@ -81,9 +82,9 @@ package Perl6::Documentable::CLI {
             DEBUG("Starting highlight process...", $v);
             my $proc;
             my $proc-supply;
-            my $coffee-exe = "/highlights/node_modules/coffeescript/bin/coffee";
+            my $coffee-exe = "{$highlight-path}/node_modules/coffeescript/bin/coffee";
 
-            $proc = Proc::Async.new($coffee-exe, "/highlights/highlight-filename-from-stdin.coffee", :r, :w);
+            $proc = Proc::Async.new($coffee-exe, "{$highlight-path}/highlight-filename-from-stdin.coffee", :r, :w);
             $proc-supply = $proc.stdout.lines;
             highlight-code-blocks($proc, $proc-supply);
         }

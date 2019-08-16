@@ -23,8 +23,7 @@ variables:
         cd ..
         git checkout docs-assets
         git checkout master -- docs
-        ls /highlights
-        documentable start --topdir=docs -v -a --highlight
+        documentable start --topdir=docs -v -a --highlight --highlight-path="/highlights"
 jobs:
   test-linux:
     docker:
