@@ -38,20 +38,21 @@ package Perl6::Documentable::CLI {
     #| Start the documentation generation with the specified options
     multi MAIN (
         "start"                           ,
-        Str  :$topdir              = "doc",            #= Directory where the pod collection is stored
-        Str  :$conf                = "config.json",    #= Configuration file
-        Bool :v(:verbose($v))      = False,            #= Prints progress information
-        Bool :c(:$cache)           = True ,            #= Enables the use of a precompiled cache
-        Bool :p(:pods($p))         = False,            #= Generates the HTML files corresponding to sources
-        Bool :k(:kind($k))         = False,            #= Generates per kind files
-        Bool :s(:search-index($s)) = False,            #= Generates the search index
-        Bool :i(:indexes($i))      = False,            #= Generates the indexes files
-        Bool :t(:type-images($t))  = False,            #= Write typegraph visualizations
-        Bool :f(:force($f))        = False,            #= Force the regeneration of the typegraph visualizations
-        Bool :$highlight           = False,            #= Highlights the code blocks
-        Str  :$typegraph-file      = "type-graph.txt", #= TypeGraph file
-        Str  :$highlight-path      = "./highlights",  #=
-        Bool :a(:$all)             = False             #= Equivalent to -t -p -k -i -s
+        Str  :$topdir              = "doc",             #= Directory where the pod collection is stored
+        Str  :$conf                = "config.json",     #= Configuration file
+        Bool :v(:verbose($v))      = False,             #= Prints progress information
+        Bool :c(:$cache)           = True ,             #= Enables the use of a precompiled cache
+        Bool :p(:pods($p))         = False,             #= Generates the HTML files corresponding to sources
+        Bool :k(:kind($k))         = False,             #= Generates per kind files
+        Bool :s(:search-index($s)) = False,             #= Generates the search index
+        Bool :i(:indexes($i))      = False,             #= Generates the indexes files
+        Bool :t(:type-images($t))  = False,             #= Write typegraph visualizations
+        Bool :f(:force($f))        = False,             #= Force the regeneration of the typegraph visualizations
+        Bool :$highlight           = False,             #= Highlights the code blocks
+        Str  :$typegraph-file      = "type-graph.txt",  #= TypeGraph file
+        Str  :$highlight-path      = "./highlights",    #= Path to the highlighter files
+        Str  :$dirs?,                                   #= Dirs where documentation will be found. Relative to :$topdir
+        Bool :a(:$all)             = False              #= Equivalent to -t -p -k -i -s
     ) {
         if (!"./html".IO.e || !"./assets".IO.e || !"./templates".IO.e) {
             note q:to/END/;
@@ -108,10 +109,12 @@ package Perl6::Documentable::CLI {
 
         $now = now;
         DEBUG("Processing phase...", $v);
+        my $doc-dirs = $dirs ?? $dirs.split(",", :skip-empty)
+                             !! DOCUMENTABLE-DIRS;
         my $registry = Perl6::Documentable::Registry.new(
             :$cache,
             :$topdir,
-            :dirs( DOCUMENTABLE-DIRS ),
+            :dirs( $doc-dirs ),
             :$typegraph-file
             :verbose($v)
         );
