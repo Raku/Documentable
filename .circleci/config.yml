@@ -12,7 +12,7 @@ variables:
         zef install https://github.com/antoniogamiz/Perl6-LinkHealth.git
         cd mini-doc
         documentable setup
-        documentable start --topdir=test-doc -v -p -s -k -i
+        documentable start --topdir=test-doc -v -p -s --search-index -i
         linkhealth --html-dir=html
 
         # update option

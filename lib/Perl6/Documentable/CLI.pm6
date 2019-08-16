@@ -42,11 +42,11 @@ package Perl6::Documentable::CLI {
         Str  :$conf                = "config.json",     #= Configuration file
         Bool :v(:verbose($v))      = False,             #= Prints progress information
         Bool :c(:$cache)           = True ,             #= Enables the use of a precompiled cache
-        Bool :p(:pods($p))         = False,             #= Generates the HTML files corresponding to sources
-        Bool :k(:kind($k))         = False,             #= Generates per kind files
-        Bool :s(:search-index($s)) = False,             #= Generates the search index
+        Bool :p(:primary($p))      = False,             #= Generates the HTML files corresponding to primary objects
+        Bool :s(:secondary($s))    = False,             #= Generates per kind files
+        Bool :$search-index        = False,             #= Generates the search index
         Bool :i(:indexes($i))      = False,             #= Generates the indexes files
-        Bool :t(:type-images($t))  = False,             #= Write typegraph visualizations
+        Bool :t(:typegraph($t))    = False,             #= Write typegraph visualizations
         Bool :f(:force($f))        = False,             #= Force the regeneration of the typegraph visualizations
         Bool :$highlight           = False,             #= Highlights the code blocks
         Str  :$typegraph-file      = "type-graph.txt",  #= TypeGraph file
@@ -144,7 +144,7 @@ package Perl6::Documentable::CLI {
 
         #===================================================================
 
-        if ($k || $all) {
+        if ($s || $all) {
             $now = now;
             DEBUG("Generating per kind files...", $v);
             for Kind::Routine, Kind::Syntax -> $kind {
@@ -181,7 +181,7 @@ package Perl6::Documentable::CLI {
 
         #===================================================================
 
-        if ($s || $all ) {
+        if ($search-index || $all ) {
             DEBUG("Writing search file...", $v);
             mkdir 'html/js';
             my @items = $registry.generate-search-index;
@@ -200,7 +200,6 @@ package Perl6::Documentable::CLI {
     multi MAIN (
         "update",
         Str  :$topdir = "doc",      #= Directory where the pod collection is stored
-        Bool :$manage = True,       #= Sort Language page
         Str  :$conf = "config.json" #= Configuration file
     ) {
         DEBUG("Checking for changes...");
@@ -253,7 +252,7 @@ package Perl6::Documentable::CLI {
         }
         for @kinds -> $kind {
             given $kind {
-                when Kind::Language { @docs.push($factory.generate-index(Kind::Language, $manage)); }
+                when Kind::Language { @docs.push($factory.generate-index(Kind::Language)); }
                 when Kind::Programs { @docs.push($factory.generate-index(Kind::Programs)); }
                 when Kind::Type {
                     @docs.push($factory.generate-index(Kind::Type));

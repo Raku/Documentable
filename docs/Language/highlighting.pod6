@@ -1,0 +1,22 @@
+=begin pod :kind("Language") :subkind("Language") :category("setup")
+
+=TITLE Perl6 Highlighter
+
+=SUBTITLE Highlighting the code blocks
+
+Develop a good highlighter for Perl6 is hard, so there is not a lot available.
+We are using L<atom-language-perl6|https://github.com/perl6/atom-language-perl6>
+developed by L<@samcv|https://github.com/samcv>.
+
+The only drawback of using is the configuration. You need NodeJS, npm and some others
+dependencies. Setting that up can be a pain, so I recommend you to use the
+L<documentable docker container|https://github.com/antoniogamiz/docker-documentable> to
+generate your documentation.
+
+B<IMPORTANT:> if you use this way, you need to specify C<--highlight-path="/highlights">
+to the CLI utility of C<Perl6::Documentable>.
+
+See L<the configuration used by the module|https://github.com/antoniogamiz/Perl6-Documentable/blob/master/resources/config.json>
+as a good example.
+
+=end pod
