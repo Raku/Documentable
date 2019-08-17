@@ -51,20 +51,20 @@ will be used instead.
 
 B<Default:> C<"config.json">.
 
-=head2 X<-v|--verbose>
+=head2 X<"-v|--verbose">
 
 It C<True>, progress information will be displayed.
 
 B<Default:> C<False>.
 
-=head2 X<-c|--cache>
+=head2 X<"-c|--cache">
 
 If C<True>, L<Pod::To::Cached|https://github.com/finanalyst/pod-cached> will be used to load
 the pods and create a cache. B<Recommended>.
 
 B<Default:> C<True>.
 
-=head2 X<-p|--primary>
+=head2 X<"-p|--primary">
 
 If C<True>, HTML files associated with L<Perl6::Documentable::Primary|/type/Perl6::Documentable::Primary>
 objects will be generated. That means, all your collection will be mapped to HTML, generating one
@@ -72,7 +72,7 @@ HTML file by each pod block found.
 
 B<Default:> C<False>.
 
-=head2 X<-s|--secondary>
+=head2 X<"-s|--secondary">
 
 If C<True>, HTML files associated with L<Perl6::Documentable::Secondary|/type/Perl6::Documentable::Secondary>
 objects will be generated. Those files comes from grouping those objects by name.
@@ -85,14 +85,14 @@ If C<True>, a search index will be generated to enable search capabilities in th
 
 B<Default:> C<False>.
 
-=head2 X<-i|--indexes>
+=head2 X<"-i|--indexes">
 
 If C<True>, index pages will be generated to group all HTML pages by L<Kind|/type/Kind>s and
 categories. See L<configuration-file|/Language/configuration-file>.
 
 B<Default:> C<False>.
 
-=head2 X<-t|--typegraph>
+=head2 X<"-t|--typegraph">
 
 If C<True>, TypeGraph representations will be generated. See L<typegraph|/language/typegraph>.
 
@@ -100,7 +100,7 @@ The representations will be cached when possible.
 
 B<Default:> C<False>.
 
-=head2 X<-f|--force>
+=head2 X<"-f|--force">
 
 If C<True>, TypeGraph representations will be always generated. See L<typegraph|/language/typegraph>.
 
@@ -131,7 +131,7 @@ documentation. Example: "--dirs=Language,Type".
 
 B<Default:> C<DOCUMENTABLE-DIRS>.
 
-=head2 X<-a|--all>
+=head2 X<"-a|--all">
 
 Equivalent to specify C<-t -p -s -i --search-index>
 
