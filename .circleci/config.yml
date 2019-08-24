@@ -57,10 +57,7 @@ workflows:
   version: 2
   test:
     jobs:
-      - test-linux:
-          filters:
-            branches:
-              only: master
+      - test-linux
       - docs-deploy:
           requires:
             - test-linux
