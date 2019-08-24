@@ -2,13 +2,17 @@ use Perl6::Documentable;
 
 unit class Perl6::Documentable::Search;
 
-has $.registry;
+has Str $.prefix;
 
-method generate-entries() {
+submethod BUILD(
+    :$!prefix = ''
+) {}
+
+method generate-entries($registry) {
     my @entries;
     for Kind::Type, Kind::Language, Kind::Programs -> $kind {
-        @entries.append: self.registry.lookup($kind.Str, :by<kind>).map(-> $doc {
-            search-entry(
+        @entries.append: $registry.lookup($kind.Str, :by<kind>).map(-> $doc {
+            self.search-entry(
                 category => $doc.subkinds[0],
                 value    => $doc.name,
                 url      => $doc.url
@@ -17,20 +21,20 @@ method generate-entries() {
     }
 
     for Kind::Routine, Kind::Syntax.Str -> $kind {
-        @entries.append:  self.registry.lookup($kind, :by<kind>)
+        @entries.append:  $registry.lookup($kind, :by<kind>)
                           .categorize({escape .name})
                           .pairs.sort({.key})
                           .map( -> (:key($name), :value(@docs)) {
-                                search-entry(
-                                    category => @docs > 1 ?? $kind.gist !! @docs[0].subkinds[0] || '',
+                                self.search-entry(
+                                    category => @docs > 1 ?? $kind.gist !! @docs[0].subkinds[0] || $kind.gist,
                                     value    => $name,
                                     url      => escape-json("/{$kind.lc}/{good-name($name)}")
                                 )
                         });
     }
 
-    @entries.append: self.registry.lookup(Kind::Reference.Str, :by<kind>).map(-> $doc {
-        search-entry(
+    @entries.append: $registry.lookup(Kind::Reference.Str, :by<kind>).map(-> $doc {
+        self.search-entry(
                 category => $doc.kind.gist,
                 value    => escape($doc.name),
                 url      => escape-json($doc.url)
@@ -40,7 +44,8 @@ method generate-entries() {
     @entries
 }
 
-sub search-entry(Str :$category, Str :$value, Str :$url) {
+method search-entry(Str :$category, Str :$value, Str :$url is copy) {
+    $url = $.prefix ?? "/" ~ $.prefix ~ $url !! $url;
     qq[[\{ category: "{$category}", value: "{$value}", url: "{$url}" \}\n]]
 }
 

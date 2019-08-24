@@ -7,7 +7,6 @@ In this repository you can find all logic responsible of generate the [official 
 - [Installation](#installation)
 - [Usage](#usage)
 - [Documentation](https://antoniogamiz.github.io/Perl6-Documentable/)
-- [What is being generated](#what-is-being-generated)
 - [Docker container](#docker-container)
 - [Default templates](#default-templates)
 - [Tests](#ŧests)
@@ -36,8 +35,6 @@ documentable setup
 
 in order to download the necessary files needed to generate the site (CSS, svg, ...). Alternatively, you can add your own. See [default templates](#default-templates) to get more information.
 
-See [what is being generated](#what-is-being-generated) to get more information about `documentable start`.
-
 ```
 Usage:
   bin/documentable setup -- Downloads default assets to generate the site
@@ -63,13 +60,7 @@ Usage:
     --manage                  Sort Language page
 ```
 
-## What is being generated
-
-Currently, we create three different type of pages:
-
-- Source documents: pages coming from whole pods.
-- Per kind documents: pages coming from different pods, like this [one](https://docs.perl6.org/routine/ff).
-- Indexes documents: pages that put together all previous documents in an accesible way.
+See the [CLI documentation](https://antoniogamiz.github.io/Perl6-Documentable/language/cli) to learn more.
 
 ## Default templates
 
@@ -199,4 +190,10 @@ Copyright 2019 Perl6 Team
 
 This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
 
-This module uses [Semantic Versioning](https://semver.org/).
+This module uses some convention: (this started in August, 2019, so previous work does not follow the conventions):
+
+- [Semantic Versioning](https://semver.org/).
+- [Branching model](https://nvie.com/posts/a-successful-git-branching-model/).
+- [Commit names](https://chris.beams.io/posts/git-commit/).
+
+We use a [changelog generator](https://github.com/github-changelog-generator/github-changelog-generator) to generate the CHANGELOG.md file.

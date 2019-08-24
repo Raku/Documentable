@@ -13,7 +13,7 @@ my $registry = Perl6::Documentable::Registry.new(
 
 $registry.compose;
 
-my $search-generator = Perl6::Documentable::Search.new(:$registry);
+my $search-generator = Perl6::Documentable::Search.new;
 
 my @expected = [
     category => "Language", value => "Operators", url => "language/operators",
@@ -21,7 +21,7 @@ my @expected = [
     category => "Language", value => "Terms", url => "language/terms"
 ];
 
-my @index = $search-generator.generate-entries;
+my @index = $search-generator.generate-entries($registry);
 
 subtest "search index generation" => {
     for @index Z @expected -> $entry {

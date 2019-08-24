@@ -1,36 +1,35 @@
 version: 2
-
-variables:
-  test-documentable: &test-documentable
-    run:
-      name: Run tests
-      command: |
-        zef install .
-
-        # test one build
-        git clone https://github.com/antoniogamiz/mini-doc
-        zef install https://github.com/antoniogamiz/Perl6-LinkHealth.git
-        cd mini-doc
-        documentable setup
-        documentable start --topdir=test-doc -v -p -s --search-index -i
-        linkhealth --html-dir=html
-
-        # update option
-        echo "dd" >> test-doc/Type/Any.pod6
-        documentable update --topdir=test-doc
-
-        # build docs
-        cd ..
-        git checkout docs-assets
-        git checkout master -- docs
-        documentable start --topdir=docs -v -a --highlight --highlight-path="/highlights"
 jobs:
   test-linux:
+    docker:
+      - image: jjmerelo/test-perl6
+    steps:
+      - checkout
+      - run:
+          name: Test Perl6-Documentable
+          command: |
+            zef install .
+            # test one build
+            git clone https://github.com/antoniogamiz/mini-doc
+            zef install https://github.com/antoniogamiz/Perl6-LinkHealth.git
+            cd mini-doc
+            documentable setup
+            documentable start --topdir=test-doc -v -p -s --search-index -i
+            linkhealth --html-dir=html
+            # update option
+            echo "dd" >> test-doc/Type/Any.pod6
+            documentable update --topdir=test-doc
+  docs-build:
     docker:
       - image: antoniogamiz/documentable
     steps:
       - checkout
-      - *test-documentable
+      - run:
+          name: Build documentation
+          command: |
+            git checkout docs-assets
+            git checkout master -- docs
+            documentable start --topdir=docs -v -a --highlight --highlight-path="/highlights"
       - persist_to_workspace:
           root: ./
           paths: html
@@ -55,15 +54,18 @@ jobs:
           command: gh-pages --dotfiles --message "[skip ci] Updates" --dist ./html
 workflows:
   version: 2
-  test:
+  test-deploy:
     jobs:
-      - test-linux:
+      - test-linux
+      - docs-build:
+          requires:
+            - test-linux
           filters:
             branches:
               only: master
       - docs-deploy:
           requires:
-            - test-linux
+            - docs-build
           filters:
             branches:
               only: master
