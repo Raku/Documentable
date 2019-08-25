@@ -57,13 +57,7 @@
   "source-url": "https://github.com/antoniogamiz/Perl6-Documentable.git",
   "tags": [],
   "test-depends": [
-    "Test::META:ver<0.0.16>",
-    "Pod::Utilities:ver<0.0.1>",
-    "Perl6::TypeGraph:ver<2.1.1+>:auth<github:antoniogamiz>:api<2>",
-    "Pod::To::HTML:ver<0.6.1>",
-    "Pod::To::Cached:ver<0.3.3+>",
-    "URI:ver<0.2.2>",
-    "JSON::Fast:ver<0.9.18>"
+    "Test::META:ver<0.0.16>"
   ],
   "version": "3.0.0"
 }
