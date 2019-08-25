@@ -15,7 +15,7 @@
     "Pod::To::Cached:ver<0.3.3+>",
     "Perl6::TypeGraph:ver<2.1.1+>:auth<github:antoniogamiz>:api<2>",
     "Pod::Utilities:ver<0.0.1>",
-    "URI:ver<0.2.2>",
+    "URI:ver<0.2.2+>",
     "File::Temp:ver<0.0.6>",
     "Log::Timeline:ver<0.3>",
     "JSON::Fast:ver<0.9.18>"
