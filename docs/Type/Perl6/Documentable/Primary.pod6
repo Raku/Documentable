@@ -278,3 +278,16 @@ must follow the format:
 =end code
 
 =end pod
+
+=begin pod :kind("type") :subkind("class") :category("exception")
+
+=TITLE class X::Documentable::TypeNotFound
+
+=SUBTITLE Missing type in type-graph file
+
+    X::Documentable::TypeNotFound is Exception {}
+
+Attempt to create the typegraph representation of a missing type. To fix it, add that type
+to the type-graph file you are using.
+
+=end pod
