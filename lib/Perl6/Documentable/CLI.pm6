@@ -54,7 +54,7 @@ package Perl6::Documentable::CLI {
         Str  :$dirs?,                                   #= Dirs where documentation will be found. Relative to :$topdir
         Bool :a(:$all)             = False              #= Equivalent to -t -p -k -i -s
     ) {
-        if (!"./html".IO.e || !"./assets".IO.e || !"./templates".IO.e) {
+        if (!"./html".IO.e || !"./assets".IO.e || !"./template".IO.e) {
             note q:to/END/;
                 (warning) html and/or assets and/or templates directories
                 cannot be found. You can get the defaults by executing:
