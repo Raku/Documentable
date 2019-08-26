@@ -195,13 +195,15 @@ package Perl6::Documentable::CLI {
     #| Check which pod files have changed and regenerate its HTML files.
     multi MAIN (
         "update",
-        Str  :$topdir = "doc",      #= Directory where the pod collection is stored
-        Str  :$conf = "config.json" #= Configuration file
+        Str  :$topdir = "doc",       #= Directory where the pod collection is stored
+        Str  :$conf = "config.json", #= Configuration file
+        Bool :v(:verbose($v))      = False,             #= Prints progress information
+
     ) {
         DEBUG("Checking for changes...");
         my $now = now;
 
-        my $cache = Pod::To::Cached.new(:path(".cache-{$topdir}"), :verbose, :source($topdir));
+        my $cache = Pod::To::Cached.new(:path(".cache-{$topdir}"), :verbose($v), :source($topdir));
         my @files = $cache.list-files(<Valid>);
 
         if (! @files) {
