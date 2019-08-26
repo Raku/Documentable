@@ -1,5 +1,21 @@
 # Change Log
 
+## [v3.0.1](https://github.com/antoniogamiz/Perl6-Documentable/tree/v3.0.1) (2019-08-26)
+[Full Changelog](https://github.com/antoniogamiz/Perl6-Documentable/compare/v3.0.0...v3.0.1)
+
+**Fixed bugs:**
+
+- Tells you to run setup right after running setup [\#104](https://github.com/antoniogamiz/Perl6-Documentable/issues/104)
+
+**Closed issues:**
+
+- Missing classes in type-graph should raise an exception [\#107](https://github.com/antoniogamiz/Perl6-Documentable/issues/107)
+- documentable update -v does not work [\#105](https://github.com/antoniogamiz/Perl6-Documentable/issues/105)
+
+**Merged pull requests:**
+
+- Some fixes to the README, mainly grammar and typography [\#103](https://github.com/antoniogamiz/Perl6-Documentable/pull/103) ([JJ](https://github.com/JJ))
+
 ## [v3.0.0](https://github.com/antoniogamiz/Perl6-Documentable/tree/v3.0.0) (2019-08-24)
 [Full Changelog](https://github.com/antoniogamiz/Perl6-Documentable/compare/v2.3.1...v3.0.0)
 
@@ -10,7 +26,6 @@
 **Fixed bugs:**
 
 - url-prefix property does not work in search items [\#100](https://github.com/antoniogamiz/Perl6-Documentable/issues/100)
-- Generate @docs every time any of its component changes. [\#79](https://github.com/antoniogamiz/Perl6-Documentable/issues/79)
 
 **Closed issues:**
 
@@ -27,6 +42,7 @@
 **Fixed bugs:**
 
 - Cannot install with test [\#85](https://github.com/antoniogamiz/Perl6-Documentable/issues/85)
+- Generate @docs every time any of its component changes. [\#79](https://github.com/antoniogamiz/Perl6-Documentable/issues/79)
 
 **Closed issues:**
 

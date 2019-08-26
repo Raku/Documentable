@@ -5,6 +5,13 @@ use URI::Escape;
 use Pod::Utilities::Build;
 use Perl6::Documentable;
 
+class X::Documentable::TypeNotFound is Exception {
+    has $.type;
+    method message() {
+        "$.type entry not found in type-graph.txt file."
+    }
+}
+
 class Perl6::Documentable::DocPage::Primary::Language
     does Perl6::Documentable::DocPage {
 
@@ -125,7 +132,8 @@ class Perl6::Documentable::DocPage::Primary::Type
     #| Completes a type pod with inherited routines
     method compose-type($registry, $doc) {
 
-        {return;} unless $registry.tg.types{$doc.name};
+        die X::Documentable::TypeNotFound.new(:type($doc.name))
+        unless $registry.tg.types{$doc.name};
 
         $doc.pod.contents.append: self.typegraph-fragment($doc.name);
 
