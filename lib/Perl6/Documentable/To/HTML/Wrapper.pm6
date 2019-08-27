@@ -88,7 +88,7 @@ method menu($selected, $pod-path?) {
 }
 
 method footer($pod-path) {
-    my $new-footer = $!footer.subst(/DATETIME/, ~DateTime.now.utc.truncated-to('seconds'));
+    my $new-footer = $!footer;
     if ( $pod-path ) {
         my $source-path = [~] $.config.pod-root-path,
                               "/",
