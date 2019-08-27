@@ -1,15 +1,13 @@
 </div>
 <footer class="pretty-box yellow">
   <p>
-    The sources at <a href='https://github.com/perl6/doc'>perl6/doc on GitHub</a>
-    <br/>
+      Generated from <a href="SOURCEURL">PODPATH</a>.
+      <br/>
       This is a work in progress to document Perl 6, and known to be
       incomplete.
       <br/>
-      <a href="https://github.com/perl6/doc/blob/master/CONTRIBUTING.md#reporting-bugs">Please report any issues</a>
+      <a href="https://github.com/perl6/doc/blob/master/CONTRIBUTING.md#reporting-bugs">Please report any issues</a>EDITURL
       Your contribution is appreciated.
-      <br/>
-      Generated on DATETIME
   </p>
   <p>
       This documentation is provided under the terms of the
@@ -24,3 +22,10 @@
 
 <script type="text/javascript" src="/js/app.js?v=1"></script>
 <script type="text/javascript" src="/js/search.js?v=3"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    if (!location.hash || location.hash === "#___top") {
+      $('query').focus();
+    }
+  });
+</script>
