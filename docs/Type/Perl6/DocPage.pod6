@@ -136,23 +136,6 @@ and generates a HTML file.
 
 =begin pod :kind("type") :subkind("class") :category("html-generation")
 
-=TITLE class Perl6::Documentable::DocPage::Index
-
-=SUBTITLE Renders the index associated to Kind::Type
-
-Defined as
-
-    class Perl6::Documentable::DocPage::Index is Perl6::Documentable::DocPage
-
-Each and every value of L<Kind|/type/Kind> has an associated index. This index contains references
-and a brief description of all L<Perl6::Documentable::Primary|/type/Perl6::Documentable::Primary> instances
-found in a L<Perl6::Documentable::Registry|/type/Perl6::Documentable::Registry> with C<$.kind> set
-to C<Kind::Type>.
-
-=end pod
-
-=begin pod :kind("type") :subkind("class") :category("html-generation")
-
 =TITLE class Perl6::Documentable::DocPage::Index::Type
 
 =SUBTITLE Renders the index associated to Kind::Type
