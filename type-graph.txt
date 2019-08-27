@@ -7,9 +7,11 @@ class Perl6::Documentable::Index is Perl6::Documentable
 class Perl6::Documentable::Config
 class Perl6::Documentable::Heading::Actions
 class Perl6::Documentable::Heading::Grammar
+class Perl6::Documentable::Search
 
 [basic]
 class Perl6::Documentable::DocPage::Factory
+class Perl6::Documentable::DocPage::Index
 class Perl6::Documentable::DocPage::Index::Language is Perl6::Documentable::DocPage
 class Perl6::Documentable::DocPage::Index::Programs is Perl6::Documentable::DocPage
 class Perl6::Documentable::DocPage::Index::Type is Perl6::Documentable::DocPage
@@ -30,6 +32,7 @@ class X::Documentable::TitleNotFound is Exception
 class X::Documentable::SubtitleNotFound is Exception
 class X::Documentable::MissingMetadata is Exception
 class X::Documentable::Config::InvalidConfig is Exception
+class X::Documentable::TypeNotFound is Exception
 
 [basic]
 enum Kind
