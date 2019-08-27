@@ -30,6 +30,11 @@ subtest "Routine submenu" => {
     }
 }
 
+subtest "Object submenu" => {
+    my $fragment = $wrapper.menu("routine", "Language/5to6-nutshell");
+     like $fragment, /"https://github.com/perl6/doc/edit/master/doc/Language/5to6-nutshell.pod6"/, "Footer generated";
+}
+
 subtest "URL substitution in footer" => {
     my $new-pod-path = "type/Associative";
     like $wrapper.footer( $new-pod-path ), /"https://github.com/perl6/doc/blob/master/doc/Type/Associative.pod6"/, "Footer generated";
