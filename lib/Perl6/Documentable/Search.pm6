@@ -25,6 +25,7 @@ method generate-entries($registry) {
                           .categorize({escape .name})
                           .pairs.sort({.key})
                           .map( -> (:key($name), :value(@docs)) {
+                                {say $name; die;} if $name eq '$SOLIDUS';
                                 self.search-entry(
                                     category => @docs > 1 ?? $kind.gist !! @docs[0].subkinds[0] || $kind.gist,
                                     value    => $name,
@@ -56,7 +57,7 @@ sub escape(Str $s) {
 }
 
 sub escape-json(Str $s) {
-    $s.subst(｢\｣, ｢%5c｣, :g).subst('"', '\"', :g).subst(｢?｣, ｢%3F｣, :g)
+    $s.subst('"', '\"', :g).subst(｢?｣, ｢%3F｣, :g)
 }
 
 # vim: expandtab shiftwidth=4 ft=perl6
