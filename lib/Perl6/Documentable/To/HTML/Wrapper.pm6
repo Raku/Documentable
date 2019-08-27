@@ -93,6 +93,7 @@ method footer($pod-path) {
         my $source-path = [~] $.config.pod-root-path,
                               "/",
                               $pod-path.subst(/^\//, '').tc;
+	say $source-path;
         $new-footer = $new-footer.subst(/SOURCEURL/, $source-path);
         $new-footer = $new-footer.subst(/PODPATH/, $pod-path);
     }

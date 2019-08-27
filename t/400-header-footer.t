@@ -3,7 +3,7 @@ use Test;
 
 use Perl6::Documentable::Config;
 use Perl6::Documentable::Utils::IO;
-use Perl6::Documentable::To::HTML::Wrapper;
+use Perl6::Documentable::To::HTML::Wrapper; # -*- mode: perl6 -*-
 
 plan *;
 
@@ -30,10 +30,16 @@ subtest "Routine submenu" => {
     }
 }
 
+subtest "URL substitution in footer" => {
+    my $new-pod-path = "type/Associative.pod6";
+    like $wrapper.footer( $new-pod-path ), /"https://github.com/perl6/doc/blob/master/doc/Type/Associative.pod6"/, "Footer generated";
+}
+
 sub test-selection($selection) {
     my $fragment = $wrapper.menu($selection, "podtest");
     is so $fragment ~~ /:s selected darker\-green/, True,
     "$selection selection found";
 }
+
 
 done-testing;
