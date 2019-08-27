@@ -75,9 +75,8 @@ method menu($selected, $pod-path?) {
     my $edit-url = "";
     if defined $pod-path {
 	my $edit-path = $.config.pod-root-path.subst(/\/blob\//,'/edit/')
-	  ~ $pod-path.trans( ["/language","/type","/program"] => ["/Language","/Type","/Program"] );
+	  ~ ($pod-path.starts-with("/")??""!!"/") ~ $pod-path.trans( ["/language","/type","/program"] => ["/Language","/Type","/Program"] );
 	$edit-path ~= ".pod6" if not $edit-path ~~ /\.pod6$/;
-	say $edit-path;
       $edit-url = qq[
       <div align="right">
         <button title="Edit this page"  class="pencil" onclick="location='{$edit-path}'">
