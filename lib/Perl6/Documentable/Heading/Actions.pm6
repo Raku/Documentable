@@ -16,7 +16,7 @@ method single-name($/) {
 }
 
 method subkind($/) {
-    $!dsubkind = $/.Str;
+    $!dsubkind = $/.Str.trim;
 }
 
 method operator($/) {
