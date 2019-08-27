@@ -87,8 +87,15 @@ method menu($selected, $pod-path?) {
             .subst('EDITURL', $edit-url)
 }
 
-method footer() {
-    $!footer.subst(/DATETIME/, ~DateTime.now.utc.truncated-to('seconds'));
+method footer($pod-path) {
+    my $new-footer = $!footer.subst(/DATETIME/, ~DateTime.now.utc.truncated-to('seconds'));
+    if ( $pod-path ) {
+        my $source-path = $.config.pod-root-path ~ $pod-path;
+        $new-footer = $new-footer.subst(/SOURCEURL/, $source-path);
+        $new-footer = $new-footer.subst(/PODPATH/, $pod-path);
+    }
+
+    $new-footer;
 }
 
 method render($pod, $selected = '', :$pod-path?) {
@@ -97,7 +104,7 @@ method render($pod, $selected = '', :$pod-path?) {
         url           => &!rewrite,
         head          => $!head,
         header        => self.menu($selected, $pod-path),
-        footer        => self.footer,
+        footer        => self.footer($pod-path),
         default-title => $!title-page,
         css-url       => ''
     )

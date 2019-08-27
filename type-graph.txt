@@ -1,0 +1,38 @@
+[basic]
+class Perl6::Documentable
+class Perl6::Documentable::Registry
+class Perl6::Documentable::Primary is Perl6::Documentable
+class Perl6::Documentable::Secondary is Perl6::Documentable
+class Perl6::Documentable::Index is Perl6::Documentable
+class Perl6::Documentable::Config
+class Perl6::Documentable::Heading::Actions
+class Perl6::Documentable::Heading::Grammar
+class Perl6::Documentable::Search
+
+[basic]
+class Perl6::Documentable::DocPage::Factory
+class Perl6::Documentable::DocPage::Index
+class Perl6::Documentable::DocPage::Index::Language is Perl6::Documentable::DocPage
+class Perl6::Documentable::DocPage::Index::Programs is Perl6::Documentable::DocPage
+class Perl6::Documentable::DocPage::Index::Type is Perl6::Documentable::DocPage
+class Perl6::Documentable::DocPage::SubIndex::Type is Perl6::Documentable::DocPage
+class Perl6::Documentable::DocPage::Index::Routine is Perl6::Documentable::DocPage
+class Perl6::Documentable::DocPage::SubIndex::Routine is Perl6::Documentable::DocPage
+class Perl6::Documentable::DocPage::Secondary is Perl6::Documentable::DocPage
+class Perl6::Documentable::DocPage::Primary::Type is Perl6::Documentable::DocPage
+class Perl6::Documentable::DocPage::Primary::Language is Perl6::Documentable::DocPage
+class Perl6::Documentable::DocPage::Primary::Programs is Perl6::Documentable::DocPage
+class Perl6::Documentable::To::HTML::Wrapper
+
+[basic]
+role Perl6::Documentable::DocPage
+
+[exceptions]
+class X::Documentable::TitleNotFound is Exception
+class X::Documentable::SubtitleNotFound is Exception
+class X::Documentable::MissingMetadata is Exception
+class X::Documentable::Config::InvalidConfig is Exception
+class X::Documentable::TypeNotFound is Exception
+
+[basic]
+enum Kind
