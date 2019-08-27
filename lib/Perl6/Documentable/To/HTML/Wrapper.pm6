@@ -95,7 +95,6 @@ method footer($pod-path) {
                               $pod-path.subst(/^\//, '').tc;
 
 	$source-path ~= ".pod6" if not $source-path ~~ /\.pod6$/;
-	say $source-path;
         $new-footer = $new-footer.subst(/SOURCEURL/, $source-path);
         $new-footer = $new-footer.subst(/PODPATH/, $pod-path);
     }
