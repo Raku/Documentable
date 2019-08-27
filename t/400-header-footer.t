@@ -1,4 +1,4 @@
-use Test;
+use Test; # -*- mode: perl6 -*-
 
 
 use Perl6::Documentable::Config;
@@ -31,7 +31,7 @@ subtest "Routine submenu" => {
 }
 
 subtest "URL substitution in footer" => {
-    my $new-pod-path = "type/Associative.pod6";
+    my $new-pod-path = "type/Associative";
     like $wrapper.footer( $new-pod-path ), /"https://github.com/perl6/doc/blob/master/doc/Type/Associative.pod6"/, "Footer generated";
 }
 
