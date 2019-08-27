@@ -31,7 +31,7 @@ subtest "Routine submenu" => {
 }
 
 subtest "Object submenu" => {
-    my $fragment = $wrapper.menu("routine", "Language/5to6-nutshell");
+    my $fragment = $wrapper.menu("routine", "/language/5to6-nutshell");
      like $fragment, /"https://github.com/perl6/doc/edit/master/doc/Language/5to6-nutshell.pod6"/, "Footer generated";
 }
 
