@@ -281,6 +281,14 @@ package Perl6::Documentable::CLI {
             && rm -rf template
         END
     }
+
+    #| Delete files created by "documentable setup"
+    multi MAIN (
+        Bool :$version
+    ) {
+        say "Perl6::Documentable version: " ~ $?DISTRIBUTION.meta<version>;
+    }
+
 }
 
 sub highlight-code-blocks($proc, $proc-supply) is export {
