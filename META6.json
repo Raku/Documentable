@@ -6,7 +6,7 @@
     "@AlexDaniel",
     "@antoniogamiz"
   ],
-  "api": 3,
+  "api": 1,
   "auth": "github:perl6",
   "build-depends": [],
   "depends": [
@@ -58,5 +58,5 @@
   "test-depends": [
     "Test::META:ver<0.0.16>"
   ],
-  "version": "1.0.0"
+  "version": "1.0.1"
 }
