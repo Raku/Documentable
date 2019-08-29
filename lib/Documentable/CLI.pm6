@@ -225,7 +225,7 @@ package Documentable::CLI {
         "update",
         Str  :$topdir = "doc",                 #= Directory where the pod collection is stored
         Str  :$conf = zef-path("resources/config.json"), #= Configuration file
-        Bool :v(:verbose($v))      = False,    #= Prints progress information
+        Bool :v(:verbose($v))      = False    #= Prints progress information
 
     ) {
         DEBUG("Checking for changes...");
