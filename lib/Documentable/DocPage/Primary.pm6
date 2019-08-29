@@ -52,9 +52,7 @@ class Documentable::DocPage::Primary::Type
         state $template = slurp $filename;
         my $svg;
         if ("html/images/type-graph-$podname.svg".IO.e) {
-            $svg = svg-for-file(
-                zef-path("html/images/type-graph-$podname.svg")
-            );
+            $svg = svg-for-file("html/images/type-graph-$podname.svg");
         } else {
             $svg = "<svg></svg>";
             $podname  = "404";
