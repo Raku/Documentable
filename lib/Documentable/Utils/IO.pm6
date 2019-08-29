@@ -52,7 +52,9 @@ sub svg-for-file($file) is export {
 }
 
 sub zef-path($filename) is export {
-    "resources/$filename".IO.e ?? "resources/$filename" !! %?RESOURCES{$filename}
+    my $filepath = "resources/$filename".IO.e ?? "resources/$filename" !! %?RESOURCES{$filename};
+    die "Path to $filename not found" unless $filepath;
+    return $filepath;
 }
 
 # /home/path => /home/.cache-path
