@@ -1,4 +1,8 @@
 {
+  "name": "Documentable",
+  "description": "Represents a piece of Perl 6 that is documented.",
+  "version": "1.0.3",
+  "perl": "6.d",
   "authors": [
     "@moritz",
     "@finanalyst",
@@ -6,42 +10,38 @@
     "@AlexDaniel",
     "@antoniogamiz"
   ],
-  "api": 1,
   "auth": "github:perl6",
-  "build-depends": [],
   "depends": [
-      "Pod::Load:ver<0.5.4>",
-      "Pod::To::HTML:ver<0.6.1>",
-      "Pod::To::Cached:ver<0.3.3+>",
-      "Perl6::TypeGraph:ver<2.1.1+>:auth<github:antoniogamiz>:api<2>",
-      "Pod::Utilities:ver<0.0.1>",
-      "URI:ver<0.3+>",
-      "File::Temp:ver<0.0.6>",
-      "JSON::Fast:ver<0.9.18>",
-      "Terminal::Spinners"
+    "Pod::Load:ver<0.5.4>",
+    "Pod::To::HTML:ver<0.6.1>",
+    "Pod::To::Cached:ver<0.3.3+>",
+    "Perl6::TypeGraph:ver<2.1.1+>:auth<github:antoniogamiz>:api<2>",
+    "Pod::Utilities:ver<0.0.1>",
+    "URI:ver<0.3+>",
+    "File::Temp:ver<0.0.6>",
+    "JSON::Fast:ver<0.9.18>",
+    "Terminal::Spinners"
   ],
-  "description": "Represents a piece of Perl 6 that is documented.",
-  "license": "Artistic-2.0",
-  "name": "Documentable",
-  "perl": "6.d",
+  "build-depends": [],
+  "test-depends": [
+    "Test::META:ver<0.0.16>"
+  ],
   "provides": {
     "Documentable": "lib/Documentable.pm6",
+    "Documentable::CLI": "lib/Documentable/CLI.pm6",
     "Documentable::Config": "lib/Documentable/Config.pm6",
-    "Documentable::Primary": "lib/Documentable/Primary.pm6",
-    "Documentable::Secondary": "lib/Documentable/Secondary.pm6",
-    "Documentable::Index": "lib/Documentable/Index.pm6",
-    "Documentable::Registry": "lib/Documentable/Registry.pm6",
-    "Documentable::Search": "lib/Documentable/Search.pm6",
-    "Documentable::Heading::Grammar": "lib/Documentable/Heading/Grammar.pm6",
-    "Documentable::Heading::Actions": "lib/Documentable/Heading/Actions.pm6",
-
-    "Documentable::DocPage::Secondary": "lib/Documentable/DocPage/Secondary.pm6",
+    "Documentable::DocPage::Factory": "lib/Documentable/DocPage/Factory.pm6",
     "Documentable::DocPage::Index": "lib/Documentable/DocPage/Index.pm6",
     "Documentable::DocPage::Primary": "lib/Documentable/DocPage/Primary.pm6",
-    "Documentable::DocPage::Factory": "lib/Documentable/DocPage/Factory.pm6",
+    "Documentable::DocPage::Secondary": "lib/Documentable/DocPage/Secondary.pm6",
+    "Documentable::Heading::Actions": "lib/Documentable/Heading/Actions.pm6",
+    "Documentable::Heading::Grammar": "lib/Documentable/Heading/Grammar.pm6",
+    "Documentable::Index": "lib/Documentable/Index.pm6",
+    "Documentable::Primary": "lib/Documentable/Primary.pm6",
+    "Documentable::Registry": "lib/Documentable/Registry.pm6",
+    "Documentable::Search": "lib/Documentable/Search.pm6",
+    "Documentable::Secondary": "lib/Documentable/Secondary.pm6",
     "Documentable::To::HTML::Wrapper": "lib/Documentable/To/HTML/Wrapper.pm6",
-
-    "Documentable::CLI": "lib/Documentable/CLI.pm6",
     "Documentable::Utils::IO": "lib/Documentable/Utils/IO.pm6"
   },
   "resources": [
@@ -53,10 +53,8 @@
     "template/search_template.js",
     "config.json"
   ],
-  "source-url": "https://github.com/perl6/Documentable.git",
+  "license": "Artistic-2.0",
   "tags": [],
-  "test-depends": [
-    "Test::META:ver<0.0.16>"
-  ],
-  "version": "1.0.1"
+  "api": 1,
+  "source-url": "https://github.com/perl6/Documentable.git"
 }
