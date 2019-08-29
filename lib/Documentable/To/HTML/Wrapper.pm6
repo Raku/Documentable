@@ -87,6 +87,11 @@ method menu($selected, $pod-path?) {
 
     $!header.subst('MENU', $menu-items ~ $submenu-items)
             .subst('EDITURL', $edit-url)
+            .subst: 'CONTENT_CLASS',
+            'content_' ~ ($pod-path
+                    ??  $pod-path.subst(/\.pod6$/, '').subst(/\W/, '_', :g)
+                    !! 'fragment');
+
 }
 
 method footer($pod-path) {

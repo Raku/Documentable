@@ -35,6 +35,8 @@ subtest "Object submenu" => {
     like $fragment, /"https://github.com/perl6/doc/edit/master/doc/Language/5to6-nutshell.pod6"/, "Footer generated";
     $fragment = $wrapper.menu("routine", "HomePage.pod6");
     like $fragment, /"https://github.com/perl6/doc/edit/master/doc/HomePage.pod6"/, "Footer generated";
+    like $fragment, /content_HomePage/, "content_class substituted";
+
 }
 
 subtest "URL substitution in footer" => {
