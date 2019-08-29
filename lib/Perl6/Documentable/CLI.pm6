@@ -12,7 +12,7 @@ use Perl6::Documentable::Utils::IO;
 use Perl6::TypeGraph;
 use Perl6::TypeGraph::Viz;
 use JSON::Fast;
-
+use Terminal::Spinners;
 
 package Perl6::Documentable::CLI {
 
@@ -54,6 +54,7 @@ package Perl6::Documentable::CLI {
         Str  :$dirs?,                                   #= Dirs where documentation will be found. Relative to :$topdir
         Bool :a(:$all)             = False              #= Equivalent to -t -p -k -i -s
     ) {
+        my $beginning = now; # to measure total time
         if (!"./html".IO.e || !"./assets".IO.e || !"./template".IO.e) {
             note q:to/END/;
                 (warning) html and/or assets and/or templates directories
@@ -133,11 +134,15 @@ package Perl6::Documentable::CLI {
 
         if ($p || $all ) {
             $now = now;
-            DEBUG("Generating source files...", $v);
+            DEBUG("Generating source files 👇 ...", $v);
 
-            @docs.append: $registry.documentables.map(-> $doc {
-                $factory.generate-primary($doc)
-            }).Slip;
+            my $bar = Bar.new: type => "equals";
+            my $length = $registry.documentables.elems;
+            for $registry.documentables.kv -> $num, $doc {
+                $bar.show: ($num + 1) / $length * 100;
+                @docs.push($factory.generate-primary($doc));
+            }
+            say "";
 
             print-time("Generate source files", $now);
         }
@@ -146,12 +151,25 @@ package Perl6::Documentable::CLI {
 
         if ($s || $all) {
             $now = now;
-            DEBUG("Generating per kind files...", $v);
-            for Kind::Routine, Kind::Syntax -> $kind {
-                @docs.append: $registry.lookup($kind.Str, :by<kind>).map({.name}).unique.map(-> $name {
-                    $factory.generate-secondary($kind, $name)
-                }).Slip;
+            DEBUG("Generating Kind::Syntax files 👇 ...", $v);
+            my $bar = Bar.new: type => "equals";
+            my $length = $registry.lookup(Kind::Syntax.Str, :by<kind>).unique.elems;
+            my @syntax-names = $registry.lookup(Kind::Syntax.Str, :by<kind>).map({.name}).unique;
+            for @syntax-names.kv -> $num, $name {
+                $bar.show: ($num + 1) / $length * 100;
+                @docs.push($factory.generate-secondary(Kind::Syntax, $name));
             }
+            say "";
+
+            DEBUG("Generating Kind::Routine files 👇 ...", $v);
+            $length = $registry.lookup(Kind::Routine.Str, :by<kind>).unique.elems;
+            my @routine-names = $registry.lookup(Kind::Routine.Str, :by<kind>).map({.name}).unique;
+            for @routine-names.kv -> $num, $name {
+                $bar.show: ($num + 1) / $length * 100;
+                @docs.push($factory.generate-secondary(Kind::Routine, $name));
+            }
+            say "";
+
             print-time("Generate per kind files", $now);
         }
 
@@ -188,9 +206,18 @@ package Perl6::Documentable::CLI {
             spurt "html{$search-doc<url>}", $search-doc<document>;
         }
 
-        DEBUG("Writing all generated files...", $v);
-        @docs.map(-> $doc { spurt "html{$doc<url>}.html", $doc<document> });
+        $now = now;
+        DEBUG("Writing all generated files 🙌 ...", $v);
+        my $bar = Bar.new;
+        my $length = +@docs;
+        for @docs.kv -> $num, $doc {
+            $bar.show: ($num + 1) / $length * 100;
+            spurt "html{$doc<url>}.html", $doc<document>
+        }
+        say "";
+
         print-time("Writing generated files", $now);
+        print-time("Whole process", $beginning);
     }
 
     #| Check which pod files have changed and regenerate its HTML files.

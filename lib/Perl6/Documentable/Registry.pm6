@@ -10,6 +10,7 @@ use Perl6::Documentable;
 use Perl6::Documentable::Primary;
 
 use Perl6::Documentable::LogTimelineSchema;
+use Terminal::Spinners;
 
 unit class Perl6::Documentable::Registry;
 
@@ -93,10 +94,14 @@ method load (Str :$path --> Positional[Pod::Block::Named]) {
     return @pods;
 }
 
-method process-pod-dir(Str :$dir --> Array) {
+method process-pod-dir(Str :$dir) {
     # pods to process
     my @pod-files = get-pod-names(:$!topdir, :$dir);
+    say "Processing $dir directory...";
+    my $bar = Bar.new: type => "equals";
+    my $length = +@pod-files;
     for @pod-files.kv -> $num, (:key($filename), :value($file)) {
+        $bar.show: ($num +1) / $length * 100;
         my @pod-fragments = self.load(path => $file.path);
         for @pod-fragments -> $pod {
             Perl6::Documentable::LogTimeline::New.log: :$filename, -> {
@@ -109,6 +114,7 @@ method process-pod-dir(Str :$dir --> Array) {
             }
         }
     }
+    say "";
 }
 
 # consulting logic
