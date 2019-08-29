@@ -223,16 +223,19 @@ package Documentable::CLI {
     #| Check which pod files have changed and regenerate its HTML files.
     multi MAIN (
         "update",
-        Str  :$topdir = "doc",       #= Directory where the pod collection is stored
-        Str  :$conf = "config.json", #= Configuration file
-        Bool :v(:verbose($v))      = False,             #= Prints progress information
+        Str  :$topdir = "doc",                 #= Directory where the pod collection is stored
+        Str  :$conf = zef-path("resources/config.json"), #= Configuration file
+        Bool :v(:verbose($v))      = False,    #= Prints progress information
 
     ) {
         DEBUG("Checking for changes...");
         my $now = now;
 
         my $cache = Pod::To::Cached.new(:path(".cache-{$topdir}"), :verbose($v), :source($topdir));
-        my @files = $cache.list-files(<Valid>);
+        my @files = $cache.list-files(<Valid New>);
+
+        # recompile pods
+        $cache.update-cache;
 
         if (! @files) {
             DEBUG("Everything already updated. There are no changes.");
@@ -260,6 +263,7 @@ package Documentable::CLI {
                         .url.lc eq "/" ~ $filename.lc # language/something type/Any
                     }).first;
 
+            @kinds.push($doc.kind);
             @docs.push($factory.generate-primary($doc));
 
             # per kind
