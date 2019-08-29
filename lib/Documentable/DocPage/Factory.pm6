@@ -1,4 +1,3 @@
-unit module Documentable::DocPage::Factory;
 
 use Documentable;
 use Pod::Load;

@@ -9,8 +9,8 @@ use Pod::Load;
 use Pod::To::Cached;
 use File::Temp;
 use Documentable::Utils::IO;
-use TypeGraph;
-use TypeGraph::Viz;
+use Perl6::TypeGraph;
+use Perl6::TypeGraph::Viz;
 use JSON::Fast;
 use Terminal::Spinners;
 
@@ -97,8 +97,8 @@ package Documentable::CLI {
             $now = now;
 
             DEBUG("Writing type-graph representations...", $v);
-            my $viz = TypeGraph::Viz.new;
-            my $tg   = TypeGraph.new-from-file;
+            my $viz = Perl6::TypeGraph::Viz.new;
+            my $tg  = Perl6::TypeGraph.new-from-file;
             $viz.write-type-graph-images(path       => "html/images",
                                         force      => $f,
                                         type-graph => $tg);
