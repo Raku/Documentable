@@ -1,11 +1,11 @@
 use Test;
 
-use Perl6::Documentable::Registry;
-use Perl6::Documentable::DocPage::Primary;
+use Documentable::Registry;
+use Documentable::DocPage::Primary;
 
 plan *;
 
-my $registry = Perl6::Documentable::Registry.new(
+my $registry = Documentable::Registry.new(
     :topdir("t/test-doc"),
     :dirs(["Type"]),
     :verbose(False)
@@ -13,7 +13,7 @@ my $registry = Perl6::Documentable::Registry.new(
 
 $registry.compose;
 
-my $document = Perl6::Documentable::DocPage::Primary::Type.new;
+my $document = Documentable::DocPage::Primary::Type.new;
 
 subtest "Typegraph fragment" => {
     is-deeply $document.typegraph-fragment("ejiff"),

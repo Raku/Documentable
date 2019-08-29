@@ -1,4 +1,4 @@
-use Perl6::Documentable;
+use Documentable;
 use Test;
 
 plan *;
@@ -9,7 +9,7 @@ Some pod
 
 =end pod
 
-my $doc1 = Perl6::Documentable.new(
+my $doc1 = Documentable.new(
   pod        => $=pod[0],
   kind       => Kind::Type,
   name       => "testing",
@@ -17,13 +17,13 @@ my $doc1 = Perl6::Documentable.new(
   categories => ["operator"]
 );
 
-my $doc2 = Perl6::Documentable.new(
+my $doc2 = Documentable.new(
   pod      => $=pod[0],
   kind     => Kind::Language,
   name     => "testing2",
 );
 
-my $doc3 = Perl6::Documentable.new(
+my $doc3 = Documentable.new(
   pod      => $=pod[0],
   kind     => Kind::Programs,
   name     => "testing3",

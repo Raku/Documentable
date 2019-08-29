@@ -1,0 +1,293 @@
+=begin pod :kind("type") :subkind("class") :category("basic")
+
+=TITLE class Documentable::Primary
+
+=SUBTITLE Represents a self-contained Perl 6 documentation element.
+
+    class Documentable::Primary {}
+
+An instance of this object is used to represent every pod block found.
+
+=head1 Methods
+
+=head2 method new
+
+Defined as
+
+    method new(Str :$filename!, :$pod!)
+
+C<$pod> must follow this format:
+
+=begin code
+
+=begin pod :kind("<kind>") :subkind("<subkind>") :category("<category>")
+
+=TITLE title
+
+=SUBTITLE subtitle
+
+(...)
+
+=end pod
+
+=end code
+
+If at least one of these elements is missing, a exception will be thrown.
+
+C<$filename> is the name of the file containing the pod. This attribute is useful
+because several pods can be present in the same file, at the same time.
+
+=head2 method filename
+
+Defined as
+
+    method filename()
+
+Returns the value of C<$!filename>. It's the filename where the pod block came from.
+
+=head2 method summary
+
+Defined as
+
+    method summary()
+
+Returns C<$!summary>. This value is obtained using the C<=SUBTITLE> pod element.
+
+=head2 method url
+
+Defined as
+
+    method url()
+
+Returns the following string: C</$!kind.Str/$filename>. So, if you have a C<$pod> block with C<$kind>
+set to C<Kind::Language>, stored in a file called C<lang.pod6>, its url will be C</language/lang>.
+
+If C<$kind> is equal to C<Kind::Type>, instead of C<$filename>, C<$name> will be taken (to avoid problems
+with multi-type definitions in a single file).
+
+=head2 method defs
+
+Defined as
+
+    method defs()
+
+Returns C<@.defs>. C<@.defs> is an array containing all
+L<Documentable::Secondary|/type/Documentable::Secondary> objects found in the C<$.pod>.
+
+=head2 method refs
+
+Defined as
+
+    method refs()
+
+Returns C<@.refs>. C<@.refs> is an array containing all
+L<Documentable::Index|/type/Documentable::Index> objects found in the C<$.pod>.
+
+=head2 method check-pod
+
+Defined as
+
+    method check-pod($pod, $filename?)
+
+Check if a pod block (C<=begin pod =end pod>) follows the specified format. It checks for the
+existance of a C<=TITLE> and C<=SUBTITLE> elements and the three metadata values.
+
+=head2 method parse-definition-header
+
+Defined as
+
+    method parse-definition-header(Pod::Heading :$heading --> Hash)
+
+This method takes a C<Pod::Heading> element and returns its metadata in a C<Hash> object.
+
+This returned C<Hash> follow this format:
+
+=begin code
+%(
+    name       => ...
+    kind       => ...
+    subkinds   => ...
+    categories => ...
+)
+=end code
+
+For this to happen, the C<Pod::Heading> object must verify one of this two conditions:
+
+=begin item
+Must follow the format:
+
+=begin code
+=headn X<foo|bar>
+=end code
+
+Where C<n> is a number from 1 to 6. In this case, C<subkinds> and C<categories> keys are set
+to the meta part of C<X<>>, if possible. C<kind> key is set to C<Kind::Syntax> and C<name> will
+be set to the second element of the meta part, or to the first one if there's only one.
+
+=end item
+
+=begin item
+Returns a non-empty match with L<Documentable::Heading::Grammar|/type/Documentable::Heading::Grammar>.
+
+That means, if we have the following heading:
+
+=begin code
+=head2 The infix foo
+=end code
+
+Then the string C<The infix foo> will be passed to the grammar, which will use
+L<Documentable::Heading::Actions|/type/Documentable::Heading::Actions> to set the
+returned C<Hash>.
+
+=end item
+
+=head2 method find-definitions
+
+Defined as
+
+    method find-definitions(:$pod, Int :$min-level = -1 --> Int)
+
+This method initializes the attribute C<@.defs>. It runs through the pod content and looks for
+valid headings. When a new definition is found, a `Documentable::Secondary` object is
+created with the result of calling C<parse-definition-header> (if the result is non-empty) and C<self>
+as C<origin>.
+
+C<$pod> is populated with the pod section corresponding to that header and its subdefinitions
+(all valid headers with a greater level until one with the same or lower level is found).
+
+For instance, if we found the following pod section:
+
+=begin code
+
+=head3 header
+
+Some text
+
+=head4 header with a greater level!
+
+More text
+
+=head3 another header with the same level!
+
+=end code
+
+In this case, C<$pod> will be set to:
+
+=begin code
+
+=head3 header
+
+Some text
+
+=head4 header with a greater level!
+
+More text
+
+=end code
+
+=head2 method find-references
+
+Defined as
+
+    method find-references(:$pod)
+
+Similar to C<find-definitions>. It runs through the pod recursively finding all C<X<>> elements.
+
+The behaviour of C<X<>> elements is being discussed here: L<https://github.com/perl6/doc/issues/1410>.
+Any feedback is welcomed.
+
+=end pod
+
+=begin pod :kind("type") :subkind("class") :category("exception")
+
+=TITLE class X::Documentable::TitleNotFound
+
+=SUBTITLE Pod format related error
+
+    X::Documentable::TitleNotFound is Exception {}
+
+The given C<$pod> structure does not have a C<=TITLE> element. Remember, all C<=begin pod =end pod>
+must follow the format:
+
+=begin code
+
+=begin pod :kind("<kind>") :subkind("<subkind>") :category("<category>")
+
+=TITLE title
+
+=SUBTITLE subtitle
+
+(...)
+
+=end pod
+
+=end code
+
+=end pod
+
+=begin pod :kind("type") :subkind("class") :category("exception")
+
+=TITLE class X::Documentable::SubtitleNotFound
+
+=SUBTITLE Pod format related error
+
+    X::Documentable::SubtitleNotFound is Exception {}
+
+The given C<$pod> structure does not have a C<=SUBTITLE> element. Remember, all C<=begin pod =end pod>
+must follow the format:
+
+=begin code
+
+=begin pod :kind("<kind>") :subkind("<subkind>") :category("<category>")
+
+=TITLE title
+
+=SUBTITLE subtitle
+
+(...)
+
+=end pod
+
+=end code
+
+=end pod
+
+=begin pod :kind("type") :subkind("class") :category("exception")
+
+=TITLE class X::Documentable::MissingMetadata
+
+=SUBTITLE Pod format related error
+
+    X::Documentable::MissingMetadata is Exception {}
+
+Some of the obligatory three metada elements is missing. Remember, all C<=begin pod =end pod>
+must follow the format:
+
+=begin code
+
+=begin pod :kind("<kind>") :subkind("<subkind>") :category("<category>")
+
+=TITLE title
+
+=SUBTITLE subtitle
+
+(...)
+
+=end pod
+
+=end code
+
+=end pod
+
+=begin pod :kind("type") :subkind("class") :category("exception")
+
+=TITLE class X::Documentable::TypeNotFound
+
+=SUBTITLE Missing type in type-graph file
+
+    X::Documentable::TypeNotFound is Exception {}
+
+Attempt to create the typegraph representation of a missing type. To fix it, add that type
+to the type-graph file you are using.
+
+=end pod

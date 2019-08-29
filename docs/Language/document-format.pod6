@@ -2,10 +2,10 @@
 
 =TITLE Pod6 Format
 
-=SUBTITLE How to write Pod6 files for Perl6::Documentable
+=SUBTITLE How to write Pod6 files for Documentable
 
-In C<Perl6::Documentable>, the documentation units are B<pod blocks>. Each and every
-one of this I<pod block>, is represented by a L<Perl6::Documentable::Primary|/type/Perl6::Documentable::Primary>
+In C<Documentable>, the documentation units are B<pod blocks>. Each and every
+one of this I<pod block>, is represented by a L<Documentable::Primary|/type/Documentable::Primary>
 object. You could write this I<pod blocks> in a lot of ways, so it would hard to detect some
 needed data to generate a "useful" site. For this reason, you need to follow some basic requirements
 when writing documentation.
@@ -15,7 +15,7 @@ when writing documentation.
 You need to specify three different values for each I<pod block>:
 
 =item C<kind>: this value will be used to categorize the documentation block in menus. See L<Kind|/type/Kind>.
-=item C<subkind>: more specific categorization. I recommend you to use values from L<Perl6::Documentable::Heading::Grammar|/type/Perl6::Documentable::Heading::Grammar>.
+=item C<subkind>: more specific categorization. I recommend you to use values from L<Documentable::Heading::Grammar|/type/Documentable::Heading::Grammar>.
 =begin item
 C<category>: submeno categorization. You will find some big menus corresponding
 to C<kinds>, and inside each C<kind>, there will be as many menus as different
@@ -41,7 +41,7 @@ You must always specify a C<=TITLE> and C<=SUBTITLE> element.
 =begin item
 
 The content of this element, if C<kind> is set to C<"type">, will be used to
-set the name of the L<Perl6::Documentable::Primary|/type/Perl6::Documentable::Primary> object. So,
+set the name of the L<Documentable::Primary|/type/Documentable::Primary> object. So,
 if you are documenting a type, you will need to write the title as follows:
 
 =begin code
@@ -64,7 +64,7 @@ If it's not a type, then the full content of this element will be considered as 
 
 =end item
 
-=item C<=SUBTITLE> element will be used as C<$summary> attribute in L<Perl6::Documentable::Primary|/type/Perl6::Documentable::Primary>.
+=item C<=SUBTITLE> element will be used as C<$summary> attribute in L<Documentable::Primary|/type/Documentable::Primary>.
 
 And that's all, at the end, all your pod blocks should be something like:
 
@@ -85,7 +85,7 @@ And that's all, at the end, all your pod blocks should be something like:
 Sometimes is a pain to create a new file for every class, role or enum you want to document.
 Even sometimes, you in the same code file a enum, some related exceptions, and who knows more, so
 the possibility to write all its documentation in the same file looks like quite useful. You are
-lucky! With C<Perl6::Documentable> you can do that!.
+lucky! With C<Documentable> you can do that!.
 
 You only need to write more than one pod block in the same file (following the previoues rules, of course).
 For instance, let's document two different types: (the following code is in the same file)

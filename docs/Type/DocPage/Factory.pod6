@@ -1,0 +1,124 @@
+
+=begin pod :kind("type") :subkind("class") :category("html-generation")
+
+=TITLE class Documentable::DocPage::Factory
+
+=SUBTITLE Generator of HTML pages
+
+    class Documentable::DocPage::Factory
+
+This object is responsible of generating all HTML pages. If you want to create a new page,
+you should create it using an instance of this class.
+
+=head1 Methods
+
+=head2 method config
+
+Defined as
+
+    method config(--> Documentable::Config)
+
+Returns the L<Documentable::Config|/type/Documentable::Config> object used by
+the factory.
+
+=head2 method generate-home-page
+
+Defined as
+
+    method generate-home-page(--> Hash)
+
+Returns a C<Hash> in the format:
+
+=begin code
+%(
+    document => "HTML string",
+    url      => "/index"
+)
+=end code
+
+=head2 method generate-error-page
+
+Defined as
+
+    method generate-error-page(--> Hash)
+
+Returns a C<Hash> in the format:
+
+=begin code
+%(
+    document => "HTML string",
+    url      => "/404"
+)
+=end code
+
+=head2 method generate-primary
+
+Defined as
+
+    method generate-primary(Documentable::Primary $doc --> Hash)
+
+Generates the HTML associated to a L<Documentable::Primary|/type/Documentable::Primary>
+object. C<Hash> format:
+
+=begin code
+%(
+    document => "HTML string",
+    url      => "url associated"
+)
+=end code
+
+=head2 method generate-secondary
+
+Defined as
+
+    method generate-secondary(Kind $kind, Str $name --> Hash)
+
+Generates the HTML associated to a bunch of L<Documentable::Secondary|/type/Documentable::Secondary>
+objects. In particular, of all L<Documentable::Secondary|/type/Documentable::Secondary> objects
+with C<$.name> set to C<$name>.
+
+C<Hash> format:
+
+=begin code
+%(
+    document => "HTML string",
+    url      => "url associated"
+)
+=end code
+
+=head2 method generate-index
+
+Defined as
+
+    method generate-index(Kind $kind --> Hash)
+
+Generates the HTML index associated to C<$kind>.
+
+C<Hash> format:
+
+=begin code
+%(
+    document => "HTML string",
+    url      => "url associated"
+)
+=end code
+
+=head2 method generate-subindex
+
+Defined as
+
+    method generate-subindex(Kind $kind, Str $category --> Hash)
+
+Generates the HTML subindex associated to C<$kind> and C<$category>. That means,
+all C<Documentable> objects with C<$.categories> set to C<$category>.
+
+C<Hash> format:
+
+=begin code
+%(
+    document => "HTML string",
+    url      => "url associated"
+)
+=end code
+
+=end pod

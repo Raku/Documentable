@@ -1,0 +1,237 @@
+=begin pod :kind("type") :subkind("role") :category("html-generation")
+
+=TITLE role Documentable::DocPage
+
+=SUBTITLE Pod to be rendered and its url
+
+Defined as
+
+    role Documentable::DocPage
+
+This role must be implemented by all classes that generate a HTML page.
+
+=head2 method render
+
+Defined as
+
+    method render(| --> Hash) { ... }
+
+It's an abstract method. It needs to returns a C<Hash> object following
+this format:
+
+=begin code
+%(
+    document => pod to be rendered as HTML,
+    url      => URL assigned to this document
+)
+=end code
+
+Returns the C<pod> is necessary because we need to wrap it in a common HTML
+format (using L<Documentable::To::HTML::Wrapper|/type/Documentable::To::HTML::Wrapper>).
+
+=end pod
+
+=begin pod :kind("type") :subkind("class") :category("html-generation")
+
+=TITLE class Documentable::DocPage::Primary::Type
+
+=SUBTITLE Renders a Documentable::Primary object
+
+Defined as
+
+    class Documentable::DocPage::Primary::Type is Documentable::DocPage
+
+Class responsible of generating the pod of a L<Documentable::Primary|/type/Documentable::Primary>
+instance with C<kind> set to C<Kind::Type>
+
+=head2 method typegraph-fragment
+
+Defined as
+
+    method typegraph-fragment($podname is copy)
+
+Returns the HTML fragment necessary to display the TypeGraph image associated to this type.
+
+=head2 method roles-done-by-type
+
+Defined as
+
+    method roles-done-by-type($registry, $doc)
+
+Returns a pod list containing all routines supplied by the roles implemented by the type.
+
+=head2 method parent-class
+
+Defined as
+
+    method parent-class($registry, $doc)
+
+Returns a pod list containing all methods supplied by the parent clases of the type.
+
+=head2 method roles-done-by-parent-class
+
+Defined as
+
+    method roles-done-by-parent-class($registry, $doc)
+
+Returns a pod list containing all routines supplied by the roles implemented by the
+parent classes of the type.
+
+=head2 method compose-type
+
+Defined as
+
+    method compose-type($registry, $doc)
+
+Returns the C<$.pod> attribute of C<$doc> I<completed>. That means, with the typegraph fragment
+and all its methods coming from another types.
+
+=end pod
+
+=begin pod :kind("type") :subkind("class") :category("html-generation")
+
+=TITLE class Documentable::DocPage::Primary::Language
+
+=SUBTITLE Renders a Documentable::Primary object
+
+Defined as
+
+    class Documentable::DocPage::Primary::Language is Documentable::DocPage
+
+Class responsible of generating the pod of a L<Documentable::Primary|/type/Documentable::Primary>
+instance with C<kind> set to C<Kind::Language>
+
+=end pod
+
+=begin pod :kind("type") :subkind("class") :category("html-generation")
+
+=TITLE class Documentable::DocPage::Primary::Programs
+
+=SUBTITLE Renders a Documentable::Primary object
+
+Defined as
+
+    class Documentable::DocPage::Primary::Programs is Documentable::DocPage
+
+Class responsible of generating the pod of a L<Documentable::Primary|/type/Documentable::Primary>
+instance with C<kind> set to C<Kind::Programs>
+
+=end pod
+
+=begin pod :kind("type") :subkind("class") :category("html-generation")
+
+=TITLE class Documentable::DocPage::Secondary
+
+=SUBTITLE Renders a bunch of Documentable::Secondary objects
+
+Defined as
+
+    class Documentable::DocPage::Secondary is Documentable::DocPage
+
+This class takes all L<Documentable::Secondary|/type/Documentable::Secondary> objects
+in a L<Documentable::Registry|/type/Documentable::Registry> with B<the same name attribute>
+and generates a HTML file.
+
+=end pod
+
+=begin pod :kind("type") :subkind("class") :category("html-generation")
+
+=TITLE class Documentable::DocPage::Index::Type
+
+=SUBTITLE Renders the index associated to Kind::Type
+
+Defined as
+
+    class Documentable::DocPage::Index::Type is Documentable::DocPage
+
+Each and every value of L<Kind|/type/Kind> has an associated index. This index contains references
+and a brief description of all L<Documentable::Primary|/type/Documentable::Primary> instances
+found in a L<Documentable::Registry|/type/Documentable::Registry> with C<$.kind> set
+to C<Kind::Type>.
+
+=end pod
+
+=begin pod :kind("type") :subkind("class") :category("html-generation")
+
+=TITLE class Documentable::DocPage::Index::Language
+
+=SUBTITLE Renders the index associated to Kind::Language
+
+Defined as
+
+    class Documentable::DocPage::Index::Language is Documentable::DocPage
+
+Each and every value of L<Kind|/type/Kind> has an associated index. This index contains references
+and a brief description of all L<Documentable::Primary|/type/Documentable::Primary> instances
+found in a L<Documentable::Registry|/type/Documentable::Registry> with C<$.kind> set
+to C<Kind::Language>.
+
+=end pod
+
+=begin pod :kind("type") :subkind("class") :category("html-generation")
+
+=TITLE class Documentable::DocPage::SubIndex::Type
+
+=SUBTITLE Renders the index associated to Kind::Type and a category
+
+Defined as
+
+    class Documentable::DocPage::SubIndex::Type is Documentable::DocPage
+
+As you may know, each and every value of L<Kind|/type/Kind> has an associated index. You
+can generate more specific indexes using categories (see L<configuration file|/language/configuration-file>).
+
+This class is responsible of generating those subindexes.
+
+=end pod
+
+=begin pod :kind("type") :subkind("class") :category("html-generation")
+
+=TITLE class Documentable::DocPage::Index::Routine
+
+=SUBTITLE Renders the index associated to Kind::Routine
+
+Defined as
+
+    class Documentable::DocPage::Index::Routine is Documentable::DocPage
+
+Each and every value of L<Kind|/type/Kind> has an associated index. This index contains references
+and a brief description of all L<Documentable::Primary|/type/Documentable::Primary> instances
+found in a L<Documentable::Registry|/type/Documentable::Registry> with C<$.kind> set
+to C<Kind::Routine>.
+
+=end pod
+
+=begin pod :kind("type") :subkind("class") :category("html-generation")
+
+=TITLE class Documentable::DocPage::SubIndex::Routine
+
+=SUBTITLE Renders the index associated to Kind::Routine and a category
+
+Defined as
+
+    class Documentable::DocPage::SubIndex::Routine is Documentable::DocPage
+
+As you may know, each and every value of L<Kind|/type/Kind> has an associated index. You
+can generate more specific indexes using categories (see L<configuration file|/language/configuration-file>).
+
+This class is responsible of generating those subindexes.
+
+=end pod
+
+=begin pod :kind("type") :subkind("class") :category("html-generation")
+
+=TITLE class Documentable::DocPage::Index::Programs
+
+=SUBTITLE Renders the index associated to Kind::Programs
+
+Defined as
+
+    class Documentable::DocPage::Index::Programs is Documentable::DocPage
+
+Each and every value of L<Kind|/type/Kind> has an associated index. This index contains references
+and a brief description of all L<Documentable::Primary|/type/Documentable::Primary> instances
+found in a L<Documentable::Registry|/type/Documentable::Registry> with C<$.kind> set
+to C<Kind::Programs>.
+
+=end pod

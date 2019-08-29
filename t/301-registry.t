@@ -1,12 +1,12 @@
 use Test;
 
-use Perl6::Documentable;
-use Perl6::Documentable::Registry;
+use Documentable;
+use Documentable::Registry;
 use Pod::Load;
 
 plan *;
 
-my $registry = Perl6::Documentable::Registry.new(
+my $registry = Documentable::Registry.new(
     :topdir("t/test-doc"),
     :dirs(["Programs", "Native"]),
     :verbose(False),

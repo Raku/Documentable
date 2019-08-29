@@ -2,15 +2,15 @@
 
 =TITLE TypeGraph representations
 
-=SUBTITLE How to setup Perl6::TypeGraph
+=SUBTITLE How to setup TypeGraph
 
 So you have an amazing hierarchy in the types defined in your module and wants
-to show it in your documentation? L<Perl6::TypeGraph|https://github.com/antoniogamiz/Perl6-TypeGraph>
+to show it in your documentation? L<TypeGraph|https://github.com/antoniogamiz/Perl6-TypeGraph>
 will let you do it!
 
 =heaed2 TypeGraph file
 
-At this moment, L<Perl6::TypeGraph|https://github.com/antoniogamiz/Perl6-TypeGraph> is not able
+At this moment, L<TypeGraph|https://github.com/antoniogamiz/Perl6-TypeGraph> is not able
 to automatically detect the hierarchy of a documented class, so you need to provide it with a file
 containing that hierarchy.
 
@@ -28,6 +28,6 @@ Name::Of::A::Class is Parent::Class does A::ROle
 =end code
 
 You can check the L<type-graph.txt file|https://github.com/antoniogamiz/Perl6-Documentable/blob/docs-assets/type-graph.txt>
-used by C<Perl6::Documentable> as an example.
+used by C<Documentable> as an example.
 
 =end pod

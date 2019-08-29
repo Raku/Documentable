@@ -1,0 +1,124 @@
+
+=begin pod :kind("type") :subkind("class") :category("basic")
+
+=TITLE class Documentable
+
+=SUBTITLE Represents a self-contained Perl 6 documentation element.
+
+    class Documentable {}
+
+This class is the base for L<Documentable::Primary|/type/Documentable::Primary>
+and L<Documentable::Secondary|/type/Documentable::Secondary>.
+
+Everything documented is represented by a child class of C<Documentable>.
+
+=head1 Methods
+
+=head2 submethod BUILD
+
+Defined as
+
+    submethod BUILD(:$!name, :$!kind!, :@!subkinds, :@!categories, :$!pod!)
+
+Returns a C<Documentable> object correctly initialized.
+
+=head2 method name
+
+Defined as
+
+    method name(--> Str)
+
+Returns C<$!name>. You must have in mind that this value is not unique, so there could be more than one
+C<Documentable> instance with the same name.
+
+=head2 method kind
+
+Defined as
+
+    method kind(--> Kind)
+
+Returns C<$!kind>. See L<Kind|/type/Kind> to get more info.
+
+=head2 method pod
+
+Defined as
+
+    method pod(--> Pod::Block)
+
+Returns C<$!pod>. C<$!pod> is the documentation represented by this object.
+
+=head2 method subkinds
+
+Defined as
+
+    method subkinds(-->Array[Str])
+
+Returns C<@!subkinds>.
+
+=head2 method categories
+
+Returns C<@!categories>. If C<@!categories> is not defined, C<@!subkinds> will
+be returned instead.
+
+=head2 method english-list
+
+Defined as:
+
+    method english-list()
+
+This is a helper method used to convert lists (C<@.subkinds>) to an "english"
+format.
+
+=begin code
+
+my $doc = Documentable.new(
+    kind     => Kind::Type,
+    subkinds => ["a", "b"],
+    pod      => []
+);
+
+say $doc.english-list # OUTPUT: a and b␤»
+
+=end code
+
+=end pod
+
+=begin pod :kind("type") :subkind("enum") :category("basic")
+
+=TITLE enum Kind
+
+=SUBTITLE Information about the origin of a C<Documentable> instance.
+
+Defined as:
+
+=begin code
+
+enum Kind is export (Type      => "type"     , Language => "language",
+                     Programs  => "programs" , Syntax   => "syntax"  ,
+                     Reference => "reference", Routine  => "routine" );
+
+=end code
+
+=item C<Kind::Type>: Complete pod marked with C<:kind("type")>.
+=item C<Kind::Language>: Complete pod marked with C<:kind("language")>.
+=item C<Kind::Programs>: Complete pod marked with C<:kind("programs")>.
+=item C<Kind::Syntax>: Pod fragment from a complete pod.
+=item C<Kind::Routine>: Pod fragment from a complete pod.
+=item C<Kind::Reference>: Element generated via C<X<>>.
+
+You can assign the first three values manually, setting the metadata of a pod section
+as follows:
+
+=begin code
+
+=begin pod :kind("type") :subkind("class") :category("basic")
+(...)
+=end pod
+
+=end code
+
+C<Kind::Syntax> and C<Kind::Routine> are automatically assigned by
+L<Documentable::Primary|/type/Documentable::Primary> using
+L<Documentable::Heading::Grammar|/type/Documentable::Heading::Grammar>.
+
+=end pod

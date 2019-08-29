@@ -1,11 +1,11 @@
 use Test;
 
-use Perl6::Documentable::Registry;
-use Perl6::Documentable::Search;
+use Documentable::Registry;
+use Documentable::Search;
 
 plan *;
 
-my $registry = Perl6::Documentable::Registry.new(
+my $registry = Documentable::Registry.new(
     :topdir("t/test-doc"),
     :dirs(["Language"]),
     :verbose(False)
@@ -13,7 +13,7 @@ my $registry = Perl6::Documentable::Registry.new(
 
 $registry.compose;
 
-my $search-generator = Perl6::Documentable::Search.new;
+my $search-generator = Documentable::Search.new;
 
 my @expected = [
     category => "Language", value => "Operators", url => "language/operators",

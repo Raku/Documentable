@@ -17,33 +17,31 @@
     "Pod::Utilities:ver<0.0.1>",
     "URI:ver<0.3+>",
     "File::Temp:ver<0.0.6>",
-    "Log::Timeline:ver<0.3>",
     "JSON::Fast:ver<0.9.18>"
   ],
   "description": "Represents a piece of Perl 6 that is documented.",
   "license": "Artistic-2.0",
-  "name": "Perl6::Documentable",
+  "name": "Documentable",
   "perl": "6.d",
   "provides": {
-    "Perl6::Documentable": "lib/Perl6/Documentable.pm6",
-    "Perl6::Documentable::Config": "lib/Perl6/Documentable/Config.pm6",
-    "Perl6::Documentable::Primary": "lib/Perl6/Documentable/Primary.pm6",
-    "Perl6::Documentable::Secondary": "lib/Perl6/Documentable/Secondary.pm6",
-    "Perl6::Documentable::Index": "lib/Perl6/Documentable/Index.pm6",
-    "Perl6::Documentable::Registry": "lib/Perl6/Documentable/Registry.pm6",
-    "Perl6::Documentable::Search": "lib/Perl6/Documentable/Search.pm6",
-    "Perl6::Documentable::Heading::Grammar": "lib/Perl6/Documentable/Heading/Grammar.pm6",
-    "Perl6::Documentable::Heading::Actions": "lib/Perl6/Documentable/Heading/Actions.pm6",
+    "Documentable": "lib/Documentable.pm6",
+    "Documentable::Config": "lib/Documentable/Config.pm6",
+    "Documentable::Primary": "lib/Documentable/Primary.pm6",
+    "Documentable::Secondary": "lib/Documentable/Secondary.pm6",
+    "Documentable::Index": "lib/Documentable/Index.pm6",
+    "Documentable::Registry": "lib/Documentable/Registry.pm6",
+    "Documentable::Search": "lib/Documentable/Search.pm6",
+    "Documentable::Heading::Grammar": "lib/Documentable/Heading/Grammar.pm6",
+    "Documentable::Heading::Actions": "lib/Documentable/Heading/Actions.pm6",
 
-    "Perl6::Documentable::DocPage::Secondary": "lib/Perl6/Documentable/DocPage/Secondary.pm6",
-    "Perl6::Documentable::DocPage::Index": "lib/Perl6/Documentable/DocPage/Index.pm6",
-    "Perl6::Documentable::DocPage::Primary": "lib/Perl6/Documentable/DocPage/Primary.pm6",
-    "Perl6::Documentable::DocPage::Factory": "lib/Perl6/Documentable/DocPage/Factory.pm6",
-    "Perl6::Documentable::To::HTML::Wrapper": "lib/Perl6/Documentable/To/HTML/Wrapper.pm6",
+    "Documentable::DocPage::Secondary": "lib/Documentable/DocPage/Secondary.pm6",
+    "Documentable::DocPage::Index": "lib/Documentable/DocPage/Index.pm6",
+    "Documentable::DocPage::Primary": "lib/Documentable/DocPage/Primary.pm6",
+    "Documentable::DocPage::Factory": "lib/Documentable/DocPage/Factory.pm6",
+    "Documentable::To::HTML::Wrapper": "lib/Documentable/To/HTML/Wrapper.pm6",
 
-    "Perl6::Documentable::CLI": "lib/Perl6/Documentable/CLI.pm6",
-    "Perl6::Documentable::LogTimelineSchema": "lib/Perl6/Documentable/LogTimelineSchema.pm6",
-    "Perl6::Documentable::Utils::IO": "lib/Perl6/Documentable/Utils/IO.pm6"
+    "Documentable::CLI": "lib/Documentable/CLI.pm6",
+    "Documentable::Utils::IO": "lib/Documentable/Utils/IO.pm6"
   },
   "resources": [
     "html/images/pencil.svg",
@@ -54,10 +52,10 @@
     "template/search_template.js",
     "config.json"
   ],
-  "source-url": "https://github.com/antoniogamiz/Perl6-Documentable.git",
+  "source-url": "https://github.com/perl6/Documentable.git",
   "tags": [],
   "test-depends": [
     "Test::META:ver<0.0.16>"
   ],
-  "version": "3.0.3"
+  "version": "1.0.0"
 }

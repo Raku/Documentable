@@ -1,14 +1,14 @@
 use Test; # -*- mode: perl6 -*-
 
 
-use Perl6::Documentable::Config;
-use Perl6::Documentable::Utils::IO;
-use Perl6::Documentable::To::HTML::Wrapper; # -*- mode: perl6 -*-
+use Documentable::Config;
+use Documentable::Utils::IO;
+use Documentable::To::HTML::Wrapper; # -*- mode: perl6 -*-
 
 plan *;
 
-my $config  = Perl6::Documentable::Config.new(:filename("config.json"));
-my $wrapper = Perl6::Documentable::To::HTML::Wrapper.new(:$config);
+my $config  = Documentable::Config.new(:filename("config.json"));
+my $wrapper = Documentable::To::HTML::Wrapper.new(:$config);
 
 subtest "HTML header" => {
     for <language type routine programs> {

@@ -1,17 +1,17 @@
 use Test;
 
-use Perl6::Documentable::Registry;
+use Documentable::Registry;
 use Pod::Load;
 
 plan *;
 
-my $registry = Perl6::Documentable::Registry.new(
+my $registry = Documentable::Registry.new(
     :topdir("t/test-doc"),
     :dirs(["Native"]),
     :verbose(False)
 );
 
-my $expected = Perl6::Documentable::Primary.new(
+my $expected = Documentable::Primary.new(
     pod      => load("t/test-doc/Native/int.pod6")[0],
     filename => "int",
 );
@@ -25,7 +25,7 @@ subtest "process pod dir" => {
 }
 
 subtest "multi-class support" => {
-    my $reg = Perl6::Documentable::Registry.new(
+    my $reg = Documentable::Registry.new(
         :topdir("t/test-doc"),
         :dirs(["Native"]),
         :verbose(False)
@@ -37,11 +37,11 @@ subtest "multi-class support" => {
 
     # expected documentables
     my @pods = load("t/test-doc/Native/multi-class.pod6");
-    my $doc1 = Perl6::Documentable::Primary.new(
+    my $doc1 = Documentable::Primary.new(
         pod      => @pods[0],
         filename => "multi-class",
     );
-    my $doc2 = Perl6::Documentable::Primary.new(
+    my $doc2 = Documentable::Primary.new(
         pod      => @pods[1],
         filename => "multi-class",
     );

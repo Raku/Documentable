@@ -1,0 +1,87 @@
+=begin pod :kind("type") :subkind("class") :category("html-generation")
+
+=TITLE class Documentable::Search
+
+=SUBTITLE Search entries generator.
+
+    class Documentable::Search {}
+
+This class takes a L<Documentable::Registry|/type/Documentable::Registry> and generate
+all the necessary entries to enable the search capabilities.
+
+What is an entry? Is a JSON object with three different attributes:
+
+=begin code
+{
+    "category": "text displayed at the beginning",
+    "value": "text displayed just under category",
+    "url": "url to the document pointed by the entry"
+}
+=end code
+
+=head2 method new
+
+Defined as
+
+    method new(:$regsitry)
+
+Creates a new instance of the class.
+
+=head2 method registry
+
+Defined as
+
+    method registry(--> Documentable::Registry)
+
+L<Documentable::Registry|/type/Documentable::Registry> object used to generate the entries.
+
+=head2 method generate-entries
+
+Defined as
+
+    method generate-entries(--> Array[Str])
+
+Generates all search entries and store them in an C<Array>. At this moment, it generates three kind of
+entries:
+
+=begin item
+
+B<Primary entries:> this entries comes from L<Documentable::Primary|/type/Documentable::Primary> objects.
+We initialize one entry per instance of that class found in the registry as follows:
+
+=begin code
+category => subkind attribute
+value    => name attribute
+url      => url attribute
+=end code
+
+=end item
+
+=begin item
+
+B<Secondary entries:> this entries comes from L<Documentable::Secondary|/type/Documentable::Secondary> objects.
+Before create any entry of this type, we group all C<Documentable::Secondary> objects by name and after that,
+we generate one entry per group, as follows:
+
+=begin code
+category => kind attribute if more than one document is found. Subkind attribute otherwise
+value    => name attribute
+url      => url attribute
+=end code
+
+=end item
+
+=begin item
+
+B<Reference entries:> this entries comes from L<Documentable::Index|/type/Documentable::Index> objects.
+One entry per found object.
+
+=begin code
+category => kind attribute (it's always Kind::Reference)
+value    => name attribute
+url      => url attribute
+=end code
+
+=end item
+
+=end pod

@@ -14,9 +14,9 @@ L<documentable docker container|https://github.com/antoniogamiz/docker-documenta
 generate your documentation.
 
 B<IMPORTANT:> if you use this way, you need to specify C<--highlight-path="/highlights">
-to the CLI utility of C<Perl6::Documentable>.
+to the CLI utility of C<Documentable>.
 
-See L<the configuration used by the module|https://github.com/antoniogamiz/Perl6-Documentable/blob/master/resources/config.json>
+See L<the configuration used by the module|https://github.com/perl6/Documentable/blob/master/resources/config.json>
 as a good example.
 
 =end pod

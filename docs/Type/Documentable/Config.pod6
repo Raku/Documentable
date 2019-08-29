@@ -1,0 +1,87 @@
+
+=begin pod :kind("type") :subkind("class") :category("basic")
+
+=TITLE class Documentable::Config
+
+=SUBTITLE Configuration
+
+    class Documentable::Config
+
+This class contains all information related to the configuration of the module.
+
+=head1 Methods
+
+=head2 method config
+
+Defined as
+
+    method config(--> Hash)
+
+Returns a C<Hash> object containing the raw JSON file.
+
+=head2 method kinds
+
+Defined as
+
+    method kinds(--> Array[Hash])
+
+Returns an C<Array> containing all L<Kind|/type/Kind> configurations found.
+
+=head2 method url-prefix
+
+Defined as
+
+    method url-prefix(--> Str)
+
+Returns the C<url-prefix> specified. C<''> by default.
+
+=head2 method filename
+
+Defined as
+
+    method filename(--> Str)
+
+Returns the C<$filename> of the used configuration file.
+
+=head2 submethod BUILD
+
+Defined as
+
+    submethod(Str :$filename)
+
+Creates a C<Documentable::Config> object using a file. See L<configuration file|/language/configuration-file>.
+
+If an error in the file is found, a L<X::Documentable::Config::InvalidConfig|/type/X::Documentable::Config::InvalidConfig>
+exception will be thrown.
+
+=head2 method get-kind-config
+
+Defined as
+
+    method get-kind-config(Kind $kind --> Hash)
+
+Returns the configuration for a given C<$kind>.
+
+=head2 method get-categories
+
+Defined as
+
+    method get-categories(Kind $kind)
+
+Returns the categories of a C<$kind>.
+
+=end pod
+
+=begin pod :kind("type") :subkind("class") :category("exception")
+
+=TITLE class X::Documentable::Config::InvalidConfig
+
+=SUBTITLE Invalid configuration file
+
+Defined as
+
+    class X::Documentable::Config::InvalidConfig is Exception {}
+
+Some kind of error was produced while parsing the configuration file.
+
+=end pod

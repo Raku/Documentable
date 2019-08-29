@@ -1,5 +1,5 @@
-use Perl6::Documentable::Search;
-use Perl6::Documentable;
+use Documentable::Search;
+use Documentable;
 
 use Test;
 

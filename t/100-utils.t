@@ -1,5 +1,5 @@
 use Test;
-use Perl6::Documentable::Utils::IO;
+use Documentable::Utils::IO;
 
 plan *;
 

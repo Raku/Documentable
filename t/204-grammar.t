@@ -1,8 +1,8 @@
 use Test;
 
-use Perl6::Documentable;
-use Perl6::Documentable::Heading::Grammar;
-use Perl6::Documentable::Heading::Actions;
+use Documentable;
+use Documentable::Heading::Grammar;
+use Documentable::Heading::Actions;
 use Pod::Utilities; #! delete
 
 plan *;
@@ -38,9 +38,9 @@ sub test-definition($infix, $name, $kind, $subkind, $category, $line) {
 }
 
 sub parse-definition($line) {
-    Perl6::Documentable::Heading::Grammar.parse(
+    Documentable::Heading::Grammar.parse(
         $line,
-        :actions(Perl6::Documentable::Heading::Actions.new)
+        :actions(Documentable::Heading::Actions.new)
     ).actions;
 }
 
