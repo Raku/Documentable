@@ -223,26 +223,15 @@ package Documentable::CLI {
     #| Check which pod files have changed and regenerate its HTML files.
     multi MAIN (
         "update",
-<<<<<<< HEAD
-        Str  :$topdir      = "doc",                             #= Directory where the pod collection is stored
-        Str  :$conf        = "resources/config.json".IO.e ?? "resources/config.json" !!
-                              %?RESOURCES<config.json>,         #= Configuration file
-        Bool :v(:$verbose) = False                              #= Prints progress information
-=======
         Str  :$topdir         = "doc",                             #= Directory where the pod collection is stored
-        Str  :$conf           = zef-path("resources/config.json"), #= Configuration file
+        Str  :$conf           = zef-path("config.json"), #= Configuration file
         Bool :v(:$verbose)    = False                              #= Prints progress information
->>>>>>> d2cccf998a02702edc42ca4a33251efea57cb471
 
     ) {
         DEBUG("Checking for changes...");
         my $now = now;
 
-<<<<<<< HEAD
         my $cache = Pod::To::Cached.new(:path(".cache-{$topdir}"), :$verbose, :source($topdir));
-=======
-        my $cache = Pod::To::Cached.new(:path(".cache-{$topdir}"), :verbose($verbose), :source($topdir));
->>>>>>> d2cccf998a02702edc42ca4a33251efea57cb471
         my @files = $cache.list-files(<Valid New>);
 
         # recompile pods

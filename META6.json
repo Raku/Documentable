@@ -1,14 +1,15 @@
 {
   "name": "Documentable",
   "description": "Represents a piece of Perl 6 that is documented.",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "perl": "6.d",
   "authors": [
     "@moritz",
     "@finanalyst",
     "@tbrowder",
     "@AlexDaniel",
-    "@antoniogamiz"
+    "@antoniogamiz",
+    "@JJ"
   ],
   "auth": "github:perl6",
   "depends": [
