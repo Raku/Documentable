@@ -1,6 +1,6 @@
 {
-  "title-page": "Perl6::Documentable",
-  "pod-root-path": "https://github.com/antoniogamiz/Perl6-Documentable/tree/master/docs",
+  "title-page": "Documentable",
+  "pod-root-path": "https://github.com/perl6/Documentable/tree/master/docs",
   "kinds": [
     {
       "kind": "language",
@@ -50,5 +50,5 @@
       ]
     }
   ],
-  "url-prefix": "Perl6-Documentable"
+  "url-prefix": "Documentable"
 }
