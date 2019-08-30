@@ -258,8 +258,8 @@ package Documentable::CLI {
 
         for @files -> $filename {
             my $doc = $registry.documentables.grep({
-                        .url.lc eq "/" ~ $filename.lc # language/something type/Any
-                    }).first;
+                        .url.lc.split("/")[*-1] eq $filename.lc.split("/")[1..*-1].join('::') # language/something type/Any
+            }).first;
 
             @kinds.push($doc.kind);
             @docs.push($factory.generate-primary($doc));
