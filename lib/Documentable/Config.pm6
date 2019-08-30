@@ -24,7 +24,7 @@ class Documentable::Config {
     has Str $.pod-root-path;
 
     submethod BUILD (Str :$filename) {
-        my $json = slurp zef-path($filename);
+        my $json = slurp $filename;
         %!config = from-json($json);
         @!kinds  = %!config<kinds>.list;
         die X::Documentable::Config::InvalidConfig.new(:msg("'kinds' entry missing"))

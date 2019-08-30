@@ -7,7 +7,7 @@ use Documentable::To::HTML::Wrapper; # -*- mode: perl6 -*-
 
 plan *;
 
-my $config  = Documentable::Config.new(:filename("config.json"));
+my $config  = Documentable::Config.new(:filename(zef-path("config.json")));
 my $wrapper = Documentable::To::HTML::Wrapper.new(:$config);
 
 subtest "HTML header" => {

@@ -38,21 +38,21 @@ package Documentable::CLI {
     #| Start the documentation generation with the specified options
     multi MAIN (
         "start"                           ,
-        Str  :$topdir              = "doc",             #= Directory where the pod collection is stored
-        Str  :$conf                = "config.json",     #= Configuration file
-        Bool :v(:verbose($v))      = False,             #= Prints progress information
-        Bool :c(:$cache)           = True ,             #= Enables the use of a precompiled cache
-        Bool :p(:primary($p))      = False,             #= Generates the HTML files corresponding to primary objects
-        Bool :s(:secondary($s))    = False,             #= Generates per kind files
-        Bool :$search-index        = False,             #= Generates the search index
-        Bool :i(:indexes($i))      = False,             #= Generates the indexes files
-        Bool :t(:typegraph($t))    = False,             #= Write typegraph visualizations
-        Bool :f(:force($f))        = False,             #= Force the regeneration of the typegraph visualizations
-        Bool :$highlight           = False,             #= Highlights the code blocks
-        Str  :$typegraph-file      = "type-graph.txt",  #= TypeGraph file
-        Str  :$highlight-path      = "./highlights",    #= Path to the highlighter files
-        Str  :$dirs?,                                   #= Dirs where documentation will be found. Relative to :$topdir
-        Bool :a(:$all)             = False              #= Equivalent to -t -p -k -i -s
+        Str  :$topdir              = "doc",                   #= Directory where the pod collection is stored
+        Str  :$conf                = zef-path("config.json"), #= Configuration file
+        Bool :v(:verbose($v))      = False,                   #= Prints progress information
+        Bool :c(:$cache)           = True ,                   #= Enables the use of a precompiled cache
+        Bool :p(:primary($p))      = False,                   #= Generates the HTML files corresponding to primary objects
+        Bool :s(:secondary($s))    = False,                   #= Generates per kind files
+        Bool :$search-index        = False,                   #= Generates the search index
+        Bool :i(:indexes($i))      = False,                   #= Generates the indexes files
+        Bool :t(:typegraph($t))    = False,                   #= Write typegraph visualizations
+        Bool :f(:force($f))        = False,                   #= Force the regeneration of the typegraph visualizations
+        Bool :$highlight           = False,                   #= Highlights the code blocks
+        Str  :$typegraph-file      = "type-graph.txt",        #= TypeGraph file
+        Str  :$highlight-path      = "./highlights",          #= Path to the highlighter files
+        Str  :$dirs?,                                         #= Dirs where documentation will be found. Relative to :$topdir
+        Bool :a(:$all)             = False                    #= Equivalent to -t -p -k -i -s
     ) {
         my $beginning = now; # to measure total time
         if (!"./html".IO.e || !"./assets".IO.e || !"./template".IO.e) {
