@@ -272,6 +272,10 @@ package Documentable::CLI {
         my @kinds; # to know what indexes to regenerate
 
         for @files -> $filename {
+            # homepage and 404 are not in the registry
+            if ($filename eq "homepage") { @docs.push($factory.generate-home-page());  next; }
+            if ($filename eq "404")      { @docs.push($factory.generate-error-page()); next; }
+
             my $doc = $registry.documentables.grep({
                         .url.lc.split("/")[*-1] eq $filename.lc.split("/")[1..*-1].join('::') # language/something type/Any
             }).first;
