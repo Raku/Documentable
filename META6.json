@@ -1,7 +1,7 @@
 {
   "name": "Documentable",
   "description": "Represents a piece of Perl 6 that is documented.",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "perl": "6.d",
   "authors": [
     "@moritz",

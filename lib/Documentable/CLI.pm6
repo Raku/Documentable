@@ -223,9 +223,11 @@ package Documentable::CLI {
     #| Check which pod files have changed and regenerate its HTML files.
     multi MAIN (
         "update",
-        Str  :$topdir         = "doc",                   #= Directory where the pod collection is stored
-        Str  :$conf           = zef-path("config.json"), #= Configuration file
-        Bool :v(:$verbose)    = False                    #= Prints progress information
+        Str  :$topdir          = "doc",                   #= Directory where the pod collection is stored
+        Str  :$conf            = zef-path("config.json"), #= Configuration file
+        Bool :v(:$verbose)     = False,                   #= Prints progress information
+        Bool :$highlight       = False,                   #= Highlights the code blocks
+        Str  :$highlight-path  = "./highlights"           #= Path to the highlighter files
     ) {
         DEBUG("Checking for changes...");
         my $now = now;
@@ -241,6 +243,19 @@ package Documentable::CLI {
         }
 
         DEBUG(+@files ~ " file(s) modified. Starting regeneratiion ...");
+
+        # highlights workaround
+        my %*POD2HTML-CALLBACKS;
+        if ($highlight) {
+            DEBUG("Starting highlight process...", $verbose);
+            my $proc;
+            my $proc-supply;
+            my $coffee-exe = "{$highlight-path}/node_modules/coffeescript/bin/coffee";
+
+            $proc = Proc::Async.new($coffee-exe, "{$highlight-path}/highlight-filename-from-stdin.coffee", :r, :w);
+            $proc-supply = $proc.stdout.lines;
+            highlight-code-blocks($proc, $proc-supply);
+        }
 
         # update the registry
         my $registry = Documentable::Registry.new(

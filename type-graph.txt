@@ -1,0 +1,38 @@
+[basic]
+class Documentable
+class Documentable::Registry
+class Documentable::Primary is Documentable
+class Documentable::Secondary is Documentable
+class Documentable::Index is Documentable
+class Documentable::Config
+class Documentable::Heading::Actions
+class Documentable::Heading::Grammar
+class Documentable::Search
+
+[basic]
+class Documentable::DocPage::Factory
+class Documentable::DocPage::Index
+class Documentable::DocPage::Index::Language is Documentable::DocPage
+class Documentable::DocPage::Index::Programs is Documentable::DocPage
+class Documentable::DocPage::Index::Type is Documentable::DocPage
+class Documentable::DocPage::SubIndex::Type is Documentable::DocPage
+class Documentable::DocPage::Index::Routine is Documentable::DocPage
+class Documentable::DocPage::SubIndex::Routine is Documentable::DocPage
+class Documentable::DocPage::Secondary is Documentable::DocPage
+class Documentable::DocPage::Primary::Type is Documentable::DocPage
+class Documentable::DocPage::Primary::Language is Documentable::DocPage
+class Documentable::DocPage::Primary::Programs is Documentable::DocPage
+class Documentable::To::HTML::Wrapper
+
+[basic]
+role Documentable::DocPage
+
+[exceptions]
+class X::Documentable::TitleNotFound is Exception
+class X::Documentable::SubtitleNotFound is Exception
+class X::Documentable::MissingMetadata is Exception
+class X::Documentable::Config::InvalidConfig is Exception
+class X::Documentable::TypeNotFound is Exception
+
+[basic]
+enum Kind
