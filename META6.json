@@ -21,7 +21,8 @@
     "URI:ver<0.3+>",
     "File::Temp:ver<0.0.6>",
     "JSON::Fast:ver<0.9.18>",
-    "Terminal::Spinners"
+    "Terminal::Spinners",
+    "Test::Output"
   ],
   "build-depends": [],
   "test-depends": [

@@ -63,8 +63,8 @@ package Documentable::CLI {
                     documentable setup
                 END
         }
-
-        for <programs type language routine images syntax> {
+        mkdir "html" unless "html".IO ~~ :e;
+        for <programs type language routine images syntax js> {
             mkdir "html/$_" unless "html/$_".IO ~~ :e;
         }
 
@@ -231,7 +231,7 @@ package Documentable::CLI {
     ) {
         DEBUG("Checking for changes...");
         my $now = now;
-        my $cache = Pod::To::Cached.new(:path(".cache-{$topdir}"), :verbose, :source($topdir));
+        my $cache = Pod::To::Cached.new(:path(cache-path($topdir)), :verbose, :source($topdir));
         my @files = $cache.list-files(<Valid New>);
 
         # recompile pods

@@ -1,0 +1,11 @@
+[basic]
+class pod1
+class pod2
+class Cool
+role Associative
+class Hash
+class Cancellation
+class Array
+class Map
+role X::IO
+class int
