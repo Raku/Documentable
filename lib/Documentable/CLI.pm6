@@ -21,10 +21,10 @@ package Documentable::CLI {
         CORE::<&RUN-MAIN>(|c)
     }
 
-    proto MAIN(|) is export { * }
+    our proto MAIN(|) is export { * }
 
     #| Downloads default assets to generate the site
-    multi MAIN(
+    multi MAIN (
         "setup"
     ) {
         DEBUG("Setting up the directory...");
@@ -139,7 +139,7 @@ package Documentable::CLI {
             my $bar = Bar.new: type => "equals";
             my $length = $registry.documentables.elems;
             for $registry.documentables.kv -> $num, $doc {
-                $bar.show: ($num + 1) / $length * 100 unless $v;
+                $bar.show: ($num + 1) / $length * 100 if $v;
                 @docs.push($factory.generate-primary($doc));
             }
             say "";
@@ -156,7 +156,7 @@ package Documentable::CLI {
             my $length = $registry.lookup(Kind::Syntax.Str, :by<kind>).unique.elems;
             my @syntax-names = $registry.lookup(Kind::Syntax.Str, :by<kind>).map({.name}).unique;
             for @syntax-names.kv -> $num, $name {
-                $bar.show: ($num + 1) / $length * 100 unless $v;
+                $bar.show: ($num + 1) / $length * 100 if $v;
                 @docs.push($factory.generate-secondary(Kind::Syntax, $name));
             }
             say "";
@@ -165,7 +165,7 @@ package Documentable::CLI {
             $length = $registry.lookup(Kind::Routine.Str, :by<kind>).unique.elems;
             my @routine-names = $registry.lookup(Kind::Routine.Str, :by<kind>).map({.name}).unique;
             for @routine-names.kv -> $num, $name {
-                $bar.show: ($num + 1) / $length * 100 unless $v;
+                $bar.show: ($num + 1) / $length * 100 if $v;
                 @docs.push($factory.generate-secondary(Kind::Routine, $name));
             }
             say "";
@@ -211,7 +211,7 @@ package Documentable::CLI {
         my $bar = Bar.new;
         my $length = +@docs;
         for @docs.kv -> $num, $doc {
-            $bar.show: ($num + 1) / $length * 100 unless $v;
+            $bar.show: ($num + 1) / $length * 100 if $v;
             spurt "html{$doc<url>}.html", $doc<document>
         }
         say "";

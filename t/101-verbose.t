@@ -10,7 +10,7 @@ subtest 'progress-bar-display' => {
                 /<!before \[\=+\]?>/,
                 "Without --verbose";
 
-    output-like {Documentable::CLI::MAIN('start', :topdir('t/test-doc'), :dirs('Language'), :p), :verbose},
+    output-like {Documentable::CLI::MAIN('start', :topdir('t/test-doc'), :dirs('Language'), :p, :verbose)},
                 /\[\=+\]?/,
                 "With --verbose";
 }
