@@ -100,7 +100,7 @@ method process-pod-dir(Str :$dir) {
     my $bar = Bar.new: type => "equals";
     my $length = +@pod-files;
     for @pod-files.kv -> $num, (:key($filename), :value($file)) {
-        $bar.show: ($num +1) / $length * 100;
+        $bar.show: ($num +1) / $length * 100 unless $!verbose;
         my @pod-fragments = self.load(path => $file.path);
         for @pod-fragments -> $pod {
             my $doc =Documentable::Primary.new(
