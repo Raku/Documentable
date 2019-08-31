@@ -92,6 +92,22 @@ There is a specific docker container with all necessary dependencies (including 
 
 You can see an example about how to use it [here](https://github.com/antoniogamiz/Perl6-Documentable/blob/master/.circleci/config.yml).
 
+You can also download the container:
+
+```
+docker pull antoniogamiz/documentable
+```
+
+Then execute:
+
+```
+docker run -it --rm -v "$(pwd)":/documentable antoniogamiz/documentable
+```
+
+And now you can execute `documentable` and generate your documentation!
+
+_Note:_ Do not forget to add `--highlight --highlight-path="/highlights"` options if you want to get the code highlighted.
+
 ## Installing dependencies
 
 #### Rakudo
