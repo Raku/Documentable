@@ -52,6 +52,7 @@ subtest 'good-name' => {
   is good-name("^")  , '$CIRCUMFLEX_ACCENT', "^ replaced";
   is good-name("")   , ""                  , "nothing replaced";
   is good-name("%20"), "%20"               , "no escape %xx";
+  is good-name('#')    , '$NUMBER_SIGN', "# hashtag";
 }
 
 subtest 'rewrite-url' => {

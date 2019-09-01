@@ -36,9 +36,9 @@ method url() {
     my $index-text = recurse-until-str($.pod).join;
     my @indices    = $.pod.meta;
     my $fragment = qq[index-entry{@indices ?? '-' !! ''}{@indices.join('-')}{$index-text ?? '-' !! ''}$index-text]
-                 .subst('_', '__', :g).subst(' ', '_', :g).subst('%', '%25', :g).subst("#", '%23', :g);
+                 .subst('_', '__', :g).subst(' ', '_', :g);
 
-    return $.origin.url ~ "#" ~ $fragment;
+    return $.origin.url ~ "#" ~ good-name($fragment);
 }
 
 # vim: expandtab shiftwidth=4 ft=perl6
