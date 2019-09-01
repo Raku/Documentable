@@ -16,6 +16,12 @@ subtest "HTML header" => {
     }
 }
 
+subtest 'IRC link' => {
+    my $fragment = $wrapper.menu("type", "podtest");
+    say $fragment;
+    is so $fragment ~~ /Chat\swith\sus/, True, "IRC link";
+}
+
 subtest "Type submenu" => {
     my $fragment = $wrapper.menu("type", "podtest");
     for <basic composite domain-specific exception> {

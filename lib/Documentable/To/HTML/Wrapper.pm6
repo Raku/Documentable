@@ -46,6 +46,14 @@ method menu-entry(
     qq[ <a class="menu-item {$class}" href="{$href}"> { %entry<display-text> } </a>]
 }
 
+method normal-entry(
+    $class,
+    $href,
+    $display-text
+) {
+    qq[ <a class="menu-item {$class}" href="{$href}"> { $display-text } </a>]
+}
+
 method submenu-entry(
     %entry,
     $parent
@@ -58,8 +66,9 @@ method menu($selected, $pod-path?) {
     # main menu
     my @menu-entries = $!config.kinds;
     my $menu-items = (self.menu-entry($_, $selected) for @menu-entries).join;
+    my $irc-link = self.normal-entry('', 'https://webchat.freenode.net/?channels=#perl6', 'Chat with us');
     $menu-items = [~] q[<div class="menu-items dark-green"><a class='menu-item darker-green' href='https://perl6.org'><strong>Perl&nbsp;6 homepage</strong></a> ],
-                       $menu-items,
+                       $menu-items ~ $irc-link,
                       q[</div>];
     # sub menu
     my $submenu-items = '';
