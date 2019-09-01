@@ -14,6 +14,13 @@ use Perl6::TypeGraph::Viz;
 use JSON::Fast;
 use Terminal::Spinners;
 
+class X::Documentable::NodeNotFound is Exception {
+    method message() {
+        "Necessary node modules have not been found. Have you" ~
+        "\nexecuted 'make init-highlights'?"
+    }
+}
+
 package Documentable::CLI {
 
     sub RUN-MAIN(|c) is export {
@@ -85,6 +92,8 @@ package Documentable::CLI {
             my $proc;
             my $proc-supply;
             my $coffee-exe = "{$highlight-path}/node_modules/coffeescript/bin/coffee";
+
+            die X::Documentable::NodeNotFound.new unless $coffee-exe.IO.e;
 
             $proc = Proc::Async.new($coffee-exe, "{$highlight-path}/highlight-filename-from-stdin.coffee", :r, :w);
             $proc-supply = $proc.stdout.lines;
