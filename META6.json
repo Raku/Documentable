@@ -1,7 +1,7 @@
 {
   "name": "Documentable",
   "description": "Represents a piece of Perl 6 that is documented.",
-  "version": "1.0.6",
+  "version": "1.0.8",
   "perl": "6.d",
   "authors": [
     "@moritz",
@@ -13,20 +13,20 @@
   ],
   "auth": "github:perl6",
   "depends": [
-    "Pod::Load:ver<0.5.4>",
-    "Pod::To::HTML:ver<0.6.1>",
+    "Pod::Load:ver<0.5.4+>",
+    "Pod::To::HTML:ver<0.6.2+>",
     "Pod::To::Cached:ver<0.3.3+>",
     "Perl6::TypeGraph:ver<2.1.1+>:auth<github:antoniogamiz>:api<2>",
-    "Pod::Utilities:ver<0.0.1>",
+    "Pod::Utilities:ver<0.0.1+>",
     "URI:ver<0.3+>",
-    "File::Temp:ver<0.0.6>",
-    "JSON::Fast:ver<0.9.18>",
+    "File::Temp:ver<0.0.6+>",
+    "JSON::Fast:ver<0.9.18+>",
     "Terminal::Spinners",
     "Test::Output"
   ],
   "build-depends": [],
   "test-depends": [
-    "Test::META:ver<0.0.16>"
+    "Test::META:ver<0.0.16+>"
   ],
   "provides": {
     "Documentable": "lib/Documentable.pm6",
