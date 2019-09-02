@@ -62,6 +62,7 @@ subtest 'rewrite-url' => {
   is rewrite-url("/simple")      , '/simple'               , "simple link";
   is rewrite-url('/a/^')         , '/a/$CIRCUMFLEX_ACCENT' , "^ replaced";
   is rewrite-url('/a/%')         , '/a/$PERCENT_SIGN'      , "% replaced";
+  is rewrite-url('/a/b#internal'), '/a/b#internal'         , 'not change internals';
 }
 
 done-testing;
