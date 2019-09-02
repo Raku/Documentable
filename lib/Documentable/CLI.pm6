@@ -277,8 +277,15 @@ package Documentable::CLI {
         # configuration
         my $config  = Documentable::Config.new(filename => $conf);
         my $factory = Documentable::DocPage::Factory.new(:$config, :$registry);
-        my @docs; # files to write
-        my @kinds; # to know what indexes to regenerate
+
+        # files to write
+        my @docs;
+        # to know what indexes to regenerate
+        my @kinds;
+        # to know what routine-subindexes regenerate
+        my @routine-subindexes;
+        # to know what type-subindexes regenerate
+        my @type-subindexes;
 
         for @files -> $filename {
             # homepage and 404 are not in the registry
@@ -286,24 +293,28 @@ package Documentable::CLI {
             if ($filename eq "404")      { @docs.push($factory.generate-error-page()); next; }
 
             my $doc = $registry.documentables.grep({
-                        .url.lc.split("/")[*-1] eq $filename.lc.split("/")[1..*-1].join('::') # language/something type/Any
+                .url.lc.split("/")[*-1] eq $filename.lc.split("/")[1..*-1].join('::') # language/something type/Any
             }).first;
 
             @kinds.push($doc.kind);
             @docs.push($factory.generate-primary($doc));
 
-            # per kind
-            my @routine-docs = $doc.defs.grep({.kind eq Kind::Routine}).map({.name});
-            @docs.push: @routine-docs.map(-> $name { $factory.generate-secondary(Kind::Routine, $name) }).Slip;
+            # type subindex
+            if ($doc.kind eq Kind::Type) {@type-subindexes.append: $doc.categories.Slip}
 
-            my @syntax-docs = $doc.defs.grep({.kind eq Kind::Syntax}).map({.name});
-            @docs.push: @syntax-docs.map(-> $name { $factory.generate-secondary(Kind::Syntax, $name) }).Slip;
+            # per kind
+            my @routine-docs = $doc.defs.grep({.kind eq Kind::Routine});
+            @routine-subindexes.append(@routine-docs.map({.categories.Slip}));
+            @docs.push: @routine-docs.map({.name}).map(-> $name { $factory.generate-secondary(Kind::Routine, $name) }).Slip;
+
+            my @syntax-docs = $doc.defs.grep({.kind eq Kind::Syntax});
+            @docs.push: @syntax-docs.map({.name}).map(-> $name { $factory.generate-secondary(Kind::Syntax, $name) }).Slip;
 
         }
 
         #regenerate indexes
         @docs.push($factory.generate-index(Kind::Routine));
-        for <sub method term operator trait submethod> -> $category {
+        for @routine-subindexes.unique -> $category {
             @docs.push($factory.generate-subindex(Kind::Routine, $category));
         }
         for @kinds -> $kind {
@@ -312,7 +323,7 @@ package Documentable::CLI {
                 when Kind::Programs { @docs.push($factory.generate-index(Kind::Programs)); }
                 when Kind::Type {
                     @docs.push($factory.generate-index(Kind::Type));
-                    for <basic composite domain-specific exception> -> $category {
+                    for @type-subindexes.unique -> $category {
                         @docs.push( $factory.generate-subindex(Kind::Type, $category) )
                     }
                 }
