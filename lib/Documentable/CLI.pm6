@@ -162,8 +162,8 @@ package Documentable::CLI {
             $now = now;
             DEBUG("Generating Kind::Syntax files 👇 ...", $v);
             my $bar = Bar.new: type => "equals";
-            my $length = $registry.lookup(Kind::Syntax.Str, :by<kind>).unique.elems;
             my @syntax-names = $registry.lookup(Kind::Syntax.Str, :by<kind>).map({.name}).unique;
+            my $length = @syntax-names.elems;
             for @syntax-names.kv -> $num, $name {
                 $bar.show: ($num + 1) / $length * 100 if $v;
                 @docs.push($factory.generate-secondary(Kind::Syntax, $name));
@@ -171,8 +171,8 @@ package Documentable::CLI {
             say "";
 
             DEBUG("Generating Kind::Routine files 👇 ...", $v);
-            $length = $registry.lookup(Kind::Routine.Str, :by<kind>).unique.elems;
             my @routine-names = $registry.lookup(Kind::Routine.Str, :by<kind>).map({.name}).unique;
+            $length = @routine-names.elems;
             for @routine-names.kv -> $num, $name {
                 $bar.show: ($num + 1) / $length * 100 if $v;
                 @docs.push($factory.generate-secondary(Kind::Routine, $name));
