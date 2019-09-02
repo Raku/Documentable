@@ -67,7 +67,7 @@ sub good-name($name is copy --> Str) is export {
 
     # if it contains escaped sequences (like %20) we do not
     # escape %
-    if ( ! ($name ~~ /\%\d\d/) ) {
+    if ( ! ($name ~~ /\%<xdigit>**2/) ) {
         $name = $name.subst(@badchars[2], @goodchars[2], :g);
     }
 
