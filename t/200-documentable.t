@@ -52,17 +52,16 @@ subtest 'good-name' => {
   is good-name("^")  , '$CIRCUMFLEX_ACCENT', "^ replaced";
   is good-name("")   , ""                  , "nothing replaced";
   is good-name("%20"), "%20"               , "no escape %xx";
-  is good-name('#')    , '$NUMBER_SIGN', "# hashtag";
 }
 
 subtest 'rewrite-url' => {
-  is rewrite-url('https://thor'), 'https://thor'         , "external links invariant";
-  is rewrite-url('#thor')       , '#thor'                , "internal links invariant";
-  is rewrite-url('irc://thor')  , 'irc://thor'           , "irc      links invariant";
-  is rewrite-url("/good/link")  , '/good/link'           , "good link";
-  is rewrite-url("/simple")     , '/simple'              , "simple link";
-  is rewrite-url('/a/^')        , '/a/$CIRCUMFLEX_ACCENT', "^ replaced";
-  is rewrite-url('/a/%')        , '/a/$PERCENT_SIGN'     , "% replaced";
+  is rewrite-url('https://thor') , 'https://thor'          , "external links invariant";
+  is rewrite-url('#thor')        , '#thor'                 , "internal links invariant";
+  is rewrite-url('irc://thor')   , 'irc://thor'            , "irc      links invariant";
+  is rewrite-url("/good/link")   , '/good/link'            , "good link";
+  is rewrite-url("/simple")      , '/simple'               , "simple link";
+  is rewrite-url('/a/^')         , '/a/$CIRCUMFLEX_ACCENT' , "^ replaced";
+  is rewrite-url('/a/%')         , '/a/$PERCENT_SIGN'      , "% replaced";
 }
 
 done-testing;
