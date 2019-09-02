@@ -52,7 +52,7 @@ package Documentable::CLI {
         Bool :p(:primary($p))      = False,                   #= Generates the HTML files corresponding to primary objects
         Bool :s(:secondary($s))    = False,                   #= Generates per kind files
         Bool :$search-index        = False,                   #= Generates the search index
-        Bool :i(:indexes($i))      = False,                   #= Generates the indexes files
+        Bool :i(:indexes($i))      = False,                   #= Generates the index files
         Bool :t(:typegraph($t))    = False,                   #= Write typegraph visualizations
         Bool :f(:force($f))        = False,                   #= Force the regeneration of the typegraph visualizations
         Bool :$highlight           = False,                   #= Highlights the code blocks
@@ -179,7 +179,7 @@ package Documentable::CLI {
             }
             say "";
 
-            print-time("Generate per kind files", $now);
+            print-time("Generating per kind files", $now);
         }
 
         #===================================================================
