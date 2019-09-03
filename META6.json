@@ -1,6 +1,6 @@
 {
   "name": "Documentable",
-  "description": "Represents a piece of Perl 6 that is documented.",
+  "description": "An API for Perl 6 documentation",
   "version": "1.0.9",
   "perl": "6.d",
   "authors": [
