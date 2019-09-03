@@ -251,7 +251,7 @@ package Documentable::CLI {
             exit 0;
         }
 
-        DEBUG(+@files ~ " file(s) modified. Starting regeneratiion ...");
+        DEBUG(+@files ~ " file(s) modified. Starting regeneration ...");
 
         # highlights workaround
         my %*POD2HTML-CALLBACKS;
