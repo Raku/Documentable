@@ -1,7 +1,6 @@
 use v6;
 use Documentable;
 use Documentable::Registry;
-
 use Documentable::Config;
 use Documentable::DocPage::Factory;
 
@@ -12,7 +11,9 @@ use Documentable::Utils::IO;
 use Perl6::TypeGraph;
 use Perl6::TypeGraph::Viz;
 use JSON::Fast;
+
 use Terminal::Spinners;
+use Terminal::ANSIColor;
 
 class X::Documentable::NodeNotFound is Exception {
     method message() {
@@ -32,14 +33,32 @@ package Documentable::CLI {
 
     #| Downloads default assets to generate the site
     multi MAIN (
-        "setup"
+        "setup",
+        Bool :y(:$yes) = False #= Always accept the operation (to use in scripts)
     ) {
         DEBUG("Setting up the directory...");
-        shell q:to/END/;
-            wget https://github.com/antoniogamiz/Perl6-Documentable/releases/download/v1.1.2/assets.tar.gz \
-            && tar xvzf assets.tar.gz && mv assets tmp && cp -a tmp/* . \
-            && rm assets.tar.gz && rm -rf tmp
-        END
+
+        my $tmpdir = tempdir;
+        shell "wget https://github.com/perl6/Documentable/releases/download/v1.0.1/assets.tar.gz -P {$tmpdir} -q";
+        shell "tar -xvzf {$tmpdir}/assets.tar.gz -C {$tmpdir} > /dev/null && rm {$tmpdir}/assets.tar.gz";
+
+        # warnings
+        my @assets-files = list-files($tmpdir);
+        my $overriden = False;
+        for @assets-files -> $file {
+            my $real-file = "." ~ $file.split("{$tmpdir}/assets")[*-1];
+            if $real-file.IO.e {
+                note colored("[WARNING] $real-file will be overriden by this operation", 'yellow');
+                $overriden = True;
+            }
+        }
+        # proceed if ENTER is pressed
+        if ($yes or (not so prompt("Continue? Yes [ENTER] No [n]")) ) {
+            shell "cp -a {$tmpdir}/assets/* .";
+            say colored("Done.", "green");
+            exit 0;
+        }
+        say colored("Skipped.", "red");
     }
 
     #| Start the documentation generation with the specified options

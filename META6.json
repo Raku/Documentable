@@ -1,7 +1,7 @@
 {
   "name": "Documentable",
   "description": "An API for Perl 6 documentation",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "perl": "6.d",
   "authors": [
     "@moritz",
@@ -22,7 +22,8 @@
     "File::Temp:ver<0.0.6+>",
     "JSON::Fast:ver<0.9.18+>",
     "Terminal::Spinners",
-    "Test::Output"
+    "Test::Output",
+    "Terminal::ANSIColor"
   ],
   "build-depends": [],
   "test-depends": [

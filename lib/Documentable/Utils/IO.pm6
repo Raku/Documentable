@@ -1,5 +1,13 @@
 unit module Documentable::Utils::IO;
 
+#| List of files inside a directory
+sub list-files ($dir) is export {
+         gather for dir($dir) {
+             take .Str if not .d;
+             take slip sort list-files $_ if .d;
+         }
+}
+
 #|This function returns a List of IO objects. Each IO object
 #|is one file in $dir.
 sub recursive-dir($dir) is export {

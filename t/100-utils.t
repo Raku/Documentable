@@ -41,4 +41,10 @@ subtest 'cache path' => {
     is cache-path("dir/doc/"), "dir/.cache-doc" , "compose dir + trailing /";
 }
 
+subtest 'list files' => {
+    is list-files("t/test-doc/Native"),
+       ("t/test-doc/Native/int.pod6", "t/test-doc/Native/multi-class.pod6"),
+       "Basic use";
+}
+
 done-testing;

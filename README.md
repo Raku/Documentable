@@ -37,27 +37,28 @@ in order to download the necessary files needed to generate the site (CSS, svg, 
 
 ```
 Usage:
-  bin/documentable setup -- Downloads default assets to generate the site
-  bin/documentable start [--topdir=<Str>] [--conf=<Str>] [-v|--verbose] [-c|--cache] [-p|--pods] [-k|--kind] [-s|--search-index] [-i|--indexes] [-t|--type-images] [-f|--force] [--highlight] [--typegraph-file=<Str>] [--highlight-path=<Str>] [--dirs=<Str>] [-a|--all] -- Start the documentation generation with the specified options
-  bin/documentable update [--topdir=<Str>] [--manage] [--conf=<Str>] -- Check which pod files have changed and regenerate its HTML files.
+  bin/documentable setup [-y|--yes] -- Downloads default assets to generate the site
+  bin/documentable start [--topdir=<Str>] [--conf=<Str>] [-v|--verbose] [-c|--cache] [-p|--primary] [-s|--secondary] [--search-index] [-i|--indexes] [-t|--typegraph] [-f|--force] [--highlight] [--typegraph-file=<Str>] [--highlight-path=<Str>] [--dirs=<Str>] [-a|--all] -- Start the documentation generation with the specified options
+  bin/documentable update [--topdir=<Str>] [--conf=<Str>] [-v|--verbose] [--highlight] [--highlight-path=<Str>] -- Check which pod files have changed and regenerate its HTML files.
   bin/documentable clean -- Delete files created by "documentable setup"
+  bin/documentable [-V|--version] -- Documentable version
 
+    -y|--yes                  Always accept the operation (to use in scripts)
     --topdir=<Str>            Directory where the pod collection is stored
     --conf=<Str>              Configuration file
     -v|--verbose              Prints progress information
     -c|--cache                Enables the use of a precompiled cache
-    -p|--pods                 Generates the HTML files corresponding to sources
-    -k|--kind                 Generates per kind files
-    -s|--search-index         Generates the search index
-    -i|--indexes              Generates the indexes files
-    -t|--type-images          Write typegraph visualizations
+    -p|--primary              Generates the HTML files corresponding to primary objects
+    -s|--secondary            Generates per kind files
+    --search-index            Generates the search index
+    -i|--indexes              Generates the index files
+    -t|--typegraph            Write typegraph visualizations
     -f|--force                Force the regeneration of the typegraph visualizations
     --highlight               Highlights the code blocks
     --typegraph-file=<Str>    TypeGraph file
     --highlight-path=<Str>    Path to the highlighter files
     --dirs=<Str>              Dirs where documentation will be found. Relative to :$topdir
     -a|--all                  Equivalent to -t -p -k -i -s
-    --manage                  Sort Language page
 ```
 
 See the [CLI documentation](https://perl6.github.io/Documentable/language/cli) to learn more.
