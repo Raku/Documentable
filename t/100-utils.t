@@ -42,7 +42,7 @@ subtest 'cache path' => {
 }
 
 subtest 'list files' => {
-    is list-files("t/test-doc/Native"),
+    is list-files("t/test-doc/Native").sort,
        ("t/test-doc/Native/int.pod6", "t/test-doc/Native/multi-class.pod6"),
        "Basic use";
 }
