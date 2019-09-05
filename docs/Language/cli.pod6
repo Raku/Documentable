@@ -137,6 +137,10 @@ Equivalent to specify C<-t -p -s -i --search-index>
 
 B<Default:> C<DOCUMENTABLE-DIRS>.
 
+=head2 X<-V, --version>
+
+Returns the version of C<Documentable>.
+
 =head1 Examples
 
 

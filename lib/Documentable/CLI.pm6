@@ -350,11 +350,11 @@ package Documentable::CLI {
         END
     }
 
-    #| Delete files created by "documentable setup"
+    #| Documentable version
     multi MAIN (
-        Bool :$version
+        Bool :V(:$version)
     ) {
-        say "Documentable version: " ~ $?DISTRIBUTION.meta<version>;
+        say "Documentable version: {$?DISTRIBUTION.meta<version> or '(not found)'}";
     }
 
 }
