@@ -24,6 +24,10 @@
           "display-text": "Fundamental topics"
         },
         {
+          "name": "reference",
+          "display-text": "General reference"
+        },
+        {
           "name": "advanced",
           "display-text": "Advanced topics"
         }
