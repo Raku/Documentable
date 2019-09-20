@@ -47,12 +47,13 @@ subtest "Object submenu" => {
 subtest "URL substitution in footer" => {
     my $new-pod-path = "type/Associative";
     like $wrapper.footer( $new-pod-path ), /"https://github.com/perl6/doc/blob/master/doc/Type/Associative.pod6"/, "Footer generated";
+    unlike $wrapper.footer, /PODPATH/, "Footer generated";
 }
 
 sub test-selection($selection) {
     my $fragment = $wrapper.menu($selection, "podtest");
     is so $fragment ~~ /:s selected darker\-green/, True,
-    "$selection selection found";
+        "$selection selection found";
 }
 
 

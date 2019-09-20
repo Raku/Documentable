@@ -103,16 +103,19 @@ method menu($selected, $pod-path?) {
 
 }
 
-method footer($pod-path) {
+method footer($pod-path ='') {
     my $new-footer = $!footer;
     if ( $pod-path ) {
         my $source-path = [~] $.config.pod-root-path,
                               "/",
                               $pod-path.subst(/^\//, '').tc;
 
-	$source-path ~= ".pod6" if not $source-path ~~ /\.pod6$/;
+	    $source-path ~= ".pod6" if not $source-path ~~ /\.pod6$/;
         $new-footer = $new-footer.subst(/SOURCEURL/, $source-path);
         $new-footer = $new-footer.subst(/PODPATH/, $pod-path);
+    } else {
+        my @lines = $new-footer.lines;
+        $new-footer = @lines.grep( { !/PODPATH/ } ).join("\n");
     }
 
     $new-footer;
