@@ -1,7 +1,7 @@
 {
   "name": "Documentable",
   "description": "An API for Perl 6 documentation",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "perl": "6.d",
   "authors": [
     "@moritz",
@@ -57,7 +57,11 @@
     "config.json"
   ],
   "license": "Artistic-2.0",
-  "tags": [],
+  "tags": [
+    "documentation",
+    "text",
+    "perl6"
+  ],
   "api": 1,
   "source-url": "https://github.com/perl6/Documentable.git"
 }
