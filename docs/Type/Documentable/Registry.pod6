@@ -96,7 +96,7 @@ Defined as
 
         method pod-cache(--> Pod::To::Cached)
 
-Returns the instance of L<Pod::To::Cached|https://github.com/finanalyst/pod-cached> used
+Returns the instance of L<Pod::To::Cached|https://github.com/perl6/Pod-To-Cached> used
 to cache pod6 files.
 
 =head2 method use-cache
@@ -128,7 +128,7 @@ Creates a new instance of the class.
 =item C<$topdir>: directory containing all the pod6 sources.
 =item C<@dirs>: subdirectories of C<$topdir> containing pod6 sources.
 =item C<$verbose>: if C<True>, additional information will be printed.
-=item C<$use-cache>: use L<Pod::To::Cached|https://github.com/finanalyst/pod-cached> to create a pod6 cache.
+=item C<$use-cache>: use L<Pod::To::Cached|https://github.com/perl6/Pod-To-Cached> to create a pod6 cache.
 
 Example:
 

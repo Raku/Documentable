@@ -59,7 +59,8 @@ B<Default:> C<False>.
 
 =head2 X<-c, --cache>
 
-If C<True>, L<Pod::To::Cached|https://github.com/finanalyst/pod-cached> will be used to load
+If C<True>, L<Pod::To::Cached|https://github.com/perl6/Pod-To-Cached> will be used
+to load
 the pods and create a cache. B<Recommended>.
 
 B<Default:> C<True>.
