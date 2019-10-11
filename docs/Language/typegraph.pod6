@@ -27,7 +27,7 @@ How to write this file? You need to follow a very easy syntax:
 Name::Of::A::Class is Parent::Class does A::ROle
 =end code
 
-You can check the L<type-graph.txt file|https://github.com/antoniogamiz/Perl6-Documentable/blob/docs-assets/type-graph.txt>
+You can check the L<type-graph.txt file|https://github.com/perl6/Documentable/blob/docs-assets/type-graph.txt>
 used by C<Documentable> as an example.
 
 =end pod
