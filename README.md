@@ -6,7 +6,7 @@ In this repository you can find all logic responsible for generating the [offici
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [Documentation](https://antoniogamiz.github.io/Perl6-Documentable/)
+- [Documentation](https://perl6.github.io/Documentable/)
 - [Docker container](#docker-container)
 - [Default templates](#default-templates)
 - [Tests](#ŧests)
@@ -68,7 +68,7 @@ See the [CLI documentation](https://perl6.github.io/Documentable/language/cli) t
 As you may have noticed, every page in the documentation follows the
 same template. You can get those templates in
 the
-[releases page](https://github.com/antoniogamiz/Perl6-Documentable/releases/tag/v1.1.2). I
+[releases page](https://github.com/perl6/Documentable/releases/tag/v1.0.1). I
 strongly recommend you to use the defaults, which can be set up executing
 
 ```
@@ -77,7 +77,7 @@ documentable setup
 
 That command will download
 the
-[latest assets tarfile](https://github.com/antoniogamiz/Perl6-Documentable/releases/download/v1.1.2/assets.tar.gz) in
+[latest assets tarfile](https://github.com/perl6/Documentable/releases/download/v1.0.1/assets.tar.gz) in
 your directory. But what does this tar contain? Several things:
 
 - Necessary files to enable highlighting (`highlights` dir).
@@ -91,7 +91,7 @@ your directory. But what does this tar contain? Several things:
 
 There is a specific docker container with all necessary dependencies (including the highlighter) at https://github.com/antoniogamiz/docker-documentable.
 
-You can see an example about how to use it [here](https://github.com/antoniogamiz/Perl6-Documentable/blob/master/.circleci/config.yml).
+You can see an example about how to use it [here](https://github.com/perl6/Documentable/blob/master/.circleci/config.yml).
 
 You can also download the container:
 
@@ -162,7 +162,7 @@ the `sass` command
 
 #### wget and tar
 
-This programs are used by `documentable setup` to download the default assets and extract them. If you are on Ubuntu/Debian you will not have any problem (probably). If you are using Windows I recommend you to download the assets yourself from [this link](https://github.com/antoniogamiz/Perl6-Documentable/releases/download/v1.1.2/assets.tar.gz).
+This programs are used by `documentable setup` to download the default assets and extract them. If you are on Ubuntu/Debian you will not have any problem (probably). If you are using Windows I recommend you to download the assets yourself from [this link](https://github.com/perl6/Documentable/releases/download/v1.0.1/assets.tar.gz).
 
 ## FAQ
 
@@ -172,7 +172,7 @@ _Answer:_ No, you can execute `documentable update` to only regenerate those pag
 
 ##
 
-Is not your question here? Then, please [raise an issue](https://github.com/antoniogamiz/Perl6-Documentable/issues/new).
+Is not your question here? Then, please [raise an issue](https://github.com/perl6/Documentable/issues/new).
 
 # AUTHORS
 

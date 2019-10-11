@@ -15,7 +15,7 @@ Let's see what's available.
 =head2 X<documentable setup>
 
 This will download a bunch of files in your current working directory. You can check those
-files L<here|https://github.com/antoniogamiz/Perl6-Documentable/releases/tag/v1.1.2>.
+files L<here|https://github.com/perl6/Documentable/releases/tag/v1.0.1>.
 
 B<You do not need to use these exact files>. You can modify them as you want, except for the files
 under C<template> dir.
@@ -46,7 +46,7 @@ B<Default:> C<"doc">.
 Path to the configuration file (see L<configuration-file|/Language/configuration-file>).
 
 If a file called C<"config.json"> is not found at the same directory where C<Documentable>
-was called, the L<default config file|https://github.com/antoniogamiz/Perl6-Documentable/blob/master/resources/config.json>
+was called, the L<default config file|https://github.com/perl6/Documentable/blob/master/resources/config.json>
 will be used instead.
 
 B<Default:> C<"config.json">.
