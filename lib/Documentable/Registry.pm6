@@ -96,7 +96,7 @@ method load (Str :$path --> Positional[Pod::Block::Named]) {
 method process-pod-dir(Str :$dir) {
     # pods to process
     my @pod-files = get-pod-names(:$!topdir, :$dir);
-    say "Processing $dir directory...";
+    say "Processing $dir directory..." if $!verbose;
     my $bar = Bar.new: type => "equals";
     my $length = +@pod-files;
     for @pod-files.kv -> $num, (:key($filename), :value($file)) {
@@ -111,7 +111,7 @@ method process-pod-dir(Str :$dir) {
             self.add-new: :$doc;
         }
     }
-    say "";
+    say "" if $!verbose;
 }
 
 # consulting logic

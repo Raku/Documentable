@@ -81,7 +81,7 @@ package Documentable::CLI {
         Bool :a(:$all)             = False                    #= Equivalent to -t -p -k -i -s
     ) {
         my $beginning = now; # to measure total time
-        if (!"./html".IO.e || !"./assets".IO.e || !"./template".IO.e) {
+        if (!"./html".IO.e || !"./assets".IO.e || !"./template".IO.e and $v) {
             note q:to/END/;
                 (warning) html and/or assets and/or templates directories
                 cannot be found. You can get the defaults by executing:
@@ -96,7 +96,7 @@ package Documentable::CLI {
 
         #==========================setup====================================
 
-        my $config  = Documentable::Config.new(filename => $conf);
+        my $config = Documentable::Config.new(filename => $conf);
         # all these doducments will be written in disk
         my @docs;
         # to track the time
@@ -131,7 +131,7 @@ package Documentable::CLI {
                                         force      => $f,
                                         type-graph => $tg);
 
-            print-time("Typegraph representations", $now);
+            print-time("Typegraph representations", $now, $v);
         }
 
         #===================================================================
@@ -148,7 +148,7 @@ package Documentable::CLI {
             :verbose($v)
         );
         $registry.compose;
-        print-time("Processing pods", $now);
+        print-time("Processing pods", $now, $v);
 
         my $factory = Documentable::DocPage::Factory.new(:$config, :$registry);
 
@@ -170,9 +170,9 @@ package Documentable::CLI {
                 $bar.show: ($num + 1) / $length * 100 if $v;
                 @docs.push($factory.generate-primary($doc));
             }
-            say "";
+            say "" if $v;
 
-            print-time("Generate source files", $now);
+            print-time("Generate source files", $now, $v);
         }
 
         #===================================================================
@@ -187,7 +187,7 @@ package Documentable::CLI {
                 $bar.show: ($num + 1) / $length * 100 if $v;
                 @docs.push($factory.generate-secondary(Kind::Syntax, $name));
             }
-            say "";
+            say "" if $v;
 
             DEBUG("Generating Kind::Routine files 👇 ...", $v);
             my @routine-names = $registry.lookup(Kind::Routine.Str, :by<kind>).map({.name}).unique;
@@ -196,9 +196,9 @@ package Documentable::CLI {
                 $bar.show: ($num + 1) / $length * 100 if $v;
                 @docs.push($factory.generate-secondary(Kind::Routine, $name));
             }
-            say "";
+            say "" if $v;
 
-            print-time("Generating per kind files", $now);
+            print-time("Generating per kind files", $now, $v);
         }
 
         #===================================================================
@@ -222,7 +222,7 @@ package Documentable::CLI {
                 @docs.push( $factory.generate-subindex(Kind::Routine, $category))
             }
 
-            print-time("Generating index files", $now);
+            print-time("Generating index files", $now, $v);
         }
 
         #===================================================================
@@ -242,10 +242,10 @@ package Documentable::CLI {
             $bar.show: ($num + 1) / $length * 100 if $v;
             spurt "html{$doc<url>}.html", $doc<document>
         }
-        say "";
+        say "" if $v;
 
-        print-time("Writing generated files", $now);
-        print-time("Whole process", $beginning);
+        print-time("Writing generated files", $now, $v);
+        print-time("Whole process", $beginning, $v);
     }
 
     #| Check which pod files have changed and regenerate its HTML files.
@@ -253,24 +253,24 @@ package Documentable::CLI {
         "update",
         Str  :$topdir          = "doc",                   #= Directory where the pod collection is stored
         Str  :$conf            = zef-path("config.json"), #= Configuration file
-        Bool :v(:$verbose)     = False,                   #= Prints progress information
+        Bool :v(:$verbose)     = True ,                   #= Prints progress information
         Bool :$highlight       = False,                   #= Highlights the code blocks
         Str  :$highlight-path  = "./highlights"           #= Path to the highlighter files
     ) {
-        DEBUG("Checking for changes...");
+        DEBUG("Checking for changes...", $verbose);
         my $now = now;
-        my $cache = Pod::To::Cached.new(:path(cache-path($topdir)), :verbose, :source($topdir));
+        my $cache = Pod::To::Cached.new(:path(cache-path($topdir)), :verbose($verbose), :source($topdir));
         my @files = $cache.list-files(<Valid New>);
 
         # recompile pods
         $cache.update-cache;
 
         if (! @files) {
-            DEBUG("Everything already updated. There are no changes.");
+            DEBUG("Everything already updated. There are no changes.", $verbose);
             exit 0;
         }
 
-        DEBUG(+@files ~ " file(s) modified. Starting regeneration ...");
+        DEBUG(+@files ~ " file(s) modified. Starting regeneration ...", $verbose);
 
         # highlights workaround
         my %*POD2HTML-CALLBACKS;
@@ -289,7 +289,7 @@ package Documentable::CLI {
         my $registry = Documentable::Registry.new(
             :$topdir,
             :dirs(DOCUMENTABLE-DIRS),
-            :!verbose,
+            :verbose($verbose),
         );
         $registry.compose;
 
@@ -354,7 +354,7 @@ package Documentable::CLI {
         spurt "html{$search-doc<url>}", $search-doc<document>;
 
         @docs.map(-> $doc { spurt "html{$doc<url>}.html", $doc<document> });
-        print-time("Updating files", $now);
+        print-time("Updating files", $now, $verbose);
     }
 
     #| Delete files created by "documentable setup"
@@ -373,7 +373,8 @@ package Documentable::CLI {
     multi MAIN (
         Bool :V(:$version)
     ) {
-        say "Documentable version: {$?DISTRIBUTION.meta<version> or '(not found)'}";
+        say "Documentable version: {$?DISTRIBUTION.meta<version> or '(not found)'}"
+        if defined $version;
     }
 
 }
@@ -406,9 +407,10 @@ sub highlight-code-blocks($proc, $proc-supply) is export {
 
 }
 
-sub print-time($phase, $start) {
+sub print-time($phase, $start, $verbose) {
     my $now = now;
-    say "\e[1;36m$phase has taken {$now-$start} seconds \e[0m";
+    say "\e[1;36m$phase has taken {$now-$start} seconds \e[0m"
+    if $verbose;
 }
 
 # debug function

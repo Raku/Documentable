@@ -6,7 +6,12 @@ plan *;
 
 subtest 'update option' => {
     # create the cache
-    Documentable::CLI::MAIN('start', :topdir('./t/test-doc') :typegraph-file("t/test-doc/type-graph.txt"));
+    Documentable::CLI::MAIN(
+        'start', 
+        :topdir('./t/test-doc'),
+        :typegraph-file("t/test-doc/type-graph.txt"),
+        :!verbose
+    );
 
     # paths to files that will be changed
     my @paths = <Programs/01-debugging.pod6 /Language/terms.pod6 Native/int.pod6 Type/Map.pod6 HomePage.pod6>.map({"t/test-doc/$_"});
@@ -19,7 +24,7 @@ subtest 'update option' => {
     for @paths Z @files -> ($path, $file) { spurt $path, add-line( $file ) }
 
     # update
-    Documentable::CLI::MAIN('update', :topdir('./t/test-doc'));
+    Documentable::CLI::MAIN('update', :topdir('./t/test-doc'), :!verbose);
 
     # actual test
     for @paths Z @modified-date -> ($path, $date) {
@@ -42,7 +47,7 @@ subtest 'not regenerate all subindexes' => {
     for @paths Z @files -> ($path, $file) { spurt $path, add-line( $file ) }
 
     # update
-    Documentable::CLI::MAIN('update', :topdir('./t/test-doc'));
+    Documentable::CLI::MAIN('update', :topdir('./t/test-doc'), :!verbose);
 
     # actual test
     for @subindexes-path Z @modified-date -> ($path, $date) {
