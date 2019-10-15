@@ -41,8 +41,8 @@ class Documentable::DocPage::Index::Language
             ]}))
         }
         my $pod = pod-with-title(
-            'Perl 6 Language Documentation',
-            pod-block("Tutorials, general reference, migration guides and meta pages for the Perl 6 language."),
+            'Raku Language Documentation',
+            pod-block("Tutorials, general reference, migration guides and meta pages for the Raku language."),
             @content
         );
 
@@ -68,7 +68,7 @@ class Documentable::DocPage::Index::Programs
     method render($registry) {
         my @index = self.compose($registry);
         my $pod = pod-with-title(
-            'Perl 6 Programs Documentation',
+            'Raku Programs Documentation',
             pod-table(@index.map({[
                 pod-link(.<name>, .<url>), .<summary>
             ]}))
@@ -103,10 +103,10 @@ class Documentable::DocPage::Index::Type
     method render($registry) {
         my @index = self.compose($registry);
         my $pod   = pod-with-title(
-                "Perl 6 Types",
+                "Raku Types",
                 pod-block(
                     'This is a list of ', pod-bold('all'), ' built-in Types' ~
-                    " that are documented here as part of the Perl 6 language. " ~
+                    " that are documented here as part of the Raku language. " ~
                     "Use the above menu to narrow it down topically."
                 ),
                 pod-table(
@@ -146,7 +146,7 @@ class Documentable::DocPage::SubIndex::Type
     method render($registry, $category) {
         my @index = self.compose($registry, $category);
         my $pod   = pod-with-title(
-            "Perl 6 $category Types",
+            "Raku $category Types",
             pod-table(
                 @index.map({[
                     .<subkinds>.join(", "),
@@ -185,10 +185,10 @@ class Documentable::DocPage::Index::Routine
     method render($registry) {
         my @index = self.compose($registry);
         my $pod   = pod-with-title(
-            "Perl 6 Routines",
+            "Raku Routines",
             pod-block(
                 'This is a list of ', pod-bold('all'), ' built-in routines' ~
-                " that are documented here as part of the Perl 6 language. " ~
+                " that are documented here as part of the Raku language. " ~
                 "Use the above menu to narrow it down topically."
             ),
             pod-table(
@@ -228,7 +228,7 @@ class Documentable::DocPage::SubIndex::Routine
     method render($registry, $category) {
         my @index = self.compose($registry, $category);
         my $pod   = pod-with-title(
-            "Perl 6 $category Routines",
+            "Raku $category Routines",
             pod-table(
                 @index.map({[
                     .<subkinds>.join(", "),
