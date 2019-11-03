@@ -113,6 +113,8 @@ method footer($pod-path ='') {
 	    $source-path ~= ".pod6" if not $source-path ~~ /\.pod6$/;
         $new-footer = $new-footer.subst(/SOURCEURL/, $source-path);
         $new-footer = $new-footer.subst(/PODPATH/, $pod-path);
+        my $new-url = "https://docs.raku.org/$pod-path";
+        $new-footer = $new-footer.subst(/NEWURL/, $new-url);
     } else {
         my @lines = $new-footer.lines;
         $new-footer = @lines.grep( { !/PODPATH/ } ).join("\n");
