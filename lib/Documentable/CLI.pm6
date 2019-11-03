@@ -78,7 +78,7 @@ package Documentable::CLI {
         Str  :$typegraph-file      = "type-graph.txt",        #= TypeGraph file
         Str  :$highlight-path      = "./highlights",          #= Path to the highlighter files
         Str  :$dirs?,                                         #= Dirs where documentation will be found. Relative to :$topdir
-        Bool :a(:$all)             = False                    #= Equivalent to -t -p -k -i -s
+        Bool :a(:$all)             = False                    #= Equivalent to -t -p -s -i --search-index
     ) {
         my $beginning = now; # to measure total time
         if (!"./html".IO.e || !"./assets".IO.e || !"./template".IO.e) {

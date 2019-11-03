@@ -58,7 +58,7 @@ Usage:
     --typegraph-file=<Str>    TypeGraph file
     --highlight-path=<Str>    Path to the highlighter files
     --dirs=<Str>              Dirs where documentation will be found. Relative to :$topdir
-    -a|--all                  Equivalent to -t -p -k -i -s
+    -a|--all                  Equivalent to -t -p -s -i --search-index
 ```
 
 See the [CLI documentation](https://perl6.github.io/Documentable/language/cli) to learn more.
