@@ -1,5 +1,9 @@
 # Change Log
 
+## Version 1.2.1
+
+* Adds NEWURL for use during the transition to new Raku pages.
+
 ## [v1.0.1](https://github.com/perl6/Documentable/tree/v1.0.1) (2019-08-29)
 **Implemented enhancements:**
 
