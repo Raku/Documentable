@@ -1,5 +1,9 @@
 # Change Log
 
+## Version 1.2.2
+
+* Actually uses local templates as indicated in the README.md
+
 ## Version 1.2.1
 
 * Adds NEWURL for use during the transition to new Raku pages.
