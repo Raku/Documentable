@@ -21,9 +21,15 @@ has Str $.pod-root-path;
 submethod BUILD(
     Documentable::Config :$!config,
 ) {
-    $!head   = slurp zef-path("template/head.html"  );
-    $!header = slurp zef-path("template/header.html");
-    $!footer = slurp zef-path("template/footer.html");
+    $!head   = "./template/head.html".IO ~~ :e ??
+            slurp "./template/head.html" !!
+            slurp zef-path("template/head.html");
+    $!header = "./template/header.html".IO ~~ :e ??
+            slurp "./template/header.html" !!
+            slurp zef-path("template/header.html");
+    $!footer = "./template/footer.html".IO ~~ :e ??
+            slurp "./template/footer.html" !!
+            slurp zef-path("template/footer.html");
 
     if ($!config.url-prefix) {
         $!prefix  = "/" ~ $!config.url-prefix;
