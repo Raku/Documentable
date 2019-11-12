@@ -17,7 +17,7 @@ You need to specify three different values for each I<pod block>:
 =item C<kind>: this value will be used to categorize the documentation block in menus. See L<Kind|/type/Kind>.
 =item C<subkind>: more specific categorization. I recommend you to use values from L<Documentable::Heading::Grammar|/type/Documentable::Heading::Grammar>.
 =begin item
-C<category>: submeno categorization. You will find some big menus corresponding
+C<category>: submenu categorization. You will find some big menus corresponding
 to C<kinds>, and inside each C<kind>, there will be as many menus as different
 values for C<category>. B<Note:> you need to specify these values in the L<configuration file|/language/configuration-file>.
 =end item
@@ -87,7 +87,7 @@ Even sometimes, you in the same code file a enum, some related exceptions, and w
 the possibility to write all its documentation in the same file looks like quite useful. You are
 lucky! With C<Documentable> you can do that!.
 
-You only need to write more than one pod block in the same file (following the previoues rules, of course).
+You only need to write more than one pod block in the same file (following the previous rules, of course).
 For instance, let's document two different types: (the following code is in the same file)
 
 =begin code
