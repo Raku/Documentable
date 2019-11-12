@@ -45,7 +45,8 @@
     "Documentable::Search": "lib/Documentable/Search.pm6",
     "Documentable::Secondary": "lib/Documentable/Secondary.pm6",
     "Documentable::To::HTML::Wrapper": "lib/Documentable/To/HTML/Wrapper.pm6",
-    "Documentable::Utils::IO": "lib/Documentable/Utils/IO.pm6"
+    "Documentable::Utils::IO": "lib/Documentable/Utils/IO.pm6",
+    "Documentable::Utils::Text": "lib/Documentable/Utils/Text.pm6"
   },
   "resources": [
     "html/images/pencil.svg",

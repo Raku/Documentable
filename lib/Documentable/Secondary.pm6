@@ -1,4 +1,5 @@
 use Documentable;
+use Documentable::Utils::Text;
 use Pod::Utilities;
 use Pod::Utilities::Build;
 
@@ -18,7 +19,7 @@ class Documentable::Secondary is Documentable {
     ) {
 
         my $url = "/{$kind.Str.lc}/{good-name($name)}";
-        my $url-in-origin = $origin.url ~ "#" ~textify-guts($pod[0]).trim.subst(/\s+/, '_', :g);
+        my $url-in-origin = $origin.url ~ "#" ~textify-pod($pod[0]).trim.subst(/\s+/, '_', :g);
 
         # normalize the pod
         my $title = "($origin.name()) @subkinds[] $name";
