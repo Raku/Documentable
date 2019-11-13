@@ -3,6 +3,7 @@ use Documentable::Secondary;
 use Documentable::Index;
 use Documentable::Heading::Grammar;
 use Documentable::Heading::Actions;
+use Documentable::Utils::Text;
 
 use Pod::Utilities;
 use Pod::Utilities::Build;
@@ -121,7 +122,7 @@ class Documentable::Primary is Documentable {
 
             my @meta = $fc.meta[0]:v.flat.cache;
             my $name = (@meta > 1) ?? @meta[1]
-                                !! textify-guts($fc.contents[0]);
+                                !! textify-pod($fc.contents[0], '');
 
             %attr = name       => $name.trim,
                     kind       => Kind::Syntax,
@@ -130,7 +131,7 @@ class Documentable::Primary is Documentable {
 
         } else {
             my $g = Documentable::Heading::Grammar.parse(
-                textify-guts(@header),
+                textify-pod(@header, '').trim,
                 :actions(Documentable::Heading::Actions.new)
             ).actions;
 

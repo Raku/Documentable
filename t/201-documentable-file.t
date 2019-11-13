@@ -1,5 +1,6 @@
 use Documentable;
 use Documentable::Primary;
+use Documentable::Utils::Text;
 use Pod::Load;
 use Pod::Utilities;
 use Pod::Utilities::Build;
@@ -49,6 +50,7 @@ subtest "Scope set correctly" => {
 
     for @definitions -> $name, $str {
       test-scope($name, $str);
+      test-scope-with-textify-pod($name, $str);
     }
 }
 
@@ -128,6 +130,12 @@ sub test-scope($name, $str) {
   is textify-guts(get-def($name).pod),
      $str,
      "Scope detection in $name";
+}
+
+sub test-scope-with-textify-pod($name, $str) {
+  is textify-pod(get-def($name).pod),
+     $str,
+     "Scope detection in $name with textify-pod";
 }
 
 sub test-exception($pod, $msg) {

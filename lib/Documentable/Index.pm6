@@ -1,4 +1,5 @@
 use Documentable;
+use Documentable::Utils::Text;
 use Pod::Utilities;
 use Pod::Utilities::Build;
 
@@ -15,11 +16,11 @@ method new(
 
     my $name;
     if $meta.elems > 1 {
-        my $last = textify-guts $meta[*-1];
+        my $last = textify-pod $meta[*-1];
         my $rest = $meta[0..*-2];
         $name = "$last ($rest)";
     } else {
-        $name = textify-guts $meta;
+        $name = textify-pod $meta;
     }
 
     nextwith(
