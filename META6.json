@@ -1,7 +1,7 @@
 {
   "name": "Documentable",
   "description": "An API for Raku documentation",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "perl": "6.d",
   "authors": [
     "@moritz",
