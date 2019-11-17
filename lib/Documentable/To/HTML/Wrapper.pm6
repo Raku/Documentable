@@ -72,8 +72,8 @@ method menu($selected, $pod-path?) {
     # main menu
     my @menu-entries = $!config.kinds;
     my $menu-items = (self.menu-entry($_, $selected) for @menu-entries).join;
-    my $irc-link = self.normal-entry('', 'https://webchat.freenode.net/?channels=#perl6', 'Chat with us');
-    $menu-items = [~] q[<div class="menu-items dark-green"><a class='menu-item darker-green' href='https://perl6.org'><strong>Perl&nbsp;6 homepage</strong></a> ],
+    my $irc-link = self.normal-entry('', 'https://webchat.freenode.net/?channels=#raku', 'Chat with us');
+    $menu-items = [~] q[<div class="menu-items dark-green"><a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a> ],
                        $menu-items ~ $irc-link,
                       q[</div>];
     # sub menu
