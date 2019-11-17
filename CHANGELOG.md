@@ -1,5 +1,9 @@
 # Change Log
 
+## Version 1.2.3
+
+Changes to Raku in generated pages.
+
 ## Version 1.2.2
 
 * Actually uses local templates as indicated in the README.md
