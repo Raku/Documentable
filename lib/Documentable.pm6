@@ -12,8 +12,8 @@ constant DOCUMENTABLE-DIRS is export = ["Language", "Type", "Programs", "Native"
 class Documentable {
 
     has Str  $.name;
-    has      $.pod;
-    has Kind $.kind;
+    has      $.pod  is required("Needs an actual document");
+    has Kind $.kind is required("Is essential metadata");
     has      @.subkinds   = [];
     has      @.categories = [];
 
