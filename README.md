@@ -71,7 +71,7 @@ See the [CLI documentation](https://perl6.github.io/Documentable/language/cli) t
 As you may have noticed, every page in the documentation follows the
 same template. You can get those templates in
 the
-[releases page](https://github.com/perl6/Documentable/releases/tag/v1.0.1). I
+[releases page](https://github.com/perl6/Documentable/releases/tag/v1.0.1). We
 strongly recommend you to use the defaults, which can be set up executing
 
 ```
