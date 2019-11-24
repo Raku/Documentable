@@ -27,13 +27,16 @@ $ zef install .
 
 ## Usage
 
-Before generating any documents you should execute:
+This application uses a series of template and asset files (CSS, svg, ...) in
+order to generate the pages. If your repository does not include them, before
+generating any documents you should execute:
 
 ```
 documentable setup
 ```
 
-in order to download the necessary files needed to generate the site (CSS, svg, ...). Alternatively, you can add your own. See [default templates](#default-templates) to get more information.
+in order to download them. Alternatively, you can add your own. See [default
+templates](#default-templates) to get more information.
 
 ```
 Usage:
