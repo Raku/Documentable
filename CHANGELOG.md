@@ -1,8 +1,12 @@
 # Change Log
 
+## Version 1.2.5
+
+Fixes local configuration of JS search script.
+
 ## Version 1.2.4
 
-Takes out Perl6 from default configuration
+Takes out Perl6 from default configuration.
 
 ## Version 1.2.3
 
