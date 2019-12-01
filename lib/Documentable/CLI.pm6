@@ -97,7 +97,7 @@ package Documentable::CLI {
         #==========================setup====================================
 
         my $config = Documentable::Config.new(filename => $conf);
-        # all these doducments will be written in disk
+        # all these documents will be written in disk
         my @docs;
         # to track the time
         my $now;
