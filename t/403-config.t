@@ -27,6 +27,15 @@ isa-ok $config, Documentable::Config, "Config instantiated";
 
 for <language type routine programs> -> $k {
     ok( $config.get-kind-config(Kind($k)), "Config for $k retrieved");
+    given $k {
+        when "programs" {
+            nok( $config.get-categories(Kind($k)), "No categories for $k");
+        }
+        default {
+            ok( $config.get-categories(Kind($k)), "Categories for $k retrieved");
+        }
+    }
+
 }
 
 done-testing;
