@@ -18,4 +18,13 @@ my $config = Documentable::Config.new(filename => "t/good-config.json");
 my $factory = Documentable::DocPage::Factory.new(:$config, :$registry);
 isa-ok $factory, Documentable::DocPage::Factory, "Class created";
 
+my %spawn = $factory.generate-home-page();
+like %spawn<document>, /Raku/, "Home page generated correctly";
+
+%spawn = $factory.generate-error-page() ;
+like %spawn<document>, /Raku/, "Error page generated correctly";
+
+%spawn = $factory.generate-search-file() ;
+like %spawn<document>, /'perl6-test'/, "Search script generated correctly";
+
 done-testing;
