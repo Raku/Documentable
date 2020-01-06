@@ -12,6 +12,17 @@ In an expression like C<1 + 2 * 3>, the C<2 * 3> is evaluated first.
 
 Metaoperators can be parameterized with other operators or subroutines.
 
+=head1 Infix operators
+
+Operators used as infix
+
+=head2 infix C«..»
+
+    multi sub infix:<..>($a, $b --> Range:D) is assoc<non>
+
+X<Range operator>: Constructs a L<Range|/type/Range> from the arguments.
+
+
 =end pod
 
 # vim: expandtab softtabstop=4 shiftwidth=4 ft=perl6
