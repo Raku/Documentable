@@ -1,6 +1,6 @@
 {
   "title-page": "Documentable",
-  "pod-root-path": "https://github.com/perl6/Documentable/tree/master/docs",
+  "pod-root-path": "https://github.com/Raku/Documentable/tree/master/docs",
   "kinds": [
     {
       "kind": "language",
