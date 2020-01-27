@@ -9,7 +9,7 @@ include a substantial amount of documentation, for instance.
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [Documentation](https://perl6.github.io/Documentable/)
+- [Documentation](https://raku.github.io/Documentable/)
 - [Docker container](#docker-container)
 - [Default templates](#default-templates)
 - [Tests](#ŧests)
@@ -67,13 +67,13 @@ Usage:
     -a|--all                  Equivalent to -t -p -s -i --search-index
 ```
 
-See the [CLI documentation](https://perl6.github.io/Documentable/language/cli) to learn more.
+See the [CLI documentation](https://raku.github.io/Documentable/language/cli) to learn more.
 
 ## Default templates
 
 As you may have noticed, every page in the documentation follows the
 same template. You can get those templates in the
-[releases page](https://github.com/perl6/Documentable/releases/tag/v1.0.1). We
+[releases page](https://github.com/raku/Documentable/releases/tag/v1.0.1). We
 strongly recommend you to use the defaults, which can be set up executing
 
 ```
@@ -82,7 +82,7 @@ documentable setup
 
 That command will download
 the
-[latest assets tarfile](https://github.com/perl6/Documentable/releases/download/v1.0.1/assets.tar.gz) in
+[latest assets tarfile](https://github.com/raku/Documentable/releases/download/v1.0.1/assets.tar.gz) in
 your directory. But what does this tar contain? Several things:
 
 - Necessary files to enable highlighting (`highlights` dir).
@@ -98,7 +98,7 @@ start a dev server with `make run`.
 
 There is a specific docker container with all necessary dependencies (including the highlighter) at https://github.com/antoniogamiz/docker-documentable.
 
-You can see an example about how to use it [here](https://github.com/perl6/Documentable/blob/master/.circleci/config.yml).
+You can see an example about how to use it [here](https://github.com/raku/Documentable/blob/master/.circleci/config.yml).
 
 You can also download the container:
 
@@ -126,7 +126,7 @@ downloading the latest Rakudo Star release from
 
 #### `zef`
 
-[Zef](https://modules.perl6.org/repo/zef) is a Perl 6 module installer. If you
+[Zef](https://modules.raku.org/repo/zef) is a Perl 6 module installer. If you
 installed Rakudo Star package, it should already be there. Feel free to
 use any other module installer for the modules needed (see below).
 
@@ -172,7 +172,7 @@ the `sass` command
 #### wget and tar
 
 These programs are used by `documentable setup` to download the default assets
-and extract them. If you are on Ubuntu/Debian you will not have any problem (probably). If you are using Windows I recommend you to download the assets yourself from [this link](https://github.com/perl6/Documentable/releases/download/v1.0.1/assets.tar.gz).
+and extract them. If you are on Ubuntu/Debian you will not have any problem (probably). If you are using Windows I recommend you to download the assets yourself from [this link](https://github.com/raku/Documentable/releases/download/v1.0.1/assets.tar.gz).
 
 ## FAQ
 
@@ -182,7 +182,7 @@ _Answer:_ No, you can execute `documentable update` to only regenerate those pag
 
 ##
 
-Is not your question here? Then, please [raise an issue](https://github.com/perl6/Documentable/issues/new).
+Is not your question here? Then, please [raise an issue](https://github.com/raku/Documentable/issues/new).
 
 # AUTHORS
 
@@ -220,14 +220,8 @@ Wenzel P. P. Peppmeyer <@gfldex>
 
 # COPYRIGHT AND LICENSE
 
-Copyright 2019 Perl6 Team
+Copyright 2019 Raku Team
 
 This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
-
-This module uses some conventions: (this started in August, 2019, so previous work does not follow the conventions):
-
-- [Semantic Versioning](https://semver.org/).
-- [Branching model](https://nvie.com/posts/a-successful-git-branching-model/).
-- [Commit names](https://chris.beams.io/posts/git-commit/).
 
 We use a [ChangeLog generator](https://github.com/github-changelog-generator/github-changelog-generator) to generate the [CHANGELOG.md file](CHANGELOG.md).
