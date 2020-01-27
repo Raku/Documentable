@@ -1,7 +1,7 @@
 # Documentable, the Raku Doc API [![CI Status](https://circleci.com/gh/Raku/Documentable.svg?style=shield)](https://circleci.com/gh/Raku/Documentable) [![Build Status](https://travis-ci.org/Raku/Documentable.svg?branch=master)](https://travis-ci.org/Raku/Documentable) [![artistic](https://img.shields.io/badge/license-Artistic%202.0-blue.svg?style=flat)](https://opensource.org/licenses/Artistic-2.0)
 
 In this repository you can find all logic responsible for generating the
-[official documentation of Raku](https://docs.Raku.org/) or any other
+[official Raku documentation](https://docs.Raku.org/) or any other
 repository that follows the same specification. Could be used for modules that
 include a substantial amount of documentation, for instance.
 
