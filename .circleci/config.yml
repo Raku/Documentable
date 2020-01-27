@@ -8,6 +8,7 @@ jobs:
       - run:
           name: Test Perl6-Documentable
           command: |
+            apk add git
             zef update
             zef install .
             # test one build
