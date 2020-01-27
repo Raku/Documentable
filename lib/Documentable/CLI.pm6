@@ -39,7 +39,7 @@ package Documentable::CLI {
         DEBUG("Setting up the directory...");
 
         my $tmpdir = tempdir;
-        shell "wget https://github.com/perl6/Documentable/releases/download/v1.0.1/assets.tar.gz -P {$tmpdir} -q";
+        shell "wget https://github.com/Raku/Documentable/releases/download/v1.0.1/assets.tar.gz -P {$tmpdir} -q";
         shell "tar -xvzf {$tmpdir}/assets.tar.gz -C {$tmpdir} > /dev/null && rm {$tmpdir}/assets.tar.gz";
 
         # warnings
