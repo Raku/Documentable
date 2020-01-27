@@ -2,11 +2,11 @@ version: 2
 jobs:
   test-linux:
     docker:
-      - image: jjmerelo/test-perl6
+      - image: jjmerelo/raku-test-circleci
     steps:
       - checkout
       - run:
-          name: Test Perl6-Documentable
+          name: Test Raku Documentable
           command: |
             zef update
             zef install .
