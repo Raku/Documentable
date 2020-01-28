@@ -120,13 +120,13 @@ _Note:_ Do not forget to add `--highlight --highlight-path="/highlights"` option
 
 #### Rakudo
 
-You need Perl 6 installed. You can install the Rakudo Perl 6 compiler by
+You need Raku installed. You can install the Rakudo Raku compiler by
 downloading the latest Rakudo Star release from
 [rakudo.org/downloads/star/](http://rakudo.org/downloads/star/).
 
 #### `zef`
 
-[Zef](https://modules.raku.org/repo/zef) is a Perl 6 module installer. If you
+[Zef](https://modules.raku.org/repo/zef) is a Raku module installer. If you
 installed Rakudo Star package, it should already be there. Feel free to
 use any other module installer for the modules needed (see below).
 
