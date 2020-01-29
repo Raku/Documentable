@@ -11,7 +11,8 @@ RUN apk add --no-cache --virtual .gyp python make g++ \
     && cd /highlights \
     && git clone https://github.com/perl6/atom-language-perl6 \
     && npm install . \
-    && apk del .gyp
+    && apk del .gyp \ 
+    && cd ..
 
 RUN zef install --deps-only --/test . \
     && zef install . \
