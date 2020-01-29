@@ -14,7 +14,11 @@ RUN apk add --no-cache --virtual .gyp python make g++ \
     && apk del .gyp \ 
     && cd ..
 
-RUN zef install --deps-only --/test . \
+RUN mkdir Documentable
+COPY . /Documentable 
+
+RUN cd Documentable \
+    && zef install --deps-only --/test . \
     && zef install . \
     && cd .. \
     && mkdir /documentable
