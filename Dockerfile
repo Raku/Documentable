@@ -14,10 +14,8 @@ RUN apk add --no-cache --virtual .gyp python make g++ \
     && apk del .gyp \ 
     && cd ..
 
-RUN mkdir Documentable
-COPY . /Documentable 
-
-RUN cd Documentable \
+RUN git clone https://github.com/Raku/Documentable.git \
+    && cd Documentable \
     && zef install --deps-only --/test . \
     && zef install . \
     && cd .. \
