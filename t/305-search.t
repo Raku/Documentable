@@ -2,13 +2,16 @@ use Test;
 
 use Documentable::Registry;
 use Documentable::Search;
+use Documentable::Utils::IO;
 
-plan *;
+constant TOPDIR = "t/test-doc";
+
+delete-cache-for(TOPDIR);
 
 my $registry = Documentable::Registry.new(
-    :topdir("t/test-doc"),
+    :topdir(TOPDIR),
     :dirs(["Language"]),
-    :verbose(False)
+    :verbose(True)
 );
 
 $registry.compose;
