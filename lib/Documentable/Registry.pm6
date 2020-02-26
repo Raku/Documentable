@@ -33,7 +33,7 @@ submethod BUILD (
             :@dirs       = [],
     Bool    :$verbose    = True,
     Bool    :$use-cache  = True,
-    Str     :$typegraph-file?
+    Str     :$typegraph-file
 ) {
     $!verbose     = $verbose;
     $!use-cache   = $use-cache;
@@ -46,18 +46,7 @@ submethod BUILD (
 
     # init cache if needed
     if ( $!use-cache ) {
-        my $cache-dir = cache-path($!topdir);
-
-        if ($cache-dir.IO.e) {
-            note "$cache-dir directory will be used as a cache. " ~
-                 "Please do not use any other directory with "    ~
-                 "this name." if $!verbose;
-        }
-        $!pod-cache = Pod::To::Cached.new(
-            source      => $!topdir,
-            :$!verbose,
-            path        => $cache-dir
-        );
+        $!pod-cache = init-cache( $!topdir, $!verbose);
         say "Updating cache";
         $!pod-cache.update-cache;
     }
