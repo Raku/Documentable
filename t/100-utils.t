@@ -1,8 +1,6 @@
 use Test;
 use Documentable::Utils::IO;
 
-plan *;
-
 # recursive dir
 
 my @dir-files = recursive-dir("t/test-doc/Native/");
@@ -39,6 +37,17 @@ subtest 'cache path' => {
     is cache-path("dir/doc") , "dir/.cache-doc" , "compose dir";
     is cache-path("/dir/doc"), "/dir/.cache-doc", "compose dir + leading /";
     is cache-path("dir/doc/"), "dir/.cache-doc" , "compose dir + trailing /";
+}
+
+subtest 'cache' => {
+    constant TOPDIR = "t/test-doc";
+    my $cache = init-cache( TOPDIR );
+    ok $cache, "Cache created anywhere";
+    isa-ok $cache, Pod::To::Cached, "Correct type";
+    ok cache-path(TOPDIR).IO.d, "Directory created";
+    delete-cache-for(TOPDIR);
+    dies-ok { cache-path(TOPDIR).IO.d }, "Directory deleted";
+
 }
 
 subtest 'list files' => {

@@ -1,3 +1,6 @@
+use File::Directory::Tree;
+use Pod::To::Cached;
+
 unit module Documentable::Utils::IO;
 
 #| List of files inside a directory
@@ -70,4 +73,20 @@ sub zef-path($filename) is export {
 sub cache-path($path is copy) is export {
     my $new-path = $path.IO.dirname ~ "/.cache-" ~ $path.IO.basename;
     $new-path.subst(/^\/\//, "/") # avoid /a => //.cache-a
+}
+
+sub init-cache($top-dir, $verbose = False ) is export {
+     my $cache-dir = cache-path($top-dir);
+     if ($cache-dir.IO.e) {
+            note "$cache-dir directory will be used as a cache. " ~
+                 "Please do not use any other directory with "    ~
+                 "this name." if $verbose;
+     }
+     return Pod::To::Cached.new(:source( $top-dir ),
+                                :$verbose,
+                                :path($cache-dir) );
+}
+
+sub delete-cache-for($path) is export {
+    rmtree(cache-path($path))
 }

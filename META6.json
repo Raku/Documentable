@@ -23,11 +23,13 @@
     "JSON::Fast:ver<0.9.18+>",
     "Terminal::Spinners",
     "Test::Output",
-    "Terminal::ANSIColor"
+    "Terminal::ANSIColor",
+    "File::Directory::Tree"
   ],
   "build-depends": [],
   "test-depends": [
-    "Test::META:ver<0.0.16+>"
+    "Test::META:ver<0.0.16+>",
+    "Temp::Path"
   ],
   "provides": {
     "Documentable": "lib/Documentable.pm6",

@@ -3,21 +3,17 @@ use Test::Output;
 
 use Documentable::CLI;
 
-# Typegraph
-#subtest 'typegraph' => {
-#    say "Testing";
-#    lives-ok {
-#        Documentable::CLI::MAIN('start', :topdir('t/test-doc'), :dirs('Language'), :p)
-#    }, "Initial test";
-#}
+# We need to make sure the cache directory does not exist
+# It might fail if there's a change of version
+
 
 # verbose
 subtest 'progress-bar-display' => {
     lives-ok {
             Documentable::CLI::MAIN('start', :topdir('t/test-doc'),
-                    :dirs('Language'), :p)
+                    :dirs('Language'), :p, :v)
              },
-            "Without --verbose lives";
+            "Lives";
 
     output-like {Documentable::CLI::MAIN('start', :topdir('t/test-doc'), :dirs('Language'), :p)},
                 /<!before \[\=+\]?>/,
