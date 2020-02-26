@@ -4,17 +4,21 @@ use Test::Output;
 use Documentable::CLI;
 
 # Typegraph
-subtest 'typegraph' => {
-    say "Testing";
-    lives-ok { Documentable::CLI::MAIN(
-            'start',
-            :topdir('./t/test-doc'),
-#            :typegraph-file("t/test-doc/type-graph.txt"),
-            :!verbose ) }, "Typegraph";
-}
+#subtest 'typegraph' => {
+#    say "Testing";
+#    lives-ok {
+#        Documentable::CLI::MAIN('start', :topdir('t/test-doc'), :dirs('Language'), :p)
+#    }, "Initial test";
+#}
 
 # verbose
 subtest 'progress-bar-display' => {
+    lives-ok {
+            Documentable::CLI::MAIN('start', :topdir('t/test-doc'),
+                    :dirs('Language'), :p)
+             },
+            "Without --verbose lives";
+
     output-like {Documentable::CLI::MAIN('start', :topdir('t/test-doc'), :dirs('Language'), :p)},
                 /<!before \[\=+\]?>/,
                 "Without --verbose";
