@@ -519,5 +519,133 @@
         </SOURCES>
       </library>
     </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Terminal::ANSIColor" type="perl6">
+        <CLASSES />
+        <SOURCES>
+          <root url="raku://1165951813:Terminal::ANSIColor!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="URI:ver&lt;0.3+&gt;" type="perl6">
+        <CLASSES />
+        <SOURCES>
+          <root url="raku://1165951813:URI:ver&lt;0.3+&gt;!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="File::Directory::Tree" type="perl6">
+        <CLASSES />
+        <SOURCES>
+          <root url="raku://1165951813:File::Directory::Tree!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="File::Temp:ver&lt;0.0.6+&gt;" type="perl6">
+        <CLASSES />
+        <SOURCES>
+          <root url="raku://1165951813:File::Temp:ver&lt;0.0.6+&gt;!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Pod::To::Cached:ver&lt;0.3.5+&gt;" type="perl6">
+        <CLASSES />
+        <SOURCES>
+          <root url="raku://1165951813:Pod::To::Cached:ver&lt;0.3.5+&gt;!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Pod::Utilities:ver&lt;0.0.1+&gt;" type="perl6">
+        <CLASSES />
+        <SOURCES>
+          <root url="raku://1165951813:Pod::Utilities:ver&lt;0.0.1+&gt;!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="URI" type="perl6">
+        <CLASSES />
+        <SOURCES>
+          <root url="raku://1165951813:URI!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Pod::Load:ver&lt;0.5.4+&gt;" type="perl6">
+        <CLASSES />
+        <SOURCES>
+          <root url="raku://1165951813:Pod::Load:ver&lt;0.5.4+&gt;!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Template::Mustache" type="perl6">
+        <CLASSES />
+        <SOURCES>
+          <root url="raku://1165951813:Template::Mustache!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Terminal::Spinners" type="perl6">
+        <CLASSES />
+        <SOURCES>
+          <root url="raku://1165951813:Terminal::Spinners!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="JSON::Fast:ver&lt;0.9.18+&gt;" type="perl6">
+        <CLASSES />
+        <SOURCES>
+          <root url="raku://1165951813:JSON::Fast:ver&lt;0.9.18+&gt;!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Test" type="perl6">
+        <CLASSES />
+        <SOURCES>
+          <root url="raku://1165951813:Test!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Pod::Load:ver&lt;0.4.0+&gt;" type="perl6">
+        <CLASSES />
+        <SOURCES>
+          <root url="raku://1165951813:Pod::Load:ver&lt;0.4.0+&gt;!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Test::Output" type="perl6">
+        <CLASSES />
+        <SOURCES>
+          <root url="raku://1165951813:Test::Output!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Perl6::TypeGraph:ver&lt;2.1.1+&gt;:auth&lt;github:antoniogamiz&gt;:api&lt;2&gt;" type="perl6">
+        <CLASSES />
+        <SOURCES>
+          <root url="raku://1165951813:Perl6::TypeGraph:ver&lt;2.1.1+&gt;:auth&lt;github:antoniogamiz&gt;:api&lt;2&gt;!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Pod::To::HTML:ver&lt;0.6.2+&gt;" type="perl6">
+        <CLASSES />
+        <SOURCES>
+          <root url="raku://1165951813:Pod::To::HTML:ver&lt;0.6.2+&gt;!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>
