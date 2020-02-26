@@ -53,12 +53,12 @@ submethod BUILD (
                  "Please do not use any other directory with "    ~
                  "this name." if $!verbose;
         }
-
         $!pod-cache = Pod::To::Cached.new(
             source      => $!topdir,
             :$!verbose,
             path        => $cache-dir
         );
+        say "Updating cache";
         $!pod-cache.update-cache;
     }
 

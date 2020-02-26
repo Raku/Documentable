@@ -3,7 +3,15 @@ use Test::Output;
 
 use Documentable::CLI;
 
-plan 2;
+# Typegraph
+subtest 'typegraph' => {
+    say "Testing";
+    lives-ok { Documentable::CLI::MAIN(
+            'start',
+            :topdir('./t/test-doc'),
+            :typegraph-file("t/test-doc/type-graph.txt"),
+            :!verbose ) }, "Typegraph";
+}
 
 # verbose
 subtest 'progress-bar-display' => {
@@ -21,5 +29,7 @@ subtest 'version command' => {
     output-like {Documentable::CLI::MAIN(:version)}, /Documentable\sversion/, "long version";
     output-like {Documentable::CLI::MAIN(:V)}      , /Documentable\sversion/, "short version";
 }
+
+
 
 done-testing;
