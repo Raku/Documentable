@@ -9,7 +9,7 @@ subtest 'typegraph' => {
     lives-ok { Documentable::CLI::MAIN(
             'start',
             :topdir('./t/test-doc'),
-            :typegraph-file("t/test-doc/type-graph.txt"),
+#            :typegraph-file("t/test-doc/type-graph.txt"),
             :!verbose ) }, "Typegraph";
 }
 
