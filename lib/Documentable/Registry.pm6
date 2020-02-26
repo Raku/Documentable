@@ -53,10 +53,8 @@ submethod BUILD (
 
     # initialize the registry
     for @dirs -> $dir {
-        self.process-pod-dir(:$dir).map(
-            -> $doc {
-            self.add-new( :$doc )
-        });
+        say "Entering $dir" if $!verbose;
+        self.process-pod-dir(:$dir);
     }
 }
 
@@ -100,19 +98,21 @@ method process-pod-dir(Str :$dir) {
             self.add-new: :$doc;
         }
     }
-    say "" if $!verbose;
+    say "\nDone" if $!verbose;
 }
 
 # consulting logic
 
 method compose() {
+    say "Composing registry" if $!verbose;
     @!definitions = [$_.defs.Slip for @!documentables];
     @!references  = [$_.refs.Slip for @!documentables];
     @!docs = @!documentables.Slip, @!definitions.Slip, @!references.Slip;
     %!routines-by-type = @!definitions.grep({.kind eq Kind::Routine})
                                       .classify({.origin.name});
-
     $!composed = True;
+    say self;
+    say "Composed registry" if $!verbose;
 }
 
 method lookup(Str $what, Str :$by!) {

@@ -3,8 +3,6 @@ use Test;
 use Documentable::Registry;
 use Documentable::DocPage::Primary;
 
-plan *;
-
 my $registry = Documentable::Registry.new(
     :topdir("t/test-doc"),
     :dirs(["Type"]),

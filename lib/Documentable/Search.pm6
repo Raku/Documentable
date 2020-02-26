@@ -9,6 +9,7 @@ class Documentable::Search {
     ) {}
 
     method generate-entries($registry) {
+        say "Generating entries";
         my @entries;
         for Kind::Type, Kind::Language, Kind::Programs -> $kind {
             @entries.append: $registry.lookup($kind.Str, :by<kind>).map(-> $doc {

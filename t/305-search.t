@@ -6,7 +6,7 @@ use Documentable::Utils::IO;
 
 constant TOPDIR = "t/test-doc";
 
-delete-cache-for(TOPDIR);
+# delete-cache-for(TOPDIR);
 
 my $registry = Documentable::Registry.new(
     :topdir(TOPDIR),
@@ -16,7 +16,7 @@ my $registry = Documentable::Registry.new(
 
 $registry.compose;
 
-say $registry;
+say "Registry is ", $registry;
 my $search-generator = Documentable::Search.new;
 
 my @expected = [
