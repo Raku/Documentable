@@ -77,3 +77,4 @@ Makefile
 .cache-*
 .t
 .*
+*.iml
