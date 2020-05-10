@@ -67,7 +67,6 @@ package Documentable::CLI {
         Str  :$topdir              = "doc",                   #= Directory where the pod collection is stored
         Str  :$conf                = zef-path("config.json"), #= Configuration file
         Bool :v(:verbose($v))      = False,                   #= Prints progress information
-        Bool :c(:$cache)           = True ,                   #= Enables the use of a precompiled cache
         Bool :p(:primary($p))      = False,                   #= Generates the HTML files corresponding to primary objects
         Bool :s(:secondary($s))    = False,                   #= Generates per kind files
         Bool :$search-index        = False,                   #= Generates the search index
@@ -141,7 +140,6 @@ package Documentable::CLI {
         my $doc-dirs = $dirs ?? $dirs.split(",", :skip-empty)
                              !! DOCUMENTABLE-DIRS;
         my $registry = Documentable::Registry.new(
-            :$cache,
             :$topdir,
             :dirs( $doc-dirs ),
             :$typegraph-file
