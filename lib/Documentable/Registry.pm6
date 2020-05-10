@@ -110,9 +110,7 @@ method compose() {
     @!docs = @!documentables.Slip, @!definitions.Slip, @!references.Slip;
     %!routines-by-type = @!definitions.grep({.kind eq Kind::Routine})
                                       .classify({.origin.name});
-    say self;
     $!composed = True;
-    say self;
     say "Composed registry" if $!verbose;
 }
 
