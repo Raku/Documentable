@@ -16,7 +16,6 @@ my $registry = Documentable::Registry.new(
 
 $registry.compose;
 
-say "Registry is ", $registry;
 my $search-generator = Documentable::Search.new;
 
 my @expected = [
