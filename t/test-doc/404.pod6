@@ -1,21 +1,67 @@
 =begin Html
+<img style="float: right; margin: 0 0 1em 1em; width:261px" src="/images/Camelia.svg" alt="" id="home_logo"/>
+Welcome to the official documentation of the <a href="https://raku.org">Raku</a>
+programming language!
+Besides online browsing and searching, you can also
+<a href="/perl6.html">view everything in one file</a> or
+<a href="https://github.com/Raku/doc">contribute</a>
+by reporting issues or sending patches.
 
-<img style="float: right; margin: 0 0 1em 1em" src="/images/camelia-404.png" alt="" id="home_logo"/>
+<hr/>
 
-<h2>404: Page Not Found</h2>
+<dl>
 
-<p style="line-height: 1.7em">
-    We're sorry, but the page you tried to reach cannot be found.<ul>
+<dt><a href="/language.html">Language Reference &amp; Tutorials</a></dt>
+<dd>
+    A collection of documents describing, in detail, the various
+    conceptual parts of the language.
+<!--
+    If you're new to Raku,
+    language>intro is a good place to start.
+-->
 
-<li> If you got here by following
-    a link on this site or as a result of searching on it, please report it
-    <a href="https://github.com/perl6/doc/issues/">on our GitHub repository</a>
-    so we can fix it!</li>
-<li>If a search engine sent you here, the link might have disappeared due to site reorganization. We still encourage you to report it as above, but it will eventually disappear from search engines too.</li>
-<li>If you came following a link from some site or blog, we would still want to know about that; you might want to report the blog or website author too.</li>
-</ul>
+</dd>
 
+<dt><a href="/type.html">Type Reference</a></dt>
+<dd>
+    Index of built-in classes, roles and enums.
+</dd>
+
+<dt><a href="/routine.html">Routine Reference</a></dt>
+<dd>
+    Index of built-in subroutines and methods.
+</dd>
+
+<dt><a href="/programs.html">Raku Programs</a></dt>
+<dd>
+    A collection of documents describing the variables that affect the the Raku executable, how to run the p6doc documentation front-end,
+    how to debug Raku programs, and how to hack on Raku
+    source code.
+</dd>
+
+<dt><a href="/language/faq">FAQs (Frequently Asked Questions)</a></dt>
+<dd>
+    A collection of questions that have cropped up often, along with answers.
+</dd>
+<dt><a href="/language/community">Community</a></dt>
+<dd>
+    Information about the Raku development community, email lists, IRC and IRC bots, and blogs
+</dd>
+<hr/>
+
+
+<p>The Raku homepage offers <a href="https://raku.org/resources/">a
+comprehensive list of Raku resources</a>, including tutorials, and how-tos.</p>
+
+<p>You may be interested in the <a href="https://raku.org/community/">Community</a> page on the
+main Raku website.</p>
+
+<p>
+Raku compiler developers may also be interested in
+<a href="https://github.com/perl6/roast">The Raku Specification</a>.
 </p>
+
+<p>Part of this official documentation has been translated into Chinese. Here's the <a href='https://github.com/ohmycloud/perl6doc-zh/blob/master/index.adoc'>index to the pages that have been translated</a>.</p>
 
 =end Html
 
