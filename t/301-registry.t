@@ -4,13 +4,17 @@ use Documentable;
 use Documentable::Registry;
 use Pod::Load;
 
+plan *;
+
 my $registry = Documentable::Registry.new(
     :topdir("t/test-doc"),
     :dirs(["Programs", "Native"]),
-    :verbose(False),
+    :!verbose,
 );
+
 $registry.compose;
 say "Composed";
+
 subtest "Composing" => {
     is $registry.composed, True, "Composed set to True";
     is-deeply $registry.documentables.map({.name}).sort,
