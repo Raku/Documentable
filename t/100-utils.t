@@ -3,9 +3,9 @@ use Documentable::Utils::IO;
 
 # recursive dir
 
-my @dir-files = recursive-dir("t/test-doc/Native/");
+my @dir-files = recursive-dir("t/test-doc/Native/").map: *.resolve;
 
-my @result = ["t/test-doc/Native/int.pod6".IO, "t/test-doc/Native/multi-class.pod6".IO ];
+my @result = ["t/test-doc/Native/int.pod6".IO, "t/test-doc/Native/multi-class.pod6".IO ].map: *.resolve;
 
 is-deeply @dir-files.sort, @result.sort, "Recursive dir";
 
@@ -51,8 +51,8 @@ subtest 'cache' => {
 }
 
 subtest 'list files' => {
-    is list-files("t/test-doc/Native").sort,
-       ("t/test-doc/Native/int.pod6", "t/test-doc/Native/multi-class.pod6"),
+    is list-files("t/test-doc/Native").sort.map(*.IO.resolve),
+       ("t/test-doc/Native/int.pod6", "t/test-doc/Native/multi-class.pod6").map(*.IO.resolve),
        "Basic use";
 }
 
