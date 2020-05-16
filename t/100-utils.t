@@ -51,8 +51,8 @@ subtest 'cache' => {
 }
 
 subtest 'list files' => {
-    is list-files("t/test-doc/Native").sort.map: *.IO.resolve,
-       ("t/test-doc/Native/int.pod6", "t/test-doc/Native/multi-class.pod6").map: *.IO.resolve,
+    is list-files("t/test-doc/Native").sort.map(*.IO.resolve),
+       ("t/test-doc/Native/int.pod6", "t/test-doc/Native/multi-class.pod6").map(*.IO.resolve),
        "Basic use";
 }
 
