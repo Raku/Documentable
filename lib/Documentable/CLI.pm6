@@ -30,6 +30,10 @@ package Documentable::CLI {
     }
 
     our proto MAIN(|) is export { * }
+    
+    multi MAIN() {
+        say 'Execute "documentable --help" for more information.';
+    }
 
     #| Downloads default assets to generate the site
     multi MAIN (
@@ -369,7 +373,7 @@ package Documentable::CLI {
 
     #| Documentable version
     multi MAIN (
-        Bool :V(:$version)
+        Bool :V(:$version)!
     ) {
         say "Documentable version: {$?DISTRIBUTION.meta<version> or '(not found)'}"
         if defined $version;
