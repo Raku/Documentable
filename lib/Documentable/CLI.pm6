@@ -260,6 +260,12 @@ package Documentable::CLI {
         Str  :$highlight-path  = "./highlights"           #= Path to the highlighter files
     ) {
         DEBUG("Checking for changes...", $verbose);
+
+        if (! @files) {
+            DEBUG("Everything already updated. There are no changes.", $verbose);
+            exit 0;
+        }
+
         my $now = now;
         my $cache = Pod::To::Cached.new(:path(cache-path($topdir)), :verbose($verbose), :source($topdir));
         my @files = $cache.list-files(<Valid New>);
@@ -267,10 +273,6 @@ package Documentable::CLI {
         # recompile pods
         $cache.update-cache;
 
-        if (! @files) {
-            DEBUG("Everything already updated. There are no changes.", $verbose);
-            exit 0;
-        }
 
         DEBUG(+@files ~ " file(s) modified. Starting regeneration ...", $verbose);
 
