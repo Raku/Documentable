@@ -14,6 +14,6 @@ RUN apk add --no-cache --virtual .gyp python make g++ \
     && apk del .gyp \ 
     && cd ..
 
-RUN npm install sass
+RUN npm install -g sass
 
 ENTRYPOINT perl6 -v && zef install --deps-only . && zef test .
