@@ -24,7 +24,10 @@
     "Terminal::Spinners",
     "Test::Output",
     "Terminal::ANSIColor",
-    "File::Directory::Tree"
+    "File::Directory::Tree",
+    "node:from<bin>",
+    "perl:from<bin>",
+    "sass:from<bin>"
   ],
   "build-depends": [],
   "test-depends": [
