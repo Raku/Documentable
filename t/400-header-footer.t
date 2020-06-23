@@ -48,7 +48,7 @@ subtest "URL substitution in footer" => {
     my $new-pod-path = "type/Associative";
     like $wrapper.footer( $new-pod-path ), /"https://github.com/perl6/doc/blob/master/doc/Type/Associative.pod6"/, "Footer generated";
     unlike $wrapper.footer, /PODPATH/, "Footer generated";
-    say $wrapper.footer( $new-pod-path );
+    #say $wrapper.footer( $new-pod-path );
     unlike $wrapper.footer( $new-pod-path ), /NEWURL/, "NEWURL substituted";
     like $wrapper.footer, /Raku/, "Includes Raku";
 }

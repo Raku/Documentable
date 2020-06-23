@@ -65,13 +65,10 @@ method add-new(Documentable::Primary :$doc --> Documentable::Primary) {
 }
 
 method load (Str :$path --> Positional[Pod::Block::Named]) {
-    my $topdir = $!topdir;
     my Pod::Block::Named @pods;
     if ( $!use-cache ) {
         # topdir/dir/file.pod6 => dir/file
-        my $new-path = $path.subst(/$topdir/, "")
-                       .subst(/\.pod6/, "").lc
-                       .subst(/^\//, ''); # leading /
+        my $new-path = $path.IO.extension('').relative($!topdir).lc;
         @pods = $!pod-cache.pod( $new-path );
     } else {
         @pods = load($path);
