@@ -7,3 +7,4 @@
 Most syntactic constructs in Perl 6 can be categorized in terms.
 
 =end pod
+

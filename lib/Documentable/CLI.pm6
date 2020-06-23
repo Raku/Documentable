@@ -309,8 +309,9 @@ package Documentable::CLI {
             if ($filename eq "homepage") { @docs.push($factory.generate-home-page());  next; }
             if ($filename eq "404")      { @docs.push($factory.generate-error-page()); next; }
 
+            my $key = parts-of-path($filename.lc.IO).skip(1).join('::');
             my $doc = $registry.documentables.grep({
-                .url.lc.split("/")[*-1] eq $filename.lc.split("/")[1..*-1].join('::') # language/something type/Any
+                .url.lc.split("/")[*-1] eq $key # language/something type/Any
             }).first;
 
             @kinds.push($doc.kind);
