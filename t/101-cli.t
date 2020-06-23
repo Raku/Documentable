@@ -6,8 +6,10 @@ use Documentable::CLI;
 # We need to make sure the cache directory does not exist
 # It might fail if there's a change of version
 
+subtest 'no arguments provided' => {
+    output-like {Documentable::CLI::MAIN()}, /Execute/, "show help message";
+}
 
-# verbose
 subtest 'progress-bar-display' => {
     lives-ok {
             Documentable::CLI::MAIN('start', :topdir('t/test-doc'),
@@ -24,11 +26,12 @@ subtest 'progress-bar-display' => {
                 "With --verbose";
 }
 
-# version
 subtest 'version command' => {
     output-like {Documentable::CLI::MAIN(:version)}, /Documentable\sversion/, "long version";
     output-like {Documentable::CLI::MAIN(:V)}      , /Documentable\sversion/, "short version";
 }
+
+
 
 
 

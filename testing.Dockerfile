@@ -1,6 +1,6 @@
-FROM jjmerelo/alpine-perl6
+FROM jjmerelo/raku-test-circleci
 
-LABEL version="3.0.0" maintainer="Antonio Gamiz <antoniogamiz10@gmail.com>"
+LABEL version="1.0.0" maintainer="Antonio Gamiz <antoniogamiz10@gmail.com>"
 
 RUN apk add graphviz 
 RUN apk add  --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.7/main/ nodejs=8.9.3-r1
@@ -14,13 +14,6 @@ RUN apk add --no-cache --virtual .gyp python make g++ \
     && apk del .gyp \ 
     && cd ..
 
-RUN git clone https://github.com/Raku/Documentable.git \
-    && cd Documentable \
-    && zef install --deps-only --/test . \
-    && zef install . \
-    && cd .. \
-    && mkdir /documentable
+RUN npm install -g sass
 
-WORKDIR /documentable
-
-ENTRYPOINT ["sh"]
+ENTRYPOINT perl6 -v && zef install --deps-only . && zef test .

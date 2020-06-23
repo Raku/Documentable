@@ -2,7 +2,7 @@ version: 2
 jobs:
   test-linux:
     docker:
-      - image: jjmerelo/raku-test-circleci
+      - image: antoniogamiz/documentable-testing
     steps:
       - checkout
       - run:

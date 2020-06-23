@@ -1,7 +1,7 @@
 {
   "name": "Documentable",
   "description": "An API for Raku documentation",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "perl": "6.d",
   "authors": [
     "@moritz",
@@ -24,7 +24,10 @@
     "Terminal::Spinners",
     "Test::Output",
     "Terminal::ANSIColor",
-    "File::Directory::Tree"
+    "File::Directory::Tree",
+    "node:from<bin>",
+    "dot:from<bin>",
+    "sass:from<bin>"
   ],
   "build-depends": [],
   "test-depends": [
