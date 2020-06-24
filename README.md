@@ -1,4 +1,4 @@
-# Documentable, the Raku Doc API [![CI Status](https://circleci.com/gh/Raku/Documentable.svg?style=shield)](https://circleci.com/gh/Raku/Documentable) [![Build Status](https://travis-ci.org/Raku/Documentable.svg?branch=master)](https://travis-ci.org/Raku/Documentable) [![artistic](https://img.shields.io/badge/license-Artistic%202.0-blue.svg?style=flat)](https://opensource.org/licenses/Artistic-2.0)
+# Documentable, the Raku Doc API [![CI Status](https://circleci.com/gh/Raku/Documentable.svg?style=shield)](https://circleci.com/gh/Raku/Documentable) [![Build Status](https://travis-ci.org/Raku/Documentable.svg?branch=master)](https://travis-ci.org/Raku/Documentable) [![Build Status](https://dev.azure.com/antoniogamiz10/Documentable/_apis/build/status/Raku.Documentable?branchName=master)](https://dev.azure.com/antoniogamiz10/Documentable/_build/latest?definitionId=1&branchName=master) [![artistic](https://img.shields.io/badge/license-Artistic%202.0-blue.svg?style=flat)](https://opensource.org/licenses/Artistic-2.0)
 
 In this repository you can find all logic responsible for generating the
 [official Raku documentation](https://docs.Raku.org/) or any other

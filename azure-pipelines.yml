@@ -1,0 +1,24 @@
+trigger:
+  - master
+  - develop
+
+pool:
+  vmImage: "windows-2019"
+
+steps:
+  - script: |
+      echo Donwloading rakudo zip
+      curl https://rakudo.org/dl/rakudo/rakudo-moar-2020.06-01-win-x86_64.zip --output rakudo.zip
+      7z x rakudo.zip
+    displayName: "Download raku and zef"
+  - script: |
+      call npm -g install sass
+      curl https://graphviz.gitlab.io/_pages/Download/windows/graphviz-2.38.zip --out graphviz.zip
+      7z x graphviz.zip
+    displayName: "Install native dependencies"
+  - script: |
+      call %cd%\rakudo-2020.06\scripts\set-env.bat
+      set PATH=%cd%\release\bin\;%PATH%
+      zef install --/test --deps-only .
+      zef test  .
+    displayName: "Run tests"
