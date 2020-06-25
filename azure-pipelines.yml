@@ -13,7 +13,7 @@ steps:
     displayName: "Download raku and zef"
   - script: |
       call npm -g install sass
-      curl https://graphviz.gitlab.io/_pages/Download/windows/graphviz-2.38.zip --out graphviz.zip
+      curl https://graphviz.gitlab.io/_pages/Download/windows/graphviz-2.38.zip --output graphviz.zip
       7z x graphviz.zip
     displayName: "Install native dependencies"
   - script: |
