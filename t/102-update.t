@@ -1,4 +1,5 @@
 use Test;
+use File::Directory::Tree;
 
 use Documentable::CLI;
 
@@ -58,6 +59,8 @@ subtest 'not regenerate all subindexes' => {
     for @paths Z @files -> ($path, $file) { spurt $path, $file }
 
 }
+
+rmtree("html");
 
 sub add-line($file) {
     $file ~ "\n # comment to modify the file"
