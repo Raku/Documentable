@@ -11,6 +11,7 @@ use Documentable::Utils::IO;
 use Perl6::TypeGraph;
 use Perl6::TypeGraph::Viz;
 use JSON::Fast;
+use File::Directory::Tree;
 
 use Terminal::Spinners;
 use Terminal::ANSIColor;
@@ -35,34 +36,68 @@ package Documentable::CLI {
         say 'Execute "documentable --help" for more information.';
     }
 
-    #| Downloads default assets to generate the site
+    #| Downloads and untar default assets to generate the site
     multi MAIN (
         "setup",
-        Bool :y(:$yes) = False #= Always accept the operation (to use in scripts)
+        Bool :o(:$override) = False
     ) {
         DEBUG("Setting up the directory...");
 
-        my $tmpdir = tempdir;
-        shell "wget https://github.com/Raku/Documentable/releases/download/v1.0.1/assets.tar.gz -P {$tmpdir} -q";
-        shell "tar -xvzf {$tmpdir}/assets.tar.gz -C {$tmpdir} > /dev/null && rm {$tmpdir}/assets.tar.gz";
+        constant $assetsDIR = "documentable-assets";
+        constant $assetsURL = "https://github.com/Raku/Documentable/releases/download/v1.0.1/{$assetsDIR}.tar.gz"; 
 
-        # warnings
-        my @assets-files = list-files($tmpdir);
-        my $overriden = False;
-        for @assets-files -> $file {
-            my $real-file = "." ~ $file.split("{$tmpdir}/assets")[*-1];
-            if $real-file.IO.e {
-                note colored("[WARNING] $real-file will be overriden by this operation", 'yellow');
-                $overriden = True;
+        shell "curl -Ls {$assetsURL} --output {$assetsDIR}.tar.gz";
+        shell "tar -xzf {$assetsDIR}.tar.gz";
+        unlink("{$assetsDIR}.tar.gz");
+
+        my @assets-files = list-files($assetsDIR).map({.relative($assetsDIR).IO});
+        my @no-duplicated-files = @assets-files.grep({! .e});
+        my @duplicated-files = @assets-files.grep({.e});
+       
+        for @duplicated-files -> $file {
+            note colored("[WARNING] $file will be overriden by this operation", 'yellow');
+        }
+
+        say colored("Copying files...", "yellow");
+
+        # all directories must exist before copying
+        @assets-files.map({mkdir($_.dirname)});
+
+        for @no-duplicated-files -> $file {
+            copy($assetsDIR.IO.add($file), $file);
+        }
+
+        my Bool $override-files = $override or prompt("Continue? Yes [ENTER] No [n]");
+        if ( $override-files ) {
+            for @duplicated-files -> $file {
+                copy($assetsDIR.IO.add($file), $file);
             }
         }
-        # proceed if ENTER is pressed
-        if ($yes or (not so prompt("Continue? Yes [ENTER] No [n]")) ) {
-            shell "cp -a {$tmpdir}/assets/* .";
-            say colored("Done.", "green");
-            exit 0;
-        }
-        say colored("Skipped.", "red");
+
+        rmtree($assetsDIR);
+        say colored("Done.", "green");
+    }
+
+    #| Delete files created by "documentable setup"
+    multi MAIN (
+        "clean"
+    ) {
+        DEBUG("Cleaning up the directory...");
+
+        constant @files-to-delete = (
+            "Makefile", 
+            "app.pl", 
+            "app-start", 
+        );
+        unlink(@files-to-delete);
+
+        constant @dirs-to-delete = (
+            "html", 
+            "highlights",
+            "assets",
+            "template"
+        );
+        @dirs-to-delete.map({rmtree($_)});
     }
 
     #| Start the documentation generation with the specified options
@@ -361,18 +396,6 @@ package Documentable::CLI {
 
         @docs.map(-> $doc { spurt "html{$doc<url>}.html", $doc<document> });
         print-time("Updating files", $now, $verbose);
-    }
-
-    #| Delete files created by "documentable setup"
-    multi MAIN (
-        "clean"
-    ) {
-        DEBUG("Cleaning up the directory...");
-        shell q:to/END/;
-            rm -rf html && rm -rf assets && rm -rf highlights \
-            && rm app.pl && rm app-start && rm Makefile \
-            && rm -rf template
-        END
     }
 
     #| Documentable version

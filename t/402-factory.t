@@ -25,6 +25,6 @@ like %spawn<document>, /Raku/, "Home page generated correctly";
 like %spawn<document>, /Raku/, "Error page generated correctly";
 
 %spawn = $factory.generate-search-file() ;
-like %spawn<document>, /'perl6-test'/, "Search script generated correctly";
+like %spawn<document>, /raku/, "Search script generated correctly";
 
 done-testing;

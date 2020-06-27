@@ -128,8 +128,8 @@ class Documentable::DocPage::Factory {
     method generate-search-file() {
         my $search-generator = Documentable::Search.new(prefix => $.config.url-prefix );
         my @items = $search-generator.generate-entries($.registry);
-        my $template-path = "./template/search_template.js".IO ~~ :e ??
-                "./template/search_template.js" !!
+        my $template-path = "template/search_template.js".IO.e ??
+                "template/search_template.js" !!
                 zef-path("template/search_template.js");
         my $template = slurp($template-path);
         $template    = $template.subst("ITEMS", @items.join(",\n"))
