@@ -2,7 +2,7 @@ use Test;
 use Test::Output;
 use File::Directory::Tree;
 
-use Documentable::CLI;
+use Documentable::CLI {};
 
 
 subtest 'no arguments provided' => {

@@ -1,7 +1,7 @@
 use Test;
 use File::Directory::Tree;
 
-use Documentable::CLI;
+use Documentable::CLI {};
 
 plan *;
 
