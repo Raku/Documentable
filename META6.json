@@ -16,7 +16,7 @@
     "Pod::Load:ver<0.5.4+>",
     "Pod::To::HTML:ver<0.6.2+>",
     "Pod::To::Cached:ver<0.3.5+>",
-    "Perl6::TypeGraph:ver<2.1.1+>:auth<github:antoniogamiz>:api<2>",
+    "Perl6::TypeGraph:ver<2.1.3+>:auth<github:antoniogamiz>:api<2>",
     "Pod::Utilities:ver<0.0.1+>",
     "URI:ver<0.3+>",
     "File::Temp:ver<0.0.6+>",
