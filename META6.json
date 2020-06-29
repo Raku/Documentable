@@ -54,12 +54,9 @@
     "Documentable::Utils::Text": "lib/Documentable/Utils/Text.pm6"
   },
   "resources": [
-    "html/images/pencil.svg",
-    "template/head.html",
-    "template/header.html",
-    "template/footer.html",
-    "template/tg-fragment.html",
-    "template/search_template.js",
+    "templates/main.mustache",
+    "templates/tg-fragment.html",
+    "templates/search_template.js",
     "config.json"
   ],
   "license": "Artistic-2.0",

@@ -132,11 +132,10 @@ method footer($pod-path ='') {
 method render($pod, $selected = '', :$pod-path?) {
     pod2html(
         $pod,
-        url           => &!rewrite,
-        head          => $!head,
-        header        => self.menu($selected, $pod-path),
-        footer        => self.footer($pod-path),
-        default-title => $!title-page,
-        css-url       => ''
+        title          => $!title-page,
+        menu           => self.menu($selected, $pod-path),
+        url            => &!rewrite,
+        css            => '/css/app.css',
+        templates      => zef-path("template")
     )
 }
