@@ -5,6 +5,7 @@ unit module Documentable::Utils::IO;
 
 #| List of files inside a directory
 sub list-files ($dir) is export {
+    return () if not $dir.IO.e;
     dir($dir).map: { .d ?? slip sort list-files $_ !! $_ }
 }
 

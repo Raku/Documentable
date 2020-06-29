@@ -11,14 +11,14 @@ subtest 'no arguments provided' => {
 
 subtest 'setup assets' => {
     lives-ok {Documentable::CLI::MAIN('setup', :o)}, "Setup lives";
-    ok "assets".IO.e, "Assets directory created";
-    nok dir("assets") eq (), "Assets dir not empty";
+    my @dirs = ("assets", "template", "html");
+    for @dirs -> $dir {
+        ok $dir.IO.e, "$dir directory created";
+    }
     nok "assets.tar.gz".IO.e, "tar.gz deleted";
+    nok "documentable-assets".IO.e, "untar dir deleted";
 }
 
-subtest 'clean' => {
-    lives-ok {Documentable::CLI::MAIN('clean')}, "Clean lives";
-}
 
 subtest 'progress-bar-display' => {
     # We need to make sure the cache directory does not exist
@@ -26,7 +26,7 @@ subtest 'progress-bar-display' => {
     rmtree("t/.cache-test-doc");
     lives-ok {
             Documentable::CLI::MAIN('start', :topdir('t/test-doc'),
-                    :dirs('Language'), :p, :v)
+                    :dirs('Language'), :p)
              },
             "Lives";
 
@@ -39,6 +39,10 @@ subtest 'progress-bar-display' => {
                 "With --verbose";
 
     rmtree("html");
+}
+
+subtest 'clean' => {
+    lives-ok {Documentable::CLI::MAIN('clean')}, "Clean lives";
 }
 
 subtest 'version command' => {
