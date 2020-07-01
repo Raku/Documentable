@@ -82,11 +82,10 @@ sub rewrite-url($s, $prefix?) is export {
         default {
             my @parts   = $s.split: '/';
             my $name    = good-name(@parts[*-1]);
-            my $new-url = @parts[0..*-2].join('/') ~ '/' ~ $name;
+            my $new-url = @parts[0..*-2].join('/') ~ "/$name";
 
-            return $new-url unless $prefix;
-            return $prefix ~ $new-url if ($new-url ~~ /^\//);
-            return $prefix ~ "/" ~ $new-url;
+            return "{$prefix}/{$new-url}" if $prefix;
+            return $new-url;
         }
     }
 }
