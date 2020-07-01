@@ -41,7 +41,9 @@ subtest "Routine submenu" => {
 
 subtest "url in templates" => {
     my $url = $wrapper.generate-source-url("/language/5to6-nutshell");
-    is $url, "https://github.com/Raku/Documentable/blob/master/docs/Language/5to6-nutshell.pod6", "Source url";
+    is $url, "https://github.com/Raku/Documentable/blob/master/docs/Language/5to6-nutshell.pod6", "Source url (1)";
+    $url = $wrapper.generate-source-url("/type/Raku::Is::Cool");
+    is $url, "https://github.com/Raku/Documentable/blob/master/docs/Type/Raku/Is/Cool.pod6", "Source url (2)";
     $url = $wrapper.generate-edit-url("/language/5to6-nutshell");
     is $url, "https://github.com/Raku/Documentable/edit/master/docs/Language/5to6-nutshell.pod6", "Edit url (1)";
     $url = $wrapper.generate-edit-url("/type/Raku::Is::Cool");

@@ -62,6 +62,7 @@ method generate-source-url($pod-path is copy) {
     my Regex $trailing-slash = /^\//;
     $pod-path .= subst($trailing-slash, '');
     my $source-url = "{$.config.pod-root-path}/{$pod-path.tc}";
+    $source-url .= subst(:g, '::', '/');
     
     my Regex $has-file-extension = /\.pod6$/;
     return $source-url if $source-url ~~ $has-file-extension;
@@ -71,7 +72,6 @@ method generate-source-url($pod-path is copy) {
 method generate-edit-url($pod-path is copy) {
     $pod-path  = self.generate-source-url($pod-path);
     $pod-path .= subst('blob','edit');
-    $pod-path.subst(:g, '::', '/');
 }
 
 method render($pod, $selected = '', :$pod-path = '') {
