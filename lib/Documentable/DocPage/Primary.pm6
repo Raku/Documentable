@@ -46,13 +46,14 @@ class Documentable::DocPage::Primary::Type
 
     method typegraph-fragment($podname is copy) {
         # zef relative paths to resources
-        my $filename = "resources/template/tg-fragment.html".IO.e   ??
-                       "resources/template/tg-fragment.html"        !!
-                       %?RESOURCES<template/tg-fragment.html>;
+        my $filename = "resources/templates/tg-fragment.html".IO.e   ??
+                       "resources/templates/tg-fragment.html"        !!
+                       %?RESOURCES<templates/tg-fragment.html>;
         state $template = slurp $filename;
         my $svg;
-        if ("html/images/type-graph-$podname.svg".IO.e) {
-            $svg = svg-for-file("html/images/type-graph-$podname.svg");
+        my $valid-path = $podname.subst(:g, /\:\:/, "");
+        if ("html/images/type-graph-{$valid-path}.svg".IO.e) {
+            $svg = svg-for-file("html/images/type-graph-{$valid-path}.svg");
         } else {
             $svg = "<svg></svg>";
             $podname  = "404";

@@ -88,6 +88,7 @@ package Documentable::CLI {
             "Makefile", 
             "app.pl", 
             "app-start", 
+            "config.json"
         );
         unlink(@files-to-delete);
 
@@ -95,7 +96,7 @@ package Documentable::CLI {
             "html", 
             "highlights",
             "assets",
-            "template"
+            "templates"
         );
         @dirs-to-delete.map({rmtree($_)});
     }

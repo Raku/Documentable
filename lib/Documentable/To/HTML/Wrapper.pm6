@@ -6,137 +6,85 @@ use Pod::To::HTML;
 
 unit class Documentable::To::HTML::Wrapper;
 
-has Str $.head;
-has Str $.header;
-has Str $.footer;
-
 has Documentable::Config $.config;
 
-has     &.rewrite;
-has Str $.prefix;
-
-has Str $.title-page;
-has Str $.pod-root-path;
+has     &.rewrite = &rewrite-url;
+has Str $.prefix  = '';
 
 submethod BUILD(
     Documentable::Config :$!config,
 ) {
-    $!head   = "./template/head.html".IO ~~ :e ??
-            slurp "./template/head.html" !!
-            slurp zef-path("template/head.html");
-    $!header = "./template/header.html".IO ~~ :e ??
-            slurp "./template/header.html" !!
-            slurp zef-path("template/header.html");
-    $!footer = "./template/footer.html".IO ~~ :e ??
-            slurp "./template/footer.html" !!
-            slurp zef-path("template/footer.html");
-
     if ($!config.url-prefix) {
-        $!prefix  = "/" ~ $!config.url-prefix;
+        $!prefix  = "/{$!config.url-prefix}";
         &!rewrite = &rewrite-url.assuming(*, $!prefix);
-    } else {
-        $!prefix = "";
-        &!rewrite = &rewrite-url;
-    }
-
-    $!title-page = $!config.title-page;
-    $!pod-root-path = $!config.pod-root-path;
+    } 
 }
 
-method menu-entry(
-    %entry,
-    Str $selected
-) {
-    my $class = $selected eq %entry<kind> ?? "selected darker-green" !! "";
-    my $href  = $!prefix ~ "/" ~ %entry<kind> ~ ".html";
-    qq[ <a class="menu-item {$class}" href="{$href}"> { %entry<display-text> } </a>]
-}
-
-method normal-entry(
-    $class,
-    $href,
-    $display-text
-) {
-    qq[ <a class="menu-item {$class}" href="{$href}"> { $display-text } </a>]
-}
-
-method submenu-entry(
-    %entry,
-    $parent
-) {
-    my $href = $!prefix ~  "/" ~ $parent ~ "-" ~ %entry<name> ~ ".html";
-    qq[<a class="menu-item" href="{$href}"> {%entry<display-text>} </a> ]
-}
-
-method menu($selected, $pod-path?) {
-    # main menu
+method generate-menu-entries($selected) {
     my @menu-entries = $!config.kinds;
-    my $menu-items = (self.menu-entry($_, $selected) for @menu-entries).join;
-    my $irc-link = self.normal-entry('', 'https://webchat.freenode.net/?channels=#raku', 'Chat with us');
-    $menu-items = [~] q[<div class="menu-items dark-green"><a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a> ],
-                       $menu-items ~ $irc-link,
-                      q[</div>];
-    # sub menu
-    my $submenu-items = '';
-    my @submenu = $!config.get-categories(Kind( $selected ));
-    if (@submenu and $selected ne "language") {
-        my $href = $!prefix ~ "/" ~ $selected;
-        $submenu-items = [~] q[<div class="menu-items darker-green">],
-                                qq[<a class="menu-item" href="{$href}.html">All</a>],
-                                @submenu.map(-> %entry {self.submenu-entry(%entry, $selected)}).join,
-                            q[</div>];
-    }
+    @menu-entries .= map( -> $kind {
+        %(
+            class       => $selected eq $kind<kind> ?? "selected darker-green" !! "",
+            href        => "$!prefix/$kind<kind>.html",
+            displayText => $kind<display-text>
+        )
+    });
 
-    my $edit-url = "";
-    if defined $pod-path {
-	my $edit-path = $.config.pod-root-path.subst(/\/blob\//,'/edit/')
-	  ~ ($pod-path.starts-with("/")??""!!"/") ~ $pod-path.trans( ["/language","/type","/program"] => ["/Language","/Type","/Program"] );
-	$edit-path ~= ".pod6" if not $edit-path ~~ /\.pod6$/;
-      $edit-url = qq[
-      <div align="right">
-        <button title="Edit this page"  class="pencil" onclick="location='{$edit-path}'">
-        {svg-for-file(zef-path("html/images/pencil.svg"))}
-        </button>
-      </div>]
-    }
+    my %irc-entry = %(
+        class => '',
+        href  =>  $!config.irc-link,
+        displayText => "Chat with us"
+    );
 
-    $!header.subst('MENU', $menu-items ~ $submenu-items)
-            .subst('EDITURL', $edit-url)
-            .subst: 'CONTENT_CLASS',
-            'content_' ~ ($pod-path
-                    ??  $pod-path.subst(/\.pod6$/, '').subst(/\W/, '_', :g)
-                    !! 'fragment');
-
+    @menu-entries.push(%irc-entry);
+    return @menu-entries;
 }
 
-method footer($pod-path ='') {
-    my $new-footer = $!footer;
-    if ( $pod-path ) {
-        my $source-path = [~] $.config.pod-root-path,
-                              "/",
-                              $pod-path.subst(/^\//, '').tc;
+method generate-submenu-entries($selected) {
+    # those kinds do not have submenus
+    return () if $selected eq any("language", "programs");
+    my @submenuEntries = $!config.get-categories(Kind( $selected ));
+    @submenuEntries .= map(-> $category {
+        %(
+            href         => "$!prefix/{$selected}-{$category<name>}.html",
+            display-text => $category<display-text>
+        )
+    });
 
-	    $source-path ~= ".pod6" if not $source-path ~~ /\.pod6$/;
-        $new-footer = $new-footer.subst(/SOURCEURL/, $source-path);
-        $new-footer = $new-footer.subst(/PODPATH/, $pod-path);
-        my $new-url = "https://docs.raku.org/$pod-path";
-        $new-footer = $new-footer.subst(/NEWURL/, $new-url);
-    } else {
-        my @lines = $new-footer.lines;
-        $new-footer = @lines.grep( { !/PODPATH/ } ).join("\n");
-    }
-
-    $new-footer;
+    my %all-entry = %(
+        href => "$!prefix/$selected.html",
+        display-text => "All"
+    );
+    return (%all-entry, slip @submenuEntries);
 }
 
-method render($pod, $selected = '', :$pod-path?) {
-    pod2html(
+method generate-source-url($pod-path is copy) {
+    my Regex $trailing-slash = /^\//;
+    $pod-path .= subst($trailing-slash, '');
+    my $source-url = "{$.config.pod-root-path}/{$pod-path.tc}";
+    $source-url .= subst(:g, '::', '/');
+    
+    my Regex $has-file-extension = /\.pod6$/;
+    return $source-url if $source-url ~~ $has-file-extension;
+    return "{$source-url}.pod6";
+}
+
+method generate-edit-url($pod-path is copy) {
+    $pod-path  = self.generate-source-url($pod-path);
+    $pod-path .= subst('blob','edit');
+}
+
+method render($pod, $selected = '', :$pod-path = '') {
+    my $source-url      = $pod-path && self.generate-source-url($pod-path);
+    my $edit-source-url = $pod-path && self.generate-edit-url($pod-path);
+    render(
         $pod,
-        url           => &!rewrite,
-        head          => $!head,
-        header        => self.menu($selected, $pod-path),
-        footer        => self.footer($pod-path),
-        default-title => $!title-page,
-        css-url       => ''
+        url                => &!rewrite,
+        menuEntries        => self.generate-menu-entries($selected),
+        submenuEntries     => self.generate-submenu-entries($selected),
+        editable           => $pod-path && (editURL => $edit-source-url),
+        podPath            => self.generate-source-url($pod-path),
+        css                => '/css/app.css',
+        main-template-path => zef-path("templates/main.mustache")
     )
 }

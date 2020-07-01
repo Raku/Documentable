@@ -11,7 +11,7 @@ constant TOPDIR = "t/test-doc";
 my $registry = Documentable::Registry.new(
     :topdir(TOPDIR),
     :dirs(["Language"]),
-    :verbose(True)
+    :!verbose
 );
 
 $registry.compose;

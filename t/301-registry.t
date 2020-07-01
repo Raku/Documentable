@@ -1,4 +1,5 @@
 use Test;
+use Test::Output;
 
 use Documentable;
 use Documentable::Registry;
@@ -13,7 +14,6 @@ my $registry = Documentable::Registry.new(
 );
 
 $registry.compose;
-say "Composed";
 
 subtest "Composing" => {
     is $registry.composed, True, "Composed set to True";

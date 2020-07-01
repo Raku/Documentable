@@ -7,7 +7,7 @@
 
     class Documentable::Config
 
-This class contains all information related to the configuration of the module.
+Contains information related to the configuration of the module.
 
 =head1 Methods
 
@@ -17,7 +17,7 @@ Defined as
 
     method config(--> Hash)
 
-Returns a C<Hash> object containing the raw JSON file.
+Returns a C<Hash> object containing the JSON file.
 
 =head2 method kinds
 
@@ -25,7 +25,7 @@ Defined as
 
     method kinds(--> Array[Hash])
 
-Returns an C<Array> containing all L<Kind|/type/Kind> configurations found.
+Returns an C<Array> containing all L<Kind|/type/Kind> entries found.
 
 =head2 method url-prefix
 
@@ -41,7 +41,7 @@ Defined as
 
     method filename(--> Str)
 
-Returns the C<$filename> of the used configuration file.
+Returns the C<$filename> of the configuration file used.
 
 =head2 submethod BUILD
 
@@ -49,8 +49,7 @@ Defined as
 
     submethod(Str :$filename)
 
-Creates a C<Documentable::Config> object using a file. See L<configuration file|/language/configuration-file>.
-
+Creates a C<Documentable::Config> object using a C<$filename> (see L<configuration file|/language/configuration-file>).
 If an error in the file is found, a L<X::Documentable::Config::InvalidConfig|/type/X::Documentable::Config::InvalidConfig>
 exception will be thrown.
 
@@ -68,7 +67,7 @@ Defined as
 
     method get-categories(Kind $kind)
 
-Returns the categories of a C<$kind>.
+Returns the categories of a C<$kind> entry.
 
 =end pod
 

@@ -7,8 +7,8 @@
 
     grammar Documentable::Heading::Grammar
 
-Used to extract the necessary metadata from headings elements. It extracts 4 different
-values from a heading:
+Used to extract the necessary metadata from headings elements. It extracts four 
+different values from a heading:
 
 =item1 C<name>.
 =item1 C<subkind>: which is classified in three different categories:
@@ -34,7 +34,5 @@ values from a heading:
 =item3 declarator
 =item1 C<category>: I<operator> or one of element of I<routine> or I<syntax>.
 =item1 kind: C<Kind::Syntax> or C<Kind::Routine>. See L<Kind|/type/Kind>.
-
-B<Note:> in a feature release you will be able to define your own grammar.
 
 =end pod

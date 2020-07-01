@@ -8,7 +8,7 @@ Defined as
 
     role Documentable::DocPage
 
-This role must be implemented by all classes that generate a HTML page.
+This role must be implemented by all classes that generate an HTML page.
 
 =head2 method render
 
@@ -16,7 +16,7 @@ Defined as
 
     method render(| --> Hash) { ... }
 
-It's an abstract method. It needs to returns a C<Hash> object following
+It's an abstract method. It needs to return a C<Hash> object following
 this format:
 
 =begin code
@@ -26,8 +26,8 @@ this format:
 )
 =end code
 
-Returns the C<pod> is necessary because we need to wrap it in a common HTML
-format (using L<Documentable::To::HTML::Wrapper|/type/Documentable::To::HTML::Wrapper>).
+Returning the C<pod> is necessary because we need to wrap it in a common HTML
+template (see L<Documentable::To::HTML::Wrapper|/type/Documentable::To::HTML::Wrapper>).
 
 =end pod
 
@@ -41,7 +41,7 @@ Defined as
 
     class Documentable::DocPage::Primary::Type is Documentable::DocPage
 
-Class responsible of generating the pod of a L<Documentable::Primary|/type/Documentable::Primary>
+Generates the pod of a L<Documentable::Primary|/type/Documentable::Primary>
 instance with C<kind> set to C<Kind::Type>
 
 =head2 method typegraph-fragment
@@ -66,7 +66,7 @@ Defined as
 
     method parent-class($registry, $doc)
 
-Returns a pod list containing all methods supplied by the parent clases of the type.
+Returns a pod list containing all methods supplied by the parent classes of the type.
 
 =head2 method roles-done-by-parent-class
 
@@ -83,7 +83,7 @@ Defined as
 
     method compose-type($registry, $doc)
 
-Returns the C<$.pod> attribute of C<$doc> I<completed>. That means, with the typegraph fragment
+Returns the C<$.pod> attribute of C<$doc> I<completed>. That means, with the TypeGraph fragment
 and all its methods coming from another types.
 
 =end pod
@@ -98,8 +98,8 @@ Defined as
 
     class Documentable::DocPage::Primary::Language is Documentable::DocPage
 
-Class responsible of generating the pod of a L<Documentable::Primary|/type/Documentable::Primary>
-instance with C<kind> set to C<Kind::Language>
+Generates the pod of a L<Documentable::Primary|/type/Documentable::Primary>
+instance with C<kind> set to C<Kind::Language>.
 
 =end pod
 
@@ -113,8 +113,8 @@ Defined as
 
     class Documentable::DocPage::Primary::Programs is Documentable::DocPage
 
-Class responsible of generating the pod of a L<Documentable::Primary|/type/Documentable::Primary>
-instance with C<kind> set to C<Kind::Programs>
+Generates the pod of a L<Documentable::Primary|/type/Documentable::Primary>
+instance with C<kind> set to C<Kind::Programs>.
 
 =end pod
 
@@ -128,9 +128,9 @@ Defined as
 
     class Documentable::DocPage::Secondary is Documentable::DocPage
 
-This class takes all L<Documentable::Secondary|/type/Documentable::Secondary> objects
+Takes all L<Documentable::Secondary|/type/Documentable::Secondary> objects
 in a L<Documentable::Registry|/type/Documentable::Registry> with B<the same name attribute>
-and generates a HTML file.
+and generates an HTML file.
 
 =end pod
 

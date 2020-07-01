@@ -22,6 +22,7 @@ class Documentable::Config {
     has Str $.filename;
     has Str $.title-page;
     has Str $.pod-root-path;
+    has Str $.irc-link;
 
     submethod BUILD (Str :$filename) {
         my $json = slurp $filename;
@@ -37,8 +38,9 @@ class Documentable::Config {
         die X::Documentable::Config::InvalidConfig.new(:msg("'pod-root-path' entry missing"))
         unless %!config<pod-root-path>;
 
-        $!title-page = %!config<title-page>;
+        $!title-page    = %!config<title-page>;
         $!pod-root-path = %!config<pod-root-path>;
+        $!irc-link      = %!config<irc-link>;
     }
 
     method get-kind-config(Kind $kind) {

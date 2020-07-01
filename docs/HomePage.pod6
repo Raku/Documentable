@@ -1,16 +1,14 @@
 =begin Html
 
-Welcome to the documentation of the <a href="https://github.com/perl6/Documentable">Documentable</a> module.
+Welcome to the documentation of the <a href="https://github.com/Raku/Documentable">Documentable</a> module.
 
 This module provides you with an easy way to document your module and generate a site without
 having to worry about HTML generation, indexing and search utilities.
 
-I recommend you to start reading <a href="/Documentable/language.html">the language page</a> to see
+I recommend you to start reading <a href="/language.html">the language page</a> to see
 how to setup this module.
 
 If you find a problem or think some aspects should be improved, please raise an
-<a href="https://github.com/perl6/Documentable/issues">issue</a>.
+<a href="https://github.com/Raku/Documentable/issues">issue</a>.
 
 =end Html
-
-# vim: expandtab softtabstop=4 shiftwidth=4 ft=perl6
