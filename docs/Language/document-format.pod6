@@ -6,15 +6,15 @@
 
 In C<Documentable>, the documentation units are B<pod blocks>. Each and every
 one of this I<pod block>, is represented by a L<Documentable::Primary|/type/Documentable::Primary>
-object. You could write this I<pod blocks> in a lot of ways, so it would hard to detect some
-needed data to generate a "useful" site. For this reason, you need to follow some basic requirements
+object. You could write this I<pod blocks> in a lot of ways, so it would be hard to detect some
+needed data to generate an "useful" site. For this reason, you need to follow some basic requirements
 when writing documentation.
 
 =head2 Inline metadata
 
 You need to specify three different values for each I<pod block>:
 
-=item C<kind>: this value will be used to categorize the documentation block in menus. See L<Kind|/type/Kind>.
+=item C<kind>: this value will be used to categorize the documentation block in menus (see L<Kind|/type/Kind>).
 =item C<subkind>: more specific categorization. I recommend you to use values from L<Documentable::Heading::Grammar|/type/Documentable::Heading::Grammar>.
 =begin item
 C<category>: submenu categorization. You will find some big menus corresponding
@@ -46,17 +46,17 @@ if you are documenting a type, you will need to write the title as follows:
 
 =begin code
 =begin pod
-=TITLE class YourClass
+=TITLE class Your::Class
 
-YourClass will be considered as name!
+'Your::Class' will be considered as name!
 
-=TITLE role YourRole
+=TITLE role Your::Role
 
-YourRole will be considered as name!
+'Your::Role' will be considered as name!
 
 =TITLE enum YourEnum
 
-YourEnum will be considered as name!
+'YourEnum' will be considered as name!
 =end pod
 =end code
 
@@ -80,14 +80,14 @@ And that's all, at the end, all your pod blocks should be something like:
 
 =end code
 
-=head2 Multiclass file support
+=head2 Multi-class file support
 
 Sometimes is a pain to create a new file for every class, role or enum you want to document.
-Even sometimes, you in the same code file a enum, some related exceptions, and who knows more, so
+Even sometimes, you have in the same code file an enum, some related exceptions, and who knows more, so
 the possibility to write all its documentation in the same file looks like quite useful. You are
 lucky! With C<Documentable> you can do that!.
 
-You only need to write more than one pod block in the same file (following the previous rules, of course).
+You only need to write more than one pod block in the same file (following the previous rules).
 For instance, let's document two different types: (the following code is in the same file)
 
 =begin code

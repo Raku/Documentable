@@ -2,7 +2,7 @@
 
 =TITLE class Documentable::Primary
 
-=SUBTITLE Represents a self-contained Perl 6 documentation element.
+=SUBTITLE Represents a self-contained Raku documentation element.
 
     class Documentable::Primary {}
 
@@ -90,7 +90,7 @@ Defined as
     method check-pod($pod, $filename?)
 
 Check if a pod block (C<=begin pod =end pod>) follows the specified format. It checks for the
-existance of a C<=TITLE> and C<=SUBTITLE> elements and the three metadata values.
+existence of a C<=TITLE> and C<=SUBTITLE> elements and the three metadata values.
 
 =head2 method parse-definition-header
 
@@ -148,7 +148,7 @@ Defined as
     method find-definitions(:$pod, Int :$min-level = -1 --> Int)
 
 This method initializes the attribute C<@.defs>. It runs through the pod content and looks for
-valid headings. When a new definition is found, a `Documentable::Secondary` object is
+valid headings. When a new definition is found, a C<Documentable::Secondary> object is
 created with the result of calling C<parse-definition-header> (if the result is non-empty) and C<self>
 as C<origin>.
 
@@ -193,7 +193,7 @@ Defined as
 
 Similar to C<find-definitions>. It runs through the pod recursively finding all C<X<>> elements.
 
-The behaviour of C<X<>> elements is being discussed here: L<https://github.com/perl6/doc/issues/1410>.
+The behavior of C<X<>> elements is being discussed here: L<https://github.com/Raku/doc/issues/1410>.
 Any feedback is welcomed.
 
 =end pod
@@ -260,7 +260,7 @@ must follow the format:
 
     X::Documentable::MissingMetadata is Exception {}
 
-Some of the obligatory three metada elements is missing. Remember, all C<=begin pod =end pod>
+Some of the mandatory three metadata elements is missing. Remember, all C<=begin pod =end pod>
 must follow the format:
 
 =begin code
@@ -287,7 +287,7 @@ must follow the format:
 
     X::Documentable::TypeNotFound is Exception {}
 
-Attempt to create the typegraph representation of a missing type. To fix it, add that type
-to the type-graph file you are using.
+Attempt to create the TypeGraph representation of a missing type. To fix it, add that type
+to the TypeGraph file you are using.
 
 =end pod

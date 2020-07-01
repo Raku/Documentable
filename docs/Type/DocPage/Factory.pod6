@@ -7,7 +7,7 @@
 
     class Documentable::DocPage::Factory
 
-This object is responsible of generating all HTML pages. If you want to create a new page,
+Generates all HTML pages. If you want to create a new page,
 you should create it using an instance of this class.
 
 =head1 Methods

@@ -8,9 +8,8 @@
     class Documentable::Registry {}
 
 An instance of this object is used to deal with a collection of L<Documentable|/type/Documentable>
-objects. This is the most importante class in the module and the one you will use the most. It gives
-you an API to access all the processed documentation. We can say this class is our source of
-information.
+objects. It gives you an API to access all the processed documentation. We can say this class is 
+our source of information.
 
 =head1 Methods
 
@@ -64,7 +63,7 @@ Defined as
 
         method tg(--> TypeGraph)
 
-Returns the instance of L<TypeGraph|https://github.com/antoniogamiz/Perl6-TypeGraph> used
+Returns the instance of L<TypeGraph|https://github.com/antoniogamiz/Raku-TypeGraph> used
 to complete the type files.
 
 =head2 method routines-by-type
@@ -96,7 +95,7 @@ Defined as
 
         method pod-cache(--> Pod::To::Cached)
 
-Returns the instance of L<Pod::To::Cached|https://github.com/perl6/Pod-To-Cached> used
+Returns the instance of L<Pod::To::Cached|https://github.com/Raku/Pod-To-Cached> used
 to cache pod6 files.
 
 =head2 method use-cache
@@ -128,7 +127,7 @@ Creates a new instance of the class.
 =item C<$topdir>: directory containing all the pod6 sources.
 =item C<@dirs>: subdirectories of C<$topdir> containing pod6 sources.
 =item C<$verbose>: if C<True>, additional information will be printed.
-=item C<$use-cache>: use L<Pod::To::Cached|https://github.com/perl6/Pod-To-Cached> to create a pod6 cache.
+=item C<$use-cache>: use L<Pod::To::Cached|https://github.com/Raku/Pod-To-Cached> to create a pod6 cache.
 
 Example:
 
@@ -185,7 +184,7 @@ Defined as
 
     method compose(--> Bool)
 
-=item Compose the registry (initalize C<@.docs> and C<%.routines-by-type>).
+=item Compose the registry (initialize C<@.docs> and C<%.routines-by-type>).
 =item Returns the new value of C<$.composed>.
 
 =head2 method lookup
@@ -196,8 +195,7 @@ Defined as
 
 This method will classify all L<Documentable|/type/Documentable> objects in the C<Documentable::Registry>
 using the attribute C<$by> and will return all of those whose attribute C<$by> is set to C<$what>.
-
-This queris are cached the first time they are made, so next calls to this method will be faster.
+These queries are cached the first time they are made, so next calls to this method will be faster.
 
 Example:
 

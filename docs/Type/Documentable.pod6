@@ -3,14 +3,13 @@
 
 =TITLE class Documentable
 
-=SUBTITLE Represents a self-contained Perl 6 documentation element.
+=SUBTITLE Represents a self-contained Raku documentation element.
 
     class Documentable {}
 
 This class is the base for L<Documentable::Primary|/type/Documentable::Primary>
-and L<Documentable::Secondary|/type/Documentable::Secondary>.
-
-Everything documented is represented by a child class of C<Documentable>.
+and L<Documentable::Secondary|/type/Documentable::Secondary>. Everything documented
+is represented by a child class of C<Documentable>.
 
 =head1 Methods
 

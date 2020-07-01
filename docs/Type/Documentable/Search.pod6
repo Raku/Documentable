@@ -6,8 +6,8 @@
 
     class Documentable::Search {}
 
-This class takes a L<Documentable::Registry|/type/Documentable::Registry> and generate
-all the necessary entries to enable the search capabilities.
+Takes a L<Documentable::Registry|/type/Documentable::Registry> and generate
+all the necessary entries to enable search capabilities.
 
 What is an entry? Is a JSON object with three different attributes:
 
@@ -23,7 +23,7 @@ What is an entry? Is a JSON object with three different attributes:
 
 Defined as
 
-    method new(:$regsitry)
+    method new(:$registry)
 
 Creates a new instance of the class.
 
@@ -41,12 +41,12 @@ Defined as
 
     method generate-entries(--> Array[Str])
 
-Generates all search entries and store them in an C<Array>. At this moment, it generates three kind of
+Generates all search entries and store them in an C<Array>. It generates three kind of
 entries:
 
 =begin item
 
-B<Primary entries:> this entries comes from L<Documentable::Primary|/type/Documentable::Primary> objects.
+B<Primary entries:> these entries come from L<Documentable::Primary|/type/Documentable::Primary> objects.
 We initialize one entry per instance of that class found in the registry as follows:
 
 =begin code
@@ -59,7 +59,7 @@ url      => url attribute
 
 =begin item
 
-B<Secondary entries:> this entries comes from L<Documentable::Secondary|/type/Documentable::Secondary> objects.
+B<Secondary entries:> these entries come from L<Documentable::Secondary|/type/Documentable::Secondary> objects.
 Before create any entry of this type, we group all C<Documentable::Secondary> objects by name and after that,
 we generate one entry per group, as follows:
 
@@ -73,7 +73,7 @@ url      => url attribute
 
 =begin item
 
-B<Reference entries:> this entries comes from L<Documentable::Index|/type/Documentable::Index> objects.
+B<Reference entries:> these entries come from L<Documentable::Index|/type/Documentable::Index> objects.
 One entry per found object.
 
 =begin code
