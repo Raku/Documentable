@@ -11,7 +11,7 @@
     "@antoniogamiz",
     "@JJ"
   ],
-  "auth": "github:perl6",
+  "auth": "github:Raku",
   "depends": [
     "Pod::Load:ver<0.5.4+>",
     "Pod::To::HTML:ver<0.6.2+>",
@@ -63,8 +63,8 @@
   "tags": [
     "documentation",
     "text",
-    "perl6"
+    "raku"
   ],
   "api": 1,
-  "source-url": "https://github.com/perl6/Documentable.git"
+  "source-url": "https://github.com/Raku/Documentable.git"
 }
