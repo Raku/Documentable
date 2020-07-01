@@ -1,6 +1,7 @@
 {
   "title-page": "Documentable",
   "pod-root-path": "https://github.com/Raku/Documentable/tree/master/docs",
+  "irc-link": "https://webchat.freenode.net/?channels=#raku",
   "kinds": [
     {
       "kind": "language",

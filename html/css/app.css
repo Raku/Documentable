@@ -1943,12 +1943,12 @@ div.highlight span.c {
   }
 }
 
-a[href*="//"]:not([href*="perl6.org"])::after,
+a[href*="://"]:not([href*="perl6.org"])::after,
 [href="https://perl6.org"]::after,
 [href="/webchat.html"]::after,
 [href="/examples.html"]::after {
   padding-left: 2px;
-  content: url(/Perl6-Documentable/images/External-link-04-bold-12x12.svg);
+  content: url(/images/External-link-04-bold-12x12.svg);
 }
 
 .pencil {
@@ -1984,4 +1984,4 @@ a[href*="//"]:not([href*="perl6.org"])::after,
   width: 100%;
 }
 
-/*# sourceMappingURL=../b50c46ecc9/style.css.map */
+/*# sourceMappingURL=../a49185b3f5/style.css.map */
