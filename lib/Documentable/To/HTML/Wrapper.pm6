@@ -19,7 +19,7 @@ submethod BUILD(
         &!rewrite = &rewrite-url.assuming(*, $!prefix);
     } 
 }
-
+ 
 method generate-menu-entries($selected) {
     my @menu-entries = $!config.kinds;
     @menu-entries .= map( -> $kind {
@@ -84,7 +84,7 @@ method render($pod, $selected = '', :$pod-path = '') {
         submenuEntries     => self.generate-submenu-entries($selected),
         editable           => $pod-path && (editURL => $edit-source-url),
         podPath            => self.generate-source-url($pod-path),
-        css                => '/css/app.css',
+        css                => &!rewrite('/css/app.css'),
         main-template-path => zef-path("templates/main.mustache")
     )
 }

@@ -120,7 +120,7 @@ package Documentable::CLI {
         Bool :a(:$all)             = False                    #= Equivalent to -t -p -s -i --search-index
     ) {
         my $beginning = now; # to measure total time
-        if (!"./html".IO.e || !"./assets".IO.e || !"./template".IO.e and $v) {
+        if (!"./html".IO.e || !"./assets".IO.e || !"./templates".IO.e and $v) {
             note q:to/END/;
                 (warning) html and/or assets and/or templates directories
                 cannot be found. You can get the defaults by executing:

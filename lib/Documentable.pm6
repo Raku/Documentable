@@ -80,12 +80,14 @@ sub rewrite-url($s, $prefix?) is export {
               .starts-with: '#'    or
               .starts-with: 'irc'     } { $s }
         default {
+
             my @parts   = $s.split: '/';
             my $name    = good-name(@parts[*-1]);
             my $new-url = @parts[0..*-2].join('/') ~ "/$name";
 
-            return "{$prefix}/{$new-url}" if $prefix;
+            return "/{$prefix}{$new-url}" if $prefix;
             return $new-url;
+
         }
     }
 }
