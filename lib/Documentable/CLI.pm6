@@ -88,7 +88,7 @@ package Documentable::CLI {
             "Makefile", 
             "app.pl", 
             "app-start", 
-            "config.json"
+            "documentable.json"
         );
         unlink(@files-to-delete);
 
@@ -105,7 +105,7 @@ package Documentable::CLI {
     multi MAIN (
         "start"                           ,
         Str  :$topdir              = "doc",                   #= Directory where the pod collection is stored
-        Str  :$conf                = zef-path("config.json"), #= Configuration file
+        Str  :$conf                = zef-path("documentable.json"), #= Configuration file
         Bool :v(:verbose($v))      = False,                   #= Prints progress information
         Bool :p(:primary($p))      = False,                   #= Generates the HTML files corresponding to primary objects
         Bool :s(:secondary($s))    = False,                   #= Generates per kind files
@@ -120,7 +120,7 @@ package Documentable::CLI {
         Bool :a(:$all)             = False                    #= Equivalent to -t -p -s -i --search-index
     ) {
         my $beginning = now; # to measure total time
-        if (!"./html".IO.e || !"./assets".IO.e || !"./template".IO.e and $v) {
+        if (!"./html".IO.e || !"./assets".IO.e || !"./templates".IO.e and $v) {
             note q:to/END/;
                 (warning) html and/or assets and/or templates directories
                 cannot be found. You can get the defaults by executing:
@@ -290,7 +290,7 @@ package Documentable::CLI {
     multi MAIN (
         "update",
         Str  :$topdir          = "doc",                   #= Directory where the pod collection is stored
-        Str  :$conf            = zef-path("config.json"), #= Configuration file
+        Str  :$conf            = zef-path("documentable.json"), #= Configuration file
         Bool :v(:$verbose)     = True ,                   #= Prints progress information
         Bool :$highlight       = False,                   #= Highlights the code blocks
         Str  :$highlight-path  = "./highlights"           #= Path to the highlighter files
@@ -320,6 +320,8 @@ package Documentable::CLI {
             my $proc;
             my $proc-supply;
             my $coffee-exe = "{$highlight-path}/node_modules/coffeescript/bin/coffee";
+
+            die X::Documentable::NodeNotFound.new unless $coffee-exe.IO.e;
 
             $proc = Proc::Async.new($coffee-exe, "{$highlight-path}/highlight-filename-from-stdin.coffee", :r, :w);
             $proc-supply = $proc.stdout.lines;

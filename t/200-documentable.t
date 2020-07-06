@@ -7,6 +7,7 @@ plan *;
 
 Some pod
 
+
 =end pod
 
 my $doc1 = Documentable.new(
@@ -59,10 +60,14 @@ subtest 'rewrite-url' => {
   is rewrite-url('#thor')        , '#thor'                 , "internal links invariant";
   is rewrite-url('irc://thor')   , 'irc://thor'            , "irc      links invariant";
   is rewrite-url("/good/link")   , '/good/link'            , "good link";
-  is rewrite-url("/simple")      , '/simple'               , "simple link";
+  is rewrite-url("/simple")      , '/simple'               , "simple link (1)";
+  is rewrite-url("simple")       , '/simple'               , "simple link (2)";
   is rewrite-url('/a/^')         , '/a/$CIRCUMFLEX_ACCENT' , "^ replaced";
   is rewrite-url('/a/%')         , '/a/$PERCENT_SIGN'      , "% replaced";
   is rewrite-url('/a/b#internal'), '/a/b#internal'         , 'not change internals';
+  is rewrite-url("/a", "p")      , '/p/a'                  , "prefix (1)";
+  is rewrite-url("a", "p")       , '/p/a'                  , "prefix (2)";
 }
+
 
 done-testing;

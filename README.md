@@ -162,7 +162,7 @@ You can set this up with the default `Makefile` (obtained using `documentable se
 
 #### SASS Compiler
 
-To build the styles, you need to have a SASS compiler. You can either install
+To build the styles, you need to have a SASS compiler. You need to install
 the `sass` command
 
 ```
