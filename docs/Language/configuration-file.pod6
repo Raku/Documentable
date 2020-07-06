@@ -51,4 +51,6 @@ the edit button at the beginning of every primary page.
 
 For instance: C<"pod-root-path": "https://github.com/Raku/Documentable/tree/master/docs">.
 
+=end item
+
 =end pod
