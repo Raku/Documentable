@@ -15,7 +15,7 @@ submethod BUILD(
     Documentable::Config :$!config,
 ) {
     if ($!config.url-prefix) {
-        $!prefix  = "/{$!config.url-prefix}";
+        $!prefix  = $!config.url-prefix;
         &!rewrite = &rewrite-url.assuming(*, $!prefix);
     } 
 }

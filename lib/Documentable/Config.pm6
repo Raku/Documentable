@@ -33,9 +33,9 @@ class Documentable::Config {
 
         $!url-prefix = %!config<url-prefix> || '';
         my $leading-slash = /^\//;
-        $!url-prefix .= subst($leading-slash);
+        $!url-prefix .= subst($leading-slash, '');
         my $trailing-slash = /\/$/;
-        $!url-prefix .= subst($trailing-slash);
+        $!url-prefix .= subst($trailing-slash, '');
 
         die X::Documentable::Config::InvalidConfig.new(:msg("'title-page' entry missing"))
         unless %!config<title-page>;
