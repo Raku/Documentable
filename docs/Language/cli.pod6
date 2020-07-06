@@ -42,11 +42,11 @@ B<Default:> C<"doc">.
 
 Path to the configuration file (see L<configuration-file|/Language/configuration-file>).
 
-If a file named C<"config.json"> is not found at the same directory where C<documentable>
-was executed, the L<default configuration file|https://github.com/Raku/Documentable/blob/master/resources/config.json>
+If a file named C<"documentable.json"> is not found at the same directory where C<documentable>
+was executed, the L<default configuration file|https://github.com/Raku/Documentable/blob/master/resources/documentable.json>
 will be used instead.
 
-B<Default:> C<"config.json">.
+B<Default:> C<"documentable.json">.
 
 This is the structure of this file:
 

@@ -56,7 +56,7 @@
     "templates/main.mustache",
     "templates/tg-fragment.html",
     "templates/search_template.js",
-    "config.json"
+    "documentable.json"
   ],
   "license": "Artistic-2.0",
   "tags": [

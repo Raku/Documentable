@@ -16,7 +16,7 @@ generate your documentation.
 B<IMPORTANT:> if you use this container, you need to specify C<--highlight-path="/highlights">
 to the CLI utility of C<Documentable>.
 
-See L<the configuration used by the module|https://github.com/Raku/Documentable/blob/master/resources/config.json>
+See L<the configuration used by the module|https://github.com/Raku/Documentable/blob/master/resources/documentable.json>
 as an example.
 
 =end pod

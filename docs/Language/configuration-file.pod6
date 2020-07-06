@@ -9,9 +9,9 @@
 C<Documentable> uses a JSON file to read custom configuration. You
 have three different options to specify it:
 
-=item Create a file named C<config.json> in the same directory where C<documentable> will be executed.
+=item Create a file named C<documentable.json> in the same directory where C<documentable> will be executed.
 =item Provide a custom path to a JSON file with the C<--conf> option.
-=item Do nothing. In that case, the L<default configuration file|https://github.com/Raku/Documentable/blob/master/resources/config.json> will be used.
+=item Do nothing. In that case, the L<default configuration file|https://github.com/Raku/Documentable/blob/master/resources/documentable.json> will be used.
 
 =head2 C<kinds> entry
 

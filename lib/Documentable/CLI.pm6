@@ -88,7 +88,7 @@ package Documentable::CLI {
             "Makefile", 
             "app.pl", 
             "app-start", 
-            "config.json"
+            "documentable.json"
         );
         unlink(@files-to-delete);
 
@@ -105,7 +105,7 @@ package Documentable::CLI {
     multi MAIN (
         "start"                           ,
         Str  :$topdir              = "doc",                   #= Directory where the pod collection is stored
-        Str  :$conf                = zef-path("config.json"), #= Configuration file
+        Str  :$conf                = zef-path("documentable.json"), #= Configuration file
         Bool :v(:verbose($v))      = False,                   #= Prints progress information
         Bool :p(:primary($p))      = False,                   #= Generates the HTML files corresponding to primary objects
         Bool :s(:secondary($s))    = False,                   #= Generates per kind files
@@ -290,7 +290,7 @@ package Documentable::CLI {
     multi MAIN (
         "update",
         Str  :$topdir          = "doc",                   #= Directory where the pod collection is stored
-        Str  :$conf            = zef-path("config.json"), #= Configuration file
+        Str  :$conf            = zef-path("documentable.json"), #= Configuration file
         Bool :v(:$verbose)     = True ,                   #= Prints progress information
         Bool :$highlight       = False,                   #= Highlights the code blocks
         Str  :$highlight-path  = "./highlights"           #= Path to the highlighter files
