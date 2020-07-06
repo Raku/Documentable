@@ -321,6 +321,8 @@ package Documentable::CLI {
             my $proc-supply;
             my $coffee-exe = "{$highlight-path}/node_modules/coffeescript/bin/coffee";
 
+            die X::Documentable::NodeNotFound.new unless $coffee-exe.IO.e;
+
             $proc = Proc::Async.new($coffee-exe, "{$highlight-path}/highlight-filename-from-stdin.coffee", :r, :w);
             $proc-supply = $proc.stdout.lines;
             highlight-code-blocks($proc, $proc-supply);
