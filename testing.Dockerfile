@@ -9,6 +9,7 @@ COPY resources/highlights /highlights
 
 RUN apk add --no-cache --virtual .gyp python make g++ \
     && cd /highlights \
+    && npm config set unsafe-perm true \
     && git clone https://github.com/perl6/atom-language-perl6 \
     && npm install . \
     && apk del .gyp \ 
