@@ -1,5 +1,5 @@
 use File::Directory::Tree;
-use Pod::To::Cached;
+use Pod::From::Cache;
 
 unit module Documentable::Utils::IO;
 
@@ -77,9 +77,8 @@ sub init-cache($top-dir, $verbose = False ) is export {
                  "Please do not use any other directory with "    ~
                  "this name." if $verbose;
      }
-     return Pod::To::Cached.new(:source(~$top-dir),
-                                :$verbose,
-                                :path(~$cache-dir));
+     return Pod::From::Cache.new(:doc-source(~$top-dir),
+                                 :cache-path(~$cache-dir));
 }
 
 sub delete-cache-for($path) is export {
