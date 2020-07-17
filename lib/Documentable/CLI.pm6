@@ -293,7 +293,8 @@ package Documentable::CLI {
         Str  :$conf            = zef-path("documentable.json"), #= Configuration file
         Bool :v(:$verbose)     = True ,                         #= Prints progress information
         Bool :$highlight       = False,                         #= Highlights the code blocks
-        Str  :$highlight-path  = "./highlights"                 #= Path to the highlighter files
+        Str  :$highlight-path  = "./highlights",                #= Path to the highlighter files,
+        Str  :$typegraph-file  = "type-graph.txt"               #= TypeGraph file
     ) {
         DEBUG("Checking for changes...", $verbose);
 
@@ -328,6 +329,7 @@ package Documentable::CLI {
             :$topdir,
             :dirs(DOCUMENTABLE-DIRS),
             :verbose($verbose),
+            :$typegraph-file
         );
         $registry.compose;
 
