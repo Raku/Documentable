@@ -67,8 +67,9 @@ method process-pod-dir(Str :$dir) {
         my @pod-fragments = self.load(path => $file.path);
         for @pod-fragments -> $pod {
             my $doc =Documentable::Primary.new(
-                pod      => $pod,
-                filename => $filename,
+                pod         => $pod,
+                filename    => $filename,
+                source-path => $file.Str
             );
 
             self.add-new: :$doc;

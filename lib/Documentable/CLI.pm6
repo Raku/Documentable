@@ -345,13 +345,10 @@ package Documentable::CLI {
         my @type-subindexes;
 
         for @files -> $filename {
-            if ($filename ~~ "HomePage") { @docs.push($factory.generate-home-page());  next; }
-            if ($filename ~~ "404")      { @docs.push($factory.generate-error-page()); next; }
+            if ($filename ~~ /HomePage/) { @docs.push($factory.generate-home-page());  next; }
+            if ($filename ~~ /404/)      { @docs.push($factory.generate-error-page()); next; }
 
-            my $key = parts-of-path($filename.lc.IO).skip(1).join('::');
-            my $doc = $registry.documentables.grep({
-                .url.lc.split("/")[*-1] eq $key # language/something type/Any
-            }).first;
+            my $doc = $registry.documentables.grep({.source-path eq $filename.IO.absolute}).first;
 
             @kinds.push($doc.kind);
             @docs.push($factory.generate-primary($doc));

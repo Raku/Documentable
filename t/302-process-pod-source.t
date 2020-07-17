@@ -7,14 +7,16 @@ plan *;
 
 my $pod = load("t/test-doc/Native/int.pod6").first;
 my $doc1 = Documentable::Primary.new(
-    pod      => $pod,
-    filename => "int",
+    pod         => $pod,
+    filename    => "int",
+    source-path => "t/test-doc/Native/int.pod6"
 );
 
 # change the kind to test the setting of attributes like <name>
 my $doc2 = Documentable::Primary.new(
-    pod      => load("t/test-doc/Language/operators.pod6")[0],
-    filename => "int",
+    pod         => load("t/test-doc/Language/operators.pod6")[0],
+    filename    => "int",
+    source-path => "t/test-doc/Language/operators.pod6"
 );
 
 subtest "Basic attributes" => {

@@ -8,7 +8,8 @@ plan *;
 my $pod = $=pod[0];
 my $doc = Documentable::Primary.new(
     :$pod,
-    :filename("internal")
+    :filename("internal"),
+    :source-path("internal")
 );
 
 subtest "Non-trivial header" => {

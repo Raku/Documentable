@@ -12,8 +12,9 @@ my $registry = Documentable::Registry.new(
 );
 
 my $expected = Documentable::Primary.new(
-    pod      => load("t/test-doc/Native/int.pod6")[0],
-    filename => "int",
+    pod         => load("t/test-doc/Native/int.pod6")[0],
+    filename    => "int",
+    source-path => "t/test-doc/Native/int.pod6"
 );
 
 subtest "process pod dir" => {
@@ -38,12 +39,14 @@ subtest "multi-class support" => {
     # expected documentables
     my @pods = load("t/test-doc/Native/multi-class.pod6");
     my $doc1 = Documentable::Primary.new(
-        pod      => @pods[0],
-        filename => "multi-class",
+        pod         => @pods[0],
+        filename    => "multi-class",
+        source-path => "t/test-doc/Native/multi-class.pod6"
     );
     my $doc2 = Documentable::Primary.new(
         pod      => @pods[1],
         filename => "multi-class",
+        source-path => "t/test-doc/Native/multi-class.pod6"
     );
 
     is-deeply @docs, [$doc1, $doc2], "multi-class file declaration";

@@ -10,8 +10,9 @@ plan *;
 
 my $pod = load("t/test-doc/Programs/02-reading-docs.pod6")[0];
 my $origin = Documentable::Primary.new(
-    pod      => $pod,
-    filename => "test",
+    pod         => $pod,
+    filename    => "test",
+    source-path => "t/test-doc/Programs/02-reading-docs.pod6"
 );
 
 my @names := ("url", "meta (multi)", "part", "nometa");
