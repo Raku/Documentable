@@ -41,12 +41,13 @@ subtest "multi-class support" => {
     my $doc1 = Documentable::Primary.new(
         pod         => @pods[0],
         filename    => "multi-class",
-        source-path => "t/test-doc/Native/multi-class.pod6"
+        source-path => "t/test-doc/Native/multi-class.pod6".IO.absolute
     );
+
     my $doc2 = Documentable::Primary.new(
         pod      => @pods[1],
         filename => "multi-class",
-        source-path => "t/test-doc/Native/multi-class.pod6"
+        source-path => "t/test-doc/Native/multi-class.pod6".IO.absolute
     );
 
     is-deeply @docs, [$doc1, $doc2], "multi-class file declaration";
