@@ -97,14 +97,6 @@ Defined as
 
 Returns the the cache object used.
 
-=head2 method use-cache
-
-Defined as
-
-        method use-cache(--> Bool)
-
-Returns a C<Bool> indicating is the registry is using a cache.
-
 =head2 method topdir
 
 Defined as
@@ -136,16 +128,12 @@ my $registry = Documentable::Registry.new(
     topdir    => "doc",                # doc containing the pod collection
     dirs      => ["Type", "Language"], # dirs to process
     verbose   => True,
-    use-cache => True                  # recommended
 );
 
 # to complete the processing and initialize some attributes
 $registry.compose;
 
 =end code
-
-B<Note:> if C<$use-cache> is set to C<False>, L<Pod::Load|https://github.com/JJ/p6-pod-load> will be
-used instead.
 
 =head2 method add-new
 
@@ -164,7 +152,7 @@ Defined as
 
     method load(Str :$path --> Positional[Pod::Block::Named])
 
-Loads a new pod6 file and returns it. It will load it from the cache if C<use-cache> is set to C<True>.
+Loads a new pod6 file from the cache.
 
 =head2 method process-pod-dir
 
