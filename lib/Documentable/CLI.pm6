@@ -4,7 +4,6 @@ use Documentable::Registry;
 use Documentable::Config;
 use Documentable::DocPage::Factory;
 
-use Pod::Load;
 use Pod::From::Cache;
 use File::Temp;
 use Documentable::Utils::IO;

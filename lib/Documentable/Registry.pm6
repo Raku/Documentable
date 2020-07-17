@@ -1,4 +1,3 @@
-use Pod::Load;
 use Pod::Utilities;
 use Pod::From::Cache;
 use Pod::Utilities::Build;
