@@ -13,6 +13,7 @@ my $pod = load("t/test-doc/Native/int.pod6")[0];
 my $doc = Documentable::Primary.new(
     :$pod,
     :filename("int")
+    :source-path("t/test-doc/Native/int.pod6")
 );
 
 my @names      := ("ACCEPTS", "any", "mro", "root");

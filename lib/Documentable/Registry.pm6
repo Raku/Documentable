@@ -1,6 +1,5 @@
-use Pod::Load;
 use Pod::Utilities;
-use Pod::To::Cached;
+use Pod::From::Cache;
 use Pod::Utilities::Build;
 
 use URI::Escape;
@@ -22,8 +21,7 @@ has                  %.cache;
 has Perl6::TypeGraph $.tg;
 has                  %.routines-by-type;
 
-has Pod::To::Cached $.pod-cache;
-has Bool            $.use-cache;
+has Pod::From::Cache $.pod-cache;
 
 has Bool $.verbose;
 has Str  $.topdir;
@@ -31,25 +29,14 @@ has Str  $.topdir;
 submethod BUILD (
     Str     :$topdir     = "doc",
             :@dirs       = [],
-    Bool    :$verbose    = True,
-    Bool    :$use-cache  = True,
+    Bool    :$!verbose    = True,
     Str     :$typegraph-file
 ) {
-    $!verbose     = $verbose;
-    $!use-cache   = $use-cache;
-    if ($typegraph-file) {
-        $!tg = Perl6::TypeGraph.new-from-file($typegraph-file);
-    } else {
-        $!tg = Perl6::TypeGraph.new-from-file;
-    }
-    $!topdir      = $topdir.IO.absolute;
+    $!tg = $typegraph-file ?? Perl6::TypeGraph.new-from-file($typegraph-file)
+                           !! Perl6::TypeGraph.new-from-file;
 
-    # init cache if needed
-    if ( $!use-cache ) {
-        $!pod-cache = init-cache( $!topdir, $!verbose);
-        say "Updating cache";
-        $!pod-cache.update-cache;
-    }
+    $!topdir      = $topdir.IO.absolute;
+    $!pod-cache = init-cache( $!topdir, $!verbose);
 
     # initialize the registry
     for @dirs -> $dir {
@@ -64,17 +51,8 @@ method add-new(Documentable::Primary :$doc --> Documentable::Primary) {
     $doc;
 }
 
-method load (Str :$path --> Positional[Pod::Block::Named]) {
-    my Pod::Block::Named @pods;
-    if ( $!use-cache ) {
-        # topdir/dir/file.pod6 => dir/file
-        my $new-path = $path.IO.extension('').relative($!topdir).lc;
-        @pods = $!pod-cache.pod( $new-path );
-    } else {
-        @pods = load($path);
-    }
-
-    return @pods;
+method load( Str :$path ) {
+    $!pod-cache.pod( $path.IO.absolute );
 }
 
 method process-pod-dir(Str :$dir) {
@@ -88,8 +66,9 @@ method process-pod-dir(Str :$dir) {
         my @pod-fragments = self.load(path => $file.path);
         for @pod-fragments -> $pod {
             my $doc =Documentable::Primary.new(
-                pod      => $pod,
-                filename => $filename,
+                pod         => $pod,
+                filename    => $filename,
+                source-path => $file.Str
             );
 
             self.add-new: :$doc;
@@ -124,5 +103,3 @@ method lookup(Str $what, Str :$by!) {
 method docs-for(Str $name) {
     @!docs.grep({.name eq $name})
 }
-
-# vim: expandtab shiftwidth=4 ft=perl6

@@ -160,13 +160,6 @@ If C<True>, progress information will be displayed.
 
 B<Default:> C<False>.
 
-=head2 X<-c, --cache>
-
-If C<True>, L<Pod::To::Cached|https://github.com/Raku/Pod-To-Cached> will be used
-to load the pods and create a cache (B<recommended>).
-
-B<Default:> C<True>.
-
 =head2 X<-p, --primary>
 
 If C<True>, HTML files associated with L<Documentable::Primary|/type/Documentable::Primary>

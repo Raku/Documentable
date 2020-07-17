@@ -13,9 +13,14 @@ my $registry = Documentable::Registry.new(
     :!verbose,
 );
 
-$registry.compose;
+subtest "load pod" => {
+    my @expected = load("t/test-doc/Language/terms.pod6");
+    my @got      = $registry.load(path=>"t/test-doc/Language/terms.pod6");
+    ok @expected eqv @got, "Load pods";
+}
 
 subtest "Composing" => {
+    $registry.compose;
     is $registry.composed, True, "Composed set to True";
     is-deeply $registry.documentables.map({.name}).sort,
               ("Debugging", "Reading", "int", "pod1", "pod2"),

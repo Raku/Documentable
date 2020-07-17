@@ -1,6 +1,5 @@
 
 use Documentable;
-use Pod::Load;
 use Documentable::Config;
 use Documentable::Utils::IO;
 use Documentable::Registry;
@@ -27,7 +26,8 @@ class Documentable::DocPage::Factory {
     }
 
     method generate-home-page() {
-        my $pod = load($!registry.topdir~"/HomePage.pod6")[0];
+        my $path = "{$!registry.topdir}/HomePage.pod6";
+        my $pod = $!registry.load(:$path)[0];
         %(
           document => $!wrapper.render($pod, :pod-path("HomePage.pod6")),
           url => '/index'
@@ -35,7 +35,8 @@ class Documentable::DocPage::Factory {
     }
 
     method generate-error-page() {
-        my $pod = load($!registry.topdir~"/404.pod6")[0];
+        my $path = "{$!registry.topdir}/404.pod6";
+        my $pod = $!registry.load(:$path)[0];
         %(
           document => $!wrapper.render($pod, :pod-path("404.pod6")),
           url => '/404'

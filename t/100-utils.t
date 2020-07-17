@@ -57,7 +57,7 @@ subtest 'cache' => {
     delete-cache-for(TOPDIR);  # In case it was left from a previous test
     my $cache = init-cache( TOPDIR );
     ok $cache, "Cache created anywhere";
-    isa-ok $cache, Pod::To::Cached, "Correct type";
+    isa-ok $cache, Pod::From::Cache, "Correct type";
     ok cache-path(TOPDIR).IO.d, "Directory created";
     delete-cache-for(TOPDIR);
     nok cache-path(TOPDIR).IO.d, "Directory deleted";
