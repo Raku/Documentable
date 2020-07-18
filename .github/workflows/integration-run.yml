@@ -1,0 +1,45 @@
+name: Publish Testing Docker Container
+on:
+  pull_request:
+    branches:
+      - master
+jobs:
+  build-base-container:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Publish to Registry
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: antoniogamiz/documentable-testing-integration
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          dockerfile: testing.Dockerfile
+          tags: "latest"
+  build-documentable-container:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Publish to Registry
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: antoniogamiz/documentable-integration
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          dockerfile: production.Dockerfile
+          tags: "latest"
+  build-documentation:
+    runs-on: ubuntu-latest
+    container: antoniogamiz/documentable-integration
+    steps:
+      - run: |
+          git clone -b master --single-branch git@github.com:Raku/doc.git
+        name: Download official doc set
+      - run: |
+          cd doc && documentable start -a
+          tar czf docsite.tar.gz doc/html
+        name: Generate docs
+    - uses: actions/upload-artifact@master
+      with:
+        name: Doc Site
+        path: docsite.tar.gz
