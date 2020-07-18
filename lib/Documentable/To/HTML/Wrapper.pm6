@@ -42,7 +42,7 @@ method generate-menu-entries($selected) {
 
 method generate-submenu-entries($selected) {
     # those kinds do not have submenus
-    return () if $selected eq any("language", "programs");
+    return () if $selected eq any("language", "programs", "");
     my @submenuEntries = $!config.get-categories(Kind( $selected ));
     @submenuEntries .= map(-> $category {
         %(

@@ -39,6 +39,11 @@ subtest "Routine submenu" => {
     }
 }
 
+subtest "Index submenu, see issue #110" => {
+    my @submenu-entries = $wrapper.generate-submenu-entries("");
+    is @submenu-entries, (), "Index submenu should not have entries";
+}
+
 subtest "url in templates" => {
     my $url = $wrapper.generate-source-url("/language/5to6-nutshell");
     is $url, "https://github.com/Raku/Documentable/blob/master/docs/Language/5to6-nutshell.pod6", "Source url (1)";
@@ -49,5 +54,7 @@ subtest "url in templates" => {
     $url = $wrapper.generate-edit-url("/type/Raku::Is::Cool");
     is $url, "https://github.com/Raku/Documentable/edit/master/docs/Type/Raku/Is/Cool.pod6", "Edit url (2)";
 }
+
+
 
 done-testing;
