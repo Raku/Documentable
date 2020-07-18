@@ -148,13 +148,12 @@ To generate the svg files for the typegraph representation you need to have inst
     $ sudo apt-get install graphviz
 ```
 
-#### Highlight (OPTIONAL)
+#### Node & Highlight
 
 This is necessary to apply highlighting to the code examples in the
-documentation. You can skip it, but have in mind that all code examples will
-appear with the same color (black).
+documentation. We use [Atom highlighting](https://github.com/perl6/atom-language-perl6), so you will need to install [Node.js](https://nodejs.org/en/).
 
-You can set this up with the default `Makefile` (obtained using `documentable setup`):
+You can set the highlighter up with the default `Makefile` (obtained using `documentable setup`):
 
 ```
     make init-highlights
