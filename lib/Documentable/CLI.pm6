@@ -84,7 +84,8 @@ package Documentable::CLI {
         DEBUG("Cleaning up the directory...");
 
         constant @files-to-delete = (
-            "Makefile", 
+            "Makefile",
+            "type-graph.txt",
             "app.pl", 
             "app-start", 
             "documentable.json"

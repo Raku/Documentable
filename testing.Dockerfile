@@ -7,7 +7,7 @@ RUN apk add  --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.7/m
 
 COPY resources/highlights /highlights
 
-RUN apk add --no-cache --virtual .gyp python make g++ \
+RUN apk add --no-cache --virtual .gyp make python g++ \
     && cd /highlights \
     && npm config set unsafe-perm true \
     && git clone https://github.com/perl6/atom-language-perl6 \
@@ -16,5 +16,7 @@ RUN apk add --no-cache --virtual .gyp python make g++ \
     && cd ..
 
 RUN npm install -g sass
+
+RUN apk add rsync
 
 ENTRYPOINT perl6 -v && zef install --deps-only . && zef test .

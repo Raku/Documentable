@@ -10,60 +10,8 @@ jobs:
           command: |
             zef update
             zef install .
-            # test one build
-            git clone https://github.com/antoniogamiz/mini-doc
-            zef install https://github.com/antoniogamiz/Perl6-LinkHealth.git
-            cd mini-doc
-            documentable setup -o
-            documentable start --topdir=test-doc -v -p -s --search-index -i
-            linkhealth --html-dir=html
-  docs-build:
-    docker:
-      - image: antoniogamiz/documentable
-    steps:
-      - checkout
-      - run:
-          name: Build documentation
-          command: |
-            git checkout docs-assets
-            git checkout master -- docs
-            documentable start --topdir=docs -v -a --highlight --highlight-path="/highlights"
-      - persist_to_workspace:
-          root: ./
-          paths: html
-  docs-deploy:
-    docker:
-      - image: node:8.10.0
-    steps:
-      - checkout
-      - attach_workspace:
-          at: ./
-      - run:
-          name: Install and configure dependencies
-          command: |
-            npm install -g --silent gh-pages@2.0.1
-            git config user.email "antoniogamiz@gmail.com"
-            git config user.name "ci-build"
-      - add_ssh_keys:
-          fingerprints:
-            - "a0:3e:32:ff:48:00:88:c7:f8:23:0e:bb:4e:6f:fb:80"
-      - run:
-          name: Deploy docs to gh-pages branch
-          command: gh-pages --dotfiles --message "[skip ci] Updates" --dist ./html
 workflows:
   version: 2
   test-deploy:
     jobs:
       - test-linux
-      - docs-build:
-          requires:
-            - test-linux
-          filters:
-            branches:
-              only: master
-      - docs-deploy:
-          requires:
-            - docs-build
-          filters:
-            branches:
-              only: master

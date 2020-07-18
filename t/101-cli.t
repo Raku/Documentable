@@ -19,6 +19,9 @@ subtest 'setup assets' => {
     nok "documentable-assets".IO.e, "untar dir deleted";
 }
 
+# 'documentable setup' downloads a type-graph file different from the one 
+# used in the tests, so it needs to be deleted.
+unlink("type-graph.txt");
 
 subtest 'progress-bar-display' => {
     # We need to make sure the cache directory does not exist
