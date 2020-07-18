@@ -1,4 +1,4 @@
-name: Publish Testing Docker Container
+name: Run integration tests with the official doc suite
 on:
   pull_request:
     branches:
@@ -17,6 +17,7 @@ jobs:
           dockerfile: testing.Dockerfile
           tags: "latest"
   build-documentable-container:
+    needs: build-base-container
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -29,18 +30,22 @@ jobs:
           dockerfile: production.Dockerfile
           tags: "latest"
   build-documentation:
+    needs: build-documentable-container
     runs-on: ubuntu-latest
     container: antoniogamiz/documentable-integration
     steps:
+      - uses: actions/checkout@master
       - run: |
-          git clone -b master --single-branch git@github.com:Raku/doc.git
-      - name: Download official doc set
+          git clone -b master --single-branch https://github.com/Raku/doc.git
+        name: Download official doc set
       - run: |
-          cd doc && documentable start -a
-          tar czf docsite.tar.gz doc/html
-      - name: Generate docs
-    - uses: actions/upload-artifact@master
-    - name: Upload docsite artifact
-      with:
-        name: Doc Site
-        path: docsite.tar.gz
+          make assets
+          cd doc && documentable start -a -v
+        name: Generate docs
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@3.5.7
+        with:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: html
+          TARGET_FOLDER: integration
