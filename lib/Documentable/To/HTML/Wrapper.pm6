@@ -17,7 +17,7 @@ submethod BUILD(
     if ($!config.url-prefix) {
         $!prefix  = $!config.url-prefix;
         &!rewrite = &rewrite-url.assuming(*, $!prefix);
-    } 
+    }
 }
  
 method generate-menu-entries($selected) {

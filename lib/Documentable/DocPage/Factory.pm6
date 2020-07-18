@@ -19,10 +19,12 @@ class Documentable::DocPage::Factory {
 
     method BUILD(
         Documentable::Config :$!config,
-        Documentable::Registry :$registry
+        Documentable::Registry :$registry,
     ) {
         $!registry = $registry;
-        $!wrapper = Documentable::To::HTML::Wrapper.new(:$!config)
+        $!wrapper = Documentable::To::HTML::Wrapper.new(:$!config);
+
+        say "Template found at {zef-path('templates/main.mustache')}" if $!registry.verbose;
     }
 
     method generate-home-page() {
