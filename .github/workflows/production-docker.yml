@@ -15,4 +15,5 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           dockerfile: production.Dockerfile
+          buildargs: branch_name=master
           tags: "latest"
