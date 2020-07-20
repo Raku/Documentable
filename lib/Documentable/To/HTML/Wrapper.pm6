@@ -80,6 +80,7 @@ method render($pod, $selected = '', :$pod-path = '') {
     render(
         $pod,
         url                => &!rewrite,
+        url-prefix         => $!prefix,
         menuEntries        => self.generate-menu-entries($selected),
         submenuEntries     => self.generate-submenu-entries($selected),
         editable           => $pod-path && (editURL => $edit-source-url),

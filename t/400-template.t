@@ -68,4 +68,14 @@ subtest "menus urls using url-prefix" => {
     }
 }
 
+subtest "url-prefix in templates" => {
+    $config  = Documentable::Config.new(:filename(zef-path("t/config-url-prefix.json")));
+    $wrapper = Documentable::To::HTML::Wrapper.new(:$config);
+    my $html = $wrapper.render([]);
+    ok $html.contains('href="/Documentable/"')        , "Root site url";
+    ok $html.contains('src="/Documentable/images')   , "Camelia image url";
+    ok $html.contains('src="/Documentable/js/app')   , "App script code url";
+    ok $html.contains('src="/Documentable/js/search'), "Search script code url";
+}
+
 done-testing;
