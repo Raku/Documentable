@@ -85,6 +85,6 @@ method render($pod, $selected = '', :$pod-path = '') {
         editable           => $pod-path && (editURL => $edit-source-url),
         podPath            => self.generate-source-url($pod-path),
         css                => &!rewrite('/css/app.css'),
-        main-template-path => zef-path("templates/main.mustache")
+        main-template-path => zef-path("template/main.mustache")
     )
 }

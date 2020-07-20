@@ -8,7 +8,7 @@
     class Documentable::To::HTML::Wrapper
 
 Common HTML representation for all pages. A I<mustache template> is used: you can
-check it L<here|https://github.com/Raku/Documentable/blob/master/resources/templates/main.mustache>
+check it L<here|https://github.com/Raku/Documentable/blob/master/resources/template/main.mustache>
 
 =head2 method render
 

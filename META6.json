@@ -53,9 +53,9 @@
     "Documentable::Utils::Text": "lib/Documentable/Utils/Text.pm6"
   },
   "resources": [
-    "templates/main.mustache",
-    "templates/tg-fragment.html",
-    "templates/search_template.js",
+    "template/main.mustache",
+    "template/tg-fragment.html",
+    "template/search_template.js",
     "documentable.json"
   ],
   "license": "Artistic-2.0",
