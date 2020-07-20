@@ -6,7 +6,7 @@ use Documentable::To::HTML::Wrapper;
 
 plan *;
 
-my $config  = Documentable::Config.new(:filename(zef-path("documentable.json")));
+my $config  = Documentable::Config.new(:filename(zef-path("t/good-config.json")));
 my $wrapper = Documentable::To::HTML::Wrapper.new(:$config);
 
 subtest "HTML header" => {
@@ -55,6 +55,17 @@ subtest "url in templates" => {
     is $url, "https://github.com/Raku/Documentable/edit/master/docs/Type/Raku/Is/Cool.pod6", "Edit url (2)";
 }
 
-
+subtest "menus urls using url-prefix" => {
+    $config  = Documentable::Config.new(:filename(zef-path("t/config-url-prefix.json")));
+    $wrapper = Documentable::To::HTML::Wrapper.new(:$config);
+    my @menu-entries = $wrapper.generate-menu-entries("type")[0..*-2];
+    for @menu-entries -> %entry {
+        ok %entry<href> ~~ /\/Documentable/, "{%entry.<displayText>} url";
+    }
+    my @submenu-entries = $wrapper.generate-submenu-entries("type");
+    for @submenu-entries -> %entry {
+        ok %entry<href> ~~ /\/Documentable/, "{%entry<display-text>} url";
+    }
+}
 
 done-testing;
