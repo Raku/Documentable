@@ -3,21 +3,45 @@ use Documentable::Config;
 use Documentable;
 use URI::Escape;
 use Pod::To::HTML;
+use Template::Mustache;
+use File::Temp;
 
 unit class Documentable::To::HTML::Wrapper;
 
 has Documentable::Config $.config;
 
-has     &.rewrite = &rewrite-url;
-has Str $.prefix  = '';
+has     &.rewrite;
+has Str $.prefix;
+has     %.prepopulated-templates;
 
 submethod BUILD(
     Documentable::Config :$!config,
 ) {
+    $!prefix = '';
+    &!rewrite = &rewrite-url;
     if ($!config.url-prefix) {
         $!prefix  = "/{$!config.url-prefix}";
         &!rewrite = &rewrite-url.assuming(*, $!config.url-prefix);
     }
+    my @kinds-name = $!config.kinds.map({.<kind>});
+    for @kinds-name -> $kind {
+        self.prepopulate-template($kind);
+    }
+}
+
+method prepopulate-template($kind) {
+    my @menu    = self.generate-menu-entries($kind);
+    my @submenu = self.generate-submenu-entries($kind);
+    my ($filename, $filehandle) = tempfile;
+    %!prepopulated-templates{$kind} = $filename;
+    spurt $filename, Template::Mustache.render(
+        zef-path("template/main.mustache").IO.slurp,
+        {
+            menuEntries        => self.generate-menu-entries($kind),
+            submenuEntries     => self.generate-submenu-entries($kind),
+            css                => &!rewrite('/css/app.css')
+        }
+    )
 }
  
 method generate-menu-entries($selected) {
@@ -26,14 +50,14 @@ method generate-menu-entries($selected) {
         %(
             class       => $selected eq $kind<kind> ?? "selected darker-green" !! "",
             href        => "$!prefix/$kind<kind>.html",
-            displayText => $kind<display-text>
+            display-text => $kind<display-text>
         )
     });
 
     my %irc-entry = %(
         class => '',
         href  =>  $!config.irc-link,
-        displayText => "Chat with us"
+        display-text => "Chat with us"
     );
 
     @menu-entries.push(%irc-entry);
@@ -80,12 +104,9 @@ method render($pod, $selected = '', :$pod-path = '') {
     render(
         $pod,
         url                => &!rewrite,
-        url-prefix         => $!prefix,
-        menuEntries        => self.generate-menu-entries($selected),
-        submenuEntries     => self.generate-submenu-entries($selected),
         editable           => $pod-path && (editURL => $edit-source-url),
         podPath            => self.generate-source-url($pod-path),
-        css                => &!rewrite('/css/app.css'),
-        main-template-path => zef-path("template/main.mustache")
+        url-prefix         => $!prefix,
+        main-template-path => %!prepopulated-templates{$selected} // zef-path("template/main.mustache")
     )
 }
