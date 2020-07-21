@@ -9,6 +9,15 @@ plan *;
 my $config  = Documentable::Config.new(:filename(zef-path("t/good-config.json")));
 my $wrapper = Documentable::To::HTML::Wrapper.new(:$config);
 
+subtest "Template prepopulation" => {
+    is $wrapper.prepopulated-templates.keys.sort,
+       ("language", "programs", "routine", "type"),
+       "All kind entries created";
+    for $wrapper.prepopulated-templates -> (:key($kind), :value($template)) {
+        ok $template.IO.e, "$kind template created";
+    }
+}
+
 subtest "HTML header" => {
     for <language type routine programs> -> $selected {
         my @menu-entries = $wrapper.generate-menu-entries($selected);
@@ -19,7 +28,7 @@ subtest "HTML header" => {
 
 subtest 'IRC link' => {
     my @menu-entries = $wrapper.generate-menu-entries("language");
-    is @menu-entries[*-1]<displayText>, 'Chat with us', "IRC link included";
+    is @menu-entries[*-1]<display-text>, 'Chat with us', "IRC link included";
 }
 
 subtest "Type submenu" => {
@@ -60,7 +69,7 @@ subtest "menus urls using url-prefix" => {
     $wrapper = Documentable::To::HTML::Wrapper.new(:$config);
     my @menu-entries = $wrapper.generate-menu-entries("type")[0..*-2];
     for @menu-entries -> %entry {
-        ok %entry<href> ~~ /\/Documentable/, "{%entry.<displayText>} url";
+        ok %entry<href> ~~ /\/Documentable/, "{%entry.<display-text>} url";
     }
     my @submenu-entries = $wrapper.generate-submenu-entries("type");
     for @submenu-entries -> %entry {

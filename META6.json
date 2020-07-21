@@ -25,6 +25,7 @@
     "Test::Output",
     "Terminal::ANSIColor",
     "File::Directory::Tree",
+    "Template::Mustache",
     "node:from<bin>",
     "dot:from<bin>"
   ],
