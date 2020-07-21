@@ -50,5 +50,6 @@ jobs:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           BRANCH: gh-pages
           FOLDER: html
+          SINGLE_COMMIT: true
           CLEAN: true
           COMMIT_MESSAGE: "[skip ci]"
