@@ -3,7 +3,7 @@ use Documentable::Config;
 use Documentable;
 use URI::Escape;
 use Pod::To::HTML;
-use Template::Mustache;
+use Template::Classic;
 use File::Temp;
 
 unit class Documentable::To::HTML::Wrapper;
@@ -13,6 +13,7 @@ has Documentable::Config $.config;
 has     &.rewrite;
 has Str $.prefix;
 has     %.prepopulated-templates;
+has     &.render;
 
 submethod BUILD(
     Documentable::Config :$!config,
@@ -23,24 +24,34 @@ submethod BUILD(
         $!prefix  = "/{$!config.url-prefix}";
         &!rewrite = &rewrite-url.assuming(*, $!config.url-prefix);
     }
+
+    &!render = *.eager.join ∘ template(:(
+        :$css,
+        :@menu,
+        :@submenu,
+        :$show-submenu,
+        :$prefix
+    ), zef-path("template/main.mustache").IO.slurp);
+
     my @kinds-name = $!config.kinds.map({.<kind>});
     for @kinds-name -> $kind {
         self.prepopulate-template($kind);
     }
+    self.prepopulate-template("default");
 }
 
 method prepopulate-template($kind) {
     my @menu    = self.generate-menu-entries($kind);
     my @submenu = self.generate-submenu-entries($kind);
+    my $show-submenu = @submenu.so ?? "visible" !! "hidden";
     my ($filename, $filehandle) = tempfile;
     %!prepopulated-templates{$kind} = $filename;
-    spurt $filename, Template::Mustache.render(
-        zef-path("template/main.mustache").IO.slurp,
-        {
-            menuEntries        => self.generate-menu-entries($kind),
-            submenuEntries     => self.generate-submenu-entries($kind),
-            css                => &!rewrite('/css/app.css')
-        }
+    spurt $filename, &!render(
+        :css(&!rewrite("/css/app.css")),
+        :@menu,
+        :@submenu,
+        :$show-submenu,
+        :$!prefix
     )
 }
  
@@ -66,7 +77,7 @@ method generate-menu-entries($selected) {
 
 method generate-submenu-entries($selected) {
     # those kinds do not have submenus
-    return () if $selected eq any("language", "programs", "");
+    return () if $selected eq any("language", "programs", "default");
     my @submenuEntries = $!config.get-categories(Kind( $selected ));
     @submenuEntries .= map(-> $category {
         %(
@@ -101,12 +112,12 @@ method generate-edit-url($pod-path is copy) {
 method render($pod, $selected = '', :$pod-path = '') {
     my $source-url      = $pod-path && self.generate-source-url($pod-path);
     my $edit-source-url = $pod-path && self.generate-edit-url($pod-path);
+    my $template = %!prepopulated-templates{$selected} || %!prepopulated-templates{"default"};
     render(
         $pod,
         url                => &!rewrite,
         editable           => $pod-path && (editURL => $edit-source-url),
         podPath            => self.generate-source-url($pod-path),
-        url-prefix         => $!prefix,
-        main-template-path => %!prepopulated-templates{$selected} // zef-path("template/main.mustache")
+        main-template-path => $template
     )
 }

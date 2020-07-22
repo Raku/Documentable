@@ -11,7 +11,7 @@ my $wrapper = Documentable::To::HTML::Wrapper.new(:$config);
 
 subtest "Template prepopulation" => {
     is $wrapper.prepopulated-templates.keys.sort,
-       ("language", "programs", "routine", "type"),
+       ("default", "language", "programs", "routine", "type"),
        "All kind entries created";
     for $wrapper.prepopulated-templates -> (:key($kind), :value($template)) {
         ok $template.IO.e, "$kind template created";

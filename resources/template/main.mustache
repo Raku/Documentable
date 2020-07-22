@@ -3,7 +3,7 @@
 <head>
     <title>{{{title}}}</title>
     <meta charset="UTF-8"/>
-    {{#css}}<link rel="stylesheet" href="{{css}}">{{/css}}
+    <link rel="stylesheet" href="<%= $css %>">
 </head>
 
 <body class="pod">
@@ -14,8 +14,8 @@
     <div id="header" class="pretty-box green">
 
         {{! Site icon }}
-        <a href="{{url-prefix}}/">
-            <img src="{{url-prefix}}/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        <a href="<%= $prefix %>/">
+            <img src="<%= $prefix %>/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
         </a>
 
         {{! Seach barch }}
@@ -39,17 +39,17 @@
             {{! Main menu }}
             <div class="menu-items dark-green">
                 <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
-                {{#menuEntries}}
-                    <a class="menu-item {{{class}}}" href="{{{href}}}"> {{{display-text}}} </a>
-                {{/menuEntries}}
+                <% for @menu -> %entry { %>
+                    <a class="menu-item <%= %entry<class> %>" href="<%= %entry<href> %>"> <%= %entry<display-text> %> </a>
+                <% } %>
             </div>
             
             {{! Submenu }}
-            {{#submenuEntries}}<div class="menu-items darker-green">{{/submenuEntries}}
-                {{#submenuEntries}}
-                    <a class="menu-item" href="{{{href}}}"> {{{display-text}}} </a>
-                {{/submenuEntries}}
-            {{#submenuEntries}}</div>{{/submenuEntries}}
+            <div class="menu-items darker-green" style="visibility:<%= $show-submenu %>;">
+                <% for @submenu -> %entry { %>
+                    <a class="menu-item" href="<%= %entry<href> %>"> <%= %entry<display-text> %> </a>
+                <% } %>
+            </div>
         
         </div>
     </div>
@@ -116,7 +116,7 @@
         </p>
     </footer>
 
-    <script type="text/javascript" src="{{url-prefix}}/js/app.js?v=1"></script>
-    <script type="text/javascript" src="{{url-prefix}}/js/search.js?v=3"></script>
+    <script type="text/javascript" src="<%= $prefix %>/js/app.js?v=1"></script>
+    <script type="text/javascript" src="<%= $prefix %>/js/search.js?v=3"></script>
 </body>
 </html>
