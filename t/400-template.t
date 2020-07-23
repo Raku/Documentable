@@ -49,7 +49,7 @@ subtest "Routine submenu" => {
 }
 
 subtest "Index submenu, see issue #110" => {
-    my @submenu-entries = $wrapper.generate-submenu-entries("");
+    my @submenu-entries = $wrapper.generate-submenu-entries("default");
     is @submenu-entries, (), "Index submenu should not have entries";
 }
 
@@ -85,6 +85,20 @@ subtest "url-prefix in templates" => {
     ok $html.contains('src="/Documentable/images')   , "Camelia image url";
     ok $html.contains('src="/Documentable/js/app')   , "App script code url";
     ok $html.contains('src="/Documentable/js/search'), "Search script code url";
+}
+
+subtest "Full HTML generation" => {
+    use Pod::Load;
+    my $pod = load("t/test-doc/Type/Any.pod6")[0];
+    $config  = Documentable::Config.new(:filename(zef-path("t/good-config.json")));
+    $wrapper = Documentable::To::HTML::Wrapper.new(:$config);
+    my $html = $wrapper.render($pod, "type", :pod-path("t/test-doc/Type/Any.pod6"));
+    ok $html.contains("<title>class Any</title>"), "Tab title replaced";
+    ok $html.contains("Edit this page")          , "Edit button replaced";
+    ok $html.contains('"title">class Any')       , "Title replaced";
+    ok $html.contains('"subtitle">any')          , "Subitle replaced";
+    ok $html.contains("toc-number")              , "TOC replaced";
+    ok $html.contains("class Any is Mu")      , "Pod body replaced";
 }
 
 done-testing;
