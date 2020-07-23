@@ -299,9 +299,8 @@ package Documentable::CLI {
         DEBUG("Checking for changes...", $verbose);
 
         my $now = now;
-        my $cache = init-cache($topdir);
-        my @files = $cache.refreshed-pods;
-
+        my $cache = init-cache($topdir.IO.absolute);
+        my @files = $cache.list-files;
         if (! @files) {
             DEBUG("Everything already updated. There are no changes.", $verbose);
             exit 0;
