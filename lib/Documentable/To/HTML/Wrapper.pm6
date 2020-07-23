@@ -43,7 +43,7 @@ submethod BUILD(
 method prepopulate-template($kind) {
     my @menu    = self.generate-menu-entries($kind);
     my @submenu = self.generate-submenu-entries($kind);
-    my $show-submenu = @submenu.so ?? "visible" !! "hidden";
+    my $show-submenu = @submenu.so ?? "" !! "none";
     my ($filename, $filehandle) = tempfile;
     %!prepopulated-templates{$kind} = $filename;
     spurt $filename, &!render(

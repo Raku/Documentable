@@ -45,7 +45,7 @@
             </div>
             
             {{! Submenu }}
-            <div class="menu-items darker-green" style="visibility:<%= $show-submenu %>;">
+            <div class="menu-items darker-green" style="display:<%= $show-submenu %>;">
                 <% for @submenu -> %entry { %>
                     <a class="menu-item" href="<%= %entry<href> %>"> <%= %entry<display-text> %> </a>
                 <% } %>
