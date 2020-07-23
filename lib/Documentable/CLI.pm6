@@ -300,7 +300,6 @@ package Documentable::CLI {
 
         my $now = now;
         my $cache = init-cache($topdir.IO.absolute);
-        say "After init-cache execution";
         my @files = $cache.list-files;
         if (! @files) {
             DEBUG("Everything already updated. There are no changes.", $verbose);
