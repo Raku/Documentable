@@ -85,6 +85,8 @@ sub rewrite-url($s, $prefix?) is export {
             my $name    = good-name(@parts[*-1]);
             my $new-url = @parts[0..*-2].join('/') ~ "/$name";
 
+            if ($new-url ~~ /\.$/) { $new-url = "{$new-url}.html" }
+
             return "/{$prefix}{$new-url}" if $prefix;
             return $new-url;
 
