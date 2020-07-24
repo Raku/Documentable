@@ -35,8 +35,13 @@ submethod BUILD (
     $!tg = $typegraph-file ?? Perl6::TypeGraph.new-from-file($typegraph-file)
                            !! Perl6::TypeGraph.new-from-file;
 
-    $!topdir      = $topdir.IO.absolute;
-    $!pod-cache = init-cache( $!topdir, $!verbose);
+    try {
+        $!topdir      = $topdir.IO.absolute;
+        $!pod-cache = init-cache( $!topdir, $!verbose);
+        CATCH {
+            when X::Documentable::DocDirectory { say .message }
+        }
+    }
 
     # initialize the registry
     for @dirs -> $dir {

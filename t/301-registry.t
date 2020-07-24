@@ -7,6 +7,13 @@ use Pod::Load;
 
 plan *;
 
+subtest "Non-existent directory" => {
+    output-like {
+        Documentable::Registry.new(:topdir("unexisting-dir"));
+    }, /(exist|contain)/,
+    "Helpful message when doc dir does not exist";
+}
+
 my $registry = Documentable::Registry.new(
     :topdir("t/test-doc"),
     :dirs(["Programs", "Native"]),
