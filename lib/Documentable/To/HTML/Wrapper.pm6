@@ -3,7 +3,7 @@ use Documentable::Config;
 use Documentable;
 use URI::Escape;
 use Pod::To::HTML;
-use Template::Classic;
+use Template::Mustache;
 use File::Temp;
 
 unit class Documentable::To::HTML::Wrapper;
@@ -13,7 +13,7 @@ has Documentable::Config $.config;
 has     &.rewrite;
 has Str $.prefix;
 has     %.prepopulated-templates;
-has     &.render;
+has     $.mustache;
 
 submethod BUILD(
     Documentable::Config :$!config,
@@ -25,13 +25,7 @@ submethod BUILD(
         &!rewrite = &rewrite-url.assuming(*, $!config.url-prefix);
     }
 
-    &!render = *.eager.join ∘ template(:(
-        :$css,
-        :@menu,
-        :@submenu,
-        :$show-submenu,
-        :$prefix
-    ), zef-path("template/main.mustache").IO.slurp);
+    $!mustache = Template::Mustache.new: :pragma<KEEP-UNUSED-VARIABLES>;
 
     my @kinds-name = $!config.kinds.map({.<kind>});
     for @kinds-name -> $kind {
@@ -43,14 +37,13 @@ submethod BUILD(
 method prepopulate-template($kind) {
     my @menu    = self.generate-menu-entries($kind);
     my @submenu = self.generate-submenu-entries($kind);
-    my $show-submenu = @submenu.so ?? "" !! "none";
     my ($filename, $filehandle) = tempfile;
     %!prepopulated-templates{$kind} = $filename;
-    spurt $filename, &!render(
+    spurt $filename, $!mustache.render(
+        zef-path("template/main.mustache").IO.slurp,
         :css(&!rewrite("/css/app.css")),
         :@menu,
         :@submenu,
-        :$show-submenu,
         :$!prefix
     )
 }

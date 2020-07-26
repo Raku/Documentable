@@ -4,8 +4,8 @@
     <title>{{{title}}}</title>
     <meta charset="UTF-8"/>
     <meta name=viewport content="width=device-width, initial-scale=1">
-    <link rel="icon" href="<%= $prefix %>/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" type="text/css" href="<%= $css %>" media="screen" title="default" />
+    <link rel="icon" href="{{prefix}}/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="{{css}}" media="screen" title="default" />
     <noscript> <style> #search { visibility: hidden; } </style> </noscript>
 </head>
 
@@ -17,19 +17,14 @@
     <div id="header" class="pretty-box green">
 
         {{! Site icon }}
-        <a href="<%= $prefix %>/">
-            <img src="<%= $prefix %>/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        <a href="{{prefix}}/">
+            <img src="{{prefix}}/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
         </a>
 
         {{! Seach barch }}
         <div id="search" class="ui-widget">
             <div class="green">
-                <input
-                    placeholder="Loading..."
-                    id="query"
-                    accesskey="f"
-                    title="Enter term to search for (hit Esc to focus)"
-                />
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
             </div>
             <p id="not-found-message">
                 Not in Index (<a href="" id="try-web-search">try site search</a>)
@@ -42,17 +37,17 @@
             {{! Main menu }}
             <div class="menu-items dark-green">
                 <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
-                <% for @menu -> %entry { %>
-                    <a class="menu-item <%= %entry<class> %>" href="<%= %entry<href> %>"> <%= %entry<display-text> %> </a>
-                <% } %>
+                {{#menu}}
+                    <a class="menu-item {{{class}}}" href="{{{href}}}"> {{{display-text}}} </a>
+                {{/menu}}
             </div>
             
             {{! Submenu }}
-            <div class="menu-items darker-green" style="display:<%= $show-submenu %>;">
-                <% for @submenu -> %entry { %>
-                    <a class="menu-item" href="<%= %entry<href> %>"> <%= %entry<display-text> %> </a>
-                <% } %>
-            </div>
+            {{#submenu}}<div class="menu-items darker-green">{{/submenu}}
+                {{#submenu}}
+                    <a class="menu-item" href="{{{href}}}"> {{{display-text}}} </a>
+                {{/submenu}}
+            {{#submenu}}</div>{{/submenu}}
         
         </div>
     </div>
@@ -60,7 +55,6 @@
     {{! ============= main content ============= }}
     <div id="content" class="pretty-box yellow content_fragment">
 
-        
         {{! edit button }}
         {{#editable}}
             <div align="right">
@@ -119,7 +113,7 @@
         </p>
     </footer>
 
-    <script type="text/javascript" src="<%= $prefix %>/js/app.js?v=1"></script>
-    <script type="text/javascript" src="<%= $prefix %>/js/search.js?v=3"></script>
+    <script type="text/javascript" src="{{prefix}}/js/app.js?v=1"></script>
+    <script type="text/javascript" src="{{prefix}}/js/search.js?v=3"></script>
 </body>
 </html>
