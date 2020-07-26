@@ -1,6 +1,6 @@
 {
-  "title-page": "Documentable",
-  "pod-root-path": "https://github.com/Raku/Documentable/tree/master/docs",
+  "title-page": "Raku Documentation",
+  "pod-root-path": "https://github.com/Raku/doc/tree/master/docs",
   "irc-link": "https://webchat.freenode.net/?channels=#raku",
   "kinds": [
     {
@@ -51,5 +51,5 @@
       ]
     }
   ],
-  "url-prefix": "Documentable"
+  "url-prefix": "Documentable/integration-test"
 }
