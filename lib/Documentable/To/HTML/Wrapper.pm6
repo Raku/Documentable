@@ -25,7 +25,7 @@ submethod BUILD(
         &!rewrite = &rewrite-url.assuming(*, $!config.url-prefix);
     }
 
-    $!mustache = Template::Mustache.new: :pragma<KEEP-UNUSED-VARIABLES>;
+    $!mustache = Template::Mustache.new;
 
     my @kinds-name = $!config.kinds.map({.<kind>});
     for @kinds-name -> $kind {
@@ -41,10 +41,13 @@ method prepopulate-template($kind) {
     %!prepopulated-templates{$kind} = $filename;
     spurt $filename, $!mustache.render(
         zef-path("template/main.mustache").IO.slurp,
-        :css(&!rewrite("/css/app.css")),
-        :@menu,
-        :@submenu,
-        :$!prefix
+        {
+            :css(&!rewrite("/css/app.css")),
+            :@menu,
+            :@submenu,
+            :$!prefix
+        },
+        :pragma<keep-unused-variables>
     )
 }
  
@@ -109,7 +112,8 @@ method render($pod, $selected = '', :$pod-path = '') {
     render(
         $pod,
         url                => &!rewrite,
-        editable           => $pod-path && (editURL => $edit-source-url),
+        editable           => $pod-path ?? '' !! 'none',
+        editURL            => $edit-source-url,
         podPath            => self.generate-source-url($pod-path),
         main-template-path => $template
     )
