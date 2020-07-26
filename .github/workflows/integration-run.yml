@@ -62,5 +62,7 @@ jobs:
           git clone -b master --single-branch https://github.com/Raku/doc.git
           cd doc
           documentable setup -o
+          rm documentable.json && rm type-graph.txt
+          wget https://raw.githubusercontent.com/Raku/doc/master/type-graph.txt
           wget https://raw.githubusercontent.com/Raku/Documentable/docs-assets/documentable.json
           documentable start -a -v
