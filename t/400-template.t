@@ -98,7 +98,8 @@ subtest "Full HTML generation" => {
     ok $html.contains('"title">class Any')       , "Title replaced";
     ok $html.contains('"subtitle">any')          , "Subitle replaced";
     ok $html.contains("toc-number")              , "TOC replaced";
-    ok $html.contains("class Any is Mu")      , "Pod body replaced";
+    ok $html.contains("class Any is Mu")         , "Pod body replaced";
+    ok $html.contains('"pod-body "')             , "TOC class is replaced";
 }
 
 done-testing;

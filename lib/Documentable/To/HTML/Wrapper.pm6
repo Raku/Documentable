@@ -39,7 +39,7 @@ method prepopulate-template($kind) {
     my @submenu = self.generate-submenu-entries($kind);
     my ($filename, $filehandle) = tempfile;
     %!prepopulated-templates{$kind} = $filename;
-    spurt $filename, $!mustache.render(
+    my $new-template = $!mustache.render(
         zef-path("template/main.mustache").IO.slurp,
         {
             :css(&!rewrite("/css/app.css")),
@@ -47,8 +47,10 @@ method prepopulate-template($kind) {
             :@submenu,
             :$!prefix
         },
-        :pragma<keep-unused-variables>
-    )
+        :pragma<keep-unused-variables> 
+    );
+    $new-template .= subst("toc-class", '{{^ toc }} no-toc{{/ toc }}');
+    spurt $filename, $new-template;
 }
  
 method generate-menu-entries($selected) {
