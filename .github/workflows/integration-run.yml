@@ -53,3 +53,14 @@ jobs:
           SINGLE_COMMIT: true
           CLEAN: true
           COMMIT_MESSAGE: "[skip ci]"
+  build-official-doc:
+    needs: build-documentable-container
+    runs-on: ubuntu-latest
+    container: antoniogamiz/documentable-nightly
+    steps:
+      - run: |
+          git clone -b master --single-branch https://github.com/Raku/doc.git
+          cd doc
+          documentable setup -o
+          wget https://raw.githubusercontent.com/Raku/Documentable/docs-assets/documentable.json
+          documentable start -a -v
