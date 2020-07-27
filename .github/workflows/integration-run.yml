@@ -66,3 +66,13 @@ jobs:
           wget https://raw.githubusercontent.com/Raku/doc/master/type-graph.txt
           wget https://raw.githubusercontent.com/Raku/Documentable/docs-assets/documentable.json
           documentable start -a -v
+      - uses: actions/checkout@master
+      - name: Deploy official doc set  🚀
+        uses: JamesIves/github-pages-deploy-action@3.5.7
+        with:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: html
+          TARGET_FOLDER: integration-test
+          SINGLE_COMMIT: true
+          COMMIT_MESSAGE: "[skip ci]"
