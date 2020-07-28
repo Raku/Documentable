@@ -92,6 +92,7 @@ subtest "Full HTML generation" => {
     my $pod = load("t/test-doc/Type/Any.pod6")[0];
     $config  = Documentable::Config.new(:filename(zef-path("t/good-config.json")));
     $wrapper = Documentable::To::HTML::Wrapper.new(:$config);
+    # no index
     my $html = $wrapper.render($pod, "type", :pod-path("t/test-doc/Type/Any.pod6"));
     ok $html.contains("<title>class Any</title>"), "Tab title replaced";
     ok $html.contains("Edit this page")          , "Edit button replaced";
@@ -100,6 +101,11 @@ subtest "Full HTML generation" => {
     ok $html.contains("toc-number")              , "TOC replaced";
     ok $html.contains("class Any is Mu")         , "Pod body replaced";
     ok $html.contains('"pod-body "')             , "TOC class is replaced";
+    ok $html.contains('p style="display:;"')      , "Show 'generated from' url";
+    # index
+    $html = $wrapper.render([], "type");
+    ok $html.contains('p style="display:none;"')      , "Don't show 'generated from' url in index page";
+
 }
 
 done-testing;
