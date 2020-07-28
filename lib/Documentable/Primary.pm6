@@ -217,5 +217,3 @@ class Documentable::Primary is Documentable {
     }
 
 }
-
-# vim: expandtab shiftwidth=4 ft=perl6

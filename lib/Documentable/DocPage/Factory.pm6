@@ -58,9 +58,10 @@ class Documentable::DocPage::Factory {
             }
         }
 
+        my $pod-path = $doc.source-path.IO.relative($!registry.topdir);
         my Str $html = $!wrapper.render( %pod-to-render<document>,
                                          $doc.kind.Str,
-                                         pod-path => ($doc.url),
+                                         :$pod-path,
                                         );
         return %(
             document => $html,

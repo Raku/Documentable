@@ -94,12 +94,7 @@ method generate-submenu-entries($selected) {
 method generate-source-url($pod-path is copy) {
     my Regex $trailing-slash = /^\//;
     $pod-path .= subst($trailing-slash, '');
-    my $source-url = "{$.config.pod-root-path}/{$pod-path.tc}";
-    $source-url .= subst(:g, '::', '/');
-    
-    my Regex $has-file-extension = /\.pod6$/;
-    return $source-url if $source-url ~~ $has-file-extension;
-    return "{$source-url}.pod6";
+    return "{$.config.pod-root-path}/{$pod-path}";
 }
 
 method generate-edit-url($pod-path is copy) {
