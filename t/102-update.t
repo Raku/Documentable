@@ -8,7 +8,7 @@ plan *;
 subtest 'update option' => {
     # create the cache
     Documentable::CLI::MAIN(
-        'start', 
+        'start',
         :topdir('./t/test-doc'),
         :typegraph-file("t/test-doc/type-graph.txt"),
         :!verbose
