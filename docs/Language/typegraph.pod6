@@ -10,7 +10,7 @@ L<TypeGraph|https://github.com/antoniogamiz/Perl6-TypeGraph>.
 =head2 TypeGraph file
 
 At this moment, L<TypeGraph|https://github.com/antoniogamiz/Perl6-TypeGraph> is not able
-to automatically detect the hierarchy of a documented class, so you need to provide this 
+to automatically detect the hierarchy of a documented class, so you need to provide this
 information in a file. There's two options to specify this file:
 
 =item Use the C<--typegraph-file> to specify a custom path.

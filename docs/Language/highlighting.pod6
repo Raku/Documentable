@@ -4,7 +4,7 @@
 
 =SUBTITLE Highlighting the code blocks
 
-Developing a good highlighter for Raku is hard, so there is not a lot available to 
+Developing a good highlighter for Raku is hard, so there is not a lot available to
 choose from. We are using L<atom-language-perl6|https://github.com/perl6/atom-language-perl6>
 developed by L<@samcv|https://github.com/samcv>.
 
