@@ -17,9 +17,9 @@ submethod BUILD(
     if ($!config.url-prefix) {
         $!prefix  = $!config.url-prefix;
         &!rewrite = &rewrite-url.assuming(*, $!prefix);
-    } 
+    }
 }
- 
+
 method generate-menu-entries($selected) {
     my @menu-entries = $!config.kinds;
     @menu-entries .= map( -> $kind {
@@ -63,7 +63,7 @@ method generate-source-url($pod-path is copy) {
     $pod-path .= subst($trailing-slash, '');
     my $source-url = "{$.config.pod-root-path}/{$pod-path.tc}";
     $source-url .= subst(:g, '::', '/');
-    
+
     my Regex $has-file-extension = /\.pod6$/;
     return $source-url if $source-url ~~ $has-file-extension;
     return "{$source-url}.pod6";

@@ -31,7 +31,7 @@ package Documentable::CLI {
     }
 
     our proto MAIN(|) is export { * }
-    
+
     multi MAIN() {
         say 'Execute "documentable --help" for more information.';
     }
@@ -44,7 +44,7 @@ package Documentable::CLI {
         DEBUG("Setting up the directory...");
 
         constant $assetsDIR = "documentable-assets";
-        constant $assetsURL = "https://github.com/Raku/Documentable/releases/download/v1.0.1/{$assetsDIR}.tar.gz"; 
+        constant $assetsURL = "https://github.com/Raku/Documentable/releases/download/v1.0.1/{$assetsDIR}.tar.gz";
 
         shell "curl -Ls {$assetsURL} --output {$assetsDIR}.tar.gz";
         shell "tar -xzf {$assetsDIR}.tar.gz";
@@ -53,7 +53,7 @@ package Documentable::CLI {
         my @assets-files = list-files($assetsDIR).map({.relative($assetsDIR).IO});
         my @no-duplicated-files = @assets-files.grep({! .e});
         my @duplicated-files = @assets-files.grep({.e});
-       
+
         for @duplicated-files -> $file {
             note colored("[WARNING] $file will be overriden by this operation", 'yellow');
         }
@@ -85,15 +85,15 @@ package Documentable::CLI {
         DEBUG("Cleaning up the directory...");
 
         constant @files-to-delete = (
-            "Makefile", 
-            "app.pl", 
-            "app-start", 
+            "Makefile",
+            "app.pl",
+            "app-start",
             "documentable.json"
         );
         unlink(@files-to-delete);
 
         constant @dirs-to-delete = (
-            "html", 
+            "html",
             "highlights",
             "assets",
             "templates"
