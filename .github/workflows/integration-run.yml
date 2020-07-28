@@ -76,3 +76,4 @@ jobs:
           TARGET_FOLDER: integration-test
           SINGLE_COMMIT: true
           COMMIT_MESSAGE: "[skip ci]"
+          DEBUG: true
