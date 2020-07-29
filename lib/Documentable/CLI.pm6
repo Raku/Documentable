@@ -25,6 +25,13 @@ class X::Documentable::NodeNotFound is Exception {
 
 package Documentable::CLI {
 
+    constant @default-asset-dirs = (
+        "html",
+        "highlights",
+        "assets",
+        "template",
+    );
+
     sub RUN-MAIN(|c) is export {
         my %*SUB-MAIN-OPTS = :named-anywhere;
         CORE::<&RUN-MAIN>(|c)
@@ -92,13 +99,7 @@ package Documentable::CLI {
         );
         unlink(@files-to-delete);
 
-        constant @dirs-to-delete = (
-            "html",
-            "highlights",
-            "assets",
-            "templates"
-        );
-        @dirs-to-delete.map({rmtree($_)});
+        @default-asset-dirs.map({rmtree($_)});
     }
 
     #| Start the documentation generation with the specified options
@@ -120,10 +121,14 @@ package Documentable::CLI {
         Bool :a(:$all)             = False                    #= Equivalent to -t -p -s -i --search-index
     ) {
         my $beginning = now; # to measure total time
-        if (!"./html".IO.e || !"./assets".IO.e || !"./templates".IO.e and $v) {
-            note q:to/END/;
-                (warning) html and/or assets and/or templates directories
-                cannot be found. You can get the defaults by executing:
+        my $asset-dir-missing = @default-asset-dirs.map({!.IO.e}).any;
+        if ($asset-dir-missing and $v) {
+            note qq:to/END/;
+                (warning) one of the following directories cannot be found:
+
+                    @default-asset-dirs.join(', ')
+
+                You can get the defaults by executing:
 
                     documentable setup
                 END
