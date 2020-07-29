@@ -7,15 +7,27 @@ use Pod::Load;
 
 plan *;
 
+subtest "Non-existent directory" => {
+    output-like {
+        Documentable::Registry.new(:topdir("unexisting-dir"));
+    }, /(exist|contain)/,
+    "Helpful message when doc dir does not exist";
+}
+
 my $registry = Documentable::Registry.new(
     :topdir("t/test-doc"),
     :dirs(["Programs", "Native"]),
     :!verbose,
 );
 
-$registry.compose;
+subtest "load pod" => {
+    my @expected = load("t/test-doc/Language/terms.pod6");
+    my @got      = $registry.load(path=>"t/test-doc/Language/terms.pod6");
+    ok @expected eqv @got, "Load pods";
+}
 
 subtest "Composing" => {
+    $registry.compose;
     is $registry.composed, True, "Composed set to True";
     is-deeply $registry.documentables.map({.name}).sort,
               ("Debugging", "Reading", "int", "pod1", "pod2"),

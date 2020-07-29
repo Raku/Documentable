@@ -1,5 +1,36 @@
 # Changelog
 
+## [Unreleased](https://github.com/Raku/Documentable/tree/HEAD)
+
+[Full Changelog](https://github.com/Raku/Documentable/compare/v1.2.7...HEAD)
+
+**Fixed bugs:**
+
+- Documentable uses the default template instead of the template that's in the current directory. [\#102](https://github.com/Raku/Documentable/issues/102)
+- Pod::To::HTML version [\#100](https://github.com/Raku/Documentable/issues/100)
+- Classes with colons on the middle do not have the GitHub URL right [\#87](https://github.com/Raku/Documentable/issues/87)
+- Some web pages in this site do not seem to be rendered [\#76](https://github.com/Raku/Documentable/issues/76)
+
+**Closed issues:**
+
+- Inspect the documentation of this repo and fix typos [\#77](https://github.com/Raku/Documentable/issues/77)
+- Either make config required in Documentable::To::HTML::Wrapper or add reasonable defaults [\#66](https://github.com/Raku/Documentable/issues/66)
+- Homepage menu generation is hardcoded [\#63](https://github.com/Raku/Documentable/issues/63)
+- Give config.json a less generic name [\#62](https://github.com/Raku/Documentable/issues/62)
+- New options to work with the default cache [\#34](https://github.com/Raku/Documentable/issues/34)
+- Documentable freezes when node is not present [\#27](https://github.com/Raku/Documentable/issues/27)
+- Use a real templating engine [\#19](https://github.com/Raku/Documentable/issues/19)
+- Index pages descriptions [\#6](https://github.com/Raku/Documentable/issues/6)
+- You can either install the `sass` command... [\#4](https://github.com/Raku/Documentable/issues/4)
+
+**Merged pull requests:**
+
+- Fix name of `template` directory [\#124](https://github.com/Raku/Documentable/pull/124) ([paultcochrane](https://github.com/paultcochrane))
+- Replace wget -\> curl in README [\#122](https://github.com/Raku/Documentable/pull/122) ([paultcochrane](https://github.com/paultcochrane))
+- Remove trailing whitespace [\#121](https://github.com/Raku/Documentable/pull/121) ([paultcochrane](https://github.com/paultcochrane))
+- Version 1.3.1 [\#105](https://github.com/Raku/Documentable/pull/105) ([antoniogamiz](https://github.com/antoniogamiz))
+- New version, 1.3.0 [\#101](https://github.com/Raku/Documentable/pull/101) ([antoniogamiz](https://github.com/antoniogamiz))
+
 ## [v1.2.7](https://github.com/Raku/Documentable/tree/v1.2.7) (2020-06-27)
 
 [Full Changelog](https://github.com/Raku/Documentable/compare/v1.2.5...v1.2.7)
@@ -25,7 +56,6 @@
 - It would be nice to read, by default, a config.json in the same directory as the documentation [\#61](https://github.com/Raku/Documentable/issues/61)
 - dir "html" is present in the repo dir after installation but is not needed then [\#45](https://github.com/Raku/Documentable/issues/45)
 - Add AppVeyor/Windows CI checks [\#39](https://github.com/Raku/Documentable/issues/39)
-- General comments  [\#37](https://github.com/Raku/Documentable/issues/37)
 - missing three files with "setup" command [\#33](https://github.com/Raku/Documentable/issues/33)
 
 **Merged pull requests:**
@@ -83,7 +113,7 @@
 
 ## [v1.0.1](https://github.com/Raku/Documentable/tree/v1.0.1) (2019-08-29)
 
-[Full Changelog](https://github.com/Raku/Documentable/compare/v3.0.2...v1.0.1)
+[Full Changelog](https://github.com/Raku/Documentable/compare/925a4d1a39e6cc9dc757a08d8ba891932ea99100...v1.0.1)
 
 **Closed issues:**
 
@@ -93,10 +123,6 @@
 - Strip out Perl6:: [\#11](https://github.com/Raku/Documentable/issues/11)
 - Documentable start should show a progress bar or something [\#2](https://github.com/Raku/Documentable/issues/2)
 - documentable should have a --version  [\#1](https://github.com/Raku/Documentable/issues/1)
-
-## [v3.0.2](https://github.com/Raku/Documentable/tree/v3.0.2) (2019-08-27)
-
-[Full Changelog](https://github.com/Raku/Documentable/compare/925a4d1a39e6cc9dc757a08d8ba891932ea99100...v3.0.2)
 
 
 

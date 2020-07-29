@@ -46,9 +46,7 @@ class Documentable::DocPage::Primary::Type
 
     method typegraph-fragment($podname is copy) {
         # zef relative paths to resources
-        my $filename = "resources/templates/tg-fragment.html".IO.e   ??
-                       "resources/templates/tg-fragment.html"        !!
-                       %?RESOURCES<templates/tg-fragment.html>;
+        my $filename = zef-path("template/tg-fragment.html");
         state $template = slurp $filename;
         my $svg;
         my $valid-path = $podname.subst(:g, /\:\:/, "");

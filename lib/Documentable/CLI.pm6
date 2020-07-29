@@ -4,8 +4,7 @@ use Documentable::Registry;
 use Documentable::Config;
 use Documentable::DocPage::Factory;
 
-use Pod::Load;
-use Pod::To::Cached;
+use Pod::From::Cache;
 use File::Temp;
 use Documentable::Utils::IO;
 use Perl6::TypeGraph;
@@ -294,27 +293,22 @@ package Documentable::CLI {
     #| Check which pod files have changed and regenerate its HTML files.
     multi MAIN (
         "update",
-        Str  :$topdir          = "doc",                   #= Directory where the pod collection is stored
+        Str  :$topdir          = "doc",                         #= Directory where the pod collection is stored
         Str  :$conf            = zef-path("documentable.json"), #= Configuration file
-        Bool :v(:$verbose)     = True ,                   #= Prints progress information
-        Bool :$highlight       = False,                   #= Highlights the code blocks
-        Str  :$highlight-path  = "./highlights"           #= Path to the highlighter files
+        Bool :v(:$verbose)     = True ,                         #= Prints progress information
+        Bool :$highlight       = False,                         #= Highlights the code blocks
+        Str  :$highlight-path  = "./highlights",                #= Path to the highlighter files,
+        Str  :$typegraph-file  = "type-graph.txt"               #= TypeGraph file
     ) {
         DEBUG("Checking for changes...", $verbose);
 
-
         my $now = now;
-        my $cache = Pod::To::Cached.new(:path(cache-path($topdir)), :verbose($verbose), :source($topdir));
-        my @files = $cache.list-files(<Valid New>);
-
+        my $cache = init-cache($topdir.IO.absolute);
+        my @files = $cache.list-files;
         if (! @files) {
             DEBUG("Everything already updated. There are no changes.", $verbose);
             exit 0;
         }
-
-        # recompile pods
-        $cache.update-cache;
-
 
         DEBUG(+@files ~ " file(s) modified. Starting regeneration ...", $verbose);
 
@@ -338,6 +332,7 @@ package Documentable::CLI {
             :$topdir,
             :dirs(DOCUMENTABLE-DIRS),
             :verbose($verbose),
+            :$typegraph-file
         );
         $registry.compose;
 
@@ -355,14 +350,10 @@ package Documentable::CLI {
         my @type-subindexes;
 
         for @files -> $filename {
-            # homepage and 404 are not in the registry
-            if ($filename eq "homepage") { @docs.push($factory.generate-home-page());  next; }
-            if ($filename eq "404")      { @docs.push($factory.generate-error-page()); next; }
+            if ($filename ~~ /HomePage/) { @docs.push($factory.generate-home-page());  next; }
+            if ($filename ~~ /404/)      { @docs.push($factory.generate-error-page()); next; }
 
-            my $key = parts-of-path($filename.lc.IO).skip(1).join('::');
-            my $doc = $registry.documentables.grep({
-                .url.lc.split("/")[*-1] eq $key # language/something type/Any
-            }).first;
+            my $doc = $registry.documentables.grep({.source-path eq $filename.IO.absolute}).first;
 
             @kinds.push($doc.kind);
             @docs.push($factory.generate-primary($doc));

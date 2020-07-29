@@ -1,0 +1,42 @@
+{
+    "title-page": "Raku Test Documentation",
+    "pod-root-path": "https://github.com/Raku/Documentable/blob/master/docs",
+    "irc-link": "https://webchat.freenode.net/?channels=#raku",
+    "url-prefix": "Documentable",
+    "kinds": [
+        {
+            "kind": "language",
+            "display-text": "Language",
+            "categories": [
+                {
+                    "name": "beginning",
+                    "display-text": "At the beginning"
+                }
+            ]
+        },
+        {
+            "kind": "type",
+            "display-text": "Types",
+            "categories": [
+                {
+                    "name": "basic",
+                    "display-text": "Basic"
+                }
+            ]
+        },
+        {
+            "kind": "routine",
+            "display-text": "Routines",
+            "categories": [
+                {
+                    "name": "sub",
+                    "display-text": "Sub"
+                }
+            ]
+        },
+        {
+            "kind": "programs",
+            "display-text": "Programs"
+        }
+    ]
+}

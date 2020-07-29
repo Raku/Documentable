@@ -93,18 +93,9 @@ say $registry.routines-by-type<Any>;
 
 Defined as
 
-        method pod-cache(--> Pod::To::Cached)
+        method pod-cache(--> Pod::From::Cache)
 
-Returns the instance of L<Pod::To::Cached|https://github.com/Raku/Pod-To-Cached> used
-to cache pod6 files.
-
-=head2 method use-cache
-
-Defined as
-
-        method use-cache(--> Bool)
-
-Returns a C<Bool> indicating is the registry is using a cache.
+Returns the the cache object used.
 
 =head2 method topdir
 
@@ -119,15 +110,13 @@ Returns a C<Str> indicating the directory used as C<$topdir>.
 
 Defined as
 
-    submethod BUILD(Str :$topdir = "doc", :@dirs = [], Bool :$verbose = True,
-                    Bool :$use-cache = True)
+    submethod BUILD(Str :$topdir = "doc", :@dirs = [], Bool :$verbose = True)
 
 Creates a new instance of the class.
 
 =item C<$topdir>: directory containing all the pod6 sources.
 =item C<@dirs>: subdirectories of C<$topdir> containing pod6 sources.
 =item C<$verbose>: if C<True>, additional information will be printed.
-=item C<$use-cache>: use L<Pod::To::Cached|https://github.com/Raku/Pod-To-Cached> to create a pod6 cache.
 
 Example:
 
@@ -139,16 +128,12 @@ my $registry = Documentable::Registry.new(
     topdir    => "doc",                # doc containing the pod collection
     dirs      => ["Type", "Language"], # dirs to process
     verbose   => True,
-    use-cache => True                  # recommended
 );
 
 # to complete the processing and initialize some attributes
 $registry.compose;
 
 =end code
-
-B<Note:> if C<$use-cache> is set to C<False>, L<Pod::Load|https://github.com/JJ/p6-pod-load> will be
-used instead.
 
 =head2 method add-new
 
@@ -167,7 +152,7 @@ Defined as
 
     method load(Str :$path --> Positional[Pod::Block::Named])
 
-Loads a new pod6 file and returns it. It will load it from the cache if C<use-cache> is set to C<True>.
+Loads a new pod6 file from the cache.
 
 =head2 method process-pod-dir
 

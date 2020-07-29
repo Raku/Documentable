@@ -3,21 +3,54 @@ use Documentable::Config;
 use Documentable;
 use URI::Escape;
 use Pod::To::HTML;
+use Template::Mustache;
+use File::Temp;
 
 unit class Documentable::To::HTML::Wrapper;
 
 has Documentable::Config $.config;
 
-has     &.rewrite = &rewrite-url;
-has Str $.prefix  = '';
+has     &.rewrite;
+has Str $.prefix;
+has     %.prepopulated-templates;
+has     $.mustache;
 
 submethod BUILD(
     Documentable::Config :$!config,
 ) {
+    $!prefix = '';
+    &!rewrite = &rewrite-url;
     if ($!config.url-prefix) {
-        $!prefix  = $!config.url-prefix;
-        &!rewrite = &rewrite-url.assuming(*, $!prefix);
+        $!prefix  = "/{$!config.url-prefix}";
+        &!rewrite = &rewrite-url.assuming(*, $!config.url-prefix);
     }
+
+    $!mustache = Template::Mustache.new;
+
+    my @kinds-name = $!config.kinds.map({.<kind>});
+    for @kinds-name -> $kind {
+        self.prepopulate-template($kind);
+    }
+    self.prepopulate-template("default");
+}
+
+method prepopulate-template($kind) {
+    my @menu    = self.generate-menu-entries($kind);
+    my @submenu = self.generate-submenu-entries($kind);
+    my ($filename, $filehandle) = tempfile;
+    %!prepopulated-templates{$kind} = $filename;
+    my $new-template = $!mustache.render(
+        zef-path("template/main.mustache").IO.slurp,
+        {
+            :css(&!rewrite("/css/app.css")),
+            :@menu,
+            :@submenu,
+            :$!prefix
+        },
+        :pragma<keep-unused-variables>
+    );
+    $new-template .= subst("toc-class", '{{^ toc }} no-toc{{/ toc }}');
+    spurt $filename, $new-template;
 }
 
 method generate-menu-entries($selected) {
@@ -26,14 +59,14 @@ method generate-menu-entries($selected) {
         %(
             class       => $selected eq $kind<kind> ?? "selected darker-green" !! "",
             href        => "$!prefix/$kind<kind>.html",
-            displayText => $kind<display-text>
+            display-text => $kind<display-text>
         )
     });
 
     my %irc-entry = %(
         class => '',
         href  =>  $!config.irc-link,
-        displayText => "Chat with us"
+        display-text => "Chat with us"
     );
 
     @menu-entries.push(%irc-entry);
@@ -42,7 +75,7 @@ method generate-menu-entries($selected) {
 
 method generate-submenu-entries($selected) {
     # those kinds do not have submenus
-    return () if $selected eq any("language", "programs");
+    return () if $selected eq any("language", "programs", "default");
     my @submenuEntries = $!config.get-categories(Kind( $selected ));
     @submenuEntries .= map(-> $category {
         %(
@@ -61,12 +94,7 @@ method generate-submenu-entries($selected) {
 method generate-source-url($pod-path is copy) {
     my Regex $trailing-slash = /^\//;
     $pod-path .= subst($trailing-slash, '');
-    my $source-url = "{$.config.pod-root-path}/{$pod-path.tc}";
-    $source-url .= subst(:g, '::', '/');
-
-    my Regex $has-file-extension = /\.pod6$/;
-    return $source-url if $source-url ~~ $has-file-extension;
-    return "{$source-url}.pod6";
+    return "{$.config.pod-root-path}/{$pod-path}";
 }
 
 method generate-edit-url($pod-path is copy) {
@@ -77,14 +105,13 @@ method generate-edit-url($pod-path is copy) {
 method render($pod, $selected = '', :$pod-path = '') {
     my $source-url      = $pod-path && self.generate-source-url($pod-path);
     my $edit-source-url = $pod-path && self.generate-edit-url($pod-path);
+    my $template = %!prepopulated-templates{$selected} || %!prepopulated-templates{"default"};
     render(
         $pod,
         url                => &!rewrite,
-        menuEntries        => self.generate-menu-entries($selected),
-        submenuEntries     => self.generate-submenu-entries($selected),
-        editable           => $pod-path && (editURL => $edit-source-url),
+        editable           => $pod-path ?? '' !! 'none',
+        editURL            => $edit-source-url,
         podPath            => self.generate-source-url($pod-path),
-        css                => &!rewrite('/css/app.css'),
-        main-template-path => zef-path("templates/main.mustache")
+        main-template-path => $template
     )
 }

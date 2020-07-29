@@ -47,6 +47,7 @@ class Documentable::Search {
 
     method search-entry(Str :$category, Str :$value, Str :$url is copy) {
         $url = $.prefix ?? "/" ~ $.prefix ~ $url !! $url;
+        if ($url ~~ /\.$/) { $url = "{$url}.html" }
         qq[[\{ category: "{$category}", value: "{$value}", url: "{$url}" \}\n]]
     }
 

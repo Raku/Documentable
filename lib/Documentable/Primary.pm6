@@ -39,6 +39,7 @@ class Documentable::Primary is Documentable {
     has Str  $.summary;
     has Str  $.url;
     has Str  $.filename;
+    has Str  $.source-path;
     #| Definitions indexed in this pod
     has @.defs;
     #| References indexed in this pod
@@ -46,6 +47,7 @@ class Documentable::Primary is Documentable {
 
     method new (
         Str :$filename!,
+        Str :$source-path!,
             :$pod!
     ) {
         self.check-pod($pod, $filename);
@@ -76,7 +78,8 @@ class Documentable::Primary is Documentable {
             :$url
             :@subkinds,
             :@categories,
-            :$filename
+            :$filename,
+            :$source-path
         );
     }
 
@@ -214,5 +217,3 @@ class Documentable::Primary is Documentable {
     }
 
 }
-
-# vim: expandtab shiftwidth=4 ft=perl6

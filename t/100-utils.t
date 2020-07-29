@@ -52,15 +52,16 @@ subtest 'cache path' => {
 }
 
 subtest 'cache' => {
-    plan 4;
+    plan 5;
     my \TOPDIR = path-from-parts(<t test-doc> );
     delete-cache-for(TOPDIR);  # In case it was left from a previous test
     my $cache = init-cache( TOPDIR );
     ok $cache, "Cache created anywhere";
-    isa-ok $cache, Pod::To::Cached, "Correct type";
+    isa-ok $cache, Pod::From::Cache, "Correct type";
     ok cache-path(TOPDIR).IO.d, "Directory created";
     delete-cache-for(TOPDIR);
     nok cache-path(TOPDIR).IO.d, "Directory deleted";
+    dies-ok {init-cache("nonexisting-directory")}, "Dies if dir does not exist";
 }
 
 done-testing;

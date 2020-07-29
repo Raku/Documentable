@@ -67,6 +67,8 @@ subtest 'rewrite-url' => {
   is rewrite-url('/a/b#internal'), '/a/b#internal'         , 'not change internals';
   is rewrite-url("/a", "p")      , '/p/a'                  , "prefix (1)";
   is rewrite-url("a", "p")       , '/p/a'                  , "prefix (2)";
+  is rewrite-url(".")            , '/..html'               , "Final dot, see #72";
+
 }
 
 

@@ -1,7 +1,7 @@
 {
   "name": "Documentable",
   "description": "An API for Raku documentation",
-  "version": "1.3.1",
+  "version": "2.0.0",
   "perl": "6.d",
   "authors": [
     "@moritz",
@@ -15,7 +15,7 @@
   "depends": [
     "Pod::Load:ver<0.5.4>",
     "Pod::To::HTML:ver<0.7.0>",
-    "Pod::To::Cached:ver<0.4.0>",
+    "Pod::From::Cache:ver<0.2>",
     "Perl6::TypeGraph:ver<2.1.3>:auth<github:antoniogamiz>:api<2>",
     "Pod::Utilities:ver<0.0.1>",
     "URI:ver<0.3>",
@@ -25,6 +25,7 @@
     "Test::Output",
     "Terminal::ANSIColor",
     "File::Directory::Tree",
+    "Template::Mustache",
     "node:from<bin>",
     "dot:from<bin>"
   ],
@@ -53,9 +54,9 @@
     "Documentable::Utils::Text": "lib/Documentable/Utils/Text.pm6"
   },
   "resources": [
-    "templates/main.mustache",
-    "templates/tg-fragment.html",
-    "templates/search_template.js",
+    "template/main.mustache",
+    "template/tg-fragment.html",
+    "template/search_template.js",
     "documentable.json"
   ],
   "license": "Artistic-2.0",

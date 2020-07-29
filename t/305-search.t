@@ -36,6 +36,11 @@ subtest "search index generation" => {
     }
 }
 
+subtest "Final dot entry" => {
+    my $entry = $search-generator.search-entry(:category("routine"), :value("infix ."), :url("/routine/."));
+    ok $entry ~~ /"/routine/..html"/, "Add .html to urls ending in dot";
+}
+
 sub test-index-entry($index-entry, $regex, $msg) {
     is so $index-entry ~~ $regex, True, $msg;
 }

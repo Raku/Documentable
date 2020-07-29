@@ -1,5 +1,5 @@
 use File::Directory::Tree;
-use Pod::To::Cached;
+use Pod::From::Cache;
 
 unit module Documentable::Utils::IO;
 
@@ -70,6 +70,13 @@ sub cache-path($path) is export {
     ~$path.IO.parent.add('.cache-' ~ $path.IO.basename);
 }
 
+class X::Documentable::DocDirectory is Exception {
+    has $.path;
+    method message() {
+        "The directory {$!path.IO.absolute} does not exist or does not contain any Pod files."
+    }
+}
+
 sub init-cache($top-dir, $verbose = False ) is export {
      my $cache-dir = cache-path($top-dir);
      if ($cache-dir.IO.e) {
@@ -77,9 +84,12 @@ sub init-cache($top-dir, $verbose = False ) is export {
                  "Please do not use any other directory with "    ~
                  "this name." if $verbose;
      }
-     return Pod::To::Cached.new(:source(~$top-dir),
-                                :$verbose,
-                                :path(~$cache-dir));
+
+    die X::Documentable::DocDirectory.new(:path($top-dir)) unless 
+    $top-dir.IO.absolute.IO.e;
+
+     return Pod::From::Cache.new(:doc-source(~$top-dir),
+                                 :cache-path(~$cache-dir));
 }
 
 sub delete-cache-for($path) is export {
