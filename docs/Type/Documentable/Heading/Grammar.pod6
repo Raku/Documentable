@@ -7,7 +7,7 @@
 
     grammar Documentable::Heading::Grammar
 
-Used to extract the necessary metadata from headings elements. It extracts four 
+Used to extract the necessary metadata from headings elements. It extracts four
 different values from a heading:
 
 =item1 C<name>.

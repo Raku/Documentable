@@ -8,7 +8,7 @@
     class Documentable::Registry {}
 
 An instance of this object is used to deal with a collection of L<Documentable|/type/Documentable>
-objects. It gives you an API to access all the processed documentation. We can say this class is 
+objects. It gives you an API to access all the processed documentation. We can say this class is
 our source of information.
 
 =head1 Methods
