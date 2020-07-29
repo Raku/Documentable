@@ -24,13 +24,20 @@ class X::Documentable::NodeNotFound is Exception {
 
 package Documentable::CLI {
 
+    constant @default-asset-dirs = (
+        "html",
+        "highlights",
+        "assets",
+        "template",
+    );
+
     sub RUN-MAIN(|c) is export {
         my %*SUB-MAIN-OPTS = :named-anywhere;
         CORE::<&RUN-MAIN>(|c)
     }
 
     our proto MAIN(|) is export { * }
-    
+
     multi MAIN() {
         say 'Execute "documentable --help" for more information.';
     }
@@ -43,7 +50,7 @@ package Documentable::CLI {
         DEBUG("Setting up the directory...");
 
         constant $assetsDIR = "documentable-assets";
-        constant $assetsURL = "https://github.com/Raku/Documentable/releases/download/v1.0.1/{$assetsDIR}.tar.gz"; 
+        constant $assetsURL = "https://github.com/Raku/Documentable/releases/download/v1.0.1/{$assetsDIR}.tar.gz";
 
         shell "curl -Ls {$assetsURL} --output {$assetsDIR}.tar.gz";
         shell "tar -xzf {$assetsDIR}.tar.gz";
@@ -52,7 +59,7 @@ package Documentable::CLI {
         my @assets-files = list-files($assetsDIR).map({.relative($assetsDIR).IO});
         my @no-duplicated-files = @assets-files.grep({! .e});
         my @duplicated-files = @assets-files.grep({.e});
-       
+
         for @duplicated-files -> $file {
             note colored("[WARNING] $file will be overriden by this operation", 'yellow');
         }
@@ -85,20 +92,13 @@ package Documentable::CLI {
 
         constant @files-to-delete = (
             "Makefile",
-            "type-graph.txt",
-            "app.pl", 
-            "app-start", 
+            "app.pl",
+            "app-start",
             "documentable.json"
         );
         unlink(@files-to-delete);
 
-        constant @dirs-to-delete = (
-            "html", 
-            "highlights",
-            "assets",
-            "template"
-        );
-        @dirs-to-delete.map({rmtree($_)});
+        @default-asset-dirs.map({rmtree($_)});
     }
 
     #| Start the documentation generation with the specified options
@@ -120,10 +120,14 @@ package Documentable::CLI {
         Bool :a(:$all)             = False                    #= Equivalent to -t -p -s -i --search-index
     ) {
         my $beginning = now; # to measure total time
-        if (!"./html".IO.e || !"./assets".IO.e || !"./template".IO.e and $v) {
-            note q:to/END/;
-                (warning) html and/or assets and/or template directories
-                cannot be found. You can get the defaults by executing:
+        my $asset-dir-missing = @default-asset-dirs.map({!.IO.e}).any;
+        if ($asset-dir-missing and $v) {
+            note qq:to/END/;
+                (warning) one of the following directories cannot be found:
+
+                    @default-asset-dirs.join(', ')
+
+                You can get the defaults by executing:
 
                     documentable setup
                 END

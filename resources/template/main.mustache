@@ -30,10 +30,10 @@
                 Not in Index (<a href="" id="try-web-search">try site search</a>)
             </p>
         </div>
-        
+
         {{! Site navigation menus }}
         <div class="menu">
-            
+
             {{! Main menu }}
             <div class="menu-items dark-green">
                 <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
@@ -41,14 +41,14 @@
                     <a class="menu-item {{{class}}}" href="{{{href}}}"> {{{display-text}}} </a>
                 {{/menu}}
             </div>
-            
+
             {{! Submenu }}
             {{#submenu}}<div class="menu-items darker-green">{{/submenu}}
                 {{#submenu}}
                     <a class="menu-item" href="{{{href}}}"> {{{display-text}}} </a>
                 {{/submenu}}
             {{#submenu}}</div>{{/submenu}}
-        
+
         </div>
     </div>
 

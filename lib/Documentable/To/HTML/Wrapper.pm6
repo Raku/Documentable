@@ -47,12 +47,12 @@ method prepopulate-template($kind) {
             :@submenu,
             :$!prefix
         },
-        :pragma<keep-unused-variables> 
+        :pragma<keep-unused-variables>
     );
     $new-template .= subst("toc-class", '{{^ toc }} no-toc{{/ toc }}');
     spurt $filename, $new-template;
 }
- 
+
 method generate-menu-entries($selected) {
     my @menu-entries = $!config.kinds;
     @menu-entries .= map( -> $kind {

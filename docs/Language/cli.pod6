@@ -13,8 +13,8 @@ It lets you customize the generation process with restrictions.
 =head2 X<documentable setup>
 
 Download template files in your current working directory. You can check them
-L<here|https://github.com/Raku/Documentable/releases/tag/v1.0.1>. B<You do not 
-need to use these exact files>. You can modify them as you want, but take 
+L<here|https://github.com/Raku/Documentable/releases/tag/v1.0.1>. B<You do not
+need to use these exact files>. You can modify them as you want, but take
 special care with the placeholders in C<main.mustache>.
 
 =head2 X<documentable start>
@@ -23,7 +23,7 @@ Start the HTML generation process.
 
 =head2 X<documentable update>
 
-Update the HTML files using the latest changes from the pod collection, B<without> 
+Update the HTML files using the latest changes from the pod collection, B<without>
 regenerate each and every file.
 
 =head2 X<documentable clean>
@@ -151,7 +151,7 @@ The C<title-page> will be the main headline of that page; C<pod-root-path>
 will point to the default URL, and will be used mainly for substitution
 within pages; C<kinds> are menus that will be inserted as part of the header,
 every C<kind> will be a menu button. The C<categories> section is used to
-generate different sub-menus in the header. The C<sort> key tells C<Documentable> 
+generate different sub-menus in the header. The C<sort> key tells C<Documentable>
 to sort that specific page.
 
 =head2 X<-v, --verbose>
@@ -245,7 +245,7 @@ Version of C<Documentable>.
 
 =head1 Examples
 
-If you only want to process your pod collection to check the pod files syntax. 
+If you only want to process your pod collection to check the pod files syntax.
 You can execute:
 
 =begin code

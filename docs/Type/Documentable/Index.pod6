@@ -26,7 +26,7 @@ Defined as
 
     method meta(--> Array[Str])
 
-Returns the meta part corresponding to the reference. You need to have in mind how 
+Returns the meta part corresponding to the reference. You need to have in mind how
 the meta part is parsed. Given the following reference element:
 
 =begin pod

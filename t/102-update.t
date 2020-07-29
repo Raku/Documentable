@@ -10,7 +10,7 @@ rmtree("t/.cache-test-doc");
 subtest 'update option' => {
     # create the cache
     Documentable::CLI::MAIN(
-        'start', 
+        'start',
         :topdir('t/test-doc'),
         :typegraph-file("t/test-doc/type-graph.txt"),
         :!verbose
@@ -19,7 +19,7 @@ subtest 'update option' => {
     # paths to files that will be changed
     my @paths = <Programs/01-debugging.pod6 Language/terms.pod6 Native/int.pod6 Type/Map.pod6 HomePage.pod6>;
     @paths    .= map({"t/test-doc/$_"});
-    
+
     # store untouched files to restore them (avoid they appear in 'git status')
     my @files = @paths.map({slurp $_});
     # modification date
@@ -29,8 +29,8 @@ subtest 'update option' => {
     for @paths Z @files -> ($path, $file) { spurt $path, add-line( $file ) }
 
     Documentable::CLI::MAIN(
-        'update', 
-        :topdir('t/test-doc'), 
+        'update',
+        :topdir('t/test-doc'),
         :typegraph-file("t/test-doc/type-graph.txt"),
         :!verbose
     );
@@ -55,8 +55,8 @@ subtest 'not regenerate all subindexes' => {
     for @paths Z @files -> ($path, $file) { spurt $path, add-line( $file ) }
 
     Documentable::CLI::MAIN(
-        'update', 
-        :topdir('t/test-doc'), 
+        'update',
+        :topdir('t/test-doc'),
         :typegraph-file("t/test-doc/type-graph.txt"),
         :!verbose
     );
