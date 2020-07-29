@@ -149,7 +149,7 @@ the `sass` command
 #### curl and tar
 
 These programs are used by `documentable setup` to download the default assets
-and extract them. If you are on Ubuntu/Debian you will not have any problem (probably). If you are using Windows I recommend you to download the assets yourself from [this link](https://github.com/raku/Documentable/releases/download/v1.0.1/assets.tar.gz).
+and extract them. If you are on Ubuntu/Debian you will not have any problem (probably). If you are using Windows I recommend you to download the assets yourself from [this link](https://github.com/raku/Documentable/releases/download/v1.0.1/documentable-assets.tar.gz).
 
 ## FAQ
 
