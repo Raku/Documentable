@@ -17,4 +17,6 @@ RUN apk add --no-cache --virtual .gyp make python g++ \
 
 RUN npm install -g sass
 
+RUN apk add rsync
+
 ENTRYPOINT perl6 -v && zef install --deps-only . && zef test .
