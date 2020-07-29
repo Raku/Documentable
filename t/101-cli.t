@@ -11,7 +11,7 @@ subtest 'no arguments provided' => {
 
 subtest 'setup assets' => {
     lives-ok {Documentable::CLI::MAIN('setup', :o)}, "Setup lives";
-    my @dirs = ("assets", "templates", "html", "highlights");
+    my @dirs = ("assets", "template", "html", "highlights");
     for @dirs -> $dir {
         ok $dir.IO.e, "$dir directory created";
     }
