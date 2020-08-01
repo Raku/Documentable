@@ -48,4 +48,30 @@ subtest 'docs-for' => {
     is-deeply $registry.docs-for("int"), $doc, "basic search";
 }
 
+subtest "process-pod-dir" => {
+
+    my $registry = Documentable::Registry.new(
+        :topdir("t/test-doc"),
+        :dirs([]),
+    );
+
+    lives-ok { $registry.process-pod-dir(:dir("Type")); }, "Lives";
+
+    $registry.documentables = [];
+    output-like { $registry.process-pod-dir(:dir("Type"))}, /"Processing Type directory..."/,
+    "Lives and print message";
+
+    my @expected = <Any Array Associative Cancellation Cool Hash Independent routines Map X::IO>;
+    is $registry.documentables.map({.name}).sort, @expected, "All in Type dir processed";
+
+    @expected = <Any Array Associative Cancellation Cool Hash Map X::IO independent-routines>;
+    is $registry.documentables.map({.filename}).sort, @expected, "All filenames set";
+
+    @expected = <Type/Any.pod6 Type/Array.pod6 Type/Associative.pod6 Type/Cancellation.pod6 Type/Cool.pod6
+    Type/Hash.pod6 Type/Map.pod6 Type/X/IO.pod6 Type/independent-routines.pod6>;
+    is $registry.documentables.map({.source-path}).sort.map({.IO.relative("t/test-doc")}),
+    @expected, "All source-paths set";
+
+}
+
 done-testing;
