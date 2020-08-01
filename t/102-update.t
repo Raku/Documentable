@@ -70,7 +70,13 @@ subtest 'not regenerate all subindexes' => {
 
 }
 
-rmtree("html");
+
+# ==================== see t/102-update_1.t =================================
+my $pod-path   = "t/test-doc/Language/terms.pod6";
+my $pod-string = $pod-path.IO.slurp;
+
+$pod-path.IO.spurt($pod-string.subst(/syntactic/, "CHANGED POD"));
+# ===========================================================================
 
 sub add-line($file) {
     $file ~ "\n # comment to modify the file"

@@ -19,7 +19,7 @@ subtest 'setup assets' => {
     nok "documentable-assets".IO.e, "untar dir deleted";
 }
 
-# 'documentable setup' downloads a type-graph file different from the one 
+# 'documentable setup' downloads a type-graph file different from the one
 # used in the tests, so it needs to be deleted.
 unlink("type-graph.txt");
 
@@ -27,11 +27,15 @@ subtest 'progress-bar-display' => {
     # We need to make sure the cache directory does not exist
     # It might fail if there's a change of version
     rmtree("t/.cache-test-doc");
+
     lives-ok {
-            Documentable::CLI::MAIN('start', :topdir('t/test-doc'),
-                    :dirs('Language'), :p)
-             },
-            "Lives";
+            Documentable::CLI::MAIN('start', :topdir('t/test-doc'), :dirs('Language'), :p)
+    }, "Lives";
+
+    lives-ok {
+        Documentable::CLI::MAIN('start', :topdir('t/test-doc'), :dirs('Types'),
+        :p, :typegraph-file("t/test-doc/type-graph.txt"))
+    }, "Lives";
 
     output-like {Documentable::CLI::MAIN('start', :topdir('t/test-doc'), :dirs('Language'), :p)},
                 /<!before \[\=+\]?>/,

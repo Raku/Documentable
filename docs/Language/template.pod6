@@ -1,0 +1,99 @@
+=begin pod :kind("Language") :subkind("Language") :category("setup")
+
+=TITLE Mustache Template
+
+=SUBTITLE Variables used in the default template
+
+C«Documentable» the same L«Mustache|https://mustache.github.io/» template as base
+to generate every HTML page. If do not define your own in C«/template/main.mustache»,
+the L«default one|https://github.com/Raku/Documentable/blob/master/resources/template/main.mustache»
+will be used.
+
+We use L«Pod::To::HTML|https://github.com/Raku/Pod-To-HTML», so check it out to see the variables that have
+not been listed here.
+
+=head1 Variables
+
+Everything between I«{{{}}}» and I«{{}}» is considered a variable and will be replaced by C«Documentable».
+
+=head2 X«{{{title}}}»
+
+It is replaced with the contents of C«=TITLE» element. It will always be replaced because C«Documentable»
+will throw an error if a C«=TITLE» element is not found in all pods (see L«TitleNotFound|/type/X::Documentable::TitleNotFound»).
+
+=head2 X«{{subtitle}}»
+
+It is replaced with the contents of C«=SUBTITLE» element. It will always be replaced because C«Documentable»
+will throw an error if a C«=SUBTITLE» element is not found in all pods (see L«SubtitleNotFound|/type/X::Documentable::SubtitleNotFound»).
+
+=head2 X«{{css}}»
+
+It is replaced with the path to the default CSS file location, C«/css/app.js». If you want to use your
+own CSS file in a different location, delete that variable and replace it with the new path.
+
+=head2 X«{{prefix}}»
+
+It is replaced with the L«url-prefix|/language/configuration-file#Additional_entries»
+entry from the configuration file. This is normally used when you want to publish your site under C«gh-pages» or similar,
+or if you want to publish several versions of your docs.
+
+If you are going to use a hardcoded URL in the template (a static image, for instance), add this variable to the beginning of
+the path, as follows:
+
+=begin code :lang«HTML»
+
+ «img src="{{prefix}}/images/Camelia.svg"»«/img»
+
+=end code
+
+=head2 X«{{menu}}»
+
+It is replaced with the menu entries. Each menu entries has three different values:
+
+=item X«{{{class}}}»: replaced by C«"selected darker-green"» if that menu is clicked or C«""» in other case.
+=item X«{{{href}}}»: URL to the index page of that menu.
+=item X«{{{display-text}}}»: Display text of that menu, configured using the L«config file|/language/configuration-file».
+
+=head2 X«{{submenu}}»
+
+It is replaced with the submenu entries. You can create as many of these entries using the C«categories» entry from the
+L«config file|/language/configuration-file». Each menu entries has two different values:
+
+=item X«{{{href}}}»: URL to the index page of that menu.
+=item X«{{{display-text}}}»: Display text of that menu, configured using the L«config file|/language/configuration-file».
+
+=head2 X«{{editable}}»
+
+It is replaced by C«""» in case the HTML page comes from a L«Documentable::Primary|/type/Documentable::Primary» object. In
+any other case, it will be replaced by C«"none"».
+
+=head2 X«{{editURL}}»
+
+It is replaced by the source url of the pod. It only works with GitHub based URLs. It uses L«pod-root-path|/language/configuration-file#Additional_entries»
+to build it.
+
+=head2 X«{{toc}}»
+
+It is replaced with the Table of Contents, if it exists. X«toc-class» is a special string replaced by C«Documentable» with
+
+=begin code :lang«HTML»
+{{^ toc }} no-toc{{/ toc }}
+=end code
+
+This is necessary because to reduce the generation time, C«Documentable» creates as many base templates as possible (replacing some common
+variables for all pages). See L«softmoth/raku-Template-Mustache#36|https://github.com/softmoth/raku-Template-Mustache/issues/36» for more
+information.
+
+=head2 X«{{body}}»
+
+It is replaced by the pod converted to HTML. See L«Pod::To::HTML|https://github.com/Raku/Pod-To-HTML» for more information.
+
+=head2 X«{{footnotes}}»
+
+It is replaced by the footnotes converted to HTML. See L«Pod::To::HTML|https://github.com/Raku/Pod-To-HTML» for more information.
+
+=head2 X«{{podPath}}»
+
+It is replaced by the source url of the pod.
+
+=end pod
