@@ -106,7 +106,7 @@ downloading the latest Rakudo Star release from
 
 [Zef](https://modules.raku.org/repo/zef) is a Raku module installer. If you
 installed Rakudo Star package, it should already be there. Feel free to
-use any other module installer for the modules needed (see below).
+use any other way to  install the modules needed (see below).
 
 #### Mojolicious / Web Server (OPTIONAL)
 
