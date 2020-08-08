@@ -1,0 +1,35 @@
+digraph "perl6-type-graph" {
+    rankdir=BT;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "Pod::Block" [color="#000000", fontcolor="#000000", href="/type/Pod::Block", fontname="FreeSans"];
+    "Mu" [color="#000000", fontcolor="#000000", href="/type/Mu", fontname="FreeSans"];
+    "Any" [color="#000000", fontcolor="#000000", href="/type/Any", fontname="FreeSans"];
+    "Pod::Block::Table" [color="#000000", fontcolor="#000000", href="/type/Pod::Block::Table", fontname="FreeSans"];
+    "Pod::Block::Named" [color="#000000", fontcolor="#000000", href="/type/Pod::Block::Named", fontname="FreeSans"];
+    "Pod::Item" [color="#000000", fontcolor="#000000", href="/type/Pod::Item", fontname="FreeSans"];
+    "Pod::Block::Para" [color="#000000", fontcolor="#000000", href="/type/Pod::Block::Para", fontname="FreeSans"];
+    "Pod::Block::Declarator" [color="#000000", fontcolor="#000000", href="/type/Pod::Block::Declarator", fontname="FreeSans"];
+    "Pod::FormattingCode" [color="#000000", fontcolor="#000000", href="/type/Pod::FormattingCode", fontname="FreeSans"];
+    "Pod::Heading" [color="#000000", fontcolor="#000000", href="/type/Pod::Heading", fontname="FreeSans"];
+    "Pod::Block::Code" [color="#000000", fontcolor="#000000", href="/type/Pod::Block::Code", fontname="FreeSans"];
+    "Pod::Defn" [color="#000000", fontcolor="#000000", href="/type/Pod::Defn", fontname="FreeSans"];
+    "Pod::Block::Comment" [color="#000000", fontcolor="#000000", href="/type/Pod::Block::Comment", fontname="FreeSans"];
+
+    // Superclasses
+    "Pod::Block" -> "Any" [color="#000000"];
+    "Any" -> "Mu" [color="#000000"];
+    "Pod::Block::Table" -> "Pod::Block" [color="#000000"];
+    "Pod::Block::Named" -> "Pod::Block" [color="#000000"];
+    "Pod::Item" -> "Pod::Block" [color="#000000"];
+    "Pod::Block::Para" -> "Pod::Block" [color="#000000"];
+    "Pod::Block::Declarator" -> "Pod::Block" [color="#000000"];
+    "Pod::FormattingCode" -> "Pod::Block" [color="#000000"];
+    "Pod::Heading" -> "Pod::Block" [color="#000000"];
+    "Pod::Block::Code" -> "Pod::Block" [color="#000000"];
+    "Pod::Defn" -> "Pod::Block" [color="#000000"];
+    "Pod::Block::Comment" -> "Pod::Block" [color="#000000"];
+
+    // Roles
+}

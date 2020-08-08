@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>role Callable</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/type.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-basic.html"> Basic </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-composite.html"> Composite </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-domain-specific.html"> Domain-specific </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-exception.html"> Exceptions </a>
+            </div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Type/Callable.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">role Callable</h1>
+        <p class="subtitle">Invocable code object</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+                            <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#method_CALL-ME">method CALL-ME</a></td></tr>
+            <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#method_Capture">method Capture</a></td></tr>
+      <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Type_Graph">Type Graph</a></td></tr>
+ 
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <pre class="pod-block-code">role Callable { ... }</pre>
+<p>Role for objects which support calling them. It&#39;s used in <a href="/Documentable/integration-test/type/Block">Block</a>, <a href="/Documentable/integration-test/type/Routine">Routine</a>, <a href="/Documentable/integration-test/type/Sub">Sub</a>, <a href="/Documentable/integration-test/type/Method">Method</a>, <a href="/Documentable/integration-test/type/Submethod">Submethod</a> and <a href="/Documentable/integration-test/type/Macro">Macro</a> types.</p>
+<p>Callables can be stored in <code>&amp;</code>-sigiled containers, the default type constraint of such a container is <code>Callable</code>.</p>
+<pre class="pod-block-code">my &amp;a = {;}; # Empty block needs a semicolon
+my &amp;b = -&gt; {};
+my &amp;c = sub () {};
+sub foo() {};
+my &amp;d = &amp;foo;</pre>
+<h1 id="Methods"><a class="u" href="#___top" title="go to top of document">Methods</a></h1>
+<h2 id="method_CALL-ME"><a class="u" href="#___top" title="go to top of document">method CALL-ME</a></h2>
+<pre class="pod-block-code">method CALL-ME(Callable:D $self: |arguments)</pre>
+<p>This method is required for postfix:«( )» and postfix:«.( )». It&#39;s what makes an object actually call-able and needs to be overloaded to let a given object act like a routine. If the object needs to be stored in a <code>&amp;</code>-sigiled container, is has to implement Callable.</p>
+<pre class="pod-block-code">class A does Callable {
+    submethod CALL-ME(|c){ &#39;called&#39; }
+}
+my &amp;a = A;
+say a(); # OUTPUT: «called␤»</pre>
+<p>Applying the <code>Callable</code> role is not a requirement to make an object callable; if a class simply wants to add subroutine-like semantics in a regular scalar container, the submethod <code>CALL-ME</code> can be used for that.</p>
+<pre class="pod-block-code">class A {
+    has @.values;
+    submethod CALL-ME(Int $x where 0 &lt;= * &lt; @!values.elems) {
+        @!values[$x]
+    }
+}
+my $a = A.new: values =&gt; [4,5,6,7];
+say $a(2); # OUTPUT: «6␤»</pre>
+<h2 id="method_Capture"><a class="u" href="#___top" title="go to top of document">method Capture</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method Capture()</pre>
+<p>Throws <code>X::Cannot::Capture</code>.</p>
+<h1 id="Type_Graph"><a class="u" href="#___top" title="go to top of document">Type Graph</a></h1>
+<figure>
+  <figcaption>Type relations for <code>Callable</code></figcaption>
+  <svg width="376pt" height="476pt"
+ viewBox="0.00 0.00 375.60 476.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 472)">
+<title>perl6&#45;type&#45;graph</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-472 371.6,-472 371.6,4 -4,4"/>
+<!-- Callable -->
+<g id="node1" class="node">
+<title>Callable</title>
+<g id="a_node1"><a xlink:href="/type/Callable" xlink:title="Callable">
+<ellipse fill="none" stroke="#6666ff" cx="155.6" cy="-378" rx="50.09" ry="18"/>
+<text text-anchor="middle" x="155.6" y="-374.3" font-family="FreeSans" font-size="14.00" fill="#6666ff">Callable</text>
+</a>
+</g>
+</g>
+<!-- Mu -->
+<g id="node2" class="node">
+<title>Mu</title>
+<g id="a_node2"><a xlink:href="/type/Mu" xlink:title="Mu">
+<ellipse fill="none" stroke="#000000" cx="254.6" cy="-450" rx="27" ry="18"/>
+<text text-anchor="middle" x="254.6" y="-446.3" font-family="FreeSans" font-size="14.00" fill="#000000">Mu</text>
+</a>
+</g>
+</g>
+<!-- Any -->
+<g id="node3" class="node">
+<title>Any</title>
+<g id="a_node3"><a xlink:href="/type/Any" xlink:title="Any">
+<ellipse fill="none" stroke="#000000" cx="254.6" cy="-378" rx="27" ry="18"/>
+<text text-anchor="middle" x="254.6" y="-374.3" font-family="FreeSans" font-size="14.00" fill="#000000">Any</text>
+</a>
+</g>
+</g>
+<!-- Any&#45;&gt;Mu -->
+<g id="edge1" class="edge">
+<title>Any&#45;&gt;Mu</title>
+<path fill="none" stroke="#000000" d="M254.6,-396.3C254.6,-404.02 254.6,-413.29 254.6,-421.89"/>
+<polygon fill="#000000" stroke="#000000" points="251.1,-421.9 254.6,-431.9 258.1,-421.9 251.1,-421.9"/>
+</g>
+<!-- Code -->
+<g id="node4" class="node">
+<title>Code</title>
+<g id="a_node4"><a xlink:href="/type/Code" xlink:title="Code">
+<ellipse fill="none" stroke="#000000" cx="146.6" cy="-306" rx="30.59" ry="18"/>
+<text text-anchor="middle" x="146.6" y="-302.3" font-family="FreeSans" font-size="14.00" fill="#000000">Code</text>
+</a>
+</g>
+</g>
+<!-- Code&#45;&gt;Callable -->
+<g id="edge12" class="edge">
+<title>Code&#45;&gt;Callable</title>
+<path fill="none" stroke="#6666ff" d="M148.82,-324.3C149.81,-332.02 151,-341.29 152.11,-349.89"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="148.65,-350.42 153.4,-359.9 155.59,-349.53 148.65,-350.42"/>
+</g>
+<!-- Code&#45;&gt;Any -->
+<g id="edge2" class="edge">
+<title>Code&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M166.4,-319.84C183.54,-330.95 208.49,-347.11 227.47,-359.42"/>
+<polygon fill="#000000" stroke="#000000" points="225.7,-362.44 235.99,-364.94 229.51,-356.57 225.7,-362.44"/>
+</g>
+<!-- ForeignCode -->
+<g id="node5" class="node">
+<title>ForeignCode</title>
+<g id="a_node5"><a xlink:href="/type/ForeignCode" xlink:title="ForeignCode">
+<ellipse fill="none" stroke="#000000" cx="259.6" cy="-306" rx="64.19" ry="18"/>
+<text text-anchor="middle" x="259.6" y="-302.3" font-family="FreeSans" font-size="14.00" fill="#000000">ForeignCode</text>
+</a>
+</g>
+</g>
+<!-- ForeignCode&#45;&gt;Callable -->
+<g id="edge13" class="edge">
+<title>ForeignCode&#45;&gt;Callable</title>
+<path fill="none" stroke="#6666ff" d="M236,-322.88C221.33,-332.75 202.32,-345.55 186.47,-356.22"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="184.37,-353.41 178.03,-361.9 188.28,-359.22 184.37,-353.41"/>
+</g>
+<!-- ForeignCode&#45;&gt;Any -->
+<g id="edge3" class="edge">
+<title>ForeignCode&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M258.36,-324.3C257.81,-332.02 257.15,-341.29 256.53,-349.89"/>
+<polygon fill="#000000" stroke="#000000" points="253.04,-349.67 255.82,-359.9 260.02,-350.17 253.04,-349.67"/>
+</g>
+<!-- WhateverCode -->
+<g id="node6" class="node">
+<title>WhateverCode</title>
+<g id="a_node6"><a xlink:href="/type/WhateverCode" xlink:title="WhateverCode">
+<ellipse fill="none" stroke="#000000" cx="85.6" cy="-234" rx="69.59" ry="18"/>
+<text text-anchor="middle" x="85.6" y="-230.3" font-family="FreeSans" font-size="14.00" fill="#000000">WhateverCode</text>
+</a>
+</g>
+</g>
+<!-- WhateverCode&#45;&gt;Code -->
+<g id="edge4" class="edge">
+<title>WhateverCode&#45;&gt;Code</title>
+<path fill="none" stroke="#000000" d="M100.36,-251.95C108.18,-260.92 117.91,-272.08 126.42,-281.85"/>
+<polygon fill="#000000" stroke="#000000" points="124,-284.4 133.21,-289.64 129.28,-279.81 124,-284.4"/>
+</g>
+<!-- Block -->
+<g id="node7" class="node">
+<title>Block</title>
+<g id="a_node7"><a xlink:href="/type/Block" xlink:title="Block">
+<ellipse fill="none" stroke="#000000" cx="208.6" cy="-234" rx="35.19" ry="18"/>
+<text text-anchor="middle" x="208.6" y="-230.3" font-family="FreeSans" font-size="14.00" fill="#000000">Block</text>
+</a>
+</g>
+</g>
+<!-- Block&#45;&gt;Code -->
+<g id="edge5" class="edge">
+<title>Block&#45;&gt;Code</title>
+<path fill="none" stroke="#000000" d="M194.53,-250.88C186.41,-260.05 176.05,-271.74 167.05,-281.91"/>
+<polygon fill="#000000" stroke="#000000" points="164.19,-279.85 160.18,-289.66 169.43,-284.49 164.19,-279.85"/>
+</g>
+<!-- Routine -->
+<g id="node8" class="node">
+<title>Routine</title>
+<g id="a_node8"><a xlink:href="/type/Routine" xlink:title="Routine">
+<ellipse fill="none" stroke="#000000" cx="208.6" cy="-162" rx="44.69" ry="18"/>
+<text text-anchor="middle" x="208.6" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#000000">Routine</text>
+</a>
+</g>
+</g>
+<!-- Routine&#45;&gt;Block -->
+<g id="edge6" class="edge">
+<title>Routine&#45;&gt;Block</title>
+<path fill="none" stroke="#000000" d="M208.6,-180.3C208.6,-188.02 208.6,-197.29 208.6,-205.89"/>
+<polygon fill="#000000" stroke="#000000" points="205.1,-205.9 208.6,-215.9 212.1,-205.9 205.1,-205.9"/>
+</g>
+<!-- Submethod -->
+<g id="node9" class="node">
+<title>Submethod</title>
+<g id="a_node9"><a xlink:href="/type/Submethod" xlink:title="Submethod">
+<ellipse fill="none" stroke="#000000" cx="54.6" cy="-90" rx="54.69" ry="18"/>
+<text text-anchor="middle" x="54.6" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Submethod</text>
+</a>
+</g>
+</g>
+<!-- Submethod&#45;&gt;Routine -->
+<g id="edge7" class="edge">
+<title>Submethod&#45;&gt;Routine</title>
+<path fill="none" stroke="#000000" d="M85.39,-105C109.94,-116.16 144.42,-131.83 170.67,-143.76"/>
+<polygon fill="#000000" stroke="#000000" points="169.38,-147.02 179.93,-147.97 172.28,-140.65 169.38,-147.02"/>
+</g>
+<!-- Macro -->
+<g id="node10" class="node">
+<title>Macro</title>
+<g id="a_node10"><a xlink:href="/type/Macro" xlink:title="Macro">
+<ellipse fill="none" stroke="#000000" cx="162.6" cy="-90" rx="35.19" ry="18"/>
+<text text-anchor="middle" x="162.6" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Macro</text>
+</a>
+</g>
+</g>
+<!-- Macro&#45;&gt;Routine -->
+<g id="edge8" class="edge">
+<title>Macro&#45;&gt;Routine</title>
+<path fill="none" stroke="#000000" d="M173.26,-107.24C178.87,-115.77 185.87,-126.42 192.15,-135.98"/>
+<polygon fill="#000000" stroke="#000000" points="189.25,-137.93 197.66,-144.37 195.1,-134.09 189.25,-137.93"/>
+</g>
+<!-- Method -->
+<g id="node11" class="node">
+<title>Method</title>
+<g id="a_node11"><a xlink:href="/type/Method" xlink:title="Method">
+<ellipse fill="none" stroke="#000000" cx="255.6" cy="-90" rx="40.09" ry="18"/>
+<text text-anchor="middle" x="255.6" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Method</text>
+</a>
+</g>
+</g>
+<!-- Method&#45;&gt;Routine -->
+<g id="edge9" class="edge">
+<title>Method&#45;&gt;Routine</title>
+<path fill="none" stroke="#000000" d="M244.46,-107.59C238.72,-116.13 231.61,-126.72 225.24,-136.21"/>
+<polygon fill="#000000" stroke="#000000" points="222.32,-134.28 219.65,-144.53 228.13,-138.18 222.32,-134.28"/>
+</g>
+<!-- Sub -->
+<g id="node12" class="node">
+<title>Sub</title>
+<g id="a_node12"><a xlink:href="/type/Sub" xlink:title="Sub">
+<ellipse fill="none" stroke="#000000" cx="340.6" cy="-90" rx="27" ry="18"/>
+<text text-anchor="middle" x="340.6" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Sub</text>
+</a>
+</g>
+</g>
+<!-- Sub&#45;&gt;Routine -->
+<g id="edge10" class="edge">
+<title>Sub&#45;&gt;Routine</title>
+<path fill="none" stroke="#000000" d="M319.97,-101.94C299.52,-112.78 267.82,-129.59 243.46,-142.51"/>
+<polygon fill="#000000" stroke="#000000" points="241.71,-139.48 234.52,-147.25 244.99,-145.66 241.71,-139.48"/>
+</g>
+<!-- Regex -->
+<g id="node13" class="node">
+<title>Regex</title>
+<g id="a_node13"><a xlink:href="/type/Regex" xlink:title="Regex">
+<ellipse fill="none" stroke="#000000" cx="255.6" cy="-18" rx="35.19" ry="18"/>
+<text text-anchor="middle" x="255.6" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">Regex</text>
+</a>
+</g>
+</g>
+<!-- Regex&#45;&gt;Method -->
+<g id="edge11" class="edge">
+<title>Regex&#45;&gt;Method</title>
+<path fill="none" stroke="#000000" d="M255.6,-36.3C255.6,-44.02 255.6,-53.29 255.6,-61.89"/>
+<polygon fill="#000000" stroke="#000000" points="252.1,-61.9 255.6,-71.9 259.1,-61.9 252.1,-61.9"/>
+</g>
+</g>
+</svg>
+
+  <p class="fallback">
+    <a
+      rel="alternate"
+      href="/images/type-graph-Callable.svg"
+      type="image/svg+xml"
+      >Expand above chart</a
+    >
+  </p>
+</figure>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Type/Callable.pod6">https://github.com/Raku/doc/blob/master/doc/Type/Callable.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

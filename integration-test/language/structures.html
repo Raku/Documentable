@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Data structures</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/structures.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Data structures</h1>
+        <p class="subtitle">How Raku deals with data structures and what we can expect from them</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+  <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Scalar_structures">Scalar structures</a></td></tr>
+                                   <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Complex_data_structures">Complex data structures</a></td></tr>
+                                                                                     <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Functional_structures">Functional structures</a></td></tr>
+                                                                                                              <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#Defining_and_constraining_data_structures">Defining and constraining data structures</a></td></tr>
+                                                                                      <tr class="toc-level-1"><td class="toc-number">5</td><td class="toc-text"><a href="#Infinite_structures_and_laziness">Infinite structures and laziness</a></td></tr>
+                                                                                                                                                                  <tr class="toc-level-1"><td class="toc-number">6</td><td class="toc-text"><a href="#Introspection">Introspection</a></td></tr>
+                                 
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <h1 id="Scalar_structures"><a class="u" href="#___top" title="go to top of document">Scalar structures</a></h1>
+<p>Some classes do not have any <em>internal</em> structure and to access parts of them, specific methods have to be used. Numbers, strings, and some other monolithic classes are included in that class. They use the <code>$</code> sigil, although complex data structures can also use it.</p>
+<pre class="pod-block-code">my $just-a-number = 7;
+my $just-a-string = &quot;8&quot;;</pre>
+<p>There is a <a href="/Documentable/integration-test/type/Scalar">Scalar</a> class, which is used internally to assign a default value to variables declared with the <code>$</code> sigil.</p>
+<pre class="pod-block-code">my $just-a-number = 333;
+say $just-a-number.VAR.^name; # OUTPUT: «Scalar␤»</pre>
+<p>Any complex data structure can be <em>scalarized</em> by using the <a href="/Documentable/integration-test/type/Any#index-entry-%24_(item_contextualizer)">item contextualizer <code>$</code></a>:</p>
+<pre class="pod-block-code">(1, 2, 3, $(4, 5))[3].VAR.^name.say; # OUTPUT: «Scalar␤»</pre>
+<p>However, this means that it will be treated as such in the context they are. You can still access its internal structure.</p>
+<pre class="pod-block-code">(1, 2, 3, $(4, 5))[3][0].say; # OUTPUT: «4␤»</pre>
+<p>An interesting side effect, or maybe intended feature, is that scalarization conserves identity of complex structures.</p>
+<pre class="pod-block-code">for ^2 {
+     my @list = (1, 1);
+     say @list.WHICH;
+} # OUTPUT: «Array|93947995146096␤Array|93947995700032␤»</pre>
+<p>Every time <code>(1, 1)</code> is assigned, the variable created is going to be different in the sense that <code>===</code> will say it is; as it is shown, different values of the internal pointer representation are printed. However</p>
+<pre class="pod-block-code">for ^2 {
+  my $list = (1, 1);
+  say $list.WHICH
+} # OUTPUT: «List|94674814008432␤List|94674814008432␤»</pre>
+<p>In this case, <code>$list</code> is using the Scalar sigil and thus will be a <code>Scalar</code>. Any scalar with the same value will be exactly the same, as shown when printing the pointers.</p>
+<h1 id="Complex_data_structures"><a class="u" href="#___top" title="go to top of document">Complex data structures</a></h1>
+<p>Complex data structures fall in two different broad categories: <a href="/Documentable/integration-test/type/Positional">Positional</a>, or list-like and <a href="/Documentable/integration-test/type/Associative">Associative</a>, or key-value pair like, according to how you access its first-level elements. In general, complex data structures, including objects, will be a combination of both, with object properties assimilated to key-value pairs. While all objects subclass <a href="/Documentable/integration-test/type/Mu">Mu</a>, in general complex objects are instances of subclasses of <a href="/Documentable/integration-test/type/Any">Any</a>. While it is theoretically possible to mix in <code>Positional</code> or <code>Associative</code> without doing so, most methods applicable to complex data structures are implemented in <code>Any</code>.</p>
+<p>Navigating these complex data structures is a challenge, but Raku provides a couple of functions that can be used on them: <a href="/Documentable/integration-test/routine/deepmap"><code>deepmap</code></a> and <a href="/Documentable/integration-test/routine/duckmap"><code>duckmap</code></a>. While the former will go to every single element, in order, and do whatever the block passed requires,</p>
+<pre class="pod-block-code">say [[1, 2, [3, 4]],[[5, 6, [7, 8]]]].deepmap( *.elems );
+# OUTPUT: «[[1 1 [1 1]] [1 1 [1 1]]]␤»</pre>
+<p>which returns <code>1</code> because it goes to the deeper level and applies <code>elems</code> to them, <code>deepmap</code> can perform more complicated operations:</p>
+<pre class="pod-block-code">say [[1, 2, [3, 4]], [[5, 6, [7, 8]]]].duckmap:
+   -&gt; $array where .elems == 2 { $array.elems };
+# OUTPUT: «[[1 2 2] [5 6 2]]␤»</pre>
+<p>In this case, it dives into the structure, but returns the element itself if it does not meet the condition in the block (<code>1, 2</code>), returning the number of elements of the array if it does (the two <code>2</code>s at the end of each subarray).</p>
+<p>Since <code>deepmap</code> and <code>duckmap</code> are <code>Any</code> methods, they also apply to Associative arrays:</p>
+<pre class="pod-block-code">say %( first =&gt; [1, 2], second =&gt; [3,4] ).deepmap( *.elems );
+# OUTPUT: «{first =&gt; [1 1], second =&gt; [1 1]}␤»</pre>
+<p>Only in this case, they will be applied to every list or array that is a value, leaving the keys alone.</p>
+<p><code>Positional</code> and <code>Associative</code> can be turned into each other.</p>
+<pre class="pod-block-code">say %( first =&gt; [1, 2], second =&gt; [3,4] ).list[0];
+# OUTPUT: «second =&gt; [3 4]␤»</pre>
+<p>However, in this case, and for Rakudo &gt;= 2018.05, it will return a different value every time it runs. A hash will be turned into a list of the key-value pairs, but it is guaranteed to be disordered. You can also do the operation in the opposite direction, as long as the list has an even number of elements (odd number will result in an error):</p>
+<pre class="pod-block-code">say &lt;a b c d&gt;.Hash # OUTPUT: «{a =&gt; b, c =&gt; d}␤»</pre>
+<p>But</p>
+<pre class="pod-block-code">say &lt;a b c d&gt;.Hash.kv # OUTPUT: «(c d a b)␤»</pre>
+<p>will obtain a different value every time you run it; <a href="/Documentable/integration-test/type/Pair#method_kv"><code>kv</code></a> turns every <code>Pair</code> into a list.</p>
+<p>Complex data structures are also generally <a href="/Documentable/integration-test/type/Iterable">Iterable</a>. Generating an <a href="/Documentable/integration-test/routine/iterator">iterator</a> out of them will allow the program to visit the first level of the structure, one by one:</p>
+<pre class="pod-block-code">.say for &#39;א&#39;..&#39;ס&#39;; # OUTPUT: «א␤ב␤ג␤ד␤ה␤ו␤ז␤ח␤ט␤י␤ך␤כ␤ל␤ם␤מ␤ן␤נ␤ס␤»</pre>
+<p><code>&#39;א&#39;..&#39;ס&#39;</code> is a <a href="/Documentable/integration-test/type/Range">Range</a>, a complex data structure, and with <code>for</code> in front it will iterate until the list is exhausted. You can use <code>for</code> on your complex data structures by overriding the <a href="/Documentable/integration-test/routine/iterator">iterator</a> method (from role <code>Iterable</code>):</p>
+<pre class="pod-block-code">class SortedArray is Array {
+  method iterator() {
+    self.sort.iterator
+  }
+};
+my @thing := SortedArray.new([3,2,1,4]);
+.say for @thing; # OUTPUT: «1␤2␤3␤4␤»</pre>
+<p><code>for</code> calls directly the <code>iterator</code> method on <code>@thing</code> making it return the elements of the array in order. Much more on <a href="/Documentable/integration-test/language/iterating">iterating on the page devoted to it</a>.</p>
+<h1 id="Functional_structures"><a class="u" href="#___top" title="go to top of document">Functional structures</a></h1>
+<p>Raku is a functional language and, as such, functions are first-class <em>data</em> structures. Functions follow the <a href="/Documentable/integration-test/type/Callable">Callable</a> role, which is the 4th element in the quartet of fundamental roles. <a href="/Documentable/integration-test/type/Callable">Callable</a> goes with the <code>&amp;</code> sigil, although in most cases it is elided for the sake of simplicity; this sigil elimination is always allowed in the case of <code>Callables</code>.</p>
+<pre class="pod-block-code">my &amp;a-func= { (^($^þ)).Seq };
+say a-func(3), a-func(7); # OUTPUT: «(0 1 2)(0 1 2 3 4 5 6)␤»</pre>
+<p><a href="/Documentable/integration-test/type/Block">Block</a>s are the simplest callable structures, since <code>Callable</code>s cannot be instantiated. In this case we implement a block that logs events and can retrieve them:</p>
+<pre class="pod-block-code">my $logger = -&gt; $event, $key = Nil  {
+  state %store;
+  if ( $event ) {
+    %store{ DateTime.new( now ) } = $event;
+  } else {
+    %store.keys.grep( /$key/ )
+  }
+}
+$logger( &quot;Stuff&quot; );
+$logger( &quot;More stuff&quot; );
+say $logger( Nil, &quot;2018-05-28&quot; ); # OUTPUT: «(Stuff More stuff)␤»</pre>
+<p>A <code>Block</code> has a <a href="/Documentable/integration-test/type/Signature">Signature</a>, in this case two arguments, the first of which is the event that is going to be logged, and the second is the key to retrieve the events. They will be used in an independent way, but its intention is to showcase the use of a <a href="/Documentable/integration-test/syntax/state">state variable</a> that is kept from every invocation to the next. This state variable is encapsulated within the block, and cannot be accessed from outside except by using the simple API the block provides: calling the block with a second argument. The two first invocations log two events, the third invocation at the bottom of the example use this second type of call to retrieve the stored values. <code>Block</code>s can be cloned:</p>
+<pre class="pod-block-code">my $clogger = $logger.clone;
+$clogger( &quot;Clone stuff&quot; );
+$clogger( &quot;More clone stuff&quot; );
+say $clogger( Nil, &quot;2018-05-28&quot; );
+# OUTPUT: «(Clone stuff More clone stuff)␤»
+</pre>
+<p>And cloning will reset the state variable; instead of cloning, we can create <em>façades</em> that change the API. For instance, eliminate the need to use <code>Nil</code> as first argument to retrieve the log for a certain date:</p>
+<pre class="pod-block-code">my $gets-logs = $logger.assuming( Nil, * );
+$logger( %(changing =&gt; &quot;Logs&quot;) );
+say $gets-logs( &quot;2018-05-28&quot; );
+# OUTPUT: «({changing =&gt; Logs} Stuff More stuff)␤»
+</pre>
+<p><a href="/Documentable/integration-test/type/Block#(Code)_method_assuming"><code>assuming</code></a> wraps around a block call, giving a value (in this case, <code>Nil</code>) to the arguments we need, and passing on the arguments to the other arguments we represent using <code>*</code>. In fact, this corresponds to the natural language statement &quot;We are calling <code>$logger</code> <em>assuming</em> the first argument is <code>Nil</code>&quot;. We can slightly change the appearance of these two Blocks to clarify they are actually acting on the same block:</p>
+<pre class="pod-block-code">my $Logger = $logger.clone;
+my $Logger::logs = $Logger.assuming( *, Nil );
+my $Logger::get = $Logger.assuming( Nil, * );
+$Logger::logs( &lt;an array&gt; );
+$Logger::logs( %(key =&gt; 42) );
+say $Logger::get( &quot;2018-05-28&quot; );
+</pre>
+<p>Although <code>::</code> is generally used for invocation of class methods, it is actually a valid part of the name of a variable. In this case we use them conventionally to simply indicate <code>$Logger::logs</code> and <code>$Logger::get</code> are actually calling <code>$Logger</code>, which we have capitalized to use a class-like appearance. The point of this tutorial is that using functions as first-class citizens, together with the use of state variables, allows the use of certain interesting design patterns such as this one.</p>
+<p>As such first class data structures, callables can be used anywhere another type of data can.</p>
+<pre class="pod-block-code">my @regex-check = ( /&lt;alnum&gt;/, /&lt;alpha&gt;/, /&lt;punct&gt;/ );
+say @regex-check.map: &quot;33af&quot; ~~ *;
+# OUTPUT: «(｢3｣␤ alnum =&gt; ｢3｣ ｢a｣␤ alpha =&gt; ｢a｣ Nil)␤»</pre>
+<p>Regexes are actually a type of callable:</p>
+<pre class="pod-block-code">say /regex/.does( Callable ); # OUTPUT: «True␤»</pre>
+<p>And in the example above we are calling regexes stored in an array, and applying them to a string literal.</p>
+<p>Callables are composed by using the <a href="/Documentable/integration-test/language/operators#infix_%E2%88%98">function composition operator ∘</a>:</p>
+<pre class="pod-block-code">my $typer = -&gt; $thing { $thing.^name ~ &#39; → &#39; ~ $thing };
+my $Logger::withtype = $Logger::logs ∘ $typer;
+$Logger::withtype( Pair.new( &#39;left&#39;, &#39;right&#39; ) );
+$Logger::withtype( ¾ );
+say $Logger::get( &quot;2018-05-28&quot; );
+# OUTPUT: «(Pair → left right Rat → 0.75)␤»
+</pre>
+<p>We are composing <code>$typer</code> with the <code>$Logger::logs</code> function defined above, obtaining a function that logs an object preceded by its type, which can be useful for filtering, for instance. <code>$Logger::withtype</code> is, in fact, a complex data structure composed of two functions which are applied in a serial way, but every one of the callables composed can keep state, thus creating complex transformative callables, in a design pattern that is similar to object composition in the object oriented realm. You will have to choose, in every particular case, what is the programming style which is most suitable for your problem.</p>
+<h1 id="Defining_and_constraining_data_structures"><a class="u" href="#___top" title="go to top of document">Defining and constraining data structures</a></h1>
+<p>Raku has different ways of defining data structures, but also many ways to constrain them so that you can create the most adequate data structure for every problem domain. <a href="/Documentable/integration-test/routine/but"><code>but</code></a>, for example, mixes roles or values into a value or a variable:</p>
+<pre class="pod-block-code">my %not-scalar := %(2 =&gt; 3) but Associative[Int, Int];
+say %not-scalar.^name; # OUTPUT: «Hash+{Associative[Int, Int]}␤»
+say %not-scalar.of;    # OUTPUT: «Associative[Int, Int]␤»
+%not-scalar{3} = 4;
+%not-scalar&lt;thing&gt; = 3;
+say %not-scalar;       # OUTPUT: «{2 =&gt; 3, 3 =&gt; 4, thing =&gt; 3}␤»
+</pre>
+<p>In this case, <code>but</code> is mixing in the <code>Associative[Int, Int]</code> role; please note that we are using binding so that the type of the variable is the one defined, and not the one imposed by the <code>%</code> sigil; this mixed-in role shows in the <code>name</code> surrounded by curly braces. What does that really mean? That role includes two methods, <code>of</code> and <code>keyof</code>; by mixing the role in, the new <code>of</code> will be called (the old <code>of</code> would return <code>Mu</code>, which is the default value type for Hashes). However, that is all it does. It is not really changing the type of the variable, as you can see since we are using any kind of key and values in the next few statements.</p>
+<p>However, we can provide new functionality to a variable using this type of mixin:</p>
+<pre class="pod-block-code">role Lastable {
+  method last() {
+    self.sort.reverse[0]
+  }
+}
+my %hash-plus := %( 3 =&gt; 33, 4 =&gt; 44) but Lastable;
+say %hash-plus.sort[0]; # OUTPUT: «3 =&gt; 33␤»
+say %hash-plus.last;    # OUTPUT: «4 =&gt; 44␤»
+</pre>
+<p>In <code>Lastable</code> we use the universal <code>self</code> variable to refer to whatever object this particular role is mixed in; in this case it will contain the hash it is mixed in with; it will contain something else (and possibly work some other way) in other case. This role will provide the <code>last</code> method to any variable it&#39;s mixed with, providing new, attachable, functionalities to <em>regular</em> variables. Roles can even be <a href="/Documentable/integration-test/language/objects#Mixins_of_roles">added to existing variables using the <code>does</code> keyword</a>.</p>
+<p><a href="/Documentable/integration-test/language/typesystem#subset">Subsets</a> can also be used to constrain the possible values a variable might hold; they are Raku attempt at <a href="https://en.wikipedia.org/wiki/Gradual_typing">gradual typing</a>; it is not a full attempt, because subsets are not really types in a strict sense, but they allow runtime type checking. It adds type-checking functionality to regular types, so it helps create a richer type system, allowing things like the one shown in this code:</p>
+<pre class="pod-block-code">subset OneOver where (1/$_).Int == 1/$_;
+my OneOver $one-fraction = ⅓;
+say $one-fraction; # OUTPUT: «0.333333␤»
+</pre>
+<p>On the other hand, <code>my OneOver $ = ⅔;</code> will cause a type-check error. Subsets can use <code>Whatever</code>, that is, <code>*</code>, to refer to the argument; but this will be instantiated every time you use it to a different argument, so if we use it twice in the definition we would get an error. In this case we are using the topic single variable, <code>$_</code>, to check the instantiation. Subsetting can be done directly, without the need of declaring it, in <a href="/Documentable/integration-test/language/typesystem#subset">signatures</a>.</p>
+<h1 id="Infinite_structures_and_laziness"><a class="u" href="#___top" title="go to top of document">Infinite structures and laziness</a></h1>
+<p>It might be assumed that all the data contained in a data structure is actually <em>there</em>. That is not necessarily the case: in many cases, for efficiency reasons or simply because it is not possible, the elements contained in a data structure only jump into existence when they are actually needed. This computation of items as they are needed is called <a href="/Documentable/integration-test/language/glossary#Reify">reification</a> or vivification.</p>
+<pre class="pod-block-code"># A list containing infinite number of un-reified Fibonacci numbers:
+my @fibonacci = 1, 1, * + * … ∞;
+
+# We reify 10 of them, looking up the first 10 of them with array index:
+say @fibonacci[^10]; # OUTPUT: «(1 1 2 3 5 8 13 21 34 55)␤»
+
+# We reify 5 more: 10 we already reified on previous line, and we need to
+# reify 5 more to get the 15th element at index 14. Even though we need only
+# the 15th element, the original Seq still has to reify all previous elements:
+say @fibonacci[14]; # OUTPUT: «987␤»
+</pre>
+<p>Above we were reifying a <a href="/Documentable/integration-test/type/Seq">Seq</a> we created with the <a href="/Documentable/integration-test/language/operators#index-entry-%E2%80%A6_operators">sequence operator</a>, but other data structures use the concept as well. For example, an un-reified <a href="/Documentable/integration-test/type/Range">Range</a> is just the two end points. In some languages, calculating the sum of a huge range is a lengthy and memory-consuming process, but Raku calculates it instantly:</p>
+<pre class="pod-block-code">say sum 1 .. 9_999_999_999_999; # OUTPUT: «49999999999995000000000000␤»</pre>
+<p>Why? Because the sum can be calculated <em>without</em> vivifying the Range; that is, without figuring out all the elements it contains. This is why this feature exists. You can even make your own things reify-on-demand, using <a href="/Documentable/integration-test/syntax/gather%20take"><code>gather</code> and <code>take</code></a>:</p>
+<pre class="pod-block-code">my $seq = gather {
+    say &quot;About to make 1st element&quot;; take 1;
+    say &quot;About to make 2nd element&quot;; take 2;
+}
+say &quot;Let&#39;s reify an element!&quot;;
+say $seq[0];
+say &quot;Let&#39;s reify more!&quot;;
+say $seq[1];
+say &quot;Both are reified now!&quot;;
+say $seq[^2];
+
+# OUTPUT:
+# Let&#39;s reify an element!
+# About to make 1st element
+# 1
+# Let&#39;s reify more!
+# About to make 2nd element
+# 2
+# Both are reified now!
+# (1 2)</pre>
+<p>Following the output above, you can see the print statements <em>inside</em> the <code>gather</code> got executed only when we reified the individual elements while looking up an element. Also note that the elements got reified just once. When we printed the same elements again on the last line of the example, the messages inside <code>gather</code> was no longer printed. This is because the construct used already-reified elements from the <a href="/Documentable/integration-test/type/Seq">Seq</a>&#39;s cache.</p>
+<p>Note that above we assigned the <code>gather</code> to a <a href="/Documentable/integration-test/type/Scalar">Scalar</a> container (the <code>$</code> sigil), not the <a href="/Documentable/integration-test/type/Positional">Positional</a> one (the <code>@</code> sigil). The reason is that the <code>@</code>-sigiled variables are <em>mostly eager</em>. What this means is they <em>reify the stuff assigned to them</em> right away <em>most of the time</em>. The only time they don&#39;t do it is when the items are known to be <a href="/Documentable/integration-test/routine/is-lazy"><code>is-lazy</code></a>, like our sequence generated with infinity as the end point. Were we to assign the <code>gather</code> to a <code>@</code>-variable, the <code>say</code> statements inside of it would&#39;ve been printed right away.</p>
+<p>Another way to vivify the list fully is by calling <a href="/Documentable/integration-test/routine/elems"><code>.elems</code></a> on it. This is the reason why checking whether a list contains any items is best done by using <code>.Bool</code> method (or just using <code>if @array { … }</code>), since you don&#39;t need to reify <em>all</em> the elements to find out if there are <code>any</code> of them.</p>
+<p>There are times where you <em>do</em> want to fully-reify a list before doing something. For example, the <a href="/Documentable/integration-test/type/IO::Handle#method_lines"><code>IO::Handle.lines</code></a> returns a <a href="/Documentable/integration-test/type/Seq">Seq</a>. The following code contains a bug; keeping reification in mind, try to spot it:</p>
+<pre class="pod-block-code">my $fh = &quot;/tmp/bar&quot;.IO.open;
+my $lines = $fh.lines;
+close $fh;
+say $lines[0];
+</pre>
+<p>We open a <a href="/Documentable/integration-test/type/IO::Handle">filehandle</a>, then assign return of <a href="/Documentable/integration-test/type/IO::Handle#method_lines"><code>.lines</code></a> to a <a href="/Documentable/integration-test/type/Scalar">Scalar</a> variable, so the returned <a href="/Documentable/integration-test/type/Seq">Seq</a> does not get reified right away. We then <a href="/Documentable/integration-test/routine/close"><code>close</code></a> the filehandle, and try to print an element from <code>$lines</code>.</p>
+<p>The bug in the code is by the time we reify the <code>$lines</code> <a href="/Documentable/integration-test/type/Seq">Seq</a> on the last line, we&#39;ve <em>already closed</em> the filehandle. When the <code>Seq&#39;s</code> iterator tries to generate the item we&#39;ve requested, it results in the error about attempting to read from a closed handle. So, to fix the bug we can either assign to a <code>@</code>-sigiled variable or call <a href="/Documentable/integration-test/routine/elems"><code>.elems</code></a> on <code>$lines</code> before closing the handle:</p>
+<pre class="pod-block-code">my $fh = &quot;/tmp/bar&quot;.IO.open;
+my @lines = $fh.lines;
+close $fh;
+say @lines[0]; # no problem!
+</pre>
+<p>We can also use any function whose side effect is reification, like <code>.elems</code> mentioned above:</p>
+<pre class="pod-block-code">my $fh = &quot;/tmp/bar&quot;.IO.open;
+my $lines = $fh.lines;
+say &quot;Read $lines.elems() lines&quot;; # reifying before closing handle
+close $fh;
+say $lines[0]; # no problem!
+</pre>
+<p>Using <a href="/Documentable/integration-test/routine/eager">eager</a> will also reify the whole sequence:</p>
+<pre class="pod-block-code">my $fh = &quot;/tmp/bar&quot;.IO.open;
+my $lines = eager $fh.lines; # Uses eager for reification.
+close $fh;
+say $lines[0];
+</pre>
+<h1 id="Introspection"><a class="u" href="#___top" title="go to top of document">Introspection</a></h1>
+<p>Languages that allow <a href="https://en.wikipedia.org/wiki/Type_introspection">introspection</a> like Raku have functionalities attached to the type system that let the developer access container and value metadata. This metadata can be used in a program to carry out different actions depending on their value. As it is obvious from the name, metadata are extracted from a value or container via the metaclass.</p>
+<pre class="pod-block-code">my $any-object = &quot;random object&quot;;
+my $metadata = $any-object.HOW;
+say $metadata.^mro;                   # OUTPUT: «((ClassHOW) (Any) (Mu))␤»
+say $metadata.can( $metadata, &quot;uc&quot; ); # OUTPUT: «(uc uc)␤»</pre>
+<p>With the first <code>say</code> we show the class hierarchy of the metamodel class, which in this case is <a href="/Documentable/integration-test/type/Metamodel::ClassHOW">Metamodel::ClassHOW</a>. It inherits directly from <code>Any</code>, meaning any method there can be used; it also mixes in several roles which can give you information about the class structure and functions. But one of the methods of that particular class is <a href="/Documentable/integration-test/type/Metamodel::ClassHOW#method_can"><code>can</code></a>, which we can use to look up whether the object can use the <code>uc</code> (uppercase) method, which it obviously can. However, it might not be so obvious in some other cases, when roles are mixed in directly into a variable. For instance, in the <a href="#Defining_and_constraining_data_structures">case of <code>%hash-plus</code> defined above</a>:</p>
+<pre class="pod-block-code">say %hash-plus.^can(&quot;last&quot;); # OUTPUT: «(last)␤»
+</pre>
+<p>In this case we are using the <em>syntactic sugar</em> for <code>HOW.method</code>, <code>^method</code>, to check if your data structure responds to that method; the output, which shows the name of the methods that match, certifies that we can use it.</p>
+<p>See also <a href="https://perl6advent.wordpress.com/2015/12/19/day-19-introspection/">this article on class introspection</a> on how to access class properties and methods, and use it to generate test data for a class; this <a href="https://perl6advent.wordpress.com/2010/12/22/day-22-the-meta-object-protocol/">Advent Calendar article describes the metaobject protocol</a> extensively.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/structures.pod6">https://github.com/Raku/doc/blob/master/doc/Language/structures.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

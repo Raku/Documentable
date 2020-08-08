@@ -1,0 +1,68 @@
+digraph "perl6-type-graph" {
+    rankdir=BT;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "Numeric" [color="#6666FF", fontcolor="#6666FF", href="/type/Numeric", fontname="FreeSans"];
+    "Mu" [color="#000000", fontcolor="#000000", href="/type/Mu", fontname="FreeSans"];
+    "Any" [color="#000000", fontcolor="#000000", href="/type/Any", fontname="FreeSans"];
+    "Cool" [color="#000000", fontcolor="#000000", href="/type/Cool", fontname="FreeSans"];
+    "Complex" [color="#000000", fontcolor="#000000", href="/type/Complex", fontname="FreeSans"];
+    "Real" [color="#6666FF", fontcolor="#6666FF", href="/type/Real", fontname="FreeSans"];
+    "Stringy" [color="#6666FF", fontcolor="#6666FF", href="/type/Stringy", fontname="FreeSans"];
+    "Str" [color="#000000", fontcolor="#000000", href="/type/Str", fontname="FreeSans"];
+    "ComplexStr" [color="#000000", fontcolor="#000000", href="/type/ComplexStr", fontname="FreeSans"];
+    "Int" [color="#000000", fontcolor="#000000", href="/type/Int", fontname="FreeSans"];
+    "Instant" [color="#000000", fontcolor="#000000", href="/type/Instant", fontname="FreeSans"];
+    "Duration" [color="#000000", fontcolor="#000000", href="/type/Duration", fontname="FreeSans"];
+    "Num" [color="#000000", fontcolor="#000000", href="/type/Num", fontname="FreeSans"];
+    "Rational" [color="#6666FF", fontcolor="#6666FF", href="/type/Rational", fontname="FreeSans"];
+    "PromiseStatus" [color="#33BB33", fontcolor="#33BB33", href="/type/PromiseStatus", fontname="FreeSans"];
+    "Order" [color="#33BB33", fontcolor="#33BB33", href="/type/Order", fontname="FreeSans"];
+    "int" [color="#000000", fontcolor="#000000", href="/type/int", fontname="FreeSans"];
+    "atomicint" [color="#000000", fontcolor="#000000", href="/type/atomicint", fontname="FreeSans"];
+    "Bool" [color="#33BB33", fontcolor="#33BB33", href="/type/Bool", fontname="FreeSans"];
+    "Endian" [color="#33BB33", fontcolor="#33BB33", href="/type/Endian", fontname="FreeSans"];
+    "IntStr" [color="#000000", fontcolor="#000000", href="/type/IntStr", fontname="FreeSans"];
+    "Signal" [color="#33BB33", fontcolor="#33BB33", href="/type/Signal", fontname="FreeSans"];
+    "NumStr" [color="#000000", fontcolor="#000000", href="/type/NumStr", fontname="FreeSans"];
+    "Rat" [color="#000000", fontcolor="#000000", href="/type/Rat", fontname="FreeSans"];
+    "FatRat" [color="#000000", fontcolor="#000000", href="/type/FatRat", fontname="FreeSans"];
+
+    // Superclasses
+    "Any" -> "Mu" [color="#000000"];
+    "Cool" -> "Any" [color="#000000"];
+    "Complex" -> "Cool" [color="#000000"];
+    "Str" -> "Cool" [color="#000000"];
+    "ComplexStr" -> "Complex" [color="#000000"];
+    "ComplexStr" -> "Str" [color="#000000"];
+    "Int" -> "Cool" [color="#000000"];
+    "Instant" -> "Cool" [color="#000000"];
+    "Duration" -> "Cool" [color="#000000"];
+    "Num" -> "Cool" [color="#000000"];
+    "PromiseStatus" -> "Int" [color="#000000"];
+    "Order" -> "Int" [color="#000000"];
+    "int" -> "Int" [color="#000000"];
+    "atomicint" -> "Int" [color="#000000"];
+    "Bool" -> "Int" [color="#000000"];
+    "Endian" -> "Int" [color="#000000"];
+    "IntStr" -> "Int" [color="#000000"];
+    "IntStr" -> "Str" [color="#000000"];
+    "Signal" -> "Int" [color="#000000"];
+    "NumStr" -> "Num" [color="#000000"];
+    "NumStr" -> "Str" [color="#000000"];
+    "Rat" -> "Cool" [color="#000000"];
+    "FatRat" -> "Cool" [color="#000000"];
+
+    // Roles
+    "Complex" -> "Numeric" [color="#6666FF"];
+    "Real" -> "Numeric" [color="#6666FF"];
+    "Str" -> "Stringy" [color="#6666FF"];
+    "Int" -> "Real" [color="#6666FF"];
+    "Instant" -> "Real" [color="#6666FF"];
+    "Duration" -> "Real" [color="#6666FF"];
+    "Num" -> "Real" [color="#6666FF"];
+    "Rational" -> "Real" [color="#6666FF"];
+    "Rat" -> "Rational" [color="#6666FF"];
+    "FatRat" -> "Rational" [color="#6666FF"];
+}

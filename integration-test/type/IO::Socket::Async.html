@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>class IO::Socket::Async</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/type.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-basic.html"> Basic </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-composite.html"> Composite </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-domain-specific.html"> Domain-specific </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-exception.html"> Exceptions </a>
+            </div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Type/IO/Socket/Async.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">class IO::Socket::Async</h1>
+        <p class="subtitle">Asynchronous socket in TCP or UDP</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+                                                                                                                                                                           <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+            <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#method_connect">method connect</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#method_listen">method listen</a></td></tr>
+                              <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#method_udp">method udp</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">1.4</td><td class="toc-text"><a href="#method_bind-udp">method bind-udp</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">1.5</td><td class="toc-text"><a href="#method_print">method print</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">1.6</td><td class="toc-text"><a href="#method_print-to">method print-to</a></td></tr>
+                 <tr class="toc-level-2"><td class="toc-number">1.7</td><td class="toc-text"><a href="#method_write">method write</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">1.8</td><td class="toc-text"><a href="#method_write-to">method write-to</a></td></tr>
+                   <tr class="toc-level-2"><td class="toc-number">1.9</td><td class="toc-text"><a href="#method_Supply">method Supply</a></td></tr>
+                             <tr class="toc-level-2"><td class="toc-number">1.10</td><td class="toc-text"><a href="#method_close">method close</a></td></tr>
+                      <tr class="toc-level-2"><td class="toc-number">1.11</td><td class="toc-text"><a href="#method_socket-host">method socket-host</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.12</td><td class="toc-text"><a href="#method_peer-host">method peer-host</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.13</td><td class="toc-text"><a href="#method_socket-port">method socket-port</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.14</td><td class="toc-text"><a href="#method_peer-port">method peer-port</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.15</td><td class="toc-text"><a href="#method_native-descriptor">method native-descriptor</a></td></tr>
+   <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Type_Graph">Type Graph</a></td></tr>
+ 
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <pre class="pod-block-code">class IO::Socket::Async {}</pre>
+<p><code>IO::Socket::Async</code> provides asynchronous sockets, for both the server and the client side.</p>
+<p>Here is a simple example of a simple &quot;hello world&quot; HTTP server that listens on port 3333:</p>
+<pre class="pod-block-code">react {
+    whenever IO::Socket::Async.listen(&#39;0.0.0.0&#39;, 3333) -&gt; $conn {
+        whenever $conn.Supply.lines -&gt; $line {
+            $conn.print: qq:heredoc/END/;
+                HTTP/1.1 200 OK
+                Content-Type: text/html; charset=UTF-8
+                Content-Encoding: UTF-8
+
+                &lt;html&gt;
+                &lt;body&gt;
+                    &lt;h1&gt;Hello World!&lt;/h1&gt;
+                    &lt;p&gt;{ $line }&lt;/p&gt;
+                &lt;/body&gt;
+                &lt;/html&gt;
+                END
+            $conn.close;
+        }
+    }
+    CATCH {
+        default {
+            say .^name, &#39;: &#39;, .Str;
+            say &quot;handled in $?LINE&quot;;
+        }
+    }
+}
+</pre>
+<p>And a client that connects to it, and prints out what the server answers:</p>
+<pre class="pod-block-code">await IO::Socket::Async.connect(&#39;127.0.0.1&#39;, 3333).then( -&gt; $promise {
+    given $promise.result {
+        .print(&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n&quot;);
+        react {
+            whenever .Supply() -&gt; $v {
+                $v.print;
+                done;
+            }
+        }
+        .close;
+    }
+});
+</pre>
+<p><a href="/Documentable/integration-test/type/CompUnit">IO::Socket::Async</a> can also send and receive <a href="https://en.wikipedia.org/wiki/User_Datagram_Protocol">UDP</a> messages An example server that outputs all the data it receives would be:</p>
+<pre class="pod-block-code">my $socket = IO::Socket::Async.bind-udp(&#39;localhost&#39;, 3333);
+
+react {
+    whenever $socket.Supply -&gt; $v {
+        if $v.chars &gt; 0 {
+            say $v;
+        }
+    }
+}
+</pre>
+<p>And an associated client might be:</p>
+<pre class="pod-block-code">my $socket = IO::Socket::Async.udp();
+await $socket.print-to(&#39;localhost&#39;, 3333, &quot;Hello, Raku!&quot;);
+</pre>
+<p>The <a href="/Documentable/integration-test/language/phasers#CATCH"><code>CATCH</code> phaser</a> can be included to deal specifically with problems that might occur in this kind of sockets, such as a port being already taken:</p>
+<pre class="pod-block-code">react {
+    whenever IO::Socket::Async.listen(&#39;0.0.0.0&#39;, 3000) -&gt; $conn {
+        whenever $conn.Supply.lines -&gt; $line {
+            $conn.print: qq:heredoc/END/;
+                HTTP/1.1 200 OK
+                Content-Type: text/html; charset=UTF-8
+                Content-Encoding: UTF-8
+
+                &lt;html&gt;
+                &lt;body&gt;
+                    &lt;h1&gt;Hello World!&lt;/h1&gt;
+                    &lt;p&gt;{ $line }&lt;/p&gt;
+                &lt;/body&gt;
+                &lt;/html&gt;
+                END
+            $conn.close;
+        }
+        QUIT {
+            default {
+                say .^name, &#39;→ &#39;, .Str;
+                say &quot;handled in line $?LINE&quot;;
+            }
+        }
+    }
+
+}
+# Will print this, if address 3000 is already in use:
+# X::AdHoc→ address already in use
+# handled in 23
+</pre>
+<p>Main difference with using other phasers such as <code>CATCH</code> is that this kind of exception will be caught within the <code>whenever</code> block and will put exiting the program, or not, under your control.</p>
+<h1 id="Methods"><a class="u" href="#___top" title="go to top of document">Methods</a></h1>
+<p>The <a href="/Documentable/integration-test/type/IO::Socket::Async">IO::Socket::Async</a> cannot be constructed directly, either <code>connect</code> or <code>listen</code> (for TCP connections) or <code>udp</code> or <code>bind-udp</code> (for UDP data) should be used to create a client or a server respectively.</p>
+<h2 id="method_connect"><a class="u" href="#___top" title="go to top of document">method connect</a></h2>
+<pre class="pod-block-code">method connect(Str $host, Int $port --&gt; Promise)</pre>
+<p>Attempts to connect to the TCP server specified by <code>$host</code> and <code>$port</code>, returning a <a href="/Documentable/integration-test/type/Promise">Promise</a> that will either be kept with a connected <a href="/Documentable/integration-test/type/IO::Socket::Async">IO::Socket::Async</a> or broken if the connection cannot be made.</p>
+<h2 id="method_listen"><a class="u" href="#___top" title="go to top of document">method listen</a></h2>
+<pre class="pod-block-code">method listen(Str $host, Int $port --&gt; Supply)</pre>
+<p>Creates a listening socket on the specified <code>$host</code> and <code>$port</code>, returning a <a href="/Documentable/integration-test/type/Supply">Supply</a> to which the accepted client <a href="/Documentable/integration-test/type/IO::Socket::Async">IO::Socket::Async</a>s will be emitted. This <a href="/Documentable/integration-test/type/Supply">Supply</a> should be tapped start listening for client connections. You can set <code>$port</code> to <code>0</code> if you want the operating system to find one for you.</p>
+<p>The <a href="/Documentable/integration-test/type/IO::Socket::Async::ListenSocket">IO::Socket::Async::ListenSocket</a> returned by calling the <a href="/Documentable/integration-test/type/Supply#method_tap">tap</a> method on the supply returned represents the underlying listening TCP socket, which can be closed using its <a href="/Documentable/integration-test/type/Tap#method_close">close</a> method. If <code>$port</code> was set to <code>0</code>, you can get the port the socket ended up with using its <a href="/Documentable/integration-test/type/IO::Socket::Async::ListenSocket#method_socket-port">socket-port</a> method.</p>
+<h2 id="method_udp"><a class="u" href="#___top" title="go to top of document">method udp</a></h2>
+<pre class="pod-block-code">method udp(IO::Socket::Async:U: :$broadcast --&gt; IO::Socket::Async)</pre>
+<p>Returns an initialized <code>IO::Socket::Async</code> client object that is configured to send UDP messages using <code>print-to</code> or <code>write-to</code>. The <code>:broadcast</code> adverb will set the <code>SO_BROADCAST</code> option which will allow the socket to send packets to a broadcast address.</p>
+<h2 id="method_bind-udp"><a class="u" href="#___top" title="go to top of document">method bind-udp</a></h2>
+<pre class="pod-block-code">method bind-udp(IO::Socket::Async:U: Str() $host, Int() $port, :$broadcast --&gt; IO::Socket::Async)</pre>
+<p>This returns an initialized <code>IO::Socket::Async</code> server object that is configured to receive UDP messages sent to the specified <code>$host</code> and <code>$port</code> and is equivalent to <code>listen</code> for a TCP socket. The <code>:broadcast</code> adverb can be specified to allow the receipt of messages sent to the broadcast address.</p>
+<h2 id="method_print"><a class="u" href="#___top" title="go to top of document">method print</a></h2>
+<pre class="pod-block-code">method print(Str $str --&gt; Promise)</pre>
+<p>Attempt to send <code>$str</code> on the <a href="/Documentable/integration-test/type/IO::Socket::Async">IO::Socket::Async</a> that will have been obtained indirectly via <code>connect</code> or <code>listen</code>, returning a <a href="/Documentable/integration-test/type/Promise">Promise</a> that will be kept with the number of bytes sent or broken if there was an error sending.</p>
+<h2 id="method_print-to"><a class="u" href="#___top" title="go to top of document">method print-to</a></h2>
+<pre class="pod-block-code">method print-to(IO::Socket::Async:D: Str() $host, Int() $port, Str() $str --&gt; Promise)</pre>
+<p>This is the equivalent of <code>print</code> for UDP sockets that have been created with the <code>udp</code> method, it will try send a UDP message of <code>$str</code> to the specified <code>$host</code> and <code>$port</code> returning a <a href="/Documentable/integration-test/type/Promise">Promise</a> that will be kept when the data is successfully sent or broken if it was unable to send the data. In order to send to a broadcast address the <code>:broadcast</code> flag must have been specified when the socket was created.</p>
+<h2 id="method_write"><a class="u" href="#___top" title="go to top of document">method write</a></h2>
+<pre class="pod-block-code">method write(Blob $b --&gt; Promise)</pre>
+<p>This method will attempt to send the bytes in <code>$b</code> on the <a href="/Documentable/integration-test/type/IO::Socket::Async">IO::Socket::Async</a> that will have been obtained indirectly via <code>connect</code> or <code>listen</code>, returning a <a href="/Documentable/integration-test/type/Promise">Promise</a> that will be kept with the number of bytes sent or broken if there was an error sending.</p>
+<h2 id="method_write-to"><a class="u" href="#___top" title="go to top of document">method write-to</a></h2>
+<pre class="pod-block-code">method write-to(IO::Socket::Async:D: Str() $host, Int() $port, Blob $b --&gt; Promise)</pre>
+<p>This is the equivalent of <code>write</code> for UDP sockets that have been created with the <code>udp</code> method. It will try send a UDP message comprised of the bytes in the <a href="/Documentable/integration-test/type/Blob">Blob</a> <code>$b</code> to the specified <code>$host</code> and <code>$port</code> returning a <a href="/Documentable/integration-test/type/Promise">Promise</a> that will be kept when the data is successfully sent or broken if it was unable to send the data. In order to send to a broadcast address the <code>:broadcast</code> flag must have been specified when the socket was created.</p>
+<h2 id="method_Supply"><a class="u" href="#___top" title="go to top of document">method Supply</a></h2>
+<pre class="pod-block-code">method Supply(:$bin, :$buf = buf8.new --&gt; Supply)</pre>
+<p>Returns a <a href="/Documentable/integration-test/type/Supply">Supply</a> which can be tapped to obtain the data read from the connected <a href="/Documentable/integration-test/type/IO::Socket::Async">IO::Socket::Async</a> as it arrives. By default the data will be emitted as characters, but if the <code>:bin</code> adverb is provided a <a href="/Documentable/integration-test/type/Buf">Buf</a> of bytes will be emitted instead, optionally in this case you can provide your own <code>Buf</code> with the <code>:buf</code> named parameter.</p>
+<p>A UDP socket in character mode will treat each packet as a complete message and decode it. In the event of a decoding error, the <code>Supply</code> will <code>quit</code>.</p>
+<p>On the other hand, a TCP socket treats the incoming packets as part of a stream, and feeds the incoming bytes into a streaming decoder. It then emits whatever characters the decoder considers ready. Since strings work at grapheme level in Raku, this means that only known complete graphemes will be emitted. For example, if the UTF-8 encoding were being used and the last byte in the packet decoded to <code>a</code>, this would not be emitted since the next packet may include a combining character that should form a single grapheme together with the <code>a</code>. Control characters (such as <code>\n</code>) always serve as grapheme boundaries, so any text-based protocols that use newlines or null bytes as terminators will not need special consideration. A TCP socket will also <code>quit</code> upon a decoding error.</p>
+<h2 id="method_close"><a class="u" href="#___top" title="go to top of document">method close</a></h2>
+<pre class="pod-block-code">method close()</pre>
+<p>Close the connected client <a href="/Documentable/integration-test/type/IO::Socket::Async">IO::Socket::Async</a> which will have been obtained from the <code>listen</code> <a href="/Documentable/integration-test/type/Supply">Supply</a> or the <code>connect</code> <a href="/Documentable/integration-test/type/Promise">Promise</a>.</p>
+<p>In order to close the underlying listening socket created by <code>listen</code> you can <code>close</code> the <a href="/Documentable/integration-testIO::Socket::Async::ListenSocket/type/IO::Socket::Async::ListenSocket">IO::Socket::Async::ListenSocket/type/IO::Socket::Async::ListenSocket</a>. See <a href="#method_listen">listen</a> for examples.</p>
+<h2 id="method_socket-host"><a class="u" href="#___top" title="go to top of document">method socket-host</a></h2>
+<pre class="pod-block-code">method socket-host(--&gt; Str)</pre>
+<p>Returns the IP address of the local end of this socket.</p>
+<h2 id="method_peer-host"><a class="u" href="#___top" title="go to top of document">method peer-host</a></h2>
+<pre class="pod-block-code">method peer-host(--&gt; Str)</pre>
+<p>Returns the IP address of the remote end of this socket.</p>
+<h2 id="method_socket-port"><a class="u" href="#___top" title="go to top of document">method socket-port</a></h2>
+<pre class="pod-block-code">method socket-port(--&gt; Int)</pre>
+<p>Returns the port of the local end of this socket.</p>
+<h2 id="method_peer-port"><a class="u" href="#___top" title="go to top of document">method peer-port</a></h2>
+<pre class="pod-block-code">method peer-port(--&gt; Int)</pre>
+<p>Returns the port of the remote end of this socket.</p>
+<h2 id="method_native-descriptor"><a class="u" href="#___top" title="go to top of document">method native-descriptor</a></h2>
+<pre class="pod-block-code">method native-descriptor(--&gt; Int)</pre>
+<p>Returns the file descriptor of this socket.</p>
+<h1 id="Type_Graph"><a class="u" href="#___top" title="go to top of document">Type Graph</a></h1>
+<figure>
+  <figcaption>Type relations for <code>IO::Socket::Async</code></figcaption>
+  <svg width="195pt" height="188pt"
+ viewBox="0.00 0.00 195.18 188.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 184)">
+<title>perl6&#45;type&#45;graph</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-184 191.18,-184 191.18,4 -4,4"/>
+<!-- IO::Socket::Async -->
+<g id="node1" class="node">
+<title>IO::Socket::Async</title>
+<g id="a_node1"><a xlink:href="/type/IO::Socket::Async" xlink:title="IO::Socket::Async">
+<ellipse fill="none" stroke="#000000" cx="93.59" cy="-18" rx="93.68" ry="18"/>
+<text text-anchor="middle" x="93.59" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">IO::Socket::Async</text>
+</a>
+</g>
+</g>
+<!-- Any -->
+<g id="node3" class="node">
+<title>Any</title>
+<g id="a_node3"><a xlink:href="/type/Any" xlink:title="Any">
+<ellipse fill="none" stroke="#000000" cx="93.59" cy="-90" rx="27" ry="18"/>
+<text text-anchor="middle" x="93.59" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Any</text>
+</a>
+</g>
+</g>
+<!-- IO::Socket::Async&#45;&gt;Any -->
+<g id="edge1" class="edge">
+<title>IO::Socket::Async&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M93.59,-36.3C93.59,-44.02 93.59,-53.29 93.59,-61.89"/>
+<polygon fill="#000000" stroke="#000000" points="90.09,-61.9 93.59,-71.9 97.09,-61.9 90.09,-61.9"/>
+</g>
+<!-- Mu -->
+<g id="node2" class="node">
+<title>Mu</title>
+<g id="a_node2"><a xlink:href="/type/Mu" xlink:title="Mu">
+<ellipse fill="none" stroke="#000000" cx="93.59" cy="-162" rx="27" ry="18"/>
+<text text-anchor="middle" x="93.59" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#000000">Mu</text>
+</a>
+</g>
+</g>
+<!-- Any&#45;&gt;Mu -->
+<g id="edge2" class="edge">
+<title>Any&#45;&gt;Mu</title>
+<path fill="none" stroke="#000000" d="M93.59,-108.3C93.59,-116.02 93.59,-125.29 93.59,-133.89"/>
+<polygon fill="#000000" stroke="#000000" points="90.09,-133.9 93.59,-143.9 97.09,-133.9 90.09,-133.9"/>
+</g>
+</g>
+</svg>
+
+  <p class="fallback">
+    <a
+      rel="alternate"
+      href="/images/type-graph-IO%3A%3ASocket%3A%3AAsync.svg"
+      type="image/svg+xml"
+      >Expand above chart</a
+    >
+  </p>
+</figure>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Type/IO/Socket/Async.pod6">https://github.com/Raku/doc/blob/master/doc/Type/IO/Socket/Async.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>class Mu</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/type.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-basic.html"> Basic </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-composite.html"> Composite </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-domain-specific.html"> Domain-specific </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-exception.html"> Exceptions </a>
+            </div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Type/Mu.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">class Mu</h1>
+        <p class="subtitle">The root of the Raku type hierarchy.</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+               <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#method_iterator">method iterator</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#method_defined">method defined </a></td></tr>
+                 <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#routine_defined">routine defined</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">1.4</td><td class="toc-text"><a href="#routine_isa">routine isa</a></td></tr>
+            <tr class="toc-level-2"><td class="toc-number">1.5</td><td class="toc-text"><a href="#routine_does">routine does</a></td></tr>
+                            <tr class="toc-level-2"><td class="toc-number">1.6</td><td class="toc-text"><a href="#routine_Bool">routine Bool</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">1.7</td><td class="toc-text"><a href="#method_Capture">method Capture</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.8</td><td class="toc-text"><a href="#method_Str">method Str</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">1.9</td><td class="toc-text"><a href="#routine_gist">routine gist</a></td></tr>
+                     <tr class="toc-level-2"><td class="toc-number">1.10</td><td class="toc-text"><a href="#method_perl">method perl</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.11</td><td class="toc-text"><a href="#method_raku">method raku</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">1.12</td><td class="toc-text"><a href="#method_item">method item</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">1.13</td><td class="toc-text"><a href="#method_self">method self</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.14</td><td class="toc-text"><a href="#method_clone">method clone</a></td></tr>
+                                                                                                                           <tr class="toc-level-2"><td class="toc-number">1.15</td><td class="toc-text"><a href="#method_new">method new</a></td></tr>
+            <tr class="toc-level-2"><td class="toc-number">1.16</td><td class="toc-text"><a href="#method_bless">method bless</a></td></tr>
+                                                                                                                                                                                      <tr class="toc-level-2"><td class="toc-number">1.17</td><td class="toc-text"><a href="#method_CREATE">method CREATE</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">1.18</td><td class="toc-text"><a href="#method_print">method print</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">1.19</td><td class="toc-text"><a href="#method_put">method put</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">1.20</td><td class="toc-text"><a href="#method_say">method say</a></td></tr>
+                                <tr class="toc-level-2"><td class="toc-number">1.21</td><td class="toc-text"><a href="#method_ACCEPTS">method ACCEPTS</a></td></tr>
+                 <tr class="toc-level-2"><td class="toc-number">1.22</td><td class="toc-text"><a href="#method_WHICH">method WHICH</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">1.23</td><td class="toc-text"><a href="#method_WHERE">method WHERE</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.24</td><td class="toc-text"><a href="#method_WHY">method WHY</a></td></tr>
+                     <tr class="toc-level-2"><td class="toc-number">1.25</td><td class="toc-text"><a href="#trait_is_export">trait is export</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">1.26</td><td class="toc-text"><a href="#method_return">method return</a></td></tr>
+              <tr class="toc-level-2"><td class="toc-number">1.27</td><td class="toc-text"><a href="#method_return-rw">method return-rw</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">1.28</td><td class="toc-text"><a href="#method_emit">method emit</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">1.29</td><td class="toc-text"><a href="#method_take">method take</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">1.30</td><td class="toc-text"><a href="#routine_take">routine take</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">1.31</td><td class="toc-text"><a href="#routine_take-rw">routine take-rw</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">1.32</td><td class="toc-text"><a href="#method_so">method so</a></td></tr>
+                           <tr class="toc-level-2"><td class="toc-number">1.33</td><td class="toc-text"><a href="#method_not">method not</a></td></tr>
+              <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Type_Graph">Type Graph</a></td></tr>
+ 
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <pre class="pod-block-code">class Mu { }</pre>
+<p>The root of the Raku type hierarchy. For the origin of the name, see <a href="https://en.wikipedia.org/wiki/Mu_%28negative%29">https://en.wikipedia.org/wiki/Mu_%28negative%29</a>. One can also say that there are many undefined values in Raku, and <code>Mu</code> is the <em>most undefined</em> value.</p>
+<p>Note that most classes do not derive from <code>Mu</code> directly, but rather from <a href="/Documentable/integration-test/type/Any">Any</a>.</p>
+<h1 id="Methods"><a class="u" href="#___top" title="go to top of document">Methods</a></h1>
+<h2 id="method_iterator"><a class="u" href="#___top" title="go to top of document">method iterator</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method iterator(--&gt; Iterator)</pre>
+<p>Coerces the invocant to a <code>list</code> by applying its <a href="/Documentable/integration-test/routine/list"><code>.list</code></a> method and uses <a href="/Documentable/integration-test/type/Iterable#method_iterator"><code>iterator</code></a> on it.</p>
+<pre class="pod-block-code">my $it = Mu.iterator;
+say $it.pull-one; # OUTPUT: «(Mu)␤»
+say $it.pull-one; # OUTPUT: «IterationEnd␤»</pre>
+<h2 id="method_defined"><a class="u" href="#___top" title="go to top of document">method defined <a name="Documentable/integration-test/index-entry-method_defined"></a></a></h2>
+<p>Declared as</p>
+<pre class="pod-block-code">multi method defined(   --&gt; Bool:D)</pre>
+<p>Returns <code>False</code> on a type object, and <code>True</code> otherwise.</p>
+<pre class="pod-block-code">say Int.defined;                # OUTPUT: «False␤»
+say 42.defined;                 # OUTPUT: «True␤»</pre>
+<p>A few types (like <a href="/Documentable/integration-test/type/Failure">Failure</a>) override <code>defined</code> to return <code>False</code> even for instances:</p>
+<pre class="pod-block-code">sub fails() { fail &#39;oh noe&#39; };
+say fails().defined;            # OUTPUT: «False␤»</pre>
+<h2 id="routine_defined"><a class="u" href="#___top" title="go to top of document">routine defined</a></h2>
+<p>Declared as</p>
+<pre class="pod-block-code">multi sub defined(Mu --&gt; Bool:D)</pre>
+<p>invokes the <code>.defined</code> method on the object and returns its result.</p>
+<h2 id="routine_isa"><a class="u" href="#___top" title="go to top of document">routine isa</a></h2>
+<pre class="pod-block-code">multi method isa(Mu $type     --&gt; Bool:D)
+multi method isa(Str:D $type  --&gt; Bool:D)</pre>
+<p>Returns <code>True</code> if the invocant is an instance of class <code>$type</code>, a subset type or a derived class (through inheritance) of <code>$type</code>. <a href="/Documentable/integration-test/routine/does#(Mu)_routine_does"><code>does</code></a> is similar, but includes roles.</p>
+<pre class="pod-block-code">my $i = 17;
+say $i.isa(&quot;Int&quot;);   # OUTPUT: «True␤»
+say $i.isa(Any);     # OUTPUT: «True␤»
+role Truish {};
+my $but-true = 0 but Truish;
+say $but-true.^name;        # OUTPUT: «Int+{Truish}␤»
+say $but-true.does(Truish); # OUTPUT: «True␤»
+say $but-true.isa(Truish);  # OUTPUT: «False␤»</pre>
+<h2 id="routine_does"><a class="u" href="#___top" title="go to top of document">routine does</a></h2>
+<pre class="pod-block-code">method does(Mu $type --&gt; Bool:D)</pre>
+<p>Returns <code>True</code> if and only if the invocant conforms to type <code>$type</code>.</p>
+<pre class="pod-block-code">my $d = Date.new(&#39;2016-06-03&#39;);
+say $d.does(Dateish);             # True    (Date does role Dateish)
+say $d.does(Any);                 # True    (Date is a subclass of Any)
+say $d.does(DateTime);            # False   (Date is not a subclass of DateTime)
+</pre>
+<p>Unlike <a href="/Documentable/integration-test/routine/isa#(Mu)_routine_isa"><code>isa</code></a>, which returns <code>True</code> only for superclasses, <code>does</code> includes both superclasses and roles.</p>
+<pre class="pod-block-code">say $d.isa(Dateish); # OUTPUT: «False␤»
+</pre>
+<p>Using the smartmatch operator <a href="/Documentable/integration-test/routine/~~">~~</a> is a more idiomatic alternative.</p>
+<pre class="pod-block-code">my $d = Date.new(&#39;2016-06-03&#39;);
+say $d ~~ Dateish;                # OUTPUT: «True␤»
+say $d ~~ Any;                    # OUTPUT: «True␤»
+say $d ~~ DateTime;               # OUTPUT: «False␤»</pre>
+<h2 id="routine_Bool"><a class="u" href="#___top" title="go to top of document">routine Bool</a></h2>
+<pre class="pod-block-code">multi sub    Bool(Mu --&gt; Bool:D)
+multi method Bool(   --&gt; Bool:D)</pre>
+<p>Returns <code>False</code> on the type object, and <code>True</code> otherwise.</p>
+<p>Many built-in types override this to be <code>False</code> for empty collections, the empty <a href="/Documentable/integration-test/type/Str">string</a> or numerical zeros</p>
+<pre class="pod-block-code">say Mu.Bool;                    # OUTPUT: «False␤»
+say Mu.new.Bool;                # OUTPUT: «True␤»
+say [1, 2, 3].Bool;             # OUTPUT: «True␤»
+say [].Bool;                    # OUTPUT: «False␤»
+say %( hash =&gt; &#39;full&#39; ).Bool;   # OUTPUT: «True␤»
+say {}.Bool;                    # OUTPUT: «False␤»
+say &quot;&quot;.Bool;                    # OUTPUT: «False␤»
+say 0.Bool;                     # OUTPUT: «False␤»
+say 1.Bool;                     # OUTPUT: «True␤»
+say &quot;0&quot;.Bool;                   # OUTPUT: «True␤»</pre>
+<h2 id="method_Capture"><a class="u" href="#___top" title="go to top of document">method Capture</a></h2>
+<p>Declared as:</p>
+<pre class="pod-block-code">method Capture(Mu:D: --&gt; Capture:D)</pre>
+<p>Returns a <a href="/Documentable/integration-test/type/Capture">Capture</a> with named arguments corresponding to invocant&#39;s public attributes:</p>
+<pre class="pod-block-code">class Foo {
+    has $.foo = 42;
+    has $.bar = 70;
+    method bar { &#39;something else&#39; }
+}.new.Capture.say; # OUTPUT: «\(:bar(&quot;something else&quot;), :foo(42))␤»</pre>
+<h2 id="method_Str"><a class="u" href="#___top" title="go to top of document">method Str</a></h2>
+<pre class="pod-block-code">multi method Str(--&gt; Str)</pre>
+<p>Returns a string representation of the invocant, intended to be machine readable. Method <code>Str</code> warns on type objects, and produces the empty string.</p>
+<pre class="pod-block-code">say Mu.Str;   # Use of uninitialized value of type Mu in string context.
+my @foo = [2,3,1];
+say @foo.Str  # OUTPUT: «2 3 1␤»</pre>
+<h2 id="routine_gist"><a class="u" href="#___top" title="go to top of document">routine gist</a></h2>
+<pre class="pod-block-code">multi sub    gist(+args --&gt; Str)
+multi method gist(   --&gt; Str)</pre>
+<p>Returns a string representation of the invocant, optimized for fast recognition by humans. As such lists will be truncated at 100 elements. Use <code>.raku</code> to get all elements.</p>
+<p>The default <code>gist</code> method in <code>Mu</code> re-dispatches to the <a href="/Documentable/integration-test/routine/perl">perl</a> method for defined invocants, and returns the type name in parenthesis for type object invocants. Many built-in classes override the case of instances to something more specific that may truncate output.</p>
+<p><code>gist</code> is the method that <a href="/Documentable/integration-test/routine/say">say</a> calls implicitly, so <code>say $something</code> and <code>say $something.gist</code> generally produce the same output.</p>
+<pre class="pod-block-code">say Mu.gist;        # OUTPUT: «(Mu)␤»
+say Mu.new.gist;    # OUTPUT: «Mu.new␤»</pre>
+<h2 id="method_perl"><a class="u" href="#___top" title="go to top of document">method perl</a></h2>
+<pre class="pod-block-code">multi method perl(--&gt; Str)</pre>
+<p>Returns a Raku-ish representation of the object (i.e., can usually be re-evaluated with <a href="/Documentable/integration-test/routine/EVAL">EVAL</a> to regenerate the object). The exact output of <code>perl</code> is implementation specific, since there are generally many ways to write a Raku expression that produces a particular value. Since the change of name to Raku, this method is deprecated and might disappear in the near future. Use <code>.raku</code> instead.</p>
+<h2 id="method_raku"><a class="u" href="#___top" title="go to top of document">method raku</a></h2>
+<pre class="pod-block-code">multi method raku(Mu:U:)
+multi method raku(Mu:D:)</pre>
+<p>For type objects, returns its name if <code>.raku</code> has not been redefined from Mu, or calls <code>.raku</code> o the name of the type object otherwise.</p>
+<pre class="pod-block-code">say Str.raku;          # OUTPUT: «Str␤»</pre>
+<p>For plain objects, it will conventionally return a representation of the object that can be used via EVAL to reconstruct the value of the object.</p>
+<pre class="pod-block-code">say (1..3).Set.raku;  # OUTPUT: «Set.new(1,2,3)␤»</pre>
+<h2 id="method_item"><a class="u" href="#___top" title="go to top of document">method item</a></h2>
+<pre class="pod-block-code">method item(Mu \item:) is raw</pre>
+<p>Forces the invocant to be evaluated in item context and returns the value of it.</p>
+<pre class="pod-block-code">say [1,2,3].item.raku;          # OUTPUT: «$[1, 2, 3]␤»
+say %( apple =&gt; 10 ).item.raku; # OUTPUT: «${:apple(10)}␤»
+say &quot;abc&quot;.item.raku;            # OUTPUT: «&quot;abc&quot;␤»</pre>
+<h2 id="method_self"><a class="u" href="#___top" title="go to top of document">method self</a></h2>
+<pre class="pod-block-code">method self(--&gt; Mu)</pre>
+<p>Returns the object it is called on.</p>
+<h2 id="method_clone"><a class="u" href="#___top" title="go to top of document">method clone</a></h2>
+<pre class="pod-block-code">multi method clone(Mu:U: *%twiddles)
+multi method clone(Mu:D: *%twiddles)</pre>
+<p>This method will clone type objects, or die if it&#39;s invoked with any argument.</p>
+<pre class="pod-block-code">say Num.clone( :yes )
+# OUTPUT: «(exit code 1) Cannot set attribute values when cloning a type object␤  in block &lt;unit&gt;␤␤»
+</pre>
+<p>If invoked with value objects, it creates a shallow clone of the invocant, including shallow cloning of private attributes. Alternative values for <em>public</em> attributes can be provided via named arguments with names matching the attributes&#39; names.</p>
+<pre class="pod-block-code">class Point2D {
+    has ($.x, $.y);
+    multi method gist(Point2D:D:) {
+        &quot;Point($.x, $.y)&quot;;
+    }
+}
+
+my $p = Point2D.new(x =&gt; 2, y =&gt; 3);
+
+say $p;                     # OUTPUT: «Point(2, 3)␤»
+say $p.clone(y =&gt; -5);      # OUTPUT: «Point(2, -5)␤»
+</pre>
+<p>Note that <code>.clone</code> does not go the extra mile to shallow-copy <code>@.</code> and <code>%.</code> sigiled attributes and, if modified, the modifications will still be available in the original object:</p>
+<pre class="pod-block-code">class Foo {
+    has $.foo is rw = 42;
+    has &amp;.boo is rw = { say &quot;Hi&quot; };
+    has @.bar       = &lt;a b&gt;;
+    has %.baz       = &lt;a b c d&gt;;
+}
+
+my $o1 = Foo.new;
+with my $o2 = $o1.clone {
+    .foo = 70;
+    .bar = &lt;Z Y&gt;;
+    .baz = &lt;Z Y X W&gt;;
+    .boo = { say &quot;Bye&quot; };
+}
+
+# Hash and Array attribute modifications in clone appear in original as well:
+say $o1;
+# OUTPUT: «Foo.new(foo =&gt; 42, bar =&gt; [&quot;Z&quot;, &quot;Y&quot;], baz =&gt; {:X(&quot;W&quot;), :Z(&quot;Y&quot;)}, …␤»
+say $o2;
+# OUTPUT: «Foo.new(foo =&gt; 70, bar =&gt; [&quot;Z&quot;, &quot;Y&quot;], baz =&gt; {:X(&quot;W&quot;), :Z(&quot;Y&quot;)}, …␤»
+$o1.boo.(); # OUTPUT: «Hi␤»
+$o2.boo.(); # OUTPUT: «Bye␤»
+</pre>
+<p>To clone those, you could implement your own <code>.clone</code> that clones the appropriate attributes and passes the new values to <code>Mu.clone</code>, for example, via <a href="/Documentable/integration-test/language/functions#sub_nextwith"><code>nextwith</code></a>.</p>
+<pre class="pod-block-code">class Bar {
+    has $.quux;
+    has @.foo = &lt;a b&gt;;
+    has %.bar = &lt;a b c d&gt;;
+    method clone { nextwith :foo(@!foo.clone), :bar(%!bar.clone), |%_  }
+}
+
+my $o1 = Bar.new( :42quux );
+with my $o2 = $o1.clone {
+    .foo = &lt;Z Y&gt;;
+    .bar = &lt;Z Y X W&gt;;
+}
+
+# Hash and Array attribute modifications in clone do not affect original:
+say $o1;
+# OUTPUT: «Bar.new(quux =&gt; 42, foo =&gt; [&quot;a&quot;, &quot;b&quot;], bar =&gt; {:a(&quot;b&quot;), :c(&quot;d&quot;)})␤»
+say $o2;
+# OUTPUT: «Bar.new(quux =&gt; 42, foo =&gt; [&quot;Z&quot;, &quot;Y&quot;], bar =&gt; {:X(&quot;W&quot;), :Z(&quot;Y&quot;)})␤»
+</pre>
+<p>The <code>|%_</code> is needed to slurp the rest of the attributes that would have been copied via shallow copy.</p>
+<h2 id="method_new"><a class="u" href="#___top" title="go to top of document">method new</a></h2>
+<pre class="pod-block-code">multi method new(*%attrinit)
+multi method new($, *@)</pre>
+<p>Default method for constructing (create + initialize) new objects of a class. This method expects only named arguments which are then used to initialize attributes with accessors of the same name.</p>
+<p>Classes may provide their own <code>new</code> method to override this default.</p>
+<p><code>new</code> triggers an object construction mechanism that calls submethods named <code>BUILD</code> in each class of an inheritance hierarchy, if they exist. See <a href="/Documentable/integration-test/language/objects#Object_construction">the documentation on object construction</a> for more information.</p>
+<h2 id="method_bless"><a class="u" href="#___top" title="go to top of document">method bless</a></h2>
+<pre class="pod-block-code">method bless(*%attrinit --&gt; Mu:D)</pre>
+<p>Low-level object construction method, usually called from within <code>new</code>, implicitly from the default constructor, or explicitly if you create your own constructor. <code>bless</code> creates a new object of the same type as the invocant, using the named arguments to initialize attributes and returns the created object.</p>
+<p>It is usually invoked within custom <code>new</code> method implementations:</p>
+<pre class="pod-block-code">class Point {
+    has $.x;
+    has $.y;
+    multi method new($x, $y) {
+        self.bless(:$x, :$y);
+    }
+}
+my $p = Point.new(-1, 1);
+</pre>
+<p>In this case we are declaring <code>new</code> as a <code>multi method</code> so that we can still use the default constructor like this: <code>Point.new( x =&gt; 3, y =&gt; 8 )</code>. In this case we are declaring this <code>new</code> method simply to avoid the extra syntax of using pairs when creating the object. <code>self.bless</code> returns the object, which is in turn returned by <code>new</code>.</p>
+<p>However, in general, implementing a customized <code>new</code> method might not be the best way of initializing a class, even more so if the default constructor is disabled, since it can make it harder to correctly initialize the class from a subclass. For instance, in the above example, the <code>new</code> implementation takes two positional arguments that must be passed from the subclass to the superclass in the exact order. That is not a real problem if it&#39;s documented, but take into account <code>bless</code> will eventually be calling <code>BUILD</code> in the class that is being instantiated. This might result in some unwanted problems, like having to create a <code>BUILD</code> submethod to serve it correctly:</p>
+<pre class="pod-block-code">class Point {
+    has Int $.x;
+    has Int $.y;
+    multi method new($x, $y) {
+        self.bless(:$x, :$y);
+    }
+}
+
+class Point-with-ID is Point {
+    has Int $.ID  is rw = 0;
+
+    submethod BUILD( *%args ) {
+        say %args;                # OUTPUT: «{x =&gt; 1, y =&gt; 2}␤»
+        for self.^attributes -&gt; $attr {
+            if $attr.Str ~~ /ID/ {
+                $attr.set_value( self, &quot;*&quot; ~ %args&lt;x&gt; ~ &quot;-&quot; ~ %args&lt;y&gt; ) ;
+            }
+        }
+    }
+}
+
+my $p = Point-with-ID.new(1,2);
+say $p.raku;
+# OUTPUT: «Point-with-ID.new(ID =&gt; &quot;*1-2&quot;, x =&gt; 1, y =&gt; 2)␤»
+</pre>
+<p>In this code, <code>bless</code>, called within <code>Point.new</code>, is eventually calling <code>BUILD</code> with the same parameters. We have to create a convoluted way of using the <code>$.ID</code> attribute using the metaobject protocol so that we can instantiate it and thus serve that <code>new</code> constructor, which can be called on <code>Point-with-ID</code> since it is a subclass.</p>
+<p>We might have to use something similar if we want to instantiate superclasses. <code>bless</code> will help us with that, since it is calling across all the hierarchy:</p>
+<pre class="pod-block-code">class Str-with-ID is Str {
+    my $.counter = 0;
+    has Int $.ID  is rw = 0;
+
+    multi method new( $str ) {
+        self.bless( value =&gt; $str, ID =&gt; $.counter++ );
+    }
+
+    submethod BUILD( *%args ) {
+        for self.^attributes -&gt; $attr {
+            if $attr.Str ~~ /ID/ {
+                $attr.set_value( self, %args&lt;ID&gt; ) ;
+            }
+        }
+    }
+}
+
+say Str-with-ID.new(&quot;1.1,2e2&quot;).ID;                  # OUTPUT: «0␤»
+my $enriched-str = Str-with-ID.new(&quot;3,4&quot;);
+say &quot;$enriched-str, {$enriched-str.^name}, {$enriched-str.ID}&quot;;
+# OUTPUT: «3,4, Str-with-ID, 1␤»
+</pre>
+<p>We are <em>enriching</em> <code>Str</code> with an auto-incrementing ID. We create a <code>new</code> since we want to initialize it with a string and, besides, we need to instantiate the superclass. We do so using <code>bless</code> from within <code>new</code>. <code>bless</code> is going to call <code>Str.BUILD</code>. It will *capture* the value it&#39;s looking for, the pair <code>value =</code> $str&gt; and initialize itself. But we have to initialize also the properties of the subclass, which is why within <code>BUILD</code> we use the previously explained method to initialize <code>$.ID</code> with the value that is in the <code>%args</code> variable. As shown in the output, the objects will be correctly initialized with its ID, and will correctly behave as <code>Str</code>, converting themselves in just the string in the <code>say</code> statement, and including the <code>ID</code> property as required.</p>
+<p>For more details see <a href="/Documentable/integration-test/language/objects#Object_construction">the documentation on object construction</a>.</p>
+<h2 id="method_CREATE"><a class="u" href="#___top" title="go to top of document">method CREATE</a></h2>
+<pre class="pod-block-code">method CREATE(--&gt; Mu:D)</pre>
+<p>Allocates a new object of the same type as the invocant, without initializing any attributes.</p>
+<pre class="pod-block-code">say Mu.CREATE.defined;  # OUTPUT: «True␤»</pre>
+<h2 id="method_print"><a class="u" href="#___top" title="go to top of document">method print</a></h2>
+<pre class="pod-block-code">multi method print(--&gt; Bool:D)</pre>
+<p>Prints value to <code>$*OUT</code> after stringification using <code>.Str</code> method without adding a newline at end.</p>
+<pre class="pod-block-code">&quot;abc\n&quot;.print;          # OUTPUT: «abc␤»</pre>
+<h2 id="method_put"><a class="u" href="#___top" title="go to top of document">method put</a></h2>
+<pre class="pod-block-code">multi method put(--&gt; Bool:D)</pre>
+<p>Prints value to <code>$*OUT</code>, adding a newline at end, and if necessary, stringifying non-<code>Str</code> object using the <code>.Str</code> method.</p>
+<pre class="pod-block-code">&quot;abc&quot;.put;              # OUTPUT: «abc␤»</pre>
+<h2 id="method_say"><a class="u" href="#___top" title="go to top of document">method say</a></h2>
+<pre class="pod-block-code">multi method say()</pre>
+<p>Will <a href="/Documentable/integration-test/type/IO::Handle#method_say"><code>say</code></a> to <a href="/Documentable/integration-test/language/variables#index-entry-$*OUT">standard output</a>.</p>
+<pre class="pod-block-code">say 42;                 # OUTPUT: «42␤»</pre>
+<p>What <code>say</code> actually does is, thus, deferred to the actual subclass. In <a href="/Documentable/integration-test/routine/say">most cases</a> it calls <a href="/Documentable/integration-test/routine/gist"><code>.gist</code></a> on the object, returning a compact string representation.</p>
+<p>In non-sink context, <code>say</code> will always return <code>True</code>.</p>
+<pre class="pod-block-code">say (1,[1,2],&quot;foo&quot;,Mu).map: so *.say ;
+# OUTPUT: «1␤[1 2]␤foo␤(Mu)␤(True True True True)␤»</pre>
+<p>However, this behavior is just conventional and you shouldn&#39;t trust it for your code. It&#39;s useful, however, to explain certain behaviors.</p>
+<p><code>say</code> is first printing out in <code>*.say</code>, but the outermost <code>say</code> is printing the <code>True</code> values returned by the <code>so</code> operation.</p>
+<h2 id="method_ACCEPTS"><a class="u" href="#___top" title="go to top of document">method ACCEPTS</a></h2>
+<pre class="pod-block-code">multi method ACCEPTS(Mu:U: $other)</pre>
+<p><code>ACCEPTS</code> is the method that smartmatching with the <a href="/Documentable/integration-test/routine/~~">infix ~~</a> operator and given/when invokes on the right-hand side (the matcher).</p>
+<p>The <code>Mu:U</code> multi performs a type check. Returns <code>True</code> if <code>$other</code> conforms to the invocant (which is always a type object or failure).</p>
+<pre class="pod-block-code">say 42 ~~ Mu;           # OUTPUT: «True␤»
+say 42 ~~ Int;          # OUTPUT: «True␤»
+say 42 ~~ Str;          # OUTPUT: «False␤»</pre>
+<p>Note that there is no multi for defined invocants; this is to allow autothreading of <a href="/Documentable/integration-test/type/Junction">junctions</a>, which happens as a fallback mechanism when no direct candidate is available to dispatch to.</p>
+<h2 id="method_WHICH"><a class="u" href="#___top" title="go to top of document">method WHICH</a></h2>
+<pre class="pod-block-code">multi method WHICH(--&gt; ObjAt:D)</pre>
+<p>Returns an object of type <a href="/Documentable/integration-test/type/ObjAt">ObjAt</a> which uniquely identifies the object. Value types override this method which makes sure that two equivalent objects return the same return value from <code>WHICH</code>.</p>
+<pre class="pod-block-code">say 42.WHICH eq 42.WHICH;       # OUTPUT: «True␤»</pre>
+<h2 id="method_WHERE"><a class="u" href="#___top" title="go to top of document">method WHERE</a></h2>
+<pre class="pod-block-code">method WHERE(--&gt; Int)</pre>
+<p>Returns an <code>Int</code> representing the memory address of the object. Please note that in the Rakudo implementation of Raku, and possibly other implementations, the memory location of an object is <strong>NOT</strong> fixed for the lifetime of the object. So it has limited use for applications, and is intended as a debugging tool only.</p>
+<h2 id="method_WHY"><a class="u" href="#___top" title="go to top of document">method WHY</a></h2>
+<pre class="pod-block-code">multi method WHY(--&gt; Pod::Block::Declarator)</pre>
+<p>Returns the attached Pod::Block::Declarator.</p>
+<p>For instance:</p>
+<pre class="pod-block-code">#| Initiate a specified spell normally
+sub cast(Spell $s) {
+  do-raw-magic($s);
+}
+#= (do not use for class 7 spells)
+say &amp;cast.WHY;
+# OUTPUT: «Initiate a specified spell normally␤(do not use for class 7 spells)␤»
+</pre>
+<p>See <a href="/Documentable/integration-test/language/pod#Declarator_blocks">Pod declarator blocks</a> for details about attaching Pod to variables, classes, functions, methods, etc.</p>
+<h2 id="trait_is_export"><a class="u" href="#___top" title="go to top of document">trait is export</a></h2>
+<pre class="pod-block-code">multi sub trait_mod:&lt;is&gt;(Mu:U \type, :$export!)</pre>
+<p>Marks a type as being exported, that is, available to external users.</p>
+<pre class="pod-block-code">my class SomeClass is export { }</pre>
+<p>A user of a module or class automatically gets all the symbols imported that are marked as <code>is export</code>.</p>
+<p>See <a href="/Documentable/integration-test/language/modules#Exporting_and_selective_importing">Exporting and Selective Importing Modules</a> for more details.</p>
+<h2 id="method_return"><a class="u" href="#___top" title="go to top of document">method return</a></h2>
+<pre class="pod-block-code">method return()</pre>
+<p>The method <code>return</code> will stop execution of a subroutine or method, run all relevant <a href="/Documentable/integration-test/language/phasers#Block_phasers">phasers</a> and provide invocant as a return value to the caller. If a return <a href="/Documentable/integration-test/type/Signature#Constraining_return_types">type constraint</a> is provided it will be checked unless the return value is <code>Nil</code>. A control exception is raised and can be caught with <a href="/Documentable/integration-test/language/phasers#CONTROL">CONTROL</a>.</p>
+<pre class="pod-block-code">sub f { (1|2|3).return };
+say f(); # OUTPUT: «any(1, 2, 3)␤»</pre>
+<h2 id="method_return-rw"><a class="u" href="#___top" title="go to top of document">method return-rw</a></h2>
+<p>Same as method <a href="/Documentable/integration-test/type/Mu#method_return"><code>return</code></a> except that <code>return-rw</code> returns a writable container to the invocant (see more details here: <a href="/Documentable/integration-test/language/control#return-rw"><code>return-rw</code></a>).</p>
+<h2 id="method_emit"><a class="u" href="#___top" title="go to top of document">method emit</a></h2>
+<pre class="pod-block-code">method emit()</pre>
+<p>Emits the invocant into the enclosing <a href="/Documentable/integration-test/language/concurrency#index-entry-supply_(on-demand)">supply</a> or <a href="/Documentable/integration-test/language/concurrency#index-entry-react">react</a> block.</p>
+<pre class="pod-block-code">react { whenever supply { .emit for &quot;foo&quot;, 42, .5 } {
+    say &quot;received {.^name} ($_)&quot;;
+}}
+
+# OUTPUT:
+# received Str (foo)
+# received Int (42)
+# received Rat (0.5)</pre>
+<h2 id="method_take"><a class="u" href="#___top" title="go to top of document">method take</a></h2>
+<pre class="pod-block-code">method take()</pre>
+<p>Returns the invocant in the enclosing <a href="/Documentable/integration-test/language/control#gather/take">gather</a> block.</p>
+<pre class="pod-block-code">sub insert($sep, +@list) {
+    gather for @list {
+        FIRST .take, next;
+        take slip $sep, .item
+    }
+}
+
+say insert &#39;:&#39;, &lt;a b c&gt;;
+# OUTPUT: «(a : b : c)␤»</pre>
+<h2 id="routine_take"><a class="u" href="#___top" title="go to top of document">routine take</a></h2>
+<pre class="pod-block-code">sub take(\item)</pre>
+<p>Takes the given item and passes it to the enclosing <code>gather</code> block.</p>
+<pre class="pod-block-code">#| randomly select numbers for lotto
+my $num-selected-numbers = 6;
+my $max-lotto-numbers = 49;
+gather for ^$num-selected-numbers {
+    take (1 .. $max-lotto-numbers).pick(1);
+}.say;    # six random values</pre>
+<h2 id="routine_take-rw"><a class="u" href="#___top" title="go to top of document">routine take-rw</a></h2>
+<pre class="pod-block-code">sub take-rw(\item)</pre>
+<p>Returns the given item to the enclosing <code>gather</code> block, without introducing a new container.</p>
+<pre class="pod-block-code">my @a = 1...3;
+sub f(@list){ gather for @list { take-rw $_ } };
+for f(@a) { $_++ };
+say @a;
+# OUTPUT: «[2 3 4]␤»</pre>
+<h2 id="method_so"><a class="u" href="#___top" title="go to top of document">method so</a></h2>
+<pre class="pod-block-code">method so()</pre>
+<p>Evaluates the item in Boolean context (and thus, for instance, collapses Junctions), and returns the result. It is the opposite of <code>not</code>, and equivalent to the <a href="/Documentable/integration-test/language/operators#prefix_?"><code>?</code> operator</a>.</p>
+<p>One can use this method similarly to the English sentence: &quot;If that is <strong>so</strong>, then do this thing&quot;. For instance,</p>
+<pre class="pod-block-code">my @args = &lt;-a -e -b -v&gt;;
+my $verbose-selected = any(@args) eq &#39;-v&#39; | &#39;-V&#39;;
+if $verbose-selected.so {
+    say &quot;Verbose option detected in arguments&quot;;
+} # OUTPUT: «Verbose option detected in arguments␤»</pre>
+<p>The <code>$verbose-selected</code> variable in this case contains a <a href="/Documentable/integration-test/type/Junction"><code>Junction</code></a>, whose value is <code>any(any(False, False), any(False, False), any(False, False), any(True, False))</code>. That is actually a <em>truish</em> value; thus, negating it will yield <code>False</code>. The negation of that result will be <code>True</code>. <code>so</code> is performing all those operations under the hood.</p>
+<h2 id="method_not"><a class="u" href="#___top" title="go to top of document">method not</a></h2>
+<pre class="pod-block-code">method not()</pre>
+<p>Evaluates the item in Boolean context (leading to final evaluation of Junctions, for instance), and negates the result. It is the opposite of <code>so</code> and its behavior is equivalent to the <a href="/Documentable/integration-test/language/operators#prefix_!"><code>!</code> operator</a>.</p>
+<pre class="pod-block-code">my @args = &lt;-a -e -b&gt;;
+my $verbose-selected = any(@args) eq &#39;-v&#39; | &#39;-V&#39;;
+if $verbose-selected.not {
+    say &quot;Verbose option not present in arguments&quot;;
+} # OUTPUT: «Verbose option not present in arguments␤»</pre>
+<p>Since there is also a <a href="/Documentable/integration-test/language/operators#prefix_not">prefix version of <code>not</code></a>, this example reads better as:</p>
+<pre class="pod-block-code">my @args = &lt;-a -e -b&gt;;
+my $verbose-selected = any(@args) eq &#39;-v&#39; | &#39;-V&#39;;
+if not $verbose-selected {
+    say &quot;Verbose option not present in arguments&quot;;
+} # OUTPUT: «Verbose option not present in arguments␤»</pre>
+<h1 id="Type_Graph"><a class="u" href="#___top" title="go to top of document">Type Graph</a></h1>
+<figure>
+  <figcaption>Type relations for <code>Mu</code></figcaption>
+  <svg width="180pt" height="116pt"
+ viewBox="0.00 0.00 180.05 116.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 112)">
+<title>perl6&#45;type&#45;graph</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-112 176.05,-112 176.05,4 -4,4"/>
+<!-- Mu -->
+<g id="node1" class="node">
+<title>Mu</title>
+<g id="a_node1"><a xlink:href="/type/Mu" xlink:title="Mu">
+<ellipse fill="none" stroke="#000000" cx="97.05" cy="-90" rx="27" ry="18"/>
+<text text-anchor="middle" x="97.05" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Mu</text>
+</a>
+</g>
+</g>
+<!-- Junction -->
+<g id="node2" class="node">
+<title>Junction</title>
+<g id="a_node2"><a xlink:href="/type/Junction" xlink:title="Junction">
+<ellipse fill="none" stroke="#000000" cx="50.05" cy="-18" rx="50.09" ry="18"/>
+<text text-anchor="middle" x="50.05" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">Junction</text>
+</a>
+</g>
+</g>
+<!-- Junction&#45;&gt;Mu -->
+<g id="edge1" class="edge">
+<title>Junction&#45;&gt;Mu</title>
+<path fill="none" stroke="#000000" d="M61.18,-35.59C67,-44.26 74.24,-55.03 80.68,-64.62"/>
+<polygon fill="#000000" stroke="#000000" points="77.83,-66.66 86.31,-73.01 83.64,-62.76 77.83,-66.66"/>
+</g>
+<!-- Any -->
+<g id="node3" class="node">
+<title>Any</title>
+<g id="a_node3"><a xlink:href="/type/Any" xlink:title="Any">
+<ellipse fill="none" stroke="#000000" cx="145.05" cy="-18" rx="27" ry="18"/>
+<text text-anchor="middle" x="145.05" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">Any</text>
+</a>
+</g>
+</g>
+<!-- Any&#45;&gt;Mu -->
+<g id="edge2" class="edge">
+<title>Any&#45;&gt;Mu</title>
+<path fill="none" stroke="#000000" d="M134.15,-34.88C128.08,-43.74 120.39,-54.96 113.58,-64.88"/>
+<polygon fill="#000000" stroke="#000000" points="110.66,-62.95 107.89,-73.18 116.44,-66.91 110.66,-62.95"/>
+</g>
+</g>
+</svg>
+
+  <p class="fallback">
+    <a
+      rel="alternate"
+      href="/images/type-graph-Mu.svg"
+      type="image/svg+xml"
+      >Expand above chart</a
+    >
+  </p>
+</figure>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Type/Mu.pod6">https://github.com/Raku/doc/blob/master/doc/Type/Mu.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

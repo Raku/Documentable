@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>method start</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/routine.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-sub.html"> Sub </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-method.html"> Method </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-term.html"> Term </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-operator.html"> Operator </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-trait.html"> Trait </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-submethod.html"> Submethod </a>
+            </div></div></div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">method start</h1>
+        <p class="subtitle"></p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#class_Promise">class Promise</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#(Promise)_method_start">(Promise) method start</a></td></tr>
+                                                            <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#class_Proc::Async">class Proc::Async</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#(Proc::Async)_method_start">(Proc::Async) method start</a></td></tr>
+                                   <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#class_Supply">class Supply</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#(Supply)_method_start">(Supply) method start</a></td></tr>
+       <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#class_Thread">class Thread</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">4.1</td><td class="toc-text"><a href="#(Thread)_method_start">(Thread) method start</a></td></tr>
+    
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Documentation for method <code>start</code> assembled from the following types:</p>
+<h1 id="class_Promise"><a class="u" href="#___top" title="go to top of document">class Promise</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Promise#method_start">Promise</a></p>
+<h2 id="(Promise)_method_start"><a href="/Documentable/integration-test/type/Promise#method_start">(Promise) method start</a></h2>
+<pre class="pod-block-code">method start(Promise:U: &amp;code, :$scheduler = $*SCHEDULER --&gt; Promise:D)</pre>
+<p>Creates a new Promise that runs the given code object. The promise will be kept when the code terminates normally, or broken if it throws an exception. The return value or exception can be inspected with the <code>result</code> method.</p>
+<p>The scheduler that handles this promise can be passed as a named argument.</p>
+<p>There is also a statement prefix <code>start</code> that provides syntactic sugar for this method:</p>
+<pre class="pod-block-code"># these two are equivalent:
+my $p1 = Promise.start({ ;#`( do something here ) });
+my $p2 = start { ;#`( do something here ) };</pre>
+<p>As of the 6.d version of the language, <code>start</code> statement prefix used in <a href="/Documentable/integration-test/routine/sink">sink</a> context will automatically attach an exceptions handler. If an exception occurs in the given code, it will be printed and the program will then exit, like if it were thrown without any <code>start</code> statement prefixes involved.</p>
+<pre class="pod-block-code">use v6.c;
+start { die }; sleep ⅓; say &quot;hello&quot;; # OUTPUT: «hello␤»
+</pre>
+<pre class="pod-block-code">use v6.d;
+start { die }; sleep ⅓; say &quot;hello&quot;;
+# OUTPUT:
+# Unhandled exception in code scheduled on thread 4
+# Died
+#     in block  at -e line 1
+</pre>
+<p>If you wish to avoid this behavior, use <code>start</code> in non-sink context or catch the exception yourself:</p>
+<pre class="pod-block-code"># Don&#39;t sink it:
+my $ = start { die }; sleep ⅓; say &quot;hello&quot;; # OUTPUT: «hello␤»
+
+# Catch yourself:
+start { die; CATCH { default { say &quot;caught&quot; } } };
+sleep ⅓;
+say &quot;hello&quot;;
+# OUTPUT: «caught␤hello␤»
+</pre>
+<p>This behavior exists only syntactically, by using an alternate <code>.sink</code> method for <a href="/Documentable/integration-test/type/Promise">Promise</a> objects created by <code>start</code> blocks in sink context, thus simply sinking a <a href="/Documentable/integration-test/type/Promise">Promise</a> object that was created by other means won&#39;t trigger this behavior.</p>
+<h1 id="class_Proc::Async"><a class="u" href="#___top" title="go to top of document">class Proc::Async</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Proc::Async#method_start">Proc::Async</a></p>
+<h2 id="(Proc::Async)_method_start"><a href="/Documentable/integration-test/type/Proc::Async#method_start">(Proc::Async) method start</a></h2>
+<pre class="pod-block-code">method start(Proc::Async:D: :$scheduler = $*SCHEDULER, :$ENV, :$cwd = $*CWD --&gt; Promise)</pre>
+<p>Initiates spawning of the external program. Returns a <a href="/Documentable/integration-test/type/Promise">Promise</a> that will be kept with a <a href="/Documentable/integration-test/type/Proc">Proc</a> object once the external program exits or broken if the program cannot be started. Optionally, you can use a scheduler instead of the default <code>$*SCHEDULER</code>, or change the environment the process is going to run in via the named argument <code>:$ENV</code> or the directory via the named argument <code>:$cwd</code>.</p>
+<p>If <code>start</code> is called on a Proc::Async object on which it has already been called before, an exception of <a href="/Documentable/integration-test/type/X::Proc::Async::AlreadyStarted">type X::Proc::Async::AlreadyStarted</a> is thrown.</p>
+<p>Note: If you wish to <code>await</code> the Promise and discard its result, using</p>
+<pre class="pod-block-code">try await $p.start;
+</pre>
+<p><strong>will throw</strong> if the program exited with non-zero status, as the <code>Proc</code> returned as the result of the Promise throws when sunk and in this case it will get sunk outside the <code>try</code>. To avoid that, sink it yourself <em>inside</em> the <code>try</code>:</p>
+<pre class="pod-block-code">try sink await $p.start;
+</pre>
+<h1 id="class_Supply"><a class="u" href="#___top" title="go to top of document">class Supply</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Supply#method_start">Supply</a></p>
+<h2 id="(Supply)_method_start"><a href="/Documentable/integration-test/type/Supply#method_start">(Supply) method start</a></h2>
+<pre class="pod-block-code">method start(Supply:D: &amp;startee --&gt; Supply:D)</pre>
+<p>Creates a supply of supplies. For each value in the original supply, the code object is scheduled on another thread, and returns a supply either of a single value (if the code succeeds), or one that quits without a value (if the code fails).</p>
+<p>This is useful for asynchronously starting work that you don&#39;t block on.</p>
+<p>Use <code>migrate</code> to join the values into a single supply again.</p>
+<h1 id="class_Thread"><a class="u" href="#___top" title="go to top of document">class Thread</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Thread#method_start">Thread</a></p>
+<h2 id="(Thread)_method_start"><a href="/Documentable/integration-test/type/Thread#method_start">(Thread) method start</a></h2>
+<pre class="pod-block-code">method start(Thread:U: &amp;code, Bool :$app_lifetime = False, Str :$name = &#39;&lt;anon&gt;&#39; --&gt; Thread:D)</pre>
+<p>Creates, runs and returns a new <code>Thread</code>. Note that it can (and often does) return before the thread&#39;s code has finished running.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

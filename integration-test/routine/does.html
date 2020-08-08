@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>routine does</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/routine.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-sub.html"> Sub </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-method.html"> Method </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-term.html"> Term </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-operator.html"> Operator </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-trait.html"> Trait </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-submethod.html"> Submethod </a>
+            </div></div></div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">routine does</h1>
+        <p class="subtitle"></p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#language_documentation_Operators">language documentation Operators</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#(Operators)_infix_does">(Operators) infix does</a></td></tr>
+                    <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#language_documentation_Type_system">language documentation Type system</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#(Type_system)_trait_does">(Type system) trait does</a></td></tr>
+          <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#class_Mu">class Mu</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#(Mu)_routine_does">(Mu) routine does</a></td></tr>
+                           
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Documentation for routine <code>does</code> assembled from the following types:</p>
+<h1 id="language_documentation_Operators"><a class="u" href="#___top" title="go to top of document">language documentation Operators</a></h1>
+<p>From <a href="/Documentable/integration-test/language/operators#infix_does">Operators</a></p>
+<h2 id="(Operators)_infix_does"><a href="/Documentable/integration-test/language/operators#infix_does">(Operators) infix does</a></h2>
+<pre class="pod-block-code">sub infix:&lt;does&gt;(Mu $obj, Mu $role) is assoc&lt;non&gt;</pre>
+<p>Mixes <code>$role</code> into <code>$obj</code> at runtime. Requires <code>$obj</code> to be mutable.</p>
+<p>Similar to <a href="/Documentable/integration-test/routine/but">but</a> operator, the <code>$role</code> can instead be an instantiated object, in which case, the operator will create a role for you automatically. The role will contain a single method named the same as <code>$obj.^name</code> and that returns <code>$obj</code>:</p>
+<pre class="pod-block-code">my $o = class { method Str { &quot;original&quot; } }.new;
+put $o;            # OUTPUT: «original␤»
+$o does &quot;modded&quot;;
+put $o;            # OUTPUT: «modded␤»</pre>
+<p>If methods of the same name are present already, the last mixed in role takes precedence.</p>
+<h1 id="language_documentation_Type_system"><a class="u" href="#___top" title="go to top of document">language documentation Type system</a></h1>
+<p>From <a href="/Documentable/integration-test/language/typesystem#trait_does">Type system</a></p>
+<h2 id="(Type_system)_trait_does"><a href="/Documentable/integration-test/language/typesystem#trait_does">(Type system) trait does</a></h2>
+<p>The trait <code>does</code> can be applied to roles and classes providing compile time mixins. To refer to a role that is not defined yet, use a forward declaration. The type name of the class with mixed in roles does not reflect the mixin, a type check does. If methods are provided in more than one mixed in role, the method that is defined first takes precedence. A list of roles separated by comma can be provided. In this case conflicts will be reported at compile time.</p>
+<pre class="pod-block-code">role R2 {...};
+role R1 does R2 {};
+role R2 {};
+class C does R1 {};
+
+say [C ~~ R1, C ~~ R2];
+# OUTPUT: «[True True]␤»</pre>
+<p>For runtime mixins see <a href="/Documentable/integration-test/language/operators#infix_but">but</a> and <a href="/Documentable/integration-test/language/operators#infix_does">does</a>.</p>
+<h1 id="class_Mu"><a class="u" href="#___top" title="go to top of document">class Mu</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Mu#routine_does">Mu</a></p>
+<h2 id="(Mu)_routine_does"><a href="/Documentable/integration-test/type/Mu#routine_does">(Mu) routine does</a></h2>
+<pre class="pod-block-code">method does(Mu $type --&gt; Bool:D)</pre>
+<p>Returns <code>True</code> if and only if the invocant conforms to type <code>$type</code>.</p>
+<pre class="pod-block-code">my $d = Date.new(&#39;2016-06-03&#39;);
+say $d.does(Dateish);             # True    (Date does role Dateish)
+say $d.does(Any);                 # True    (Date is a subclass of Any)
+say $d.does(DateTime);            # False   (Date is not a subclass of DateTime)
+</pre>
+<p>Unlike <a href="/Documentable/integration-test/routine/isa#(Mu)_routine_isa"><code>isa</code></a>, which returns <code>True</code> only for superclasses, <code>does</code> includes both superclasses and roles.</p>
+<pre class="pod-block-code">say $d.isa(Dateish); # OUTPUT: «False␤»
+</pre>
+<p>Using the smartmatch operator <a href="/Documentable/integration-test/routine/~~">~~</a> is a more idiomatic alternative.</p>
+<pre class="pod-block-code">my $d = Date.new(&#39;2016-06-03&#39;);
+say $d ~~ Dateish;                # OUTPUT: «True␤»
+say $d ~~ Any;                    # OUTPUT: «True␤»
+say $d ~~ DateTime;               # OUTPUT: «False␤»</pre>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

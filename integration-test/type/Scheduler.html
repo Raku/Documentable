@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>role Scheduler</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/type.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-basic.html"> Basic </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-composite.html"> Composite </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-domain-specific.html"> Domain-specific </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-exception.html"> Exceptions </a>
+            </div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Type/Scheduler.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">role Scheduler</h1>
+        <p class="subtitle">Scheme for automatically assigning tasks to threads</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+            <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#method_uncaught_handler">method uncaught_handler</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#method_cue">method cue</a></td></tr>
+                                                                    <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Type_Graph">Type Graph</a></td></tr>
+ 
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <pre class="pod-block-code">role Scheduler {
+    has &amp;.uncaught_handler is rw
+}</pre>
+<p>Common role for schedulers. A scheduler is a piece of code that determines which resources to use to run which task, and when.</p>
+<p>Some operations for example on <a href="/Documentable/integration-test/type/Proc::Async">Proc::Async</a>, <a href="/Documentable/integration-test/type/Promise">Promise</a>, <a href="/Documentable/integration-test/type/Supply">Supply</a> allow you to specify a scheduler explicitly; they generally expect those schedulers to follow the interface defined by <code>Scheduler</code></p>
+<h1 id="Methods"><a class="u" href="#___top" title="go to top of document">Methods</a></h1>
+<h2 id="method_uncaught_handler"><a class="u" href="#___top" title="go to top of document">method uncaught_handler</a></h2>
+<pre class="pod-block-code">method uncaught_handler() is rw</pre>
+<p>RW-Accessor for the handler that is caught for uncaught exceptions from the code that is being scheduled and run.</p>
+<h2 id="method_cue"><a class="u" href="#___top" title="go to top of document">method cue</a></h2>
+<pre class="pod-block-code">method cue(&amp;code, Instant :$at, :$in, :$every, :$times = 1; :&amp;catch --&gt; Cancellation)</pre>
+<p>Schedules a callable (<code>&amp;code</code>) for execution and returns an instantiated <code>Cancellation</code> object to cancel the scheduling of the code for execution (which is especially important if you specify the <code>every =</code> time&gt; named parameter. The adverbs control when and how the code is run:</p>
+<p><code>$at</code> can be an <a href="/Documentable/integration-test/type/Instant">Instant</a> before which the code won&#39;t be run. Alternatively <code>$in</code> is the number of seconds (possibly fractional) to wait before running the code. If <code>$at</code> is in the past or <code>$in</code> is negative, the delay is treated as zero. Implementations may equate to zero very small values (e.g. lower than 0.001s) of <code>$in</code> or result of <code>$at</code> - <a href="/Documentable/integration-test/routine/now">now</a>.</p>
+<p>If <code>$every</code> is specified, it is interpreted as the number of seconds (possibly fractional) to wait before re-executing the code. Implementations may treat too-small values as lowest resolution they support, possibly warning in such situations; e.g. treating <code>0.0001</code> as <code>0.001</code>.</p>
+<p><code>$times</code> tells the scheduler how many times to run the code.</p>
+<p><code>&amp;catch</code> is called with the <a href="/Documentable/integration-test/type/Exception">Exception</a> as its sole argument if <code>&amp;code</code> dies.</p>
+<p>If <code>$at</code> or <code>$in</code> are <code>Inf</code>, <code>&amp;code</code> will never be run; if <code>$every</code> is <code>Inf</code>, <code>&amp;code</code> will only be run once. If any of the three are <code>-Inf</code>, <code>&amp;code</code> will be run immediately. If any of the three are <code>NaN</code>, an <a href="/Documentable/integration-test/type/X::Scheduler::CueInNaNSeconds">X::Scheduler::CueInNaNSeconds</a> exception will be thrown. This only applies to releases 2019.05 and later.</p>
+<p>One should call the <code>cancel</code> method on the returned <code>Cancellation</code> object to cancel the (possibly repeated) cueing of the code.</p>
+<h1 id="Type_Graph"><a class="u" href="#___top" title="go to top of document">Type Graph</a></h1>
+<figure>
+  <figcaption>Type relations for <code>Scheduler</code></figcaption>
+  <svg width="470pt" height="188pt"
+ viewBox="0.00 0.00 469.63 188.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 184)">
+<title>perl6&#45;type&#45;graph</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-184 465.63,-184 465.63,4 -4,4"/>
+<!-- Scheduler -->
+<g id="node1" class="node">
+<title>Scheduler</title>
+<g id="a_node1"><a xlink:href="/type/Scheduler" xlink:title="Scheduler">
+<ellipse fill="none" stroke="#6666ff" cx="188.29" cy="-90" rx="54.69" ry="18"/>
+<text text-anchor="middle" x="188.29" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#6666ff">Scheduler</text>
+</a>
+</g>
+</g>
+<!-- Mu -->
+<g id="node2" class="node">
+<title>Mu</title>
+<g id="a_node2"><a xlink:href="/type/Mu" xlink:title="Mu">
+<ellipse fill="none" stroke="#000000" cx="323.29" cy="-162" rx="27" ry="18"/>
+<text text-anchor="middle" x="323.29" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#000000">Mu</text>
+</a>
+</g>
+</g>
+<!-- Any -->
+<g id="node3" class="node">
+<title>Any</title>
+<g id="a_node3"><a xlink:href="/type/Any" xlink:title="Any">
+<ellipse fill="none" stroke="#000000" cx="323.29" cy="-90" rx="27" ry="18"/>
+<text text-anchor="middle" x="323.29" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Any</text>
+</a>
+</g>
+</g>
+<!-- Any&#45;&gt;Mu -->
+<g id="edge1" class="edge">
+<title>Any&#45;&gt;Mu</title>
+<path fill="none" stroke="#000000" d="M323.29,-108.3C323.29,-116.02 323.29,-125.29 323.29,-133.89"/>
+<polygon fill="#000000" stroke="#000000" points="319.79,-133.9 323.29,-143.9 326.79,-133.9 319.79,-133.9"/>
+</g>
+<!-- CurrentThreadScheduler -->
+<g id="node4" class="node">
+<title>CurrentThreadScheduler</title>
+<g id="a_node4"><a xlink:href="/type/CurrentThreadScheduler" xlink:title="CurrentThreadScheduler">
+<ellipse fill="none" stroke="#000000" cx="118.29" cy="-18" rx="118.08" ry="18"/>
+<text text-anchor="middle" x="118.29" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">CurrentThreadScheduler</text>
+</a>
+</g>
+</g>
+<!-- CurrentThreadScheduler&#45;&gt;Scheduler -->
+<g id="edge4" class="edge">
+<title>CurrentThreadScheduler&#45;&gt;Scheduler</title>
+<path fill="none" stroke="#6666ff" d="M135.23,-35.95C144.13,-44.84 155.18,-55.89 164.88,-65.59"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="162.44,-68.1 171.98,-72.69 167.39,-63.15 162.44,-68.1"/>
+</g>
+<!-- CurrentThreadScheduler&#45;&gt;Any -->
+<g id="edge2" class="edge">
+<title>CurrentThreadScheduler&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M164.04,-34.62C202.28,-47.68 255.89,-65.99 290.11,-77.67"/>
+<polygon fill="#000000" stroke="#000000" points="289.05,-81.01 299.65,-80.93 291.31,-74.38 289.05,-81.01"/>
+</g>
+<!-- ThreadPoolScheduler -->
+<g id="node5" class="node">
+<title>ThreadPoolScheduler</title>
+<g id="a_node5"><a xlink:href="/type/ThreadPoolScheduler" xlink:title="ThreadPoolScheduler">
+<ellipse fill="none" stroke="#000000" cx="358.29" cy="-18" rx="103.18" ry="18"/>
+<text text-anchor="middle" x="358.29" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">ThreadPoolScheduler</text>
+</a>
+</g>
+</g>
+<!-- ThreadPoolScheduler&#45;&gt;Scheduler -->
+<g id="edge5" class="edge">
+<title>ThreadPoolScheduler&#45;&gt;Scheduler</title>
+<path fill="none" stroke="#6666ff" d="M319.71,-34.88C293.07,-45.85 257.66,-60.44 230.3,-71.7"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="228.91,-68.49 220.99,-75.53 231.57,-74.96 228.91,-68.49"/>
+</g>
+<!-- ThreadPoolScheduler&#45;&gt;Any -->
+<g id="edge3" class="edge">
+<title>ThreadPoolScheduler&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M349.82,-35.95C345.67,-44.23 340.6,-54.38 336,-63.58"/>
+<polygon fill="#000000" stroke="#000000" points="332.78,-62.18 331.44,-72.69 339.05,-65.31 332.78,-62.18"/>
+</g>
+</g>
+</svg>
+
+  <p class="fallback">
+    <a
+      rel="alternate"
+      href="/images/type-graph-Scheduler.svg"
+      type="image/svg+xml"
+      >Expand above chart</a
+    >
+  </p>
+</figure>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Type/Scheduler.pod6">https://github.com/Raku/doc/blob/master/doc/Type/Scheduler.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

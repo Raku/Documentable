@@ -1,0 +1,625 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Modules</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/modules.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Modules</h1>
+        <p class="subtitle">How to create, use, and distribute Raku modules</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+  <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Creating_and_using_modules">Creating and using modules</a></td></tr>
+                           <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#Looking_for_and_installing_modules.">Looking for and installing modules.</a></td></tr>
+               <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#Basic_structure">Basic structure</a></td></tr>
+                                              <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Loading_and_basic_importing">Loading and basic importing</a></td></tr>
+  <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#need"><code class="pod-code-inline">need</code></a></td></tr>
+                                  <tr class="toc-level-2"><td class="toc-number">2.2</td><td class="toc-text"><a href="#use"><code class="pod-code-inline">use</code></a></td></tr>
+                  <tr class="toc-level-2"><td class="toc-number">2.3</td><td class="toc-text"><a href="#require"><code class="pod-code-inline">require</code></a></td></tr>
+                                                   <tr class="toc-level-2"><td class="toc-number">2.4</td><td class="toc-text"><a href="#Lexical_module_loading">Lexical module loading</a></td></tr>
+                   <tr class="toc-level-2"><td class="toc-number">2.5</td><td class="toc-text"><a href="#Exporting_and_selective_importing">Exporting and selective importing</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-number">2.5.1</td><td class="toc-text"><a href="#is_export">is export</a></td></tr>
+                                                                                                                           <tr class="toc-level-3"><td class="toc-number">2.5.2</td><td class="toc-text"><a href="#UNIT::EXPORT::*">UNIT::EXPORT::*</a></td></tr>
+                                                                     <tr class="toc-level-3"><td class="toc-number">2.5.3</td><td class="toc-text"><a href="#EXPORT">EXPORT </a></td></tr>
+                                                                                                                                <tr class="toc-level-2"><td class="toc-number">2.6</td><td class="toc-text"><a href="#Introspection">Introspection</a></td></tr>
+                     <tr class="toc-level-2"><td class="toc-number">2.7</td><td class="toc-text"><a href="#Finding_installed_modules">Finding installed modules</a></td></tr>
+                      <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Distributing_modules">Distributing modules</a></td></tr>
+                 <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#Preparing_the_module">Preparing the module</a></td></tr>
+                                                                                                                                                                                                                                                                                                                                                                                            <tr class="toc-level-2"><td class="toc-number">3.2</td><td class="toc-text"><a href="#Upload_your_module_to_CPAN">Upload your module to CPAN</a></td></tr>
+                                             <tr class="toc-level-2"><td class="toc-number">3.3</td><td class="toc-text"><a href="#Upload_your_module_to_p6c">Upload your module to p6c</a></td></tr>
+                                        <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#Modules_and_tools_related_to_module_authoring">Modules and tools related to module authoring</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">4.1</td><td class="toc-text"><a href="#Contact_information">Contact information</a></td></tr>
+        
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <h1 id="Creating_and_using_modules"><a class="u" href="#___top" title="go to top of document">Creating and using modules</a></h1>
+<p>A module is usually a source file or set of source files that expose Raku constructs <a href="#fn-1" id="fn-ref-1">[1]</a>.</p>
+<p>Modules are typically packages (<a href="/Documentable/integration-test/language/objects#Classes">classes</a>, <a href="/Documentable/integration-test/language/objects#Roles">roles</a>, <a href="/Documentable/integration-test/type/Grammar">grammars</a>), <a href="/Documentable/integration-test/language/functions">subroutines</a>, and sometimes <a href="/Documentable/integration-test/language/variables">variables</a>. In Raku <em>module</em> can also refer to a type of package declared with the <code>module</code> keyword (see <a href="/Documentable/integration-test/language/module-packages">Module Packages</a> and the examples below) but here we mostly mean &quot;module&quot; as a set of source files in a namespace.</p>
+<h2 id="Looking_for_and_installing_modules."><a class="u" href="#___top" title="go to top of document">Looking for and installing modules.</a></h2>
+<p><a href="https://github.com/ugexe/zef"><code>zef</code></a> is the application used for installing modules in Raku. Modules are listed in <a href="https://modules.raku.org">the Raku ecosystem</a> and can be searched there or from the command line using <code>zef search</code>:</p>
+<pre class="pod-block-code">zef search WWW
+</pre>
+<p>will return a list of modules that includes WWW in their name, for instance. Then,</p>
+<pre class="pod-block-code">zef install WWW
+</pre>
+<p>will install the module with that particular name, if it is not already installed <a href="#fn-2" id="fn-ref-2">[2]</a>.</p>
+<h2 id="Basic_structure"><a class="u" href="#___top" title="go to top of document">Basic structure</a></h2>
+<p>Module distributions (in the <em>set of related source files</em> sense) in Raku have the same structure as any distribution in the Perl family of languages: there is a main project directory containing a <code>README</code> and a <code>LICENSE</code> file, a <code>lib</code> directory for the source files, which may be individually referred to as modules and/or may themselves define modules with the <code>module</code> keyword <a href="#fn-3" id="fn-ref-3">[3]</a> , a <code>t</code> directory for tests, and possibly a <code>bin</code> directory for executable programs and scripts.</p>
+<p>Source files generally use the <code>.rakumod</code> extension, and scripts or executables use the <code>.raku</code>. Test files use the <code>.rakutest</code> (or <code>.t</code>) extension. Files which contain documentation use the <code>.rakudoc</code> extension <a href="#fn-4" id="fn-ref-4">[4]</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-compunit"></a></p>
+<h1 id="Loading_and_basic_importing"><a class="u" href="#___top" title="go to top of document">Loading and basic importing</a></h1>
+<p>Loading a module makes the packages in the same namespace declared within available in the file scope of the loader. Importing from a module makes the symbols exported available in the lexical scope of the importing statement.</p>
+<h2 id="need"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-need"><span class="index-entry"><code>need</code></span></a></a></h2>
+<p><code>need</code> loads a <code>compunit</code> at compile time.</p>
+<pre class="pod-block-code">need MyModule;
+</pre>
+<p>Any packages in the namespace defined within will also be available.</p>
+<pre class="pod-block-code"># MyModule.rakumod
+unit module MyModule;
+
+class Class {}
+</pre>
+<p><code>MyModule::Class</code> will be defined when <code>MyModule</code> is loaded, and you can use it directly employing its fully qualified name (FQN). Classes and other types defined that way are not automatically exported; you will need to explicitly export it if you want to use it by its short name:</p>
+<pre class="pod-block-code"># MyModule.rakumod
+unit module MyModule;
+
+class Class is export {}
+</pre>
+<p>And then</p>
+<pre class="pod-block-code">use MyModule;
+
+my $class = Class.new();
+say $class.raku;
+</pre>
+<h2 id="use"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-use"><span class="index-entry"><code>use</code></span></a></a></h2>
+<p><code>use</code> loads and then imports from a compunit at compile time. It will look for files that end in <code>.rakumod</code>. See <a href="/Documentable/integration-test/language/modules#Finding_installed_modules">here</a> for where the runtime will look for modules.</p>
+<pre class="pod-block-code">use MyModule;
+</pre>
+<p>This is equivalent to:</p>
+<pre class="pod-block-code"><a href="/Documentable/integration-test/language/modules#need">need</a> MyModule;
+import MyModule;
+</pre>
+<p>See also <a href="/Documentable/integration-test/language/modules#Exporting_and_selective_importing">selective importing</a> to restrict what you import.</p>
+<h2 id="require"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-require"><span class="index-entry"><code>require</code></span></a></a></h2>
+<p><code>require</code> loads a compunit and imports definite symbols at runtime.</p>
+<pre class="pod-block-code">say &quot;loading MyModule&quot;;
+require MyModule;</pre>
+<p>The compunit name can be in a runtime variable if you put it inside an indirect lookup.</p>
+<pre class="pod-block-code">my $name = &#39;MyModule&#39;;
+require ::($name);</pre>
+<p>The symbols provided by the loaded module will not be imported into the current scope. You may use <a href="/Documentable/integration-test/language/packages#index-entry-::()">dynamic lookup</a> or <a href="/Documentable/integration-test/language/typesystem#subset">dynamic subsets</a> to use them by providing the fully qualified name of a symbol, for instance:</p>
+<pre class="pod-block-code">require ::(&quot;Test&quot;);
+my &amp;mmk = ::(&quot;Test::EXPORT::DEFAULT::&amp;ok&quot;);
+mmk(&#39;oi‽&#39;); # OUTPUT: «ok 1 - ␤»</pre>
+<p>The FQN of <code>ok</code> is <code>Test::EXPORT::DEFAULT::&amp;ok</code>. We are aliasing it to <code>mmk</code> so that we can use that symbol provided by <code>Test</code> in the current scope.</p>
+<p>To import symbols you must define them at compile time. <strong>NOTE:</strong> <code>require</code> is lexically scoped:</p>
+<pre class="pod-block-code">sub do-something {
+   require MyModule &lt;&amp;something&gt;;
+   say ::(&#39;MyModule&#39;); # MyModule symbol exists here
+   something() # &amp;something will be defined here
+}
+say ::(&#39;MyModule&#39;); # This will NOT contain the MyModule symbol
+do-something();
+# &amp;something will not be defined here</pre>
+<p>If <code>MyModule</code> doesn&#39;t export <code>&amp;something</code> then <code>require</code> will fail.</p>
+<p>A <code>require</code> with compile-time symbol will install a placeholder <code>package</code> that will be updated to the loaded module, class, or package. Note that the placeholder will be kept, <strong>even if require failed to load the module.</strong> This means that checking if a module loaded like this is wrong:</p>
+<pre class="pod-block-code"># *** WRONG: ***
+try require Foo;
+if ::(&#39;Foo&#39;) ~~ Failure { say &quot;Failed to load Foo!&quot;; }
+# *** WRONG: ***</pre>
+<p>As the compile-time installed package causes <code>::(&#39;Foo&#39;)</code> to never be a <code>Failure</code>. The correct way is:</p>
+<pre class="pod-block-code"># Use return value to test whether loading succeeded:
+(try require Foo) === Nil and say &quot;Failed to load Foo!&quot;;
+
+# Or use a runtime symbol lookup with require, to avoid compile-time
+# package installation:
+try require ::(&#39;Foo&#39;);
+if ::(&#39;Foo&#39;) ~~ Failure {
+    say &quot;Failed to load Foo!&quot;;
+}</pre>
+<p>In the current (6.d) version of the language, <code>require</code>d symbols are no longer transitively exposed, which means that you need to import symbols from the module they were originally declared, not from the module where they have been imported.</p>
+<h2 id="Lexical_module_loading"><a class="u" href="#___top" title="go to top of document">Lexical module loading</a></h2>
+<p>Raku takes great care to avoid global state, i.e. whatever you do in your module, it should not affect other code. For instance, that&#39;s why subroutine definitions are lexically (<code>my</code>) scoped by default. If you want others to see them, you need to explicitly make them <code>our</code> scoped or export them.</p>
+<p>Classes are exported by default on the assumption that loading a module will not be of much use when you cannot access the classes it contains. Loaded classes are thus registered only in the scope which loaded them in the first place <a href="#fn-5" id="fn-ref-5">[5]</a>. This means that we will have to <code>use</code> a class in every scope in which we actually employ it.</p>
+<pre class="pod-block-code">use Foo;           # Foo has &quot;use Bar&quot; somewhere.
+use Bar;
+my $foo = Foo.new;
+my $bar = Bar.new;
+</pre>
+<h2 id="Exporting_and_selective_importing"><a class="u" href="#___top" title="go to top of document">Exporting and selective importing</a></h2>
+<h3 id="is_export"><a class="u" href="#___top" title="go to top of document">is export</a></h3>
+<p>Packages, subroutines, variables, constants, and enums are exported by marking them with the <a href="/Documentable/integration-test/routine/is export">is export</a> trait (also note the tags available for indicating authors and versions).</p>
+<pre class="pod-block-code">unit module MyModule:ver&lt;1.0.3&gt;:auth&lt;John Hancock (jhancock@example.com)&gt;;
+our $var is export = 3;
+sub foo is export { ... };
+constant FOO is export = &quot;foobar&quot;;
+enum FooBar is export &lt;one two three&gt;;
+
+# for multi methods, if you declare a proto you
+# only need to mark the proto with is export
+proto sub quux(Str $x, |) is export { * };
+multi sub quux(Str $x) { ... };
+multi sub quux(Str $x, $y) { ... };
+
+# for multi methods, you only need to mark one with is export
+# but the code is most consistent if all are marked
+multi sub quux(Str $x) is export { ... };
+multi sub quux(Str $x, $y) is export { ... };
+
+# Packages like classes can be exported too
+class MyClass is export {};
+
+# If a subpackage is in the namespace of the current package
+# it doesn&#39;t need to be explicitly exported
+class MyModule::MyClass {};
+</pre>
+<p>As with all traits, if applied to a routine, <code>is export</code> should appear after any argument list.</p>
+<pre class="pod-block-code">sub foo(Str $string) is export { ... }
+</pre>
+<p>You can pass named parameters to <code>is export</code> to group symbols for exporting so that the importer can pick and choose. There are three predefined tags: <code>ALL</code>, <code>DEFAULT</code> and <code>MANDATORY</code>.</p>
+<pre class="pod-block-code"># lib/MyModule.rakumod
+unit module MyModule;
+sub bag        is export             { ... }
+# objects with tag &#39;:MANDATORY&#39; are always exported
+sub pants      is export(:MANDATORY) { ... }
+sub sunglasses is export(:day)       { ... }
+sub torch      is export(:night)     { ... }
+sub underpants is export(:ALL)       { ... }
+</pre>
+<pre class="pod-block-code"># main.raku
+use lib &#39;lib&#39;;
+use MyModule;          # bag, pants
+use MyModule :DEFAULT; # the same
+use MyModule :day;     # pants, sunglasses
+use MyModule :night;   # pants, torch
+use MyModule :ALL;     # bag, pants, sunglasses, torch, underpants
+</pre>
+<p><strong>Note</strong>: there currently is no way for the user to import a single object if the module author hasn&#39;t made provision for that, and it is not an easy task at the moment (see <a href="https://rt.perl.org/Public/Bug/Display.html?id=127305">RT #127305</a>). One way the author can provide such access is to give each <code>export</code> trait its own unique tag. (And the tag can be the object name!). Then the user can either (1) import all objects:</p>
+<pre class="pod-block-code">use Foo :ALL;
+</pre>
+<p>or (2) import one or more objects selectively:</p>
+<pre class="pod-block-code">use Foo :bar, :s5;
+</pre>
+<p>Notes:</p>
+<p>1. The <code>:MANDATORY</code> tag on an exported sub ensures it will be exported no matter whether the using program adds any tag or not.</p>
+<p>2. All exported subs without an explicit tag are implicitly <code>:DEFAULT</code>.</p>
+<p>3. The space after the module name and before the tag is mandatory.</p>
+<p>4. Multiple import tags may be used (separated by commas). For example:</p>
+<pre class="pod-block-code"># main.raku
+use lib &#39;lib&#39;;
+use MyModule :day, :night; # pants, sunglasses, torch
+</pre>
+<p>5. Multiple tags may be used in the <code>export</code> trait, but they must all be separated by either commas, or whitespace, but not both.</p>
+<pre class="pod-block-code">sub foo() is export(:foo :s2 :net) {}
+sub bar() is export(:bar, :s3, :some) {}
+</pre>
+<h3 id="UNIT::EXPORT::*"><a class="u" href="#___top" title="go to top of document">UNIT::EXPORT::*</a></h3>
+<p>Beneath the surface, <code>is export</code> is adding the symbols to a <code>UNIT</code> scoped package in the <code>EXPORT</code> namespace. For example, <code>is export(:FOO)</code> will add the target to the <code>UNIT::EXPORT::FOO</code> package. This is what Raku is really using to decide what to import.</p>
+<pre class="pod-block-code">unit module MyModule;
+
+sub foo is export { ... }
+sub bar is export(:other) { ... }
+</pre>
+<p>Is the same as:</p>
+<pre class="pod-block-code">unit module MyModule;
+
+my package EXPORT::DEFAULT {
+    our sub foo { ... }
+}
+
+my package EXPORT::other {
+    our sub bar { ... }
+}
+</pre>
+<p>For most purposes, <code>is export</code> is sufficient but the <code>EXPORT</code> packages are useful when you want to produce the exported symbols dynamically. For example:</p>
+<pre class="pod-block-code"># lib/MyModule.rakumod
+unit module MyModule;
+
+my package EXPORT::DEFAULT {
+   for &lt;zero one two three four&gt;.kv -&gt; $number, $name {
+      for &lt;sqrt log&gt; -&gt; $func {
+         OUR::{&#39;&amp;&#39; ~ $func ~ &#39;-of-&#39; ~ $name } := sub { $number.&quot;$func&quot;() };
+      }
+   }
+}
+
+</pre>
+<pre class="pod-block-code"># main.raku
+use MyModule;
+say sqrt-of-four; # OUTPUT: «2␤»
+say log-of-zero;  # OUTPUT: «-Inf␤»
+</pre>
+<h3 id="EXPORT"><a class="u" href="#___top" title="go to top of document">EXPORT <a name="Documentable/integration-test/index-entry-sub_EXPORT"></a></a></h3>
+<p>You can export arbitrary symbols with an <code>EXPORT</code> sub. <code>EXPORT</code> must return a <a href="/Documentable/integration-test/type/Map">Map</a>, where the keys are the symbol names and the values are the desired values. The names should include the sigil (if any) for the associated type.</p>
+<pre class="pod-block-code"># lib/MyModule.rakumod
+
+class MyModule::Class { }
+
+sub EXPORT {
+    %(
+      &#39;$var&#39;      =&gt; &#39;one&#39;,
+      &#39;@array&#39;    =&gt; &lt;one two three&gt;,
+      &#39;%hash&#39;     =&gt; %( one =&gt; &#39;two&#39;, three =&gt; &#39;four&#39; ),
+      &#39;&amp;doit&#39;     =&gt; sub { say &#39;Greetings from exported sub&#39; },
+      &#39;ShortName&#39; =&gt; MyModule::Class
+    )
+}
+</pre>
+<pre class="pod-block-code"># main.raku
+use lib &#39;lib&#39;;
+use MyModule;
+say $var;          # OUTPUT: «one␤»
+say @array;        # OUTPUT: «(one two three)␤»
+say %hash;         # OUTPUT: «{one =&gt; two, three =&gt; four}␤»
+doit();            # OUTPUT: «Greetings from exported sub␤»
+say ShortName.new; # OUTPUT: «MyModule::Class.new␤»
+</pre>
+<p>Note, <code>EXPORT</code> can&#39;t be declared inside a package because it is part of the compunit rather than the package.</p>
+<p>Whereas <code>UNIT::EXPORT</code> packages deal with the named parameters passed to <code>use</code>, the <code>EXPORT</code> sub handles positional parameters. If you pass positional parameters to <code>use</code>, they will be passed to <code>EXPORT</code>. If a positional is passed, the module no longer exports default symbols. You may still import them explicitly by passing <code>:DEFAULT</code> to <code>use</code> along with your positional parameters.</p>
+<pre class="pod-block-code"># lib/MyModule
+
+class MyModule::Class {}
+
+sub EXPORT($short_name?) {
+    %(
+      do $short_name =&gt; MyModule::Class if $short_name
+    )
+}
+
+sub always is export(:MANDATORY) { say &quot;works&quot; }
+
+#import with :ALL or :DEFAULT to get
+sub shy is export { say &quot;you found me!&quot; }
+</pre>
+<pre class="pod-block-code"># main.raku
+use lib &#39;lib&#39;;
+use MyModule &#39;foo&#39;;
+say foo.new(); # OUTPUT: «MyModule::Class.new␤»
+
+always();      # OK   - is imported
+shy();         # FAIL - won&#39;t be imported
+</pre>
+<p>You can combine <code>EXPORT</code> with type captures for interesting effect. This example creates a <code>?</code> postfix which will only work on <a href="/Documentable/integration-test/type/Cool">Cool</a>s.</p>
+<pre class="pod-block-code"># lib/MakeQuestionable.rakumod
+sub EXPORT(::Questionable) {
+    my multi postfix:&lt;?&gt;(Questionable $_) { .so };
+    %(
+      &#39;&amp;postfix:&lt;?&gt;&#39; =&gt; &amp;postfix:&lt;?&gt;,
+    )
+}
+</pre>
+<pre class="pod-block-code">use MakeQuestionable Cool;
+say ( 0?, 1?, {}?, %( a =&gt; &quot;b&quot; )? ).join(&#39; &#39;); # OUTPUT: «False True False True␤»
+</pre>
+<h2 id="Introspection"><a class="u" href="#___top" title="go to top of document">Introspection</a></h2>
+<p>To list exported symbols of a module first query the export tags supported by the module.</p>
+<pre class="pod-block-code">use URI::Escape;
+say URI::Escape::EXPORT::.keys;
+# OUTPUT: «(DEFAULT ALL)␤»</pre>
+<p>Then use the tag you like and pick the symbol by its name.</p>
+<pre class="pod-block-code">say URI::Escape::EXPORT::DEFAULT::.keys;
+# OUTPUT: «(&amp;uri-escape &amp;uri-unescape &amp;uri_escape &amp;uri_unescape)␤»
+my &amp;escape-uri = URI::Escape::EXPORT::DEFAULT::&lt;&amp;uri_escape&gt;;</pre>
+<p>Be careful <em>not</em> to put <code>sub EXPORT</code> after <a href="/Documentable/integration-test/syntax/unit"><code>unit</code> declarator</a>. If you do so, it&#39;ll become just a sub inside your package, rather than the special export sub:</p>
+<pre class="pod-block-code">unit module Bar;
+sub EXPORT { %(Foo =&gt; &amp;say) } # WRONG!!! Sub is scoped wrong
+</pre>
+<pre class="pod-block-code">sub EXPORT { %(Foo =&gt; &amp;say) } # RIGHT!!! Sub is outside the module
+unit module Bar;
+</pre>
+<h2 id="Finding_installed_modules"><a class="u" href="#___top" title="go to top of document">Finding installed modules</a></h2>
+<p>It is up to the module installer to know where <code>compunit</code> expects modules to be placed. There will be a location provided by the <a href="/Documentable/integration-test/routine/distribution">distribution</a> and in the current home directory. In any case, letting the module installer deal with your modules is a safe bet.</p>
+<pre class="pod-block-code">cd your-module-dir
+zef --force install .
+</pre>
+<p><a name="Documentable/integration-test/index-entry-use_lib"></a> A user may have a collection of modules not found in the normal ecosystem, maintained by a module or package manager, but needed regularly. Instead of using the <code>use lib</code> <a href="/Documentable/integration-test/language/pragmas#index-entry-lib__pragma">pragma</a> one can use the <code>RAKULIB</code> environment variable to point to module locations. For example:</p>
+<pre class="pod-block-code">export RAKULIB=/path/to/my-modules,/path/to/more/modules
+</pre>
+<p>Note that the comma (&#39;,&#39;) is used as the directory separator.</p>
+<p>The include path will be searched recursively for any modules when Rakudo is started. Directories that start with a dot are ignored and symlinks are followed.</p>
+<h1 id="Distributing_modules"><a class="u" href="#___top" title="go to top of document">Distributing modules</a></h1>
+<p>If you&#39;ve written a Raku module and would like to share it with the community, we&#39;d be delighted to have it listed in the <a href="https://modules.raku.org">Raku modules directory</a>. <code>:)</code></p>
+<p>Currently there are two different module ecosystems (module distribution networks) available:</p>
+<ul><li><p><strong>CPAN</strong> This is the same ecosystem Perl is using. Modules are uploaded as <em>.zip</em> or <em>.tar.gz</em> files on <a href="https://pause.perl.org/">PAUSE</a>.</p>
+</li>
+<li><p><strong>p6c</strong> Up until recently the only ecosystem. It is based on Github repositories which are directly accessed. It has only limited capability for versioning.</p>
+</li>
+</ul>
+<p>The process of sharing your module consists of two steps, preparing the module and uploading the module to one of the ecosystems.</p>
+<h2 id="Preparing_the_module"><a class="u" href="#___top" title="go to top of document">Preparing the module</a></h2>
+<p>For a module to work in any of the ecosystems, it needs to follow a certain structure. Here is how to do that:</p>
+<ul><li><p>Create a project directory named after your module. For example, if your module is <code>Vortex::TotalPerspective</code>, then create a project directory named <code>Vortex-TotalPerspective</code>.</p>
+</li>
+<li><p>Make your project directory look like this:</p>
+<pre class="pod-block-code">Vortex-TotalPerspective/
+├── lib
+│   └── Vortex
+│       └── TotalPerspective.rakumod
+├── LICENSE
+├── META6.json
+├── README.md
+└── t
+    └── basic.t
+</pre>
+<p>If your project contains other modules that help the main module do its job, they should go in your lib directory like so:</p>
+<pre class="pod-block-code">lib
+└── Vortex
+    ├── TotalPerspective.rakumod
+    └── TotalPerspective
+        ├── FairyCake.rakumod
+        └── Gargravarr.rakumod
+</pre>
+</li>
+<li><p>If you have any additional files (such as templates or a dynamic library) that you wish to have installed so you can access them at runtime, they should be placed in a <code>resources</code> sub-directory of your project, e.g.:</p>
+<pre class="pod-block-code">resources
+└── templates
+        └── default-template.mustache
+</pre>
+<p>The file must then be referenced in <code>META6.json</code> (see below for more on <code>META6.json</code>) so that the distribution path can be provided to the program.</p>
+<pre class="pod-block-code">{
+    &quot;name&quot; : &quot;Vortex::TotalPerspective&quot;,
+    &quot;provides&quot; : {
+        &quot;Vortex::TotalPerspective&quot; : &quot;lib/Vortex/TotalPerspective.rakumod&quot;
+    },
+    &quot;resources&quot;: [ &quot;templates/default-template.mustache&quot;]
+}
+</pre>
+<p>The additional file can then be accessed inside module code:</p>
+<pre class="pod-block-code">my $template-text = %?RESOURCES&lt;templates/default-template.mustache&gt;.slurp;
+# Note that %?RESOURCES provides a C&lt;IO&gt; path object
+</pre>
+</li>
+<li><p>The <code>README.md</code> file is a <a href="https://help.github.com/articles/markdown-basics/">markdown-formatted</a> text file, which will later be automatically rendered as HTML by GitHub/GitLab for modules kept in those ecosystems or by <a href="https://modules.raku.org">modules.raku.org</a> website for modules kept on <a href="/Documentable/integration-test/language/faq#index-entry-CPAN_(FAQ)">CPAN</a>.</p>
+</li>
+<li><p>Regarding the <code>LICENSE</code> file, if you have no other preference, you might just use the same one that Rakudo Raku uses. Just copy/paste the raw form of <a href="https://github.com/rakudo/rakudo/blob/master/LICENSE">its license</a> into your own <code>LICENSE</code> file.</p>
+</li>
+<li><p>The license field in META6.json should be one of the standardized names listed here: <a href="https://spdx.org/licenses/">https://spdx.org/licenses/</a>. In the case of the <strong>Artistic 2.0</strong> license, which is what many of our ecosystem modules use, its identifier is <code>Artistic-2.0</code>. Having standardized identifiers make it easy for humans and computers alike to know which license was actually used by looking at the metadata!</p>
+</li>
+<li><p>If you can&#39;t find your license on <code>spdx.org</code> or you use your own license, you should put the license&#39;s name in the license field. For more details see <a href="https://design.raku.org/S22.html#license">https://design.raku.org/S22.html#license</a>.</p>
+</li>
+<li><p>If you don&#39;t yet have any tests, you can leave out the <code>t</code> directory and <code>basic.t</code> file for now. For more information on how to write tests (for now), you might have a look at how other modules use <code>Test</code>.</p>
+</li>
+<li><p>To document your modules, use <a href="/Documentable/integration-test/language/pod">Raku Pod</a> markup inside them. Module documentation is most appreciated and will be especially important once the Raku module directory (or some other site) begins rendering Pod docs as HTML for easy browsing. If you have extra docs (in addition to the Pod docs in your module(s)), create a <code>doc</code> directory for them. Follow the same folder structure as the <code>lib</code> directory like so:</p>
+<pre class="pod-block-code">doc
+└── Vortex
+    └── TotalPerspective.pod6
+</pre>
+<p><a href="#fn-6" id="fn-ref-6">[6]</a></p>
+<p>If your module requires extra processing during installation to fully integrate with and use non-Perl operating system resources, you may need to add a <a name="Documentable/integration-test/index-entry-Build.pm6-Build.pm6"><span class="index-entry"><code>Build.pm6</code></span></a> file (a &quot;build hook&quot;) to the top-level directory. It will be used by the <code>zef</code> installer as the first step in the installation process. See the README for <code>zef</code> for a brief example. Also see various usage scenarios in existing ecosystem modules such as <code>zef</code> itself.</p>
+</li>
+<li><p>Make your <a name="Documentable/integration-test/index-entry-META6.json-META6.json"><span class="index-entry"><code>META6.json</code></span></a> file look something like this:</p>
+<pre class="pod-block-code">{
+    &quot;perl&quot; : &quot;6.c&quot;,
+    &quot;name&quot; : &quot;Vortex::TotalPerspective&quot;,
+    &quot;api&quot;  : &quot;1&quot;,
+    &quot;auth&quot; : &quot;github:SomeAuthor&quot;,
+    &quot;version&quot; : &quot;0.0.1&quot;,
+    &quot;description&quot; : &quot;Wonderful simulation to get some perspective.&quot;,
+    &quot;authors&quot; : [ &quot;<var>Your Name</var>&quot; ],
+    &quot;license&quot; : &quot;Artistic-2.0&quot;,
+    &quot;provides&quot; : {
+        &quot;Vortex::TotalPerspective&quot; : &quot;lib/Vortex/TotalPerspective.rakumod&quot;
+    },
+    &quot;depends&quot; : [ ],
+    &quot;build-depends&quot; : [ ],
+    &quot;test-depends&quot; : [ ],
+    &quot;resources&quot; : [ ],
+    &quot;tags&quot;: [
+      &quot;Vortex&quot;, &quot;Total&quot;, &quot;Perspective&quot;
+    ],
+    &quot;source-url&quot; : &quot;git://github.com/<var>you</var>/Vortex-TotalPerspective.git&quot;
+}
+</pre>
+<p>The attributes in this file are analyzed by the <a href="https://github.com/jonathanstowe/META6"><code>META6</code></a> class. They are divided into optional, mandatory and <em>customary</em>. Mandatory are the ones you need to insert into your file, and customary are those used by the current Raku ecosystem and possibly displayed on the module page if it&#39;s published, but you have no obligation to use it.</p>
+<p>For choosing a version numbering scheme, try and use &quot;major.minor.patch&quot; (see <a href="https://design.raku.org/S11.html#Versioning">the spec on versioning</a> for further details). This will go into the <code>version</code> key of <code>META6.json</code>. This field is optional, but used by installation to match against installed version, if one exists. The <code>description</code> field is also mandatory, and includes a short description of the module.</p>
+<p>The <code>name</code> key is compulsory, and <code>zef</code> will fail if you do not include it. Even if you have created a META6.json file just to express the dependencies for a series of scripts, this section must be included.</p>
+<p>Optionally, you can set an <code>api</code> field. Incrementing this indicates that the interface provided by your module is not backwards compatible with a previous version. You can use it if you want to adhere to <a href="https://semver.org">Semantic Versioning</a>. A best practice is to simply keep the <code>api</code> field to the same value as your major version number. A dependency can then depend on your module by including a <code>:api</code> part, which will ensure backwards incompatible releases will not be pulled in.</p>
+<p>The <code>auth</code> section identifies the author in GitHub or other repository hosting site, such as Bitbucket or GitLab. This field is <em>customary</em>, since it&#39;s used to identify the author in the ecosystem, and opens the possibility of having modules with the same name and different authors.</p>
+<p>The <code>authors</code> section includes a list of all the module authors. In the case there is only one author, a single element list must be supplied. This field is optional.</p>
+<p>In the <code>provides</code> section, include all the namespaces provided by your distribution and that you wish to be installed; only module files that are explicitly included here will be installed and available with <code>use</code> or <code>require</code> in other programs. This field is mandatory.</p>
+<p>Set <code>perl</code> version to the minimum perl version your module works with. This field is mandatory. Use <code>6.c</code> if your module is valid for Christmas release and newer ones, use <code>6.d</code> if it requires, at least, the Diwali version.</p>
+<p>The <code>resources</code> section is optional, but, if present, should contain a list of the files in your <code>resources</code> directory that you wish to be installed. These will be installed with hashed names alongside your library files. Their installed location can be determined through the <code>%?RESOURCES</code> <code>Hash</code> indexed on the name provided. The <code>tags</code> section is also optional. It is used to describe the module in the Raku ecosystem.</p>
+<p>The <code>depends</code>, <code>build-depends</code>, and <code>test-depends</code> sections include different modules that are used in those phases of the of installation. All are optional, but they must obviously contain the modules that are going to be needed in those particular phases. These dependencies might optionally use <a href="/Documentable/integration-test/type/Version"><code>Version</code></a> specification strings; <code>zef</code> will check for the presence and versions of these modules and install or upgrade them if needed.</p>
+<pre class="pod-block-code">//...
+&quot;depends&quot;: [
+       &quot;URI&quot;,
+       &quot;File::Temp&quot;,
+       &quot;JSON::Fast&quot;,
+       &quot;Pod::To::BigPage:ver&lt;0.5.0+&gt;&quot;,
+       &quot;Pod::To::HTML:ver&lt;0.6.1+&gt;&quot;,
+       &quot;OO::Monitors&quot;,
+       &quot;File::Find&quot;,
+       &quot;Test::META&quot;
+],
+//...
+</pre>
+<p>Additionally, <code>depends</code> can be either an array as above or a hash that uses two keys, <code>runtime</code> and <code>build</code>, whose function should be self-descriptive, and which are used, for instance, <a href="https://github.com/niner/Inline-Python/blob/master/META6.json">in <code>Inline::Python</code></a>:</p>
+<pre class="pod-block-code">//...
+&quot;depends&quot; : {
+        &quot;build&quot;: {
+            &quot;requires&quot;: [
+                &quot;Distribution::Builder::MakeFromJSON&quot;,
+                {
+                    &quot;from&quot; : &quot;bin&quot;,
+                    &quot;name&quot; : {
+                        &quot;by-distro.name&quot; : {
+                            &quot;macosx&quot; : &quot;python2.7-config&quot;,
+                            &quot;debian&quot; : &quot;python2.7-config&quot;,
+                            &quot;&quot; : &quot;python2-config&quot;
+                        }
+                    }
+                }
+            ]
+        },
+        &quot;runtime&quot;: {
+            &quot;requires&quot;: [
+                &quot;python2.7:from&lt;native&gt;&quot;
+            ]
+        }
+}, // ...
+</pre>
+<p>In general, the array form will be more than enough for most cases.</p>
+<p>Finally, <code>source-url</code> indicates the URL of the repository where the module is developed; this is one of the customary modules if you are going to publish it in the module ecosystem. The current module ecosystem will link this URL from the project description. <a href="#fn-7" id="fn-ref-7">[7]</a></p>
+<p>The <a href="https://github.com/jonathanstowe/Test-META/"><code>Test::META</code> module</a> can help you check the correctness of the META6.json file; this module will check for all the mandatory fields and that the type used for all of them is correct.</p>
+<p>There are more fields described in the <a href="https://design.raku.org/S22.html#META6.json"><code>META</code> design documents</a>, but not all of these are implemented by existing package managers. Hence you should stick to the fields described in the above example block to ensure compatibility with existing package managers such as <code>zef</code>. You can also check <a href="https://github.com/moritz/perl6-all-modules/search?l=JSON&q=META6.json&type=">Moritz Lenz&#39;s repository of all modules for examples</a>, but bear in mind that some of them might use fields, such as <code>source-type</code> above, which are currently ignored.</p>
+</li>
+<li><p>If you want to test your module you can use the following command to install the module directly from the module folder you just created.</p>
+<pre class="pod-block-code">zef install ./your-module-folder
+</pre>
+<p>Note that doing so precompiles and installs your module. If you make changes to the source, you&#39;ll need to re-install the module. (See <code>use lib</code> <a href="/Documentable/integration-test/language/pragmas#index-entry-lib__pragma">pragma</a>, <code>-I</code> command line switch, or <code>PERL6LIB</code> env variable, to include a path to your module source while developing it, so you don&#39;t have to install it at all).</p>
+</li>
+</ul>
+<h2 id="Upload_your_module_to_CPAN"><a class="u" href="#___top" title="go to top of document">Upload your module to CPAN</a></h2>
+<p>Uploading a module to CPAN is the preferred way of distributing Raku modules.</p>
+<p>A prerequisite for this is a <a href="https://pause.perl.org/">PAUSE</a> user account. If you don&#39;t have an account already, you can create one <a href="https://pause.perl.org/pause/query?ACTION=request_id">here</a> The process takes about 5 minutes and some e-mail back and forth.</p>
+<ul><li><p>Create a package of your module:</p>
+<pre class="pod-block-code">cd your-module-folder
+tar czf Vortex-TotalPerspective-0.0.1.tar.gz \
+  --transform s/^\./Vortex-TotalPerspective-0.0.1/ --exclude-vcs\
+  --exclude=.[^/]*
+</pre>
+<p>If you use git you can also use the following command to create a package directly for a given commit.</p>
+<pre class="pod-block-code">git archive --prefix=Vortex-TotalPerspective-0.0.1/ \
+  -o ../Vortex-TotalPerspective-0.0.1.tar.gz HEAD
+</pre>
+</li>
+<li><p>Go to <a href="https://pause.perl.org/">PAUSE</a>, log in and navigate to <code>Upload a file to CPAN</code>.</p>
+</li>
+<li><p>Make sure you select <code>Perl6</code> as the <em>Target Directory</em>. For your first upload, you have to enter the string <code>Perl6</code> in the text field. On subsequent uploads, you can select the <code>Perl6</code> directory from the selection box right below the input field.</p>
+</li>
+<li><p>Select your file and click <em>Upload</em>! If everything was fine with your dist, you should see your module tar file in your <code>Perl6</code> directory along with both a <code>META</code> and a <code>README</code> file named after your module filename.</p>
+<p><em>Make sure you have a META6.json file in your dist and that the dist version you&#39;re uploading is higher than the currently uploaded version. Those are the most common upload errors.</em></p>
+</li>
+</ul>
+<h2 id="Upload_your_module_to_p6c"><a class="u" href="#___top" title="go to top of document">Upload your module to p6c</a></h2>
+<p>If you want to use the <em>p6c</em> ecosystem you need to use git for your module&#39;s version control. The instructions herein assume that you have a <a href="https://github.com">GitHub</a> account so that your module can be shared from its GitHub repository, however another provider such as <a href="https://about.gitlab.com/">GitLab</a> should work as long as it works in a similar way.</p>
+<ul><li><p>Put your project under git version control if you haven&#39;t done so already.</p>
+</li>
+<li><p>Once you&#39;re happy with your project, create a repository for it on GitHub. See <a href="https://help.github.com/">GitHub&#39;s help docs</a> if necessary. Your GitHub repository should be named the same as your project directory. Immediately after creating the GitHub repo, GitHub shows you how to configure your local repository to know about your GitHub repository.</p>
+</li>
+<li><p>Push your project to GitHub.</p>
+</li>
+<li><p>Consider setting up automated testing (see <a href="https://docs.travis-ci.com/user/languages/perl6">https://docs.travis-ci.com/user/languages/perl6</a>).</p>
+</li>
+<li><p>Create a PR (Pull Request) on <a href="https://github.com/Raku/ecosystem">ecosystem</a> adding your module to META.list, or ping someone on IRC (#raku at freenode) to get help having it added.</p>
+</li>
+<li><p>After the pull request has been accepted, wait for an hour. If your module doesn&#39;t show up on <a href="https://modules.raku.org/">https://modules.raku.org/</a>, please view the log file at <a href="https://modules.raku.org/update.log">https://modules.raku.org/update.log</a> to see if it identifies an error with your module or <code>meta</code> file.</p>
+</li>
+</ul>
+<p><strong>That&#39;s it! Thanks for contributing to the Raku community!</strong></p>
+<p>If you&#39;d like to try out installing your module, use the <a name="Documentable/integration-test/index-entry-zef"><span class="index-entry">zef</span></a> module installer tool which is included with Rakudo Star Raku:</p>
+<pre class="pod-block-code">zef install Vortex::TotalPerspective
+</pre>
+<p>This will download your module to its own working directory (<code>~/.zef</code>), build it there, and install the module into your local Raku installation directory.</p>
+<p>To use <code>Vortex::TotalPerspective</code> from your scripts, just write <code>use Vortex::TotalPerspective</code>, and your Raku implementation will know where to look for the module file(s).</p>
+<h1 id="Modules_and_tools_related_to_module_authoring"><a class="u" href="#___top" title="go to top of document">Modules and tools related to module authoring</a></h1>
+<p>You can find a list of modules and tools that aim to improve the experience of writing/test modules at <a href="/Documentable/integration-test/language/modules-extra">Modules Extra</a></p>
+<h2 id="Contact_information"><a class="u" href="#___top" title="go to top of document">Contact information</a></h2>
+<p>To discuss module development in general, or if your module would fill a need in the ecosystem, naming, etc., you can use the <a href="irc://irc.freenode.net/#raku">raku on irc.freenode.net</a> IRC channel.</p>
+<p>To discuss toolchain specific questions, you can use the <a href="irc://irc.freenode.net/#perl6-toolchain">perl6-toolchain on irc.freenode.net</a> IRC channel. A repository to discuss tooling issues is also available at <a href="https://github.com/perl6/toolchain-bikeshed">https://github.com/perl6/toolchain-bikeshed</a>.</p>
+
+        </div>
+    </div>
+
+    <aside><ol start="1">
+<li><a href="#fn-ref-1" id="fn-1">[↑]</a> Technically a module is a set of <em>compunits</em> which are usually files but could come from anywhere as long as there is a <em>compunit repository</em> that can provide it. See <a href="https://design.raku.org/S11.html">S11</a>. </li>
+<li><a href="#fn-ref-2" id="fn-2">[↑]</a> If it&#39;s installed, it will reinstall only if the version of the module is newer than the one installed </li>
+<li><a href="#fn-ref-3" id="fn-3">[↑]</a> As <a href="https://design.raku.org/S11.html#Units">synopsis S11</a> says: Confusing? Yes it is. </li>
+<li><a href="#fn-ref-4" id="fn-4">[↑]</a> The old <code>.p6</code> (or <code>.pl6</code>), <code>.pm6</code> (or <code>.pm</code> which is also supported, but discouraged) and <code>.pod6</code> extensions will continue to be supported for 6.e and marked as <strong>deprecated</strong> in 6.f </li>
+<li><a href="#fn-ref-5" id="fn-5">[↑]</a> This change was introduced in late 2016. If you are using versions older than this, behavior will be different </li>
+<li><a href="#fn-ref-6" id="fn-6">[↑]</a> Note, described above is a minimal project directory. If your project contains scripts that you&#39;d like distributed along with your module(s), put them in a <code>bin</code> directory. If you&#39;d like a graphical logo to appear next to your module at the module directory, create a <code>logotype</code> directory and put into it a <code>logo_32x32.png</code> file. At some point, you might also consider adding <code>CONTRIBUTORS</code>, <code>NEWS</code>, <code>TODO</code>, or other files. </li>
+<li><a href="#fn-ref-7" id="fn-7">[↑]</a> Some old modules also provide a <code>source-type</code> field, which was used to indicate the kind of source control system, generally <code>git</code>, which can be used to download the module. However, this field is nowadays ignored by <code>zef</code> and the rest of the tools. </li>
+</ol></aside>
+
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/modules.pod6">https://github.com/Raku/doc/blob/master/doc/Language/modules.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

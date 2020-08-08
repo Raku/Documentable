@@ -1,0 +1,55 @@
+digraph "perl6-type-graph" {
+    rankdir=BT;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "Iterable" [color="#6666FF", fontcolor="#6666FF", href="/type/Iterable", fontname="FreeSans"];
+    "Mu" [color="#000000", fontcolor="#000000", href="/type/Mu", fontname="FreeSans"];
+    "Any" [color="#000000", fontcolor="#000000", href="/type/Any", fontname="FreeSans"];
+    "PositionalBindFailover" [color="#6666FF", fontcolor="#6666FF", href="/type/PositionalBindFailover", fontname="FreeSans"];
+    "Sequence" [color="#6666FF", fontcolor="#6666FF", href="/type/Sequence", fontname="FreeSans"];
+    "HyperSeq" [color="#000000", fontcolor="#000000", href="/type/HyperSeq", fontname="FreeSans"];
+    "RaceSeq" [color="#000000", fontcolor="#000000", href="/type/RaceSeq", fontname="FreeSans"];
+    "Cool" [color="#000000", fontcolor="#000000", href="/type/Cool", fontname="FreeSans"];
+    "Positional" [color="#6666FF", fontcolor="#6666FF", href="/type/Positional", fontname="FreeSans"];
+    "Range" [color="#000000", fontcolor="#000000", href="/type/Range", fontname="FreeSans"];
+    "List" [color="#000000", fontcolor="#000000", href="/type/List", fontname="FreeSans"];
+    "Associative" [color="#6666FF", fontcolor="#6666FF", href="/type/Associative", fontname="FreeSans"];
+    "Map" [color="#000000", fontcolor="#000000", href="/type/Map", fontname="FreeSans"];
+    "Seq" [color="#000000", fontcolor="#000000", href="/type/Seq", fontname="FreeSans"];
+    "Slip" [color="#000000", fontcolor="#000000", href="/type/Slip", fontname="FreeSans"];
+    "Array" [color="#000000", fontcolor="#000000", href="/type/Array", fontname="FreeSans"];
+    "Hash" [color="#000000", fontcolor="#000000", href="/type/Hash", fontname="FreeSans"];
+    "PseudoStash" [color="#000000", fontcolor="#000000", href="/type/PseudoStash", fontname="FreeSans"];
+    "Stash" [color="#000000", fontcolor="#000000", href="/type/Stash", fontname="FreeSans"];
+
+    // Superclasses
+    "Any" -> "Mu" [color="#000000"];
+    "HyperSeq" -> "Any" [color="#000000"];
+    "RaceSeq" -> "Any" [color="#000000"];
+    "Cool" -> "Any" [color="#000000"];
+    "Range" -> "Cool" [color="#000000"];
+    "List" -> "Cool" [color="#000000"];
+    "Map" -> "Cool" [color="#000000"];
+    "Seq" -> "Cool" [color="#000000"];
+    "Slip" -> "List" [color="#000000"];
+    "Array" -> "List" [color="#000000"];
+    "Hash" -> "Map" [color="#000000"];
+    "PseudoStash" -> "Map" [color="#000000"];
+    "Stash" -> "Hash" [color="#000000"];
+
+    // Roles
+    "Sequence" -> "PositionalBindFailover" [color="#6666FF"];
+    "HyperSeq" -> "Iterable" [color="#6666FF"];
+    "HyperSeq" -> "Sequence" [color="#6666FF"];
+    "RaceSeq" -> "Iterable" [color="#6666FF"];
+    "RaceSeq" -> "Sequence" [color="#6666FF"];
+    "Range" -> "Positional" [color="#6666FF"];
+    "Range" -> "Iterable" [color="#6666FF"];
+    "List" -> "Positional" [color="#6666FF"];
+    "List" -> "Iterable" [color="#6666FF"];
+    "Map" -> "Iterable" [color="#6666FF"];
+    "Map" -> "Associative" [color="#6666FF"];
+    "Seq" -> "Iterable" [color="#6666FF"];
+    "Seq" -> "Sequence" [color="#6666FF"];
+}

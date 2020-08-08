@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>class Documentable::Search</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/">
+            <img src="/Documentable/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/language.html"> Language </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/routine.html"> Routines </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/type.html"> All </a>
+                    <a class="menu-item" href="/Documentable/type-basic.html"> Basic </a>
+                    <a class="menu-item" href="/Documentable/type-html-generation.html"> HTML Generation </a>
+                    <a class="menu-item" href="/Documentable/type-exception.html"> Exceptions </a>
+            </div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/Documentable/tree/master/docs/Type/Documentable/Search.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">class Documentable::Search</h1>
+        <p class="subtitle">Search entries generator.</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+                 <tr class="toc-level-2"><td class="toc-number">0.1</td><td class="toc-text"><a href="#method_new">method new</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">0.2</td><td class="toc-text"><a href="#method_registry">method registry</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">0.3</td><td class="toc-text"><a href="#method_generate-entries">method generate-entries</a></td></tr>
+                                      <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Type_Graph">Type Graph</a></td></tr>
+ 
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <pre class="editor editor-colors"><div class="line"><span class="source perl6fe"><span class="meta class perl6fe"><span class="storage type class perl6fe"><span>class</span></span><span>&nbsp;</span><span class="entity name type class perl6fe"><span>Documentable::Search</span></span></span><span>&nbsp;</span><span class="meta block perl6fe"><span class="punctuation definition block perl6fe"><span>{</span><span>}</span></span></span></span></div></pre><p>Takes a <a href="/Documentable/type/Documentable::Registry">Documentable::Registry</a> and generate all the necessary entries to enable search capabilities.</p>
+<p>What is an entry? Is a JSON object with three different attributes:</p>
+<pre class="editor editor-colors"><div class="line"><span class="source perl6fe"><span class="meta block perl6fe"><span class="punctuation definition block perl6fe"><span>{</span></span></span></span></div><div class="line"><span class="source perl6fe"><span class="meta block perl6fe"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="string quoted double perl6fe"><span class="punctuation definition string begin perl6fe"><span>&quot;</span></span><span>category</span><span class="punctuation definition string end perl6fe"><span>&quot;</span></span></span><span class="keyword operator generic perl6fe"><span>:</span></span><span>&nbsp;</span><span class="string quoted double perl6fe"><span class="punctuation definition string begin perl6fe"><span>&quot;</span></span><span>text&nbsp;displayed&nbsp;at&nbsp;the&nbsp;beginning</span><span class="punctuation definition string end perl6fe"><span>&quot;</span></span></span><span>,</span></span></span></div><div class="line"><span class="source perl6fe"><span class="meta block perl6fe"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="string quoted double perl6fe"><span class="punctuation definition string begin perl6fe"><span>&quot;</span></span><span>value</span><span class="punctuation definition string end perl6fe"><span>&quot;</span></span></span><span class="keyword operator generic perl6fe"><span>:</span></span><span>&nbsp;</span><span class="string quoted double perl6fe"><span class="punctuation definition string begin perl6fe"><span>&quot;</span></span><span>text&nbsp;displayed&nbsp;just&nbsp;under&nbsp;category</span><span class="punctuation definition string end perl6fe"><span>&quot;</span></span></span><span>,</span></span></span></div><div class="line"><span class="source perl6fe"><span class="meta block perl6fe"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="string quoted double perl6fe"><span class="punctuation definition string begin perl6fe"><span>&quot;</span></span><span>url</span><span class="punctuation definition string end perl6fe"><span>&quot;</span></span></span><span class="keyword operator generic perl6fe"><span>:</span></span><span>&nbsp;</span><span class="string quoted double perl6fe"><span class="punctuation definition string begin perl6fe"><span>&quot;</span></span><span>url&nbsp;to&nbsp;the&nbsp;document&nbsp;pointed&nbsp;by&nbsp;the&nbsp;entry</span><span class="punctuation definition string end perl6fe"><span>&quot;</span></span></span></span></span></div><div class="line"><span class="source perl6fe"><span class="meta block perl6fe"><span class="punctuation definition block perl6fe"><span>}</span></span></span></span></div></pre><h2 id="method_new"><a class="u" href="#___top" title="go to top of document">method new</a></h2>
+<p>Defined as</p>
+<pre class="editor editor-colors"><div class="line"><span class="source perl6fe"><span class="storage type declarator type perl6fe"><span>method</span></span><span>&nbsp;</span><span class="entity name function perl6fe"><span>new</span></span><span>(</span><span class="keyword operator generic perl6fe"><span>:</span></span><span class="meta variable container perl6fe"><span class="variable other identifier sigil perl6fe"><span>$</span></span><span class="variable other identifier perl6fe"><span>registry</span></span></span><span>)</span></span></div></pre><p>Creates a new instance of the class.</p>
+<h2 id="method_registry"><a class="u" href="#___top" title="go to top of document">method registry</a></h2>
+<p>Defined as</p>
+<pre class="editor editor-colors"><div class="line"><span class="source perl6fe"><span class="storage type declarator type perl6fe"><span>method</span></span><span>&nbsp;</span><span class="entity name function perl6fe"><span>registry</span></span><span>(</span><span class="keyword operator multi-symbol perl6fe"><span>--&gt;</span></span><span>&nbsp;</span><span class="routine name perl6fe"><span>Documentable</span></span><span>::</span><span class="routine name perl6fe"><span>Registry</span></span><span>)</span></span></div></pre><p><a href="/Documentable/type/Documentable::Registry">Documentable::Registry</a> object used to generate the entries.</p>
+<h2 id="method_generate-entries"><a class="u" href="#___top" title="go to top of document">method generate-entries</a></h2>
+<p>Defined as</p>
+<pre class="editor editor-colors"><div class="line"><span class="source perl6fe"><span class="storage type declarator type perl6fe"><span>method</span></span><span>&nbsp;</span><span class="entity name function perl6fe"><span>generate-entries</span></span><span>(</span><span class="keyword operator multi-symbol perl6fe"><span>--&gt;</span></span><span>&nbsp;</span><span class="support type perl6fe"><span>Array</span></span><span>[</span><span class="support type perl6fe"><span>Str</span></span><span>])</span></span></div></pre><p>Generates all search entries and store them in an <code>Array</code>. It generates three kind of entries:</p>
+<ul><li><p><strong>Primary entries:</strong> these entries come from <a href="/Documentable/type/Documentable::Primary">Documentable::Primary</a> objects. We initialize one entry per instance of that class found in the registry as follows:</p>
+<pre class="editor editor-colors"><div class="line"><span class="source perl6fe"><span class="storage type declarator type perl6fe"><span>category</span></span><span>&nbsp;</span><span>=&gt;</span><span>&nbsp;</span><span class="routine name perl6fe"><span>subkind</span></span><span>&nbsp;</span><span class="routine name perl6fe"><span>attribute</span></span></span></div><div class="line"><span class="source perl6fe"><span class="string pair key perl6fe"><span>value&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="keyword operator multi-symbol perl6fe"><span>=&gt;</span></span><span>&nbsp;</span><span class="support function perl6fe"><span>name</span></span><span>&nbsp;</span><span class="routine name perl6fe"><span>attribute</span></span></span></div><div class="line"><span class="source perl6fe"><span class="string pair key perl6fe"><span>url&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="keyword operator multi-symbol perl6fe"><span>=&gt;</span></span><span>&nbsp;</span><span class="routine name perl6fe"><span>url</span></span><span>&nbsp;</span><span class="routine name perl6fe"><span>attribute</span></span></span></div></pre></li>
+<li><p><strong>Secondary entries:</strong> these entries come from <a href="/Documentable/type/Documentable::Secondary">Documentable::Secondary</a> objects. Before create any entry of this type, we group all <code>Documentable::Secondary</code> objects by name and after that, we generate one entry per group, as follows:</p>
+<pre class="editor editor-colors"><div class="line"><span class="source perl6fe"><span class="storage type declarator type perl6fe"><span>category</span></span><span>&nbsp;</span><span>=&gt;</span><span>&nbsp;</span><span class="routine name perl6fe"><span>kind</span></span><span>&nbsp;</span><span class="routine name perl6fe"><span>attribute</span></span><span>&nbsp;</span><span class="keyword control conditional perl6fe"><span>if</span></span><span>&nbsp;</span><span class="routine name perl6fe"><span>more</span></span><span>&nbsp;</span><span class="routine name perl6fe"><span>than</span></span><span>&nbsp;</span><span class="support function perl6fe"><span>one</span></span><span>&nbsp;</span><span class="routine name perl6fe"><span>document</span></span><span>&nbsp;</span><span class="storage modifier type constraints perl6fe"><span>is</span></span><span>&nbsp;</span><span class="routine name perl6fe"><span>found</span></span><span class="keyword operator generic perl6fe"><span>.</span></span><span>&nbsp;</span><span class="routine name perl6fe"><span>Subkind</span></span><span>&nbsp;</span><span class="routine name perl6fe"><span>attribute</span></span><span>&nbsp;</span><span class="routine name perl6fe"><span>otherwise</span></span></span></div><div class="line"><span class="source perl6fe"><span class="string pair key perl6fe"><span>value&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="keyword operator multi-symbol perl6fe"><span>=&gt;</span></span><span>&nbsp;</span><span class="support function perl6fe"><span>name</span></span><span>&nbsp;</span><span class="routine name perl6fe"><span>attribute</span></span></span></div><div class="line"><span class="source perl6fe"><span class="string pair key perl6fe"><span>url&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="keyword operator multi-symbol perl6fe"><span>=&gt;</span></span><span>&nbsp;</span><span class="routine name perl6fe"><span>url</span></span><span>&nbsp;</span><span class="routine name perl6fe"><span>attribute</span></span></span></div></pre></li>
+<li><p><strong>Reference entries:</strong> these entries come from <a href="/Documentable/type/Documentable::Index">Documentable::Index</a> objects. One entry per found object.</p>
+<pre class="editor editor-colors"><div class="line"><span class="source perl6fe"><span class="storage type declarator type perl6fe"><span>category</span></span><span>&nbsp;</span><span>=&gt;</span><span>&nbsp;</span><span class="routine name perl6fe"><span>kind</span></span><span>&nbsp;</span><span class="routine name perl6fe"><span>attribute</span></span><span>&nbsp;(</span><span class="routine name perl6fe"><span>it</span></span><span>&#39;</span><span class="routine name perl6fe"><span>s</span></span><span>&nbsp;</span><span class="routine name perl6fe"><span>always</span></span><span>&nbsp;</span><span class="routine name perl6fe"><span>Kind</span></span><span>::</span><span class="routine name perl6fe"><span>Reference</span></span><span>)</span></span></div><div class="line"><span class="source perl6fe"><span class="string pair key perl6fe"><span>value&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="keyword operator multi-symbol perl6fe"><span>=&gt;</span></span><span>&nbsp;</span><span class="support function perl6fe"><span>name</span></span><span>&nbsp;</span><span class="routine name perl6fe"><span>attribute</span></span></span></div><div class="line"><span class="source perl6fe"><span class="string pair key perl6fe"><span>url&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="keyword operator multi-symbol perl6fe"><span>=&gt;</span></span><span>&nbsp;</span><span class="routine name perl6fe"><span>url</span></span><span>&nbsp;</span><span class="routine name perl6fe"><span>attribute</span></span></span></div></pre></li>
+</ul>
+<h1 id="Type_Graph"><a class="u" href="#___top" title="go to top of document">Type Graph</a></h1>
+<figure>
+  <figcaption>Type relations for <code>Documentable::Search</code></figcaption>
+  <svg width="225pt" height="116pt"
+ viewBox="0.00 0.00 225.08 116.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 112)">
+<title>perl6&#45;type&#45;graph</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-112 221.08,-112 221.08,4 -4,4"/>
+<!-- Documentable::Search -->
+<g id="node1" class="node">
+<title>Documentable::Search</title>
+<g id="a_node1"><a xlink:href="/type/Documentable::Search" xlink:title="Documentable::Search">
+<ellipse fill="none" stroke="#000000" cx="108.54" cy="-18" rx="108.58" ry="18"/>
+<text text-anchor="middle" x="108.54" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">Documentable::Search</text>
+</a>
+</g>
+</g>
+<!-- Any -->
+<g id="node2" class="node">
+<title>Any</title>
+<g id="a_node2"><a xlink:href="/type/Any" xlink:title="Any">
+<ellipse fill="none" stroke="#000000" cx="108.54" cy="-90" rx="27" ry="18"/>
+<text text-anchor="middle" x="108.54" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Any</text>
+</a>
+</g>
+</g>
+<!-- Documentable::Search&#45;&gt;Any -->
+<g id="edge1" class="edge">
+<title>Documentable::Search&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M108.54,-36.3C108.54,-44.02 108.54,-53.29 108.54,-61.89"/>
+<polygon fill="#000000" stroke="#000000" points="105.04,-61.9 108.54,-71.9 112.04,-61.9 105.04,-61.9"/>
+</g>
+</g>
+</svg>
+
+  <p class="fallback">
+    <a
+      rel="alternate"
+      href="/images/type-graph-Documentable%3A%3ASearch.svg"
+      type="image/svg+xml"
+      >Expand above chart</a
+    >
+  </p>
+</figure>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/Documentable/tree/master/docs/Type/Documentable/Search.pod6">https://github.com/Raku/Documentable/tree/master/docs/Type/Documentable/Search.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/js/search.js?v=3"></script>
+</body>
+</html>
+

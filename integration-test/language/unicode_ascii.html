@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Unicode versus ASCII symbols</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/unicode_ascii.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Unicode versus ASCII symbols</h1>
+        <p class="subtitle">Unicode symbols and their ASCII equivalents</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+      <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Alphabetic_characters">Alphabetic characters</a></td></tr>
+                  <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Numeric_characters">Numeric characters</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Numeric_values">Numeric values</a></td></tr>
+       <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#Whitespace_characters">Whitespace characters</a></td></tr>
+        <tr class="toc-level-1"><td class="toc-number">5</td><td class="toc-text"><a href="#Other_acceptable_single_codepoints">Other acceptable single codepoints</a></td></tr>
+                                                                                                                                                                                                                                                                                      <tr class="toc-level-2"><td class="toc-number">5.1</td><td class="toc-text"><a href="#Atomic_operators">Atomic operators</a></td></tr>
+                                          <tr class="toc-level-1"><td class="toc-number">6</td><td class="toc-text"><a href="#Multiple_codepoints">Multiple codepoints</a></td></tr>
+                         
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>The following Unicode symbols can be used in Raku without needing to load any additional modules. Some of them have equivalents which can be typed with ASCII-only characters.</p>
+<p>Reference is made below to various properties of unicode codepoints. The definitive list can be found here: <a href="https://www.unicode.org/Public/UCD/latest/ucd/PropList.txt">https://www.unicode.org/Public/UCD/latest/ucd/PropList.txt</a>.</p>
+<h1 id="Alphabetic_characters"><a class="u" href="#___top" title="go to top of document">Alphabetic characters</a></h1>
+<p>Any codepoint that has the <code>Ll</code> (Letter, lowercase), <code>Lu</code> (Letter, uppercase), <code>Lt</code> (Letter, titlecase), <code>Lm</code> (Letter, modifier), or the <code>Lo</code> (Letter, other) property can be used just like any other alphabetic character from the ASCII range.</p>
+<pre class="pod-block-code">my $Δ = 1;
+$Δ++;
+say $Δ;
+</pre>
+<h1 id="Numeric_characters"><a class="u" href="#___top" title="go to top of document">Numeric characters</a></h1>
+<p>Any codepoint that has the <code>Nd</code> (Number, decimal digit) property, can be used as a digit in any number. For example:</p>
+<pre class="pod-block-code">my $var = １９; # U+FF11 U+FF19
+say $var + 2;  # OUTPUT: «21␤»</pre>
+<h1 id="Numeric_values"><a class="u" href="#___top" title="go to top of document">Numeric values</a></h1>
+<p>Any codepoint that has the <code>No</code> (Number, other) or <code>Nl</code> (Number, letter) property can be used standalone as a numeric value, such as ½ and ⅓. (These aren&#39;t decimal digit characters, so can&#39;t be combined.) For example:</p>
+<pre class="pod-block-code">my $var = ⅒ + 2 + Ⅻ; # here ⅒ is No and Rat and Ⅻ is Nl and Int
+say $var;            # OUTPUT: «14.1␤»</pre>
+<h1 id="Whitespace_characters"><a class="u" href="#___top" title="go to top of document">Whitespace characters</a></h1>
+<p>Besides spaces and tabs you can use any other unicode whitespace character that has the <code>Zs</code> (Separator, space), <code>Zl</code> (Separator, line), or <code>Zp</code> (Separator, paragraph) property.</p>
+<h1 id="Other_acceptable_single_codepoints"><a class="u" href="#___top" title="go to top of document">Other acceptable single codepoints</a></h1>
+<p>This list contains the single codepoints [and their ASCII equivalents] that have a special meaning in Raku.</p>
+<p><a name="Documentable/integration-test/index-entry-«"></a><a name="Documentable/integration-test/index-entry-»"></a><a name="Documentable/integration-test/index-entry-×"></a><a name="Documentable/integration-test/index-entry-÷"></a><a name="Documentable/integration-test/index-entry-≤"></a><a name="Documentable/integration-test/index-entry-≥"></a><a name="Documentable/integration-test/index-entry-≠"></a><a name="Documentable/integration-test/index-entry-−"></a><a name="Documentable/integration-test/index-entry-∘"></a><a name="Documentable/integration-test/index-entry-≅"></a><a name="Documentable/integration-test/index-entry-π"></a><a name="Documentable/integration-test/index-entry-τ"></a><a name="Documentable/integration-test/index-entry-𝑒"></a><a name="Documentable/integration-test/index-entry-∞"></a><a name="Documentable/integration-test/index-entry-…"></a><a name="Documentable/integration-test/index-entry-‘"></a><a name="Documentable/integration-test/index-entry-’"></a><a name="Documentable/integration-test/index-entry-‚"></a><a name="Documentable/integration-test/index-entry-“"></a><a name="Documentable/integration-test/index-entry-”"></a><a name="Documentable/integration-test/index-entry-„"></a><a name="Documentable/integration-test/index-entry-｢"></a><a name="Documentable/integration-test/index-entry-｣"></a><a name="Documentable/integration-test/index-entry-⁺"></a><a name="Documentable/integration-test/index-entry-⁻"></a><a name="Documentable/integration-test/index-entry-¯"></a><a name="Documentable/integration-test/index-entry-⁰"></a><a name="Documentable/integration-test/index-entry-¹"></a><a name="Documentable/integration-test/index-entry-²"></a><a name="Documentable/integration-test/index-entry-³"></a><a name="Documentable/integration-test/index-entry-⁴"></a><a name="Documentable/integration-test/index-entry-⁵"></a><a name="Documentable/integration-test/index-entry-⁶"></a><a name="Documentable/integration-test/index-entry-⁷"></a><a name="Documentable/integration-test/index-entry-⁸"></a><a name="Documentable/integration-test/index-entry-⁹"></a><a name="Documentable/integration-test/index-entry-∈"></a><a name="Documentable/integration-test/index-entry-∉"></a><a name="Documentable/integration-test/index-entry-∋"></a><a name="Documentable/integration-test/index-entry-∌"></a><a name="Documentable/integration-test/index-entry-⊆"></a><a name="Documentable/integration-test/index-entry-⊈"></a><a name="Documentable/integration-test/index-entry-⊂"></a><a name="Documentable/integration-test/index-entry-⊄"></a><a name="Documentable/integration-test/index-entry-⊇"></a><a name="Documentable/integration-test/index-entry-⊉"></a><a name="Documentable/integration-test/index-entry-⊃"></a><a name="Documentable/integration-test/index-entry-⊅"></a><a name="Documentable/integration-test/index-entry-≼"></a><a name="Documentable/integration-test/index-entry-≽"></a><a name="Documentable/integration-test/index-entry-∪"></a><a name="Documentable/integration-test/index-entry-∩"></a><a name="Documentable/integration-test/index-entry-∖"></a><a name="Documentable/integration-test/index-entry-⊖"></a><a name="Documentable/integration-test/index-entry-⊍"></a><a name="Documentable/integration-test/index-entry-⊎"></a></p>
+<table class="pod-table">
+<thead><tr>
+<th>Symbol</th> <th>Codepoint</th> <th>ASCII</th> <th>Remarks</th>
+</tr></thead>
+<tbody>
+<tr> <td>«</td> <td>U+00AB</td> <td>&lt;&lt;</td> <td>as part of «» or .« or regex left word boundary</td> </tr> <tr> <td>»</td> <td>U+00BB</td> <td>&gt;&gt;</td> <td>as part of «» or .» or regex right word boundary</td> </tr> <tr> <td>×</td> <td>U+00D7</td> <td>*</td> <td></td> </tr> <tr> <td>÷</td> <td>U+00F7</td> <td>/</td> <td></td> </tr> <tr> <td>≤</td> <td>U+2264</td> <td>&lt;=</td> <td></td> </tr> <tr> <td>≥</td> <td>U+2265</td> <td>&gt;=</td> <td></td> </tr> <tr> <td>≠</td> <td>U+2260</td> <td>!=</td> <td></td> </tr> <tr> <td>−</td> <td>U+2212</td> <td>-</td> <td></td> </tr> <tr> <td>∘</td> <td>U+2218</td> <td>o</td> <td></td> </tr> <tr> <td>≅</td> <td>U+2245</td> <td>=~=</td> <td></td> </tr> <tr> <td>π</td> <td>U+03C0</td> <td>pi</td> <td>3.14159_26535_89793_238e0</td> </tr> <tr> <td>τ</td> <td>U+03C4</td> <td>tau</td> <td>6.28318_53071_79586_476e0</td> </tr> <tr> <td>𝑒</td> <td>U+1D452</td> <td>e</td> <td>2.71828_18284_59045_235e0</td> </tr> <tr> <td>∞</td> <td>U+221E</td> <td>Inf</td> <td></td> </tr> <tr> <td>…</td> <td>U+2026</td> <td>...</td> <td></td> </tr> <tr> <td>‘</td> <td>U+2018</td> <td>&#39;</td> <td>as part of ‘’ or ’‘</td> </tr> <tr> <td>’</td> <td>U+2019</td> <td>&#39;</td> <td>as part of ‘’ or ‚’ or ’‘</td> </tr> <tr> <td>‚</td> <td>U+201A</td> <td>&#39;</td> <td>as part of ‚‘ or ‚’</td> </tr> <tr> <td>“</td> <td>U+201C</td> <td>&quot;</td> <td>as part of “” or ”“</td> </tr> <tr> <td>”</td> <td>U+201D</td> <td>&quot;</td> <td>as part of “” or ”“ or ””</td> </tr> <tr> <td>„</td> <td>U+201E</td> <td>&quot;</td> <td>as part of „“ or „”</td> </tr> <tr> <td>｢</td> <td>U+FF62</td> <td>Q//</td> <td>as part of ｢｣ (Note: Q// variant cannot be used bare in regexes)</td> </tr> <tr> <td>｣</td> <td>U+FF63</td> <td>Q//</td> <td>as part of ｢｣ (Note: Q// variant cannot be used bare in regexes)</td> </tr> <tr> <td>⁺</td> <td>U+207A</td> <td>+</td> <td>(must use explicit number) as part of exponentiation</td> </tr> <tr> <td>⁻</td> <td>U+207B</td> <td>-</td> <td>(must use explicit number) as part of exponentiation</td> </tr> <tr> <td>¯</td> <td>U+00AF</td> <td>-</td> <td>(must use explicit number) as part of exponentiation (macron is an alternative way of writing a minus)</td> </tr> <tr> <td>⁰</td> <td>U+2070</td> <td>**0</td> <td>can be combined with ⁰..⁹</td> </tr> <tr> <td>¹</td> <td>U+00B9</td> <td>**1</td> <td>can be combined with ⁰..⁹</td> </tr> <tr> <td>²</td> <td>U+00B2</td> <td>**2</td> <td>can be combined with ⁰..⁹</td> </tr> <tr> <td>³</td> <td>U+00B3</td> <td>**3</td> <td>can be combined with ⁰..⁹</td> </tr> <tr> <td>⁴</td> <td>U+2074</td> <td>**4</td> <td>can be combined with ⁰..⁹</td> </tr> <tr> <td>⁵</td> <td>U+2075</td> <td>**5</td> <td>can be combined with ⁰..⁹</td> </tr> <tr> <td>⁶</td> <td>U+2076</td> <td>**6</td> <td>can be combined with ⁰..⁹</td> </tr> <tr> <td>⁷</td> <td>U+2077</td> <td>**7</td> <td>can be combined with ⁰..⁹</td> </tr> <tr> <td>⁸</td> <td>U+2078</td> <td>**8</td> <td>can be combined with ⁰..⁹</td> </tr> <tr> <td>⁹</td> <td>U+2079</td> <td>**9</td> <td>can be combined with ⁰..⁹</td> </tr> <tr> <td>∅</td> <td>U+2205</td> <td>set()</td> <td>(empty set)</td> </tr> <tr> <td>∈</td> <td>U+2208</td> <td>(elem)</td> <td></td> </tr> <tr> <td>∉</td> <td>U+2209</td> <td>!(elem)</td> <td></td> </tr> <tr> <td>∋</td> <td>U+220B</td> <td>(cont)</td> <td></td> </tr> <tr> <td>∌</td> <td>U+220C</td> <td>!(cont)</td> <td></td> </tr> <tr> <td>⊆</td> <td>U+2286</td> <td>(&lt;=)</td> <td></td> </tr> <tr> <td>⊈</td> <td>U+2288</td> <td>!(&lt;=)</td> <td></td> </tr> <tr> <td>⊂</td> <td>U+2282</td> <td>(&lt;)</td> <td></td> </tr> <tr> <td>⊄</td> <td>U+2284</td> <td>!(&lt;)</td> <td></td> </tr> <tr> <td>⊇</td> <td>U+2287</td> <td>(&gt;=)</td> <td></td> </tr> <tr> <td>⊉</td> <td>U+2289</td> <td>!(&gt;=)</td> <td></td> </tr> <tr> <td>⊃</td> <td>U+2283</td> <td>(&gt;)</td> <td></td> </tr> <tr> <td>⊅</td> <td>U+2285</td> <td>!(&gt;)</td> <td></td> </tr> <tr> <td>∪</td> <td>U+222A</td> <td>(|)</td> <td></td> </tr> <tr> <td>∩</td> <td>U+2229</td> <td>(&amp;)</td> <td></td> </tr> <tr> <td>∖</td> <td>U+2216</td> <td>(-)</td> <td></td> </tr> <tr> <td>⊖</td> <td>U+2296</td> <td>(^)</td> <td></td> </tr> <tr> <td>⊍</td> <td>U+228D</td> <td>(.)</td> <td></td> </tr> <tr> <td>⊎</td> <td>U+228E</td> <td>(+)</td> <td></td> </tr>
+</tbody>
+</table><h2 id="Atomic_operators"><a class="u" href="#___top" title="go to top of document">Atomic operators</a></h2>
+<p>The atomic operators have <code>U+269B ⚛ ATOM SYMBOL</code> incorporated into them. Their ASCII equivalents are ordinary subroutines, not operators:</p>
+<pre class="pod-block-code">my atomicint $x = 42;
+$x⚛++;                # Unicode version
+atomic-fetch-inc($x); # ASCII version</pre>
+<p>The ASCII alternatives are as follows:</p>
+<p><a name="Documentable/integration-test/index-entry-⚛="></a><a name="Documentable/integration-test/index-entry-⚛"></a><a name="Documentable/integration-test/index-entry-⚛+="></a><a name="Documentable/integration-test/index-entry-⚛-="></a><a name="Documentable/integration-test/index-entry-⚛−="></a><a name="Documentable/integration-test/index-entry-++⚛"></a><a name="Documentable/integration-test/index-entry-⚛++"></a><a name="Documentable/integration-test/index-entry---⚛"></a><a name="Documentable/integration-test/index-entry-⚛--"></a></p>
+<table class="pod-table">
+<thead><tr>
+<th>Symbol</th> <th>ASCII</th> <th>Remarks</th>
+</tr></thead>
+<tbody>
+<tr> <td>⚛=</td> <td>atomic-assign</td> <td></td> </tr> <tr> <td>⚛</td> <td>atomic-fetch</td> <td>this is the prefix:&lt;⚛&gt; operator</td> </tr> <tr> <td>⚛+=</td> <td>atomic-add-fetch</td> <td></td> </tr> <tr> <td>⚛-=</td> <td>atomic-sub-fetch</td> <td></td> </tr> <tr> <td>⚛−=</td> <td>atomic-sub-fetch</td> <td>this operator uses U+2212 minus sign</td> </tr> <tr> <td>++⚛</td> <td>atomic-inc-fetch</td> <td></td> </tr> <tr> <td>⚛++</td> <td>atomic-fetch-inc</td> <td></td> </tr> <tr> <td>--⚛</td> <td>atomic-dec-fetch</td> <td></td> </tr> <tr> <td>⚛--</td> <td>atomic-fetch-dec</td> <td></td> </tr>
+</tbody>
+</table><h1 id="Multiple_codepoints"><a class="u" href="#___top" title="go to top of document">Multiple codepoints</a></h1>
+<p>This list contains multiple-codepoint operators that require special composition for their ASCII equivalents. Note the codepoints are shown space-separated but should be entered as adjacent codepoints when used.</p>
+<p><a name="Documentable/integration-test/index-entry-»=»"></a><a name="Documentable/integration-test/index-entry-«=«"></a><a name="Documentable/integration-test/index-entry-«=»"></a><a name="Documentable/integration-test/index-entry-»=«"></a></p>
+<table class="pod-table">
+<thead><tr>
+<th>Symbol</th> <th>Codepoints</th> <th>ASCII</th> <th>Since</th> <th>Remarks</th>
+</tr></thead>
+<tbody>
+<tr> <td>»=»</td> <td>U+00BB = U+00BB</td> <td>&gt;&gt;[=]&gt;&gt;</td> <td>v6.c</td> <td>uses ASCII &#39;=&#39;</td> </tr> <tr> <td>«=«</td> <td>U+00AB = U+00AB</td> <td>&lt;&lt;[=]&lt;&lt;</td> <td>v6.c</td> <td>uses ASCII &#39;=&#39;</td> </tr> <tr> <td>«=»</td> <td>U+00AB = U+00BB</td> <td>&lt;&lt;[=]&gt;&gt;</td> <td>v6.c</td> <td>uses ASCII &#39;=&#39;</td> </tr> <tr> <td>»=«</td> <td>U+00BB = U+00AB</td> <td>&gt;&gt;[=]&lt;&lt;</td> <td>v6.c</td> <td>uses ASCII &#39;=&#39;</td> </tr>
+</tbody>
+</table>
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/unicode_ascii.pod6">https://github.com/Raku/doc/blob/master/doc/Language/unicode_ascii.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

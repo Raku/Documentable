@@ -1,0 +1,19 @@
+digraph "perl6-type-graph" {
+    rankdir=BT;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "Telemetry::Period" [color="#000000", fontcolor="#000000", href="/type/Telemetry::Period", fontname="FreeSans"];
+    "Mu" [color="#000000", fontcolor="#000000", href="/type/Mu", fontname="FreeSans"];
+    "Any" [color="#000000", fontcolor="#000000", href="/type/Any", fontname="FreeSans"];
+    "Telemetry" [color="#000000", fontcolor="#000000", href="/type/Telemetry", fontname="FreeSans"];
+    "Associative" [color="#6666FF", fontcolor="#6666FF", href="/type/Associative", fontname="FreeSans"];
+
+    // Superclasses
+    "Telemetry::Period" -> "Telemetry" [color="#000000"];
+    "Any" -> "Mu" [color="#000000"];
+    "Telemetry" -> "Any" [color="#000000"];
+
+    // Roles
+    "Telemetry::Period" -> "Associative" [color="#6666FF"];
+}

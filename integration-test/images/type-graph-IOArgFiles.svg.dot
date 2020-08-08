@@ -1,0 +1,19 @@
+digraph "perl6-type-graph" {
+    rankdir=BT;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "IO::ArgFiles" [color="#000000", fontcolor="#000000", href="/type/IO::ArgFiles", fontname="FreeSans"];
+    "Mu" [color="#000000", fontcolor="#000000", href="/type/Mu", fontname="FreeSans"];
+    "Any" [color="#000000", fontcolor="#000000", href="/type/Any", fontname="FreeSans"];
+    "IO::Handle" [color="#000000", fontcolor="#000000", href="/type/IO::Handle", fontname="FreeSans"];
+    "IO::CatHandle" [color="#000000", fontcolor="#000000", href="/type/IO::CatHandle", fontname="FreeSans"];
+
+    // Superclasses
+    "IO::ArgFiles" -> "IO::CatHandle" [color="#000000"];
+    "Any" -> "Mu" [color="#000000"];
+    "IO::Handle" -> "Any" [color="#000000"];
+    "IO::CatHandle" -> "IO::Handle" [color="#000000"];
+
+    // Roles
+}

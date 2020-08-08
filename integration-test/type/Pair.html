@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>class Pair</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/type.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-basic.html"> Basic </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-composite.html"> Composite </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-domain-specific.html"> Domain-specific </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-exception.html"> Exceptions </a>
+            </div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Type/Pair.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">class Pair</h1>
+        <p class="subtitle">Key/value pair</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+                                                                                                                     <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#method_new">method new</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#method_ACCEPTS">method ACCEPTS</a></td></tr>
+                                           <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#method_antipair">method antipair</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.4</td><td class="toc-text"><a href="#method_key">method key</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.5</td><td class="toc-text"><a href="#method_value">method value</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.6</td><td class="toc-text"><a href="#infix_cmp">infix cmp</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">1.7</td><td class="toc-text"><a href="#method_fmt">method fmt</a></td></tr>
+                <tr class="toc-level-2"><td class="toc-number">1.8</td><td class="toc-text"><a href="#method_kv">method kv</a></td></tr>
+               <tr class="toc-level-2"><td class="toc-number">1.9</td><td class="toc-text"><a href="#method_pairs">method pairs</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.10</td><td class="toc-text"><a href="#method_antipairs">method antipairs</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.11</td><td class="toc-text"><a href="#method_invert">method invert</a></td></tr>
+                                                     <tr class="toc-level-2"><td class="toc-number">1.12</td><td class="toc-text"><a href="#method_keys">method keys</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.13</td><td class="toc-text"><a href="#method_values">method values</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.14</td><td class="toc-text"><a href="#method_freeze">method freeze</a></td></tr>
+                     <tr class="toc-level-2"><td class="toc-number">1.15</td><td class="toc-text"><a href="#method_Str">method Str</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.16</td><td class="toc-text"><a href="#method_Pair">method Pair</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Type_Graph">Type Graph</a></td></tr>
+  <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Routines_supplied_by_role_Associative">Routines supplied by role Associative</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#(Associative)_method_of">(Associative) method of</a></td></tr>
+                <tr class="toc-level-2"><td class="toc-number">3.2</td><td class="toc-text"><a href="#(Associative)_method_keyof">(Associative) method keyof</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">3.3</td><td class="toc-text"><a href="#(Associative)_method_AT-KEY">(Associative) method AT-KEY</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">3.4</td><td class="toc-text"><a href="#(Associative)_method_EXISTS-KEY">(Associative) method EXISTS-KEY</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">3.5</td><td class="toc-text"><a href="#(Associative)_method_STORE">(Associative) method STORE</a></td></tr>
+            
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <pre class="pod-block-code">class Pair does Associative {}</pre>
+<p>Consists of two parts, a <em>key</em> and a <em>value</em>. <code>Pair</code>s can be seen as the atomic units in <code>Hash</code>es, and they are also used in conjunction with named arguments and parameters.</p>
+<p><a name="Documentable/integration-test/index-entry-colon_pair_(Pair)"></a> <a name="Documentable/integration-test/index-entry-:"></a> <a name="Documentable/integration-test/index-entry-=>_"></a> <a name="Documentable/integration-test/index-entry-:!"></a> <a name="Documentable/integration-test/index-entry-:$"></a> There are many syntaxes for creating <code>Pair</code>s:</p>
+<pre class="pod-block-code">Pair.new(&#39;key&#39;, &#39;value&#39;); # The canonical way
+&#39;key&#39; =&gt; &#39;value&#39;;         # this...
+:key&lt;value&gt;;              # ...means the same as this
+:key&lt;value1 value2&gt;;      # But this is  key =&gt; &lt;value1 value2&gt;
+:foo(127);                # short for  foo =&gt; 127
+:127foo;                  # the same   foo =&gt; 127</pre>
+<p>Note that last form supports Non-ASCII numerics as well:</p>
+<pre class="pod-block-code"># use MATHEMATICAL DOUBLE-STRUCK DIGIT THREE
+say (:𝟛math-three);         # OUTPUT: «math-three =&gt; 3␤»</pre>
+<p>But not <em>synthetic</em> (i.e. formed by a digit and additional Unicode marks):</p>
+<pre class="pod-block-code">say :7̈a
+</pre>
+<p>You can also use an <em>identifier-like literal</em> as key; this will not need the quotes as long as it follows the syntax of <a href="/Documentable/integration-test/syntax/identifiers#Ordinary_identifiers">ordinary identifiers</a>:</p>
+<pre class="pod-block-code">(foo =&gt; 127)              # the same   foo =&gt; 127</pre>
+<p>Variants of this are</p>
+<pre class="pod-block-code">:key;                     # same as   key =&gt; True
+:!key;                    # same as   key =&gt; False</pre>
+<p>And this other variant, to be used in routine invocation</p>
+<pre class="pod-block-code">sub colon-pair( :$key-value ) {
+    say $key-value;
+}
+my $key-value = &#39;value&#39;;
+colon-pair( :$key-value );               # OUTPUT: «value␤»
+colon-pair( key-value =&gt; $key-value );   # OUTPUT: «value␤»
+</pre>
+<p><a name="Documentable/integration-test/index-entry-colon_list_(Pair)"></a> Colon pairs can be chained without a comma to create a List of Pairs. Depending on context you may have to be explicit when assigning colon lists.</p>
+<pre class="pod-block-code">sub s(*%h){ say %h.raku };
+s :a1:b2;
+# OUTPUT: «{:a1, :b2}␤»
+
+my $manna = :a1:b2:c3;
+say $manna.^name;
+# OUTPUT: «Pair␤»
+
+$manna = (:a1:b2:c3);
+say $manna.^name;
+# OUTPUT: «List␤»</pre>
+<p>Any variable can be turned into a <code>Pair</code> of its name and its value.</p>
+<pre class="pod-block-code">my $bar = 10;
+my $p   = :$bar;
+say $p; # OUTPUT: «bar =&gt; 10␤»</pre>
+<p>It is worth noting that when assigning a <a href="/Documentable/integration-test/type/Scalar">Scalar</a> as value of a <code>Pair</code> the value holds the container of the value itself. This means that it is possible to change the value from outside of the <code>Pair</code> itself:</p>
+<pre class="pod-block-code">my $v = &#39;value A&#39;;
+my $pair = a =&gt; $v;
+$pair.say;  # OUTPUT: «a =&gt; value A␤»
+
+$v = &#39;value B&#39;;
+$pair.say;  # OUTPUT: «a =&gt; value B␤»
+</pre>
+<p>Please also note that this behavior is totally unrelated to the way used to build the <code>Pair</code> itself (i.e., explicit usage of <code>new</code>, use of colon, fat arrow), as well as if the <code>Pair</code> is bound to a variable.</p>
+<p>It is possible to change the above behavior forcing the <code>Pair</code> to remove the scalar container and to hold the effective value itself via the method <a href="/Documentable/integration-test/type/Pair#method_freeze">freeze</a>:</p>
+<pre class="pod-block-code">my $v = &#39;value B&#39;;
+my $pair = a =&gt; $v;
+$pair.freeze;
+$v = &#39;value C&#39;;
+$pair.say; # OUTPUT: «a =&gt; value B␤»
+</pre>
+<p>As Pair implements <a href="/Documentable/integration-test/type/Associative">Associative</a> role, its value can be accessed using Associative subscription operator, however, due to <a name="Documentable/integration-test/index-entry-Pair"><span class="index-entry">Pair</span></a>&#39;s singular nature, the pair&#39;s value will be only returned for the pair&#39;s key. <a href="/Documentable/integration-test/type/Nil">Nil</a> object will be returned for any other key. Subscript adverbs such as <a name="Documentable/integration-test/index-entry-:exists"><span class="index-entry">:exists</span></a> can be used on Pair.</p>
+<pre class="pod-block-code">my $pair = a =&gt; 5;
+say $pair&lt;a&gt;;           # OUTPUT: «5␤»
+say $pair&lt;a&gt;:exists;    # OUTPUT: «True␤»
+say $pair&lt;no-such-key&gt;; # OUTPUT: «Nil␤»
+</pre>
+<h1 id="Methods"><a class="u" href="#___top" title="go to top of document">Methods</a></h1>
+<h2 id="method_new"><a class="u" href="#___top" title="go to top of document">method new</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method new(Pair: Mu  $key, Mu  $value)
+multi method new(Pair: Mu :$key, Mu :$value)</pre>
+<p>Constructs a new <a href="/Documentable/integration-test/type/Pair">Pair</a> object.</p>
+<h2 id="method_ACCEPTS"><a class="u" href="#___top" title="go to top of document">method ACCEPTS</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method ACCEPTS(Pair:D $: %topic)
+multi method ACCEPTS(Pair:D $: Pair:D $topic)
+multi method ACCEPTS(Pair:D $: Mu $topic)</pre>
+<p>If <code>%topic</code> is an <a href="/Documentable/integration-test/type/Associative">Associative</a>, looks up the value using invocant&#39;s key in it and checks invocant&#39;s value <code>.ACCEPTS</code> that value:</p>
+<pre class="pod-block-code">say %(:42a) ~~ :42a; # OUTPUT: «True␤»
+say %(:42a) ~~ :10a; # OUTPUT: «False␤»</pre>
+<p>If <code>$topic</code> is another <a href="/Documentable/integration-test/type/Pair">Pair</a>, checks the invocant&#39;s value <code>.ACCEPTS</code> the <code>$topic</code>&#39;s value. Note that the keys are not considered and can be different:</p>
+<pre class="pod-block-code">say :42a ~~ :42a; # OUTPUT: «True␤»
+say :42z ~~ :42a; # OUTPUT: «True␤»
+say :10z ~~ :42a; # OUTPUT: «False␤»</pre>
+<p>If <code>$topic</code> is any other value, the invocant <code>Pair</code>&#39;s key is treated as a method name. This method is called on <code>$topic</code>, the <a href="/Documentable/integration-test/type/Bool">Bool</a> result of which is compared against the invocant <code>Pair</code>&#39;s <a href="/Documentable/integration-test/type/Bool">Bool</a> value. For example, primality can be tested using smartmatch:</p>
+<pre class="pod-block-code">say 3 ~~ :is-prime;             # OUTPUT: «True␤»
+say 3 ~~  is-prime =&gt; &#39;truthy&#39;; # OUTPUT: «True␤»
+say 4 ~~ :is-prime;             # OUTPUT: «False␤»</pre>
+<p>This form can also be used to check <a href="/Documentable/integration-test/type/Bool">Bool</a> values of multiple methods on the same object, such as <a href="/Documentable/integration-test/type/IO::Path">IO::Path</a>, by using <a href="/Documentable/integration-test/type/Junction">Junctions</a>:</p>
+<pre class="pod-block-code">say &quot;foo&quot; .IO ~~ :f &amp; :rw; # OUTPUT: «False␤»
+say &quot;/tmp&quot;.IO ~~ :!f;      # OUTPUT: «True␤»
+say &quot;.&quot;   .IO ~~ :f | :d;  # OUTPUT: «True␤»</pre>
+<h2 id="method_antipair"><a class="u" href="#___top" title="go to top of document">method antipair</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method antipair(--&gt; Pair:D)</pre>
+<p>Returns a new <code>Pair</code> object with key and value exchanged.</p>
+<pre class="pod-block-code">my $p = (6 =&gt; &#39;Perl&#39;).antipair;
+say $p.key;         # OUTPUT: «Perl␤»
+say $p.value;       # OUTPUT: «6␤»</pre>
+<h2 id="method_key"><a class="u" href="#___top" title="go to top of document">method key</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method key(Pair:D:)</pre>
+<p>Returns the <em>key</em> part of the <code>Pair</code>.</p>
+<pre class="pod-block-code">my $p = (Perl =&gt; 6);
+say $p.key; # OUTPUT: «Perl␤»</pre>
+<h2 id="method_value"><a class="u" href="#___top" title="go to top of document">method value</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method value(Pair:D:) is rw</pre>
+<p>Returns the <em>value</em> part of the <code>Pair</code>.</p>
+<pre class="pod-block-code">my $p = (Perl =&gt; 6);
+say $p.value; # OUTPUT: «6␤»</pre>
+<h2 id="infix_cmp"><a class="u" href="#___top" title="go to top of document">infix cmp</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub infix:&lt;cmp&gt;(Pair:D, Pair:D)</pre>
+<p>The type-agnostic comparator; compares two <code>Pair</code>s. Compares first their <em>key</em> parts, and then compares the <em>value</em> parts if the keys are equal.</p>
+<pre class="pod-block-code">my $a = (Apple =&gt; 1);
+my $b = (Apple =&gt; 2);
+say $a cmp $b; # OUTPUT: «Less␤»</pre>
+<h2 id="method_fmt"><a class="u" href="#___top" title="go to top of document">method fmt</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method fmt(Pair:D: Str:D $format --&gt; Str:D)</pre>
+<p>Takes a <em>format string</em>, and returns a string the <em>key</em> and <em>value</em> parts of the <code>Pair</code> formatted. Here&#39;s an example:</p>
+<pre class="pod-block-code">my $pair = :Earth(1);
+say $pair.fmt(&quot;%s is %.3f AU away from the sun&quot;)
+# OUTPUT: «Earth is 1.000 AU away from the sun␤»</pre>
+<p>For more about format strings, see <a href="/Documentable/integration-test/routine/sprintf">sprintf</a>.</p>
+<h2 id="method_kv"><a class="u" href="#___top" title="go to top of document">method kv</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method kv(Pair:D: --&gt; List:D)</pre>
+<p>Returns a two-element <code>List</code> with the <em>key</em> and <em>value</em> parts of <code>Pair</code>, in that order. This method is a special case of the same-named method on <code>Hash</code>, which returns all its entries as a list of keys and values.</p>
+<pre class="pod-block-code">my $p = (Perl =&gt; 6);
+say $p.kv[0]; # OUTPUT: «Perl␤»
+say $p.kv[1]; # OUTPUT: «6␤»</pre>
+<h2 id="method_pairs"><a class="u" href="#___top" title="go to top of document">method pairs</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method pairs(Pair:D:)</pre>
+<p>Returns a list of one <code>Pair</code>, namely this one.</p>
+<pre class="pod-block-code">my $p = (Perl =&gt; 6);
+say $p.pairs.^name; # OUTPUT: «List␤»
+say $p.pairs[0];    # OUTPUT: «Perl =&gt; 6␤»</pre>
+<h2 id="method_antipairs"><a class="u" href="#___top" title="go to top of document">method antipairs</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method antipairs(Pair:D:)</pre>
+<p>Returns a <a href="/Documentable/integration-test/type/List">List</a> containing the <a href="/Documentable/integration-test/type/Pair#method_antipair">antipair</a> of the invocant.</p>
+<pre class="pod-block-code">my $p = (6 =&gt; &#39;Perl&#39;).antipairs;
+say $p.^name;                                     # OUTPUT: «List␤»
+say $p.first;                                     # OUTPUT: «Perl =&gt; 6␤»
+say $p.first.^name;                               # OUTPUT: «Pair␤»</pre>
+<h2 id="method_invert"><a class="u" href="#___top" title="go to top of document">method invert</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method invert(Pair:D: --&gt; Seq:D)</pre>
+<p>Returns a <a href="/Documentable/integration-test/type/Seq">Seq</a>. If the <code>.value</code> of the invocant is <em>NOT</em> an <a href="/Documentable/integration-test/type/Iterable">Iterable</a>, the <a href="/Documentable/integration-test/type/Seq">Seq</a> will contain a single <a href="/Documentable/integration-test/type/Pair">Pair</a> whose <code>.key</code> is the <code>.value</code> of the invocant and whose <code>.value</code> is the <code>.key</code> of the invocant:</p>
+<pre class="pod-block-code">:foo&lt;bar&gt;.invert.raku.say; # OUTPUT: «(:bar(&quot;foo&quot;),).Seq»</pre>
+<p>If invocant&#39;s <code>.value</code> <em>is</em> an <a href="/Documentable/integration-test/type/Iterable">Iterable</a>, the returned <a href="/Documentable/integration-test/type/Seq">Seq</a> will contain the same number of <a href="/Documentable/integration-test/type/Pair">Pair</a>s as items in the <code>.value</code>, with each of those items a <code>.key</code> of a pair and the <code>.key</code> of the invocant the <code>.value</code> of that pair:</p>
+<pre class="pod-block-code">:foo&lt;Perl is great&gt;.invert.raku.say;
+# OUTPUT: «(:Perl(&quot;foo&quot;), :is(&quot;foo&quot;), :great(&quot;foo&quot;)).Seq»
+
+:foo{ :42a, :72b }.invert.raku.say;
+# OUTPUT: «((:a(42)) =&gt; &quot;foo&quot;, (:b(72)) =&gt; &quot;foo&quot;).Seq»</pre>
+<p>To perform the exact <code>.key</code> and <code>.value</code> swap, use <a href="/Documentable/integration-test/type/Pair#method_antipair"><code>.antipair</code> method</a>.</p>
+<h2 id="method_keys"><a class="u" href="#___top" title="go to top of document">method keys</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method keys(Pair:D: --&gt; List:D)</pre>
+<p>Returns a <a href="/Documentable/integration-test/type/List">List</a> containing the <a href="/Documentable/integration-test/type/Pair#method_key">key</a> of the invocant.</p>
+<pre class="pod-block-code">say (&#39;Perl&#39; =&gt; 6).keys;                           # OUTPUT: «(Perl)␤»</pre>
+<h2 id="method_values"><a class="u" href="#___top" title="go to top of document">method values</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method values(Pair:D: --&gt; List:D)</pre>
+<p>Returns a <a href="/Documentable/integration-test/type/List">List</a> containing the <a href="/Documentable/integration-test/type/Pair#method_value">value</a> of the invocant.</p>
+<pre class="pod-block-code">say (&#39;Perl&#39; =&gt; 6).values;                         # OUTPUT: «(6)␤»</pre>
+<h2 id="method_freeze"><a class="u" href="#___top" title="go to top of document">method freeze</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method freeze(Pair:D:)</pre>
+<p>Makes the <em>value</em> of the <code>Pair</code> read-only, by removing it from its <a href="/Documentable/integration-test/language/containers#Scalar_containers">Scalar container</a>, and returns it.</p>
+<pre class="pod-block-code">my $str = &quot;apple&quot;;
+my $p = Pair.new(&#39;key&#39;, $str);
+$p.value = &quot;orange&quot;;              # this works as expected
+$p.say;                           # OUTPUT: «key =&gt; orange␤»
+$p.freeze.say;                    # OUTPUT: «orange␤»
+$p.value = &quot;a new apple&quot;;         # Fails
+CATCH { default { put .^name, &#39;: &#39;, .Str } };
+# OUTPUT: «X::Assignment::RO: Cannot modify an immutable Str (apple)␤»</pre>
+<p><strong>NOTE:</strong> this method is deprecated as of <strong>6.d</strong> language version. Instead, create a new <code>Pair</code>, with a <a href="/Documentable/integration-test/language/glossary#decont">decontainerized</a> key/value.</p>
+<pre class="pod-block-code">$p.=Map.=head.say;                                    # OUTPUT: «orange␤»
+</pre>
+<h2 id="method_Str"><a class="u" href="#___top" title="go to top of document">method Str</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method Str(Pair:D: --&gt; Str:D)</pre>
+<p>Returns a string representation of the invocant formatted as <em>key ~ \t ~ value</em>.</p>
+<pre class="pod-block-code">my $b = eggs =&gt; 3;
+say $b.Str;                                       # OUTPUT: «eggs  3␤»</pre>
+<h2 id="method_Pair"><a class="u" href="#___top" title="go to top of document">method Pair</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method Pair()</pre>
+<p>Returns the invocant Pair object.</p>
+<pre class="pod-block-code">my $pair = eggs =&gt; 3;
+say $pair.Pair === $pair;                         # OUTPUT: «True␤»</pre>
+<h1 id="Type_Graph"><a class="u" href="#___top" title="go to top of document">Type Graph</a></h1>
+<figure>
+  <figcaption>Type relations for <code>Pair</code></figcaption>
+  <svg width="208pt" height="188pt"
+ viewBox="0.00 0.00 208.34 188.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 184)">
+<title>perl6&#45;type&#45;graph</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-184 204.34,-184 204.34,4 -4,4"/>
+<!-- Pair -->
+<g id="node1" class="node">
+<title>Pair</title>
+<g id="a_node1"><a xlink:href="/type/Pair" xlink:title="Pair">
+<ellipse fill="none" stroke="#000000" cx="81" cy="-18" rx="30.59" ry="18"/>
+<text text-anchor="middle" x="81" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">Pair</text>
+</a>
+</g>
+</g>
+<!-- Any -->
+<g id="node3" class="node">
+<title>Any</title>
+<g id="a_node3"><a xlink:href="/type/Any" xlink:title="Any">
+<ellipse fill="none" stroke="#000000" cx="27" cy="-90" rx="27" ry="18"/>
+<text text-anchor="middle" x="27" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Any</text>
+</a>
+</g>
+</g>
+<!-- Pair&#45;&gt;Any -->
+<g id="edge1" class="edge">
+<title>Pair&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M68.75,-34.88C61.75,-43.96 52.84,-55.51 45.05,-65.61"/>
+<polygon fill="#000000" stroke="#000000" points="42.17,-63.6 38.83,-73.66 47.71,-67.88 42.17,-63.6"/>
+</g>
+<!-- Associative -->
+<g id="node4" class="node">
+<title>Associative</title>
+<g id="a_node4"><a xlink:href="/type/Associative" xlink:title="Associative">
+<ellipse fill="none" stroke="#6666ff" cx="136" cy="-90" rx="64.19" ry="18"/>
+<text text-anchor="middle" x="136" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#6666ff">Associative</text>
+</a>
+</g>
+</g>
+<!-- Pair&#45;&gt;Associative -->
+<g id="edge3" class="edge">
+<title>Pair&#45;&gt;Associative</title>
+<path fill="none" stroke="#6666ff" d="M93.21,-34.54C100.03,-43.22 108.7,-54.25 116.44,-64.11"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="113.74,-66.34 122.67,-72.04 119.25,-62.01 113.74,-66.34"/>
+</g>
+<!-- Mu -->
+<g id="node2" class="node">
+<title>Mu</title>
+<g id="a_node2"><a xlink:href="/type/Mu" xlink:title="Mu">
+<ellipse fill="none" stroke="#000000" cx="27" cy="-162" rx="27" ry="18"/>
+<text text-anchor="middle" x="27" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#000000">Mu</text>
+</a>
+</g>
+</g>
+<!-- Any&#45;&gt;Mu -->
+<g id="edge2" class="edge">
+<title>Any&#45;&gt;Mu</title>
+<path fill="none" stroke="#000000" d="M27,-108.3C27,-116.02 27,-125.29 27,-133.89"/>
+<polygon fill="#000000" stroke="#000000" points="23.5,-133.9 27,-143.9 30.5,-133.9 23.5,-133.9"/>
+</g>
+</g>
+</svg>
+
+  <p class="fallback">
+    <a
+      rel="alternate"
+      href="/images/type-graph-Pair.svg"
+      type="image/svg+xml"
+      >Expand above chart</a
+    >
+  </p>
+</figure>
+<h1 id="Routines_supplied_by_role_Associative"><a class="u" href="#___top" title="go to top of document">Routines supplied by role Associative</a></h1>
+<p>Pair does role <a href="/Documentable/integration-test/type/Associative">Associative</a>, which provides the following routines:</p>
+<h2 id="(Associative)_method_of"><a href="/Documentable/integration-test/type/Associative#method_of">(Associative) method of</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method of()</pre>
+<p><code>Associative</code> is actually a <a href="/Documentable/integration-test/language/objects#Parameterized_roles">parameterized role</a> which can use different classes for keys and values. As seen at the top of the document, by default it coerces to <code>Str</code> for the key and uses a very generic <code>Mu</code> for value.</p>
+<pre class="pod-block-code">my %any-hash;
+say %any-hash.of;#  OUTPUT: «(Mu)␤»</pre>
+<p>The value is the first parameter you use when instantiating <code>Associative</code> with particular classes:</p>
+<pre class="pod-block-code">class DateHash is Hash does Associative[Cool,DateTime] {};
+my %date-hash := DateHash.new;
+say %date-hash.of; # OUTPUT: «(Cool)␤»</pre>
+<h2 id="(Associative)_method_keyof"><a href="/Documentable/integration-test/type/Associative#method_keyof">(Associative) method keyof</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method keyof()</pre>
+<p>Returns the parameterized key used for the Associative role, which is <code>Any</code> coerced to <code>Str</code> by default. This is the class used as second parameter when you use the parameterized version of Associative.</p>
+<pre class="pod-block-code">my %any-hash;
+%any-hash.keyof; #OUTPUT: «(Str(Any))␤»</pre>
+<h2 id="(Associative)_method_AT-KEY"><a href="/Documentable/integration-test/type/Associative#method_AT-KEY">(Associative) method AT-KEY</a></h2>
+<pre class="pod-block-code">method AT-KEY(\key)</pre>
+<p>Should return the value / container at the given key.</p>
+<h2 id="(Associative)_method_EXISTS-KEY"><a href="/Documentable/integration-test/type/Associative#method_EXISTS-KEY">(Associative) method EXISTS-KEY</a></h2>
+<pre class="pod-block-code">method EXISTS-KEY(\key)</pre>
+<p>Should return a <code>Bool</code> indicating whether the given key actually has a value.</p>
+<h2 id="(Associative)_method_STORE"><a href="/Documentable/integration-test/type/Associative#method_STORE">(Associative) method STORE</a></h2>
+<pre class="pod-block-code">method STORE(\values, :$initialize)</pre>
+<p>This method should only be supplied if you want to support the:</p>
+<pre class="pod-block-code">my %h is Foo = a =&gt; 42, b =&gt; 666;
+</pre>
+<p>syntax for binding your implementation of the <code>Associative</code> role.</p>
+<p>Should accept the values to (re-)initialize the object with, which either could consist of <code>Pair</code>s, or separate key/value pairs. The optional named parameter will contain a <code>True</code> value when the method is called on the object for the first time. Should return the invocant.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Type/Pair.pod6">https://github.com/Raku/doc/blob/master/doc/Type/Pair.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

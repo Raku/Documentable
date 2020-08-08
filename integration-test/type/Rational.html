@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>role Rational</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/type.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-basic.html"> Basic </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-composite.html"> Composite </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-domain-specific.html"> Domain-specific </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-exception.html"> Exceptions </a>
+            </div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Type/Rational.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">role Rational</h1>
+        <p class="subtitle">Number stored as numerator and denominator</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+                             <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#method_new">method new</a></td></tr>
+            <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#method_Bool">method Bool</a></td></tr>
+                    <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#method_Bridge">method Bridge</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">1.4</td><td class="toc-text"><a href="#method_Int">method Int</a></td></tr>
+            <tr class="toc-level-2"><td class="toc-number">1.5</td><td class="toc-text"><a href="#method_Num">method Num</a></td></tr>
+                        <tr class="toc-level-2"><td class="toc-number">1.6</td><td class="toc-text"><a href="#method_ceiling">method ceiling</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">1.7</td><td class="toc-text"><a href="#method_floor">method floor</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">1.8</td><td class="toc-text"><a href="#method_isNaN">method isNaN</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">1.9</td><td class="toc-text"><a href="#method_numerator">method numerator</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">1.10</td><td class="toc-text"><a href="#method_denominator">method denominator</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">1.11</td><td class="toc-text"><a href="#method_nude">method nude</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.12</td><td class="toc-text"><a href="#method_norm">method norm</a></td></tr>
+               <tr class="toc-level-2"><td class="toc-number">1.13</td><td class="toc-text"><a href="#method_base-repeating">method base-repeating</a></td></tr>
+                <tr class="toc-level-2"><td class="toc-number">1.14</td><td class="toc-text"><a href="#method_Range">method Range</a></td></tr>
+    <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Type_Graph">Type Graph</a></td></tr>
+  <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Routines_supplied_by_role_Real">Routines supplied by role Real</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">4.1</td><td class="toc-text"><a href="#(Real)_method_Bridge">(Real) method Bridge</a></td></tr>
+                                             <tr class="toc-level-2"><td class="toc-number">4.2</td><td class="toc-text"><a href="#(Real)_method_Complex">(Real) method Complex</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">4.3</td><td class="toc-text"><a href="#(Real)_method_Rat">(Real) method Rat</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">4.4</td><td class="toc-text"><a href="#(Real)_method_Real">(Real) method Real</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">4.5</td><td class="toc-text"><a href="#(Real)_routine_rand">(Real) routine rand</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">4.6</td><td class="toc-text"><a href="#(Real)_method_sign">(Real) method sign</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">4.7</td><td class="toc-text"><a href="#(Real)_method_round">(Real) method round</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">4.8</td><td class="toc-text"><a href="#(Real)_method_floor">(Real) method floor</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">4.9</td><td class="toc-text"><a href="#(Real)_method_ceiling">(Real) method ceiling</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">4.10</td><td class="toc-text"><a href="#(Real)_method_truncate">(Real) method truncate</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">4.11</td><td class="toc-text"><a href="#(Real)_method_polymod">(Real) method polymod</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">4.12</td><td class="toc-text"><a href="#(Real)_method_base">(Real) method base</a></td></tr>
+                                    <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#Routines_supplied_by_role_Numeric">Routines supplied by role Numeric</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">4.13</td><td class="toc-text"><a href="#(Numeric)_method_Numeric">(Numeric) method Numeric</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">4.14</td><td class="toc-text"><a href="#(Numeric)_method_Int">(Numeric) method Int</a></td></tr>
+               <tr class="toc-level-2"><td class="toc-number">4.15</td><td class="toc-text"><a href="#(Numeric)_method_Rat">(Numeric) method Rat</a></td></tr>
+               <tr class="toc-level-2"><td class="toc-number">4.16</td><td class="toc-text"><a href="#(Numeric)_method_Num">(Numeric) method Num</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">4.17</td><td class="toc-text"><a href="#(Numeric)_method_narrow">(Numeric) method narrow</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">4.18</td><td class="toc-text"><a href="#(Numeric)_method_ACCEPTS">(Numeric) method ACCEPTS</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">4.19</td><td class="toc-text"><a href="#(Numeric)_routine_log">(Numeric) routine log</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">4.20</td><td class="toc-text"><a href="#(Numeric)_routine_log10">(Numeric) routine log10</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">4.21</td><td class="toc-text"><a href="#(Numeric)_routine_log2">(Numeric) routine log2</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">4.22</td><td class="toc-text"><a href="#(Numeric)_routine_exp">(Numeric) routine exp</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">4.23</td><td class="toc-text"><a href="#(Numeric)_method_roots">(Numeric) method roots</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">4.24</td><td class="toc-text"><a href="#(Numeric)_routine_abs">(Numeric) routine abs</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">4.25</td><td class="toc-text"><a href="#(Numeric)_routine_sqrt">(Numeric) routine sqrt</a></td></tr>
+            <tr class="toc-level-2"><td class="toc-number">4.26</td><td class="toc-text"><a href="#(Numeric)_method_conj">(Numeric) method conj</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">4.27</td><td class="toc-text"><a href="#(Numeric)_method_Bool">(Numeric) method Bool</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">4.28</td><td class="toc-text"><a href="#(Numeric)_method_succ">(Numeric) method succ</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">4.29</td><td class="toc-text"><a href="#(Numeric)_method_pred">(Numeric) method pred</a></td></tr>
+  
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <pre class="pod-block-code">role Rational[::NuT, ::DeT] does Real { ... }</pre>
+<p><code>Rational</code> is the common role for numbers that are stored as pairs of numerator and denominator. It is parameterized by the types of the numerator (<code>NuT</code>) and denominator (<code>DeT</code>). By default, these are <code>Int</code>, but other types of <code>Rational</code> are possible by using a different parameterization. In addition, <code>Rational</code> objects are immutable throughout their life.</p>
+<pre class="pod-block-code">class Positive does Rational[UInt] {};
+my Positive $one-third = Positive.new(1,3);
+say $one-third;                         # OUTPUT: «0.333333␤»
+my Positive $fail =Positive.new(-2,3);  # OUTPUT: «Type check failed in binding to parameter &#39;nu&#39;; expected UInt but got Int (-2)␤»</pre>
+<p>Please note that, since <code>DeT</code> is by default equal to <code>NuT</code>, in this case both are instantiated to <code>UInt</code>. Built into Raku are <a href="/Documentable/integration-test/type/Rat">Rat</a> and <a href="/Documentable/integration-test/type/FatRat">FatRat</a>, which both do the <code>Rational</code> role.</p>
+<h1 id="Methods"><a class="u" href="#___top" title="go to top of document">Methods</a></h1>
+<h2 id="method_new"><a class="u" href="#___top" title="go to top of document">method new</a></h2>
+<pre class="pod-block-code">    method new(NuT:D $numerator, DeT:D $denominator --&gt; Rational:D)
+</pre>
+<p>Creates a new rational object from numerator and denominator, which it normalizes to the lowest terms. The <code>$denominator</code> can be zero, in which case the numerator is normalized to <code>-1</code>, <code>0</code>, or <code>1</code> depending on whether the original is negative, zero, or positive, respectively.</p>
+<h2 id="method_Bool"><a class="u" href="#___top" title="go to top of document">method Bool</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method Bool(Rational:D: --&gt; Bool:D)</pre>
+<p>Returns <code>False</code> if <a href="/Documentable/integration-test/routine/numerator">numerator</a> is <code>0</code>, otherwise returns <code>True</code>. This applies for <code>&lt;0/0&gt;</code> zero-denominator <a href="/Documentable/integration-test/type/Rational">Rational</a> as well, despite <code>?&lt;0/0&gt;.Num</code> being <code>True</code>.</p>
+<h2 id="method_Bridge"><a class="u" href="#___top" title="go to top of document">method Bridge</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method Bridge()</pre>
+<p>Returns the number, converted to <code>Num</code>.</p>
+<h2 id="method_Int"><a class="u" href="#___top" title="go to top of document">method Int</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method Int(Rational:D: --&gt; Int:D)</pre>
+<p>Coerces the invocant to <a href="/Documentable/integration-test/type/Int">Int</a> by truncating non-whole portion of the represented number, if any. If the <a href="/Documentable/integration-test/routine/denominator">denominator</a> is zero, will <a href="/Documentable/integration-test/routine/fail">fail</a> with <code>X::Numeric::DivideByZero</code>.</p>
+<h2 id="method_Num"><a class="u" href="#___top" title="go to top of document">method Num</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method Num(Rational:D: --&gt; Num:D)</pre>
+<p>Coerces the invocant to <a href="/Documentable/integration-test/type/Num">Num</a> by dividing <a href="/Documentable/integration-test/routine/numerator">numerator</a> by <a href="/Documentable/integration-test/routine/denominator">denominator</a>. If <a href="/Documentable/integration-test/routine/denominator">denominator</a> is <code>0</code>, returns <code>Inf</code>, <code>-Inf</code>, or <code>NaN</code>, based on whether <a href="/Documentable/integration-test/routine/numerator">numerator</a> is a positive number, negative number, or <code>0</code>, respectively.</p>
+<h2 id="method_ceiling"><a class="u" href="#___top" title="go to top of document">method ceiling</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method ceiling(Rational:D: --&gt; Int:D)</pre>
+<p>Return the smallest integer not less than the invocant. If <a href="/Documentable/integration-test/routine/denominator">denominator</a> is zero, <a href="/Documentable/integration-test/routine/fail">fails</a> with <code>X::Numeric::DivideByZero</code>.</p>
+<h2 id="method_floor"><a class="u" href="#___top" title="go to top of document">method floor</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method floor(Rational:D: --&gt; Int:D)</pre>
+<p>Return the largest integer not greater than the invocant. If <a href="/Documentable/integration-test/routine/denominator">denominator</a> is zero, <a href="/Documentable/integration-test/routine/fail">fails</a> with <code>X::Numeric::DivideByZero</code>.</p>
+<h2 id="method_isNaN"><a class="u" href="#___top" title="go to top of document">method isNaN</a></h2>
+<pre class="pod-block-code">method isNaN(Rational:D: --&gt; Bool:D)</pre>
+<p>Tests whether the invocant&#39;s Num value is a NaN, an acronym for <em>Not available Number</em>. That is both its numerator and denominator are zero.</p>
+<h2 id="method_numerator"><a class="u" href="#___top" title="go to top of document">method numerator</a></h2>
+<pre class="pod-block-code">    method numerator(Rational:D: --&gt; NuT:D)
+</pre>
+<p>Returns the numerator.</p>
+<h2 id="method_denominator"><a class="u" href="#___top" title="go to top of document">method denominator</a></h2>
+<pre class="pod-block-code">    method denominator(Rational:D: --&gt; DeT:D)
+</pre>
+<p>Returns the denominator.</p>
+<h2 id="method_nude"><a class="u" href="#___top" title="go to top of document">method nude</a></h2>
+<pre class="pod-block-code">method nude(Rational:D: --&gt; Positional)</pre>
+<p>Returns a list of the numerator and denominator.</p>
+<h2 id="method_norm"><a class="u" href="#___top" title="go to top of document">method norm</a></h2>
+<pre class="pod-block-code">method norm(Rational:D: --&gt; Rational:D)</pre>
+<p><strong>DEPRECATED as of 6.d</strong>. The method is no longer needed, because as of 6.d language version, it&#39;s required for <code>Rational</code> type to be normalized on creation.</p>
+<p>Returns a normalized Rational object, i.e. with positive denominator, and numerator and denominator coprime. The denominator can also by zero, but using it in any operation or a conversion to string will result in an exception.</p>
+<pre class="pod-block-code">use v6.c;
+my Rational $by-zero = 3/0;
+say $by-zero.norm.raku; # OUTPUT: «&lt;1/0&gt;␤»
+</pre>
+<pre class="pod-block-code">say $by-zero; # OUTPUT: «Attempt to divide by zero when coercing Rational to Str␤
+</pre>
+<h2 id="method_base-repeating"><a class="u" href="#___top" title="go to top of document">method base-repeating</a></h2>
+<pre class="pod-block-code">method base-repeating(Rational:D: Int:D() $base = 10)</pre>
+<p>Returns a list of two strings that, when concatenated, represent the number in base <code>$base</code>. The second element is the one that repeats. For example:</p>
+<pre class="pod-block-code">my ($non-rep, $repeating) = (19/3).base-repeating(10);
+say $non-rep;                               # OUTPUT: «6.␤»
+say $repeating;                             # OUTPUT: «3␤»
+printf &#39;%s(%s)&#39;, $non-rep, $repeating;      # OUTPUT: «6.(3)»</pre>
+<p>19/3 is 6.333333... with the 3 repeating indefinitely.</p>
+<p>If no repetition occurs, the second string is empty:</p>
+<pre class="pod-block-code">say (5/2).base-repeating(10).raku;          # OUTPUT: «(&quot;2.5&quot;, &quot;&quot;)␤»</pre>
+<p>The precision for determining the repeating group is limited to 1000 characters, above that, the second string is <code>???</code>.</p>
+<p><code>$base</code> defaults to <code>10</code>.</p>
+<h2 id="method_Range"><a class="u" href="#___top" title="go to top of document">method Range</a></h2>
+<p>Returns a <a href="/Documentable/integration-test/type/Range">Range object</a> that represents the range of values supported.</p>
+<h1 id="Type_Graph"><a class="u" href="#___top" title="go to top of document">Type Graph</a></h1>
+<figure>
+  <figcaption>Type relations for <code>Rational</code></figcaption>
+  <svg width="295pt" height="332pt"
+ viewBox="0.00 0.00 294.89 332.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 328)">
+<title>perl6&#45;type&#45;graph</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-328 290.89,-328 290.89,4 -4,4"/>
+<!-- Rational -->
+<g id="node1" class="node">
+<title>Rational</title>
+<g id="a_node1"><a xlink:href="/type/Rational" xlink:title="Rational">
+<ellipse fill="none" stroke="#6666ff" cx="50.05" cy="-162" rx="50.09" ry="18"/>
+<text text-anchor="middle" x="50.05" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#6666ff">Rational</text>
+</a>
+</g>
+</g>
+<!-- Real -->
+<g id="node3" class="node">
+<title>Real</title>
+<g id="a_node3"><a xlink:href="/type/Real" xlink:title="Real">
+<ellipse fill="none" stroke="#6666ff" cx="50.05" cy="-234" rx="30.59" ry="18"/>
+<text text-anchor="middle" x="50.05" y="-230.3" font-family="FreeSans" font-size="14.00" fill="#6666ff">Real</text>
+</a>
+</g>
+</g>
+<!-- Rational&#45;&gt;Real -->
+<g id="edge8" class="edge">
+<title>Rational&#45;&gt;Real</title>
+<path fill="none" stroke="#6666ff" d="M50.05,-180.3C50.05,-188.02 50.05,-197.29 50.05,-205.89"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="46.55,-205.9 50.05,-215.9 53.55,-205.9 46.55,-205.9"/>
+</g>
+<!-- Numeric -->
+<g id="node2" class="node">
+<title>Numeric</title>
+<g id="a_node2"><a xlink:href="/type/Numeric" xlink:title="Numeric">
+<ellipse fill="none" stroke="#6666ff" cx="50.05" cy="-306" rx="44.69" ry="18"/>
+<text text-anchor="middle" x="50.05" y="-302.3" font-family="FreeSans" font-size="14.00" fill="#6666ff">Numeric</text>
+</a>
+</g>
+</g>
+<!-- Real&#45;&gt;Numeric -->
+<g id="edge9" class="edge">
+<title>Real&#45;&gt;Numeric</title>
+<path fill="none" stroke="#6666ff" d="M50.05,-252.3C50.05,-260.02 50.05,-269.29 50.05,-277.89"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="46.55,-277.9 50.05,-287.9 53.55,-277.9 46.55,-277.9"/>
+</g>
+<!-- Mu -->
+<g id="node4" class="node">
+<title>Mu</title>
+<g id="a_node4"><a xlink:href="/type/Mu" xlink:title="Mu">
+<ellipse fill="none" stroke="#000000" cx="149.05" cy="-306" rx="27" ry="18"/>
+<text text-anchor="middle" x="149.05" y="-302.3" font-family="FreeSans" font-size="14.00" fill="#000000">Mu</text>
+</a>
+</g>
+</g>
+<!-- Any -->
+<g id="node5" class="node">
+<title>Any</title>
+<g id="a_node5"><a xlink:href="/type/Any" xlink:title="Any">
+<ellipse fill="none" stroke="#000000" cx="149.05" cy="-234" rx="27" ry="18"/>
+<text text-anchor="middle" x="149.05" y="-230.3" font-family="FreeSans" font-size="14.00" fill="#000000">Any</text>
+</a>
+</g>
+</g>
+<!-- Any&#45;&gt;Mu -->
+<g id="edge1" class="edge">
+<title>Any&#45;&gt;Mu</title>
+<path fill="none" stroke="#000000" d="M149.05,-252.3C149.05,-260.02 149.05,-269.29 149.05,-277.89"/>
+<polygon fill="#000000" stroke="#000000" points="145.55,-277.9 149.05,-287.9 152.55,-277.9 145.55,-277.9"/>
+</g>
+<!-- Cool -->
+<g id="node6" class="node">
+<title>Cool</title>
+<g id="a_node6"><a xlink:href="/type/Cool" xlink:title="Cool">
+<ellipse fill="none" stroke="#000000" cx="149.05" cy="-162" rx="30.59" ry="18"/>
+<text text-anchor="middle" x="149.05" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#000000">Cool</text>
+</a>
+</g>
+</g>
+<!-- Cool&#45;&gt;Any -->
+<g id="edge2" class="edge">
+<title>Cool&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M149.05,-180.3C149.05,-188.02 149.05,-197.29 149.05,-205.89"/>
+<polygon fill="#000000" stroke="#000000" points="145.55,-205.9 149.05,-215.9 152.55,-205.9 145.55,-205.9"/>
+</g>
+<!-- Rat -->
+<g id="node7" class="node">
+<title>Rat</title>
+<g id="a_node7"><a xlink:href="/type/Rat" xlink:title="Rat">
+<ellipse fill="none" stroke="#000000" cx="145.05" cy="-90" rx="27" ry="18"/>
+<text text-anchor="middle" x="145.05" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Rat</text>
+</a>
+</g>
+</g>
+<!-- Rat&#45;&gt;Rational -->
+<g id="edge10" class="edge">
+<title>Rat&#45;&gt;Rational</title>
+<path fill="none" stroke="#6666ff" d="M127.62,-103.84C114.15,-113.76 95.2,-127.73 79.41,-139.37"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="76.98,-136.8 71.01,-145.55 81.13,-142.44 76.98,-136.8"/>
+</g>
+<!-- Rat&#45;&gt;Cool -->
+<g id="edge3" class="edge">
+<title>Rat&#45;&gt;Cool</title>
+<path fill="none" stroke="#000000" d="M146.03,-108.3C146.48,-116.02 147,-125.29 147.5,-133.89"/>
+<polygon fill="#000000" stroke="#000000" points="144,-134.11 148.07,-143.9 150.99,-133.71 144,-134.11"/>
+</g>
+<!-- FatRat -->
+<g id="node8" class="node">
+<title>FatRat</title>
+<g id="a_node8"><a xlink:href="/type/FatRat" xlink:title="FatRat">
+<ellipse fill="none" stroke="#000000" cx="57.05" cy="-90" rx="40.09" ry="18"/>
+<text text-anchor="middle" x="57.05" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">FatRat</text>
+</a>
+</g>
+</g>
+<!-- FatRat&#45;&gt;Rational -->
+<g id="edge11" class="edge">
+<title>FatRat&#45;&gt;Rational</title>
+<path fill="none" stroke="#6666ff" d="M55.32,-108.3C54.54,-116.02 53.62,-125.29 52.76,-133.89"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="49.27,-133.6 51.76,-143.9 56.23,-134.29 49.27,-133.6"/>
+</g>
+<!-- FatRat&#45;&gt;Cool -->
+<g id="edge4" class="edge">
+<title>FatRat&#45;&gt;Cool</title>
+<path fill="none" stroke="#000000" d="M76.56,-105.85C90.05,-116.11 108.15,-129.89 122.89,-141.1"/>
+<polygon fill="#000000" stroke="#000000" points="121.05,-144.09 131.12,-147.36 125.28,-138.52 121.05,-144.09"/>
+</g>
+<!-- Stringy -->
+<g id="node9" class="node">
+<title>Stringy</title>
+<g id="a_node9"><a xlink:href="/type/Stringy" xlink:title="Stringy">
+<ellipse fill="none" stroke="#6666ff" cx="242.05" cy="-162" rx="44.69" ry="18"/>
+<text text-anchor="middle" x="242.05" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#6666ff">Stringy</text>
+</a>
+</g>
+</g>
+<!-- Str -->
+<g id="node10" class="node">
+<title>Str</title>
+<g id="a_node10"><a xlink:href="/type/Str" xlink:title="Str">
+<ellipse fill="none" stroke="#000000" cx="217.05" cy="-90" rx="27" ry="18"/>
+<text text-anchor="middle" x="217.05" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Str</text>
+</a>
+</g>
+</g>
+<!-- Str&#45;&gt;Cool -->
+<g id="edge5" class="edge">
+<title>Str&#45;&gt;Cool</title>
+<path fill="none" stroke="#000000" d="M202.96,-105.5C193.69,-115.04 181.38,-127.72 170.86,-138.54"/>
+<polygon fill="#000000" stroke="#000000" points="168.04,-136.42 163.59,-146.03 173.06,-141.3 168.04,-136.42"/>
+</g>
+<!-- Str&#45;&gt;Stringy -->
+<g id="edge12" class="edge">
+<title>Str&#45;&gt;Stringy</title>
+<path fill="none" stroke="#6666ff" d="M222.97,-107.59C225.82,-115.58 229.32,-125.36 232.53,-134.36"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="229.33,-135.8 235.99,-144.04 235.92,-133.45 229.33,-135.8"/>
+</g>
+<!-- RatStr -->
+<g id="node11" class="node">
+<title>RatStr</title>
+<g id="a_node11"><a xlink:href="/type/RatStr" xlink:title="RatStr">
+<ellipse fill="none" stroke="#000000" cx="181.05" cy="-18" rx="40.09" ry="18"/>
+<text text-anchor="middle" x="181.05" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">RatStr</text>
+</a>
+</g>
+</g>
+<!-- RatStr&#45;&gt;Rat -->
+<g id="edge6" class="edge">
+<title>RatStr&#45;&gt;Rat</title>
+<path fill="none" stroke="#000000" d="M172.33,-35.95C168.07,-44.23 162.85,-54.38 158.12,-63.58"/>
+<polygon fill="#000000" stroke="#000000" points="154.89,-62.2 153.43,-72.69 161.12,-65.4 154.89,-62.2"/>
+</g>
+<!-- RatStr&#45;&gt;Str -->
+<g id="edge7" class="edge">
+<title>RatStr&#45;&gt;Str</title>
+<path fill="none" stroke="#000000" d="M189.76,-35.95C194.02,-44.23 199.24,-54.38 203.97,-63.58"/>
+<polygon fill="#000000" stroke="#000000" points="200.97,-65.4 208.66,-72.69 207.2,-62.2 200.97,-65.4"/>
+</g>
+</g>
+</svg>
+
+  <p class="fallback">
+    <a
+      rel="alternate"
+      href="/images/type-graph-Rational.svg"
+      type="image/svg+xml"
+      >Expand above chart</a
+    >
+  </p>
+</figure>
+<h1 id="Routines_supplied_by_role_Real"><a class="u" href="#___top" title="go to top of document">Routines supplied by role Real</a></h1>
+<p>Rational does role <a href="/Documentable/integration-test/type/Real">Real</a>, which provides the following routines:</p>
+<h2 id="(Real)_method_Bridge"><a href="/Documentable/integration-test/type/Real#method_Bridge">(Real) method Bridge</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method Bridge(Real:D:)</pre>
+<p>Default implementation coerces the invocant to <a href="/Documentable/integration-test/type/Num">Num</a> and that&#39;s the behavior of this method in core <a href="/Documentable/integration-test/type/Real">Real</a> types. This method primarily exist to make it easy to implement custom <a href="/Documentable/integration-test/type/Real">Real</a> types by users, with the <code>Bridge</code> method returning <em>one of</em> the core <code>Real</code> types (<em>NOT</em> necessarily a <a href="/Documentable/integration-test/type/Num">Num</a>) that best represent the custom <code>Real</code> type. In turn, this lets all the core operators and methods obtain a usable value they can work with.</p>
+<p>As an example, we can implement a custom <code>Temperature</code> type. It has a unit of measure and the value, which are given during instantiation. We can implement custom operators or conversion methods that work with this type. When it comes to regular mathematical operators, however, we can simply use the <code>.Bridge</code> method to convert the <code>Temperature</code> to Kelvin expressed in one of the core numeric types:</p>
+<pre class="pod-block-code">class Temperature is Real {
+    has Str:D  $.unit  is required where any &lt;K F C&gt;;
+    has Real:D $.value is required;
+    method new ($value, :$unit = &#39;K&#39;) { self.bless :$value :$unit }
+    # Note: implementing .new() that handles $value of type Temperature is left as an exercise
+
+    method Bridge {
+        when $!unit eq &#39;F&#39; { ($!value + 459.67) × 5/9 }
+        when $!unit eq &#39;C&#39; {  $!value + 273.15 }
+        $!value
+    }
+    method gist { self.Str }
+    method Str  { &quot;$!value degrees $!unit&quot; }
+}
+
+sub postfix:&lt;℃&gt; { Temperature.new: $^value, :unit&lt;C&gt; }
+sub postfix:&lt;℉&gt; { Temperature.new: $^value, :unit&lt;F&gt; }
+sub postfix:&lt;K&gt; { Temperature.new: $^value, :unit&lt;K&gt; }
+
+my $human := 36.6℃;
+my $book  := 451℉;
+my $sun   := 5778K;
+say $human;                # OUTPUT: «36.6 degrees C␤»
+say $human + $book + $sun; # OUTPUT: «6593.677777777778␤»
+say 123K + 456K;           # OUTPUT: «579␤»</pre>
+<p>As we can see from the last two lines of the output, the type of the bridged result is not forced to be any <em>particular</em> core type. It is a <a href="/Documentable/integration-test/type/Rat">Rat</a>, when we instantiated <code>Temperature</code> with a <code>Rat</code> or when conversion was involved, and it is an <a href="/Documentable/integration-test/type/Int">Int</a> when we instantiated <code>Temperature</code> with an <a href="/Documentable/integration-test/type/Int">Int</a>.</p>
+<h2 id="(Real)_method_Complex"><a href="/Documentable/integration-test/type/Real#method_Complex">(Real) method Complex</a></h2>
+<pre class="pod-block-code">method Complex(Real:D: --&gt; Complex:D)</pre>
+<p>Converts the number to a <code>Complex</code> with the number converted to a <code>Num</code> as its real part and 0e0 as the imaginary part.</p>
+<h2 id="(Real)_method_Rat"><a href="/Documentable/integration-test/type/Real#method_Rat">(Real) method Rat</a></h2>
+<pre class="pod-block-code">method Rat(Real:D: Real $epsilon = 1e-6)</pre>
+<p>Converts the number to a <code>Rat</code> with the precision <code>$epsilon</code>.</p>
+<h2 id="(Real)_method_Real"><a href="/Documentable/integration-test/type/Real#method_Real">(Real) method Real</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method Real(Real:D: --&gt; Real:D)
+multi method Real(Real:U: --&gt; Real:D)</pre>
+<p>The <code>:D</code> variant simply returns the invocant. The <code>:U</code> variant issues a warning about using an uninitialized value in numeric context and then returns <code>self.new</code>.</p>
+<h2 id="(Real)_routine_rand"><a href="/Documentable/integration-test/type/Real#routine_rand">(Real) routine rand</a></h2>
+<pre class="pod-block-code">sub term:&lt;rand&gt; (--&gt; Num:D)
+method rand(Real:D: --&gt; Real:D)</pre>
+<p>Returns a pseudo-random number between zero (inclusive) and the number (non-inclusive). The <a href="/Documentable/integration-test/routine/Bridge"><code>Bridge</code> method</a> is used to coerce the <code>Real</code> to a numeric that supports <a href="/Documentable/integration-test/routine/rand">rand</a> method.</p>
+<p>The term form returns a pseudo-random <code>Num</code> between 0e0 (inclusive) and 1e0 (non-inclusive.)</p>
+<h2 id="(Real)_method_sign"><a href="/Documentable/integration-test/type/Real#method_sign">(Real) method sign</a></h2>
+<pre class="pod-block-code">method sign(Real:D:)</pre>
+<p>Returns <code>-1</code> if the number is negative, <code>0</code> if it is zero and <code>1</code> otherwise.</p>
+<h2 id="(Real)_method_round"><a href="/Documentable/integration-test/type/Real#method_round">(Real) method round</a></h2>
+<pre class="pod-block-code">method round(Real:D: $scale = 1)</pre>
+<p>Rounds the number to scale <code>$scale</code>. If <code>$scale</code> is 1, rounds to an integer. If scale is <code>0.1</code>, rounds to one digit after the radix point (period or comma), etc.</p>
+<h2 id="(Real)_method_floor"><a href="/Documentable/integration-test/type/Real#method_floor">(Real) method floor</a></h2>
+<pre class="pod-block-code">method floor(Real:D --&gt; Int:D)</pre>
+<p>Return the largest integer not greater than the number.</p>
+<h2 id="(Real)_method_ceiling"><a href="/Documentable/integration-test/type/Real#method_ceiling">(Real) method ceiling</a></h2>
+<pre class="pod-block-code">method ceiling(Real:D --&gt; Int:D)</pre>
+<p>Returns the smallest integer not less than the number.</p>
+<h2 id="(Real)_method_truncate"><a href="/Documentable/integration-test/type/Real#method_truncate">(Real) method truncate</a></h2>
+<pre class="pod-block-code">method truncate(Real:D --&gt; Int:D)</pre>
+<p>Rounds the number towards zero.</p>
+<h2 id="(Real)_method_polymod"><a href="/Documentable/integration-test/type/Real#method_polymod">(Real) method polymod</a></h2>
+<pre class="pod-block-code">method polymod(Real:D: +@mods)</pre>
+<p>Returns the remainders after applying sequentially all divisors in the <code>@mods</code> argument; the last element of the array will be the last remainder.</p>
+<pre class="pod-block-code">say (1e8+1).polymod(10 xx 8);  # OUTPUT: «(1 0 0 0 0 0 0 0 1)␤»</pre>
+<p><code>10 xx 8</code> is simply an array with eight number 10s; the first division by 10 will return <code>1</code> as a remainder, while the rest, up to the last, will return 0. With 8 divisors, as above, the result will have one more elements, in this case for the last remainder.</p>
+<h2 id="(Real)_method_base"><a href="/Documentable/integration-test/type/Real#method_base">(Real) method base</a></h2>
+<pre class="pod-block-code">method base(Real:D: Int:D $base where 2..36, $digits? --&gt; Str:D)</pre>
+<p>Converts the number to a string, using <code>$base</code> as base. For <code>$base</code> larger than ten, capital Latin letters are used.</p>
+<pre class="pod-block-code">255.base(16);            # &#39;FF&#39;</pre>
+<p>The optional <code>$digits</code> argument asks for that many digits of fraction (which may not be negative). If omitted, a reasonable default is chosen based on type. For Int this default is 0. For <a href="/Documentable/integration-test/type/Num">Num</a>, the default is 8. For <a href="/Documentable/integration-test/type/Rational">Rational</a>, the number of places is scaled to the size of the denominator, with a minimum of 6.</p>
+<p>A special value of <a href="/Documentable/integration-test/type/Whatever"><code>Whatever</code></a> (<code>*</code>) can be given as <code>$digits</code>, which functions the same as when <code>$digits</code> is not specified for all <code>Real</code> types except the <code>Rationals</code>. For <code>Rationals</code>, the <code>Whatever</code> indicates that you wish all of the possible digits of the fractional part, but use caution: since there&#39;s no detection of repeating fractional parts (the algorithm will eventually stop after generating 2**63 digits).</p>
+<p>The final digit produced is always rounded.</p>
+<pre class="pod-block-code">say pi.base(10, 3);      # OUTPUT: «3.142␤»
+say (1/128).base(10, *); # OUTPUT: «0.0078125␤»
+say (1/100).base(10, *); # OUTPUT: «0.01␤»
+say (1/3)  .base(10, *); # WRONG: endlessly repeating fractional part</pre>
+<p>For reverse operation, see <a href="/Documentable/integration-test/routine/parse-base"><code>parse-base</code></a></p>
+<h1 id="Routines_supplied_by_role_Numeric"><a class="u" href="#___top" title="go to top of document">Routines supplied by role Numeric</a></h1>
+<p>Rational does role <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, which provides the following routines:</p>
+<h2 id="(Numeric)_method_Numeric"><a href="/Documentable/integration-test/type/Numeric#method_Numeric">(Numeric) method Numeric</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method Numeric(Numeric:D: --&gt; Numeric:D)
+multi method Numeric(Numeric:U: --&gt; Numeric:D)</pre>
+<p>The <code>:D</code> variant simply returns the invocant. The <code>:U</code> variant issues a warning about using an uninitialized value in numeric context and then returns <code>self.new</code>.</p>
+<h2 id="(Numeric)_method_Int"><a href="/Documentable/integration-test/type/Numeric#method_Int">(Numeric) method Int</a></h2>
+<pre class="pod-block-code">method Int(Numeric:D: --&gt; Int:D)</pre>
+<p>If this <code>Numeric</code> is equivalent to a <code>Real</code>, return the equivalent of calling <code>truncate</code> on that <code>Real</code> to get an <code>Int</code>. Fail with <code>X::Numeric::Real</code> otherwise.</p>
+<h2 id="(Numeric)_method_Rat"><a href="/Documentable/integration-test/type/Numeric#method_Rat">(Numeric) method Rat</a></h2>
+<pre class="pod-block-code">method Rat(Numeric:D: Real $epsilon = 1.0e-6 --&gt; Rat:D)</pre>
+<p>If this <code>Numeric</code> is equivalent to a <code>Real</code>, return a <code>Rat</code> which is within <code>$epsilon</code> of that <code>Real</code>&#39;s value. Fail with <code>X::Numeric::Real</code> otherwise.</p>
+<h2 id="(Numeric)_method_Num"><a href="/Documentable/integration-test/type/Numeric#method_Num">(Numeric) method Num</a></h2>
+<pre class="pod-block-code">method Num(Numeric:D: --&gt; Num:D)</pre>
+<p>If this <code>Numeric</code> is equivalent to a <code>Real</code>, return that <code>Real</code> as a <code>Num</code> as accurately as is possible. Fail with <code>X::Numeric::Real</code> otherwise.</p>
+<h2 id="(Numeric)_method_narrow"><a href="/Documentable/integration-test/type/Numeric#method_narrow">(Numeric) method narrow</a></h2>
+<pre class="pod-block-code">method narrow(Numeric:D --&gt; Numeric:D)</pre>
+<p>Returns the number converted to the narrowest type that can hold it without loss of precision.</p>
+<pre class="pod-block-code">say (4.0 + 0i).narrow.raku;     # OUTPUT: «4␤»
+say (4.0 + 0i).narrow.^name;    # OUTPUT: «Int␤»</pre>
+<h2 id="(Numeric)_method_ACCEPTS"><a href="/Documentable/integration-test/type/Numeric#method_ACCEPTS">(Numeric) method ACCEPTS</a></h2>
+<pre class="pod-block-code">multi method ACCEPTS(Numeric:D: $other)</pre>
+<p>Returns <code>True</code> if <code>$other</code> can be coerced to <a href="/Documentable/integration-test/type/Numeric">Numeric</a> and is <a href="/Documentable/integration-test/routine/==">numerically equal</a> to the invocant (or both evaluate to <code>NaN</code>).</p>
+<h2 id="(Numeric)_routine_log"><a href="/Documentable/integration-test/type/Numeric#routine_log">(Numeric) routine log</a></h2>
+<pre class="pod-block-code">multi sub    log(Numeric:D, Numeric $base = e --&gt; Numeric:D)
+multi method log(Numeric:D: Numeric $base = e --&gt; Numeric:D)</pre>
+<p>Calculates the logarithm to base <code>$base</code>. Defaults to the natural logarithm. Returns <code>NaN</code> if <code>$base</code> is negative. Throws an exception if <code>$base</code> is <code>1</code>.</p>
+<h2 id="(Numeric)_routine_log10"><a href="/Documentable/integration-test/type/Numeric#routine_log10">(Numeric) routine log10</a></h2>
+<pre class="pod-block-code">multi sub    log10(Numeric:D  --&gt; Numeric:D)
+multi method log10(Numeric:D: --&gt; Numeric:D)</pre>
+<p>Calculates the logarithm to base 10. Returns <code>NaN</code> for negative arguments and <code>-Inf</code> for <code>0</code>.</p>
+<h2 id="(Numeric)_routine_log2"><a href="/Documentable/integration-test/type/Numeric#routine_log2">(Numeric) routine log2</a></h2>
+<pre class="pod-block-code">multi sub    log2(Numeric:D)
+multi method log2(Numeric:D:)</pre>
+<p>Calculates the logarithm to base 2. Returns <code>NaN</code> for negative arguments and <code>-Inf</code> for <code>0</code>.</p>
+<h2 id="(Numeric)_routine_exp"><a href="/Documentable/integration-test/type/Numeric#routine_exp">(Numeric) routine exp</a></h2>
+<pre class="pod-block-code">multi sub    exp(Numeric:D, Numeric:D $base = e --&gt; Numeric:D)
+multi method exp(Numeric:D: Numeric:D $base = e --&gt; Numeric:D)</pre>
+<p>Returns <code>$base</code> to the power of the number, or <code>e</code> to the power of the number if called without a second argument.</p>
+<h2 id="(Numeric)_method_roots"><a href="/Documentable/integration-test/type/Numeric#method_roots">(Numeric) method roots</a></h2>
+<pre class="pod-block-code">multi method roots(Numeric:D: Int:D $n --&gt; Positional)</pre>
+<p>Returns a list of the <code>$n</code> complex roots, which evaluate to the original number when raised to the <code>$n</code>th power.</p>
+<h2 id="(Numeric)_routine_abs"><a href="/Documentable/integration-test/type/Numeric#routine_abs">(Numeric) routine abs</a></h2>
+<pre class="pod-block-code">multi sub    abs(Numeric:D  --&gt; Real:D)
+multi method abs(Numeric:D: --&gt; Real:D)</pre>
+<p>Returns the absolute value of the number.</p>
+<h2 id="(Numeric)_routine_sqrt"><a href="/Documentable/integration-test/type/Numeric#routine_sqrt">(Numeric) routine sqrt</a></h2>
+<pre class="pod-block-code">multi sub    sqrt(Numeric:D --&gt; Numeric:D)
+multi method sqrt(Numeric:D --&gt; Numeric:D)</pre>
+<p>Returns a square root of the number. For real numbers the positive square root is returned.</p>
+<p>On negative real numbers, <code>sqrt</code> returns <a href="/Documentable/integration-test/type/Num#NaN"><code>NaN</code></a> rather than a complex number, in order to not confuse people who are not familiar with complex arithmetic. If you want to calculate complex square roots, coerce to <code>Complex</code> first, or use the <code>roots</code> method.</p>
+<h2 id="(Numeric)_method_conj"><a href="/Documentable/integration-test/type/Numeric#method_conj">(Numeric) method conj</a></h2>
+<pre class="pod-block-code">multi method conj(Numeric:D --&gt; Numeric:D)</pre>
+<p>Returns the complex conjugate of the number. Returns the number itself for real numbers.</p>
+<h2 id="(Numeric)_method_Bool"><a href="/Documentable/integration-test/type/Numeric#method_Bool">(Numeric) method Bool</a></h2>
+<pre class="pod-block-code">multi method Bool(Numeric:D:)</pre>
+<p>Returns <code>False</code> if the number is equivalent to zero, and <code>True</code> otherwise.</p>
+<h2 id="(Numeric)_method_succ"><a href="/Documentable/integration-test/type/Numeric#method_succ">(Numeric) method succ</a></h2>
+<pre class="pod-block-code">method succ(Numeric:D:)</pre>
+<p>Returns the number incremented by one (successor).</p>
+<h2 id="(Numeric)_method_pred"><a href="/Documentable/integration-test/type/Numeric#method_pred">(Numeric) method pred</a></h2>
+<pre class="pod-block-code">method pred(Numeric:D:)</pre>
+<p>Returns the number decremented by one (predecessor).</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Type/Rational.pod6">https://github.com/Raku/doc/blob/master/doc/Type/Rational.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

@@ -1,0 +1,13 @@
+digraph "perl6-type-graph" {
+    rankdir=BT;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "Documentable::Heading::Grammar" [color="#000000", fontcolor="#000000", href="/type/Documentable::Heading::Grammar", fontname="FreeSans"];
+    "Any" [color="#000000", fontcolor="#000000", href="/type/Any", fontname="FreeSans"];
+
+    // Superclasses
+    "Documentable::Heading::Grammar" -> "Any" [color="#000000"];
+
+    // Roles
+}

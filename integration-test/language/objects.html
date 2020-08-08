@@ -1,0 +1,956 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Object orientation</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/objects.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Object orientation</h1>
+        <p class="subtitle">Object orientation in Raku</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+                             <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Using_objects">Using objects</a></td></tr>
+                                                                                  <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#Type_objects">Type objects</a></td></tr>
+                                                        <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Classes">Classes</a></td></tr>
+            <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#Attributes">Attributes       </a></td></tr>
+                                                                                                                  <tr class="toc-level-2"><td class="toc-number">2.2</td><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+                                                                                                                                                                                 <tr class="toc-level-2"><td class="toc-number">2.3</td><td class="toc-text"><a href="#Class_and_instance_methods">Class and instance methods</a></td></tr>
+                                                                                  <tr class="toc-level-2"><td class="toc-number">2.4</td><td class="toc-text"><a href="#self"><code class="pod-code-inline">self</code></a></td></tr>
+                                                                                                             <tr class="toc-level-2"><td class="toc-number">2.5</td><td class="toc-text"><a href="#Private_methods">Private methods</a></td></tr>
+                                               <tr class="toc-level-2"><td class="toc-number">2.6</td><td class="toc-text"><a href="#Submethods">Submethods</a></td></tr>
+                                                      <tr class="toc-level-2"><td class="toc-number">2.7</td><td class="toc-text"><a href="#Inheritance">Inheritance</a></td></tr>
+                                                        <tr class="toc-level-2"><td class="toc-number">2.8</td><td class="toc-text"><a href="#Delegation">Delegation</a></td></tr>
+                                                                                                                                                    <tr class="toc-level-2"><td class="toc-number">2.9</td><td class="toc-text"><a href="#Object_construction">Object construction</a></td></tr>
+                                                                                                                                                                 <tr class="toc-level-2"><td class="toc-number">2.10</td><td class="toc-text"><a href="#Object_cloning">Object cloning</a></td></tr>
+                          <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Roles">Roles</a></td></tr>
+                                                                          <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#Applying_roles">Applying roles</a></td></tr>
+                                                                                                                          <tr class="toc-level-2"><td class="toc-number">3.2</td><td class="toc-text"><a href="#Stubs">Stubs</a></td></tr>
+                                          <tr class="toc-level-2"><td class="toc-number">3.3</td><td class="toc-text"><a href="#Inheritance">Inheritance</a></td></tr>
+                                      <tr class="toc-level-2"><td class="toc-number">3.4</td><td class="toc-text"><a href="#Pecking_order">Pecking order</a></td></tr>
+                               <tr class="toc-level-2"><td class="toc-number">3.5</td><td class="toc-text"><a href="#Automatic_role_punning">Automatic role punning</a></td></tr>
+                           <tr class="toc-level-2"><td class="toc-number">3.6</td><td class="toc-text"><a href="#Parameterized_roles">Parameterized roles</a></td></tr>
+                                                                                     <tr class="toc-level-2"><td class="toc-number">3.7</td><td class="toc-text"><a href="#Mixins_of_roles">Mixins of roles</a></td></tr>
+                                                                                     <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#Metaobject_programming_and_introspection">Metaobject programming and introspection</a></td></tr>
+                                                 
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Raku provides strong support for <a href="https://en.wikipedia.org/wiki/Object-oriented_programming">Object Oriented Programming (OOP)</a>. Although Raku allows programmers to program in multiple paradigms, Object Oriented Programming is at the heart of the language.</p>
+<p>Raku comes with a wealth of predefined types, which can be classified in two categories: regular and <a href="/Documentable/integration-test/language/nativetypes"><em>native</em> types</a>. Everything that you can store in a variable is either a <em>native value</em> or an <em>object</em>. That includes literals, types (type objects), code and containers.</p>
+<p>Native types are used for low-level types (like <code>uint64</code>). Even if <em>native</em> types do not have the same capabilities as objects, if you call methods on them, they are automatically <em>boxed</em> into normal objects.</p>
+<p>Everything that is not a <em>native</em> value is an <em>object</em>. Objects do allow for both <a href="https://en.wikipedia.org/wiki/Object-oriented_programming#Inheritance_and_behavioral_subtyping">inheritance</a> and <a href="https://en.wikipedia.org/wiki/Object-oriented_programming#Encapsulation">encapsulation</a>.</p>
+<h1 id="Using_objects"><a class="u" href="#___top" title="go to top of document">Using objects</a></h1>
+<p>To call a method on an object, add a dot, followed by the method name:</p>
+<pre class="pod-block-code">say &quot;abc&quot;.uc;
+# OUTPUT: «ABC␤»
+</pre>
+<p>This calls the <code>uc</code> method on <code>&quot;abc&quot;</code>, which is an object of type <code>Str</code>. To supply arguments to the method, add arguments inside parentheses after the method.</p>
+<pre class="pod-block-code">my $formatted-text = &quot;Fourscore and seven years ago...&quot;.indent(8);
+say $formatted-text;
+# OUTPUT: «        Fourscore and seven years ago...␤»
+</pre>
+<p><code>$formatted-text</code> now contains the above text, but indented 8 spaces.</p>
+<p>Multiple arguments are separated by commas:</p>
+<pre class="pod-block-code">my @words = &quot;Abe&quot;, &quot;Lincoln&quot;;
+@words.push(&quot;said&quot;, $formatted-text.comb(/\w+/));
+say @words;
+# OUTPUT: «[Abe Lincoln said (Fourscore and seven years ago)]␤»
+</pre>
+<p>Similarly, multiple arguments can be specified by placing a colon after the method and separating the argument list with a comma:</p>
+<pre class="pod-block-code">say @words.join(&#39;--&#39;).subst: &#39;years&#39;, &#39;DAYS&#39;;
+# OUTPUT: «Abe--Lincoln--said--Fourscore and seven DAYS ago␤»
+</pre>
+<p>Since you have to put a <code>:</code> after the method if you want to pass arguments without parentheses, a method call without a colon or parentheses is unambiguously a method call without an argument list:</p>
+<pre class="pod-block-code">say 4.log:   ; # OUTPUT: «1.38629436111989␤» ( natural logarithm of 4 )
+say 4.log: +2; # OUTPUT: «2␤» ( base-2 logarithm of 4 )
+say 4.log  +2; # OUTPUT: «3.38629436111989␤» ( natural logarithm of 4, plus 2 )</pre>
+<p>Many operations that don&#39;t look like method calls (for example, smartmatching or interpolating an object into a string) might result in method calls under the hood.</p>
+<p>Methods can return mutable containers, in which case you can assign to the return value of a method call. This is how read-writable attributes to objects are used:</p>
+<pre class="pod-block-code">$*IN.nl-in = &quot;\r\n&quot;;
+</pre>
+<p>Here, we call method <code>nl-in</code> on the <code>$*IN</code> object, without arguments, and assign to the container it returned with the <a href="/Documentable/integration-test/routine/="><code>=</code></a> operator.</p>
+<p>All objects support methods from class <a href="/Documentable/integration-test/type/Mu">Mu</a>, which is the type hierarchy root. All objects derive from <code>Mu</code>.</p>
+<p>Object equality needs a specific operator: <a href="/Documentable/integration-test/language/operators#infix_eqv"><code>eqv</code></a>, the structural comparison operator:</p>
+<pre class="pod-block-code">class Foo {
+    has $.bar;
+    has $.baz
+};
+my $bar = &quot;42&quot;;
+my $baz = 24;
+my $zipi = Foo.new( :$baz, :$bar);
+my $zape = Foo.new( :$bar, :$baz);
+say $zipi eqv $zape; # OUTPUT: «True␤»
+</pre>
+<p>Object identity, on the other hand, uses <code>===</code>. Using it above will return <code>False</code>, for instance.</p>
+<p><a name="Documentable/integration-test/index-entry-Type_objects"></a></p>
+<h2 id="Type_objects"><a class="u" href="#___top" title="go to top of document">Type objects</a></h2>
+<p>Types themselves are objects and you can get the <em>type object</em> by writing its name:</p>
+<pre class="pod-block-code">my $int-type-obj = Int;
+</pre>
+<p>You can request the type object of anything by calling the <code>WHAT</code> method, which is actually a macro in method form:</p>
+<pre class="pod-block-code">my $int-type-obj = 1.WHAT;
+</pre>
+<p>Type objects (other than <a href="/Documentable/integration-test/type/Mu">Mu</a>) can be compared for equality with the <a href="/Documentable/integration-test/routine/==="><code>===</code></a> identity operator:</p>
+<pre class="pod-block-code">sub f(Int $x) {
+    if $x.WHAT === Int {
+        say &#39;you passed an Int&#39;;
+    }
+    else {
+        say &#39;you passed a subtype of Int&#39;;
+    }
+}
+</pre>
+<p>Although, in most cases, the <a href="/Documentable/integration-test/routine/isa"><code>.isa</code></a> method will suffice:</p>
+<pre class="pod-block-code">sub f($x) {
+    if $x.isa(Int) {
+        ...
+    }
+    ...
+}
+</pre>
+<p>Subtype checking is done by <a href="/Documentable/integration-test/language/operators#infix_~~">smartmatching</a>:</p>
+<pre class="pod-block-code">if $type ~~ Real {
+    say &#39;$type contains Real or a subtype thereof&#39;;
+}
+</pre>
+<h1 id="Classes"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-declarator_class-Classes"><span class="index-entry">Classes</span></a></a></h1>
+<p>Classes are declared using the <code>class</code> keyword, typically followed by a name.</p>
+<pre class="pod-block-code">class Journey { }
+</pre>
+<p>This declaration results in a type object being created and installed in the current package and current lexical scope under the name <code>Journey</code>. You can also declare classes lexically:</p>
+<pre class="pod-block-code">my class Journey { }
+</pre>
+<p>This restricts their visibility to the current lexical scope, which can be useful if the class is an implementation detail nested inside a module or another class.</p>
+<h2 id="Attributes"><a class="u" href="#___top" title="go to top of document">Attributes <a name="Documentable/integration-test/index-entry-Attribute"></a> <a name="Documentable/integration-test/index-entry-Property"></a> <a name="Documentable/integration-test/index-entry-Member"></a> <a name="Documentable/integration-test/index-entry-Slot"></a></a></h2>
+<p>Attributes are variables that exist per instance of a class; when instantiated to a value, the association between the variable and its value is called a property. They are where the state of an object is stored. In Raku, all attributes are <em>private</em>, which means they can be accessed directly only by the class instance itself. They are typically declared using the <code>has</code> declarator and the <code>!</code> twigil.</p>
+<pre class="pod-block-code">class Journey {
+    has $!origin;
+    has $!destination;
+    has @!travelers;
+    has $!notes;
+}
+</pre>
+<p>While there is no such thing as a public (or even protected) attribute, there is a way to have accessor methods generated automatically: replace the <code>!</code> twigil with the <code>.</code> twigil (the <code>.</code> should remind you of a method call).</p>
+<pre class="pod-block-code">class Journey {
+    has $.origin;
+    has $.destination;
+    has @!travelers;
+    has $.notes;
+}
+</pre>
+<p>This defaults to providing a read-only accessor. In order to allow changes to the attribute, add the <a href="/Documentable/integration-test/routine/is%20rw">is rw</a> trait:</p>
+<pre class="pod-block-code">class Journey {
+    has $.origin;
+    has $.destination;
+    has @!travelers;
+    has $.notes is rw;
+}
+</pre>
+<p>Now, after a <code>Journey</code> object is created, its <code>.origin</code>, <code>.destination</code>, and <code>.notes</code> will all be accessible from outside the class, but only <code>.notes</code> can be modified.</p>
+<p>If an object is instantiated without certain attributes, such as origin or destination, we may not get the desired result. To prevent this, provide default values or make sure that an attribute is set on object creation by marking an attribute with an <a href="/Documentable/integration-test/routine/is%20required">is required</a> trait.</p>
+<pre class="pod-block-code">class Journey {
+    # error if origin is not provided
+    has $.origin is required;
+    # set the destination to Orlando as default (unless that is the origin!)
+    has $.destination = self.origin eq &#39;Orlando&#39; ?? &#39;Kampala&#39; !! &#39;Orlando&#39;;
+    has @!travelers;
+    has $.notes is rw;
+}
+</pre>
+<p>Since classes inherit a default constructor from <code>Mu</code> and we have requested that some accessor methods are generated for us, our class is already somewhat functional.</p>
+<pre class="pod-block-code"># Create a new instance of the class.
+my $vacation = Journey.new(
+    origin      =&gt; &#39;Sweden&#39;,
+    destination =&gt; &#39;Switzerland&#39;,
+    notes       =&gt; &#39;Pack hiking gear!&#39;
+);
+
+# Use an accessor; this outputs Sweden.
+say $vacation.origin;
+
+# Use an rw accessor to change the value.
+$vacation.notes = &#39;Pack hiking gear and sunglasses!&#39;;
+</pre>
+<p>Note that, although the default constructor can initialize read-only attributes, it will only set attributes that have an accessor method. That is, even if you pass <code>travelers =&gt; [&quot;Alex&quot;, &quot;Betty&quot;]</code> to the default constructor, the attribute <code>@!travelers</code> is not initialized.</p>
+<h2 id="Methods"><a class="u" href="#___top" title="go to top of document">Methods</a></h2>
+<p>Methods are declared with the <code>method</code> keyword inside a class body.</p>
+<pre class="pod-block-code">class Journey {
+    has $.origin;
+    has $.destination;
+    has @!travelers;
+    has $.notes is rw;
+
+    method add-traveler($name) {
+        if $name ne any(@!travelers) {
+            push @!travelers, $name;
+        }
+        else {
+            warn &quot;$name is already going on the journey!&quot;;
+        }
+    }
+
+    method describe() {
+        &quot;From $!origin to $!destination&quot;
+    }
+}
+</pre>
+<p>A method can have a signature, just like a subroutine. Attributes can be used in methods and can always be used with the <code>!</code> twigil, even if they are declared with the <code>.</code> twigil. This is because the <code>.</code> twigil declares a <code>!</code> twigil and generates an accessor method.</p>
+<p>Looking at the code above, there is a subtle but important difference between using <code>$!origin</code> and <code>$.origin</code> in the method <code>describe</code>. <code>$!origin</code> is an inexpensive and obvious lookup of the attribute. <code>$.origin</code> is a method call and thus may be overridden in a subclass. Only use <code>$.origin</code> if you want to allow overriding.</p>
+<p>Unlike subroutines, additional named arguments will not produce compile time or runtime errors. That allows chaining of methods via <a href="/Documentable/integration-test/language/functions#Re-dispatching">Re-dispatching</a>.</p>
+<p>You may write your own accessors to override any or all of the autogenerated ones.</p>
+<pre class="pod-block-code">my $ⲧ = &quot; &quot; xx 4; # A tab-like thing
+class Journey {
+    has $.origin;
+    has $.destination;
+    has @.travelers;
+    has Str $.notes is rw;
+
+    multi method notes() { &quot;$!notes\n&quot; };
+    multi method notes( Str $note ) { $!notes ~= &quot;$note\n$ⲧ&quot; };
+
+    method Str { &quot;⤷ $!origin\n$ⲧ&quot; ~ self.notes() ~ &quot;$!destination ⤶\n&quot; };
+}
+
+my $trip = Journey.new( :origin&lt;Here&gt;, :destination&lt;There&gt;,
+                        travelers =&gt; &lt;þor Freya&gt; );
+
+$trip.notes(&quot;First steps&quot;);
+notes $trip: &quot;Almost there&quot;;
+print $trip;
+
+# OUTPUT:
+#⤷ Here
+#       First steps
+#       Almost there
+#
+#There ⤶
+</pre>
+<p>The declared multi method <code>notes</code> overrides the auto-generated methods implicit in the declaration of <code>$.notes</code>, using a different signature for reading and writing.</p>
+<p>Please note that in <code>notes $trip: &quot;Almost there&quot;</code> we are using <a name="Documentable/integration-test/index-entry-indirect_invocant_syntax"><span class="index-entry">indirect invocant syntax</span></a>, which puts first the method name, then the object, and then, separated by a colon, the arguments: <code>method invocant: arguments</code>. We can use this syntax whenever it feels more natural than the classical period-and-parentheses one. It works exactly in the same way.</p>
+<p>Note how the call to the <code>notes</code> method in the <code>Str</code> method is made on <code>self</code>. Writing method calls this way will leave the return value of the method as is with regards to containers. To containerize return values, you can make method calls on a sigil instead of <code>self</code>. This calls various methods on the return value of the method depending on the sigil used to containerize it:</p>
+<table class="pod-table">
+<thead><tr>
+<th>Sigil</th> <th>Method</th>
+</tr></thead>
+<tbody>
+<tr> <td>$</td> <td>item</td> </tr> <tr> <td>@</td> <td>list</td> </tr> <tr> <td>%</td> <td>hash</td> </tr> <tr> <td>&amp;</td> <td>item</td> </tr>
+</tbody>
+</table><p>For example, the <code>Str</code> method of <code>Journey</code> can be rewritten not to use the <code>~</code> operator by embedding a sigiled method call in the string it returns:</p>
+<pre class="pod-block-code">method Str { &quot;⤷ $!origin\n$ⲧ$.notes()$!destination ⤶\n&quot; }
+</pre>
+<p>Method names can be resolved at runtime with the <code>.&quot;&quot;</code> operator.</p>
+<pre class="pod-block-code">class A { has $.b };
+my $name = &#39;b&#39;;
+A.new.&quot;$name&quot;().say;
+# OUTPUT: «(Any)␤»
+</pre>
+<p>The syntax used to update <code>$.notes</code> changed in this section with respect to the previous <a href="#Attributes">Attributes</a> section. Instead of an assignment:</p>
+<pre class="pod-block-code">$vacation.notes = &#39;Pack hiking gear and sunglasses!&#39;;
+</pre>
+<p>we now do a method call:</p>
+<pre class="pod-block-code">$trip.notes(&quot;First steps&quot;);
+</pre>
+<p>Overriding the default auto-generated accessor means it is no longer available to provide a mutable container on return for an assignment. A method call is the preferred approach to adding computation and logic to the update of an attribute. Many modern languages can update an attribute by overloading assignment with a “setter” method. While Raku can overload the assignment operator for this purpose with a <a href="https://github.com/Raku/roast/blob/master/S12-attributes/mutators.t"><code>Proxy</code></a> object, overloading assignment to set attributes with complex logic is currently discouraged as <a href="https://6guts.wordpress.com/2016/11/25/perl-6-is-biased-towards-mutators-being-really-simple-thats-a-good-thing/">weaker object oriented design</a>.</p>
+<h2 id="Class_and_instance_methods"><a class="u" href="#___top" title="go to top of document">Class and instance methods</a></h2>
+<p>A method&#39;s signature can have an <em>explicit invocant</em> as its first parameter followed by a colon, which allows for the method to refer to the object it was called on.</p>
+<pre class="pod-block-code">class Foo {
+    method greet($me: $person) {
+        say &quot;Hi, I am $me.^name(), nice to meet you, $person&quot;;
+    }
+}
+Foo.new.greet(&quot;Bob&quot;);    # OUTPUT: «Hi, I am Foo, nice to meet you, Bob␤»
+</pre>
+<p>Providing an invocant in the method signature also allows for defining the method as either as a class method, or as an object method, through the use of <a href="/Documentable/integration-test/type/Signature#Type_constraints">type constraints</a>. The <code>::?CLASS</code> variable can be used to provide the class name at compile time, combined with either <code>:U</code> (for class methods) or <code>:D</code> (for instance methods).</p>
+<pre class="pod-block-code">class Pizza {
+    has $!radius = 42;
+    has @.ingredients;
+
+    # class method: construct from a list of ingredients
+    method from-ingredients(::?CLASS:U $pizza: @ingredients) {
+        $pizza.new( ingredients =&gt; @ingredients );
+    }
+
+    # instance method
+    method get-radius(::?CLASS:D:) { $!radius }
+}
+my $p = Pizza.from-ingredients: &lt;cheese pepperoni vegetables&gt;;
+say $p.ingredients;     # OUTPUT: «[cheese pepperoni vegetables]␤»
+say $p.get-radius;      # OUTPUT: «42␤»
+say Pizza.get-radius;   # This will fail.
+CATCH { default { put .^name ~ &quot;:\n&quot; ~ .Str } };
+# OUTPUT: «X::Parameter::InvalidConcreteness:␤
+#          Invocant of method &#39;get-radius&#39; must be
+#          an object instance of type &#39;Pizza&#39;,
+#          not a type object of type &#39;Pizza&#39;.
+#          Did you forget a &#39;.new&#39;?»
+</pre>
+<p>A method can be both a class and object method by using the <a href="/Documentable/integration-test/syntax/multi">multi</a> declarator:</p>
+<pre class="pod-block-code">class C {
+    multi method f(::?CLASS:U:) { say &quot;class method&quot;  }
+    multi method f(::?CLASS:D:) { say &quot;object method&quot; }
+}
+C.f;       # OUTPUT: «class method␤»
+C.new.f;   # OUTPUT: «object method␤»
+</pre>
+<h2 id="self"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-self"><span class="index-entry"><code>self</code></span></a></a></h2>
+<p>Inside a method, the term <code>self</code> is available and bound to the invocant object. <code>self</code> can be used to call further methods on the invocant, including constructors:</p>
+<pre class="pod-block-code">class Box {
+  has $.data;
+
+  method make-new-box-from() {
+      self.new: data =&gt; $!data;
+  }
+}
+</pre>
+<p><code>self</code> can be used in class or instance methods as well, though beware of trying to invoke one type of method from the other:</p>
+<pre class="pod-block-code">class C {
+    method g()            { 42     }
+    method f(::?CLASS:U:) { self.g }
+    method d(::?CLASS:D:) { self.f }
+}
+C.f;        # OUTPUT: «42␤»
+C.new.d;    # This will fail.
+CATCH { default { put .^name ~ &quot;:\n&quot; ~ .Str } };
+# OUTPUT: «X::Parameter::InvalidConcreteness:␤
+#          Invocant of method &#39;f&#39; must be a type object of type &#39;C&#39;,
+#          not an object instance of type &#39;C&#39;.  Did you forget a &#39;multi&#39;?»
+</pre>
+<p><code>self</code> can also be used with attributes, as long as they have an accessor. <code>self.a</code> will call the accessor for an attribute declared as <code>has $.a</code>. However, there is a difference between <code>self.a</code> and <code>$.a</code>, since the latter will itemize; <code>$.a</code> will be equivalent to <code>self.a.item</code> or <code>$(self.a)</code>.</p>
+<pre class="pod-block-code">class A {
+    has Int @.numbers;
+    has $.x = (1, 2, 3);
+
+    method show-diff() { .say for self.x; .say for $.x }
+
+    method twice  { self.times: 2 }
+    method thrice { $.times: 3    }
+
+    method times($val = 1) { @!numbers.map(* * $val).list }
+};
+
+my $obj = A.new(numbers =&gt; [1, 2, 3]);
+$obj.show-diff;   # OUTPUT: «1␤2␤3␤(1 2 3)␤»
+say $obj.twice;   # OUTPUT: «(2 4 6)␤»
+say $obj.thrice;  # OUTPUT: «(3 6 9)␤»
+</pre>
+<p>The colon-syntax for method arguments is supported for method calls using either <code>self</code> or the shortcut, as illustrated with the methods <code>twice</code> and <code>thrice</code> in the example above.</p>
+<p>Note that if the relevant methods <code>bless</code>, <code>CREATE</code> of <a href="/Documentable/integration-test/type/Mu">Mu</a> are not overloaded, <code>self</code> will point to the type object in those methods.</p>
+<p>On the other hand, the submethods <code>BUILD</code> and <code>TWEAK</code> are called on instances, in different stages of initialization. Submethods of the same name from subclasses have not yet run, so you should not rely on potentially virtual method calls inside these methods.</p>
+<p><a name="Documentable/integration-test/index-entry-Private_methods"></a></p>
+<h2 id="Private_methods"><a class="u" href="#___top" title="go to top of document">Private methods</a></h2>
+<p>Methods with an exclamation mark <code>!</code> before the method name are not callable from anywhere outside the defining class; such methods are private in the sense that they are not visible from outside the class that declares them. Private methods are invoked with an exclamation mark instead of a dot:</p>
+<pre class="pod-block-code">class FunMath {
+    has $.value is required;
+    method !do-subtraction( $num ) {
+        if $num ~~ Str {
+            return $!value + (-1 * $num.chars);
+        }
+        return $!value + (-1 * $num);
+    }
+    method minus( $minuend: $subtrahend ) {
+        # invoking the private method on the explicit invocant
+        $minuend!do-subtraction($subtrahend);
+    }
+}
+my $five = FunMath.new(value =&gt; 5);
+say $five.minus(6);         # OUTPUT: «-1␤»
+
+say $five.do-subtraction(6);
+CATCH { default { put .^name ~ &quot;:\n&quot; ~ .Str } }
+# OUTPUT: «X::Method::NotFound:
+# No such method &#39;do-subtraction&#39; for invocant of type
+# &#39;FunMath&#39;. Did you mean &#39;!do-subtraction&#39;?␤»
+</pre>
+<p>Private methods are not inherited by subclasses.</p>
+<p><a name="Documentable/integration-test/index-entry-Submethods"></a></p>
+<h2 id="Submethods"><a class="u" href="#___top" title="go to top of document">Submethods</a></h2>
+<p>Submethods are public methods that will not be inherited by subclasses. The name stems from the fact that they are semantically similar to subroutines.</p>
+<p>Submethods are useful for object construction and destruction tasks, as well as for tasks that are so specific to a certain type that subtypes would certainly have to override them.</p>
+<p>For example, the <a href="/Documentable/integration-test/type/Mu#method_new">default method new</a> calls submethod <code>BUILD</code> on each class in an <a href="#Inheritance">inheritance</a> chain:</p>
+<pre class="pod-block-code">class Point2D {
+    has $.x;
+    has $.y;
+
+    submethod BUILD(:$!x, :$!y) {
+        say &quot;Initializing Point2D&quot;;
+    }
+}
+
+class InvertiblePoint2D is Point2D {
+    submethod BUILD() {
+        say &quot;Initializing InvertiblePoint2D&quot;;
+    }
+    method invert {
+        self.new(x =&gt; - $.x, y =&gt; - $.y);
+    }
+}
+
+say InvertiblePoint2D.new(x =&gt; 1, y =&gt; 2);
+# OUTPUT: «Initializing Point2D␤»
+# OUTPUT: «Initializing InvertiblePoint2D␤»
+# OUTPUT: «InvertiblePoint2D.new(x =&gt; 1, y =&gt; 2)␤»
+</pre>
+<p>See also: <a href="#Object_construction">Object construction</a>.</p>
+<h2 id="Inheritance"><a class="u" href="#___top" title="go to top of document">Inheritance</a></h2>
+<p>Classes can have <em>parent classes</em>.</p>
+<pre class="pod-block-code">class Child is Parent1 is Parent2 { }
+</pre>
+<p><a name="Documentable/integration-test/index-entry-MRO"></a> If a method is called on the child class, and the child class does not provide that method, the method of that name in one of the parent classes is invoked instead, if it exists. The order in which parent classes are consulted is called the <em>method resolution order</em> (MRO). Raku uses the <a href="https://en.wikipedia.org/wiki/C3_linearization">C3 method resolution order</a>. You can ask a type for its MRO through a call to its metaclass:</p>
+<pre class="pod-block-code">say List.^mro;      # ((List) (Cool) (Any) (Mu))
+</pre>
+<p>If a class does not specify a parent class, <a href="/Documentable/integration-test/type/Any">Any</a> is assumed by default. All classes directly or indirectly derive from <a href="/Documentable/integration-test/type/Mu">Mu</a>, the root of the type hierarchy.</p>
+<p>All calls to public methods are &quot;virtual&quot; in the C++ sense, which means that the actual type of an object determines which method to call, not the declared type:</p>
+<pre class="pod-block-code">class Parent {
+    method frob {
+        say &quot;the parent class frobs&quot;
+    }
+}
+
+class Child is Parent {
+    method frob {
+        say &quot;the child&#39;s somewhat more fancy frob is called&quot;
+    }
+}
+
+my Parent $test;
+$test = Child.new;
+$test.frob;          # calls the frob method of Child rather than Parent
+# OUTPUT: «the child&#39;s somewhat more fancy frob is called␤»
+</pre>
+<p>If you want to explicitly call the parent method on a child object, refer to its full name in the parent namespace:</p>
+<pre class="pod-block-code">$test.Parent::frob;  # calls the frob method of Parent
+# OUTPUT: «the parent class frobs␤»
+</pre>
+<p><a name="Documentable/integration-test/index-entry-delegation_(trait_handles)"></a></p>
+<h2 id="Delegation"><a class="u" href="#___top" title="go to top of document">Delegation</a></h2>
+<p>Delegation is a technique whereby a member of an object (the <em>delegatee</em>) is evaluated in the context of another original object (the <em>delegator</em>). In other words, all method calls on the delegator are <em>delegated</em> to the delegatee.</p>
+<p>In Raku, delegation is specified by applying the <a href="/Documentable/integration-test/language/typesystem#trait_handles">handles</a> trait to an attribute. The arguments provided to the trait specify the methods the current object and the delegatee object will have in common. Instead of a list of method names, a <code>Pair</code> (for renaming), a list of <code>Pairs</code>, a <code>Regex</code> or a <code>Whatever</code> can be provided.</p>
+<pre class="pod-block-code">class Book {
+    has Str  $.title;
+    has Str  $.author;
+    has Str  $.language;
+    has Cool $.publication;
+}
+
+class Product {
+    has Book $.book handles(&#39;title&#39;, &#39;author&#39;, &#39;language&#39;, year =&gt; &#39;publication&#39;);
+}
+
+my $book = Book.new:
+    :title&lt;Dune&gt;,
+    :author(&#39;Frank Herbert&#39;),
+    :language&lt;English&gt;,
+    :publication&lt;1965&gt;
+;
+
+given Product.new(:$book) {
+    say .title;    # OUTPUT: «Dune␤»
+    say .author;   # OUTPUT: «Frank Herbert␤»
+    say .language; # OUTPUT: «English␤»
+    say .year;     # OUTPUT: «1965␤»
+}
+</pre>
+<p>In the example above, the class <code>Product</code> defines the attribute <code>$.book</code> and mark it with the <code>handles</code> trait to specify the methods that will be forwarded to the class <code>Book</code> whenever they&#39;re invoked on an instance object of the <code>Product</code> class. There are a few things to notice here:</p>
+<ul><li><p>We didn&#39;t write any methods inside the <code>Product</code> class that we invoked in its instance object. Instead, we instructed the class to delegate a call to any those methods to the <code>Book</code> class.</p>
+</li>
+<li><p>We&#39;ve specified the method names <code>title</code>, <code>author</code>, and <code>language</code> as they appear in the <code>Book</code> class. On the other hand, we&#39;ve renamed the <code>publication</code> method to <code>year</code> by providing the appropriate <code>Pair</code>.</p>
+</li>
+</ul>
+<p>Delegation can be used as an alternative to inheritance by delegating to the parent class and not inheriting all of its methods. For example, the following <code>Queue</code> class delegates several methods proper of queues to the <a href="/Documentable/integration-test/type/Array">Array</a> class while also providing a preferred interface for a few of those methods (e.g., <code>enqueue</code> for <code>push</code>):</p>
+<pre class="pod-block-code">class Queue {
+    has @!q handles(
+        enqueue =&gt; &#39;push&#39;, dequeue =&gt; &#39;shift&#39;,
+        &#39;push&#39;, &#39;shift&#39;, &#39;head&#39;, &#39;tail&#39;, &#39;elems&#39;, &#39;splice&#39;
+    );
+
+    method gist {
+        &#39;[&#39; ~ @!q.join(&#39;, &#39;) ~ &#39;]&#39;
+    }
+}
+
+my Queue $q .= new;
+$q.enqueue($_) for 1..5;
+$q.push(6);
+say $q.shift;                  # OUTPUT: «1␤»
+say $q.dequeue while $q.elems; # OUTPUT: «2␤3␤4␤5␤6␤»
+
+$q.enqueue($_) for &lt;Perl Python Raku Ruby&gt;;
+say $q.head;                   # OUTPUT: «Perl␤»
+say $q.tail;                   # OUTPUT: «Ruby␤»
+say $q;                        # OUTPUT: «[Perl, Python, Raku, Ruby]␤»
+$q.dequeue while $q.elems;
+say $q;                        # OUTPUT: «[]␤»
+</pre>
+<p><a name="Documentable/integration-test/index-entry-new_(method)"></a></p>
+<h2 id="Object_construction"><a class="u" href="#___top" title="go to top of document">Object construction</a></h2>
+<p>Objects are generally created through method calls, either on the type object or on another object of the same type.</p>
+<p>Class <a href="/Documentable/integration-test/type/Mu">Mu</a> provides a constructor method called <a href="/Documentable/integration-test/routine/new">new</a>, which takes named <a href="/Documentable/integration-test/language/functions#Arguments">arguments</a> and uses them to initialize public attributes.</p>
+<pre class="pod-block-code">class Point {
+    has $.x;
+    has $.y;
+}
+my $p = Point.new( x =&gt; 5, y =&gt; 2);
+#             ^^^ inherited from class Mu
+say &quot;x: &quot;, $p.x;
+say &quot;y: &quot;, $p.y;
+# OUTPUT: «x: 5␤»
+# OUTPUT: «y: 2␤»
+</pre>
+<p><code>Mu.new</code> calls method <a href="/Documentable/integration-test/routine/bless">bless</a> on its invocant, passing all the named <a href="/Documentable/integration-test/language/functions#Arguments">arguments</a>. <code>bless</code> creates the new object, and then walks all subclasses in reverse method resolution order (i.e. from <a href="/Documentable/integration-test/type/Mu">Mu</a> to most derived classes) and in each class checks for the existence of a method named <code>BUILD</code>. If the method exists, the method is called with all the named arguments from the <code>new</code> method. If not, the public attributes from this class are initialized from named arguments of the same name. In either case, if neither <code>BUILD</code> nor the default mechanism has initialized the attribute, default values are applied. This means that <code>BUILD</code> may change an attribute, but it does not have access to the contents of the attribute declared as its default; these are available only during <code>TWEAK</code> (see below), which can &#39;see&#39; the contents of an attribute initialized in the declaration of the class.</p>
+<p><a name="Documentable/integration-test/index-entry-TWEAK"></a> After the <code>BUILD</code> methods have been called, methods named <code>TWEAK</code> are called, if they exist, again with all the named arguments that were passed to <code>new</code>. See an example of its use below.</p>
+<p>Due to the default behavior of <code>BUILD</code> and <code>TWEAK</code> submethods, named arguments to the constructor <code>new</code> derived from <code>Mu</code> can correspond directly to public attributes of any of the classes in the method resolution order, or to any named parameter of any <code>BUILD</code> or <code>TWEAK</code> submethod.</p>
+<p>This object construction scheme has several implications for customized constructors. First, custom <code>BUILD</code> methods should always be submethods, otherwise they break attribute initialization in subclasses. Second, <code>BUILD</code> submethods can be used to run custom code at object construction time. They can also be used for creating aliases for attribute initialization:</p>
+<pre class="pod-block-code">class EncodedBuffer {
+    has $.enc;
+    has $.data;
+
+    submethod BUILD(:encoding(:$enc), :$data) {
+        $!enc  :=  $enc;
+        $!data := $data;
+    }
+}
+my $b1 = EncodedBuffer.new( encoding =&gt; &#39;UTF-8&#39;, data =&gt; [64, 65] );
+my $b2 = EncodedBuffer.new( enc      =&gt; &#39;UTF-8&#39;, data =&gt; [64, 65] );
+#  both enc and encoding are allowed now
+</pre>
+<p>Since passing arguments to a routine binds the arguments to the parameters, a separate binding step is unnecessary if the attribute is used as a parameter. Hence the example above could also have been written as:</p>
+<pre class="pod-block-code">submethod BUILD(:encoding(:$!enc), :$!data) {
+    # nothing to do here anymore, the signature binding
+    # does all the work for us.
+}
+</pre>
+<p>However, be careful when using this auto-binding of attributes when the attribute may have special type requirements, such as an <code>:$!id</code> that must be a positive integer. Remember, default values will be assigned unless you specifically take care of this attribute, and that default value will be <code>Any</code>, which would cause a type error.</p>
+<p>The third implication is that if you want a constructor that accepts positional arguments, you must write your own <code>new</code> method:</p>
+<pre class="pod-block-code">class Point {
+    has $.x;
+    has $.y;
+    method new($x, $y) {
+        self.bless(:$x, :$y);
+    }
+}
+</pre>
+<p>However this is considered poor practice, because it makes correct initialization of objects from subclasses harder.</p>
+<p>Another thing to note is that the name <code>new</code> is not special in Raku. It is merely a common convention, one that is followed quite thoroughly in <a href="/Documentable/integration-test/routine/new">most Raku classes</a>. You can call <code>bless</code> from any method at all, or use <code>CREATE</code> to fiddle around with low-level workings.</p>
+<p>The <code>TWEAK</code> submethod allows you to check things or modify attributes after object construction:</p>
+<pre class="pod-block-code">class RectangleWithCachedArea {
+    has ($.x1, $.x2, $.y1, $.y2);
+    has $.area;
+    submethod TWEAK() {
+        $!area = abs( ($!x2 - $!x1) * ( $!y2 - $!y1) );
+    }
+}
+
+say RectangleWithCachedArea.new( x2 =&gt; 5, x1 =&gt; 1, y2 =&gt; 1, y1 =&gt; 0).area;
+# OUTPUT: «4␤»
+</pre>
+<h2 id="Object_cloning"><a class="u" href="#___top" title="go to top of document">Object cloning</a></h2>
+<p>The cloning is done using the <a href="/Documentable/integration-test/routine/clone">clone</a> method available on all objects, which shallow-clones both public and private attributes. New values for <em>public</em> attributes can be supplied as named arguments.</p>
+<pre class="pod-block-code">class Foo {
+    has $.foo = 42;
+    has $.bar = 100;
+}
+
+my $o1 = Foo.new;
+my $o2 = $o1.clone: :bar(5000);
+say $o1; # Foo.new(foo =&gt; 42, bar =&gt; 100)
+say $o2; # Foo.new(foo =&gt; 42, bar =&gt; 5000)
+</pre>
+<p>See document for <a href="/Documentable/integration-test/routine/clone">clone</a> for details on how non-scalar attributes get cloned, as well as examples of implementing your own custom clone methods.</p>
+<h1 id="Roles"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-declarator_role-Roles"><span class="index-entry">Roles</span></a></a></h1>
+<p>Roles are a collection of attributes and methods; however, unlike classes, roles are meant for describing only parts of an object&#39;s behavior; this is why, in general, roles are intended to be <em>mixed in</em> classes and objects. In general, classes are meant for managing objects and roles are meant for managing behavior and code reuse within objects.</p>
+<p><a name="Documentable/integration-test/index-entry-does"></a> Roles use the keyword <code>role</code> preceding the name of the role that is declared. Roles are mixed in using the <code>does</code> keyword preceding the name of the role that is mixed in.</p>
+<p>Roles can also be mixed into a class using <code>is</code>. However, the semantics of <code>is</code> with a role are quite different from those offered by <code>does</code>. With <code>is</code>, a class is punned from the role, and then inherited from. Thus, there is no flattening composition, and none of the safeties which <code>does</code> provides.</p>
+<pre class="pod-block-code">constant ⲧ = &quot; &quot; xx 4; #Just a ⲧab
+role Notable {
+    has Str $.notes is rw;
+
+    multi method notes() { &quot;$!notes\n&quot; };
+    multi method notes( Str $note ) { $!notes ~= &quot;$note\n&quot; ~ ⲧ };
+
+}
+
+class Journey does Notable {
+    has $.origin;
+    has $.destination;
+    has @.travelers;
+
+    method Str { &quot;⤷ $!origin\n&quot; ~ ⲧ ~ self.notes() ~ &quot;$!destination ⤶\n&quot; };
+}
+
+my $trip = Journey.new( :origin&lt;Here&gt;, :destination&lt;There&gt;,
+                        travelers =&gt; &lt;þor Freya&gt; );
+
+$trip.notes(&quot;First steps&quot;);
+notes $trip: &quot;Almost there&quot;;
+print $trip;
+# OUTPUT:
+#⤷ Here
+#       First steps
+#       Almost there
+#
+#There ⤶
+</pre>
+<p>Roles are immutable as soon as the compiler parses the closing curly brace of the role declaration.</p>
+<h2 id="Applying_roles"><a class="u" href="#___top" title="go to top of document">Applying roles</a></h2>
+<p>Role application differs significantly from class inheritance. When a role is applied to a class, the methods of that role are copied into the class. If multiple roles are applied to the same class, conflicts (e.g. attributes or non-multi methods of the same name) cause a compile-time error, which can be solved by providing a method of the same name in the class.</p>
+<p>This is much safer than multiple inheritance, where conflicts are never detected by the compiler, but are instead resolved to the superclass that appears earlier in the method resolution order, which might not be what the programmer wanted.</p>
+<p>For example, if you&#39;ve discovered an efficient method to ride cows, and are trying to market it as a new form of popular transportation, you might have a class <code>Bull</code>, for all the bulls you keep around the house, and a class <code>Automobile</code>, for things that you can drive.</p>
+<pre class="pod-block-code">class Bull {
+    has Bool $.castrated = False;
+    method steer {
+        # Turn your bull into a steer
+        $!castrated = True;
+        return self;
+    }
+}
+class Automobile {
+    has $.direction;
+    method steer($!direction) { }
+}
+class Taurus is Bull is Automobile { }
+
+my $t = Taurus.new;
+say $t.steer;
+# OUTPUT: «Taurus.new(castrated =&gt; Bool::True, direction =&gt; Any)␤»
+</pre>
+<p>With this setup, your poor customers will find themselves unable to turn their Taurus and you won&#39;t be able to make more of your product! In this case, it may have been better to use roles:</p>
+<pre class="pod-block-code">role Bull-Like {
+    has Bool $.castrated = False;
+    method steer {
+        # Turn your bull into a steer
+        $!castrated = True;
+        return self;
+    }
+}
+role Steerable {
+    has Real $.direction;
+    method steer(Real $d = 0) {
+        $!direction += $d;
+    }
+}
+class Taurus does Bull-Like does Steerable { }
+</pre>
+<p>This code will die with something like:</p>
+<pre class="pod-block-code">===SORRY!===
+Method &#39;steer&#39; must be resolved by class Taurus because it exists in
+multiple roles (Steerable, Bull-Like)
+</pre>
+<p>This check will save you a lot of headaches:</p>
+<pre class="pod-block-code">class Taurus does Bull-Like does Steerable {
+    method steer($direction?) {
+        self.Steerable::steer($direction)
+    }
+}
+</pre>
+<p>When a role is applied to a second role, the actual application is delayed until the second role is applied to a class, at which point both roles are applied to the class. Thus</p>
+<pre class="pod-block-code">role R1 {
+    # methods here
+}
+role R2 does R1 {
+    # methods here
+}
+class C does R2 { }
+</pre>
+<p>produces the same class <code>C</code> as</p>
+<pre class="pod-block-code">role R1 {
+    # methods here
+}
+role R2 {
+    # methods here
+}
+class C does R1 does R2 { }
+</pre>
+<h2 id="Stubs"><a class="u" href="#___top" title="go to top of document">Stubs</a></h2>
+<p>When a role contains a stubbed method, that is, a method whose code is limited to <code>...</code>, a non-stubbed version of a method of the same name must be supplied at the time the role is applied to a class. This allows you to create roles that act as abstract interfaces.</p>
+<pre class="pod-block-code">role AbstractSerializable {
+    method serialize() { ... }        # literal ... here marks the
+                                      # method as a stub
+}
+
+# the following is a compile time error, for example
+#        Method &#39;serialize&#39; must be implemented by Point because
+#        it&#39;s required by a role
+
+class APoint does AbstractSerializable {
+    has $.x;
+    has $.y;
+}
+
+# this works:
+class SPoint does AbstractSerializable {
+    has $.x;
+    has $.y;
+    method serialize() { &quot;p($.x, $.y)&quot; }
+}
+</pre>
+<p>The implementation of the stubbed method may also be provided by another role.</p>
+<h2 id="Inheritance"><a class="u" href="#___top" title="go to top of document">Inheritance</a></h2>
+<p>Roles cannot inherit from classes, but they may <em>carry</em> classes, causing any class which does that role to inherit from the carried classes. So if you write:</p>
+<pre class="pod-block-code">role A is Exception { }
+class X::Ouch does A { }
+X::Ouch.^parents.say # OUTPUT: «((Exception))␤»
+</pre>
+<p>then <code>X::Ouch</code> will inherit directly from Exception, as we can see above by listing its parents.</p>
+<p>As they do not use what can properly be called inheritance, roles are not part of the class hierarchy. Roles are listed with the <code>.^roles</code> metamethod instead, which uses <code>transitive</code> as flag for including all levels or just the first one. Despite this, a class or instance may still be tested with smartmatches or type constraints to see if it does a role.</p>
+<pre class="pod-block-code">role F { }
+class G does F { }
+G.^roles.say;                    # OUTPUT: «((F))␤»
+role Ur {}
+role Ar does Ur {}
+class Whim does Ar {}; Whim.^roles(:!transitive).say;   # OUTPUT: «((Ar))␤»
+say G ~~ F;                      # OUTPUT: «True␤»
+multi a (F $a) { &quot;F&quot;.say }
+multi a ($a)   { &quot;not F&quot;.say }
+a(G);                            # OUTPUT: «F␤»
+</pre>
+<h2 id="Pecking_order"><a class="u" href="#___top" title="go to top of document">Pecking order</a></h2>
+<p>A method defined directly in a class will always override definitions from applied roles or from inherited classes. If no such definition exists, methods from roles override methods inherited from classes. This happens both when said class was brought in by a role, and also when said class was inherited directly.</p>
+<pre class="pod-block-code">role M {
+  method f { say &quot;I am in role M&quot; }
+}
+
+class A {
+  method f { say &quot;I am in class A&quot; }
+}
+
+class B is A does M {
+  method f { say &quot;I am in class B&quot; }
+}
+
+class C is A does M { }
+
+B.new.f; # OUTPUT «I am in class B␤»
+C.new.f; # OUTPUT «I am in role M␤»
+</pre>
+<p>Note that each candidate for a multi-method is its own method. In this case, the above only applies if two such candidates have the same signature. Otherwise, there is no conflict, and the candidate is just added to the multi-method.</p>
+<h2 id="Automatic_role_punning"><a class="u" href="#___top" title="go to top of document">Automatic role punning</a></h2>
+<p>Any attempt to directly instantiate a role or use it as a type object will automatically create a class with the same name as the role, making it possible to transparently use a role as if it were a class.</p>
+<pre class="pod-block-code">role Point {
+    has $.x;
+    has $.y;
+    method abs { sqrt($.x * $.x + $.y * $.y) }
+    method dimensions { 2 }
+}
+say Point.new(x =&gt; 6, y =&gt; 8).abs; # OUTPUT «10␤»
+say Point.dimensions;              # OUTPUT «2␤»
+</pre>
+<p>We call this automatic creation of classes <em>punning</em>, and the generated class a <em>pun</em>.</p>
+<p>Punning is not caused by most <a href="/Documentable/integration-test/language/mop">metaprogramming</a> constructs, however, as those are sometimes used to work directly with roles.</p>
+<p><a name="Documentable/integration-test/index-entry-Parameterized_Roles"></a></p>
+<h2 id="Parameterized_roles"><a class="u" href="#___top" title="go to top of document">Parameterized roles</a></h2>
+<p>Roles can be parameterized, by giving them a signature in square brackets:</p>
+<pre class="pod-block-code">role BinaryTree[::Type] {
+    has BinaryTree[Type] $.left;
+    has BinaryTree[Type] $.right;
+    has Type $.node;
+
+    method visit-preorder(&amp;cb) {
+        cb $.node;
+        for $.left, $.right -&gt; $branch {
+            $branch.visit-preorder(&amp;cb) if defined $branch;
+        }
+    }
+    method visit-postorder(&amp;cb) {
+        for $.left, $.right -&gt; $branch {
+            $branch.visit-postorder(&amp;cb) if defined $branch;
+        }
+        cb $.node;
+    }
+    method new-from-list(::?CLASS:U: *@el) {
+        my $middle-index = @el.elems div 2;
+        my @left         = @el[0 .. $middle-index - 1];
+        my $middle       = @el[$middle-index];
+        my @right        = @el[$middle-index + 1 .. *];
+        self.new(
+            node    =&gt; $middle,
+            left    =&gt; @left  ?? self.new-from-list(@left)  !! self,
+            right   =&gt; @right ?? self.new-from-list(@right) !! self,
+        );
+    }
+}
+
+my $t = BinaryTree[Int].new-from-list(4, 5, 6);
+$t.visit-preorder(&amp;say);    # OUTPUT: «5␤4␤6␤»
+$t.visit-postorder(&amp;say);   # OUTPUT: «4␤6␤5␤»
+</pre>
+<p>Here the signature consists only of a type capture, but any signature will do:</p>
+<pre class="pod-block-code">enum Severity &lt;debug info warn error critical&gt;;
+
+role Logging[$filehandle = $*ERR] {
+    method log(Severity $sev, $message) {
+        $filehandle.print(&quot;[{uc $sev}] $message\n&quot;);
+    }
+}
+
+Logging[$*OUT].log(debug, &#39;here we go&#39;); # OUTPUT: «[DEBUG] here we go␤»
+</pre>
+<p>You can have multiple roles of the same name, but with different signatures; the normal rules of multi dispatch apply for choosing multi candidates.</p>
+<p><a name="Documentable/integration-test/index-entry-but"></a></p>
+<h2 id="Mixins_of_roles"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-Mixins"><span class="index-entry">Mixins</span></a> of roles</a></h2>
+<p>Roles can be mixed into objects. A role&#39;s given attributes and methods will be added to the methods and attributes the object already has. Multiple mixins and anonymous roles are supported.</p>
+<pre class="pod-block-code">role R { method Str() {&#39;hidden!&#39;} };
+my $i = 2 but R;
+sub f(\bound){ put bound };
+f($i); # OUTPUT: «hidden!␤»
+my @positional := &lt;a b&gt; but R;
+say @positional.^name; # OUTPUT: «List+{R}␤»
+</pre>
+<p>Note that the object got the role mixed in, not the object&#39;s class or the container. Thus, @-sigiled containers will require binding to make the role stick as is shown in the example with <code>@positional</code>. Some operators will return a new value, which effectively strips the mixin from the result. That is why it might be more clear to mix in the role in the declaration of the variable using <code>does</code>:</p>
+<pre class="pod-block-code">role R {};
+my @positional does R = &lt;a b&gt;;
+say @positional.^name; # OUTPUT: «Array+{R}␤»
+</pre>
+<p>The operator <code>infix:&lt;but&gt;</code> is narrower than the list constructor. When providing a list of roles to mix in, always use parentheses.</p>
+<pre class="pod-block-code">role R1 { method m {} }
+role R2 { method n {} }
+my $a = 1 but R1,R2; # R2 is in sink context, issues a WARNING
+say $a.^name;
+# OUTPUT: «Int+{R1}␤»
+my $all-roles = 1 but (R1,R2);
+say $all-roles.^name; # OUTPUT: «Int+{R1,R2}␤»
+</pre>
+<p>Mixins can be used at any point in your object&#39;s life.</p>
+<pre class="pod-block-code"># A counter for Table of Contents
+role TOC-Counter {
+    has Int @!counters is default(0);
+    method Str() { @!counters.join: &#39;.&#39; }
+    method inc($level) {
+        @!counters[$level - 1]++;
+        @!counters.splice($level);
+        self
+    }
+}
+
+my Num $toc-counter = NaN;     # don&#39;t do math with Not A Number
+say $toc-counter;              # OUTPUT: «NaN␤»
+$toc-counter does TOC-Counter; # now we mix the role in
+$toc-counter.inc(1).inc(2).inc(2).inc(1).inc(2).inc(2).inc(3).inc(3);
+put $toc-counter / 1;          # OUTPUT: «NaN␤» (because that&#39;s numerical context)
+put $toc-counter;              # OUTPUT: «2.2.2␤» (put will call TOC-Counter::Str)
+</pre>
+<p>Roles can be anonymous.</p>
+<pre class="pod-block-code">my %seen of Int is default(0 but role :: { method Str() {&#39;NULL&#39;} });
+say %seen&lt;not-there&gt;;          # OUTPUT: «NULL␤»
+say %seen&lt;not-there&gt;.defined;  # OUTPUT: «True␤» (0 may be False but is well defined)
+say Int.new(%seen&lt;not-there&gt;); # OUTPUT: «0␤»
+</pre>
+<h1 id="Metaobject_programming_and_introspection"><a class="u" href="#___top" title="go to top of document">Metaobject programming and introspection</a></h1>
+<p>Raku has a metaobject system, which means that the behavior of objects, classes, roles, grammars, enums, etc. are themselves controlled by other objects; those objects are called <em>metaobjects</em>. Metaobjects are, like ordinary objects, instances of classes, in this case we call them <em>metaclasses</em>.</p>
+<p>For each object or class you can get the metaobject by calling <code>.HOW</code> on it. Note that although this looks like a method call, it works more like a macro.</p>
+<p>So, what can you do with the metaobject? For one you can check if two objects have the same metaclass by comparing them for equality:</p>
+<pre class="pod-block-code">say 1.HOW ===   2.HOW;      # OUTPUT: «True␤»
+say 1.HOW === Int.HOW;      # OUTPUT: «True␤»
+say 1.HOW === Num.HOW;      # OUTPUT: «False␤»
+</pre>
+<p>Raku uses the word <em>HOW</em> (Higher Order Workings) to refer to the metaobject system. Thus it should be no surprise that in Rakudo, the class name of the metaclass that controls class behavior is called <code>Perl6::Metamodel::ClassHOW</code>. For each class there is one instance of <code>Perl6::Metamodel::ClassHOW</code>.</p>
+<p>But of course the metamodel does much more for you. For example, it allows you to introspect objects and classes. The calling convention for methods on metaobjects is to call the method on the metaobject and pass in the object of interest as first argument to the object. So to get the name of the class of an object, you could write:</p>
+<pre class="pod-block-code">my $object = 1;
+my $metaobject = 1.HOW;
+say $metaobject.name($object);      # OUTPUT: «Int␤»
+
+# or shorter:
+say 1.HOW.name(1);                  # OUTPUT: «Int␤»
+</pre>
+<p>(The motivation is that Raku also wants to allow a more prototype-based object system, where it&#39;s not necessary to create a new metaobject for every type).</p>
+<p>There&#39;s a shortcut to keep from using the same object twice:</p>
+<pre class="pod-block-code">say 1.^name;                        # OUTPUT: «Int␤»
+# same as
+say 1.HOW.name(1);                  # OUTPUT: «Int␤»
+</pre>
+<p>See <a href="/Documentable/integration-test/type/Metamodel::ClassHOW">Metamodel::ClassHOW</a> for documentation on the metaclass of <code>class</code> and also the <a href="/Documentable/integration-test/language/mop">general documentation on the metaobject protocol</a>.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/objects.pod6">https://github.com/Raku/doc/blob/master/doc/Language/objects.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

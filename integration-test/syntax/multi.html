@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>syntax multi</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">syntax multi</h1>
+        <p class="subtitle"></p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#language_documentation_Functions">language documentation Functions</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#(Functions)_declarator_multi_multi">(Functions) declarator multi multi</a></td></tr>
+                                                                                                                     <tr class="toc-level-3"><td class="toc-number">1.1.1</td><td class="toc-text"><a href="#proto">proto</a></td></tr>
+                                                                                                                                                       
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Documentation for syntax <code>multi</code> assembled from the following types:</p>
+<h1 id="language_documentation_Functions"><a class="u" href="#___top" title="go to top of document">language documentation Functions</a></h1>
+<p>From <a href="/Documentable/integration-test/language/functions#Multi-dispatch">Functions</a></p>
+<h2 id="(Functions)_declarator_multi_multi"><a href="/Documentable/integration-test/language/functions#Multi-dispatch">(Functions) declarator multi multi</a></h2>
+<p>Raku allows for writing several routines with the same name but different signatures. When the routine is called by name, the runtime environment determines the proper <em>candidate</em> and invokes it.</p>
+<p>Each candidate is declared with the <code>multi</code> keyword. Dispatch happens depending on the number (<a href="/Documentable/integration-test/type/Routine#(Code)_method_arity">arity</a>), type and name of arguments. Consider the following example:</p>
+<pre class="pod-block-code"># version 1
+multi happy-birthday( $name ) {
+    say &quot;Happy Birthday $name !&quot;;
+}
+
+# version 2
+multi happy-birthday( $name, $age ) {
+    say &quot;Happy {$age}th Birthday $name !&quot;;
+}
+
+# version 3
+multi happy-birthday( :$name, :$age, :$title  = &#39;Mr&#39; ) {
+    say &quot;Happy {$age}th Birthday $title $name !&quot;;
+}
+
+
+# calls version 1 (arity)
+happy-birthday &#39;Larry&#39;;                        # OUTPUT: «Happy Birthday Larry !␤»
+# calls version 2 (arity)
+happy-birthday &#39;Luca&#39;, 40;                     # OUTPUT: «Happy 40th Birthday Luca !␤»
+# calls version 3
+# (named arguments win against arity)
+happy-birthday( age =&gt; &#39;50&#39;, name =&gt; &#39;John&#39; ); # OUTPUT: «Happy 50th Birthday Mr John !␤»
+# calls version 2 (arity)
+happy-birthday( &#39;Jack&#39;, 25 );                  # OUTPUT: «Happy 25th Birthday Jack !␤»
+
+</pre>
+<p>The first two versions of the <code>happy-birthday</code> sub differs only in the arity (number of arguments), while the third version uses named arguments and is chosen only when named arguments are used, even if the arity is the same of another <code>multi</code> candidate.</p>
+<p>When two sub have the same arity, the type of the arguments drive the dispatch; when there are named arguments they drive the dispatch even when their type is the same as another candidate:</p>
+<pre class="pod-block-code">multi happy-birthday( Str $name, Int $age ) {
+    say &quot;Happy {$age}th Birthday $name !&quot;;
+}
+
+multi happy-birthday( Str $name, Str $title ) {
+    say &quot;Happy Birthday $title $name !&quot;;
+}
+
+multi happy-birthday( Str :$name, Int :$age ) {
+    say &quot;Happy Birthday $name, you turned $age !&quot;;
+}
+
+happy-birthday &#39;Luca&#39;, 40;                 # OUTPUT: «Happy 40th Birthday Luca !␤»
+happy-birthday &#39;Luca&#39;, &#39;Mr&#39;;               # OUTPUT: «Happy Birthday Mr Luca !␤»
+happy-birthday age =&gt; 40, name =&gt; &#39;Luca&#39;;  # OUTPUT: «Happy Birthday Luca, you turned 40 !␤»
+
+</pre>
+<p>Named parameters participate in the dispatch even if they are not provided in the call. Therefore a multi candidate with named parameters will be given precedence.</p>
+<p>For more information about type constraints see the documentation for the <a href="/Documentable/integration-test/type/Signature#Type_constraints">Signature</a> class.</p>
+<pre class="pod-block-code">multi as-json(Bool $d) { $d ?? &#39;true&#39; !! &#39;false&#39;; }
+multi as-json(Real $d) { ~$d }
+multi as-json(@d)      { sprintf &#39;[%s]&#39;, @d.map(&amp;as-json).join(&#39;, &#39;) }
+
+say as-json( True );                        # OUTPUT: «true␤»
+say as-json( 10.3 );                        # OUTPUT: «10.3␤»
+say as-json( [ True, 10.3, False, 24 ] );   # OUTPUT: «[true, 10.3, false, 24]␤»</pre>
+<p><code>multi</code> without any specific routine type always defaults to a <code>sub</code>, but you can use it on methods as well. The candidates are all the multi methods of the object:</p>
+<pre class="pod-block-code">class Congrats {
+    multi method congratulate($reason, $name) {
+        say &quot;Hooray for your $reason, $name&quot;;
+    }
+}
+
+role BirthdayCongrats {
+    multi method congratulate(&#39;birthday&#39;, $name) {
+        say &quot;Happy birthday, $name&quot;;
+    }
+    multi method congratulate(&#39;birthday&#39;, $name, $age) {
+        say &quot;Happy {$age}th birthday, $name&quot;;
+    }
+}
+
+my $congrats = Congrats.new does BirthdayCongrats;
+
+$congrats.congratulate(&#39;promotion&#39;,&#39;Cindy&#39;); # OUTPUT: «Hooray for your promotion, Cindy␤»
+$congrats.congratulate(&#39;birthday&#39;,&#39;Bob&#39;);    # OUTPUT: «Happy birthday, Bob␤»</pre>
+<p>Unlike <code>sub</code>, if you use named parameters with multi methods, the parameters must be required parameters to behave as expected.</p>
+<p>Please note that a non-multi sub or operator will hide multi candidates of the same name in any parent scope or child scope. The same is true for imported non-multi candidates.</p>
+<p>Multi-dispatch can also work on parameter traits, with routines with <code>is rw</code> parameters having a higher priority than those that do not:</p>
+<pre class="pod-block-code">proto þoo (|) {*}
+multi sub þoo( $ðar is rw ) { $ðar = 42 }
+multi sub þoo( $ðar ) { $ðar + 42 }
+my $bar = 7;
+say þoo($bar); # OUTPUT: «42»
+</pre>
+<h3 id="proto"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-declarator-proto"><span class="index-entry">proto</span></a></a></h3>
+<p><code>proto</code> is a way to formally declare commonalities between <code>multi</code> candidates. It acts as a wrapper that can validate but not modify arguments. Consider this basic example:</p>
+<pre class="pod-block-code">proto congratulate(Str $reason, Str $name, |) {*}
+multi congratulate($reason, $name) {
+   say &quot;Hooray for your $reason, $name&quot;;
+}
+multi congratulate($reason, $name, Int $rank) {
+   say &quot;Hooray for your $reason, $name -- got rank $rank!&quot;;
+}
+
+congratulate(&#39;being a cool number&#39;, &#39;Fred&#39;);     # OK
+congratulate(&#39;being a cool number&#39;, &#39;Fred&#39;, 42); # OK</pre>
+<pre class="pod-block-code">congratulate(&#39;being a cool number&#39;, 42);         # Proto match error
+</pre>
+<p>The proto insists that all <code>multi congratulate</code> subs conform to the basic signature of two strings, optionally followed by further parameters. The <code>|</code> is an un-named <code>Capture</code> parameter, and allows a <code>multi</code> to take additional arguments. The first two calls succeed, but the third fails (at compile time) because <code>42</code> doesn&#39;t match <code>Str</code>.</p>
+<pre class="pod-block-code">say &amp;congratulate.signature # OUTPUT: «(Str $reason, Str $name, | is raw)␤»
+</pre>
+<p>You can give the <code>proto</code> a function body, and place the <code>{*}</code> (note there is no whitespace inside the curly braces) where you want the dispatch to be done. This can be useful when you have a &quot;hole&quot; in your routine that gives it different behavior depending on the arguments given:</p>
+<pre class="pod-block-code"># attempts to notify someone -- False if unsuccessful
+proto notify(Str $user, Str $msg) {
+   my \hour = DateTime.now.hour;
+   if hour &gt; 8 or hour &lt; 22 {
+      return {*};
+   } else {
+      # we can&#39;t notify someone when they might be sleeping
+      return False;
+   }
+}</pre>
+<p>Since <code>proto</code> is a wrapper for <code>multi</code> candidates, the signatures of the routine&#39;s <code>multi</code> candidates do not necessarily have to match that of the <code>proto</code>; arguments of <code>multi</code> candidates may have subtypes of those of the <code>proto</code>, and the return types of the <code>multi</code> candidates may be entirely different from that of the <code>proto</code>. Using differing types like this is especially useful when giving <code>proto</code> a function body:</p>
+<pre class="pod-block-code">enum DebugType &lt;LOG WARNING ERROR&gt;;
+
+#|[ Prints a message to stderr with a color-coded key. ]
+proto debug(DebugType:D $type, Str:D $message --&gt; Bool:_) {
+    note sprintf qb/\e[1;%dm[%s]\e[0m %s/, {*}, $type.key, $message
+}
+multi debug(LOG;; Str:D --&gt; 32)     { }
+multi debug(WARNING;; Str:D --&gt; 33) { }
+multi debug(ERROR;; Str:D --&gt; 31)   { }
+</pre>
+<p><code>{*}</code> always dispatches to candidates with the parameters it&#39;s called with. Parameter defaults and type coercions will work but are not passed on.</p>
+<pre class="pod-block-code">proto mistake-proto(Str() $str, Int $number = 42) {*}
+multi mistake-proto($str, $number) { say $str.^name }
+mistake-proto(7, 42);  # OUTPUT: «Int␤» -- not passed on
+</pre>
+<pre class="pod-block-code">mistake-proto(&#39;test&#39;); # fails -- not passed on
+</pre>
+<p>A longer example using <code>proto</code> for methods shows how to extract common functionality into a proto method.</p>
+<pre class="pod-block-code">class NewClass {
+    has $.debug is rw = False;
+    has $.value is rw = &#39;Initial value&#39;;
+    proto method handle( | ) {
+        note &quot;before value is ｢$.value｣&quot; if $.debug;
+        {*}
+        note &quot;after value is ｢$.value｣&quot; if $.debug;
+    }
+    multi method handle(Str $s) {
+        $.value = $s;
+        say &#39;in string&#39;
+    }
+    multi method handle(Positional $s) {
+        $.value = $s[0];
+        say &#39;in positional&#39;
+    }
+    multi method handle( $a, $b ) {
+        $.value = &quot;$a is looking askance at $b&quot;;
+        say &#39;in string&#39;
+    }
+}
+my NewClass $x .= new;
+$x.handle(&#39;hello world&#39;);
+$x.handle(&lt;hello world&gt;);
+$x.debug = True;
+$x.handle(&#39;hello world&#39;);
+$x.handle(&lt;hello world&gt;);
+$x.handle(&#39;Claire&#39;, &#39;John&#39;);
+# OUTPUT:
+#in string
+#after value is ｢hello world｣
+#before value is ｢hello world｣
+#in positional
+#after value is ｢hello｣
+#before value is ｢hello｣
+#in string
+#after value is ｢Claire is looking askance at John｣
+</pre>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

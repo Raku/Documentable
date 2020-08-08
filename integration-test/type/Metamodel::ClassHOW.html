@@ -1,0 +1,866 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>class Metamodel::ClassHOW</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/type.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-basic.html"> Basic </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-composite.html"> Composite </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-domain-specific.html"> Domain-specific </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-exception.html"> Exceptions </a>
+            </div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Type/Metamodel/ClassHOW.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">class Metamodel::ClassHOW</h1>
+        <p class="subtitle">Metaobject representing a Raku class.</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+          <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#method_add_fallback">method add_fallback</a></td></tr>
+                     <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#method_can">method can</a></td></tr>
+                       <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#method_lookup">method lookup</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">1.4</td><td class="toc-text"><a href="#method_compose">method compose</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">1.5</td><td class="toc-text"><a href="#method_new_type">method new_type</a></td></tr>
+         <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Type_Graph">Type Graph</a></td></tr>
+  <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Routines_supplied_by_role_Metamodel::Naming">Routines supplied by role Metamodel::Naming</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">16.1</td><td class="toc-text"><a href="#(Metamodel::Naming)_method_name">(Metamodel::Naming) method name</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">16.2</td><td class="toc-text"><a href="#(Metamodel::Naming)_method_set_name">(Metamodel::Naming) method set_name</a></td></tr>
+   <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#Routines_supplied_by_role_Metamodel::Documenting">Routines supplied by role Metamodel::Documenting</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">16.3</td><td class="toc-text"><a href="#(Metamodel::Documenting)_method_set_why">(Metamodel::Documenting) method set_why</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">16.4</td><td class="toc-text"><a href="#(Metamodel::Documenting)_method_WHY">(Metamodel::Documenting) method WHY</a></td></tr>
+   <tr class="toc-level-1"><td class="toc-number">5</td><td class="toc-text"><a href="#Routines_supplied_by_role_Metamodel::Versioning">Routines supplied by role Metamodel::Versioning</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">16.5</td><td class="toc-text"><a href="#(Metamodel::Versioning)_method_ver">(Metamodel::Versioning) method ver</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">16.6</td><td class="toc-text"><a href="#(Metamodel::Versioning)_method_auth">(Metamodel::Versioning) method auth</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">16.7</td><td class="toc-text"><a href="#(Metamodel::Versioning)_method_api">(Metamodel::Versioning) method api</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">16.8</td><td class="toc-text"><a href="#(Metamodel::Versioning)_method_set_ver">(Metamodel::Versioning) method set_ver</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">16.9</td><td class="toc-text"><a href="#(Metamodel::Versioning)_method_set_auth">(Metamodel::Versioning) method set_auth</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">16.10</td><td class="toc-text"><a href="#(Metamodel::Versioning)_method_set_api">(Metamodel::Versioning) method set_api</a></td></tr>
+   <tr class="toc-level-1"><td class="toc-number">6</td><td class="toc-text"><a href="#Routines_supplied_by_role_Metamodel::Stashing">Routines supplied by role Metamodel::Stashing</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">16.11</td><td class="toc-text"><a href="#(Metamodel::Stashing)_method_add_stash">(Metamodel::Stashing) method add_stash</a></td></tr>
+                                 <tr class="toc-level-1"><td class="toc-number">7</td><td class="toc-text"><a href="#Routines_supplied_by_role_Metamodel::AttributeContainer">Routines supplied by role Metamodel::AttributeContainer</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">16.12</td><td class="toc-text"><a href="#(Metamodel::AttributeContainer)_method_add_attribute">(Metamodel::AttributeContainer) method add_attribute</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">16.13</td><td class="toc-text"><a href="#(Metamodel::AttributeContainer)_method_attributes">(Metamodel::AttributeContainer) method attributes</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">16.14</td><td class="toc-text"><a href="#(Metamodel::AttributeContainer)_method_set_rw">(Metamodel::AttributeContainer) method set_rw</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">16.15</td><td class="toc-text"><a href="#(Metamodel::AttributeContainer)_method_rw">(Metamodel::AttributeContainer) method rw</a></td></tr>
+      <tr class="toc-level-1"><td class="toc-number">8</td><td class="toc-text"><a href="#Routines_supplied_by_role_Metamodel::Finalization">Routines supplied by role Metamodel::Finalization</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">16.16</td><td class="toc-text"><a href="#(Metamodel::Finalization)_method_setup_finalization">(Metamodel::Finalization) method setup_finalization</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">16.17</td><td class="toc-text"><a href="#(Metamodel::Finalization)_method_destroyers">(Metamodel::Finalization) method destroyers</a></td></tr>
+   <tr class="toc-level-1"><td class="toc-number">9</td><td class="toc-text"><a href="#Routines_supplied_by_role_Metamodel::MethodContainer">Routines supplied by role Metamodel::MethodContainer</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">16.18</td><td class="toc-text"><a href="#(Metamodel::MethodContainer)_method_add_method">(Metamodel::MethodContainer) method add_method</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">16.19</td><td class="toc-text"><a href="#(Metamodel::MethodContainer)_method_methods">(Metamodel::MethodContainer) method methods</a></td></tr>
+                    <tr class="toc-level-2"><td class="toc-number">16.20</td><td class="toc-text"><a href="#(Metamodel::MethodContainer)_method_method_table">(Metamodel::MethodContainer) method method_table</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">16.21</td><td class="toc-text"><a href="#(Metamodel::MethodContainer)_method_lookup">(Metamodel::MethodContainer) method lookup</a></td></tr>
+                                  <tr class="toc-level-1"><td class="toc-number">10</td><td class="toc-text"><a href="#Routines_supplied_by_role_Metamodel::PrivateMethodContainer">Routines supplied by role Metamodel::PrivateMethodContainer</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">16.22</td><td class="toc-text"><a href="#(Metamodel::PrivateMethodContainer)_method_add_private_method">(Metamodel::PrivateMethodContainer) method add_private_method</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">16.23</td><td class="toc-text"><a href="#(Metamodel::PrivateMethodContainer)_method_private_method_table">(Metamodel::PrivateMethodContainer) method private_method_table</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">11</td><td class="toc-text"><a href="#Routines_supplied_by_role_Metamodel::RoleContainer">Routines supplied by role Metamodel::RoleContainer</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">16.24</td><td class="toc-text"><a href="#(Metamodel::RoleContainer)_method_add_role">(Metamodel::RoleContainer) method add_role</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">16.25</td><td class="toc-text"><a href="#(Metamodel::RoleContainer)_method_roles_to_compose">(Metamodel::RoleContainer) method roles_to_compose</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">12</td><td class="toc-text"><a href="#Routines_supplied_by_role_Metamodel::MultipleInheritance">Routines supplied by role Metamodel::MultipleInheritance</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">16.26</td><td class="toc-text"><a href="#(Metamodel::MultipleInheritance)_method_add_parent">(Metamodel::MultipleInheritance) method add_parent</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">16.27</td><td class="toc-text"><a href="#(Metamodel::MultipleInheritance)_method_parents">(Metamodel::MultipleInheritance) method parents</a></td></tr>
+              <tr class="toc-level-2"><td class="toc-number">16.28</td><td class="toc-text"><a href="#(Metamodel::MultipleInheritance)_method_hides">(Metamodel::MultipleInheritance) method hides</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">16.29</td><td class="toc-text"><a href="#(Metamodel::MultipleInheritance)_method_hidden">(Metamodel::MultipleInheritance) method hidden</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">16.30</td><td class="toc-text"><a href="#(Metamodel::MultipleInheritance)_method_set_hidden">(Metamodel::MultipleInheritance) method set_hidden</a></td></tr>
+   <tr class="toc-level-1"><td class="toc-number">13</td><td class="toc-text"><a href="#Routines_supplied_by_role_Metamodel::C3MRO">Routines supplied by role Metamodel::C3MRO</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">16.31</td><td class="toc-text"><a href="#(Metamodel::C3MRO)_method_compute_mro">(Metamodel::C3MRO) method compute_mro</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">16.32</td><td class="toc-text"><a href="#(Metamodel::C3MRO)_method_mro">(Metamodel::C3MRO) method mro</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">16.33</td><td class="toc-text"><a href="#(Metamodel::C3MRO)_method_mro_unhidden">(Metamodel::C3MRO) method mro_unhidden</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">14</td><td class="toc-text"><a href="#Routines_supplied_by_role_Metamodel::MROBasedMethodDispatch">Routines supplied by role Metamodel::MROBasedMethodDispatch</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">16.34</td><td class="toc-text"><a href="#(Metamodel::MROBasedMethodDispatch)_method_find_method">(Metamodel::MROBasedMethodDispatch) method find_method</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">16.35</td><td class="toc-text"><a href="#(Metamodel::MROBasedMethodDispatch)_method_find_method_qualified">(Metamodel::MROBasedMethodDispatch) method find_method_qualified</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">16.36</td><td class="toc-text"><a href="#(Metamodel::MROBasedMethodDispatch)_method_can">(Metamodel::MROBasedMethodDispatch) method can</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">16.37</td><td class="toc-text"><a href="#(Metamodel::MROBasedMethodDispatch)_method_publish_method_cache">(Metamodel::MROBasedMethodDispatch) method publish_method_cache</a></td></tr>
+    <tr class="toc-level-1"><td class="toc-number">15</td><td class="toc-text"><a href="#Routines_supplied_by_role_Metamodel::Trusting">Routines supplied by role Metamodel::Trusting</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">16.38</td><td class="toc-text"><a href="#(Metamodel::Trusting)_method_add_trustee">(Metamodel::Trusting) method add_trustee</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">16.39</td><td class="toc-text"><a href="#(Metamodel::Trusting)_method_trusts">(Metamodel::Trusting) method trusts</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">16.40</td><td class="toc-text"><a href="#(Metamodel::Trusting)_method_is_trusted">(Metamodel::Trusting) method is_trusted</a></td></tr>
+       <tr class="toc-level-1"><td class="toc-number">16</td><td class="toc-text"><a href="#Routines_supplied_by_role_Metamodel::Mixins">Routines supplied by role Metamodel::Mixins</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">16.41</td><td class="toc-text"><a href="#(Metamodel::Mixins)_method_set_is_mixin">(Metamodel::Mixins) method set_is_mixin</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">16.42</td><td class="toc-text"><a href="#(Metamodel::Mixins)_method_is_mixin">(Metamodel::Mixins) method is_mixin</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">16.43</td><td class="toc-text"><a href="#(Metamodel::Mixins)_method_set_mixin_attribute">(Metamodel::Mixins) method set_mixin_attribute</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">16.44</td><td class="toc-text"><a href="#(Metamodel::Mixins)_method_mixin_attribute">(Metamodel::Mixins) method mixin_attribute</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">16.45</td><td class="toc-text"><a href="#(Metamodel::Mixins)_method_setup_mixin_cache">(Metamodel::Mixins) method setup_mixin_cache</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">16.46</td><td class="toc-text"><a href="#(Metamodel::Mixins)_method_flush_cache">(Metamodel::Mixins) method flush_cache</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">16.47</td><td class="toc-text"><a href="#(Metamodel::Mixins)_method_generate_mixin">(Metamodel::Mixins) method generate_mixin</a></td></tr>
+            <tr class="toc-level-2"><td class="toc-number">16.48</td><td class="toc-text"><a href="#(Metamodel::Mixins)_method_mixin">(Metamodel::Mixins) method mixin</a></td></tr>
+                     
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <pre class="pod-block-code">class Metamodel::ClassHOW
+    does Metamodel::Naming
+    does Metamodel::Documenting
+    does Metamodel::Versioning
+    does Metamodel::Stashing
+    does Metamodel::AttributeContainer
+    does Metamodel::MethodContainer
+    does Metamodel::PrivateMethodContainer
+    does Metamodel::MultiMethodContainer
+    does Metamodel::RoleContainer
+    does Metamodel::MultipleInheritance
+    does Metamodel::DefaultParent
+    does Metamodel::C3MRO
+    does Metamodel::MROBasedMethodDispatch
+    does Metamodel::MROBasedTypeChecking
+    does Metamodel::Trusting
+    does Metamodel::BUILDPLAN
+    does Metamodel::Mixins
+    does Metamodel::ArrayType
+    does Metamodel::BoolificationProtocol
+    does Metamodel::REPRComposeProtocol
+    does Metamodel::InvocationProtocol
+    does Metamodel::Finalization
+        { }</pre>
+<p><em>Warning</em>: this class is part of the Rakudo implementation, and is not a part of the language specification.</p>
+<p><code>Metamodel::ClassHOW</code> is the metaclass behind the <code>class</code> keyword.</p>
+<pre class="pod-block-code">say so Int.HOW ~~ Metamodel::ClassHOW;    # OUTPUT: «True␤»
+say Int.^methods(:all).pick.name;         # OUTPUT: «random Int method name␤»</pre>
+<h1 id="Methods"><a class="u" href="#___top" title="go to top of document">Methods</a></h1>
+<h2 id="method_add_fallback"><a class="u" href="#___top" title="go to top of document">method add_fallback</a></h2>
+<pre class="pod-block-code">method add_fallback(Metamodel::ClassHOW:D: $obj, $condition, $calculator)</pre>
+<p>Installs a method fallback, that is, add a way to call methods that weren&#39;t statically added.</p>
+<p>Both <code>$condition</code> and <code>$calculator</code> must be callables that receive the invocant and the method name once a method is called that can&#39;t be found in the method cache.</p>
+<p>If <code>$condition</code> returns a true value, <code>$calculator</code> is called with the same arguments, and must return the code object to be invoked as the method, and is added to the method cache.</p>
+<p>If <code>$condition</code> returns a false value, the next fallback (if any) is tried, and if none matches, an exception <a href="/Documentable/integration-test/type/X::Method::NotFound">of type X::Method::NotFound</a> is thrown.</p>
+<p>User-facing code (that is, code not dabbling with metaclasses) should use method <code>FALLBACK</code> instead.</p>
+<h2 id="method_can"><a class="u" href="#___top" title="go to top of document">method can</a></h2>
+<pre class="pod-block-code">method can(Metamodel::ClassHOW:D: $obj, $method-name)</pre>
+<p>Given a method name, it returns a <a href="/Documentable/integration-test/type/List">List</a> of methods that are available with this name.</p>
+<pre class="pod-block-code">class A      { method x($a) {} };
+class B is A { method x()   {} };
+say B.^can(&#39;x&#39;).elems;              # OUTPUT: «2␤»
+for B.^can(&#39;x&#39;) {
+    say .arity;                     # OUTPUT: «1, 2␤»
+}</pre>
+<p>In this example, class <code>B</code> has two possible methods available with name <code>x</code> (though a normal method call would only invoke the one installed in <code>B</code> directly). The one in <code>B</code> has arity 1 (i.e. it expects one argument, the invocant (<code>self</code>)), and the one in <code>A</code> expects 2 arguments (<code>self</code> and <code>$a</code>).</p>
+<h2 id="method_lookup"><a class="u" href="#___top" title="go to top of document">method lookup</a></h2>
+<pre class="pod-block-code">method lookup(Metamodel::ClassHOW:D: $obj, $method-name --&gt; Method:D)</pre>
+<p>Returns the first matching <a href="/Documentable/integration-test/type/Method">Method</a> with the provided name. If no method was found, returns a VM-specific sentinel value (typically a low-level NULL value) that can be tested for with a test for <a href="/Documentable/integration-test/routine/defined">definedness</a>. It is potentially faster than <code>.^can</code> but does not provide a full list of all candidates.</p>
+<pre class="pod-block-code">say Str.^lookup(&#39;Int&#39;).raku; # OUTPUT: «method Int (Str:D $: *%_) { #`(Method|39910024) ... }␤»
+
+for &lt;upper-case  uc&gt; {
+    Str.^lookup: $^meth andthen .(&quot;foo&quot;).say
+        orelse &quot;method `$meth` not found&quot;.say
+}
+# OUTPUT:
+# method `upper-case` not found
+# FOO</pre>
+<h2 id="method_compose"><a class="u" href="#___top" title="go to top of document">method compose</a></h2>
+<pre class="pod-block-code">method compose(Metamodel::ClassHOW:D: $obj)</pre>
+<p>A call to <code>compose</code> brings the metaobject and thus the class it represents into a fully functional state, so if you construct or modify a class, you must call the compose method before working with the class.</p>
+<p>It updates the method cache, checks that all methods that are required by roles are implemented, does the actual role composition work, and sets up the class to work well with language interoperability.</p>
+<h2 id="method_new_type"><a class="u" href="#___top" title="go to top of document">method new_type</a></h2>
+<pre class="pod-block-code">method (:$name, :$repr = &#39;P6opaque&#39;, :$ver, :$auth)</pre>
+<p>Creates a new type from the metamodel, which we can proceed to build</p>
+<pre class="pod-block-code">my $type = Metamodel::ClassHOW.new_type(name =&gt; &quot;NewType&quot;,
+                                        ver =&gt; v0.0.1,
+                                        auth =&gt; &#39;github:perl6&#39; );
+$type.HOW.add_method($type,&quot;hey&quot;, method { say &quot;Hey&quot; });
+$type.hey;     # OUTPUT: «Hey␤»
+$type.HOW.compose($type);
+my $instance = $type.new;
+$instance.hey; # OUTPUT: «Hey␤»</pre>
+<p>We add a single method by using <a href="/Documentable/integration-test/language/mop#index-entry-syntax_HOW-HOW">Higher Order Workings</a> methods, and then we can use that method directly as class method; we can then <code>compose</code> the type, following which we can create already an instance, which will behave in the exact same way.</p>
+<h1 id="Type_Graph"><a class="u" href="#___top" title="go to top of document">Type Graph</a></h1>
+<figure>
+  <figcaption>Type relations for <code>Metamodel::ClassHOW</code></figcaption>
+  <svg width="1931pt" height="895pt"
+ viewBox="0.00 0.00 1930.82 894.74" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 890.74)">
+<title>perl6&#45;type&#45;graph</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-890.74 1926.82,-890.74 1926.82,4 -4,4"/>
+<!-- Metamodel::ClassHOW -->
+<g id="node1" class="node">
+<title>Metamodel::ClassHOW</title>
+<g id="a_node1"><a xlink:href="/type/Metamodel::ClassHOW" xlink:title="Metamodel::ClassHOW">
+<ellipse fill="none" stroke="#000000" cx="958.77" cy="-570.45" rx="103.18" ry="18"/>
+<text text-anchor="middle" x="958.77" y="-566.75" font-family="FreeSans" font-size="14.00" fill="#000000">Metamodel::ClassHOW</text>
+</a>
+</g>
+</g>
+<!-- Any -->
+<g id="node3" class="node">
+<title>Any</title>
+<g id="a_node3"><a xlink:href="/type/Any" xlink:title="Any">
+<ellipse fill="none" stroke="#000000" cx="1134.54" cy="-33.79" rx="27" ry="18"/>
+<text text-anchor="middle" x="1134.54" y="-30.09" font-family="FreeSans" font-size="14.00" fill="#000000">Any</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::ClassHOW&#45;&gt;Any -->
+<g id="edge1" class="edge">
+<title>Metamodel::ClassHOW&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M963.68,-552.42C979.55,-494.03 1028.52,-313.94 1028.52,-313.94 1028.52,-313.94 1097.72,-131.08 1124.31,-60.83"/>
+<polygon fill="#000000" stroke="#000000" points="1127.64,-61.91 1127.91,-51.31 1121.1,-59.43 1127.64,-61.91"/>
+</g>
+<!-- Metamodel::Naming -->
+<g id="node4" class="node">
+<title>Metamodel::Naming</title>
+<g id="a_node4"><a xlink:href="/type/Metamodel::Naming" xlink:title="Metamodel::Naming">
+<ellipse fill="none" stroke="#6666ff" cx="827.99" cy="-855.95" rx="93.68" ry="18"/>
+<text text-anchor="middle" x="827.99" y="-852.25" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::Naming</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::ClassHOW&#45;&gt;Metamodel::Naming -->
+<g id="edge4" class="edge">
+<title>Metamodel::ClassHOW&#45;&gt;Metamodel::Naming</title>
+<path fill="none" stroke="#6666ff" d="M950.39,-588.75C928.06,-637.49 867.03,-770.73 840.54,-828.56"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="837.28,-827.26 836.3,-837.81 843.65,-830.17 837.28,-827.26"/>
+</g>
+<!-- Metamodel::Documenting -->
+<g id="node5" class="node">
+<title>Metamodel::Documenting</title>
+<g id="a_node5"><a xlink:href="/type/Metamodel::Documenting" xlink:title="Metamodel::Documenting">
+<ellipse fill="none" stroke="#6666ff" cx="1486.96" cy="-586.74" rx="118.08" ry="18"/>
+<text text-anchor="middle" x="1486.96" y="-583.04" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::Documenting</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::ClassHOW&#45;&gt;Metamodel::Documenting -->
+<g id="edge5" class="edge">
+<title>Metamodel::ClassHOW&#45;&gt;Metamodel::Documenting</title>
+<path fill="none" stroke="#6666ff" d="M1062.12,-569.46C1130.81,-568.8 1208.44,-568.06 1208.44,-568.06 1208.44,-568.06 1292.55,-573.7 1368.33,-578.78"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1368.27,-582.29 1378.48,-579.46 1368.73,-575.3 1368.27,-582.29"/>
+</g>
+<!-- Metamodel::Versioning -->
+<g id="node6" class="node">
+<title>Metamodel::Versioning</title>
+<g id="a_node6"><a xlink:href="/type/Metamodel::Versioning" xlink:title="Metamodel::Versioning">
+<ellipse fill="none" stroke="#6666ff" cx="713.44" cy="-565.18" rx="113.18" ry="18"/>
+<text text-anchor="middle" x="713.44" y="-561.48" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::Versioning</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::ClassHOW&#45;&gt;Metamodel::Versioning -->
+<g id="edge6" class="edge">
+<title>Metamodel::ClassHOW&#45;&gt;Metamodel::Versioning</title>
+<path fill="none" stroke="#6666ff" d="M856.15,-568.25C849.36,-568.1 842.48,-567.95 835.6,-567.81"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="835.62,-564.31 825.54,-567.59 835.47,-571.3 835.62,-564.31"/>
+</g>
+<!-- Metamodel::Stashing -->
+<g id="node7" class="node">
+<title>Metamodel::Stashing</title>
+<g id="a_node7"><a xlink:href="/type/Metamodel::Stashing" xlink:title="Metamodel::Stashing">
+<ellipse fill="none" stroke="#6666ff" cx="193.08" cy="-59.38" rx="103.18" ry="18"/>
+<text text-anchor="middle" x="193.08" y="-55.68" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::Stashing</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::ClassHOW&#45;&gt;Metamodel::Stashing -->
+<g id="edge7" class="edge">
+<title>Metamodel::ClassHOW&#45;&gt;Metamodel::Stashing</title>
+<path fill="none" stroke="#6666ff" d="M940.32,-552.53C877.75,-491.74 677.52,-297.22 677.52,-297.22 677.52,-297.22 356.62,-139.67 237.17,-81.02"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="238.44,-77.75 227.92,-76.48 235.36,-84.03 238.44,-77.75"/>
+</g>
+<!-- Metamodel::AttributeContainer -->
+<g id="node8" class="node">
+<title>Metamodel::AttributeContainer</title>
+<g id="a_node8"><a xlink:href="/type/Metamodel::AttributeContainer" xlink:title="Metamodel::AttributeContainer">
+<ellipse fill="none" stroke="#6666ff" cx="1766.04" cy="-68.43" rx="152.17" ry="18"/>
+<text text-anchor="middle" x="1766.04" y="-64.73" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::AttributeContainer</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::ClassHOW&#45;&gt;Metamodel::AttributeContainer -->
+<g id="edge8" class="edge">
+<title>Metamodel::ClassHOW&#45;&gt;Metamodel::AttributeContainer</title>
+<path fill="none" stroke="#6666ff" d="M978.44,-552.71C1045.12,-492.56 1258.52,-300.07 1258.52,-300.07 1258.52,-300.07 1591.47,-148.11 1718.02,-90.35"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1719.84,-93.37 1727.48,-86.03 1716.93,-87 1719.84,-93.37"/>
+</g>
+<!-- Metamodel::Finalization -->
+<g id="node9" class="node">
+<title>Metamodel::Finalization</title>
+<g id="a_node9"><a xlink:href="/type/Metamodel::Finalization" xlink:title="Metamodel::Finalization">
+<ellipse fill="none" stroke="#6666ff" cx="555.98" cy="-19.98" rx="122.68" ry="18"/>
+<text text-anchor="middle" x="555.98" y="-16.28" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::Finalization</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::ClassHOW&#45;&gt;Metamodel::Finalization -->
+<g id="edge9" class="edge">
+<title>Metamodel::ClassHOW&#45;&gt;Metamodel::Finalization</title>
+<path fill="none" stroke="#6666ff" d="M941.55,-552.49C882.22,-490.61 689.96,-290.1 689.96,-290.1 689.96,-290.1 603.71,-116.21 569.61,-47.47"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="572.56,-45.53 564.98,-38.12 566.28,-48.64 572.56,-45.53"/>
+</g>
+<!-- Metamodel::MethodContainer -->
+<g id="node10" class="node">
+<title>Metamodel::MethodContainer</title>
+<g id="a_node10"><a xlink:href="/type/Metamodel::MethodContainer" xlink:title="Metamodel::MethodContainer">
+<ellipse fill="none" stroke="#6666ff" cx="829.35" cy="-290.21" rx="137.58" ry="18"/>
+<text text-anchor="middle" x="829.35" y="-286.51" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::MethodContainer</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::ClassHOW&#45;&gt;Metamodel::MethodContainer -->
+<g id="edge10" class="edge">
+<title>Metamodel::ClassHOW&#45;&gt;Metamodel::MethodContainer</title>
+<path fill="none" stroke="#6666ff" d="M950.48,-552.5C928.43,-504.76 868.27,-374.48 841.95,-317.5"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="845.11,-315.99 837.74,-308.38 838.75,-318.92 845.11,-315.99"/>
+</g>
+<!-- Metamodel::PrivateMethodContainer -->
+<g id="node11" class="node">
+<title>Metamodel::PrivateMethodContainer</title>
+<g id="a_node11"><a xlink:href="/type/Metamodel::PrivateMethodContainer" xlink:title="Metamodel::PrivateMethodContainer">
+<ellipse fill="none" stroke="#6666ff" cx="861.68" cy="-19.01" rx="171.67" ry="18"/>
+<text text-anchor="middle" x="861.68" y="-15.31" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::PrivateMethodContainer</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::ClassHOW&#45;&gt;Metamodel::PrivateMethodContainer -->
+<g id="edge11" class="edge">
+<title>Metamodel::ClassHOW&#45;&gt;Metamodel::PrivateMethodContainer</title>
+<path fill="none" stroke="#6666ff" d="M959.42,-552.07C961.64,-489.75 968.73,-290.32 968.73,-290.32 968.73,-290.32 899.81,-115.67 872.57,-46.62"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="875.79,-45.25 868.87,-37.23 869.28,-47.82 875.79,-45.25"/>
+</g>
+<!-- Metamodel::MultiMethodContainer -->
+<g id="node12" class="node">
+<title>Metamodel::MultiMethodContainer</title>
+<g id="a_node12"><a xlink:href="/type/Metamodel::MultiMethodContainer" xlink:title="Metamodel::MultiMethodContainer">
+<ellipse fill="none" stroke="#6666ff" cx="161.84" cy="-425.44" rx="161.67" ry="18"/>
+<text text-anchor="middle" x="161.84" y="-421.74" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::MultiMethodContainer</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::ClassHOW&#45;&gt;Metamodel::MultiMethodContainer -->
+<g id="edge12" class="edge">
+<title>Metamodel::ClassHOW&#45;&gt;Metamodel::MultiMethodContainer</title>
+<path fill="none" stroke="#6666ff" d="M887,-557.39C742.72,-531.14 417.58,-471.98 256.28,-442.63"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="256.83,-439.17 246.36,-440.82 255.58,-446.06 256.83,-439.17"/>
+</g>
+<!-- Metamodel::RoleContainer -->
+<g id="node13" class="node">
+<title>Metamodel::RoleContainer</title>
+<g id="a_node13"><a xlink:href="/type/Metamodel::RoleContainer" xlink:title="Metamodel::RoleContainer">
+<ellipse fill="none" stroke="#6666ff" cx="1780.15" cy="-438.74" rx="128.08" ry="18"/>
+<text text-anchor="middle" x="1780.15" y="-435.04" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::RoleContainer</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::ClassHOW&#45;&gt;Metamodel::RoleContainer -->
+<g id="edge13" class="edge">
+<title>Metamodel::ClassHOW&#45;&gt;Metamodel::RoleContainer</title>
+<path fill="none" stroke="#6666ff" d="M1034.94,-558.24C1185.5,-534.1 1520.83,-480.33 1685.38,-453.94"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1686.16,-457.36 1695.48,-452.32 1685.06,-450.45 1686.16,-457.36"/>
+</g>
+<!-- Metamodel::MultipleInheritance -->
+<g id="node14" class="node">
+<title>Metamodel::MultipleInheritance</title>
+<g id="a_node14"><a xlink:href="/type/Metamodel::MultipleInheritance" xlink:title="Metamodel::MultipleInheritance">
+<ellipse fill="none" stroke="#6666ff" cx="1765.53" cy="-822.75" rx="157.07" ry="18"/>
+<text text-anchor="middle" x="1765.53" y="-819.05" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::MultipleInheritance</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::ClassHOW&#45;&gt;Metamodel::MultipleInheritance -->
+<g id="edge14" class="edge">
+<title>Metamodel::ClassHOW&#45;&gt;Metamodel::MultipleInheritance</title>
+<path fill="none" stroke="#6666ff" d="M1009.24,-586.24C1149.83,-630.2 1545.8,-754.03 1701.5,-802.73"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1700.82,-806.18 1711.41,-805.83 1702.91,-799.5 1700.82,-806.18"/>
+</g>
+<!-- Metamodel::DefaultParent -->
+<g id="node15" class="node">
+<title>Metamodel::DefaultParent</title>
+<g id="a_node15"><a xlink:href="/type/Metamodel::DefaultParent" xlink:title="Metamodel::DefaultParent">
+<ellipse fill="none" stroke="#6666ff" cx="1100.43" cy="-863.65" rx="128.08" ry="18"/>
+<text text-anchor="middle" x="1100.43" y="-859.95" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::DefaultParent</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::ClassHOW&#45;&gt;Metamodel::DefaultParent -->
+<g id="edge15" class="edge">
+<title>Metamodel::ClassHOW&#45;&gt;Metamodel::DefaultParent</title>
+<path fill="none" stroke="#6666ff" d="M967.63,-588.79C991.79,-638.79 1058.88,-777.65 1087.37,-836.61"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1084.25,-838.21 1091.75,-845.69 1090.55,-835.16 1084.25,-838.21"/>
+</g>
+<!-- Metamodel::C3MRO -->
+<g id="node16" class="node">
+<title>Metamodel::C3MRO</title>
+<g id="a_node16"><a xlink:href="/type/Metamodel::C3MRO" xlink:title="Metamodel::C3MRO">
+<ellipse fill="none" stroke="#6666ff" cx="1119.16" cy="-314.07" rx="89.08" ry="18"/>
+<text text-anchor="middle" x="1119.16" y="-310.37" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::C3MRO</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::ClassHOW&#45;&gt;Metamodel::C3MRO -->
+<g id="edge16" class="edge">
+<title>Metamodel::ClassHOW&#45;&gt;Metamodel::C3MRO</title>
+<path fill="none" stroke="#6666ff" d="M970.05,-552.43C997.83,-508.02 1069.67,-393.17 1102.43,-340.81"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1105.56,-342.41 1107.89,-332.08 1099.62,-338.7 1105.56,-342.41"/>
+</g>
+<!-- Metamodel::MROBasedMethodDispatch -->
+<g id="node17" class="node">
+<title>Metamodel::MROBasedMethodDispatch</title>
+<g id="a_node17"><a xlink:href="/type/Metamodel::MROBasedMethodDispatch" xlink:title="Metamodel::MROBasedMethodDispatch">
+<ellipse fill="none" stroke="#6666ff" cx="1431.7" cy="-300.18" rx="171.67" ry="18"/>
+<text text-anchor="middle" x="1431.7" y="-296.48" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::MROBasedMethodDispatch</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::ClassHOW&#45;&gt;Metamodel::MROBasedMethodDispatch -->
+<g id="edge17" class="edge">
+<title>Metamodel::ClassHOW&#45;&gt;Metamodel::MROBasedMethodDispatch</title>
+<path fill="none" stroke="#6666ff" d="M989.07,-553.14C1071.35,-506.12 1298.91,-376.07 1391.62,-323.09"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1393.47,-326.06 1400.42,-318.06 1390,-319.98 1393.47,-326.06"/>
+</g>
+<!-- Metamodel::MROBasedTypeChecking -->
+<g id="node18" class="node">
+<title>Metamodel::MROBasedTypeChecking</title>
+<g id="a_node18"><a xlink:href="/type/Metamodel::MROBasedTypeChecking" xlink:title="Metamodel::MROBasedTypeChecking">
+<ellipse fill="none" stroke="#6666ff" cx="176.89" cy="-820.59" rx="161.67" ry="18"/>
+<text text-anchor="middle" x="176.89" y="-816.89" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::MROBasedTypeChecking</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::ClassHOW&#45;&gt;Metamodel::MROBasedTypeChecking -->
+<g id="edge18" class="edge">
+<title>Metamodel::ClassHOW&#45;&gt;Metamodel::MROBasedTypeChecking</title>
+<path fill="none" stroke="#6666ff" d="M909.27,-586.29C772.79,-629.95 391.24,-752.02 239.9,-800.43"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="238.73,-797.13 230.27,-803.51 240.86,-803.8 238.73,-797.13"/>
+</g>
+<!-- Metamodel::Trusting -->
+<g id="node19" class="node">
+<title>Metamodel::Trusting</title>
+<g id="a_node19"><a xlink:href="/type/Metamodel::Trusting" xlink:title="Metamodel::Trusting">
+<ellipse fill="none" stroke="#6666ff" cx="438.26" cy="-587.17" rx="103.18" ry="18"/>
+<text text-anchor="middle" x="438.26" y="-583.47" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::Trusting</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::ClassHOW&#45;&gt;Metamodel::Trusting -->
+<g id="edge19" class="edge">
+<title>Metamodel::ClassHOW&#45;&gt;Metamodel::Trusting</title>
+<path fill="none" stroke="#6666ff" d="M860.68,-576.18C792.3,-580.17 713.27,-584.78 713.27,-584.78 713.27,-584.78 627.65,-585.52 551.96,-586.18"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="551.8,-582.68 541.83,-586.27 551.86,-589.68 551.8,-582.68"/>
+</g>
+<!-- Metamodel::BUILDPLAN -->
+<g id="node20" class="node">
+<title>Metamodel::BUILDPLAN</title>
+<g id="a_node20"><a xlink:href="/type/Metamodel::BUILDPLAN" xlink:title="Metamodel::BUILDPLAN">
+<ellipse fill="none" stroke="#6666ff" cx="531.35" cy="-867.5" rx="108.58" ry="18"/>
+<text text-anchor="middle" x="531.35" y="-863.8" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::BUILDPLAN</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::ClassHOW&#45;&gt;Metamodel::BUILDPLAN -->
+<g id="edge20" class="edge">
+<title>Metamodel::ClassHOW&#45;&gt;Metamodel::BUILDPLAN</title>
+<path fill="none" stroke="#6666ff" d="M933.63,-587.93C860.52,-638.73 647.95,-786.47 565.03,-844.09"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="562.94,-841.29 556.73,-849.87 566.94,-847.03 562.94,-841.29"/>
+</g>
+<!-- Metamodel::Mixins -->
+<g id="node21" class="node">
+<title>Metamodel::Mixins</title>
+<g id="a_node21"><a xlink:href="/type/Metamodel::Mixins" xlink:title="Metamodel::Mixins">
+<ellipse fill="none" stroke="#6666ff" cx="1208.17" cy="-587.66" rx="93.68" ry="18"/>
+<text text-anchor="middle" x="1208.17" y="-583.96" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::Mixins</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::ClassHOW&#45;&gt;Metamodel::Mixins -->
+<g id="edge21" class="edge">
+<title>Metamodel::ClassHOW&#45;&gt;Metamodel::Mixins</title>
+<path fill="none" stroke="#6666ff" d="M1055.2,-577.1C1073.04,-578.34 1091.7,-579.62 1109.61,-580.86"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1109.54,-584.36 1119.76,-581.56 1110.02,-577.38 1109.54,-584.36"/>
+</g>
+<!-- Metamodel::BoolificationProtocol -->
+<g id="node22" class="node">
+<title>Metamodel::BoolificationProtocol</title>
+<g id="a_node22"><a xlink:href="/type/Metamodel::BoolificationProtocol" xlink:title="Metamodel::BoolificationProtocol">
+<ellipse fill="none" stroke="#6666ff" cx="508.89" cy="-297.08" rx="167.07" ry="18"/>
+<text text-anchor="middle" x="508.89" y="-293.38" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::BoolificationProtocol</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::ClassHOW&#45;&gt;Metamodel::BoolificationProtocol -->
+<g id="edge22" class="edge">
+<title>Metamodel::ClassHOW&#45;&gt;Metamodel::BoolificationProtocol</title>
+<path fill="none" stroke="#6666ff" d="M930.29,-553.15C852.23,-505.71 634.86,-373.63 546.73,-320.08"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="548.48,-317.04 538.12,-314.84 544.85,-323.03 548.48,-317.04"/>
+</g>
+<!-- Mu -->
+<g id="node2" class="node">
+<title>Mu</title>
+<g id="a_node2"><a xlink:href="/type/Mu" xlink:title="Mu">
+<ellipse fill="none" stroke="#000000" cx="1428.17" cy="-18" rx="27" ry="18"/>
+<text text-anchor="middle" x="1428.17" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">Mu</text>
+</a>
+</g>
+</g>
+<!-- Any&#45;&gt;Mu -->
+<g id="edge2" class="edge">
+<title>Any&#45;&gt;Mu</title>
+<path fill="none" stroke="#000000" d="M1161.64,-32.33C1214.41,-29.49 1331.02,-23.22 1390.97,-20"/>
+<polygon fill="#000000" stroke="#000000" points="1391.34,-23.49 1401.13,-19.45 1390.96,-16.5 1391.34,-23.49"/>
+</g>
+<!-- Metamodel::GrammarHOW -->
+<g id="node23" class="node">
+<title>Metamodel::GrammarHOW</title>
+<g id="a_node23"><a xlink:href="/type/Metamodel::GrammarHOW" xlink:title="Metamodel::GrammarHOW">
+<ellipse fill="none" stroke="#000000" cx="1407.21" cy="-868.74" rx="113.18" ry="18"/>
+<text text-anchor="middle" x="1407.21" y="-865.04" font-family="FreeSans" font-size="14.00" fill="#000000">Metamodel::GrammarHOW</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::GrammarHOW&#45;&gt;Metamodel::ClassHOW -->
+<g id="edge3" class="edge">
+<title>Metamodel::GrammarHOW&#45;&gt;Metamodel::ClassHOW</title>
+<path fill="none" stroke="#000000" d="M1380.83,-851.2C1303.96,-800.07 1080.13,-651.18 993.54,-593.58"/>
+<polygon fill="#000000" stroke="#000000" points="995.38,-590.6 985.12,-587.98 991.5,-596.43 995.38,-590.6"/>
+</g>
+<!-- Metamodel::GrammarHOW&#45;&gt;Metamodel::DefaultParent -->
+<g id="edge23" class="edge">
+<title>Metamodel::GrammarHOW&#45;&gt;Metamodel::DefaultParent</title>
+<path fill="none" stroke="#6666ff" d="M1294.72,-866.88C1276.23,-866.57 1256.9,-866.25 1237.89,-865.93"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1237.74,-862.43 1227.68,-865.76 1237.62,-869.43 1237.74,-862.43"/>
+</g>
+</g>
+</svg>
+
+  <p class="fallback">
+    <a
+      rel="alternate"
+      href="/images/type-graph-Metamodel%3A%3AClassHOW.svg"
+      type="image/svg+xml"
+      >Expand above chart</a
+    >
+  </p>
+</figure>
+<h1 id="Routines_supplied_by_role_Metamodel::Naming"><a class="u" href="#___top" title="go to top of document">Routines supplied by role Metamodel::Naming</a></h1>
+<p>Metamodel::ClassHOW does role <a href="/Documentable/integration-test/type/Metamodel::Naming">Metamodel::Naming</a>, which provides the following routines:</p>
+<h2 id="(Metamodel::Naming)_method_name"><a href="/Documentable/integration-test/type/Metamodel::Naming#method_name">(Metamodel::Naming) method name</a></h2>
+<pre class="pod-block-code">method name($type)</pre>
+<p>Returns the name of the metaobject, if any.</p>
+<pre class="pod-block-code">say 42.^name;       # OUTPUT: «Int␤»</pre>
+<h2 id="(Metamodel::Naming)_method_set_name"><a href="/Documentable/integration-test/type/Metamodel::Naming#method_set_name">(Metamodel::Naming) method set_name</a></h2>
+<pre class="pod-block-code">method set_name($type, $new_name)</pre>
+<p>Sets the new name of the metaobject.</p>
+<h1 id="Routines_supplied_by_role_Metamodel::Documenting"><a class="u" href="#___top" title="go to top of document">Routines supplied by role Metamodel::Documenting</a></h1>
+<p>Metamodel::ClassHOW does role <a href="/Documentable/integration-test/type/Metamodel::Documenting">Metamodel::Documenting</a>, which provides the following routines:</p>
+<h2 id="(Metamodel::Documenting)_method_set_why"><a href="/Documentable/integration-test/type/Metamodel::Documenting#method_set_why">(Metamodel::Documenting) method set_why</a></h2>
+<pre class="pod-block-code">method set_why($why)</pre>
+<p>Sets the documentation for a type to <code>$why</code>.</p>
+<h2 id="(Metamodel::Documenting)_method_WHY"><a href="/Documentable/integration-test/type/Metamodel::Documenting#method_WHY">(Metamodel::Documenting) method WHY</a></h2>
+<pre class="pod-block-code">method WHY()</pre>
+<p>Returns the documentation for a type.</p>
+<h1 id="Routines_supplied_by_role_Metamodel::Versioning"><a class="u" href="#___top" title="go to top of document">Routines supplied by role Metamodel::Versioning</a></h1>
+<p>Metamodel::ClassHOW does role <a href="/Documentable/integration-test/type/Metamodel::Versioning">Metamodel::Versioning</a>, which provides the following routines:</p>
+<h2 id="(Metamodel::Versioning)_method_ver"><a href="/Documentable/integration-test/type/Metamodel::Versioning#method_ver">(Metamodel::Versioning) method ver</a></h2>
+<pre class="pod-block-code">method ver($obj)</pre>
+<p>Returns the version of the metaobject, if any, otherwise returns <a href="/Documentable/integration-test/type/Mu">Mu</a>.</p>
+<h2 id="(Metamodel::Versioning)_method_auth"><a href="/Documentable/integration-test/type/Metamodel::Versioning#method_auth">(Metamodel::Versioning) method auth</a></h2>
+<pre class="pod-block-code">method auth($obj)</pre>
+<p>Returns the author of the metaobject, if any, otherwise returns an empty string.</p>
+<h2 id="(Metamodel::Versioning)_method_api"><a href="/Documentable/integration-test/type/Metamodel::Versioning#method_api">(Metamodel::Versioning) method api</a></h2>
+<pre class="pod-block-code">method api($obj)</pre>
+<p>Returns the API of the metaobject, if any, otherwise returns an empty string.</p>
+<h2 id="(Metamodel::Versioning)_method_set_ver"><a href="/Documentable/integration-test/type/Metamodel::Versioning#method_set_ver">(Metamodel::Versioning) method set_ver</a></h2>
+<pre class="pod-block-code">method set_ver($obj, $ver)</pre>
+<p>Sets the version of the metaobject.</p>
+<h2 id="(Metamodel::Versioning)_method_set_auth"><a href="/Documentable/integration-test/type/Metamodel::Versioning#method_set_auth">(Metamodel::Versioning) method set_auth</a></h2>
+<pre class="pod-block-code">method set_auth($obj, $auth)</pre>
+<p>Sets the author of the metaobject.</p>
+<h2 id="(Metamodel::Versioning)_method_set_api"><a href="/Documentable/integration-test/type/Metamodel::Versioning#method_set_api">(Metamodel::Versioning) method set_api</a></h2>
+<pre class="pod-block-code">method set_api($obj, $api)</pre>
+<p>Sets the API of the metaobject.</p>
+<h1 id="Routines_supplied_by_role_Metamodel::Stashing"><a class="u" href="#___top" title="go to top of document">Routines supplied by role Metamodel::Stashing</a></h1>
+<p>Metamodel::ClassHOW does role <a href="/Documentable/integration-test/type/Metamodel::Stashing">Metamodel::Stashing</a>, which provides the following routines:</p>
+<h2 id="(Metamodel::Stashing)_method_add_stash"><a href="/Documentable/integration-test/type/Metamodel::Stashing#method_add_stash">(Metamodel::Stashing) method add_stash</a></h2>
+<pre class="pod-block-code">method add_stash($type_obj)</pre>
+<p>Creates and sets a stash for a type, returning <code>$type_obj</code>.</p>
+<p>This method is typically called as the last step of creating a new type. For example, this is how it would be used in a minimal HOW that only supports naming and stashing:</p>
+<pre class="pod-block-code">class WithStashHOW
+    does Metamodel::Naming
+    does Metamodel::Stashing
+{
+    method new_type(WithStashHOW:_: Str:D :$name! --&gt; Mu) {
+        my WithStashHOW:D $meta := self.new;
+        my Mu             $type := Metamodel::Primitives.create_type: $meta, &#39;Uninstantiable&#39;;
+        $meta.set_name: $type, $name;
+        self.add_stash: $type
+    }
+}
+
+my Mu constant WithStash = WithStashHOW.new_type: :name&lt;WithStash&gt;;
+say WithStash.WHO; # OUTPUT: «WithStash␤»
+</pre>
+<h1 id="Routines_supplied_by_role_Metamodel::AttributeContainer"><a class="u" href="#___top" title="go to top of document">Routines supplied by role Metamodel::AttributeContainer</a></h1>
+<p>Metamodel::ClassHOW does role <a href="/Documentable/integration-test/type/Metamodel::AttributeContainer">Metamodel::AttributeContainer</a>, which provides the following routines:</p>
+<h2 id="(Metamodel::AttributeContainer)_method_add_attribute"><a href="/Documentable/integration-test/type/Metamodel::AttributeContainer#method_add_attribute">(Metamodel::AttributeContainer) method add_attribute</a></h2>
+<pre class="pod-block-code">method add_attribute(Metamodel::AttributeContainer: $obj, $attribute)</pre>
+<p>Adds an attribute. <code>$attribute</code> must be an object that supports the methods <code>name</code>, <code>type</code> and <code>package</code>, which are called without arguments. It can for example be of <a href="/Documentable/integration-test/type/Attribute">type Attribute</a>.</p>
+<h2 id="(Metamodel::AttributeContainer)_method_attributes"><a href="/Documentable/integration-test/type/Metamodel::AttributeContainer#method_attributes">(Metamodel::AttributeContainer) method attributes</a></h2>
+<pre class="pod-block-code">method attributes(Metamodel::AttributeContainer: $obj)</pre>
+<p>Returns a list of attributes. For most Raku types, these will be objects of <a href="/Documentable/integration-test/type/Attribute">type Attribute</a>.</p>
+<h2 id="(Metamodel::AttributeContainer)_method_set_rw"><a href="/Documentable/integration-test/type/Metamodel::AttributeContainer#method_set_rw">(Metamodel::AttributeContainer) method set_rw</a></h2>
+<pre class="pod-block-code">method set_rw(Metamodel::AttributeContainer: $obj)</pre>
+<p>Marks a type whose attributes default to having a write accessor. For example in</p>
+<pre class="pod-block-code">class Point is rw {
+    has $.x;
+    has $.y;
+}</pre>
+<p>The <code>is rw</code> trait on the class calls the <code>set_rw</code> method on the metaclass, making all the attributes implicitly writable, so that you can write;</p>
+<pre class="pod-block-code">my $p = Point.new(x =&gt; 1, y =&gt; 2);
+$p.x = 42;
+</pre>
+<h2 id="(Metamodel::AttributeContainer)_method_rw"><a href="/Documentable/integration-test/type/Metamodel::AttributeContainer#method_rw">(Metamodel::AttributeContainer) method rw</a></h2>
+<pre class="pod-block-code">method rw(Metamodel::AttributeContainer: $obj)</pre>
+<p>Returns a true value if <a href="#method_set_rw">method set_rw</a> has been called on this object, that is, if new public attributes are writable by default.</p>
+<h1 id="Routines_supplied_by_role_Metamodel::Finalization"><a class="u" href="#___top" title="go to top of document">Routines supplied by role Metamodel::Finalization</a></h1>
+<p>Metamodel::ClassHOW does role <a href="/Documentable/integration-test/type/Metamodel::Finalization">Metamodel::Finalization</a>, which provides the following routines:</p>
+<h2 id="(Metamodel::Finalization)_method_setup_finalization"><a href="/Documentable/integration-test/type/Metamodel::Finalization#method_setup_finalization">(Metamodel::Finalization) method setup_finalization</a></h2>
+<pre class="pod-block-code">method setup_finalization(Metamodel::Finalization:D: $obj)</pre>
+<p>Collects the <code>DESTROY</code> submethods from this class and all its superclasses, and marks the class as needing action on garbage collection.</p>
+<p>A metamodel for a kind that implements finalization semantics must call this method at type composition time.</p>
+<h2 id="(Metamodel::Finalization)_method_destroyers"><a href="/Documentable/integration-test/type/Metamodel::Finalization#method_destroyers">(Metamodel::Finalization) method destroyers</a></h2>
+<pre class="pod-block-code">method destroyers(Metamodel::Finalization:D: $obj --&gt; List:D)</pre>
+<p>Returns a list of all finalization methods.</p>
+<h1 id="Routines_supplied_by_role_Metamodel::MethodContainer"><a class="u" href="#___top" title="go to top of document">Routines supplied by role Metamodel::MethodContainer</a></h1>
+<p>Metamodel::ClassHOW does role <a href="/Documentable/integration-test/type/Metamodel::MethodContainer">Metamodel::MethodContainer</a>, which provides the following routines:</p>
+<h2 id="(Metamodel::MethodContainer)_method_add_method"><a href="/Documentable/integration-test/type/Metamodel::MethodContainer#method_add_method">(Metamodel::MethodContainer) method add_method</a></h2>
+<pre class="pod-block-code">method add_method(Metamodel::MethodContainer: $obj, $name, $code)</pre>
+<p>Adds a method to the metaclass, to be called with name <code>$name</code>. This should only be done before a type is composed.</p>
+<h2 id="(Metamodel::MethodContainer)_method_methods"><a href="/Documentable/integration-test/type/Metamodel::MethodContainer#method_methods">(Metamodel::MethodContainer) method methods</a></h2>
+<pre class="pod-block-code">method methods(Metamodel::MethodContainer: $obj, :$all, :$local)</pre>
+<p>Returns a list of public methods available on the class (which includes methods from superclasses and roles). By default this stops at the classes <a href="/Documentable/integration-test/type/Cool">Cool</a>, <a href="/Documentable/integration-test/type/Any">Any</a> or <a href="/Documentable/integration-test/type/Mu">Mu</a>; to really get all methods, use the <code>:all</code> adverb. If <code>:local</code> is set, only methods declared directly in the class are returned.</p>
+<pre class="pod-block-code">class A {
+    method x() { };
+}
+
+say A.^methods();                   # x
+say A.^methods(:all);               # x infinite defined ...</pre>
+<p>The returned list contains objects of type <a href="/Documentable/integration-test/type/Method">Method</a>, which you can use to introspect their signatures and call them.</p>
+<p>Some introspection method-look-alikes like <a href="/Documentable/integration-test/language/mop#WHAT"><code>WHAT</code></a> will not show up, although they are present in any Raku object. They are handled at the grammar level and will likely remain so for bootstrap reasons.</p>
+<h2 id="(Metamodel::MethodContainer)_method_method_table"><a href="/Documentable/integration-test/type/Metamodel::MethodContainer#method_method_table">(Metamodel::MethodContainer) method method_table</a></h2>
+<pre class="pod-block-code">method method_table(Metamodel::MethodContainer:D: $obj --&gt; Hash:D)</pre>
+<p>Returns a hash where the keys are method names, and the values are <a href="/Documentable/integration-test/type/Method">methods</a>. Note that the keys are the names by which the methods can be called, not necessarily the names by which the methods know themselves.</p>
+<h2 id="(Metamodel::MethodContainer)_method_lookup"><a href="/Documentable/integration-test/type/Metamodel::MethodContainer#method_lookup">(Metamodel::MethodContainer) method lookup</a></h2>
+<pre class="pod-block-code">method lookup(Metamodel::MethodContainer: $obj, $name --&gt; Method)</pre>
+<p>Returns the first matching <a href="/Documentable/integration-test/type/Method">method</a> object of the provided <code>$name</code> or <code>(Mu)</code> if no method object was found. The search for a matching method object is done by following the <a href="/Documentable/integration-test/type/Metamodel::C3MRO">mro</a> of <code>$obj</code>. Note that <code>lookup</code> is supposed to be used for introspection, if you&#39;re after something which can be invoked you probably want to use <a href="/Documentable/integration-test/routine/find_method">find_method</a> instead.</p>
+<pre class="pod-block-code">say 2.5.^lookup(&quot;sqrt&quot;).raku;      # OUTPUT: «method sqrt (Rat $: *%_) ...␤»
+say Str.^lookup(&quot;BUILD&quot;).raku;     # OUTPUT: «submethod BUILD (Str $: :$value = &quot;&quot;, *%_ --&gt; Nil) ...␤»
+say Int.^lookup(&quot;does-not-exist&quot;); # OUTPUT: «(Mu)␤»</pre>
+<p>The difference between <code>find_method</code> and <code>lookup</code> are that <code>find_method</code> will use a default candidate for parametric roles, whereas <code>lookup</code> throws an exception in this case, and that <code>find_method</code> honors <code>FALLBACK</code> methods, which <code>lookup</code> does not.</p>
+<h1 id="Routines_supplied_by_role_Metamodel::PrivateMethodContainer"><a class="u" href="#___top" title="go to top of document">Routines supplied by role Metamodel::PrivateMethodContainer</a></h1>
+<p>Metamodel::ClassHOW does role <a href="/Documentable/integration-test/type/Metamodel::PrivateMethodContainer">Metamodel::PrivateMethodContainer</a>, which provides the following routines:</p>
+<h2 id="(Metamodel::PrivateMethodContainer)_method_add_private_method"><a href="/Documentable/integration-test/type/Metamodel::PrivateMethodContainer#method_add_private_method">(Metamodel::PrivateMethodContainer) method add_private_method</a></h2>
+<pre class="pod-block-code">method add_private_method(Metamodel::PrivateMethodContainer: $obj, $name, $code)</pre>
+<p>Adds a private method <code>$code</code> with name <code>$name</code>.</p>
+<h2 id="(Metamodel::PrivateMethodContainer)_method_private_method_table"><a href="/Documentable/integration-test/type/Metamodel::PrivateMethodContainer#method_private_method_table">(Metamodel::PrivateMethodContainer) method private_method_table</a></h2>
+<pre class="pod-block-code">method private_method_table(Metamodel::PrivateMethodContainer: $obj)</pre>
+<p>Returns a hash of <code>name =&gt; &amp;method_object</code></p>
+<h1 id="Routines_supplied_by_role_Metamodel::RoleContainer"><a class="u" href="#___top" title="go to top of document">Routines supplied by role Metamodel::RoleContainer</a></h1>
+<p>Metamodel::ClassHOW does role <a href="/Documentable/integration-test/type/Metamodel::RoleContainer">Metamodel::RoleContainer</a>, which provides the following routines:</p>
+<h2 id="(Metamodel::RoleContainer)_method_add_role"><a href="/Documentable/integration-test/type/Metamodel::RoleContainer#method_add_role">(Metamodel::RoleContainer) method add_role</a></h2>
+<pre class="pod-block-code">method add_role(Metamodel::RoleContainer:D: $obj, Mu $role)</pre>
+<p>Adds the <code>$role</code> to the list of roles to be composed.</p>
+<h2 id="(Metamodel::RoleContainer)_method_roles_to_compose"><a href="/Documentable/integration-test/type/Metamodel::RoleContainer#method_roles_to_compose">(Metamodel::RoleContainer) method roles_to_compose</a></h2>
+<pre class="pod-block-code">method roles_to_compose(Metamodel::RoleContainer:D: $obj --&gt; List:D)</pre>
+<p>returns a list of roles added with <code>add_role</code>, which are to be composed at type composition time.</p>
+<h1 id="Routines_supplied_by_role_Metamodel::MultipleInheritance"><a class="u" href="#___top" title="go to top of document">Routines supplied by role Metamodel::MultipleInheritance</a></h1>
+<p>Metamodel::ClassHOW does role <a href="/Documentable/integration-test/type/Metamodel::MultipleInheritance">Metamodel::MultipleInheritance</a>, which provides the following routines:</p>
+<h2 id="(Metamodel::MultipleInheritance)_method_add_parent"><a href="/Documentable/integration-test/type/Metamodel::MultipleInheritance#method_add_parent">(Metamodel::MultipleInheritance) method add_parent</a></h2>
+<pre class="pod-block-code">method add_parent(Metamodel::MultipleInheritance:D: $Obj, $parent, :$hides)</pre>
+<p>Adds <code>$parent</code> as a parent type. If <code>$hides</code> is set to a true value, the parent type is added as a hidden parent.</p>
+<p><code>$parent</code> must be a fully <a href="/Documentable/integration-test/language/mop#Composition_time_and_static_reasoning">composed</a> typed. Otherwise an exception of type <a href="/Documentable/integration-test/type/X::Inheritance::NotComposed">X::Inheritance::NotComposed</a> is thrown.</p>
+<h2 id="(Metamodel::MultipleInheritance)_method_parents"><a href="/Documentable/integration-test/type/Metamodel::MultipleInheritance#method_parents">(Metamodel::MultipleInheritance) method parents</a></h2>
+<pre class="pod-block-code">method parents(Metamodel::MultipleInheritance:D: $obj, :$all, :$tree)</pre>
+<p>Returns the list of parent classes. By default it stops at <a href="/Documentable/integration-test/type/Cool">Cool</a>, <a href="/Documentable/integration-test/type/Any">Any</a> or <a href="/Documentable/integration-test/type/Mu">Mu</a>, which you can suppress by supplying the <code>:all</code> adverb. With <code>:tree</code>, a nested list is returned.</p>
+<pre class="pod-block-code">class D { };
+class C1 is D { };
+class C2 is D { };
+class B is C1 is C2 { };
+class A is B { };
+
+say A.^parents(:all).raku;
+# OUTPUT: «(B, C1, C2, D, Any, Mu)␤»
+say A.^parents(:all, :tree).raku;
+# OUTPUT: «[B, ([C1, [D, [Any, [Mu]]]], [C2, [D, [Any, [Mu]]]])]␤»</pre>
+<h2 id="(Metamodel::MultipleInheritance)_method_hides"><a href="/Documentable/integration-test/type/Metamodel::MultipleInheritance#method_hides">(Metamodel::MultipleInheritance) method hides</a></h2>
+<pre class="pod-block-code">method hides(Metamodel::MultipleInheritance:D: $obj)</pre>
+<p>Returns a list of all hidden parent classes.</p>
+<h2 id="(Metamodel::MultipleInheritance)_method_hidden"><a href="/Documentable/integration-test/type/Metamodel::MultipleInheritance#method_hidden">(Metamodel::MultipleInheritance) method hidden</a></h2>
+<pre class="pod-block-code">method hidden(Metamodel::MultipleInheritance:D: $obj)</pre>
+<p>Returns a true value if (and only if) the class is marked with the trait <code>is hidden</code>.</p>
+<h2 id="(Metamodel::MultipleInheritance)_method_set_hidden"><a href="/Documentable/integration-test/type/Metamodel::MultipleInheritance#method_set_hidden">(Metamodel::MultipleInheritance) method set_hidden</a></h2>
+<pre class="pod-block-code">method set_hidden(Metamodel::MultipleInheritance:D: $obj)</pre>
+<p>Marks the type as hidden.</p>
+<h1 id="Routines_supplied_by_role_Metamodel::C3MRO"><a class="u" href="#___top" title="go to top of document">Routines supplied by role Metamodel::C3MRO</a></h1>
+<p>Metamodel::ClassHOW does role <a href="/Documentable/integration-test/type/Metamodel::C3MRO">Metamodel::C3MRO</a>, which provides the following routines:</p>
+<h2 id="(Metamodel::C3MRO)_method_compute_mro"><a href="/Documentable/integration-test/type/Metamodel::C3MRO#method_compute_mro">(Metamodel::C3MRO) method compute_mro</a></h2>
+<pre class="pod-block-code">method compute_mro($type)</pre>
+<p>Computes the method resolution order.</p>
+<h2 id="(Metamodel::C3MRO)_method_mro"><a href="/Documentable/integration-test/type/Metamodel::C3MRO#method_mro">(Metamodel::C3MRO) method mro</a></h2>
+<pre class="pod-block-code">method mro($type)</pre>
+<p>Returns a list of types in the method resolution order, even those that are marked <code>is hidden</code>.</p>
+<pre class="pod-block-code">say Int.^mro;   # OUTPUT: «((Int) (Cool) (Any) (Mu))␤»</pre>
+<h2 id="(Metamodel::C3MRO)_method_mro_unhidden"><a href="/Documentable/integration-test/type/Metamodel::C3MRO#method_mro_unhidden">(Metamodel::C3MRO) method mro_unhidden</a></h2>
+<pre class="pod-block-code">method mro_unhidden($type)</pre>
+<p>Returns a list of types in method resolution order, excluding those that are marked with <code>is hidden</code>.</p>
+<h1 id="Routines_supplied_by_role_Metamodel::MROBasedMethodDispatch"><a class="u" href="#___top" title="go to top of document">Routines supplied by role Metamodel::MROBasedMethodDispatch</a></h1>
+<p>Metamodel::ClassHOW does role <a href="/Documentable/integration-test/type/Metamodel::MROBasedMethodDispatch">Metamodel::MROBasedMethodDispatch</a>, which provides the following routines:</p>
+<h2 id="(Metamodel::MROBasedMethodDispatch)_method_find_method"><a href="/Documentable/integration-test/type/Metamodel::MROBasedMethodDispatch#method_find_method">(Metamodel::MROBasedMethodDispatch) method find_method</a></h2>
+<pre class="pod-block-code">method find_method($obj, $name, $no_fallback, *%adverbs)</pre>
+<p>Given a method name, it returns the method object of that name which is closest in the method resolution order (MRO). If no method can be found, it returns a VM-specific sentinel value (typically a low-level NULL value) that can be tested for with a test for <a href="/Documentable/integration-test/routine/defined">definedness</a>:</p>
+<pre class="pod-block-code">for &lt;upper-case  uc&gt; {
+    Str.^find_method: $^meth andthen .(&quot;foo&quot;).say
+        orelse &quot;method `$meth` not found&quot;.say
+}
+# OUTPUT:
+# method `upper-case` not found
+# FOO</pre>
+<p>If <code>:no_fallback</code> is supplied, fallback methods are not considered.</p>
+<h2 id="(Metamodel::MROBasedMethodDispatch)_method_find_method_qualified"><a href="/Documentable/integration-test/type/Metamodel::MROBasedMethodDispatch#method_find_method_qualified">(Metamodel::MROBasedMethodDispatch) method find_method_qualified</a></h2>
+<pre class="pod-block-code">method find_method_qualified($obj, $type, $name)</pre>
+<p>Given a method name and a type, returns the method from that type. This is used in calls like</p>
+<pre class="pod-block-code">self.SomeParentClass::the_method();
+</pre>
+<h2 id="(Metamodel::MROBasedMethodDispatch)_method_can"><a href="/Documentable/integration-test/type/Metamodel::MROBasedMethodDispatch#method_can">(Metamodel::MROBasedMethodDispatch) method can</a></h2>
+<pre class="pod-block-code">method can($obj, $name)</pre>
+<p>Returns the list of methods of that name the object can do.</p>
+<h2 id="(Metamodel::MROBasedMethodDispatch)_method_publish_method_cache"><a href="/Documentable/integration-test/type/Metamodel::MROBasedMethodDispatch#method_publish_method_cache">(Metamodel::MROBasedMethodDispatch) method publish_method_cache</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method publish_method_cache($obj)</pre>
+<p>Walk MRO and add methods to cache, unless another method lower in the class hierarchy &quot;shadowed&quot; it.</p>
+<h1 id="Routines_supplied_by_role_Metamodel::Trusting"><a class="u" href="#___top" title="go to top of document">Routines supplied by role Metamodel::Trusting</a></h1>
+<p>Metamodel::ClassHOW does role <a href="/Documentable/integration-test/type/Metamodel::Trusting">Metamodel::Trusting</a>, which provides the following routines:</p>
+<h2 id="(Metamodel::Trusting)_method_add_trustee"><a href="/Documentable/integration-test/type/Metamodel::Trusting#method_add_trustee">(Metamodel::Trusting) method add_trustee</a></h2>
+<pre class="pod-block-code">method add_trustee(Metamodel::Trusting:D: $type, Mu $trustee)</pre>
+<p>Trust <code>$trustee</code>.</p>
+<pre class="pod-block-code">class A {
+    BEGIN A.^add_trustee(B);
+    # same as &#39;trusts B&#39;;
+}
+</pre>
+<h2 id="(Metamodel::Trusting)_method_trusts"><a href="/Documentable/integration-test/type/Metamodel::Trusting#method_trusts">(Metamodel::Trusting) method trusts</a></h2>
+<pre class="pod-block-code">method trusts(Metamodel::Trusting:D: $type --&gt; List)</pre>
+<p>Returns a list of types that the invocant trusts.</p>
+<pre class="pod-block-code">class A { trusts Int; };
+say .^name for A.^trusts;       # Int</pre>
+<h2 id="(Metamodel::Trusting)_method_is_trusted"><a href="/Documentable/integration-test/type/Metamodel::Trusting#method_is_trusted">(Metamodel::Trusting) method is_trusted</a></h2>
+<pre class="pod-block-code">method is_trusted(Metamodel::Trusting:D: $type, $claimant)</pre>
+<p>Returns 1 if <code>$type</code> trusts <code>$claimant</code>, and 0 otherwise. Types always trust themselves.</p>
+<h1 id="Routines_supplied_by_role_Metamodel::Mixins"><a class="u" href="#___top" title="go to top of document">Routines supplied by role Metamodel::Mixins</a></h1>
+<p>Metamodel::ClassHOW does role <a href="/Documentable/integration-test/type/Metamodel::Mixins">Metamodel::Mixins</a>, which provides the following routines:</p>
+<h2 id="(Metamodel::Mixins)_method_set_is_mixin"><a href="/Documentable/integration-test/type/Metamodel::Mixins#method_set_is_mixin">(Metamodel::Mixins) method set_is_mixin</a></h2>
+<pre class="pod-block-code">method set_is_mixin($obj)</pre>
+<p>Marks <code>$obj</code> as being a mixin.</p>
+<h2 id="(Metamodel::Mixins)_method_is_mixin"><a href="/Documentable/integration-test/type/Metamodel::Mixins#method_is_mixin">(Metamodel::Mixins) method is_mixin</a></h2>
+<pre class="pod-block-code">method is_mixin($obj)</pre>
+<p>Returns <code>1</code> If <code>$obj</code> has been marked as being a mixin with <code>set_is_mixin</code>, otherwise returns <code>0</code>.</p>
+<h2 id="(Metamodel::Mixins)_method_set_mixin_attribute"><a href="/Documentable/integration-test/type/Metamodel::Mixins#method_set_mixin_attribute">(Metamodel::Mixins) method set_mixin_attribute</a></h2>
+<pre class="pod-block-code">method set_mixin_attribute($obj, $attr)</pre>
+<p>Sets the mixin attribute for <code>$obj</code> to <code>$attr</code> (which should be an <a href="/Documentable/integration-test/type/Attribute">Attribute</a> instance).</p>
+<h2 id="(Metamodel::Mixins)_method_mixin_attribute"><a href="/Documentable/integration-test/type/Metamodel::Mixins#method_mixin_attribute">(Metamodel::Mixins) method mixin_attribute</a></h2>
+<pre class="pod-block-code">method mixin_attribute($obj)</pre>
+<p>Returns the mixin attribute for <code>$obj</code> set with <code>set_mixin_attribute</code>.</p>
+<h2 id="(Metamodel::Mixins)_method_setup_mixin_cache"><a href="/Documentable/integration-test/type/Metamodel::Mixins#method_setup_mixin_cache">(Metamodel::Mixins) method setup_mixin_cache</a></h2>
+<pre class="pod-block-code">method setup_mixin_cache($obj)</pre>
+<p>Sets up caching of mixins for <code>$obj</code>. After this metamethod has been called, calls to <code>mixin</code> will not create a new type for mixins of <code>$obj</code> given the same list of roles more than once. This should be called at some point before composition.</p>
+<h2 id="(Metamodel::Mixins)_method_flush_cache"><a href="/Documentable/integration-test/type/Metamodel::Mixins#method_flush_cache">(Metamodel::Mixins) method flush_cache</a></h2>
+<pre class="pod-block-code">method flush_cache($obj)</pre>
+<p>No-op.</p>
+<h2 id="(Metamodel::Mixins)_method_generate_mixin"><a href="/Documentable/integration-test/type/Metamodel::Mixins#method_generate_mixin">(Metamodel::Mixins) method generate_mixin</a></h2>
+<pre class="pod-block-code">method generate_mixin($obj, @roles)</pre>
+<p>Creates a new mixin metaobject that inherits from <code>$obj</code> and does each of the roles in <code>@roles</code>. This is then composed and has its mixin attribute set (if any exists) before getting returned.</p>
+<p>While this generates a new mixin type, this doesn&#39;t actually mix it into <code>$obj</code>; if that is what you intend to do, use the <a href="/Documentable/integration-test/routine/mixin">mixin</a> metamethod instead.</p>
+<h2 id="(Metamodel::Mixins)_method_mixin"><a href="/Documentable/integration-test/type/Metamodel::Mixins#method_mixin">(Metamodel::Mixins) method mixin</a></h2>
+<pre class="pod-block-code">method mixin($obj, *@roles, :$needs-mixin-attribute)</pre>
+<p>Generates a new mixin type by calling <code>generate_mixin</code> with <code>$obj</code> and <code>@roles</code>. If <code>$obj</code> is composed, the mixin cache of <code>$obj</code> will be checked for any existing mixin for these beforehand. If <code>$obj</code> is an instance of a type, this will return <code>$obj</code> reblessed with the mixin generated, otherwise this will return the mixin itself.</p>
+<p>If <code>$needs-mixin-attribute</code> is <code>True</code>, this will throw an exception if no mixin attribute exists on the mixin generated before returning.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Type/Metamodel/ClassHOW.pod6">https://github.com/Raku/doc/blob/master/doc/Type/Metamodel/ClassHOW.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

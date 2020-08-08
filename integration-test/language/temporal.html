@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Date and time functions</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/temporal.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Date and time functions</h1>
+        <p class="subtitle">Processing date and time in Raku</p>
+
+        
+        <div class="pod-body  no-toc">
+            <p><a name="Documentable/integration-test/index-entry-Date_and_time_functions"></a></p>
+<p>Raku includes several classes that deal with temporal information: <a href="/Documentable/integration-test/type/Date">Date</a>, <a href="/Documentable/integration-test/type/DateTime">DateTime</a>, <a href="/Documentable/integration-test/type/Instant">Instant</a> and <a href="/Documentable/integration-test/type/Duration">Duration</a>. The three first are <em>dateish</em>, so they mix in the <a href="/Documentable/integration-test/type/Dateish">Dateish</a> role, which defines all methods and properties that classes that deal with date should assume. It also includes a class hierarchy of exceptions rooted in <a href="/Documentable/integration-test/type/X::Temporal">X::Temporal</a>.</p>
+<p>We will try to illustrate these classes in the next (somewhat extended) example, which can be used to process all files in a directory (by default <code>.</code>) with a particular extension (by default <code>.p6</code>) in a directory, sort them according to their age, and compute how many files have been created per month and how many were modified in certain periods expressed in ranges of months:</p>
+<pre class="pod-block-code">sub MAIN( $path = &quot;.&quot;, $extension = &quot;p6&quot; ) {
+    my DateTime $right = DateTime.now;
+    my %metadata;
+    my %files-month;
+    my %files-period;
+    for dir($path).grep( / \.$extension $/ ) -&gt; $file {
+        CATCH {
+            when X::Temporal { say &quot;Date-related problem&quot;, .payload }
+            when X::IO { say &quot;File-related problem&quot;, .payload }
+            default { .payload.say }
+        }
+        my Instant $modified = $file.modified;
+        my Instant $accessed = $file.accessed;
+        my Duration $duration = $accessed - $modified;
+        my $age = $right - DateTime($accessed);
+        my $time-of-day = $file.changed.DateTime.hh-mm-ss but Dateish;
+        my $file-changed-date =  $file.changed.Date;
+        %metadata{$file} = %( modified =&gt; $modified,
+                              accessed =&gt; $accessed,
+                              age =&gt; $age,
+                              difference =&gt; $duration,
+                              changed-tod =&gt; $time-of-day,
+                              changed-date =&gt; $file-changed-date);
+        %files-month{$file-changed-date.month}++;
+        given $file-changed-date {
+            when Date.new(&quot;2018-01-01&quot;)..^Date.new(&quot;2018-04-01&quot;) { %files-period&lt;pre-grant&gt;++}
+            when Date.new(&quot;2018-04-01&quot;)..Date.new(&quot;2018-05-31&quot;) { %files-period&lt;grant&gt;++}
+            default { %files-period&lt;post-grant&gt;++};
+        }
+    }
+
+    %metadata.sort( { $^a.value&lt;age&gt; &lt;=&gt; $^b.value&lt;age&gt; } ).map: {
+        say $^x.key, &quot;, &quot;,
+        $^x.value&lt;accessed modified age difference changed-tod changed-date&gt;.join(&quot;, &quot;);
+    };
+    %files-month.keys.sort.map: {
+        say &quot;Month $^x → %files-month{$^x}&quot;
+    };
+
+    %files-period.keys.map: {
+        say &quot;Period $^x → %files-period{$^x}&quot;
+    };
+}
+</pre>
+<p><code>DateTime</code> is used in line 2 to contain the current date and time returned by <a href="/Documentable/integration-test/routine/now"><code>now</code></a>.</p>
+<p>A CATCH phaser is declared in lines 7 to 11. Its main mission is to distinguish between <code>DateTime</code>-related exceptions and other types. These kind of exception can arise from <a href="/Documentable/integration-test/type/X::Temporal::InvalidFormat">invalid formats</a> or <a href="/Documentable/integration-test/type/X::DateTime::TimezoneClash">timezone clashes</a>. Barring some corruption of the file attributes, both are impossible, but in any case they should be caught and separated from other types of exceptions.</p>
+<p>We use <a href="/Documentable/integration-test/type/Instant">Instant</a>s in lines 12-13 to represent the moment in which the files where accessed and modified. An Instant is measured in atomic seconds, and is a very low-level description of a time event; however, the <a href="/Documentable/integration-test/type/Duration">Duration</a> declared in line 14 represent the time transcurred among two different <code>Instant</code>s, and we will be using it to represent the age.</p>
+<p>For some variables we might be interested in dealing with them with some <em>dateish</em> traits. <code>$time-of-day</code> contains the time of the day the file was changed; <code>changed</code> will return an Instant, but it is converted into a Date (which is <code>Dateish</code> while <code>Instant</code> is not) and then the time of day is extracted from that. <code>$time-of-day</code> will have <code>«Str+{Dateish}␤» </code> type.</p>
+<p><a name="Documentable/integration-test/index-entry-Date_ranges"></a> We will use the date in this variable to find out the period when the files were changed.</p>
+<pre class="pod-block-code">Date.new(&quot;2018-01-01&quot;)..^Date.new(&quot;2018-04-01&quot;)</pre>
+<p>creates a date <a href="/Documentable/integration-test/type/Range">Range</a> and <code>$file-changed-date</code> is smartmatched against it. Dates can be used this way; in this case it creates a <code>Range</code> that excludes its last element.</p>
+<p>This very variable is also used to compute the month of the year when the file was modified. <a href="/Documentable/integration-test/type/Date">Date</a> is obviously <code>Dateish</code> and then has the <code>month</code> method to extract that property from it.</p>
+<p><code>Duration</code> objects can be compared. This is used in</p>
+<pre class="pod-block-code">%metadata.sort({
+    $^a.value&lt;age&gt; &lt;=&gt; $^b.value&lt;age&gt;
+});
+</pre>
+<p>to sort the files by age.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/temporal.pod6">https://github.com/Raku/doc/blob/master/doc/Language/temporal.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

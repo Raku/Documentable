@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Command line interface</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/create-cli.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Command line interface</h1>
+        <p class="subtitle">Creating your own CLI in Raku</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+   <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Command_line_interface_-_an_overview">Command line interface - an overview</a></td></tr>
+  <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#Parsing_the_command_line_parameters_into_a_capture">Parsing the command line parameters into a capture</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#Calling_a_provided_MAIN_subroutine_using_that_capture">Calling a provided <code class="pod-code-inline">MAIN</code> subroutine using that capture</a></td></tr>
+            <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#Creating_/_showing_usage_information_if_calling_MAIN_failed">Creating / showing usage information if calling <code class="pod-code-inline">MAIN</code> failed</a></td></tr>
+       <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#sub_MAIN">sub MAIN</a></td></tr>
+                                                                                                                                                                                                                                   <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#%*SUB-MAIN-OPTS">%*SUB-MAIN-OPTS</a></td></tr>
+           <tr class="toc-level-3"><td class="toc-number">2.1.1</td><td class="toc-text"><a href="#named-anywhere">named-anywhere</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">2.2</td><td class="toc-text"><a href="#is_hidden-from-USAGE">is hidden-from-USAGE</a></td></tr>
+                             <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Unit-scoped_definition_of_MAIN">Unit-scoped definition of <code class="pod-code-inline">MAIN</code></a></td></tr>
+                              <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#sub_USAGE">sub USAGE</a></td></tr>
+                  <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#Intercepting_CLI_argument_parsing_(2018.10,_v6.d_and_later)">Intercepting CLI argument parsing (2018.10, v6.d and later)</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">4.1</td><td class="toc-text"><a href="#sub_ARGS-TO-CAPTURE">sub ARGS-TO-CAPTURE</a></td></tr>
+                      <tr class="toc-level-1"><td class="toc-number">5</td><td class="toc-text"><a href="#Intercepting_usage_message_generation_(2018.10,_v6.d_and_later)">Intercepting usage message generation (2018.10, v6.d and later)</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">5.1</td><td class="toc-text"><a href="#sub_RUN-MAIN">sub RUN-MAIN</a></td></tr>
+                                                   <tr class="toc-level-2"><td class="toc-number">5.2</td><td class="toc-text"><a href="#sub_GENERATE-USAGE">sub GENERATE-USAGE</a></td></tr>
+                  <tr class="toc-level-1"><td class="toc-number">6</td><td class="toc-text"><a href="#Intercepting_MAIN_calling_(before_2018.10,_v6.e)">Intercepting MAIN calling (before 2018.10, v6.e)</a></td></tr>
+                  
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p><a name="Documentable/integration-test/index-entry-command_line_arguments"></a></p>
+<h1 id="Command_line_interface_-_an_overview"><a class="u" href="#___top" title="go to top of document">Command line interface - an overview</a></h1>
+<p>The default command line interface of Raku scripts consists of three parts:</p>
+<h2 id="Parsing_the_command_line_parameters_into_a_capture">Parsing the command line parameters into a <a href="/Documentable/integration-test/type/Capture">capture</a></h2>
+<p>This looks at the values in <a href="/Documentable/integration-test/language/variables#index-entry-@*ARGS">@*ARGS</a>, interprets these according to some policy, and creates a <a href="/Documentable/integration-test/type/Capture">Capture</a> object out of that. An alternative way of parsing may be provided by the developer or installed using a module.</p>
+<h2 id="Calling_a_provided_MAIN_subroutine_using_that_capture"><a class="u" href="#___top" title="go to top of document">Calling a provided <code>MAIN</code> subroutine using that capture</a></h2>
+<p>Standard <a href="/Documentable/integration-test/language/functions#index-entry-declarator_multi-Multi-dispatch">multi dispatch</a> is used to call the <code>MAIN</code> subroutine with the generated <code>Capture</code> object. This means that your <code>MAIN</code> subroutine may be a <code>multi sub</code>, each candidate of which is responsible for some part of processing the given command line arguments.</p>
+<h2 id="Creating_/_showing_usage_information_if_calling_MAIN_failed"><a class="u" href="#___top" title="go to top of document">Creating / showing usage information if calling <code>MAIN</code> failed</a></h2>
+<p>If multi dispatch failed, then the user of the script should be informed as well as possible as to why it failed. By default, this is done by inspecting the signature of each <code>MAIN</code> candidate sub, and any associated Pod information. The result is then shown to the user on STDERR (or on STDOUT if <code>--help</code> was specified). An alternative way of generating the usage information may be provided by the developer or installed using a module.</p>
+<p><a name="Documentable/integration-test/index-entry-MAIN"></a></p>
+<h1 id="sub_MAIN"><a class="u" href="#___top" title="go to top of document">sub MAIN</a></h1>
+<p>The sub with the special name <code>MAIN</code> will be executed after all relevant entry phasers (<code>BEGIN</code>, <code>CHECK</code>, <code>INIT</code>, <code>PRE</code>, <code>ENTER</code>) have been run and the <a href="/Documentable/integration-test/language/glossary#index-entry-Mainline">mainline</a> of the script has been executed. No error will occur if there is no <code>MAIN</code> sub: your script will then just have to do the work, such as argument parsing, in the mainline of the script.</p>
+<p>Any normal exit from the <code>MAIN</code> sub will result in an exit code of <code>0</code>, indicating success. Any return value of the <code>MAIN</code> sub will be ignored. If an exception is thrown that is not handled inside the <code>MAIN</code> sub, then the exit code will be <code>1</code>. If the dispatch to <code>MAIN</code> failed, a usage message will be displayed on STDERR and the exit code will be <code>2</code>.</p>
+<p>The command line parameters are present in the <code>@*ARGS</code> dynamic variable and may be altered in the mainline of the script before the <code>MAIN</code> unit is called.</p>
+<p>The signature of (the candidates of the multi) sub <code>MAIN</code> determines which candidate will actually be called using the standard <a href="/Documentable/integration-test/language/glossary#index-entry-Multi-Dispatch">multi dispatch</a> semantics.</p>
+<p>A simple example:</p>
+<pre class="pod-block-code"># inside file &#39;hello.raku&#39;
+sub MAIN($name) {
+    say &quot;Hello $name, how are you?&quot;
+}</pre>
+<p>If you call that script without any parameters, you get the following usage message:</p>
+<pre class="pod-block-code">$ raku hello.raku
+Usage:
+  hello.raku &lt;name&gt;
+</pre>
+<p>However, if you give a default value for the parameter, running the script either with or without specifying a name will always work:</p>
+<pre class="pod-block-code"># inside file &#39;hello.raku&#39;
+sub MAIN($name = &#39;bashful&#39;) {
+    say &quot;Hello $name, how are you?&quot;
+}</pre>
+<pre class="pod-block-code">$ raku hello.raku
+Hello bashful, how are you?
+</pre>
+<pre class="pod-block-code">$ raku hello.raku Liz
+Hello Liz, how are you?
+</pre>
+<p>Another way to do this is to make <code>sub MAIN</code> a <code>multi sub</code>:</p>
+<pre class="pod-block-code"># inside file &#39;hello.raku&#39;
+multi sub MAIN()      { say &quot;Hello bashful, how are you?&quot; }
+multi sub MAIN($name) { say &quot;Hello $name, how are you?&quot;   }</pre>
+<p>Which would give the same output as the examples above. Whether you should use either method to achieve the desired goal is entirely up to you.</p>
+<p>A more complicated example using a single positional and multiple named parameters, and also showing that <code>where</code> clauses can also be applied to <code>MAIN</code> arguments:</p>
+<pre class="pod-block-code"># inside &quot;frobnicate.raku&quot;
+sub MAIN(
+  Str   $file where *.IO.f = &#39;file.dat&#39;,
+  Int  :$length = 24,
+  Bool :$verbose
+) {
+    say $length if $length.defined;
+    say $file   if $file.defined;
+    say &#39;Verbosity &#39;, ($verbose ?? &#39;on&#39; !! &#39;off&#39;);
+}
+</pre>
+<p>With <code>file.dat</code> present, this will work this way:</p>
+<pre class="pod-block-code">$ raku frobnicate.raku
+24
+file.dat
+Verbosity off
+</pre>
+<p>Or this way with <code>--verbose</code>:</p>
+<pre class="pod-block-code">$ raku frobnicate.raku --verbose
+24
+file.dat
+Verbosity on
+</pre>
+<p>If the file <code>file.dat</code> is not present, or you&#39;ve specified another filename that doesn&#39;t exist, you would get the standard usage message created from introspection of the <code>MAIN</code> sub:</p>
+<pre class="pod-block-code">$ raku frobnicate.raku doesnotexist.dat
+Usage:
+  frobnicate.raku [--length=&lt;Int&gt;] [--verbose] [&lt;file&gt;]
+</pre>
+<p>Although you don&#39;t have to do anything in your code to do this, it may still be regarded as a bit terse. But there&#39;s an easy way to make that usage message better by providing hints using pod features:</p>
+<pre class="pod-block-code"># inside &quot;frobnicate.raku&quot;
+sub MAIN(
+  Str   $file where *.IO.f = &#39;file.dat&#39;,  #= an existing file to frobnicate
+  Int  :$length = 24,                     #= length needed for frobnication
+  Bool :$verbose,                         #= required verbosity
+) {
+    say $length if $length.defined;
+    say $file   if $file.defined;
+    say &#39;Verbosity &#39;, ($verbose ?? &#39;on&#39; !! &#39;off&#39;);
+}
+</pre>
+<p>Which would improve the usage message like this:</p>
+<pre class="pod-block-code">$ raku frobnicate.raku doesnotexist.dat
+Usage:
+  frobnicate.raku [--length=&lt;Int&gt;] [--verbose] [&lt;file&gt;]
+
+    [&lt;file&gt;]          an existing file to frobnicate
+    --length=&lt;Int&gt;    length needed for frobnication
+    --verbose         required verbosity
+</pre>
+<p>As any other subroutine, <code>MAIN</code> can define <a href="/Documentable/integration-test/type/Signature#index-entry-argument_aliases">aliases</a> for its named parameters.</p>
+<pre class="pod-block-code">sub MAIN(
+  Str   $file where *.IO.f = &#39;file.dat&#39;,  #= an existing file to frobnicate
+  Int  :size(:$length) = 24,              #= length/size needed for frobnication
+  Bool :$verbose,                         #= required verbosity
+) {
+    say $length if $length.defined;
+    say $file   if $file.defined;
+    say &#39;Verbosity &#39;, ($verbose ?? &#39;on&#39; !! &#39;off&#39;);
+}
+</pre>
+<p>In which case, these aliases will also be listed as alternatives with <code>--help</code>:</p>
+<pre class="pod-block-code">Usage:
+  frobnicate.raku [--size|--length=&lt;Int&gt;] [--verbose] [&lt;file&gt;]
+
+    [&lt;file&gt;]                 an existing file to frobnicate
+    --size|--length=&lt;Int&gt;    length needed for frobnication
+    --verbose                required verbosity
+</pre>
+<p><code>Enumeration</code>s can be used in signatures with arguments converted automatically to its corresponding <code>enum</code> symbol:</p>
+<pre class="pod-block-code">enum Flag  (
+    FLAG_FOO =&gt; 0b001,
+    FLAG_BAR =&gt; 0b010,
+    FLAG_BAZ =&gt; 0b100,
+);
+
+sub MAIN(Flag $flag = FLAG_FOO) {
+    say &quot;Flagging $flag&quot;;
+}
+</pre>
+<p>This will work correctly with</p>
+<pre class="pod-block-code">raku MAIN-enum.raku FLAG_BAR
+</pre>
+<p>but will die if called with something that is not a <code>Flag</code>.</p>
+<p><a name="Documentable/integration-test/index-entry-$PERCENT_SIGN*SUB-MAIN-OPTS"></a></p>
+<h2 id="%*SUB-MAIN-OPTS"><a class="u" href="#___top" title="go to top of document">%*SUB-MAIN-OPTS</a></h2>
+<p>It&#39;s possible to alter how arguments are processed before they&#39;re passed to <code>sub MAIN {}</code> by setting options in the <code>%*SUB-MAIN-OPTS</code> hash. Due to the nature of dynamic variables, it is required to set up the <code>%*SUB-MAIN-OPTS</code> hash and fill it with the appropriate settings. For instance:</p>
+<pre class="pod-block-code">my %*SUB-MAIN-OPTS =
+  :named-anywhere,    # allow named variables at any location
+  # other possible future options / custom options
+;
+sub MAIN ($a, $b, :$c, :$d) {
+    say &quot;Accepted!&quot;
+}</pre>
+<p>Available options are:</p>
+<p><a name="Documentable/integration-test/index-entry-named-anywhere"></a></p>
+<h3 id="named-anywhere"><a class="u" href="#___top" title="go to top of document">named-anywhere</a></h3>
+<p>By default, named arguments passed to the program (i.e., <code>MAIN</code>) cannot appear after any positional argument. However, if <code>%*SUB-MAIN-OPTS&lt;named-anywhere&gt;</code> is set to a true value, named arguments can be specified anywhere, even after positional parameter. For example, the above program can be called with:</p>
+<pre class="pod-block-code">$ raku example.raku 1 --c=2 3 --d=4
+</pre>
+<p><a name="Documentable/integration-test/index-entry-hidden-from-USAGE"></a></p>
+<h2 id="is_hidden-from-USAGE"><a class="u" href="#___top" title="go to top of document">is hidden-from-USAGE</a></h2>
+<p>Sometimes you want to exclude a <code>MAIN</code> candidate from being shown in any automatically generated usage message. This can be achieved by adding a <code>hidden-from-USAGE</code> trait to the specification of the <code>MAIN</code> candidate you do not want to show. Expanding on an earlier example:</p>
+<pre class="pod-block-code"># inside file &#39;hello.raku&#39;
+multi sub MAIN() is hidden-from-USAGE {
+    say &quot;Hello bashful, how are you?&quot;
+}
+multi sub MAIN($name) {  #= the name by which you would like to be called
+    say &quot;Hello $name, how are you?&quot;
+}</pre>
+<p>So, if you would call this script with just a named variable, you would get the following usage:</p>
+<pre class="pod-block-code">$ raku hello.raku --verbose
+Usage:
+  hello.raku &lt;name&gt; -- the name by which you would like to be called
+</pre>
+<p>Without the <code>hidden-from-USAGE</code> trait on the first candidate, it would have looked like this:</p>
+<pre class="pod-block-code">$ raku hello.raku --verbose
+Usage:
+  hello.raku
+  hello.raku &lt;name&gt; -- the name by which you would like to be called
+</pre>
+<p>Which, although technically correct, doesn&#39;t read as well.</p>
+<p><a name="Documentable/integration-test/index-entry-declarator_unit_(MAIN)"></a></p>
+<h1 id="Unit-scoped_definition_of_MAIN"><a class="u" href="#___top" title="go to top of document">Unit-scoped definition of <code>MAIN</code></a></h1>
+<p>If the entire program body resides within <code>MAIN</code>, you can use the <code>unit</code> declarator as follows (adapting an earlier example):</p>
+<pre class="pod-block-code">unit sub MAIN(
+  Str   $file where *.IO.f = &#39;file.dat&#39;,
+  Int  :$length = 24,
+  Bool :$verbose,
+);  # &lt;- note semicolon here
+
+say $length if $length.defined;
+say $file   if $file.defined;
+say &#39;Verbosity &#39;, ($verbose ?? &#39;on&#39; !! &#39;off&#39;);
+# rest of script is part of MAIN
+</pre>
+<p>Note that this is only appropriate if you can get by with just a single (only) <code>sub MAIN</code>.</p>
+<p><a name="Documentable/integration-test/index-entry-USAGE"></a><a name="Documentable/integration-test/index-entry-$*USAGE"></a></p>
+<h2 id="sub_USAGE"><a class="u" href="#___top" title="go to top of document">sub USAGE</a></h2>
+<p>If no multi candidate of <code>MAIN</code> is found for the given command line parameters, the sub <code>USAGE</code> is called. If no such method is found, the compiler will output a default usage message.</p>
+<pre class="pod-block-code">#|(is it the answer)
+multi MAIN(Int $i) { say $i == 42 ?? &#39;answer&#39; !! &#39;dunno&#39; }
+#|(divide two numbers)
+multi MAIN($a, $b){ say $a/$b }
+
+sub USAGE() {
+    print Q:c:to/EOH/;
+    Usage: {$*PROGRAM-NAME} [number]
+
+    Prints the answer or &#39;dunno&#39;.
+EOH
+}</pre>
+<p>The default usage message is available inside <code>sub USAGE</code> via the read-only <code>$*USAGE</code> variable. It will be generated based on available <code>sub MAIN</code> candidates and their parameters. As shown before, you can specify an additional extended description for each candidate using a <code>#|(...)</code> Pod block to set <a href="/Documentable/integration-test/routine/WHY"><code>WHY</code></a>.</p>
+<h1 id="Intercepting_CLI_argument_parsing_(2018.10,_v6.d_and_later)"><a class="u" href="#___top" title="go to top of document">Intercepting CLI argument parsing (2018.10, v6.d and later)</a></h1>
+<p>You can replace or augment the default way of argument parsing by supplying a <code>ARGS-TO-CAPTURE</code> subroutine yourself, or by importing one from any of the <a href="https://modules.raku.org/search/?q=getopt">Getopt</a> modules available in the ecosystem.</p>
+<p><a name="Documentable/integration-test/index-entry-ARGS-TO-CAPTURE"></a></p>
+<h2 id="sub_ARGS-TO-CAPTURE"><a class="u" href="#___top" title="go to top of document">sub ARGS-TO-CAPTURE</a></h2>
+<p>The <code>ARGS-TO-CAPTURE</code> subroutine should accept two parameters: a <a href="/Documentable/integration-test/type/Callable">Callable</a> representing the <code>MAIN</code> unit to be executed (so it can be introspected if necessary) and an array with the arguments from the command line. It should return a <a href="/Documentable/integration-test/type/Capture">Capture</a> object that will be used to dispatch the <code>MAIN</code> unit. The following is a <strong>very</strong> contrived example that will create a <code>Capture</code> depending on some keyword that was entered (which can be handy during testing of a command line interface of a script):</p>
+<pre class="pod-block-code">sub ARGS-TO-CAPTURE(&amp;main, @args --&gt; Capture) {
+    # if we only specified &quot;frobnicate&quot; as an argument
+    @args == 1 &amp;&amp; @args[0] eq &#39;frobnicate&#39;
+      # then dispatch as MAIN(&quot;foo&quot;,&quot;bar&quot;,verbose =&gt; 2)
+      ?? Capture.new( list =&gt; &lt;foo bar&gt;, hash =&gt; { verbose =&gt; 2 } )
+      # otherwise, use default processing of args
+      !! &amp;*ARGS-TO-CAPTURE(&amp;main, @args)
+}</pre>
+<p>Note that the dynamic variable <a href="/Documentable/integration-test/language/variables#&*ARGS-TO-CAPTURE"><code>&amp;*ARGS-TO-CAPTURE</code></a> is available to perform the default command line arguments to <code>Capture</code> processing so you don&#39;t have to reinvent the whole wheel if you don&#39;t want to.</p>
+<h1 id="Intercepting_usage_message_generation_(2018.10,_v6.d_and_later)"><a class="u" href="#___top" title="go to top of document">Intercepting usage message generation (2018.10, v6.d and later)</a></h1>
+<p>You can replace or augment the default way of usage message generation (after a failed dispatch to MAIN) by supplying a <code>GENERATE-USAGE</code> subroutine yourself, or by importing one from any of the <a href="https://modules.raku.org/search/?q=getopt">Getopt</a> modules available in the ecosystem.</p>
+<p><a name="Documentable/integration-test/index-entry-RUN-MAIN"></a></p>
+<h2 id="sub_RUN-MAIN"><a class="u" href="#___top" title="go to top of document">sub RUN-MAIN</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub RUN-MAIN(&amp;main, $mainline, :$in-as-argsfiles)</pre>
+<p>This routine allows complete control over the handling of <code>MAIN</code>. It gets a <code>Callable</code> that is the <code>MAIN</code> that should be executed, the return value of the mainline execution and additional named variables: <code>:in-as-argsfiles</code> which will be <code>True</code> if STDIN should be treated as <code>$*ARGFILES</code>.</p>
+<p>If <code>RUN-MAIN</code> is not provided, a default one will be run that looks for subroutines of the old interface, such as <code>MAIN_HELPER</code> and <code>USAGE</code>. If found, it will execute following the &quot;old&quot; semantics.</p>
+<pre class="pod-block-code">class Hero {
+    has @!inventory;
+    has Str $.name;
+    submethod BUILD( :$name, :@inventory ) {
+        $!name = $name;
+        @!inventory = @inventory
+    }
+}
+
+sub new-main($name, *@stuff ) {
+    Hero.new(:name($name), :inventory(@stuff) ).raku.say
+}
+
+RUN-MAIN( &amp;new-main, Nil );
+</pre>
+<p>This will print the name (first argument) of the generated object.</p>
+<p><a name="Documentable/integration-test/index-entry-GENERATE-USAGE"></a></p>
+<h2 id="sub_GENERATE-USAGE"><a class="u" href="#___top" title="go to top of document">sub GENERATE-USAGE</a></h2>
+<p>The <code>GENERATE-USAGE</code> subroutine should accept a <code>Callable</code> representing the <code>MAIN</code> subroutine that didn&#39;t get executed because the dispatch failed. This can be used for introspection. All the other parameters are the parameters that were set up to be sent to <code>MAIN</code>. It should return the string of the usage information you want to be shown to the user. An example that will just recreate the <code>Capture</code> that was created from processing the arguments:</p>
+<pre class="pod-block-code">sub GENERATE-USAGE(&amp;main, |capture) {
+    capture&lt;foo&gt;:exists
+      ?? &quot;You&#39;re not allowed to specify a --foo&quot;
+      !! &amp;*GENERATE-USAGE(&amp;main, |capture)
+}</pre>
+<p>You can also use multi subroutines to create the same effect:</p>
+<pre class="pod-block-code">multi sub GENERATE-USAGE(&amp;main, :$foo!) {
+    &quot;You&#39;re not allowed to specify a --foo&quot;
+}
+multi sub GENERATE-USAGE(&amp;main, |capture) {
+    &amp;*GENERATE-USAGE(&amp;main, |capture)
+}</pre>
+<p>Note that the dynamic variable <a href="/Documentable/integration-test/language/variables#&*GENERATE-USAGE"><code>&amp;*GENERATE-USAGE</code></a> is available to perform the default usage message generation so you don&#39;t have to reinvent the whole wheel if you don&#39;t want to.</p>
+<h1 id="Intercepting_MAIN_calling_(before_2018.10,_v6.e)"><a class="u" href="#___top" title="go to top of document">Intercepting MAIN calling (before 2018.10, v6.e)</a></h1>
+<p>An older interface enabled one to intercept the calling to <code>MAIN</code> completely. This depended on the existence of a <code>MAIN_HELPER</code> subroutine that would be called if a <code>MAIN</code> subroutine was found in the mainline of a program.</p>
+<p>This interface was never documented. However, any programs using this undocumented interface will continue to function until <code>v6.e</code>. From v6.d onward, the use of the undocumented API will cause a <code>DEPRECATED</code> message.</p>
+<p>Ecosystem modules can provide both the new and the old interface for compatibility with older versions of Perl&nbsp;6 and Raku: if a newer Raku recognizes the new (documented) interface, it will use that. If there is no new interface subroutine available, but the old <code>MAIN_HELPER</code> interface is, then it will use the old interface.</p>
+<p>If a module developer decides to only offer a module for <code>v6.d</code> or higher, then the support for the old interface can be removed from the module.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/create-cli.pod6">https://github.com/Raku/doc/blob/master/doc/Language/create-cli.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

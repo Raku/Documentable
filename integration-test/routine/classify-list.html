@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>method classify-list</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/routine.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-sub.html"> Sub </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-method.html"> Method </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-term.html"> Term </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-operator.html"> Operator </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-trait.html"> Trait </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-submethod.html"> Submethod </a>
+            </div></div></div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">method classify-list</h1>
+        <p class="subtitle"></p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#class_Hash">class Hash</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#(Hash)_method_classify-list">(Hash) method classify-list</a></td></tr>
+                                   <tr class="toc-level-3"><td class="toc-number">1.1.1</td><td class="toc-text"><a href="#Simple_classification">Simple classification</a></td></tr>
+                             <tr class="toc-level-3"><td class="toc-number">1.1.2</td><td class="toc-text"><a href="#Multi-level_classification">Multi-level classification</a></td></tr>
+                                            <tr class="toc-level-3"><td class="toc-number">1.1.3</td><td class="toc-text"><a href="#:&amp;as_value_modifier"><code class="pod-code-inline">:&amp;as</code> value modifier</a></td></tr>
+           <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#role_Baggy">role Baggy</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#(Baggy)_method_classify-list">(Baggy) method classify-list</a></td></tr>
+                                                      
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Documentation for method <code>classify-list</code> assembled from the following types:</p>
+<h1 id="class_Hash"><a class="u" href="#___top" title="go to top of document">class Hash</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Hash#method_classify-list">Hash</a></p>
+<h2 id="(Hash)_method_classify-list"><a href="/Documentable/integration-test/type/Hash#method_classify-list">(Hash) method classify-list</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method classify-list(&amp;mapper, *@list, :&amp;as --&gt; Hash:D)
+multi method classify-list(%mapper, *@list, :&amp;as --&gt; Hash:D)
+multi method classify-list(@mapper, *@list, :&amp;as --&gt; Hash:D)</pre>
+<p>Populates a <a href="/Documentable/integration-test/type/Hash"><code>Hash</code></a> by classifying the possibly-empty <code>@list</code> of values using the given <code>mapper</code>, optionally altering the values using the <code>:&amp;as</code> <a href="/Documentable/integration-test/type/Callable"><code>Callable</code></a>. The <code>@list</code> cannot be lazy.</p>
+<p>The mapper can be a <a href="/Documentable/integration-test/type/Callable"><code>Callable</code></a> that takes a single argument, an <a href="/Documentable/integration-test/type/Associative"><code>Associative</code></a>, or an <a href="/Documentable/integration-test/type/Iterable"><code>Iterable</code></a>; this <code>Callable</code> is guaranteed to be called only once per item. With <a href="/Documentable/integration-test/type/Associative"><code>Associative</code></a> and an <a href="/Documentable/integration-test/type/Iterable"><code>Iterable</code></a> mappers, the values in the <code>@list</code> represent the key and index of the mapper&#39;s value respectively. A <a href="/Documentable/integration-test/type/Callable"><code>Callable</code></a> mapper will be executed once per each item in the <code>@list</code>, with that item as the argument and its return value will be used as the mapper&#39;s value.</p>
+<h3 id="Simple_classification"><a class="u" href="#___top" title="go to top of document">Simple classification</a></h3>
+<p>In simple classification mode, each mapper&#39;s value is any non-<code>Iterable</code> and represents a key to classify <code>@list</code>&#39;s item under:</p>
+<pre class="pod-block-code">say % .classify-list: { $_ %% 2 ?? &#39;even&#39; !! &#39;odd&#39; }, ^10;
+# OUTPUT: «{even =&gt; [0 2 4 6 8], odd =&gt; [1 3 5 7 9]}␤»
+
+my @mapper = &lt;zero one two three four five&gt;;
+my %hash = foo =&gt; &#39;bar&#39;;
+say %hash.classify-list: @mapper, 1, 2, 3, 4, 4;
+# OUTPUT: «{foo =&gt; bar, four =&gt; [4 4], one =&gt; [1], three =&gt; [3], two =&gt; [2]}␤»
+</pre>
+<p>The mapper&#39;s value is used as the key of the <a href="/Documentable/integration-test/type/Hash"><code>Hash</code></a> to which the <code>@list</code>&#39;s item will be <a href="/Documentable/integration-test/routine/push"><code>push</code>ed</a>. See <a href="/Documentable/integration-test/routine/categorize-list"><code>.categorize-list</code></a> if you wish to classify an item into multiple categories at once.</p>
+<h3 id="Multi-level_classification"><a class="u" href="#___top" title="go to top of document">Multi-level classification</a></h3>
+<p>In multi-level classification mode, each mapper&#39;s value is an <a href="/Documentable/integration-test/type/Iterable"><code>Iterable</code></a> that represents a tree of hash keys to classify <code>@list</code>&#39;s item under:</p>
+<pre class="pod-block-code">say % .classify-list: {
+    [
+        (.is-prime ?? &#39;prime&#39; !! &#39;non-prime&#39;),
+        ($_ %% 2   ?? &#39;even&#39;  !! &#39;odd&#39;      ),
+    ]
+}, ^10;
+# OUTPUT:
+# {
+#     non-prime =&gt; {
+#         even =&gt; [0 4 6 8],
+#         odd  =&gt; [1 9]
+#     },
+#     prime =&gt; {
+#         even =&gt; [2],
+#         odd  =&gt; [3 5 7]
+#     }
+# }</pre>
+<p>In the case we are using <code>Iterables</code> and not <code>Callables</code>, each of those <a href="/Documentable/integration-test/type/Iterable"><code>Iterable</code></a>s must have the same number of elements, or the method will throw an exception. This restriction exists to avoid conflicts when the same key is a leaf of one value&#39;s classification but a node of another value&#39;s classification.</p>
+<pre class="pod-block-code">my @mapper = [[&#39;1a&#39;,&#39;1b&#39;,&#39;1c&#39;],[&#39;2a&#39;,&#39;2b&#39;,&#39;2c&#39;],[&#39;3a&#39;,&#39;3b&#39;,&#39;3c&#39;]];
+say % .classify-list: @mapper, 1,2,1,1,2,0;
+# OUTPUT: «{1a =&gt; {1b =&gt; {1c =&gt; [0]}}, 2a =&gt; {2b =&gt; {2c =&gt; [1 1 1]}}, 3a =&gt; {3b =&gt; {3c =&gt; [2 2]}}}␤»
+</pre>
+<p>Every element of the array represents a different level in the tree, with the elements of the list that is being mapped used as index, and the elements of the mapper array used as keys to the different levels. So <code>0</code> selects the first sub-array and then the subsequent levels are built by running over the rest of the elements of that sub-array.</p>
+<pre class="pod-block-code">my @mapper = [[&#39;1a&#39;,&#39;1b&#39;],[&#39;2a&#39;,&#39;2b&#39;],[&#39;3a&#39;,&#39;3b&#39;]];
+say % .classify-list: @mapper, 1,0,1,1,1,0,2;
+# OUTPUT: «{1a =&gt; {1b =&gt; [0 0]}, 2a =&gt; {2b =&gt; [1 1 1 1]}, 3a =&gt; {3b =&gt; [2]}}␤»
+</pre>
+<p>From version 6.d, trying to use <code>Iterable</code>s of different size will throw an error:</p>
+<pre class="pod-block-code">my @mapper = [&lt;1a 1b&gt;, &lt;2a 2b 2fail&gt;];
+say % .classify-list: @mapper, 1,0,1,1,1,0;
+# OUTPUT: «mapper on classify-list computed to an item with different number
+# of elements in it than previous items, which cannot be used because all
+# values need to have the same number of elements. Mixed-level classification
+# is not supported.␤  in block &lt;unit&gt;…»
+</pre>
+<h3 id=":&as_value_modifier"><a class="u" href="#___top" title="go to top of document"><code>:&amp;as</code> value modifier</a></h3>
+<p>If <code>:&amp;as</code> <a href="/Documentable/integration-test/type/Callable"><code>Callable</code></a> argument is specified, it will be called once per each item of <code>@list</code>, with the value as the argument, and its return value will be used instead of the original <code>@list</code>&#39;s item:</p>
+<pre class="pod-block-code">say % .classify-list: :as{&quot;Value is $_&quot;}, { $_ %% 2 ?? &#39;even&#39; !! &#39;odd&#39; }, ^5;
+# OUTPUT (slightly altered manually, for clarity):
+# {
+#     even =&gt; [&#39;Value is 0&#39;, &#39;Value is 2&#39;, &#39;Value is 4&#39;],
+#     odd  =&gt; [&#39;Value is 1&#39;, &#39;Value is 3&#39;]
+# }</pre>
+<h1 id="role_Baggy"><a class="u" href="#___top" title="go to top of document">role Baggy</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Baggy#method_classify-list">Baggy</a></p>
+<h2 id="(Baggy)_method_classify-list"><a href="/Documentable/integration-test/type/Baggy#method_classify-list">(Baggy) method classify-list</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method classify-list(&amp;mapper, *@list --&gt; Baggy:D)
+multi method classify-list(%mapper, *@list --&gt; Baggy:D)
+multi method classify-list(@mapper, *@list --&gt; Baggy:D)</pre>
+<p>Populates a <em>mutable</em> <a href="/Documentable/integration-test/type/Baggy"><code>Baggy</code></a> by classifying the possibly-empty <code>@list</code> of values using the given <code>mapper</code>. The <code>@list</code> cannot be lazy.</p>
+<pre class="pod-block-code">say BagHash.new.classify-list: { $_ %% 2 ?? &#39;even&#39; !! &#39;odd&#39; }, ^10;
+# OUTPUT: BagHash.new(even(5), odd(5))
+
+my @mapper = &lt;zero one two three four five&gt;;
+say MixHash.new.classify-list: @mapper, 1, 2, 3, 4, 4, 6;
+# OUTPUT: MixHash.new((Any), two, three, four(2), one)</pre>
+<p>The mapper can be a <a href="/Documentable/integration-test/type/Callable"><code>Callable</code></a> that takes a single argument, an <a href="/Documentable/integration-test/type/Associative"><code>Associative</code></a>, or an <a href="/Documentable/integration-test/type/Iterable"><code>Iterable</code></a>. With <a href="/Documentable/integration-test/type/Associative"><code>Associative</code></a> and an <a href="/Documentable/integration-test/type/Iterable"><code>Iterable</code></a> mappers, the values in the <code>@list</code> represent the key and index of the mapper&#39;s value respectively. A <a href="/Documentable/integration-test/type/Callable"><code>Callable</code></a> mapper will be executed once per each item in the <code>@list</code>, with that item as the argument and its return value will be used as the mapper&#39;s value.</p>
+<p>The mapper&#39;s value is used as the key of the <a href="/Documentable/integration-test/type/Baggy"><code>Baggy</code></a> that will be incremented by <code>1</code>. See <a href="/Documentable/integration-test/routine/categorize-list"><code>.categorize-list</code></a> if you wish to classify an item into multiple categories at once.</p>
+<p><strong>Note:</strong> unlike the <a href="/Documentable/integration-test/type/Hash"><code>Hash</code></a>&#39;s <code>.classify-list</code>, returning an <a href="/Documentable/integration-test/type/Iterable"><code>Iterable</code></a> mapper&#39;s value will throw, as <a href="/Documentable/integration-test/type/Baggy"><code>Baggy</code></a> types do not support nested classification. For the same reason, <a href="/Documentable/integration-test/type/Baggy"><code>Baggy</code></a>&#39;s <code>.classify-list</code> does not accept <code>:&amp;as</code> parameter.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>class Proc</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/type.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-basic.html"> Basic </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-composite.html"> Composite </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-domain-specific.html"> Domain-specific </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-exception.html"> Exceptions </a>
+            </div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Type/Proc.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">class Proc</h1>
+        <p class="subtitle">Running process (filehandle-based interface)</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+                                                                            <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#routine_new">routine new</a></td></tr>
+                                                                                                                                                                        <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#method_sink">method sink</a></td></tr>
+              <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#method_spawn">method spawn</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">1.4</td><td class="toc-text"><a href="#method_shell">method shell</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.5</td><td class="toc-text"><a href="#method_command">method command</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.6</td><td class="toc-text"><a href="#method_Bool">method Bool</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.7</td><td class="toc-text"><a href="#method_pid">method pid</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.8</td><td class="toc-text"><a href="#method_exitcode">method exitcode</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.9</td><td class="toc-text"><a href="#method_signal">method signal</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Type_Graph">Type Graph</a></td></tr>
+ 
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <pre class="pod-block-code">class Proc {}</pre>
+<p><code>Proc</code> is a representation of an invocation of an external process. It provides access to the input, output and error stream as well as the exit code. It is typically created through the <code>run</code> subroutine:</p>
+<pre class="pod-block-code">my $proc = run &#39;echo&#39;, &#39;Hallo world&#39;, :out;
+my $captured-output = $proc.out.slurp: :close;
+say &quot;Output was $captured-output.raku()&quot;;# OUTPUT: «Output was &quot;Hallo world\n&quot;␤»
+</pre>
+<p>Piping several commands is easy too. To achieve the equivalent of the pipe <code>echo &quot;Hello, world&quot; | cat -n</code> in Raku, and capture the output from the second command, you can do</p>
+<pre class="pod-block-code">my $p1 = run &#39;echo&#39;, &#39;Hello, world&#39;, :out;
+my $p2 = run &#39;cat&#39;, &#39;-n&#39;, :in($p1.out), :out;
+say $p2.out.get;
+</pre>
+<p>You can also feed the <code>:in</code> (standard input) pipe directly from your program, by setting it to <code>True</code>, which will make the pipe available via <code>.in</code> method on the <code>Proc</code>:</p>
+<pre class="pod-block-code">my $p = run &quot;cat&quot;, &quot;-n&quot;, :in, :out;
+$p.in.say: &quot;Hello,\nworld!&quot;;
+$p.in.close;
+say $p.out.slurp: :close;
+# OUTPUT: «1  Hello,␤
+#          2  world!␤»
+</pre>
+<p>In order to capture the standard error, <code>:err</code> can be supplied:</p>
+<pre class="pod-block-code">my $p = run &quot;ls&quot;, &quot;-l&quot;, &quot;.&quot;, &quot;qqrq&quot;, :out, :err;
+my $captured-output = $p.out.slurp: :close;
+my $captured-error  = $p.err.slurp: :close;
+my $exit-code       = $p.exitcode;
+</pre>
+<p>In sink context, a <code>Proc</code> will call its <code>sink</code> method, throwing an exception if the process has exited with an exit code different from zero:</p>
+<pre class="pod-block-code">shell &#39;exit 1&#39;
+# OUTPUT: «(exit code 1) The spawned command &#39;exit 1&#39; exited unsuccessfully (exit code: 1)␤»
+</pre>
+<p><strong>Note:</strong> Versions of <a href="/Documentable/integration-test/language/glossary#Rakudo">Rakudo</a> older than 2017.04 do not have <code>.slurp</code> available on <a href="/Documentable/integration-test/type/IO::Pipe">IO::Pipe</a> objects; use <a href="/Documentable/integration-test/routine/slurp-rest"><code>.slurp-rest</code></a> instead.</p>
+<p>Use <a href="/Documentable/integration-test/type/Proc::Async">Proc::Async</a> for non-blocking operations.</p>
+<h1 id="Methods"><a class="u" href="#___top" title="go to top of document">Methods</a></h1>
+<h2 id="routine_new"><a class="u" href="#___top" title="go to top of document">routine new</a></h2>
+<pre class="pod-block-code">method new(Proc:U:
+        :$in = &#39;-&#39;,
+        :$out = &#39;-&#39;,
+        :$err = &#39;-&#39;,
+        Bool :$bin = False,
+        Bool :$chomp = True,
+        Bool :$merge = False,
+        Str:D :$enc = &#39;UTF-8&#39;,
+        Str:D :$nl = &quot;\n&quot;,
+    --&gt; Proc:D)
+
+sub shell(
+        $cmd,
+        :$in = &#39;-&#39;,
+        :$out = &#39;-&#39;,
+        :$err = &#39;-&#39;,
+        Bool :$bin = False,
+        Bool :$chomp = True,
+        Bool :$merge = False,
+        Str:D :$enc = &#39;UTF-8&#39;,
+        Str:D :$nl = &quot;\n&quot;,
+        :$cwd = $*CWD,
+        Hash() :$env = %*ENV
+    --&gt; Proc:D)
+</pre>
+<p><code>new</code> creates a new <code>Proc</code> object, whereas <code>run</code> or <code>shell</code> create one and spawn it with the command and arguments provided in <code>@args</code> or <code>$cmd</code>, respectively.</p>
+<p><code>$in</code>, <code>$out</code> and <code>$err</code> are the three standard streams of the to-be-launched program, and default to <code>&quot;-&quot;</code> meaning they inherit the stream from the parent process. Setting one (or more) of them to <code>True</code> makes the stream available as an <a href="/Documentable/integration-test/type/IO::Pipe">IO::Pipe</a> object of the same name, like for example <code>$proc.out</code>. You can set them to <code>False</code> to discard them. Or you can pass an existing <a href="/Documentable/integration-test/type/IO::Handle">IO::Handle</a> object (for example <code>IO::Pipe</code>) in, in which case this handle is used for the stream.</p>
+<p>Please bear in mind that the process streams reside in process variables, not in the dynamic variables that make them available to our programs. Thus, modifying <a href="/Documentable/integration-test/language/variables#Special_filehandles:_STDIN,_STDOUT_and_STDERR">the dynamic filehandle variables (such as <code>$*OUT</code>)</a> inside the host process will have no effect in the spawned process, unlike <code>$*CWD</code> and <code>$*ENV</code>, whose changes will be actually reflected in it.</p>
+<pre class="pod-block-code">my $p-name = &quot;/tmp/program.p6&quot;;
+my $program = Q:to/END/;
+    #!/usr/bin/env perl6
+
+    $*OUT.say( qq/\t$*PROGRAM: This goes to standard output/ );
+END
+
+spurt $p-name, $program;
+
+$*OUT.put: &quot;1. standard output before doing anything weird&quot;;
+
+{
+    temp $*OUT = open &#39;/tmp/out.txt&#39;, :w;
+    $*OUT.put: &quot;2. temp redefine standard output before this message&quot;;
+    shell( &quot;perl6 $p-name&quot; ).so;
+}
+
+$*OUT.put: &quot;3. everything should be back to normal&quot;;
+# OUTPUT
+# 1. standard output before doing anything weird
+#     /tmp/program.p6: This goes to standard output
+# 3. everything should be back to normal
+
+# /tmp/out.txt will contain:
+# 2. temp redefine standard output before this message
+</pre>
+<p>This program shows that the program spawned with <code>shell</code> is not using the temporary <code>$*OUT</code> value defined in the host process (redirected to <code>/tmp/out.txt</code>), but the initial <code>STDOUT</code> defined in the process.</p>
+<p><code>$bin</code> controls whether the streams are handled as binary (i.e. <a href="/Documentable/integration-test/type/Blob">Blob</a> object) or text (i.e. <a href="/Documentable/integration-test/type/Str">Str</a> objects). If <code>$bin</code> is False, <code>$enc</code> holds the character encoding to encode strings sent to the input stream and decode binary data from the output and error streams.</p>
+<p>With <code>$chomp</code> set to <code>True</code>, newlines are stripped from the output and err streams when reading with <code>lines</code> or <code>get</code>. <code>$nl</code> controls what your idea of a newline is.</p>
+<p>If <code>$merge</code> is set to True, the standard output and error stream end up merged in <code>$proc.out</code>.</p>
+<h2 id="method_sink"><a class="u" href="#___top" title="go to top of document">method sink</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method sink(--&gt; Nil)</pre>
+<p>When sunk, the <code>Proc</code> object will throw <a href="/Documentable/integration-test/type/X::Proc::Unsuccessful">X::Proc::Unsuccessful</a> if the process it ran exited unsuccessfully.</p>
+<pre class="pod-block-code">shell &#39;ls /qqq&#39;;
+# OUTPUT: «(exit code 1) ls: cannot access &#39;/qqq&#39;: No such file or directory␤The spawned command &#39;ls /qqq&#39; exited unsuccessfully (exit code: 2)␤
+n block &lt;unit&gt; at /tmp/3169qXElwq line 1␤␤»
+</pre>
+<h2 id="method_spawn"><a class="u" href="#___top" title="go to top of document">method spawn</a></h2>
+<pre class="pod-block-code">method spawn(*@args ($, *@), :$cwd = $*CWD, Hash() :$env = %*ENV, :$win-verbatim-args = False --&gt; Bool:D)</pre>
+<p>Runs the <code>Proc</code> object with the given command, argument list, working directory, and environment.</p>
+<p>On Windows the flag <code>$win-verbatim-args</code> disables all automatic quoting of process arguments. See <a href="https://docs.microsoft.com/en-us/archive/blogs/twistylittlepassagesallalike/everyone-quotes-command-line-arguments-the-wrong-way">this blog</a> for more information on windows command quoting. The flag is ignored on all other platforms. The flag was introduced in Rakudo version 2020.06 and is not present in older releases.</p>
+<h2 id="method_shell"><a class="u" href="#___top" title="go to top of document">method shell</a></h2>
+<pre class="pod-block-code">method shell($cmd, :$cwd = $*CWD, :$env --&gt; Bool:D)</pre>
+<p>Runs the <code>Proc</code> object with the given command and environment which are passed through to the shell for parsing and execution. See <a href="/Documentable/integration-test/language/independent-routines#sub_shell"><code>shell</code></a> for an explanation of which shells are used by default in the most common operating systems.</p>
+<h2 id="method_command"><a class="u" href="#___top" title="go to top of document">method command</a></h2>
+<pre class="pod-block-code">method command(Proc:D: --&gt; List:D)</pre>
+<p>The command method is an accessor to a list containing the arguments that were passed when the Proc object was executed via <code>spawn</code> or <code>shell</code> or <code>run</code>.</p>
+<h2 id="method_Bool"><a class="u" href="#___top" title="go to top of document">method Bool</a></h2>
+<pre class="pod-block-code">multi method Bool(Proc:D:)</pre>
+<p>Awaits for the process to finish and returns <code>True</code> if both exit code and signal of the process were 0, indicating a successful process termination. Returns <code>False</code> otherwise.</p>
+<h2 id="method_pid"><a class="u" href="#___top" title="go to top of document">method pid</a></h2>
+<pre class="pod-block-code">method pid()</pre>
+<p>Returns the <code>PID</code> value of the process if available, or <code>Nil</code>.</p>
+<h2 id="method_exitcode"><a class="u" href="#___top" title="go to top of document">method exitcode</a></h2>
+<pre class="pod-block-code">method exitcode(Proc:D: --&gt; Int:D)</pre>
+<p>Returns the exit code of the external process, or -1 if it has not exited yet.</p>
+<h2 id="method_signal"><a class="u" href="#___top" title="go to top of document">method signal</a></h2>
+<pre class="pod-block-code">method signal(Proc:D:)</pre>
+<p>Returns the signal number with which the external process was killed, or <code>0</code> or an undefined value otherwise.</p>
+<h1 id="Type_Graph"><a class="u" href="#___top" title="go to top of document">Type Graph</a></h1>
+<figure>
+  <figcaption>Type relations for <code>Proc</code></figcaption>
+  <svg width="69pt" height="188pt"
+ viewBox="0.00 0.00 69.09 188.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 184)">
+<title>perl6&#45;type&#45;graph</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-184 65.09,-184 65.09,4 -4,4"/>
+<!-- Proc -->
+<g id="node1" class="node">
+<title>Proc</title>
+<g id="a_node1"><a xlink:href="/type/Proc" xlink:title="Proc">
+<ellipse fill="none" stroke="#000000" cx="30.55" cy="-18" rx="30.59" ry="18"/>
+<text text-anchor="middle" x="30.55" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">Proc</text>
+</a>
+</g>
+</g>
+<!-- Any -->
+<g id="node3" class="node">
+<title>Any</title>
+<g id="a_node3"><a xlink:href="/type/Any" xlink:title="Any">
+<ellipse fill="none" stroke="#000000" cx="30.55" cy="-90" rx="27" ry="18"/>
+<text text-anchor="middle" x="30.55" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Any</text>
+</a>
+</g>
+</g>
+<!-- Proc&#45;&gt;Any -->
+<g id="edge1" class="edge">
+<title>Proc&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M30.55,-36.3C30.55,-44.02 30.55,-53.29 30.55,-61.89"/>
+<polygon fill="#000000" stroke="#000000" points="27.05,-61.9 30.55,-71.9 34.05,-61.9 27.05,-61.9"/>
+</g>
+<!-- Mu -->
+<g id="node2" class="node">
+<title>Mu</title>
+<g id="a_node2"><a xlink:href="/type/Mu" xlink:title="Mu">
+<ellipse fill="none" stroke="#000000" cx="30.55" cy="-162" rx="27" ry="18"/>
+<text text-anchor="middle" x="30.55" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#000000">Mu</text>
+</a>
+</g>
+</g>
+<!-- Any&#45;&gt;Mu -->
+<g id="edge2" class="edge">
+<title>Any&#45;&gt;Mu</title>
+<path fill="none" stroke="#000000" d="M30.55,-108.3C30.55,-116.02 30.55,-125.29 30.55,-133.89"/>
+<polygon fill="#000000" stroke="#000000" points="27.05,-133.9 30.55,-143.9 34.05,-133.9 27.05,-133.9"/>
+</g>
+</g>
+</svg>
+
+  <p class="fallback">
+    <a
+      rel="alternate"
+      href="/images/type-graph-Proc.svg"
+      type="image/svg+xml"
+      >Expand above chart</a
+    >
+  </p>
+</figure>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Type/Proc.pod6">https://github.com/Raku/doc/blob/master/doc/Type/Proc.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

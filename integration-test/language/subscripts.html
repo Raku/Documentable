@@ -1,0 +1,691 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Subscripts</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/subscripts.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Subscripts</h1>
+        <p class="subtitle">Accessing data structure elements by index or key</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+       <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Basics">Basics</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#Positional_subscripting">Positional subscripting</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#Associative_subscripting">Associative subscripting</a></td></tr>
+                                                                  <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#Applying_subscripts">Applying subscripts</a></td></tr>
+            <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Nonexistent_elements">Nonexistent elements</a></td></tr>
+                      <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#From_the_end">From the end</a></td></tr>
+                                 <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#Slices">Slices</a></td></tr>
+                                                                               <tr class="toc-level-2"><td class="toc-number">4.1</td><td class="toc-text"><a href="#Truncating_slices">Truncating slices</a></td></tr>
+                                      <tr class="toc-level-2"><td class="toc-number">4.2</td><td class="toc-text"><a href="#Zen_slices">Zen slices</a></td></tr>
+                    <tr class="toc-level-1"><td class="toc-number">5</td><td class="toc-text"><a href="#Multiple_dimensions">Multiple dimensions</a></td></tr>
+                   <tr class="toc-level-1"><td class="toc-number">6</td><td class="toc-text"><a href="#Modifying_elements">Modifying elements</a></td></tr>
+  <tr class="toc-level-1"><td class="toc-number">7</td><td class="toc-text"><a href="#Autovivification">Autovivification</a></td></tr>
+                          <tr class="toc-level-1"><td class="toc-number">8</td><td class="toc-text"><a href="#Binding">Binding</a></td></tr>
+                                      <tr class="toc-level-1"><td class="toc-number">9</td><td class="toc-text"><a href="#Adverbs">Adverbs</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">9.1</td><td class="toc-text"><a href="#:exists"><code class="pod-code-inline">:exists</code></a></td></tr>
+                                   <tr class="toc-level-2"><td class="toc-number">9.2</td><td class="toc-text"><a href="#:delete"><code class="pod-code-inline">:delete</code></a></td></tr>
+                                        <tr class="toc-level-2"><td class="toc-number">9.3</td><td class="toc-text"><a href="#:p"><code class="pod-code-inline">:p</code></a></td></tr>
+                   <tr class="toc-level-2"><td class="toc-number">9.4</td><td class="toc-text"><a href="#:kv"><code class="pod-code-inline">:kv</code></a></td></tr>
+                            <tr class="toc-level-2"><td class="toc-number">9.5</td><td class="toc-text"><a href="#:k"><code class="pod-code-inline">:k</code></a></td></tr>
+            <tr class="toc-level-2"><td class="toc-number">9.6</td><td class="toc-text"><a href="#:v"><code class="pod-code-inline">:v</code></a></td></tr>
+                           <tr class="toc-level-1"><td class="toc-number">10</td><td class="toc-text"><a href="#Custom_types">Custom types</a></td></tr>
+                       <tr class="toc-level-2"><td class="toc-number">10.1</td><td class="toc-text"><a href="#Custom_type_example">Custom type example</a></td></tr>
+                                                                                                         <tr class="toc-level-2"><td class="toc-number">10.2</td><td class="toc-text"><a href="#Methods_to_implement_for_positional_subscripting">Methods to implement for positional subscripting</a></td></tr>
+          <tr class="toc-level-3"><td class="toc-number">10.2.1</td><td class="toc-text"><a href="#method_elems">method elems</a></td></tr>
+                <tr class="toc-level-3"><td class="toc-number">10.2.2</td><td class="toc-text"><a href="#method_AT-POS">method AT-POS</a></td></tr>
+                  <tr class="toc-level-3"><td class="toc-number">10.2.3</td><td class="toc-text"><a href="#method_EXISTS-POS">method EXISTS-POS</a></td></tr>
+                  <tr class="toc-level-3"><td class="toc-number">10.2.4</td><td class="toc-text"><a href="#method_DELETE-POS">method DELETE-POS</a></td></tr>
+            <tr class="toc-level-3"><td class="toc-number">10.2.5</td><td class="toc-text"><a href="#method_ASSIGN-POS">method ASSIGN-POS</a></td></tr>
+                            <tr class="toc-level-3"><td class="toc-number">10.2.6</td><td class="toc-text"><a href="#method_BIND-POS">method BIND-POS</a></td></tr>
+               <tr class="toc-level-3"><td class="toc-number">10.2.7</td><td class="toc-text"><a href="#method_STORE">method STORE</a></td></tr>
+                                                                 <tr class="toc-level-2"><td class="toc-number">10.3</td><td class="toc-text"><a href="#Methods_to_implement_for_associative_subscripting">Methods to implement for associative subscripting</a></td></tr>
+        <tr class="toc-level-3"><td class="toc-number">10.3.1</td><td class="toc-text"><a href="#method_AT-KEY">method AT-KEY</a></td></tr>
+                  <tr class="toc-level-3"><td class="toc-number">10.3.2</td><td class="toc-text"><a href="#method_EXISTS-KEY">method EXISTS-KEY</a></td></tr>
+                  <tr class="toc-level-3"><td class="toc-number">10.3.3</td><td class="toc-text"><a href="#method_DELETE-KEY">method DELETE-KEY</a></td></tr>
+                <tr class="toc-level-3"><td class="toc-number">10.3.4</td><td class="toc-text"><a href="#method_ASSIGN-KEY">method ASSIGN-KEY</a></td></tr>
+                            <tr class="toc-level-3"><td class="toc-number">10.3.5</td><td class="toc-text"><a href="#method_BIND-KEY">method BIND-KEY</a></td></tr>
+               <tr class="toc-level-3"><td class="toc-number">10.3.6</td><td class="toc-text"><a href="#method_STORE">method STORE</a></td></tr>
+             
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>One often needs to refer to a specific element (or slice of elements) from a collection or data structure. Borrowing from mathematical notation where the components of a vector <em>v</em> would be referred to as <em>v₁, v₂, v₃</em>, this concept is called &quot;subscripting&quot; (or &quot;indexing&quot;) in Raku.</p>
+<h1 id="Basics"><a class="u" href="#___top" title="go to top of document">Basics</a></h1>
+<p>Raku provides two universal subscripting interfaces:</p>
+<table class="pod-table">
+<thead><tr>
+<th></th> <th>elements are identified by</th> <th>interface name</th> <th>supported by</th>
+</tr></thead>
+<tbody>
+<tr> <td>[ ]</td> <td>zero-based indices</td> <td>Positional</td> <td>Array, List, Buf, Match, ...</td> </tr> <tr> <td>{ }</td> <td>string or object keys</td> <td>Associative</td> <td>Hash, Bag, Mix, Match, ...</td> </tr>
+</tbody>
+</table><h2 id="Positional_subscripting"><a class="u" href="#___top" title="go to top of document"><strong>Positional</strong> subscripting</a></h2>
+<p><strong>Positional</strong> subscripting(via <a href="/Documentable/integration-test/language/operators#postcircumfix_[_]"><code>postcircumfix [ ]</code></a>) addresses elements of an ordered collection by their position. Index 0 refers to the first element, index 1 to the second, and so on:</p>
+<pre class="pod-block-code">my @chores = &quot;buy groceries&quot;, &quot;feed dog&quot;, &quot;wash car&quot;;
+say @chores[0];  # OUTPUT: «buy groceries␤»
+say @chores[1];  # OUTPUT: «feed dog␤»
+say @chores[2];  # OUTPUT: «wash car␤»</pre>
+<h2 id="Associative_subscripting"><a class="u" href="#___top" title="go to top of document"><strong>Associative</strong> subscripting</a></h2>
+<p><strong>Associative</strong> subscripting (via <a href="/Documentable/integration-test/language/operators#postcircumfix_{_}"><code>postcircumfix { }</code></a>), does not require the collection to keep its elements in any particular order - instead, it uses a unique key to address each value. The nature of the keys depends on the collection in question: For example a standard <a href="/Documentable/integration-test/type/Hash">Hash</a> uses string keys, whereas a <a href="/Documentable/integration-test/type/Mix">Mix</a> allows arbitrary objects as keys, etc.:</p>
+<pre class="pod-block-code">my %grade = Zoe =&gt; &quot;C&quot;, Ben =&gt; &quot;B+&quot;;
+say %grade{&quot;Zoe&quot;};  # OUTPUT: «C␤»
+say %grade{&quot;Ben&quot;};  # OUTPUT: «B+␤»
+
+my $stats = ( Date.today =&gt; 4.18, Date.new(2015,  4,  5) =&gt; 17.253 ).Mix;
+say $stats{ Date.new(2015, 4, 4) + 1 };  # OUTPUT: «17.253␤»</pre>
+<p>For passing single-word string keys to <code>{ }</code>, you can also use the <a href="/Documentable/integration-test/language/quoting#Word_quoting:_qw">angle bracketed word quoting constructs</a> as if they were postcircumfix operators:</p>
+<pre class="pod-block-code">my %grade = Zoe =&gt; &quot;C&quot;, Ben =&gt; &quot;B+&quot;;
+say %grade&lt;Zoe&gt;;    # OUTPUT: «C␤»
+say %grade&lt;Ben&gt;;    # OUTPUT: «B+␤»</pre>
+<p>This is really just syntactic sugar that gets turned into the corresponding <code>{ }</code> form at compile-time:</p>
+<pre class="pod-block-code">%hash&lt;foo bar&gt;;       # same as %hash{ &lt;foo bar&gt; }
+%hash«foo &quot;$var&quot;»;    # same as %hash{ «foo &quot;$var&quot;» }
+%hash&lt;&lt;foo &quot;$var&quot;&gt;&gt;;  # same as %hash{ &lt;&lt;foo &quot;$var&quot;&gt;&gt; }
+</pre>
+<p>You may have noted above that we avoided having to quote <code>Zoe</code> by using the <code>=&gt;</code> operator, but that same operator did not just put invisible quotes around <code>Date.new(2015, 4, 5)</code>, and we were able to find the same element using <code>$stats{ Date.new(2015, 4, 4) + 1 }</code>. This is because <code>=&gt;</code> only puts invisible quotes around single words, and by &quot;word&quot; we mean an identifier/name. The <code>=&gt;</code> operator is there to prevent us from accidentally calling functions or using constants with that name.</p>
+<p>Hash subscripts do not do the same thing as <code>=&gt;</code>. The default <code>Hash</code> has been made to behave the way new users have come to expect from using other languages, and for general ease of use. On a default <code>Hash</code>, subscripts coerce keys into strings, as long as those keys produce something <code>Cool</code>. You can use <code>.raku</code> on a collection to be sure whether the keys are strings or objects:</p>
+<pre class="pod-block-code">( 1  =&gt; 1 ).raku.say;            # OUTPUT: «1 =&gt; 1␤»
+my %h; %h{1}   = 1; say %h.raku; # OUTPUT: «{ &quot;1&quot; =&gt; 1 }␤»
+( 1/2 =&gt; 1 ).raku.say;           # OUTPUT: «0.5 =&gt; 1␤»
+my %h; %h{1/2} = 1; say %h.raku; # OUTPUT: «{ &quot;0.5&quot; =&gt; 1 }␤»
+( pi =&gt; 1 ).raku.say;            # OUTPUT: «:pi(1)␤»
+my %h; %h{pi}  = 1; say %h.raku; # OUTPUT: «{ &quot;3.14159265358979&quot; =&gt; 1 }␤»</pre>
+<p>While the invisible quotes around single names is built into <code>=&gt;</code>, string conversion is not built into the curly braces: it is a behavior of the default <code>Hash</code>. Not all types of hashes or collections do so:</p>
+<pre class="pod-block-code">my %h := MixHash.new;
+%h{pi} = 1; %h.raku.say;         # OUTPUT: «(3.14159265358979e0=&gt;1).MixHash␤»
+</pre>
+<p>(Any name that <code>=&gt;</code> would convert to a string can also be used to build a pair using &quot;adverbial notation&quot; and will appear that way when viewed through <code>.raku</code>, which is why we see <code>:pi(1)</code> above.)</p>
+<h2 id="Applying_subscripts"><a class="u" href="#___top" title="go to top of document">Applying subscripts</a></h2>
+<p>Subscripts can be applied to any expression that returns a subscriptable object, not just to variables:</p>
+<pre class="pod-block-code">say &quot;__Hello__&quot;.match(/__(.*)__/)[0];   # OUTPUT: «｢Hello｣␤»
+say &quot;__Hello__&quot;.match(/__(.*)__/).[0];  # same, in method notation</pre>
+<p>Positional and associative subscripting are not mutually exclusive - for example, <a href="/Documentable/integration-test/type/Match">Match</a> objects support both (each accessing a different set of data). Also, to make list processing more convenient, class <a href="/Documentable/integration-test/type/Any">Any</a> provides a fallback implementation for positional subscripts which simply treats the invocant as a list of one element. (But there&#39;s no such fallback for associative subscripts, so they throw a runtime error when applied to an object that does not implement support for them.)</p>
+<pre class="pod-block-code">say 42[0];    # OUTPUT: «42␤»
+say 42&lt;foo&gt;;  # ERROR: Type Int does not support associative indexing.
+</pre>
+<h1 id="Nonexistent_elements"><a class="u" href="#___top" title="go to top of document">Nonexistent elements</a></h1>
+<p>What happens when a <em>nonexistent</em> element is addressed by a subscript is up to the collection type in question. Standard <a href="/Documentable/integration-test/type/Array">Array</a> and <a href="/Documentable/integration-test/type/Hash">Hash</a> collections return the type object of their <a href="/Documentable/integration-test/routine/of">value type constraint</a> (which, by default, is <a href="/Documentable/integration-test/type/Any">Any</a>) unless the collection has been declared with the <a href="/Documentable/integration-test/type/Variable#trait_is_default"><code>is default</code></a> trait in which case the returned value will be whatever the programmer declared it to be:</p>
+<pre class="pod-block-code"># no default values specified
+my @array1;     say @array1[10];                   # OUTPUT: «(Any)␤»
+my Int @array2; say @array2[10];                   # OUTPUT: «(Int)␤»
+
+my %hash1;      say %hash1&lt;foo&gt;;                   # OUTPUT: «(Any)␤»
+my Int %hash2;  say %hash2&lt;foo&gt;;                   # OUTPUT: «(Int)␤»
+
+# default values specified
+my @array3 is default(&#39;--&#39;);     say @array3[10];  # OUTPUT: «--␤»
+my Int @array4 is default(17);   say @array4[10];  # OUTPUT: «17␤»
+
+my %hash3 is default(&#39;Empty&#39;);   say %hash3&lt;foo&gt;;  # OUTPUT: «Empty␤»
+my Int %hash4 is default(4711);  say %hash4&lt;foo&gt;;  # OUTPUT: «4711␤»</pre>
+<p>However, other types of collections may react differently to subscripts that address nonexistent elements:</p>
+<pre class="pod-block-code">say (0, 10, 20)[3];           # OUTPUT: «Nil␤»
+say bag(&lt;a a b b b&gt;)&lt;c&gt;;      # OUTPUT: «0␤»
+say array[uint8].new(1, 2)[2] # OUTPUT: «0␤»</pre>
+<p>To silently skip nonexistent elements in a subscripting operation, see <a href="#Truncating_slices">Truncating slices</a> and the <a href="#%3Av">:v</a> adverb.</p>
+<h1 id="From_the_end"><a class="u" href="#___top" title="go to top of document">From the end</a></h1>
+<p>Positional indices are counted from the start of the collection, but there&#39;s also a notation for addressing elements by their position relative to the end: <code>*-1</code> refers to the last element, <code>*-2</code> to the second-to-last element, and so on. From version 6.d, <code>*-0</code> refers to the element just beyond the last one</p>
+<pre class="pod-block-code">my @alphabet = &#39;A&#39; .. &#39;Z&#39;;
+say @alphabet[*-1];  # OUTPUT: «Z␤»
+say @alphabet[*-2];  # OUTPUT: «Y␤»
+say @alphabet[*-3];  # OUTPUT: «X␤»
+@alphabet[*-0] = &#39;þ&#39;;
+say @alphabet;
+#  OUTPUT: «[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z þ]␤»</pre>
+<p><strong>Note</strong>: The asterisk, which is actually a <a href="/Documentable/integration-test/type/Whatever"><code>Whatever</code></a>, is important. Passing a bare negative integer (e.g. <code>@alphabet[-1]</code>) like you would do in many other programming languages, throws an error in Raku.</p>
+<p>What actually happens here, is that an expression like <code>*-1</code> declares a code object via <a href="/Documentable/integration-test/type/Whatever">Whatever</a>-currying - and the <code>[ ]</code> subscript reacts to being given a code object as an index, by calling it with the length of the collection as argument and using the result value as the actual index. In other words, <code>@alphabet[*-1]</code> becomes <code>@alphabet[@alphabet.elems - 1]</code>.</p>
+<p>This means that you can use arbitrary expressions which depend on the size of the collection:</p>
+<pre class="pod-block-code">say @array[* div 2];  # select the middlemost element
+say @array[$i % *];   # wrap around a given index (&quot;modular arithmetic&quot;)
+say @array[ -&gt; $size { $i % $size } ];  # same as previous
+</pre>
+<h1 id="Slices"><a class="u" href="#___top" title="go to top of document">Slices</a></h1>
+<p>When multiple elements of a collection need to be accessed, there&#39;s a shortcut to doing multiple separate subscripting operations: Simply specify a <em>list</em> of indices/keys in the subscript, to get back a <em>list</em> of elements - also called a &quot;slice&quot; - in the same order.</p>
+<p>For positional slices, you can mix normal indices with <a href="#From_the_end">from-the-end</a> ones:</p>
+<pre class="pod-block-code">my @alphabet = &#39;a&#39; .. &#39;z&#39;;
+say @alphabet[15, 4, *-9, 11].raku;  # OUTPUT: «(&quot;p&quot;, &quot;e&quot;, &quot;r&quot;, &quot;l&quot;)␤»</pre>
+<p>In the <code>*-number</code> construct above, <code>*</code> indicates the end of the array as explained above in the <a href="#From_the_end">From the end</a> section. So if you want to take the last N elements of the array, you will have to create a <a href="/Documentable/integration-test/type/Range">Range</a> that includes it.</p>
+<pre class="pod-block-code">(5802..5830).map( {.chr} )[*-10..*-5] # OUTPUT:  «(ᚽ ᚾ ᚿ ᛀ ᛁ ᛂ)␤»</pre>
+<p>Using <code>*</code> as the last element of the range will, effectively, return the last elements of the collection.</p>
+<p>For associative slices, the angle brackets form often comes in handy:</p>
+<pre class="pod-block-code">my %color = kiwi =&gt; &quot;green&quot;, banana =&gt; &quot;yellow&quot;, cherry =&gt; &quot;red&quot;;
+say %color{&quot;cherry&quot;, &quot;kiwi&quot;};  # OUTPUT: «(red green)␤»
+say %color&lt;cherry kiwi&gt;;       # OUTPUT: «(red green)␤»
+say %color{*};                 # OUTPUT: «(red yellow green)␤»</pre>
+<p>Be aware that slices are controlled by the <em>type</em> of what is passed to (<a href="#Multiple_dimensions">one dimension of</a>) the subscript, not its length. In particular the <em>type</em> can be any of the following:</p>
+<ul><li><p>a lazy Iterable, that <a href="#Truncating_slices">truncates</a> in [ ]</p>
+</li>
+<li><p>accordingly, an infinite Range will truncate, but a finite one produces a normal slice</p>
+</li>
+<li><p>&#39;*&#39; (whatever-star), that returns the full slice (as if all keys/indices were specified)</p>
+</li>
+<li><p>any other object, that provides a single-element access rather than a slice</p>
+</li>
+<li><p>Callable, whatever is returned by the callable (this can lead to recursion)</p>
+</li>
+<li><p>empty, the full slice known as <a href="#Zen_slices">Zen slice</a></p>
+</li>
+<li><p>any iterable different from the above ones, normal slice</p>
+</li>
+</ul>
+<p>The notable difference between <code>*</code> and Zen slice (empty) is that the <a href="/Documentable/integration-test/type/Whatever">Whatever</a> star will cause full <a href="/Documentable/integration-test/language/glossary#index-entry-Reify">reification</a> or itemization, while Zen slice won&#39;t. Both versions also <a href="https://perl6advent.wordpress.com/2017/12/02/perl-6-sigils-variables-and-containers/#decont">de-cont</a>.</p>
+<p>So even a one-element list returns a slice, whereas a bare scalar value doesn&#39;t:</p>
+<pre class="pod-block-code">say @alphabet[2,];        # OUTPUT: «(c)␤»
+say @alphabet[2,].^name;  # OUTPUT: «List␤»
+
+say @alphabet[2];         # OUTPUT: «c␤»
+say @alphabet[2].^name;   # OUTPUT: «Str␤»
+</pre>
+<p>(The angle bracket form for associative subscripts works out because <a href="/Documentable/integration-test/language/quoting#Word_quoting:_qw">word quoting</a> conveniently returns a <a href="/Documentable/integration-test/type/Str">Str</a> in case of a single word, but a <a href="/Documentable/integration-test/type/List">List</a> in case of multiple words.)</p>
+<p>In fact, the list structure of (<a href="#Multiple_dimensions">the current dimension of</a>) the subscript is preserved across the slice operation (but the kind of Iterable is not – the result is always just lists.)</p>
+<pre class="pod-block-code">say @alphabet[0, (1..2, (3,))];       # OUTPUT: «(a ((b c) (d)))␤»
+say @alphabet[0, (1..2, [3,])];       # OUTPUT: «(a ((b c) (d)))␤»
+say @alphabet[flat 0, (1..2, (3,))];  # OUTPUT: «(a b c d)␤»
+say flat @alphabet[0, (1..2, (3,))];  # OUTPUT: «(a b c d)␤»
+</pre>
+<h2 id="Truncating_slices"><a class="u" href="#___top" title="go to top of document">Truncating slices</a></h2>
+<p>Referring to nonexistent elements in a slice subscript causes the output <code>List</code> to contain undefined values (or <a href="#Nonexistent_elements">whatever else</a> the collection in question chooses to return for nonexistent elements):</p>
+<pre class="pod-block-code">my  @letters = &lt;a b c d e f&gt;;
+say @letters[3..7];  # OUTPUT: «(d e f (Any) (Any))␤»
+</pre>
+<p>This behavior, while at first glance may seem unintuitive, is desirable in instances when you want to assign a value at an index in which a value does not currently exist.</p>
+<pre class="pod-block-code">my  @letters;
+say @letters; # OUTPUT: «[]␤»
+
+@letters[^10] = &#39;a&#39;..&#39;z&#39;;
+say @letters; # OUTPUT: «[a b c d e f g h i j]␤»
+</pre>
+<p>If you want the resulting slice to only include existing elements, you can silently skip the non-existent elements using the <a href="#%3Av">:v</a> adverb.</p>
+<pre class="pod-block-code">my  @letters = &lt;a b c d e f&gt;;
+say @letters[3..7]:v;  # OUTPUT: «(d e f)␤»
+</pre>
+<p>The behavior when indexing a collection via <a href="/Documentable/integration-test/language/list#Lazy_lists">lazy</a> subscripts is different than when indexing with their eager counterparts. When accessing via a lazy subscript, the resulting slice will be truncated.</p>
+<pre class="pod-block-code">say @letters[lazy 3..7]; # OUTPUT: «(d e f)␤»
+say @letters[     3..*]; # OUTPUT: «(d e f)␤»
+</pre>
+<p>This behavior exists as a precaution to prevent runaway generation of massive, potentially infinite <code>Lists</code> and the out-of-memory issues that occur as a result.</p>
+<p><a name="Documentable/integration-test/index-entry-Zen_slices"></a></p>
+<h2 id="Zen_slices"><a class="u" href="#___top" title="go to top of document">Zen slices</a></h2>
+<p>If you put the subscript operator behind an object without specifying any indices/keys at all, it simply returns the subscripted object itself. Since it is empty but returns everything, it is known as a <em>Zen slice</em>.</p>
+<p>Zen slicing is different from passing a <code>Whatever</code>-star (which, like a normal slice, always returns a List of elements no matter the type of the original object) or an empty list (which returns an empty slice):</p>
+<pre class="pod-block-code">my %bag := (orange =&gt; 1, apple =&gt; 3).Bag;
+say %bag&lt;&gt;;    # OUTPUT: «Bag(apple(3), orange)␤»
+say %bag{};    # OUTPUT: «Bag(apple(3), orange)␤»
+say %bag{*};   # OUTPUT: «(1 3)␤»
+say %bag{()};  # OUTPUT: «()␤»</pre>
+<p>Zen slicing does not <a href="/Documentable/integration-test/language/glossary#index-entry-Reify">reify</a> or <a href="/Documentable/integration-test/routine/cache">cache</a> (not even <code>Seq</code>s) and merely returns the invocant. It is usually used to <a href="/Documentable/integration-test/language/quoting#Interpolation:_qq">interpolate</a> entire arrays / hashes into strings or to <a href="/Documentable/integration-test/language/glossary#index-entry-decont">decont</a>.</p>
+<pre class="pod-block-code">my @words = &quot;cruel&quot;, &quot;world&quot;;
+say &quot;Hello, @words[]!&quot;;  # OUTPUT: «Hello, cruel world!␤»
+
+my $list = &lt;a b c&gt;;
+.say for $list;   # OUTPUT: «(a b c)␤»
+.say for $list&lt;&gt;; # OUTPUT: «a␤b␤c␤»
+.say for $list[]; # OUTPUT: «a␤b␤c␤»
+
+my @fib = 1,1, * + * … *;
+say @fib[];                 # OUTPUT: «[...]␤»</pre>
+<h1 id="Multiple_dimensions"><a class="u" href="#___top" title="go to top of document">Multiple dimensions</a></h1>
+<p>Dimensions in subscripts are separated by a semicolon, allowing to mix lists of elements and dimensions.</p>
+<pre class="pod-block-code">my @twodim = (&lt;a b c&gt;, (1, 2, 3));
+say @twodim;
+# OUTPUT: «[(a b c) (1 2 3)]␤»
+
+say @twodim[0,1;1]; # 2nd element of both lists
+# OUTPUT: «(b 2)␤»
+
+my %pantheon = %(&#39;Baldr&#39; =&gt; &#39;consort&#39; =&gt; &#39;Nanna&#39; ,
+                 &#39;Bragi&#39; =&gt; &#39;consort&#39; =&gt; &#39;Iðunn&#39; ,
+                 &#39;Nótt&#39;  =&gt; &#39;consort&#39; =&gt; &#39;Dellingr&#39; );
+say %pantheon{&#39;Bragi&#39;,&#39;Nótt&#39;;&#39;consort&#39;}; # &#39;consort&#39; value for both keys
+# OUTPUT: «(Iðunn Dellingr)␤»</pre>
+<p><a name="Documentable/integration-test/index-entry-flattening_"></a></p>
+<p>Multidimensional subscripts can be used to flatten nested lists when combined with <a href="/Documentable/integration-test/type/Whatever">Whatever</a>.</p>
+<pre class="pod-block-code">my @toomany = [[&lt;a b&gt;], [1, 2]];
+say @toomany;
+# OUTPUT: «[[a b] [1 2]]␤»
+
+say @toomany[*;*];
+# OUTPUT: «(a b 1 2)␤»</pre>
+<p>You can use as many <em>flattening semicolons</em> as you want; there will be, at most, as many nesting levels flattened as the number of semicolons:</p>
+<pre class="pod-block-code">say [[1,2,[3,4]],[4,5]][*;*];     # OUTPUT: «(1 2 [3 4] 4 5)␤»
+say [[1,2,[3,4]],[4,5]][*;*;*;*]; # OUTPUT: «(1 2 3 4 4 5)␤»</pre>
+<p>In the first example, with one <code>Whatever</code> less than the number of levels, the deepest one will not be flattened; in the second case it is, since it&#39;s greater than the number of levels.</p>
+<p>You can use <a href="/Documentable/integration-test/type/Whatever">Whatever</a> to select ranges or &quot;rows&quot; in multidimensional subscripts.</p>
+<pre class="pod-block-code">my @a = [[1,2], [3,4]];
+say @a[*;1]; # 2nd element of each sub list
+# OUTPUT: «(2 4)␤»
+my @a = (&lt;1 c 6&gt;, &lt;2 a 4&gt;, &lt;5 b 3&gt;);
+say @a.sort( { $_[1] } ); # sort by 2nd column
+# OUTPUT: «((2 a 4) (5 b 3) (1 c 6))␤»</pre>
+<h1 id="Modifying_elements"><a class="u" href="#___top" title="go to top of document">Modifying elements</a></h1>
+<h1 id="Autovivification"><a class="u" href="#___top" title="go to top of document">Autovivification</a></h1>
+<p>Subscripts participate in &quot;autovivification&quot;, i.e. the process by which arrays and hashes automatically spring into existence when needed, so that you can build nested data structures without having to pre-declare the collection type at each level:</p>
+<pre class="pod-block-code">my $beatles;
+
+$beatles{&quot;White Album&quot;}[0] = &quot;Back in the U.S.S.R.&quot;;  # autovivification!
+
+say $beatles.raku;  # OUTPUT: «${&quot;White Album&quot; =&gt; $[&quot;Back in the U.S.S.R.&quot;]}␤»
+</pre>
+<p><code>$beatles</code> started out undefined, but became a <a href="/Documentable/integration-test/type/Hash">Hash</a> object because it was subscripted with <code>{ }</code> in the assignment. Similarly, <code>$beatles{&quot;White Album&quot;}</code> became an <a href="/Documentable/integration-test/type/Array">Array</a> object due to being subscripted with <code>[ ]</code> in the assignment.</p>
+<p>Note that the subscripting itself does not cause autovivification: It only happens when the result of the subscripting chain is <em>assigned</em> to (or otherwise mutated).</p>
+<h1 id="Binding"><a class="u" href="#___top" title="go to top of document">Binding</a></h1>
+<p>A subscripting expression may also be used as the left-hand-side of a binding statement. If supported by the subscripted collection&#39;s type, this replaces whatever value container would be naturally found at that &quot;slot&quot; of the collection, with the specified container.</p>
+<p>The built-in <a href="/Documentable/integration-test/type/Array">Array</a> and <a href="/Documentable/integration-test/type/Hash">Hash</a> types support this in order to allow building complex linked data structures:</p>
+<pre class="pod-block-code">my @a = 10, 11, 12, 13;
+my $x = 1;
+
+@a[2] := $x;  # Bound! (@a[2] and $x refer to the same container now.)
+
+$x++; @a[2]++;
+
+say @a;  # OUTPUT: «[10 11 3 13]␤»
+say $x;  # OUTPUT: «3␤»</pre>
+<p>This can be specially useful when lazy data structures are part of a bigger one.</p>
+<pre class="pod-block-code">my @fib = 1,1, * + * … ∞;
+my @lucas = 1,3, * + * … ∞;
+my %sequences;
+%sequences&lt;f&gt; := @fib;
+%sequences&lt;l&gt; := @lucas;
+for %sequences.keys -&gt; $s {
+    for ^10 -&gt; $n {
+        say %sequences{$s}[100+$n*10]/%sequences{$s}[101+$n*10];
+    }
+}
+# OUTPUT: 0.6180339887498949 times 20.
+</pre>
+<p>In this case, hash keys are bound to lazily generated sequences. The fact that they are bound means that whatever state has been computed is shared by the hash value and the sequence it&#39;s bound to, making computations of subsequent elements faster.</p>
+<p>See <a href="#method_BIND-POS">method BIND-POS</a> and <a href="#method_BIND-KEY">method BIND-KEY</a> for the underlying mechanism.</p>
+<h1 id="Adverbs"><a class="u" href="#___top" title="go to top of document">Adverbs</a></h1>
+<p>The return value and possible side-effect of a subscripting operation can be controlled using adverbs; these are defined on the relevant subscript <a href="/Documentable/integration-test/language/operators#Method_postfix_precedence">operators</a>.</p>
+<p>Beware of the relatively loose precedence of operator adverbs, which may require you to add parentheses in compound expressions:</p>
+<pre class="pod-block-code">if $foo || %hash&lt;key&gt;:exists { ... }    # WRONG, tries to adverb the || op
+</pre>
+<pre class="pod-block-code">if $foo || (%hash&lt;key&gt;:exists) { ... }  # correct
+if $foo or %hash&lt;key&gt;:exists { ... }    # also correct
+</pre>
+<p>The supported adverbs are:</p>
+<p><a name="Documentable/integration-test/index-entry-:exists_(subscript_adverb)"></a></p>
+<h2 id=":exists"><a class="u" href="#___top" title="go to top of document"><code>:exists</code></a></h2>
+<p>Returns whether or not the requested element exists, instead of returning the element&#39;s actual value. This can be used to distinguish between elements with an undefined value, and elements that aren&#39;t part of the collection at all:</p>
+<pre class="pod-block-code">my @foo = Any, 10;
+say @foo[0].defined;    # OUTPUT: «False␤»
+say @foo[0]:exists;     # OUTPUT: «True␤»
+say @foo[2]:exists;     # OUTPUT: «False␤»
+say @foo[0, 2]:exists;  # OUTPUT: «(True False)␤»
+
+my %fruit = apple =&gt; Any, orange =&gt; 10;
+say %fruit&lt;apple&gt;.defined;       # OUTPUT: «False␤»
+say %fruit&lt;apple&gt;:exists;        # OUTPUT: «True␤»
+say %fruit&lt;banana&gt;:exists;       # OUTPUT: «False␤»
+say %fruit&lt;apple banana&gt;:exists; # OUTPUT: «(True False)␤»</pre>
+<p>May also be negated to test for non-existence:</p>
+<pre class="pod-block-code">say %fruit&lt;apple banana&gt;:!exists; # OUTPUT: «(False True)␤»
+</pre>
+<p>To check if <em>all</em> elements of a slice exist, use an <a href="/Documentable/integration-test/routine/all">all</a> junction:</p>
+<pre class="pod-block-code">if all %fruit&lt;apple orange banana&gt;:exists { ... }
+</pre>
+<p>It can be used on multi-dimensional arrays and hashes:</p>
+<pre class="pod-block-code">my @multi-dim = 1, [2, 3, [4, 5]];
+say @multi-dim[1;2;0]:exists;                # OUTPUT: «True␤»
+say @multi-dim[1;2;5]:exists;                # OUTPUT: «False␤»
+
+my %multi-dim = 1 =&gt; { foo =&gt; { 3 =&gt; 42 } };
+say %multi-dim{1;&#39;foo&#39;;3}:exists;            # OUTPUT: «True␤»
+say %multi-dim{1;&#39;bar&#39;;3}:exists;            # OUTPUT: «False␤»</pre>
+<p><code>:exists</code> can be combined with the <a href="#%3Adelete">:delete</a> and <a href="#%3Ap">:p</a>/<a href="#%3Akv">:kv</a> adverbs - in which case the behavior is determined by those adverbs, except that any returned element <em>value</em> is replaced with the corresponding <a href="/Documentable/integration-test/type/Bool">Bool</a> indicating element <em>existence</em>.</p>
+<p>See <a href="#method_EXISTS-POS">method EXISTS-POS</a> and <a href="#method_EXISTS-KEY">method EXISTS-KEY</a> for the underlying mechanism.</p>
+<p><a name="Documentable/integration-test/index-entry-:delete_(subscript_adverb)"></a></p>
+<h2 id=":delete"><a class="u" href="#___top" title="go to top of document"><code>:delete</code></a></h2>
+<p>Delete the element from the collection or, if supported by the collection, creates a hole at the given index, in addition to returning its value.</p>
+<pre class="pod-block-code">my @tens = 0, 10, 20, 30;
+say @tens[3]:delete;     # OUTPUT: «30␤»
+say @tens;               # OUTPUT: «[0 10 20]␤»
+
+my %fruit = apple =&gt; 5, orange =&gt; 10, banana =&gt; 4, peach =&gt; 17;
+say %fruit&lt;apple&gt;:delete;         # OUTPUT: «5␤»
+say %fruit&lt;peach orange&gt;:delete;  # OUTPUT: «(17 10)␤»
+say %fruit;                       # OUTPUT: «{banana =&gt; 4}␤»</pre>
+<p>Note that assigning <code>Nil</code> will revert the container at the given index to its default value. It will not create a hole. The created holes can be tested for with <code>:exists</code> but iteration will not skip them and produce undefined values instead.</p>
+<pre class="pod-block-code">my @a = 1, 2, 3;
+@a[1]:delete;
+say @a[1]:exists;
+# OUTPUT: «False␤»
+.say for @a;
+# OUTPUT: «1␤(Any)␤3␤»</pre>
+<p>With the negated form of the adverb, the element is not actually deleted. This means you can pass a flag to make it conditional:</p>
+<pre class="pod-block-code">say %fruit&lt;apple&gt; :delete($flag);  # deletes the element only if $flag is
+                                   # true, but always returns the value.
+</pre>
+<p>Can be combined with the <a href="#%3Aexists">:exists</a> and <a href="#%3Ap">:p</a>/<a href="#%3Akv">:kv</a>/<a href="#%3Ak">:k</a>/<a href="#%3Av">:v</a> adverbs - in which case the return value will be determined by those adverbs, but the element will at the same time also be deleted.</p>
+<p>See <a href="#method_DELETE-POS">method DELETE-POS</a> and <a href="#method_DELETE-KEY">method DELETE-KEY</a> for the underlying mechanism.</p>
+<p>You can use also these adverbs on associative type objects, but it will actually do nothing; it will also return <code>Nil</code></p>
+<pre class="pod-block-code">say Hash&lt;foo&gt;:delete; # OUTPUT: «Nil␤»
+</pre>
+<p>The adverb can be used on lazy arrays too:</p>
+<pre class="pod-block-code">my @lazy-array = lazy 1, 11, 121 ... 10**100;
+@lazy-array[2**24]:delete;
+</pre>
+<p><a name="Documentable/integration-test/index-entry-:p_(subscript_adverb)"></a></p>
+<h2 id=":p"><a class="u" href="#___top" title="go to top of document"><code>:p</code></a></h2>
+<p>Return both the index/key and the value of the element, in the form of a <a href="/Documentable/integration-test/type/Pair">Pair</a>, and silently skip nonexistent elements:</p>
+<pre class="pod-block-code">my  @tens = 0, 10, 20, 30;
+say @tens[1]:p;        # OUTPUT: «1 =&gt; 10␤»
+say @tens[0, 4, 2]:p;  # OUTPUT: «(0 =&gt; 0 2 =&gt; 20)␤»
+
+my  %month = Jan =&gt; 1, Feb =&gt; 2, Mar =&gt; 3;
+say %month&lt;Feb&gt;:p;          # OUTPUT: «Feb =&gt; 2␤»
+say %month&lt;Jan Foo Mar&gt;:p;  # OUTPUT: «(Jan =&gt; 1 Mar =&gt; 3)␤»</pre>
+<p>If you <em>don&#39;t</em> want to skip nonexistent elements, use the negated form:</p>
+<pre class="pod-block-code">say %month&lt;Jan Foo Mar&gt;:!p;  # OUTPUT: «(Jan =&gt; 1 Foo =&gt; (Any) Mar =&gt; 3)␤»
+</pre>
+<p>Can be combined with the <a href="#%3Aexists">:exists</a> and <a href="#%3Adelete">:delete</a> adverbs.</p>
+<p>See also the <a href="/Documentable/integration-test/routine/pairs">pairs</a> routine.</p>
+<p><a name="Documentable/integration-test/index-entry-:kv_(subscript_adverb)"></a></p>
+<h2 id=":kv"><a class="u" href="#___top" title="go to top of document"><code>:kv</code></a></h2>
+<p>Return both the index/key and the value of the element, in the form of a <a href="/Documentable/integration-test/type/List">List</a>, and silently skip nonexistent elements. When used on a <a href="#Slices">slice</a>, the return value is a single flat list of interleaved keys and values:</p>
+<pre class="pod-block-code">my  @tens = 0, 10, 20, 30;
+say @tens[1]:kv;        # OUTPUT: «(1 10)␤»
+say @tens[0, 4, 2]:kv;  # OUTPUT: «(0 0 2 20)␤»
+
+my  %month = Jan =&gt; 1, Feb =&gt; 2, Mar =&gt; 3;
+say %month&lt;Feb&gt;:kv;          # OUTPUT: «(Feb 2)␤»
+say %month&lt;Jan Foo Mar&gt;:kv;  # OUTPUT: «(Jan 1 Mar 3)␤»</pre>
+<p>If you <em>don&#39;t</em> want to skip nonexistent elements, use the negated form:</p>
+<pre class="pod-block-code">say %month&lt;Jan Foo Mar&gt;:!kv;  # OUTPUT: «(Jan 1 Foo (Any) Mar 3)␤»
+</pre>
+<p>This adverb is commonly used to iterate over slices:</p>
+<pre class="pod-block-code">for %month&lt;Feb Mar&gt;:kv -&gt; $month, $i {
+    say &quot;$month had {Date.new(2015, $i, 1).days-in-month} days in 2015&quot;
+}
+</pre>
+<p>Can be combined with the <a href="#%3Aexists">:exists</a> and <a href="#%3Adelete">:delete</a> adverbs.</p>
+<p>See also the <a href="/Documentable/integration-test/routine/kv">kv</a> routine.</p>
+<p><a name="Documentable/integration-test/index-entry-:k_(subscript_adverb)"></a></p>
+<h2 id=":k"><a class="u" href="#___top" title="go to top of document"><code>:k</code></a></h2>
+<p>Return only the index/key of the element, rather than its value, and silently skip nonexistent elements:</p>
+<pre class="pod-block-code">my @tens = 0, 10, 20, 30;
+say @tens[1]:k;        # OUTPUT: «1␤»
+say @tens[0, 4, 2]:k;  # OUTPUT: «(0 2)␤»
+
+my %month = Jan =&gt; 1, Feb =&gt; 2, Mar =&gt; 3;
+say %month&lt;Feb&gt;:k;          # OUTPUT: «Feb␤»
+say %month&lt;Jan Foo Mar&gt;:k;  # OUTPUT: «(Jan Mar)␤»</pre>
+<p>If you <em>don&#39;t</em> want to skip nonexistent elements, use the negated form:</p>
+<pre class="pod-block-code">say %month&lt;Jan Foo Mar&gt;:!k;  # OUTPUT: «(Jan Foo Mar)␤»
+</pre>
+<p>See also the <a href="/Documentable/integration-test/routine/keys">keys</a> routine.</p>
+<p><a name="Documentable/integration-test/index-entry-:v_(subscript_adverb)"></a></p>
+<h2 id=":v"><a class="u" href="#___top" title="go to top of document"><code>:v</code></a></h2>
+<p>Return the bare value of the element (rather than potentially returning a mutable value container), and silently skip nonexistent elements:</p>
+<pre class="pod-block-code">my @tens = 0, 10, 20, 30;
+say @tens[1]:v;        # OUTPUT: «10␤»
+say @tens[0, 4, 2]:v;  # OUTPUT: «(0, 20)␤»
+@tens[3] = 31;         # OK
+@tens[3]:v = 31;       # ERROR, Cannot modify an immutable Int (31)
+
+my %month = Jan =&gt; 1, Feb =&gt; 2, Mar =&gt; 3;
+say %month&lt;Feb&gt;:v;          # OUTPUT: «2␤»
+say %month&lt;Jan Foo Mar&gt;:v;  # OUTPUT: «(1 3)␤»
+</pre>
+<p>If you <em>don&#39;t</em> want to skip nonexistent elements, use the negated form:</p>
+<pre class="pod-block-code">say %month&lt;Jan Foo Mar&gt;:!v;  # OUTPUT: «(1 (Any) 3)␤»
+</pre>
+<p>See also the <a href="/Documentable/integration-test/routine/values">values</a> routine.</p>
+<h1 id="Custom_types"><a class="u" href="#___top" title="go to top of document">Custom types</a></h1>
+<p>The subscripting interfaces described on this page are not meant to be exclusive to Raku&#39;s built-in collection types - you can (and should) reuse them for any custom type that wants to provide access to data by index or key.</p>
+<p>You don&#39;t have to manually overload the <a href="/Documentable/integration-test/routine/[ ]#postcircumfix_[_]"><code>postcircumfix [ ]</code></a> and <a href="/Documentable/integration-test/routine/{ }#postcircumfix_{_}"><code>postcircumfix { }</code></a> operators and re-implement all their magic, to achieve that - instead, you can rely on the fact that their standard implementation dispatches to a well-defined set of low-level methods behind the scenes. For example:</p>
+<table class="pod-table">
+<thead><tr>
+<th>when you write:</th> <th>this gets called behind the scenes:</th>
+</tr></thead>
+<tbody>
+<tr> <td>%foo&lt;aa&gt;</td> <td>%foo.AT-KEY(&quot;aa&quot;)</td> </tr> <tr> <td>%foo&lt;aa&gt;:delete</td> <td>%foo.DELETE-KEY(&quot;aa&quot;)</td> </tr> <tr> <td>@foo[3, 4, 5]</td> <td>@foo.AT-POS(3), @foo.AT-POS(4), @foo.AT-POS(5)</td> </tr> <tr> <td>@foo[*-1]</td> <td>@foo.AT-POS(@foo.elems - 1)</td> </tr>
+</tbody>
+</table><p>So in order to make subscripting work, you only have to implement or delegate those low-level methods (<a href="#Methods_to_implement_for_positional_subscripting">detailed below</a>) for your custom type.</p>
+<p>If you do, you should also let your type compose the <a href="/Documentable/integration-test/type/Positional"><code>Positional</code></a> or <a href="/Documentable/integration-test/type/Associative"><code>Associative</code></a> role, respectively. This doesn&#39;t add any functionality per se, but announces (and may be used to check) that the type implements the corresponding subscripting interface.</p>
+<h2 id="Custom_type_example"><a class="u" href="#___top" title="go to top of document">Custom type example</a></h2>
+<p>Imagine a <code>HTTP::Header</code> type which, despite being a custom class with special behavior, can be indexed like a hash:</p>
+<pre class="pod-block-code">my $request = HTTP::Request.new(GET =&gt; &quot;raku.org&quot;);
+say $request.header.^name;  # OUTPUT: «HTTP::Header␤»
+
+$request.header&lt;Accept&gt; = &quot;text/plain&quot;;
+$request.header{&#39;Accept-&#39; X~ &lt;Charset Encoding Language&gt;} = &lt;utf-8 gzip en&gt;;
+$request.header.push(&#39;Accept-Language&#39; =&gt; &quot;fr&quot;);  # like .push on a Hash
+
+say $request.header&lt;Accept-Language&gt;.raku;  # OUTPUT: «[&quot;en&quot;, &quot;fr&quot;]␤»
+
+my $rawheader = $request.header.Str;  # stringify according to HTTP spec
+</pre>
+<p>A simple way to implement this class would be to give it an attribute of type <a href="/Documentable/integration-test/type/Hash">Hash</a>, and delegate all subscripting and iterating related functionality to that attribute (using a custom type constraint to make sure users don&#39;t insert anything invalid into it):</p>
+<pre class="pod-block-code">class HTTP::Header does Associative {
+    subset StrOrArrayOfStr where Str | ( Array &amp; {.all ~~ Str} );
+
+    has %!fields of StrOrArrayOfStr
+                 handles &lt;AT-KEY EXISTS-KEY DELETE-KEY push
+                          iterator list kv keys values&gt;;
+
+    method Str { #`[not shown, for brevity] }
+}
+</pre>
+<p>However, HTTP header field names are supposed to be case-insensitive (and preferred in camel-case). We can accommodate this by taking the <code>*-KEY</code> and <code>push</code> methods out of the <code>handles</code> list, and implementing them separately like this:</p>
+<pre class="pod-block-code">method AT-KEY     ($key) is rw { %!fields{normalize-key $key}        }
+method EXISTS-KEY ($key)       { %!fields{normalize-key $key}:exists }
+method DELETE-KEY ($key)       { %!fields{normalize-key $key}:delete }
+method push(*@_) { #`[not shown, for brevity] }
+
+sub normalize-key ($key) { $key.subst(/\w+/, *.tc, :g) }
+</pre>
+<p>Note that subscripting <code>%!fields</code> returns an appropriate rw container, which our <code>AT-KEY</code> can simply pass on.</p>
+<p>However, we may prefer to be less strict about user input and instead take care of sanitizing the field values ourselves. In that case, we can remove the <code>StrOrArrayOfStr</code> type constraint on <code>%!fields</code>, and replace our <code>AT-KEY</code> implementation with one that returns a custom <code>Proxy</code> container which takes care of sanitizing values on assignment:</p>
+<pre class="pod-block-code">multi method AT-KEY (::?CLASS:D: $key) is rw {
+    my $element := %!fields{normalize-key $key};
+
+    Proxy.new(
+        FETCH =&gt; method () { $element },
+
+        STORE =&gt; method ($value) {
+            $element = do given $value».split(/&#39;,&#39; \s+/).flat {
+                when 1  { .[0] }    # a single value is stored as a string
+                default { .Array }  # multiple values are stored as an array
+            }
+        }
+    );
+}
+</pre>
+<p>Note that declaring the method as <code>multi</code> and restricting it to <code>:D</code> (defined invocants) makes sure that the undefined case is passed through to the default implementation provided by <code>Any</code> (which is involved in auto-vivification).</p>
+<h2 id="Methods_to_implement_for_positional_subscripting"><a class="u" href="#___top" title="go to top of document">Methods to implement for positional subscripting</a></h2>
+<p>In order to make index-based subscripting via <a href="/Documentable/integration-test/routine/[ ]#postcircumfix_[_]"><code>postcircumfix [ ]</code></a> work for your custom type, you should implement at least <code>elems</code>, <code>AT-POS</code> and <code>EXISTS-POS</code> - and optionally others as detailed below.</p>
+<h3 id="method_elems"><a class="u" href="#___top" title="go to top of document">method elems</a></h3>
+<pre class="pod-block-code">multi method elems(::?CLASS:D:)</pre>
+<p>Expected to return a number indicating how many subscriptable elements there are in the object. May be called by users directly, and is also called by <a href="/Documentable/integration-test/routine/[ ]#postcircumfix_[_]"><code>postcircumfix [ ]</code></a> when indexing elements from the end, as in <code>@foo[*-1]</code>.</p>
+<p>If not implemented, your type will inherit the default implementation from <code>Any</code> that always returns <code>1</code> for defined invocants - which is most likely not what you want. So if the number of elements cannot be known for your positional type, add an implementation that <a href="/Documentable/integration-test/routine/fail">fail</a>s or <a href="/Documentable/integration-test/routine/die">die</a>s, to avoid silently doing the wrong thing.</p>
+<h3 id="method_AT-POS"><a class="u" href="#___top" title="go to top of document">method AT-POS</a></h3>
+<pre class="pod-block-code">multi method AT-POS (::?CLASS:D: $index)</pre>
+<p>Expected to return the element at position <code>$index</code>. This is what <a href="/Documentable/integration-test/routine/[ ]#postcircumfix_[_]"><code>postcircumfix [ ]</code></a> normally calls.</p>
+<p>If you want an element to be mutable (like they are for the built-in <a href="/Documentable/integration-test/type/Array">Array</a> type), you&#39;ll have to make sure to return it in the form of an item container that evaluates to the element&#39;s value when read, and updates it when assigned to. Remember to use <code>return-rw</code> or the <code>is rw</code> routine trait to make that work; see the <a href="/Documentable/integration-test/language/subscripts#Custom_type_example">example</a>.</p>
+<h3 id="method_EXISTS-POS"><a class="u" href="#___top" title="go to top of document">method EXISTS-POS</a></h3>
+<pre class="pod-block-code">multi method EXISTS-POS (::?CLASS:D: $index)</pre>
+<p>Expected to return a Bool indicating whether or not there is an element at position <code>$index</code>. This is what <a href="/Documentable/integration-test/routine/[ ]#postcircumfix_[_]"><code>postcircumfix [ ]</code></a> calls when invoked like <code>@foo[42]:exists</code>.</p>
+<p>What &quot;existence&quot; of an element means, is up to your type.</p>
+<p>If you don&#39;t implement this, your type will inherit the default implementation from <code>Any</code>, which returns True for 0 and False for any other index - which is probably not what you want. So if checking for element existence cannot be done for your type, add an implementation that <a href="/Documentable/integration-test/routine/fail">fail</a>s or <a href="/Documentable/integration-test/routine/die">die</a>s, to avoid silently doing the wrong thing.</p>
+<h3 id="method_DELETE-POS"><a class="u" href="#___top" title="go to top of document">method DELETE-POS</a></h3>
+<pre class="pod-block-code">multi method DELETE-POS (::?CLASS:D: $index)</pre>
+<p>Expected to delete the element at position <code>$index</code>, and return the value it had. This is what <a href="/Documentable/integration-test/routine/[ ]#postcircumfix_[_]"><code>postcircumfix [ ]</code></a> calls when invoked like <code>@foo[42]:delete</code>.</p>
+<p>What &quot;deleting&quot; an element means, is up to your type.</p>
+<p>Implementing this method is optional; if you don&#39;t, users trying to delete elements from an object of this type will get an appropriate error message.</p>
+<h3 id="method_ASSIGN-POS"><a class="u" href="#___top" title="go to top of document">method ASSIGN-POS</a></h3>
+<pre class="pod-block-code">multi method ASSIGN-POS (::?CLASS:D: $index, $new)</pre>
+<p>Expected to set the element at position <code>$index</code> to the value <code>$new</code>. Implementing this is entirely optional; if you don&#39;t, <code>self.AT-POS($index) = $new</code> is used instead, and if you do, you should make sure it has the same effect.</p>
+<p>This is meant as an opt-in performance optimization, so that simple assignments like <code>@numbers[5] = &quot;five&quot;</code> can operate without having to call <code>AT-POS</code> (which would have to create and return a potentially expensive container object).</p>
+<p>Note that implementing <code>ASSIGN-POS</code> does <em>not</em> relieve you from making <code>AT-POS</code> an <code>rw</code> method though, because less trivial assignments/modifications such as <code>@numbers[5]++</code> will still use <code>AT-POS</code>.</p>
+<h3 id="method_BIND-POS"><a class="u" href="#___top" title="go to top of document">method BIND-POS</a></h3>
+<pre class="pod-block-code">multi method BIND-POS (::?CLASS:D: $index, \new)</pre>
+<p>Expected to bind the value or container <code>new</code> to the slot at position <code>$index</code>, replacing any container that would be naturally found there. This is what is called when you write:</p>
+<pre class="pod-block-code">my $x = 10;
+@numbers[5] := $x;
+</pre>
+<p>The generic <a href="/Documentable/integration-test/type/Array">Array</a> class supports this in order to allow building complex linked data structures, but for more domain-specific types it may not make sense, so don&#39;t feel compelled to implement it. If you don&#39;t, users will get an appropriate error message when they try to bind to a positional slot of an object of this type.</p>
+<h3 id="method_STORE"><a class="u" href="#___top" title="go to top of document">method STORE</a></h3>
+<pre class="pod-block-code">method STORE (::?CLASS:D: \values, :$initialize)</pre>
+<p>This method should only be supplied if you want to support this syntax:</p>
+<pre class="pod-block-code">my @a is Foo = 1,2,3;
+</pre>
+<p>Which is used for binding your implementation of the <code>Positional</code> role.</p>
+<p><code>STORE</code> should accept the values to (re-)initialize the object with. The optional named parameter will contain a <code>True</code> value when the method is called on the object for the first time. It should return the invocant.</p>
+<pre class="pod-block-code">class DNA {
+    has $.chain is rw;
+
+    method STORE ($chain where {
+                         $chain ~~ /^^ &lt;[ACGT]&gt;+ $$ / and
+                         $chain.chars %% 3
+                     }, :$initialize --&gt; DNA) {
+        if $initialize {
+            self = DNA.new( chain =&gt; $chain )
+        } else {
+            self.chain = $chain;
+            self
+        }
+    }
+
+    method Str(::?CLASS:D:) { return $.chain.comb.rotor(3) }
+};
+
+my @string is DNA = &#39;GAATCC&#39;;
+say @string.Str;    # OUTPUT: «((G A A) (T C C))␤»
+@string = &#39;ACGTCG&#39;;
+say @string.Str;    # OUTPUT: «((A C G) (T C G))␤»
+</pre>
+<p>This code takes into account the value of <code>$initialize</code>, which is set to <code>True</code> only if we are assigning a value to a variable declared using the <code>is</code> syntax for the first time. The <code>STORE</code> method should set the <code>self</code> variable and return it in all cases, including when the variable has already been initialized.</p>
+<h2 id="Methods_to_implement_for_associative_subscripting"><a class="u" href="#___top" title="go to top of document">Methods to implement for associative subscripting</a></h2>
+<p>In order to make key-based subscripting via <a href="/Documentable/integration-test/routine/{ }#postcircumfix_{_}"><code>postcircumfix { }</code></a> work for your custom type, you should implement at least <code>AT-KEY</code> and <code>EXISTS-KEY</code> - and optionally others as detailed below.</p>
+<h3 id="method_AT-KEY"><a class="u" href="#___top" title="go to top of document">method AT-KEY</a></h3>
+<pre class="pod-block-code">multi method AT-KEY (::?CLASS:D: $key)</pre>
+<p>Expected to return the element associated with <code>$key</code>. This is what <a href="/Documentable/integration-test/routine/{ }#postcircumfix_{_}"><code>postcircumfix { }</code></a> normally calls.</p>
+<p>If you want an element to be mutable (like they are for the built-in <a href="/Documentable/integration-test/type/Hash">Hash</a> type), you&#39;ll have to make sure to return it in the form of an item container that evaluates to the element&#39;s value when read, and updates it when assigned to. Remember to use <code>return-rw</code> or the <code>is rw</code> routine trait to make that work; see the <a href="/Documentable/integration-test/language/subscripts#Custom_type_example">example</a>.</p>
+<p>On the other hand if you want your collection to be read-only, feel free to return non-container values directly.</p>
+<h3 id="method_EXISTS-KEY"><a class="u" href="#___top" title="go to top of document">method EXISTS-KEY</a></h3>
+<pre class="pod-block-code">multi method EXISTS-KEY (::?CLASS:D: $key)</pre>
+<p>Expected to return a Bool indicating whether or not there is an element associated with <code>$key</code>. This is what <a href="/Documentable/integration-test/routine/{ }#postcircumfix_{_}"><code>postcircumfix { }</code></a> calls when invoked like <code>%foo&lt;aa&gt;:exists</code>.</p>
+<p>What &quot;existence&quot; of an element means, is up to your type.</p>
+<p>If you don&#39;t implement this, your type will inherit the default implementation from <code>Any</code>, which always returns False - which is probably not what you want. So if checking for element existence cannot be done for your type, add an implementation that <a href="/Documentable/integration-test/routine/fail">fail</a>s or <a href="/Documentable/integration-test/routine/die">die</a>s, to avoid silently doing the wrong thing.</p>
+<h3 id="method_DELETE-KEY"><a class="u" href="#___top" title="go to top of document">method DELETE-KEY</a></h3>
+<pre class="pod-block-code">multi method DELETE-KEY (::?CLASS:D: $key)</pre>
+<p>Expected to delete the element associated with <code>$key</code>, and return the value it had. This is what <a href="/Documentable/integration-test/routine/{ }#postcircumfix_{_}"><code>postcircumfix { }</code></a> calls when invoked like <code>%foo&lt;aa&gt;:delete</code>.</p>
+<p>What &quot;deleting&quot; an element means, is up to your type - though it should usually cause <code>EXISTS-KEY</code> to become <code>False</code> for that key.</p>
+<p>Implementing this method is optional; if you don&#39;t, users trying to delete elements from an object of this type will get an appropriate error message.</p>
+<h3 id="method_ASSIGN-KEY"><a class="u" href="#___top" title="go to top of document">method ASSIGN-KEY</a></h3>
+<pre class="pod-block-code">multi method ASSIGN-KEY (::?CLASS:D: $key, $new)</pre>
+<p>Expected to set the element associated with <code>$key</code> to the value <code>$new</code>. Implementing this is entirely optional; if you don&#39;t, <code>self.AT-KEY($key) = $new</code> is used instead, and if you do, you should make sure it has the same effect.</p>
+<p>This is meant as an opt-in performance optimization, so that simple assignments <code>%age&lt;Claire&gt; = 29</code> can operate without having to call <code>AT-KEY</code> (which would have to create and return a potentially expensive container object).</p>
+<p>Note that implementing <code>ASSIGN-KEY</code> does <em>not</em> relieve you from making <code>AT-KEY</code> an <code>rw</code> method though, because less trivial assignments/modifications such as <code>%age&lt;Claire&gt;++</code> will still use <code>AT-KEY</code>.</p>
+<h3 id="method_BIND-KEY"><a class="u" href="#___top" title="go to top of document">method BIND-KEY</a></h3>
+<pre class="pod-block-code">multi method BIND-KEY (::?CLASS:D: $key, \new)</pre>
+<p>Expected to bind the value or container <code>new</code> to the slot associated with <code>$key</code>, replacing any container that would be naturally found there. This is what is called when you write:</p>
+<pre class="pod-block-code">my $x = 10;
+%age&lt;Claire&gt; := $x;
+</pre>
+<p>The generic <a href="/Documentable/integration-test/type/Hash">Hash</a> class supports this in order to allow building complex linked data structures, but for more domain-specific types it may not make sense, so don&#39;t feel compelled to implement it. If you don&#39;t, users will get an appropriate error message when they try to bind to an associative slot of an object of this type.</p>
+<h3 id="method_STORE"><a class="u" href="#___top" title="go to top of document">method STORE</a></h3>
+<pre class="pod-block-code">method STORE (::?CLASS:D: \values, :$initialize)</pre>
+<p>This method should only be supplied if you want to support the:</p>
+<pre class="pod-block-code">my %h is Foo = a =&gt; 42, b =&gt; 666;
+</pre>
+<p>syntax for binding your implementation of the <code>Associative</code> role.</p>
+<p>Should accept the values to (re-)initialize the object with, which either could consist of <code>Pair</code>s, or separate key/value pairs. The optional named parameter will contain a <code>True</code> value when the method is called on the object for the first time. Should return the invocant.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/subscripts.pod6">https://github.com/Raku/doc/blob/master/doc/Language/subscripts.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Input/Output the definitive guide</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/io-guide.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Input/Output the definitive guide</h1>
+        <p class="subtitle">Correctly use Raku IO</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+  <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#The_basics">The basics</a></td></tr>
+                              <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Navigating_paths">Navigating paths</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#What's_an_IO::Path_anyway?">What&#39;s an IO::Path anyway?</a></td></tr>
+                              <tr class="toc-level-2"><td class="toc-number">2.2</td><td class="toc-text"><a href="#Working_with_files">Working with files</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-number">2.2.1</td><td class="toc-text"><a href="#Writing_into_files">Writing into files</a></td></tr>
+ <tr class="toc-level-4"><td class="toc-number">2.2.1.1</td><td class="toc-text"><a href="#Writing_new_content">Writing new content</a></td></tr>
+                      <tr class="toc-level-4"><td class="toc-number">2.2.1.2</td><td class="toc-text"><a href="#Appending_content">Appending content</a></td></tr>
+                                                      <tr class="toc-level-3"><td class="toc-number">2.2.2</td><td class="toc-text"><a href="#Reading_from_files">Reading from files</a></td></tr>
+ <tr class="toc-level-4"><td class="toc-number">2.2.2.1</td><td class="toc-text"><a href="#Using_IO::Path">Using IO::Path</a></td></tr>
+                                                      <tr class="toc-level-4"><td class="toc-number">2.2.2.2</td><td class="toc-text"><a href="#Using_IO::Handle">Using IO::Handle</a></td></tr>
+                                                 <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#The_wrong_way_to_do_things">The wrong way to do things</a></td></tr>
+  <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#Leave_$*SPEC_alone">Leave $*SPEC alone</a></td></tr>
+                                               <tr class="toc-level-2"><td class="toc-number">3.2</td><td class="toc-text"><a href="#Stringifying_IO::Path">Stringifying IO::Path</a></td></tr>
+                                                 <tr class="toc-level-2"><td class="toc-number">3.3</td><td class="toc-text"><a href="#Be_mindful_of_$*CWD">Be mindful of $*CWD</a></td></tr>
+         <tr class="toc-level-3"><td class="toc-number">3.3.1</td><td class="toc-text"><a href="#temp_the_$*CWD">temp the $*CWD</a></td></tr>
+                                    
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <h1 id="The_basics"><a class="u" href="#___top" title="go to top of document">The basics</a></h1>
+<p>The vast majority of common IO work is done by the <a href="/Documentable/integration-test/type/IO::Path">IO::Path</a> type. If you want to read from or write to a file in some form or shape, this is the class you want. It abstracts away the details of filehandles (or &quot;file descriptors&quot;) and so you mostly don&#39;t even have to think about them.</p>
+<p>Behind the scenes, <a href="/Documentable/integration-test/type/IO::Path">IO::Path</a> works with <a href="/Documentable/integration-test/type/IO::Handle">IO::Handle</a>, a class which you can use directly if you need a bit more control than what <a href="/Documentable/integration-test/type/IO::Path">IO::Path</a> provides. When working with other processes, e.g. via <a href="/Documentable/integration-test/type/Proc">Proc</a> or <a href="/Documentable/integration-test/type/Proc::Async">Proc::Async</a> types, you&#39;ll also be dealing with a <em>subclass</em> of <a href="/Documentable/integration-test/type/IO::Handle">IO::Handle</a>: the <a href="/Documentable/integration-test/type/IO::Pipe">IO::Pipe</a>.</p>
+<p>Lastly, you have the <a href="/Documentable/integration-test/type/IO::CatHandle">IO::CatHandle</a>, as well as <a href="/Documentable/integration-test/type/IO::Spec">IO::Spec</a> and its subclasses, that you&#39;ll rarely, if ever, use directly. These classes give you advanced features, such as operating on multiple files as one handle, or low-level path manipulations.</p>
+<p>Along with all these classes, Raku provides several subroutines that let you indirectly work with these classes. These come in handy if you like functional programming style or in Raku one liners.</p>
+<p>While <a href="/Documentable/integration-test/type/IO::Socket">IO::Socket</a> and its subclasses also have to do with Input and Output, this guide does not cover them.</p>
+<h1 id="Navigating_paths"><a class="u" href="#___top" title="go to top of document">Navigating paths</a></h1>
+<h2 id="What's_an_IO::Path_anyway?"><a class="u" href="#___top" title="go to top of document">What&#39;s an IO::Path anyway?</a></h2>
+<p>To represent paths as either files or directories, use <a href="/Documentable/integration-test/type/IO::Path">IO::Path</a> type. The simplest way to obtain an object of that type is to coerce a <a href="/Documentable/integration-test/type/Str">Str</a> by calling the <a href="/Documentable/integration-test/routine/IO"><code>.IO</code></a> method on it:</p>
+<pre class="pod-block-code">say &#39;my-file.txt&#39;.IO; # OUTPUT: «&quot;my-file.txt&quot;.IO␤»</pre>
+<p>It may seem like something is missing here—there is no volume or absolute path involved—but that information is actually present in the object. You can see it by using <a href="/Documentable/integration-test/routine/raku"><code>.raku</code></a> method:</p>
+<pre class="pod-block-code">say &#39;my-file.txt&#39;.IO.raku;
+# OUTPUT: «IO::Path.new(&quot;my-file.txt&quot;, :SPEC(IO::Spec::Unix), :CWD(&quot;/home/camelia&quot;))␤»</pre>
+<p>The two extra attributes—<code>SPEC</code> and <code>CWD</code>—specify what type of operating system semantics the path should use as well as the &quot;current working directory&quot; for the path, i.e. if it&#39;s a relative path, then it&#39;s relative to that directory.</p>
+<p>This means that regardless of how you made one, an <a href="/Documentable/integration-test/type/IO::Path">IO::Path</a> object technically always refers to an absolute path. This is why its <a href="/Documentable/integration-test/routine/absolute"><code>.absolute</code></a> and <a href="/Documentable/integration-test/routine/relative"><code>.relative</code></a> methods return <a href="/Documentable/integration-test/type/Str">Str</a> objects and they are the correct way to stringify a path.</p>
+<p>However, don&#39;t be in a rush to stringify anything. Pass paths around as <a href="/Documentable/integration-test/type/IO::Path">IO::Path</a> objects. All the routines that operate on paths can handle them, so there&#39;s no need to convert them.</p>
+<h2 id="Working_with_files"><a class="u" href="#___top" title="go to top of document">Working with files</a></h2>
+<h3 id="Writing_into_files"><a class="u" href="#___top" title="go to top of document">Writing into files</a></h3>
+<h4 id="Writing_new_content"><a class="u" href="#___top" title="go to top of document">Writing new content</a></h4>
+<p>Let&#39;s make some files and write and read data from them! The <a href="/Documentable/integration-test/routine/spurt"><code>spurt</code></a> and <a href="/Documentable/integration-test/routine/slurp"><code>slurp</code></a> routines write and read the data in one chunk respectively. Unless you&#39;re working with very large files that are difficult to store entirely in memory all at the same time, these two routines are for you.</p>
+<pre class="pod-block-code">&quot;my-file.txt&quot;.IO.spurt: &quot;I ♥ Perl!&quot;;
+</pre>
+<p>The code above creates a file named <code>my-file.txt</code> in the current directory and then writes text <code>I ♥ Perl!</code> into it. If Raku is your first language, celebrate your accomplishment! Try to open the file you created with a text editor to verify what you wrote with your program. If you already know some other language, you may be wondering if this guide missed anything like handling encoding or error conditions.</p>
+<p>However, that is all the code you need. The string will be encoded in <code>utf-8</code> encoding by default and the errors are handled via the <a href="/Documentable/integration-test/type/Failure">Failure</a> mechanism: these are exceptions you can handle using regular conditionals. In this case, we&#39;re letting all potential <a href="/Documentable/integration-test/type/Failure">Failures</a> get sunk after the call and so any <a href="/Documentable/integration-test/type/Exception">Exceptions</a> they contain will be thrown.</p>
+<h4 id="Appending_content"><a class="u" href="#___top" title="go to top of document">Appending content</a></h4>
+<p>If you wanted to add more content to the file we created in the previous section, you could note the <a href="/Documentable/integration-test/routine/spurt"><code>spurt</code> documentation</a> mentions <code>:append</code> as one of its argument options. However, for finer control, let&#39;s get ourselves an <a href="/Documentable/integration-test/type/IO::Handle">IO::Handle</a> to work with:</p>
+<pre class="pod-block-code">my $fh = &#39;my-file.txt&#39;.IO.open: :a;
+$fh.print: &quot;I count: &quot;;
+$fh.print: &quot;$_ &quot; for ^10;
+$fh.close;
+</pre>
+<p>The <a href="/Documentable/integration-test/routine/open"><code>.open</code></a> method call opens our <a href="/Documentable/integration-test/type/IO::Path">IO::Path</a> and returns an <a href="/Documentable/integration-test/type/IO::Handle">IO::Handle</a>. We passed <code>:a</code> as argument, to indicate we want to open the file for writing in append mode.</p>
+<p>In the next two lines of code, we use the usual <a href="/Documentable/integration-test/routine/print"><code>.print</code></a> method on that <a href="/Documentable/integration-test/type/IO::Handle">IO::Handle</a> to print a line with 11 pieces of text (the <code>&#39;I count: &#39;</code> string and 10 numbers). Note that, once again, <a href="/Documentable/integration-test/type/Failure">Failure</a> mechanism takes care of all the error checking for us. If the <a href="/Documentable/integration-test/routine/open"><code>.open</code></a> fails, it returns a <a href="/Documentable/integration-test/type/Failure">Failure</a>, which will throw when we attempt to call method the <a href="/Documentable/integration-test/routine/print"><code>.print</code></a> on it.</p>
+<p>Finally, we close the <a href="/Documentable/integration-test/type/IO::Handle">IO::Handle</a> by calling the <a href="/Documentable/integration-test/routine/close"><code>.close</code></a> method on it. It is <em>important that you do it</em>, especially in large programs or ones that deal with a lot of files, as many systems have limits to how many files a program can have open at the same time. If you don&#39;t close your handles, eventually you&#39;ll reach that limit and the <a href="/Documentable/integration-test/routine/open"><code>.open</code></a> call will fail. Note that unlike some other languages, Raku does not use reference counting, so the filehandles <strong>are NOT closed</strong> when the scope they&#39;re defined in is left. They will be closed only when they&#39;re garbage collected and failing to close the handles may cause your program to reach the file limit <em>before</em> the open handles get a chance to get garbage collected.</p>
+<h3 id="Reading_from_files"><a class="u" href="#___top" title="go to top of document">Reading from files</a></h3>
+<h4 id="Using_IO::Path"><a class="u" href="#___top" title="go to top of document">Using IO::Path</a></h4>
+<p>We&#39;ve seen in previous sections that writing stuff to files is a single-line of code in Raku. Reading from them, is similarly easy:</p>
+<pre class="pod-block-code">say &#39;my-file.txt&#39;.IO.slurp;        # OUTPUT: «I ♥ Perl!␤»
+say &#39;my-file.txt&#39;.IO.slurp: :bin;  # OUTPUT: «Buf[uint8]:0x&lt;49 20 e2 99 a5 20 50 65 72 6c 21&gt;␤»
+</pre>
+<p>The <a href="/Documentable/integration-test/routine/slurp"><code>.slurp</code></a> method reads entire contents of the file and returns them as a single <a href="/Documentable/integration-test/type/Str">Str</a> object, or as a <a href="/Documentable/integration-test/type/Buf">Buf</a> object, if binary mode was requested, by specifying <code>:bin</code> named argument.</p>
+<p>Since <a href="/Documentable/integration-test/routine/slurp">slurping</a> loads the entire file into memory, it&#39;s not ideal for working with huge files.</p>
+<p>The <a href="/Documentable/integration-test/type/IO::Path">IO::Path</a> type offers two other handy methods: <a href="/Documentable/integration-test/type/IO::Path#method_words"><code>.words</code></a> and <a href="/Documentable/integration-test/type/IO::Path#method_lines"><code>.lines</code></a> that lazily read the file in smaller chunks and return <a href="/Documentable/integration-test/type/Seq">Seq</a> objects that (by default) don&#39;t keep already-consumed values around.</p>
+<p>Here&#39;s an example that finds lines in a text file that mention Perl and prints them out. Despite the file itself being too large to fit into available <a href="https://en.wikipedia.org/wiki/Random-access_memory">RAM</a>, the program will not have any issues running, as the contents are processed in small chunks:</p>
+<pre class="pod-block-code">.say for &#39;500-PetaByte-File.txt&#39;.IO.lines.grep: *.contains: &#39;Perl&#39;;
+</pre>
+<p>Here&#39;s another example that prints the first 100 words from a file, without loading it entirely:</p>
+<pre class="pod-block-code">.say for &#39;500-PetaByte-File.txt&#39;.IO.words: 100
+</pre>
+<p>Note that we did this by passing a limit argument to <a href="/Documentable/integration-test/type/IO::Path#method_words"><code>.words</code></a> instead of, say, using <a href="/Documentable/integration-test/language/operators#index-entry-array_indexing_operator-array_subscript_operator-array_indexing_operator">a list indexing operation</a>. The reason for that is there&#39;s still a filehandle in use under the hood, and until you fully consume the returned <a href="/Documentable/integration-test/type/Seq">Seq</a>, the handle will remain open. If nothing references the <a href="/Documentable/integration-test/type/Seq">Seq</a>, eventually the handle will get closed, during a garbage collection run, but in large programs that work with a lot of files, it&#39;s best to ensure all the handles get closed right away. So, you should always ensure the <a href="/Documentable/integration-test/type/Seq">Seq</a> from <a href="/Documentable/integration-test/type/IO::Path">IO::Path</a>&#39;s <a href="/Documentable/integration-test/type/IO::Path#method_words"><code>.words</code></a> and <a href="/Documentable/integration-test/type/IO::Path#method_lines"><code>.lines</code></a> methods is <a href="/Documentable/integration-test/language/glossary#index-entry-Reify">fully reified</a>; and the limit argument is there to help you with that.</p>
+<h4 id="Using_IO::Handle"><a class="u" href="#___top" title="go to top of document">Using IO::Handle</a></h4>
+<p>Of course, you can read from files using the <a href="/Documentable/integration-test/type/IO::Handle">IO::Handle</a> type, which gives you a lot finer control over what you&#39;re doing:</p>
+<pre class="pod-block-code">given &#39;some-file.txt&#39;.IO.open {
+    say .readchars: 8;  # OUTPUT: «I ♥ Perl␤»
+    .seek: 1, SeekFromCurrent;
+    say .readchars: 15;  # OUTPUT: «I ♥ Programming␤»
+    .close
+}
+</pre>
+<p>The <a href="/Documentable/integration-test/type/IO::Handle">IO::Handle</a> gives you <a href="/Documentable/integration-test/type/IO::Handle#method_read">.read</a>, <a href="/Documentable/integration-test/type/IO::Handle#method_readchars">.readchars</a>, <a href="/Documentable/integration-test/type/IO::Handle#routine_get">.get</a>, <a href="/Documentable/integration-test/type/IO::Handle#method_getc">.getc</a>, <a href="/Documentable/integration-test/type/IO::Handle#routine_words">.words</a>, <a href="/Documentable/integration-test/type/IO::Handle#routine_lines">.lines</a>, <a href="/Documentable/integration-test/type/IO::Handle#routine_slurp">.slurp</a>, <a href="/Documentable/integration-test/type/IO::Handle#method_comb">.comb</a>, <a href="/Documentable/integration-test/type/IO::Handle#method_split">.split</a>, and <a href="/Documentable/integration-test/type/IO::Handle#method_Supply">.Supply</a> methods to read data from it. Plenty of options; and the catch is you need to close the handle when you&#39;re done with it.</p>
+<p>Unlike some languages, the handle won&#39;t get automatically closed when the scope it&#39;s defined in is left. Instead, it&#39;ll remain open until it&#39;s garbage collected. To make the closing business easier, some of the methods let you specify a <code>:close</code> argument, you can also use the <a href="/Documentable/integration-test/language/phasers#index-entry-Phasers__will_trait"><code>will leave</code> trait</a>, or the <code>does auto-close</code> trait provided by the <a href="https://modules.raku.org/dist/Trait::IO"><code>Trait::IO</code></a> module.</p>
+<h1 id="The_wrong_way_to_do_things"><a class="u" href="#___top" title="go to top of document">The wrong way to do things</a></h1>
+<p>This section describes how NOT to do Raku IO.</p>
+<h2 id="Leave_$*SPEC_alone"><a class="u" href="#___top" title="go to top of document">Leave $*SPEC alone</a></h2>
+<p>You may have heard of <a href="/Documentable/integration-test/language/variables#Dynamic_variables"><code>$*SPEC</code></a> and seen some code or books show its usage for splitting and joining path fragments. Some of the routine names it provides may even look familiar to what you&#39;ve used in other languages.</p>
+<p>However, unless you&#39;re writing your own IO framework, you almost never need to use <a href="/Documentable/integration-test/language/variables#Dynamic_variables"><code>$*SPEC</code></a> directly. <a href="/Documentable/integration-test/language/variables#Dynamic_variables"><code>$*SPEC</code></a> provides low-level stuff and its use will not only make your code tough to read, you&#39;ll likely introduce security issues (e.g. null characters)!</p>
+<p>The <a href="/Documentable/integration-test/type/IO::Path"><code>IO::Path</code></a> type is the workhorse of Raku world. It caters to all the path manipulation needs as well as provides shortcut routines that let you avoid dealing with filehandles. Use that instead of the <a href="/Documentable/integration-test/language/variables#Dynamic_variables"><code>$*SPEC</code></a> stuff.</p>
+<p>Tip: you can join path parts with <code>/</code> and feed them to <a href="/Documentable/integration-test/type/IO::Path"><code>IO::Path</code></a>&#39;s routines; they&#39;ll still do The Right Thing™ with them, regardless of the operating system.</p>
+<pre class="pod-block-code"># WRONG!! TOO MUCH WORK!
+my $fh = open $*SPEC.catpath: &#39;&#39;, &#39;foo/bar&#39;, $file;
+my $data = $fh.slurp;
+$fh.close;
+</pre>
+<pre class="pod-block-code"># RIGHT! Use IO::Path to do all the dirty work
+my $data = &#39;foo/bar&#39;.IO.add($file).slurp;
+</pre>
+<p>However, it&#39;s fine to use it for things not otherwise provided by <a href="/Documentable/integration-test/type/IO::Path">IO::Path</a>. For example, the <a href="/Documentable/integration-test/routine/devnull"><code>.devnull</code> method</a>:</p>
+<pre class="pod-block-code">{
+    temp $*OUT = open :w, $*SPEC.devnull;
+    say &quot;In space no one can hear you scream!&quot;;
+}
+say &quot;Hello&quot;;
+</pre>
+<h2 id="Stringifying_IO::Path"><a class="u" href="#___top" title="go to top of document">Stringifying IO::Path</a></h2>
+<p>Don&#39;t use the <code>.Str</code> method to stringify <a href="/Documentable/integration-test/type/IO::Path"><code>IO::Path</code></a> objects, unless you just want to display them somewhere for information purposes or something. The <code>.Str</code> method returns whatever basic path string the <a href="/Documentable/integration-test/type/IO::Path"><code>IO::Path</code></a> was instantiated with. It doesn&#39;t consider the value of the <a href="/Documentable/integration-test/type/IO::Path#attribute_CWD"><code>$.CWD</code> attribute</a>. For example, this code is broken:</p>
+<pre class="pod-block-code">my $path = &#39;foo&#39;.IO;
+chdir &#39;bar&#39;;
+# WRONG!! .Str DOES NOT USE $.CWD!
+run &lt;tar -cvvf archive.tar&gt;, $path.Str;
+</pre>
+<p>The <a href="/Documentable/integration-test/routine/chdir"><code>chdir</code></a> call changed the value of the current directory, but the <code>$path</code> we created is relative to the directory before that change.</p>
+<p>However, the <a href="/Documentable/integration-test/type/IO::Path"><code>IO::Path</code></a> object <em>does</em> know what directory it&#39;s relative to. We just need to use <a href="/Documentable/integration-test/routine/absolute"><code>.absolute</code></a> or <a href="/Documentable/integration-test/routine/relative"><code>.relative</code></a> to stringify the object. Both routines return a <a href="/Documentable/integration-test/type/Str"><code>Str</code></a> object; they only differ in whether the result is an absolute or relative path. So, we can fix our code like this:</p>
+<pre class="pod-block-code">my $path = &#39;foo&#39;.IO;
+chdir &#39;bar&#39;;
+# RIGHT!! .absolute does consider the value of $.CWD!
+run &lt;tar -cvvf archive.tar&gt;, $path.absolute;
+# Also good:
+run &lt;tar -cvvf archive.tar&gt;, $path.relative;
+</pre>
+<h2 id="Be_mindful_of_$*CWD"><a class="u" href="#___top" title="go to top of document">Be mindful of $*CWD</a></h2>
+<p>While usually out of view, every <a href="/Documentable/integration-test/type/IO::Path"><code>IO::Path</code></a> object, by default, uses the current value of <a href="/Documentable/integration-test/language/variables#Dynamic_variables"><code>$*CWD</code></a> to set its <a href="/Documentable/integration-test/type/IO::Path#attribute_CWD"><code>$.CWD</code> attribute</a>. This means there are two things to pay attention to.</p>
+<h3 id="temp_the_$*CWD"><a class="u" href="#___top" title="go to top of document">temp the $*CWD</a></h3>
+<p>This code is a mistake:</p>
+<pre class="pod-block-code"># WRONG!!
+my $*CWD = &quot;foo&quot;.IO;
+</pre>
+<p>The <code>my $*CWD</code> made <a href="/Documentable/integration-test/language/variables#Dynamic_variables"><code>$*CWD</code></a> undefined. The <a href="/Documentable/integration-test/routine/IO"><code>.IO</code></a> coercer then goes ahead and sets the <a href="/Documentable/integration-test/type/IO::Path#attribute_CWD"><code>$.CWD</code> attribute</a> of the path it&#39;s creating to the stringified version of the undefined <code>$*CWD</code>; an empty string.</p>
+<p>The correct way to perform this operation is use <a href="/Documentable/integration-test/routine/temp"><code>temp</code></a> instead of <code>my</code>. It&#39;ll localize the effect of changes to <a href="/Documentable/integration-test/language/variables#Dynamic_variables"><code>$*CWD</code></a>, just like <code>my</code> would, but it won&#39;t make it undefined, so the <a href="/Documentable/integration-test/routine/IO"><code>.IO</code></a> coercer will still get the correct old value:</p>
+<pre class="pod-block-code">temp $*CWD = &quot;foo&quot;.IO;
+</pre>
+<p>Better yet, if you want to perform some code in a localized <a href="/Documentable/integration-test/language/variables#Dynamic_variables"><code>$*CWD</code></a>, use the <a href="/Documentable/integration-test/routine/indir"><code>indir</code> routine</a> for that purpose.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/io-guide.pod6">https://github.com/Raku/doc/blob/master/doc/Language/io-guide.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

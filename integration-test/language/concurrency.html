@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Concurrency</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/concurrency.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Concurrency</h1>
+        <p class="subtitle">Concurrency and asynchronous programming</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+              <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#High-level_APIs">High-level APIs</a></td></tr>
+  <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#Promises">Promises</a></td></tr>
+                                                                                                                                         <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#Supplies">Supplies</a></td></tr>
+                                                                                         <tr class="toc-level-3"><td class="toc-number">1.2.1</td><td class="toc-text"><a href="#whenever"><code class="pod-code-inline">whenever</code></a></td></tr>
+                                                     <tr class="toc-level-3"><td class="toc-number">1.2.2</td><td class="toc-text"><a href="#react"><code class="pod-code-inline">react</code></a></td></tr>
+                                 <tr class="toc-level-3"><td class="toc-number">1.2.3</td><td class="toc-text"><a href="#Transforming_supplies">Transforming supplies</a></td></tr>
+                <tr class="toc-level-3"><td class="toc-number">1.2.4</td><td class="toc-text"><a href="#Ending_a_supply">Ending a supply</a></td></tr>
+                             <tr class="toc-level-3"><td class="toc-number">1.2.5</td><td class="toc-text"><a href="#Phasers_in_a_supply_or_react_block">Phasers in a supply or react block</a></td></tr>
+                                   <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#Channels">Channels</a></td></tr>
+                                                                                                                                   <tr class="toc-level-2"><td class="toc-number">1.4</td><td class="toc-text"><a href="#Proc::Async">Proc::Async</a></td></tr>
+                                  <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Low-level_APIs">Low-level APIs</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#Threads">Threads</a></td></tr>
+                <tr class="toc-level-2"><td class="toc-number">2.2</td><td class="toc-text"><a href="#Schedulers">Schedulers</a></td></tr>
+                                        <tr class="toc-level-3"><td class="toc-number">2.2.1</td><td class="toc-text"><a href="#ThreadPoolScheduler">ThreadPoolScheduler</a></td></tr>
+         <tr class="toc-level-3"><td class="toc-number">2.2.2</td><td class="toc-text"><a href="#CurrentThreadScheduler">CurrentThreadScheduler</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">2.3</td><td class="toc-text"><a href="#Locks">Locks</a></td></tr>
+                         <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Safety_concerns">Safety concerns</a></td></tr>
+            
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>In common with most modern programming languages, Raku is designed to support parallelism, asynchronicity and <a href="https://en.wikipedia.org/wiki/Concurrent_computing">concurrency</a>. Parallelism is about doing multiple things at once. <em>Asynchronous programming</em>, which is sometimes called event driven or reactive programming, is about supporting changes in the program flow caused by events triggered elsewhere in the program. Finally, concurrency is about the coordination of access and modification of some shared resources.</p>
+<p>The aim of the Raku concurrency design is to provide a high-level, composable and consistent interface, regardless of how a virtual machine may implement it for a particular operating system, through layers of facilities as described below.</p>
+<p>Additionally, certain Raku features may implicitly operate in an asynchronous fashion, so in order to ensure predictable interoperation with these features, user code should, where possible, avoid the lower level concurrency APIs (e.g., <a href="/Documentable/integration-test/type/Thread">Thread</a> and <a href="/Documentable/integration-test/type/Scheduler">Scheduler</a>) and use the higher-level interfaces.</p>
+<h1 id="High-level_APIs"><a class="u" href="#___top" title="go to top of document">High-level APIs</a></h1>
+<p><a name="Documentable/integration-test/index-entry-Futures"></a></p>
+<h2 id="Promises"><a class="u" href="#___top" title="go to top of document">Promises</a></h2>
+<p>A <a href="/Documentable/integration-test/type/Promise">Promise</a> (also called <em>future</em> in other programming environments) encapsulates the result of a computation that may not have completed or even started at the time the promise is obtained. A <code>Promise</code> starts from a <code>Planned</code> status and can result in either a <code>Kept</code> status, meaning the promise has been successfully completed, or a <code>Broken</code> status meaning that the promise has failed. Usually this is much of the functionality that user code needs to operate in a concurrent or asynchronous manner.</p>
+<pre class="pod-block-code">my $p1 = Promise.new;
+say $p1.status;         # OUTPUT: «Planned␤»
+$p1.keep(&#39;Result&#39;);
+say $p1.status;         # OUTPUT: «Kept␤»
+say $p1.result;         # OUTPUT: «Result␤»
+                        # (since it has been kept, a result is available!)
+
+my $p2 = Promise.new;
+$p2.break(&#39;oh no&#39;);
+say $p2.status;         # OUTPUT: «Broken␤»
+say $p2.result;         # dies, because the promise has been broken
+CATCH { default { say .^name, &#39;: &#39;, .Str } };
+# OUTPUT: «X::AdHoc+{X::Promise::Broken}: oh no␤»
+</pre>
+<p>Promises gain much of their power by being composable, for example by chaining, usually by the <a href="/Documentable/integration-test/type/Promise#method_then">then</a> method:</p>
+<pre class="pod-block-code">my $promise1 = Promise.new();
+my $promise2 = $promise1.then(
+    -&gt; $v { say $v.result; &quot;Second Result&quot; }
+);
+$promise1.keep(&quot;First Result&quot;);
+say $promise2.result;   # OUTPUT: «First Result␤Second Result␤»</pre>
+<p>Here the <a href="/Documentable/integration-test/type/Promise#method_then">then</a> method schedules code to be executed when the first <a href="/Documentable/integration-test/type/Promise">Promise</a> is kept or broken, itself returning a new <a href="/Documentable/integration-test/type/Promise">Promise</a> which will be kept with the result of the code when it is executed (or broken if the code fails). <code>keep</code> changes the status of the promise to <code>Kept</code> setting the result to the positional argument. <code>result</code> blocks the current thread of execution until the promise is kept or broken, if it was kept then it will return the result (that is the value passed to <code>keep</code>), otherwise it will throw an exception based on the value passed to <code>break</code>. The latter behavior is illustrated with:</p>
+<pre class="pod-block-code">my $promise1 = Promise.new();
+my $promise2 = $promise1.then(-&gt; $v { say &quot;Handled but : &quot;; say $v.result});
+$promise1.break(&quot;First Result&quot;);
+try $promise2.result;
+say $promise2.cause;        # OUTPUT: «Handled but : ␤First Result␤»</pre>
+<p>Here the <code>break</code> will cause the code block of the <code>then</code> to throw an exception when it calls the <code>result</code> method on the original promise that was passed as an argument, which will subsequently cause the second promise to be broken, raising an exception in turn when its result is taken. The actual <a href="/Documentable/integration-test/type/Exception">Exception</a> object will then be available from <code>cause</code>. If the promise had not been broken <code>cause</code> would raise a <a href="/Documentable/integration-test/type/X::Promise::CauseOnlyValidOnBroken">X::Promise::CauseOnlyValidOnBroken</a> exception.</p>
+<p>A <a href="/Documentable/integration-test/type/Promise">Promise</a> can also be scheduled to be automatically kept at a future time:</p>
+<pre class="pod-block-code">my $promise1 = Promise.in(5);
+my $promise2 = $promise1.then(-&gt; $v { say $v.status; &#39;Second Result&#39; });
+say $promise2.result;</pre>
+<p>The <a href="/Documentable/integration-test/type/Promise#method_in">method in</a> creates a new promise and schedules a new task to call <code>keep</code> on it no earlier than the supplied number of seconds, returning the new <a href="/Documentable/integration-test/type/Promise">Promise</a> object.</p>
+<p>A very frequent use of promises is to run a piece of code, and keep the promise once it returns successfully, or break it when the code dies. The <a href="/Documentable/integration-test/type/Promise#method_start">start method</a> provides a shortcut for that:</p>
+<pre class="pod-block-code">my $promise = Promise.start(
+    { my $i = 0; for 1 .. 10 { $i += $_ }; $i}
+);
+say $promise.result;    # OUTPUT: «55␤»</pre>
+<p>Here the <code>result</code> of the promise returned is the value returned from the code. Similarly if the code fails (and the promise is thus broken), then <code>cause</code> will be the <a href="/Documentable/integration-test/type/Exception">Exception</a> object that was thrown:</p>
+<pre class="pod-block-code">my $promise = Promise.start({ die &quot;Broken Promise&quot; });
+try $promise.result;
+say $promise.cause;</pre>
+<p>This is considered to be such a commonly required pattern that it is also provided as a keyword:</p>
+<pre class="pod-block-code">my $promise = start {
+    my $i = 0;
+    for 1 .. 10 {
+        $i += $_
+    }
+    $i
+}
+my $result = await $promise;
+say $result;</pre>
+<p>The subroutine <a href="/Documentable/integration-test/type/Promise#sub_await">await</a> is almost equivalent to calling <code>result</code> on the promise object returned by <code>start</code> but it will also take a list of promises and return the result of each:</p>
+<pre class="pod-block-code">my $p1 = start {
+    my $i = 0;
+    for 1 .. 10 {
+        $i += $_
+    }
+    $i
+};
+my $p2 = start {
+    my $i = 0;
+    for 1 .. 10 {
+        $i -= $_
+    }
+    $i
+};
+my @result = await $p1, $p2;
+say @result;            # OUTPUT: «[55 -55]␤»</pre>
+<p>In addition to <code>await</code>, two class methods combine several <a href="/Documentable/integration-test/type/Promise">Promise</a> objects into a new promise: <code>allof</code> returns a promise that is kept when all the original promises are kept or broken:</p>
+<pre class="pod-block-code">my $promise = Promise.allof(
+    Promise.in(2),
+    Promise.in(3)
+);
+
+await $promise;
+say &quot;All done&quot;; # Should be not much more than three seconds later</pre>
+<p>And <code>anyof</code> returns a new promise that will be kept when any of the original promises is kept or broken:</p>
+<pre class="pod-block-code">my $promise = Promise.anyof(
+    Promise.in(3),
+    Promise.in(8600)
+);
+
+await $promise;
+say &quot;All done&quot;; # Should be about 3 seconds later</pre>
+<p>Unlike <code>await</code> however the results of the original kept promises are not available without referring to the original, so these are more useful when the completion or otherwise of the tasks is more important to the consumer than the actual results, or when the results have been collected by other means. You may, for example, want to create a dependent Promise that will examine each of the original promises:</p>
+<pre class="pod-block-code">my @promises;
+for 1..5 -&gt; $t {
+    push @promises, start {
+        sleep $t;
+        Bool.pick;
+    };
+}
+say await Promise.allof(@promises).then({ so all(@promises&gt;&gt;.result) });</pre>
+<p>Which will give True if all of the promises were kept with True, False otherwise.</p>
+<p>If you are creating a promise that you intend to keep or break yourself then you probably don&#39;t want any code that might receive the promise to inadvertently (or otherwise) keep or break the promise before you do. For this purpose there is the <a href="/Documentable/integration-test/type/Promise#method_vow">method vow</a>, which returns a Vow object which becomes the only mechanism by which the promise can be kept or broken. If an attempt to keep or break the Promise is made directly then the exception <a href="/Documentable/integration-test/type/X::Promise::Vowed">X::Promise::Vowed</a> will be thrown, as long as the vow object is kept private, the status of the promise is safe:</p>
+<pre class="pod-block-code">sub get_promise {
+    my $promise = Promise.new;
+    my $vow = $promise.vow;
+    Promise.in(10).then({$vow.keep});
+    $promise;
+}
+
+my $promise = get_promise();
+
+# Will throw an exception
+# &quot;Access denied to keep/break this Promise; already vowed&quot;
+$promise.keep;
+CATCH { default { say .^name, &#39;: &#39;, .Str } };
+# OUTPUT: «X::Promise::Vowed: Access denied to keep/break this Promise; already vowed␤»</pre>
+<p>The methods that return a promise that will be kept or broken automatically such as <code>in</code> or <code>start</code> will do this, so it is not necessary to do it for these.</p>
+<h2 id="Supplies"><a class="u" href="#___top" title="go to top of document">Supplies</a></h2>
+<p>A <a href="/Documentable/integration-test/type/Supply">Supply</a> is an asynchronous data streaming mechanism that can be consumed by one or more consumers simultaneously in a manner similar to &quot;events&quot; in other programming languages and can be seen as enabling <em>event driven</em> or reactive designs.</p>
+<p>At its simplest, a <a href="/Documentable/integration-test/type/Supply">Supply</a> is a message stream that can have multiple subscribers created with the method <code>tap</code> on to which data items can be placed with <code>emit</code>.</p>
+<p>The <a href="/Documentable/integration-test/type/Supply">Supply</a> can either be <code>live</code> or <code>on-demand</code>. A <code>live</code> supply is like a TV broadcast: those who tune in don&#39;t get previously emitted values. An <code>on-demand</code> broadcast is like Netflix: everyone who starts streaming a movie (taps a supply), always starts it from the beginning (gets all the values), regardless of how many people are watching it right now. Note that no history is kept for <code>on-demand</code> supplies, instead, the <code>supply</code> block is run for each tap of the supply.</p>
+<p>A <code>live</code> <a href="/Documentable/integration-test/type/Supply">Supply</a> is created by the <a href="/Documentable/integration-test/type/Supplier">Supplier</a> factory, each emitted value is passed to all the active tappers as they are added:</p>
+<pre class="pod-block-code">my $supplier = Supplier.new;
+my $supply   = $supplier.Supply;
+
+$supply.tap( -&gt; $v { say $v });
+
+for 1 .. 10 {
+    $supplier.emit($_);
+}</pre>
+<p>Note that the <code>tap</code> is called on a <a href="/Documentable/integration-test/type/Supply">Supply</a> object created by the <a href="/Documentable/integration-test/type/Supplier">Supplier</a> and new values are emitted on the <a href="/Documentable/integration-test/type/Supplier">Supplier</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-supply_(on-demand)"></a> An <code>on-demand</code> <a href="/Documentable/integration-test/type/Supply">Supply</a> is created by the <code>supply</code> keyword:</p>
+<pre class="pod-block-code">my $supply = supply {
+    for 1 .. 10 {
+        emit($_);
+    }
+}
+$supply.tap( -&gt; $v { say $v });</pre>
+<p>In this case the code in the supply block is executed every time the <a href="/Documentable/integration-test/type/Supply">Supply</a> returned by <code>supply</code> is tapped, as demonstrated by:</p>
+<pre class="pod-block-code">my $supply = supply {
+    for 1 .. 10 {
+        emit($_);
+    }
+}
+$supply.tap( -&gt; $v { say &quot;First : $v&quot; });
+$supply.tap( -&gt; $v { say &quot;Second : $v&quot; });</pre>
+<p>The <code>tap</code> method returns a <a href="/Documentable/integration-test/type/Tap">Tap</a> object which can be used to obtain information about the tap and also to turn it off when we are no longer interested in the events:</p>
+<pre class="pod-block-code">my $supplier = Supplier.new;
+my $supply   = $supplier.Supply;
+
+my $tap = $supply.tap( -&gt; $v { say $v });
+
+$supplier.emit(&quot;OK&quot;);
+$tap.close;
+$supplier.emit(&quot;Won&#39;t trigger the tap&quot;);</pre>
+<p>Calling <code>done</code> on the supply object calls the <code>done</code> callback that may be specified for any taps, but does not prevent any further events being emitted to the stream, or taps receiving them.</p>
+<p>The method <code>interval</code> returns a new <code>on-demand</code> supply which periodically emits a new event at the specified interval. The data that is emitted is an integer starting at 0 that is incremented for each event. The following code outputs 0 .. 5 :</p>
+<pre class="pod-block-code">my $supply = Supply.interval(2);
+$supply.tap(-&gt; $v { say $v });
+sleep 10;</pre>
+<p>A second argument can be supplied to <code>interval</code> which specifies a delay in seconds before the first event is fired. Each tap of a supply created by <code>interval</code> has its own sequence starting from 0, as illustrated by the following:</p>
+<pre class="pod-block-code">my $supply = Supply.interval(2);
+$supply.tap(-&gt; $v { say &quot;First $v&quot; });
+sleep 6;
+$supply.tap(-&gt; $v { say &quot;Second $v&quot;});
+sleep 10;</pre>
+<p>A live <code>Supply</code> that keeps values until first tapped can be created with <a href="/Documentable/integration-test/type/Supplier::Preserving">Supplier::Preserving</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-whenever"></a></p>
+<h3 id="whenever"><a class="u" href="#___top" title="go to top of document"><code>whenever</code></a></h3>
+<p>The <code>whenever</code> keyword can be used in supply blocks or in react blocks. From the 6.d version, it needs to be used within the lexical scope of them. It introduces a block of code that will be run when prompted by an asynchronous event that it specifies - that could be a <a href="/Documentable/integration-test/type/Supply">Supply</a>, a <a href="/Documentable/integration-test/type/Channel">Channel</a>, a <a href="/Documentable/integration-test/type/Promise">Promise</a> or an <a href="/Documentable/integration-test/type/Iterable">Iterable</a>.</p>
+<p>In this example we are watching two supplies.</p>
+<pre class="pod-block-code">my $bread-supplier = Supplier.new;
+my $vegetable-supplier = Supplier.new;
+
+my $supply = supply {
+    whenever $bread-supplier.Supply {
+        emit(&quot;We&#39;ve got bread: &quot; ~ $_);
+    };
+    whenever $vegetable-supplier.Supply {
+        emit(&quot;We&#39;ve got a vegetable: &quot; ~ $_);
+    };
+}
+$supply.tap( -&gt; $v { say &quot;$v&quot; });
+
+$vegetable-supplier.emit(&quot;Radish&quot;);   # OUTPUT: «We&#39;ve got a vegetable: Radish␤»
+$bread-supplier.emit(&quot;Thick sliced&quot;); # OUTPUT: «We&#39;ve got bread: Thick sliced␤»
+$vegetable-supplier.emit(&quot;Lettuce&quot;);  # OUTPUT: «We&#39;ve got a vegetable: Lettuce␤»
+</pre>
+<p>Please note that one should keep the code inside the <code>whenever</code> as small as possible, as only one <code>whenever</code> block will be executed at any time. One can use a <code>start</code> block inside the <code>whenever</code> block to run longer running code.</p>
+<p><a name="Documentable/integration-test/index-entry-react"></a></p>
+<h3 id="react"><a class="u" href="#___top" title="go to top of document"><code>react</code></a></h3>
+<p>The <code>react</code> keyword introduces a block of code containing one or more <code>whenever</code> keywords to watch asynchronous events. The main difference between a supply block and a react block is that the code in a react block runs where it appears in the code flow, whereas a supply block has to be tapped before it does anything.</p>
+<p>Another difference is that a supply block can be used without the <code>whenever</code> keyword, but a react block requires at least one <code>whenever</code> to be of any real use.</p>
+<pre class="pod-block-code">react {
+    whenever Supply.interval(2) -&gt; $v {
+        say $v;
+        done() if $v == 4;
+    }
+}</pre>
+<p>Here the <code>whenever</code> keyword uses <a href="/Documentable/integration-test/type/Supply#method_act"><code>.act</code></a> to create a tap on the <a href="/Documentable/integration-test/type/Supply">Supply</a> from the provided block. The <code>react</code> block is exited when <code>done()</code> is called in one of the taps. Using <code>last</code> to exit the block would produce an error indicating that it&#39;s not really a loop construct.</p>
+<p>An <code>on-demand</code> <a href="/Documentable/integration-test/type/Supply">Supply</a> can also be created from a list of values that will be emitted in turn, thus the first <code>on-demand</code> example could be written as:</p>
+<pre class="pod-block-code">react {
+    whenever Supply.from-list(1..10) -&gt; $v {
+        say $v;
+    }
+}</pre>
+<h3 id="Transforming_supplies"><a class="u" href="#___top" title="go to top of document">Transforming supplies</a></h3>
+<p>An existing supply object can be filtered or transformed, using the methods <code>grep</code> and <code>map</code> respectively, to create a new supply in a manner like the similarly named list methods: <code>grep</code> returns a supply such that only those events emitted on the source stream for which the <code>grep</code> condition is true is emitted on the second supply:</p>
+<pre class="pod-block-code">my $supplier = Supplier.new;
+my $supply = $supplier.Supply;
+$supply.tap(-&gt; $v { say &quot;Original : $v&quot; });
+my $odd_supply = $supply.grep({ $_ % 2 });
+$odd_supply.tap(-&gt; $v { say &quot;Odd : $v&quot; });
+my $even_supply = $supply.grep({ not $_ % 2 });
+$even_supply.tap(-&gt; $v { say &quot;Even : $v&quot; });
+for 0 .. 10 {
+    $supplier.emit($_);
+}</pre>
+<p><code>map</code> returns a new supply such that for each item emitted to the original supply a new item which is the result of the expression passed to the <code>map</code> is emitted:</p>
+<pre class="pod-block-code">my $supplier = Supplier.new;
+my $supply = $supplier.Supply;
+$supply.tap(-&gt; $v { say &quot;Original : $v&quot; });
+my $half_supply = $supply.map({ $_ / 2 });
+$half_supply.tap(-&gt; $v { say &quot;Half : $v&quot; });
+for 0 .. 10 {
+    $supplier.emit($_);
+}</pre>
+<h3 id="Ending_a_supply"><a class="u" href="#___top" title="go to top of document">Ending a supply</a></h3>
+<p>If you need to have an action that runs when the supply finishes, you can do so by setting the <code>done</code> and <code>quit</code> options in the call to <code>tap</code>:</p>
+<pre class="pod-block-code">$supply.tap: { ... },
+    done =&gt; { say &#39;Job is done.&#39; },
+    quit =&gt; {
+        when X::MyApp::Error { say &quot;App Error: &quot;, $_.message }
+    };
+</pre>
+<p>The <code>quit</code> block works very similar to a <code>CATCH</code>. If the exception is marked as seen by a <code>when</code> or <code>default</code> block, the exception is caught and handled. Otherwise, the exception continues to up the call tree (i.e., the same behavior as when <code>quit</code> is not set).</p>
+<h3 id="Phasers_in_a_supply_or_react_block"><a class="u" href="#___top" title="go to top of document">Phasers in a supply or react block</a></h3>
+<p>If you are using the <code>react</code> or <code>supply</code> block syntax with <code>whenever</code>, you can add phasers within your <code>whenever</code> blocks to handle the <code>done</code> and <code>quit</code> messages from the tapped supply:</p>
+<pre class="pod-block-code">react {
+    whenever $supply {
+        ...; # your usual supply tap code here
+        LAST { say &#39;Job is done.&#39; }
+        QUIT { when X::MyApp::Error { say &quot;App Error: &quot;, $_.message } }
+    }
+}
+</pre>
+<p>The behavior here is the same as setting <code>done</code> and <code>quit</code> on <code>tap</code>.</p>
+<h2 id="Channels"><a class="u" href="#___top" title="go to top of document">Channels</a></h2>
+<p>A <a href="/Documentable/integration-test/type/Channel">Channel</a> is a thread-safe queue that can have multiple readers and writers that could be considered to be similar in operation to a &quot;fifo&quot; or named pipe except it does not enable inter-process communication. It should be noted that, being a true queue, each value sent to the <a href="/Documentable/integration-test/type/Channel">Channel</a> will only be available to a single reader on a first read, first served basis: if you want multiple readers to be able to receive every item sent you probably want to consider a <a href="/Documentable/integration-test/type/Supply">Supply</a>.</p>
+<p>An item is queued onto the <a href="/Documentable/integration-test/type/Channel">Channel</a> with the <a href="/Documentable/integration-test/type/Channel#method_send">method send</a>, and the <a href="/Documentable/integration-test/type/Channel#method_receive">method receive</a> removes an item from the queue and returns it, blocking until a new item is sent if the queue is empty:</p>
+<pre class="pod-block-code">my $channel = Channel.new;
+$channel.send(&#39;Channel One&#39;);
+say $channel.receive;  # OUTPUT: «Channel One␤»</pre>
+<p>If the channel has been closed with the <a href="/Documentable/integration-test/type/Channel#method_close">method close</a> then any <code>send</code> will cause the exception <a href="/Documentable/integration-test/type/X::Channel::SendOnClosed">X::Channel::SendOnClosed</a> to be thrown, and a <code>receive</code> will throw a <a href="/Documentable/integration-test/type/X::Channel::ReceiveOnClosed">X::Channel::ReceiveOnClosed</a> if there are no more items on the queue.</p>
+<p>The <a href="/Documentable/integration-test/type/Channel#method_list">method list</a> returns all the items on the <a href="/Documentable/integration-test/type/Channel">Channel</a> and will block until further items are queued unless the channel is closed:</p>
+<pre class="pod-block-code">my $channel = Channel.new;
+await (^10).map: -&gt; $r {
+    start {
+        sleep $r;
+        $channel.send($r);
+    }
+}
+$channel.close;
+for $channel.list -&gt; $r {
+    say $r;
+}</pre>
+<p>There is also the non-blocking <a href="/Documentable/integration-test/type/Channel#method_poll">method poll</a> that returns an available item from the channel or <a href="/Documentable/integration-test/type/Nil">Nil</a> if there is no item or the channel is closed, this does of course mean that the channel must be checked to determine whether it is closed:</p>
+<pre class="pod-block-code">my $c = Channel.new;
+
+# Start three Promises that sleep for 1..3 seconds, and then
+# send a value to our Channel
+^3 .map: -&gt; $v {
+    start {
+        sleep 3 - $v;
+        $c.send: &quot;$v from thread {$*THREAD.id}&quot;;
+    }
+}
+
+# Wait 3 seconds before closing the channel
+Promise.in(3).then: { $c.close }
+
+# Continuously loop and poll the channel, until it&#39;s closed
+my $is-closed = $c.closed;
+loop {
+    if $c.poll -&gt; $item {
+        say &quot;$item received after {now - INIT now} seconds&quot;;
+    }
+    elsif $is-closed {
+        last;
+    }
+
+    say &#39;Doing some unrelated things...&#39;;
+    sleep .6;
+}
+
+# Doing some unrelated things...
+# Doing some unrelated things...
+# 2 from thread 5 received after 1.2063182 seconds
+# Doing some unrelated things...
+# Doing some unrelated things...
+# 1 from thread 4 received after 2.41117376 seconds
+# Doing some unrelated things...
+# 0 from thread 3 received after 3.01364461 seconds
+# Doing some unrelated things...</pre>
+<p>The <a href="/Documentable/integration-test/type/Channel#method_closed">method closed</a> returns a <a href="/Documentable/integration-test/type/Promise">Promise</a> that will be kept (and consequently will evaluate to True in a Boolean context) when the channel is closed.</p>
+<p>The <code>.poll</code> method can be used in combination with <code>.receive</code> method, as a caching mechanism where lack of value returned by <code>.poll</code> is a signal that more values need to be fetched and loaded into the channel:</p>
+<pre class="pod-block-code">sub get-value {
+    return $c.poll // do { start replenish-cache; $c.receive };
+}
+
+sub replenish-cache {
+    for ^20 {
+        $c.send: $_ for slowly-fetch-a-thing();
+    }
+}
+</pre>
+<p>Channels can be used in place of the <a href="/Documentable/integration-test/type/Supply">Supply</a> in the <code>whenever</code> of a <code>react</code> block described earlier:</p>
+<pre class="pod-block-code">my $channel = Channel.new;
+my $p = start {
+    react {
+        whenever $channel {
+            say $_;
+        }
+    }
+}
+
+await (^10).map: -&gt; $r {
+    start {
+        sleep $r;
+        $channel.send($r);
+    }
+}
+
+$channel.close;
+await $p;
+</pre>
+<p>It is also possible to obtain a <a href="/Documentable/integration-test/type/Channel">Channel</a> from a <a href="/Documentable/integration-test/type/Supply">Supply</a> using the <a href="/Documentable/integration-test/type/Supply#method_Channel">Channel method</a> which returns a <a href="/Documentable/integration-test/type/Channel">Channel</a> which is fed by a <code>tap</code> on the <a href="/Documentable/integration-test/type/Supply">Supply</a>:</p>
+<pre class="pod-block-code">my $supplier = Supplier.new;
+my $supply   = $supplier.Supply;
+my $channel = $supply.Channel;
+
+my $p = start {
+    react  {
+        whenever $channel -&gt; $item {
+            say &quot;via Channel: $item&quot;;
+        }
+    }
+}
+
+await (^10).map: -&gt; $r {
+    start {
+        sleep $r;
+        $supplier.emit($r);
+    }
+}
+
+$supplier.done;
+await $p;</pre>
+<p><code>Channel</code> will return a different <a href="/Documentable/integration-test/type/Channel">Channel</a> fed with the same data each time it is called. This could be used, for instance, to fan-out a <a href="/Documentable/integration-test/type/Supply">Supply</a> to one or more <a href="/Documentable/integration-test/type/Channel">Channel</a>s to provide for different interfaces in a program.</p>
+<h2 id="Proc::Async"><a class="u" href="#___top" title="go to top of document">Proc::Async</a></h2>
+<p><a href="/Documentable/integration-test/type/Proc::Async">Proc::Async</a> builds on the facilities described to run and interact with an external program asynchronously:</p>
+<pre class="pod-block-code">my $proc = Proc::Async.new(&#39;echo&#39;, &#39;foo&#39;, &#39;bar&#39;);
+
+$proc.stdout.tap(-&gt; $v { print &quot;Output: $v&quot; });
+$proc.stderr.tap(-&gt; $v { print &quot;Error:  $v&quot; });
+
+say &quot;Starting...&quot;;
+my $promise = $proc.start;
+
+await $promise;
+say &quot;Done.&quot;;
+
+# Output:
+# Starting...
+# Output: foo bar
+# Done.</pre>
+<p>The path to the command as well as any arguments to the command are supplied to the constructor. The command will not be executed until <a href="/Documentable/integration-test/type/Proc::Async#method_start">start</a> is called, which will return a <a href="/Documentable/integration-test/type/Promise">Promise</a> that will be kept when the program exits. The standard output and standard error of the program are available as <a href="/Documentable/integration-test/type/Supply">Supply</a> objects from the methods <a href="/Documentable/integration-test/type/Proc::Async#method_stdout">stdout</a> and <a href="/Documentable/integration-test/type/Proc::Async#method_stderr">stderr</a> respectively which can be tapped as required.</p>
+<p>If you want to write to the standard input of the program you can supply the <code>:w</code> adverb to the constructor and use the methods <a href="/Documentable/integration-test/type/Proc::Async#method_write">write</a>, <a href="/Documentable/integration-test/type/Proc::Async#method_print">print</a> or <a href="/Documentable/integration-test/type/Proc::Async#method_say">say</a> to write to the opened pipe once the program has been started:</p>
+<pre class="pod-block-code">my $proc = Proc::Async.new(:w, &#39;grep&#39;, &#39;foo&#39;);
+
+$proc.stdout.tap(-&gt; $v { print &quot;Output: $v&quot; });
+
+say &quot;Starting...&quot;;
+my $promise = $proc.start;
+
+$proc.say(&quot;this line has foo&quot;);
+$proc.say(&quot;this one doesn&#39;t&quot;);
+
+$proc.close-stdin;
+await $promise;
+say &quot;Done.&quot;;
+
+# Output:
+# Starting...
+# Output: this line has foo
+# Done.</pre>
+<p>Some programs (such as <code>grep</code> without a file argument in this example, ) won&#39;t exit until their standard input is closed so <a href="/Documentable/integration-test/type/Proc::Async#method_close-stdin">close-stdin</a> can be called when you are finished writing to allow the <a href="/Documentable/integration-test/type/Promise">Promise</a> returned by <code>start</code> to be kept.</p>
+<h1 id="Low-level_APIs"><a class="u" href="#___top" title="go to top of document">Low-level APIs</a></h1>
+<h2 id="Threads"><a class="u" href="#___top" title="go to top of document">Threads</a></h2>
+<p>The lowest level interface for concurrency is provided by <a href="/Documentable/integration-test/type/Thread">Thread</a>. A thread can be thought of as a piece of code that may eventually be run on a processor, the arrangement for which is made almost entirely by the virtual machine and/or operating system. Threads should be considered, for all intents, largely un-managed and their direct use should be avoided in user code.</p>
+<p>A thread can either be created and then actually run later:</p>
+<pre class="pod-block-code">my $thread = Thread.new(code =&gt; { for  1 .. 10  -&gt; $v { say $v }});
+# ...
+$thread.run;</pre>
+<p>Or can be created and run at a single invocation:</p>
+<pre class="pod-block-code">my $thread = Thread.start({ for  1 .. 10  -&gt; $v { say $v }});</pre>
+<p>In both cases the completion of the code encapsulated by the <a href="/Documentable/integration-test/type/Thread">Thread</a> object can be waited on with the <code>finish</code> method which will block until the thread completes:</p>
+<pre class="pod-block-code">$thread.finish;
+</pre>
+<p>Beyond that there are no further facilities for synchronization or resource sharing which is largely why it should be emphasized that threads are unlikely to be useful directly in user code.</p>
+<h2 id="Schedulers"><a class="u" href="#___top" title="go to top of document">Schedulers</a></h2>
+<p>The next level of the concurrency API is supplied by classes that implement the interface defined by the role <a href="/Documentable/integration-test/type/Scheduler">Scheduler</a>. The intent of the scheduler interface is to provide a mechanism to determine which resources to use to run a particular task and when to run it. The majority of the higher level concurrency APIs are built upon a scheduler and it may not be necessary for user code to use them at all, although some methods such as those found in <a href="/Documentable/integration-test/type/Proc::Async">Proc::Async</a>, <a href="/Documentable/integration-test/type/Promise">Promise</a> and <a href="/Documentable/integration-test/type/Supply">Supply</a> allow you to explicitly supply a scheduler.</p>
+<p>The current default global scheduler is available in the variable <code>$*SCHEDULER</code>.</p>
+<p>The primary interface of a scheduler (indeed the only method required by the <a href="/Documentable/integration-test/type/Scheduler">Scheduler</a> interface) is the <code>cue</code> method:</p>
+<pre class="pod-block-code">method cue(:&amp;code, Instant :$at, :$in, :$every, :$times = 1; :&amp;catch)</pre>
+<p>This will schedule the <a href="/Documentable/integration-test/type/Callable">Callable</a> in <code>&amp;code</code> to be executed in the manner determined by the adverbs (as documented in <a href="/Documentable/integration-test/type/Scheduler">Scheduler</a>) using the execution scheme as implemented by the scheduler. For example:</p>
+<pre class="pod-block-code">my $i = 0;
+my $cancellation = $*SCHEDULER.cue({ say $i++}, every =&gt; 2 );
+sleep 20;</pre>
+<p>Assuming that the <code>$*SCHEDULER</code> hasn&#39;t been changed from the default, will print the numbers 0 to 10 approximately (i.e with operating system scheduling tolerances) every two seconds. In this case the code will be scheduled to run until the program ends normally, however the method returns a <a href="/Documentable/integration-test/type/Cancellation">Cancellation</a> object which can be used to cancel the scheduled execution before normal completion:</p>
+<pre class="pod-block-code">my $i = 0;
+my $cancellation = $*SCHEDULER.cue({ say $i++}, every =&gt; 2 );
+sleep 10;
+$cancellation.cancel;
+sleep 10;</pre>
+<p>should only output 0 to 5.</p>
+<p>Despite the apparent advantage the <a href="/Documentable/integration-test/type/Scheduler">Scheduler</a> interface provides over that of <a href="/Documentable/integration-test/type/Thread">Thread</a> all of functionality is available through higher level interfaces and it shouldn&#39;t be necessary to use a scheduler directly, except perhaps in the cases mentioned above where a scheduler can be supplied explicitly to certain methods.</p>
+<p>A library may wish to provide an alternative scheduler implementation if it has special requirements, for instance a UI library may want all code to be run within a single UI thread, or some custom priority mechanism may be required, however the implementations provided as standard and described below should suffice for most user code.</p>
+<h3 id="ThreadPoolScheduler"><a class="u" href="#___top" title="go to top of document">ThreadPoolScheduler</a></h3>
+<p>The <a href="/Documentable/integration-test/type/ThreadPoolScheduler">ThreadPoolScheduler</a> is the default scheduler, it maintains a pool of threads that are allocated on demand, creating new ones as necessary up to maximum number given as a parameter when the scheduler object was created (the default is 16.) If the maximum is exceeded then <code>cue</code> may queue the code until such time as a thread becomes available.</p>
+<p>Rakudo allows the maximum number of threads allowed in the default scheduler to be set by the environment variable <code>RAKUDO_MAX_THREADS</code> at the time the program is started.</p>
+<h3 id="CurrentThreadScheduler"><a class="u" href="#___top" title="go to top of document">CurrentThreadScheduler</a></h3>
+<p>The <a href="/Documentable/integration-test/type/CurrentThreadScheduler">CurrentThreadScheduler</a> is a very simple scheduler that will always schedule code to be run straight away on the current thread. The implication is that <code>cue</code> on this scheduler will block until the code finishes execution, limiting its utility to certain special cases such as testing.</p>
+<h2 id="Locks"><a class="u" href="#___top" title="go to top of document">Locks</a></h2>
+<p>The class <a href="/Documentable/integration-test/type/Lock">Lock</a> provides the low level mechanism that protects shared data in a concurrent environment and is thus key to supporting thread-safety in the high level API, this is sometimes known as a &quot;Mutex&quot; in other programming languages. Because the higher level classes (<a href="/Documentable/integration-test/type/Promise">Promise</a>, <a href="/Documentable/integration-test/type/Supply">Supply</a> and <a href="/Documentable/integration-test/type/Channel">Channel</a>) use a <a href="/Documentable/integration-test/type/Lock">Lock</a> where required it is unlikely that user code will need to use a <a href="/Documentable/integration-test/type/Lock">Lock</a> directly.</p>
+<p>The primary interface to <a href="/Documentable/integration-test/type/Lock">Lock</a> is the method <a href="/Documentable/integration-test/type/Lock#method_protect">protect</a> which ensures that a block of code (commonly called a &quot;critical section&quot;) is only executed in one thread at a time:</p>
+<pre class="pod-block-code">my $lock = Lock.new;
+
+my $a = 0;
+
+await (^10).map: {
+    start {
+        $lock.protect({
+            my $r = rand;
+            sleep $r;
+            $a++;
+        });
+    }
+}
+
+say $a; # OUTPUT: «10␤»</pre>
+<p><code>protect</code> returns whatever the code block returns.</p>
+<p>Because <code>protect</code> will block any threads that are waiting to execute the critical section the code should be as quick as possible.</p>
+<h1 id="Safety_concerns"><a class="u" href="#___top" title="go to top of document">Safety concerns</a></h1>
+<p>Some shared data concurrency issues are less obvious than others. For a good general write-up on this subject see this <a href="https://6guts.wordpress.com/2014/04/17/racing-to-writeness-to-wrongness-leads/">blog post</a>.</p>
+<p>One particular issue of note is when container autovivification or extension takes place. When an <a href="/Documentable/integration-test/type/Array">Array</a> or a <a href="/Documentable/integration-test/type/Hash">Hash</a> entry is initially assigned the underlying structure is altered and that operation is not async safe. For example, in this code:</p>
+<pre class="pod-block-code">my @array;
+my $slot := @array[20];
+$slot = &#39;foo&#39;;</pre>
+<p>The third line is the critical section as that is when the array is extended. The simplest fix is to use a <a href="/Documentable/integration-test/type/Lock">Lock</a> to protect the critical section. A possibly better fix would be to refactor the code so that sharing a container is not necessary.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/concurrency.pod6">https://github.com/Raku/doc/blob/master/doc/Language/concurrency.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

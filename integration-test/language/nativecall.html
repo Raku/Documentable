@@ -1,0 +1,850 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Native calling interface</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/nativecall.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Native calling interface</h1>
+        <p class="subtitle">Call into dynamic libraries that follow the C calling convention</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+  <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Getting_started">Getting started</a></td></tr>
+                                <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Changing_names">Changing names</a></td></tr>
+                            <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Passing_and_returning_values">Passing and returning values</a></td></tr>
+                                           <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#Specifying_the_native_representation">Specifying the native representation</a></td></tr>
+                                      <tr class="toc-level-1"><td class="toc-number">5</td><td class="toc-text"><a href="#Basic_use_of_pointers">Basic use of pointers</a></td></tr>
+                                                                              <tr class="toc-level-1"><td class="toc-number">6</td><td class="toc-text"><a href="#Function_pointers">Function pointers</a></td></tr>
+                 <tr class="toc-level-1"><td class="toc-number">7</td><td class="toc-text"><a href="#Arrays">Arrays</a></td></tr>
+                                                           <tr class="toc-level-2"><td class="toc-number">7.1</td><td class="toc-text"><a href="#CArray_methods">CArray methods</a></td></tr>
+                                                                  <tr class="toc-level-1"><td class="toc-number">8</td><td class="toc-text"><a href="#Structs">Structs</a></td></tr>
+                                                       <tr class="toc-level-2"><td class="toc-number">8.1</td><td class="toc-text"><a href="#CUnions">CUnions</a></td></tr>
+                      <tr class="toc-level-2"><td class="toc-number">8.2</td><td class="toc-text"><a href="#Embedding_CStructs_and_CUnions_with_HAS">Embedding CStructs and CUnions with <code class="pod-code-inline">HAS</code></a></td></tr>
+                                        <tr class="toc-level-2"><td class="toc-number">8.3</td><td class="toc-text"><a href="#Notes_on_memory_management">Notes on memory management</a></td></tr>
+        <tr class="toc-level-3"><td class="toc-number">8.3.1</td><td class="toc-text"><a href="#In_your_Raku_code...">In your Raku code...</a></td></tr>
+                                 <tr class="toc-level-3"><td class="toc-number">8.3.2</td><td class="toc-text"><a href="#In_your_C_code...">In your C code...</a></td></tr>
+                                    <tr class="toc-level-1"><td class="toc-number">9</td><td class="toc-text"><a href="#Typed_pointers">Typed pointers</a></td></tr>
+                                                                                    <tr class="toc-level-1"><td class="toc-number">10</td><td class="toc-text"><a href="#Strings">Strings</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">10.1</td><td class="toc-text"><a href="#Explicit_memory_management">Explicit memory management</a></td></tr>
+                                                               <tr class="toc-level-2"><td class="toc-number">10.2</td><td class="toc-text"><a href="#Buffers_and_blobs">Buffers and blobs</a></td></tr>
+                            <tr class="toc-level-1"><td class="toc-number">11</td><td class="toc-text"><a href="#Function_arguments">Function arguments</a></td></tr>
+         <tr class="toc-level-1"><td class="toc-number">12</td><td class="toc-text"><a href="#Library_paths_and_names">Library paths and names</a></td></tr>
+                                                   <tr class="toc-level-2"><td class="toc-number">12.1</td><td class="toc-text"><a href="#ABI/API_version">ABI/API version</a></td></tr>
+                <tr class="toc-level-2"><td class="toc-number">12.2</td><td class="toc-text"><a href="#Routine">Routine</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">12.3</td><td class="toc-text"><a href="#Calling_into_the_standard_library">Calling into the standard library</a></td></tr>
+         <tr class="toc-level-1"><td class="toc-number">13</td><td class="toc-text"><a href="#Exported_variables">Exported variables</a></td></tr>
+             <tr class="toc-level-1"><td class="toc-number">14</td><td class="toc-text"><a href="#C++_support">C++ support</a></td></tr>
+    <tr class="toc-level-1"><td class="toc-number">15</td><td class="toc-text"><a href="#Helper_functions">Helper functions</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">15.1</td><td class="toc-text"><a href="#sub_nativecast">sub nativecast</a></td></tr>
+                              <tr class="toc-level-2"><td class="toc-number">15.2</td><td class="toc-text"><a href="#sub_cglobal">sub cglobal</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">15.3</td><td class="toc-text"><a href="#sub_nativesizeof">sub nativesizeof</a></td></tr>
+                     <tr class="toc-level-2"><td class="toc-number">15.4</td><td class="toc-text"><a href="#sub_explicitly-manage">sub explicitly-manage</a></td></tr>
+       <tr class="toc-level-1"><td class="toc-number">16</td><td class="toc-text"><a href="#Examples">Examples</a></td></tr>
+  <tr class="toc-level-2"><td class="toc-number">16.1</td><td class="toc-text"><a href="#PostgreSQL">PostgreSQL</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">16.2</td><td class="toc-text"><a href="#MySQL">MySQL</a></td></tr>
+                           <tr class="toc-level-2"><td class="toc-number">16.3</td><td class="toc-text"><a href="#Microsoft_Windows">Microsoft Windows</a></td></tr>
+                <tr class="toc-level-2"><td class="toc-number">16.4</td><td class="toc-text"><a href="#Short_tutorial_on_calling_a_C_function">Short tutorial on calling a C function</a></td></tr>
+                                                                                                                                                                                                                                                                                                                                                                                                                                   
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <h1 id="Getting_started"><a class="u" href="#___top" title="go to top of document">Getting started</a></h1>
+<p><a name="Documentable/integration-test/index-entry-nativecall"></a></p>
+<p>The simplest imaginable use of <code>NativeCall</code> would look something like this:</p>
+<pre class="pod-block-code">use NativeCall;
+sub some_argless_function() is native(&#39;something&#39;) { * }
+some_argless_function();</pre>
+<p>The first line imports various traits and types. The next line looks like a relatively ordinary Raku sub declaration—with a twist. We use the <code>native</code> trait in order to specify that the sub is actually defined in a native library. The platform-specific extension (e.g., <code>.so</code> or <code>.dll</code>), as well as any customary prefixes (e.g., <code>lib</code>) will be added for you.</p>
+<p>The first time you call &quot;some_argless_function&quot;, the &quot;libsomething&quot; will be loaded and the &quot;some_argless_function&quot; will be located in it. A call will then be made. Subsequent calls will be faster, since the symbol handle is retained.</p>
+<p>Of course, most functions take arguments or return values—but everything else that you can do is just adding to this simple pattern of declaring a Raku sub, naming it after the symbol you want to call and marking it with the <code>native</code> trait.</p>
+<p>You will also need to declare and use native types, which cannot be imported from the shared library in the same way. Please check <a href="/Documentable/integration-test/language/nativetypes">the native types page</a> for more information.</p>
+<p>Except in the case you are using your own compiled libraries, or any other kind of bundled library, shared libraries are versioned, i.e., they will be in a file <code>libfoo.so.x.y.z</code>, and this shared library will be symlinked to <code>libxxx.so.x</code>. By default, Raku will pick up that file if it&#39;s the only existing one. This is why it safer, and advisable, to always include a version, this way:</p>
+<pre class="pod-block-code">sub some_argless_function() is native(&#39;foo&#39;,v1.2.3) { * }
+</pre>
+<p>Please check the <a href="/Documentable/integration-test/language/nativecall#ABI/API_version">section on the ABI/API version</a> for more information.</p>
+<h1 id="Changing_names"><a class="u" href="#___top" title="go to top of document">Changing names</a></h1>
+<p>Sometimes you want the name of your Raku subroutine to be different from the name used in the library you&#39;re loading. Maybe the name is long or has different casing or is otherwise cumbersome within the context of the module you are trying to create.</p>
+<p>NativeCall provides a <code>symbol</code> trait for you to specify the name of the native routine in your library that may be different from your Raku subroutine name.</p>
+<pre class="pod-block-code">unit module Foo;
+use NativeCall;
+our sub init() is native(&#39;foo&#39;) is symbol(&#39;FOO_INIT&#39;) { * }
+</pre>
+<p>Inside of <code>libfoo</code> there is a routine called <code>FOO_INIT</code> but, since we&#39;re creating a module called <code>Foo</code> and we&#39;d rather call the routine as <code>Foo::init</code> (instead of <code>Foo::FOO_INIT</code>), we use the <code>symbol</code> trait to specify the name of the symbol in <code>libfoo</code> and call the subroutine whatever we want (<code>init</code> in this case).</p>
+<h1 id="Passing_and_returning_values"><a class="u" href="#___top" title="go to top of document">Passing and returning values</a></h1>
+<p>Normal Raku signatures and the <code>returns</code> trait are used in order to convey the type of arguments a native function expects and what it returns. Here is an example.</p>
+<pre class="pod-block-code">use NativeCall;
+sub add(int32, int32) returns int32 is native(&quot;calculator&quot;) { * }</pre>
+<p>Here, we have declared that the function takes two 32-bit integers and returns a 32-bit integer. You can find the other types that you may pass in the <a href="/Documentable/integration-test/language/nativetypes">native types</a> page. Note that the lack of a <code>returns</code> trait is used to indicate <code>void</code> return type. Do <em>not</em> use the <code>void</code> type anywhere except in the <code>Pointer</code> parameterization.</p>
+<p>For strings, there is an additional <code>encoded</code> trait to give some extra hints on how to do the marshaling.</p>
+<pre class="pod-block-code">use NativeCall;
+sub message_box(Str is encoded(&#39;utf8&#39;)) is native(&#39;gui&#39;) { * }</pre>
+<p>To specify how to marshal string return types, just apply this trait to the routine itself.</p>
+<pre class="pod-block-code">use NativeCall;
+sub input_box() returns Str is encoded(&#39;utf8&#39;) is native(&#39;gui&#39;) { * }</pre>
+<p>Note that a <code>NULL</code> string pointer can be passed by using the <code>Str</code> type object; a <code>NULL</code> return will also be represented by the type object.</p>
+<p>If the C function requires the lifetime of data, say some buffer of type <code>CArray[uint8]</code>, passed by pointer to exceed the function call, you have to ensure that the backing <code>CArray[uint8]</code> Raku object is not destroyed before the C function expects it.</p>
+<p>This is particularly important for strings, as the (usually preferable) <code>is encoded</code>-way of passing strings creates only a temporary object that is automatically destroyed after the call. In this case, the argument must be manually encoded:</p>
+<pre class="pod-block-code">use NativeCall;
+# void set_foo(const char *)
+# Records a char pointer for later usage
+sub set_foo(CArray[uint8]) is native(&#39;foo&#39;) { * }
+# void use_foo(void)
+# Uses the pointer stored by set_foo()
+sub use_foo() is native(&#39;foo&#39;) { * }
+
+my $string = &quot;FOO&quot;;
+# Manually marshal the $string into $array. Take care that $array
+# is not destroyed (e.g. by going out of scope) while the library
+# still holds on to it, after set_foo().
+#
+# $string.encode takes care of UTF-8 encoding. If $array is used
+# as a string by the native function, don&#39;t forget to append the
+# NUL byte that terminates a C string: ------------v
+my $array = CArray[uint8].new($string.encode.list, 0);
+
+set_foo($array);
+# ...
+use_foo();
+# It&#39;s fine if $array goes out of scope starting from here.</pre>
+<p><a name="Documentable/integration-test/index-entry-repr"></a><a name="Documentable/integration-test/index-entry-is_repr"></a><a name="Documentable/integration-test/index-entry-CStruct_(native_representation)"></a></p>
+<h1 id="Specifying_the_native_representation"><a class="u" href="#___top" title="go to top of document">Specifying the native representation</a></h1>
+<p>When working with native functions, sometimes you need to specify what kind of native data structure is going to be used. <code>is repr</code> is the term employed for that.</p>
+<pre class="pod-block-code">use NativeCall;
+
+class timespec is repr(&#39;CStruct&#39;) {
+    has uint32 $.tv_sec;
+    has long $.tv_nanosecs;
+}
+
+sub clock_gettime(uint32 $clock-id, timespec $tspec --&gt; uint32) is native { * };
+
+my timespec $this-time .=new;
+
+my $result = clock_gettime( 0, $this-time);
+
+say &quot;$result, $this-time&quot;; # OUTPUT: «0, timespec&lt;65385480&gt;␤»
+</pre>
+<p>The original function we are calling, <a href="https://linux.die.net/man/3/clock_gettime">clock_gettime</a>, uses a pointer to the <code>timespec</code> struct as second argument. We declare it as a <a href="/Documentable/integration-test/syntax/class">class</a> here, but specify its representation as <code>is repr(&#39;CStruct&#39;)</code>, to indicate it corresponds to a C data structure. When we create an object of that class, we are creating exactly the kind of pointer <code>clock_gettime</code> expects. This way, data can be transferred seamlessly to and from the native interface.</p>
+<h1 id="Basic_use_of_pointers"><a class="u" href="#___top" title="go to top of document">Basic use of pointers</a></h1>
+<p>When the signature of your native function needs a pointer to some native type (<code>int32</code>, <code>uint32</code>, etc.) all you need to do is declare the argument <code>is rw</code>:</p>
+<pre class="pod-block-code">use NativeCall;
+# C prototype is void my_version(int *major, int *minor)
+sub my_version(int32 is rw, int32 is rw) is native(&#39;foo&#39;) { * }
+my_version(my int32 $major, my int32 $minor); # Pass a pointer to</pre>
+<p>Sometimes you need to get a pointer (for example, a library handle) back from a C library. You don&#39;t care about what it points to - you just need to keep hold of it. The <code>Pointer</code> type provides for this.</p>
+<pre class="pod-block-code">use NativeCall;
+sub Foo_init() returns Pointer is native(&quot;foo&quot;) { * }
+sub Foo_free(Pointer) is native(&quot;foo&quot;) { * }</pre>
+<p>This works out OK, but you may fancy working with a type named something better than <code>Pointer</code>. It turns out that any class with the representation <code>CPointer</code> can serve this role. This means you can expose libraries that work on handles by writing a class like this:</p>
+<pre class="pod-block-code">use NativeCall;
+
+class FooHandle is repr(&#39;CPointer&#39;) {
+    # Here are the actual NativeCall functions.
+    sub Foo_init() returns FooHandle is native(&quot;foo&quot;) { * }
+    sub Foo_free(FooHandle) is native(&quot;foo&quot;) { * }
+    sub Foo_query(FooHandle, Str) returns int8 is native(&quot;foo&quot;) { * }
+    sub Foo_close(FooHandle) returns int8 is native(&quot;foo&quot;) { * }
+
+    # Here are the methods we use to expose it to the outside world.
+    method new {
+        Foo_init();
+    }
+
+    method query(Str $stmt) {
+        Foo_query(self, $stmt);
+    }
+
+    method close {
+        Foo_close(self);
+    }
+
+    # Free data when the object is garbage collected.
+    submethod DESTROY {
+        Foo_free(self);
+    }
+}
+</pre>
+<p>Note that the <code>CPointer</code> representation can do nothing more than hold a C pointer. This means that your class cannot have extra attributes. However, for simple libraries this may be a neat way to expose an object oriented interface to it.</p>
+<p>Of course, you can always have an empty class:</p>
+<pre class="pod-block-code">class DoorHandle is repr(&#39;CPointer&#39;) { }</pre>
+<p>And just use the class as you would use <code>Pointer</code>, but with potential for better type safety and more readable code.</p>
+<p>Once again, type objects are used to represent <code>NULL</code> pointers.</p>
+<h1 id="Function_pointers"><a class="u" href="#___top" title="go to top of document">Function pointers</a></h1>
+<p>C libraries can expose pointers to C functions as return values of functions and as members of structures such as structs and unions.</p>
+<p>Example of invoking a function pointer <code>$fptr</code> returned by a function <code>f</code>, using a signature defining the desired function parameters and return value:</p>
+<pre class="pod-block-code">sub f() returns Pointer is native(&#39;mylib&#39;) { * }
+
+my $fptr    = f();
+my &amp;newfunc = nativecast(:(Str, size_t --&gt; int32), $fptr);
+
+say newfunc(&quot;test&quot;, 4);
+</pre>
+<h1 id="Arrays"><a class="u" href="#___top" title="go to top of document">Arrays</a></h1>
+<p>NativeCall has some support for arrays. It is constrained to work with machine-size integers, doubles and strings, sized numeric types, arrays of pointers, arrays of structs, and arrays of arrays.</p>
+<p>Raku arrays, which support amongst other things laziness, are laid out in memory in a radically different way to C arrays. Therefore, the NativeCall library offers a much more primitive CArray type, which you must use if working with C arrays.</p>
+<p>Here is an example of passing a C array.</p>
+<pre class="pod-block-code">sub RenderBarChart(Str, int32, CArray[Str], CArray[num64]) is native(&quot;chart&quot;) { * }
+my @titles := CArray[Str].new;
+@titles[0]  = &#39;Me&#39;;
+@titles[1]  = &#39;You&#39;;
+@titles[2]  = &#39;Hagrid&#39;;
+my @values := CArray[num64].new;
+@values[0]  = 59.5e0;
+@values[1]  = 61.2e0;
+@values[2]  = 180.7e0;
+RenderBarChart(&#39;Weights (kg)&#39;, 3, @titles, @values);
+</pre>
+<p>Note that binding was used to <code>@titles</code>, <em>not</em> assignment! If you assign, you are putting the values into a Raku array, and it will not work out. If this all freaks you out, forget you ever knew anything about the <code>@</code> sigil and just use <code>$</code> all the way when using NativeCall.</p>
+<pre class="pod-block-code">use NativeCall;
+my $titles = CArray[Str].new;
+$titles[0] = &#39;Me&#39;;
+$titles[1] = &#39;You&#39;;
+$titles[2] = &#39;Hagrid&#39;;</pre>
+<p>Getting return values for arrays works out just the same.</p>
+<p>Some library APIs may take an array as a buffer that will be populated by the C function and, for instance, return the actual number of items populated:</p>
+<pre class="pod-block-code">use NativeCall;
+sub get_n_ints(CArray[int32], int32) returns int32 is native(&#39;ints&#39;) { * }</pre>
+<p>In these cases it is important that the CArray has at least the number of elements that are going to be populated before passing it to the native subroutine, otherwise the C function may stomp all over Raku&#39;s memory leading to possibly unpredictable behavior:</p>
+<pre class="pod-block-code">my $number_of_ints = 10;
+my $ints = CArray[int32].allocate($number_of_ints); # instantiates an array with 10 elements
+my $n = get_n_ints($ints, $number_of_ints);
+</pre>
+<p><em>Note</em>: <code>allocate</code> was introduced in Rakudo 2018.05. Before that, you had to use this mechanism to extend an array to a number of elements:</p>
+<pre class="pod-block-code">my $ints = CArray[int32].new;
+my $number_of_ints = 10;
+$ints[$number_of_ints - 1] = 0; # extend the array to 10 items
+</pre>
+<p>The memory management of arrays is important to understand. When you create an array yourself, then you can add elements to it as you wish and it will be expanded for you as required. However, this may result in it being moved in memory (assignments to existing elements will never cause this, however). This means you&#39;d best know what you&#39;re doing if you twiddle with an array after passing it to a C library.</p>
+<p>By contrast, when a C library returns an array to you, then the memory can not be managed by NativeCall, and it doesn&#39;t know where the array ends. Presumably, something in the library API tells you this (for example, you know that when you see a null element, you should read no further). Note that NativeCall can offer you no protection whatsoever here - do the wrong thing, and you will get a segfault or cause memory corruption. This isn&#39;t a shortcoming of NativeCall, it&#39;s the way the big bad native world works. Scared? Here, have a hug. Good luck!</p>
+<p><a name="Documentable/integration-test/index-entry-CArray"></a> <a name="Documentable/integration-test/index-entry-CArray_methods"></a></p>
+<h2 id="CArray_methods"><a class="u" href="#___top" title="go to top of document">CArray methods</a></h2>
+<p>Besides the usual methods available on every Raku instance, <code>CArray</code> provides the following methods that can be used to interact with it from the Raku point of view:</p>
+<ul><li><p><code>elems</code> provides the number of elements within the array;</p>
+</li>
+<li><p><code>AT-POS</code> provides a specific element at the given position (starting from zero). This method is not intended to be used directly, but invoked using the subscript notation <code>[]</code>.</p>
+</li>
+<li><p><code>list</code> provides the <a href="/Documentable/integration-test/type/List">List</a> of elements within the array building it from the native array iterator.</p>
+</li>
+</ul>
+<p>As an example, consider the following simple piece of code:</p>
+<pre class="pod-block-code">use NativeCall;
+
+my $native-array = CArray[int32].new( 1, 2, 3, 4, 5 );
+say &#39;Number of elements: &#39; ~ $native-array.elems;
+
+# walk the array
+for $native-array.list -&gt; $elem {
+    say &quot;Current element is: $elem&quot;;
+}
+
+# get every element by its index-based position
+for 0..$native-array.elems - 1 -&gt; $position {
+    say &quot;Element at position $position is &quot;
+          ~ $native-array[ $position ];
+}
+
+</pre>
+<p>that produces the following output</p>
+<pre class="pod-block-code">Number of elements: 5
+Current element is: 1
+Current element is: 2
+Current element is: 3
+Current element is: 4
+Current element is: 5
+Element at position 0 is 1
+Element at position 1 is 2
+Element at position 2 is 3
+Element at position 3 is 4
+Element at position 4 is 5
+</pre>
+<h1 id="Structs"><a class="u" href="#___top" title="go to top of document">Structs</a></h1>
+<p>Thanks to representation polymorphism, it&#39;s possible to declare a normal looking Raku class that, under the hood, stores its attributes in the same way a C compiler would lay them out in a similar struct definition. All it takes is a quick use of the <code>repr</code> trait:</p>
+<pre class="pod-block-code">class Point is repr(&#39;CStruct&#39;) {
+    has num64 $.x;
+    has num64 $.y;
+}</pre>
+<p>The attributes can only be of the types that NativeCall knows how to marshal into struct fields. Currently, structs can contain machine-sized integers, doubles, strings, and other NativeCall objects (<code>CArray</code>s, and those using the <code>CPointer</code> and <code>CStruct</code> reprs). Other than that, you can do the usual set of things you would with a class; you could even have some of the attributes come from roles or have them inherited from another class. Of course, methods are completely fine too. Go wild!</p>
+<p><code>CStruct</code> objects are passed to native functions by reference and native functions must also return <code>CStruct</code> objects by reference. The memory management rules for these references are very much like the rules for arrays, though simpler since a struct is never resized. When you create a struct, the memory is managed for you and when the variable(s) pointing to the instance of a <code>CStruct</code> go away, the memory will be freed when the GC gets to it. When a <code>CStruct</code>-based type is used as the return type of a native function, the memory is not managed for you by the GC.</p>
+<p>NativeCall currently doesn&#39;t put object members in containers, so assigning new values to them (with <code>=</code>) doesn&#39;t work. Instead, you have to bind (with <code>:=</code>) new values to the private members:</p>
+<pre class="pod-block-code">class MyStruct is repr(&#39;CStruct&#39;) {
+    has CArray[num64] $!arr;
+    has Str $!str;
+    has Point $!point; # Point is a user-defined class
+
+    submethod TWEAK {
+        my $arr := CArray[num64].new;
+        $arr[0] = 0.9e0;
+        $arr[1] = 0.2e0;
+        $!arr := $arr;
+        $!str := &#39;Raku is fun&#39;;
+        $!point := Point.new;
+    }
+}
+</pre>
+<p>As you may have predicted by now, a <code>NULL</code> pointer is represented by the type object of the struct type.</p>
+<h2 id="CUnions"><a class="u" href="#___top" title="go to top of document">CUnions</a></h2>
+<p>Likewise, it is possible to declare a Raku class that stores its attributes the same way a C compiler would lay them out in a similar <code>union</code> definition; using the <code>CUnion</code> representation:</p>
+<pre class="pod-block-code">use NativeCall;
+
+class MyUnion is repr(&#39;CUnion&#39;) {
+    has int32 $.flags32;
+    has int64 $.flags64;
+}
+
+say nativesizeof(MyUnion.new);  # OUTPUT: «8␤»
+                                # ie. max(sizeof(MyUnion.flags32), sizeof(MyUnion.flags64))
+</pre>
+<h2 id="Embedding_CStructs_and_CUnions_with_HAS"><a class="u" href="#___top" title="go to top of document">Embedding CStructs and CUnions with <a name="Documentable/integration-test/index-entry-HAS__declarator-HAS"><span class="index-entry"><code>HAS</code></span></a></a></h2>
+<p><code>CStruct</code>s and <code>CUnion</code>s can be in turn referenced by—or embedded into—a surrounding <code>CStruct</code> and <code>CUnion</code>. To say the former we use <code>has</code> as usual, and to do the latter we use the <code>HAS</code> declarator instead:</p>
+<pre class="pod-block-code">class MyStruct is repr(&#39;CStruct&#39;) {
+    has Point $.point;  # referenced
+    has int32 $.flags;
+}
+
+say nativesizeof(MyStruct.new);  # OUTPUT: «16␤»
+                                 # ie. sizeof(struct Point *) + sizeof(int32_t)
+
+class MyStruct2 is repr(&#39;CStruct&#39;) {
+    HAS Point $.point;  # embedded
+    has int32 $.flags;
+}
+
+say nativesizeof(MyStruct2.new);  # OUTPUT: «24␤»
+                                  # ie. sizeof(struct Point) + sizeof(int32_t)
+</pre>
+<h2 id="Notes_on_memory_management"><a class="u" href="#___top" title="go to top of document">Notes on memory management</a></h2>
+<p>When allocating a struct for use as a struct, make sure that you allocate your own memory in your C functions. If you&#39;re passing a struct into a C function which needs a <code>Str</code>/<code>char*</code> allocated ahead of time, be sure to assign a container for a variable of type <code>Str</code> prior to passing your struct into the function.</p>
+<h3 id="In_your_Raku_code..."><a class="u" href="#___top" title="go to top of document">In your Raku code...</a></h3>
+<pre class="pod-block-code">class AStringAndAnInt is repr(&quot;CStruct&quot;) {
+  has Str $.a_string;
+  has int32 $.an_int32;
+
+  sub init_struct(AStringAndAnInt is rw, Str, int32) is native(&#39;simple-struct&#39;) { * }
+
+  submethod BUILD(:$a_string, :$an_int) {
+    init_struct(self, $a_string, $an_int);
+  }
+}
+</pre>
+<p>In this code we first set up our members, <code>$.a_string</code> and <code>$.an_int32</code>. After that we declare our <code>init_struct()</code> function for the <code>init()</code> method to wrap around; this function is then called from <code>BUILD</code> to effectively assign the values before returning the created object.</p>
+<p>Please note that BUILD is binding attributes of native types, such as <code>$.an_int32</code>. You can always bind native types this way.</p>
+<h3 id="In_your_C_code..."><a class="u" href="#___top" title="go to top of document">In your C code...</a></h3>
+<pre class="pod-block-code">typedef struct a_string_and_an_int32_t_ {
+  char *a_string;
+  int32_t an_int32;
+} a_string_and_an_int32_t;
+
+</pre>
+<p>Here&#39;s the structure. Notice how we&#39;ve got a <code>char *</code> there.</p>
+<pre class="pod-block-code">void init_struct(a_string_and_an_int32_t *target, char *str, int32_t int32) {
+  target-&gt;an_int32 = int32;
+  target-&gt;a_string = strdup(str);
+
+  return;
+}
+
+</pre>
+<p>In this function we initialize the C structure by assigning an integer by value, and passing the string by reference. The function allocates memory that it points <code>char *a_string</code> to within the structure as it copies the string. (Note you will also have to manage deallocation of the memory as well to avoid memory leaks.)</p>
+<pre class="pod-block-code"># A long time ago in a galaxy far, far away...
+my $foo = AStringAndAnInt.new(a_string =&gt; &quot;str&quot;, an_int =&gt; 123);
+say &quot;foo is {$foo.a_string} and {$foo.an_int32}&quot;;
+# OUTPUT: «foo is str and 123␤»
+</pre>
+<h1 id="Typed_pointers"><a class="u" href="#___top" title="go to top of document">Typed pointers</a></h1>
+<p>You can type your <code>Pointer</code> by passing the type as a parameter. It works with the native type but also with <code>CArray</code> and <code>CStruct</code> defined types. NativeCall will not implicitly allocate the memory for it even when calling <code>new</code> on them. It&#39;s mostly useful in the case of a C routine returning a pointer, or if it&#39;s a pointer embedded in a <code>CStruct</code>.</p>
+<pre class="pod-block-code">use NativeCall;
+sub strdup(Str $s --&gt; Pointer[Str]) is native {*}
+my Pointer[Str] $p = strdup(&quot;Success!&quot;);
+say $p.deref;
+</pre>
+<p>You have to call <a name="Documentable/integration-test/index-entry-deref-.deref"><span class="index-entry"><code>.deref</code></span></a> on <code>Pointer</code>s to access the embedded type. In the example above, declaring the type of the pointer avoids typecasting error when dereferenced. Please note that the original <a href="https://en.cppreference.com/w/c/experimental/dynamic/strdup"><code>strdup</code></a> returns a pointer to <code>char</code>; we are using <code>Pointer&lt;Str&gt;</code>.</p>
+<pre class="pod-block-code">my Pointer[int32] $p; #For a pointer on int32;
+my Pointer[MyCstruct] $p2 = some_c_routine();
+my MyCstruct $mc = $p2.deref;
+say $mc.field1;
+</pre>
+<p>It&#39;s quite common for a native function to return a pointer to an array of elements. Typed pointers can be dereferenced as an array to obtain individual elements.</p>
+<pre class="pod-block-code">my $n = 5;
+# returns a pointer to an array of length $n
+my Pointer[Point] $plot = some_other_c_routine($n);
+# display the 5 elements in the array
+for 1 .. $n -&gt; $i {
+    my $x = $plot[$i - 1].x;
+    my $y = $plot[$i - 1].y;
+    say &quot;$i: ($x, $y)&quot;;
+}
+</pre>
+<p>Pointers can also be updated to reference successive elements in the array:</p>
+<pre class="pod-block-code">my Pointer[Point] $elem = $plot;
+# show differences between successive points
+for 1 ..^ $n {
+    my Point $lo = $elem.deref;
+    ++$elem; # equivalent to $elem = $elem.add(1);
+    my Point $hi = (++$elem).deref;
+    my $dx = $hi.x = $lo.x;
+    my $dy = $hi.y = $lo.y;
+    say &quot;$_: delta ($dx, $dy)&quot;;
+}
+</pre>
+<p>Void pointers can also be used by declaring them <code>Pointer[void]</code>. Please consult <a href="/Documentable/integration-test/language/nativetypes#The_void_type">the native types documentation</a> for more information on the subject.</p>
+<h1 id="Strings"><a class="u" href="#___top" title="go to top of document">Strings</a></h1>
+<h2 id="Explicit_memory_management"><a class="u" href="#___top" title="go to top of document">Explicit memory management</a></h2>
+<p>Let&#39;s say there is some C code that caches strings passed, like so:</p>
+<pre class="pod-block-code">#include &lt;stdlib.h&gt;
+
+static char *__VERSION;
+
+char *
+get_version()
+{
+    return __VERSION;
+}
+
+char *
+set_version(char *version)
+{
+    if (__VERSION != NULL) free(__VERSION);
+    __VERSION = version;
+    return __VERSION;
+}
+</pre>
+<p>If you were to write bindings for <code>get_version</code> and <code>set_version</code>, they would initially look like this, but will not work as intended:</p>
+<pre class="pod-block-code">sub get_version(--&gt; Str)     is native(&#39;./version&#39;) { * }
+sub set_version(Str --&gt; Str) is native(&#39;./version&#39;) { * }
+
+say set_version(&#39;1.0.0&#39;); # 1.0.0
+say get_version;          # Differs on each run
+say set_version(&#39;1.0.1&#39;); # Double free; segfaults
+</pre>
+<p>This code segfaults on the second <code>set_version</code> call because it tries to free the string passed on the first call after the garbage collector had already done so. If the garbage collector shouldn&#39;t free a string passed to a native function, use <code>explicitly-manage</code> with it:</p>
+<pre class="pod-block-code">say set_version(explicitly-manage(&#39;1.0.0&#39;)); # 1.0.0
+say get_version;                             # 1.0.0
+say set_version(explicitly-manage(&#39;1.0.1&#39;)); # 1.0.1
+say get_version;                             # 1.0.1
+</pre>
+<p>Bear in mind all memory management for explicitly managed strings must be handled by the C library itself or through the NativeCall API to prevent memory leaks.</p>
+<h2 id="Buffers_and_blobs"><a class="u" href="#___top" title="go to top of document">Buffers and blobs</a></h2>
+<p><a href="/Documentable/integration-test/type/Blob">Blob</a>s and <a href="/Documentable/integration-test/type/Buf">Buf</a>s are the Raku way of storing binary data. We can use them for interchange of data with native functions and data structures, although not directly. We will have to use <a href="/Documentable/integration-test/routine/nativecast"><code>nativecast</code></a>.</p>
+<pre class="pod-block-code">my $blob = Blob.new(0x22, 0x33);
+my $src = nativecast(Pointer, $blob);
+</pre>
+<p>This <code>$src</code> can then be used as an argument for any native function that takes a <code>Pointer</code>. The opposite, putting values pointed to by a <code>Pointer</code> into a <code>Buf</code> or using it to initialize a <code>Blob</code> is not directly supported. You might want to use <a href="https://github.com/salortiz/NativeHelpers-Blob"><code>NativeHelpers::Blob</code></a> to do this kind of operations.</p>
+<pre class="pod-block-code">my $esponja = blob-from-pointer( $inter, :2elems, :type(Blob[int8]));
+say $esponja;
+</pre>
+<h1 id="Function_arguments"><a class="u" href="#___top" title="go to top of document">Function arguments</a></h1>
+<p>NativeCall also supports native functions that take functions as arguments. One example of this is using function pointers as callbacks in an event-driven system. When binding these functions via NativeCall, one needs only provide the equivalent signature as <a href="/Documentable/integration-test/type/Signature#Constraining_signatures_of_Callables">a constraint on the code parameter</a>. In the case of NativeCall, however, as of Rakudo 2019.07, a space between the function argument and the signature, and the colon of a normal <code>Signature</code> literal is omitted, as in:</p>
+<pre class="pod-block-code">use NativeCall;
+# void SetCallback(int (*callback)(const char *))
+my sub SetCallback(&amp;callback (Str --&gt; int32)) is native(&#39;mylib&#39;) { * }</pre>
+<p>Note: the native code is responsible for memory management of values passed to Raku callbacks this way. In other words, NativeCall will not free() strings passed to callbacks.</p>
+<p>It is important that any code passed as a native callback handles its exceptions and, if applicable, returns an appropriate error value to the native code that invoked it. It is not allowed to throw an exception out of a native callback, and doing so will lead to process termination.</p>
+<h1 id="Library_paths_and_names"><a class="u" href="#___top" title="go to top of document">Library paths and names</a></h1>
+<p>The <code>native</code> trait accepts the library name, the full path, or a subroutine returning either of the two. When using the library name, the name is assumed to be prepended with <code>lib</code> and appended with <code>.so</code> (or just appended with <code>.dll</code> on Windows), and will be searched for in the paths in the <code>LD_LIBRARY_PATH</code> (<code>PATH</code> on Windows) environment variable.</p>
+<pre class="pod-block-code">use NativeCall;
+constant LIBMYSQL = &#39;mysqlclient&#39;;
+constant LIBFOO = &#39;/usr/lib/libfoo.so.1&#39;;
+sub LIBBAR {
+    my $path = qx/pkg-config --libs libbar/.chomp;
+    $path ~~ s/\/[[\w+]+ % \/]/\0\/bar/;
+    $path
+}
+# and later
+
+sub mysql_affected_rows returns int32 is native(LIBMYSQL) {*};
+sub bar is native(LIBFOO) {*}
+sub baz is native(LIBBAR) {*}
+</pre>
+<p>You can also put an incomplete path like &#39;./foo&#39; and NativeCall will automatically put the right extension according to the platform specification. If you wish to suppress this expansion, simply pass the string as the body of a block.</p>
+<pre class="pod-block-code">sub bar is native({ &#39;./lib/Non Standard Naming Scheme&#39; }) {*}
+</pre>
+<p>BE CAREFUL: the <code>native</code> trait and <code>constant</code> are evaluated at compile time. Don&#39;t write a constant that depends on a dynamic variable like:</p>
+<pre class="pod-block-code"># WRONG:
+constant LIBMYSQL = %*ENV&lt;P6LIB_MYSQLCLIENT&gt; || &#39;mysqlclient&#39;;</pre>
+<p>This will keep the value given at compile time. A module will be precompiled and <code>LIBMYSQL</code> will keep the value it acquires when the module gets precompiled.</p>
+<h2 id="ABI/API_version"><a class="u" href="#___top" title="go to top of document">ABI/API version</a></h2>
+<p>If you write <code>native(&#39;foo&#39;)</code> NativeCall will search <code>libfoo.so</code> under Unix like system (<code>libfoo.dynlib</code> on OS X, <code>foo.dll</code> on win32). In most modern system it will require you or the user of your module to install the development package because it&#39;s recommended to always provide an API/ABI version to a shared library, so <code>libfoo.so</code> ends often being a symbolic link provided only by a development package.</p>
+<p>To avoid that, the <code>native</code> trait allows you to specify the API/ABI version. It can be a full version or just a part of it. (Try to stick to Major version, some BSD code does not care for Minor.)</p>
+<pre class="pod-block-code">use NativeCall;
+sub foo1 is native(&#39;foo&#39;, v1) {*} # Will try to load libfoo.so.1
+sub foo2 is native(&#39;foo&#39;, v1.2.3) {*} # Will try to load libfoo.so.1.2.3
+
+my List $lib = (&#39;foo&#39;, &#39;v1&#39;);
+sub foo3 is native($lib) {*}</pre>
+<h2 id="Routine"><a class="u" href="#___top" title="go to top of document">Routine</a></h2>
+<p>The <code>native</code> trait also accepts a <code>Callable</code> as argument, allowing you to provide your own way to handle the way it will find the library file to load.</p>
+<pre class="pod-block-code">use NativeCall;
+sub foo is native(sub {&#39;libfoo.so.42&#39;}) {*}</pre>
+<p>It will only be called at the first invocation of the sub.</p>
+<h2 id="Calling_into_the_standard_library"><a class="u" href="#___top" title="go to top of document">Calling into the standard library</a></h2>
+<p>If you want to call a C function that&#39;s already loaded, either from the standard library or from your own program, you can omit the value, so <code>is native</code>.</p>
+<p>For example on a UNIX-like operating system, you could use the following code to print the home directory of the current user:</p>
+<pre class="pod-block-code">use NativeCall;
+my class PwStruct is repr(&#39;CStruct&#39;) {
+    has Str $.pw_name;
+    has Str $.pw_passwd;
+    has uint32 $.pw_uid;
+    has uint32 $.pw_gid;
+    has Str $.pw_gecos;
+    has Str $.pw_dir;
+    has Str $.pw_shell;
+}
+sub getuid()              returns uint32   is native { * };
+sub getpwuid(uint32 $uid) returns PwStruct is native { * };
+
+say getpwuid(getuid()).pw_dir;</pre>
+<p>Though of course <code>$*HOME</code> is a much easier way :-)!</p>
+<h1 id="Exported_variables"><a class="u" href="#___top" title="go to top of document">Exported variables</a></h1>
+<p>Variables exported by a library – also named &quot;global&quot; or &quot;extern&quot; variables – can be accessed using <code>cglobal</code>. For example:</p>
+<pre class="pod-block-code">my $var := cglobal(&#39;libc.so.6&#39;, &#39;errno&#39;, int32)
+</pre>
+<p>This code binds to <code>$var</code> a new <a href="/Documentable/integration-test/type/Proxy">Proxy</a> object that redirects all its accesses to the integer variable named &quot;errno&quot; as exported by the <code>libc.so.6</code> library.</p>
+<h1 id="C++_support"><a class="u" href="#___top" title="go to top of document">C++ support</a></h1>
+<p>NativeCall offers support to use classes and methods from C++ as shown in <a href="https://github.com/rakudo/rakudo/blob/master/t/04-nativecall/13-cpp-mangling.t">https://github.com/rakudo/rakudo/blob/master/t/04-nativecall/13-cpp-mangling.t</a> (and its associated C++ file). Note that at the moment it&#39;s not as tested and developed as C support.</p>
+<h1 id="Helper_functions"><a class="u" href="#___top" title="go to top of document">Helper functions</a></h1>
+<p>The <code>NativeCall</code> library exports several subroutines to help you work with data from native libraries.</p>
+<h2 id="sub_nativecast"><a class="u" href="#___top" title="go to top of document">sub nativecast</a></h2>
+<pre class="pod-block-code">sub nativecast($target-type, $source) is export(:DEFAULT)</pre>
+<p>This will <em>cast</em> the <code>Pointer</code> <code>$source</code> to an object of <code>$target-type</code>. The source pointer will typically have been obtained from a call to a native subroutine that returns a pointer or as a member of a <code>struct</code>, this may be specified as <code>void *</code> in the <code>C</code> library definition for instance, but you may also cast from a pointer to a less specific type to a more specific one.</p>
+<p>As a special case, if a <a href="/Documentable/integration-test/type/Signature">Signature</a> is supplied as <code>$target-type</code> then a <code>subroutine</code> will be returned which will call the native function pointed to by <code>$source</code> in the same way as a subroutine declared with the <code>native</code> trait. This is described in <a href="/Documentable/integration-test/language/nativecall#Function_pointers">Function Pointers</a>.</p>
+<h2 id="sub_cglobal"><a class="u" href="#___top" title="go to top of document">sub cglobal</a></h2>
+<pre class="pod-block-code">sub cglobal($libname, $symbol, $target-type) is export is rw</pre>
+<p>This returns a <a href="/Documentable/integration-test/type/Proxy">Proxy</a> object that provides access to the <code>extern</code> named <code>$symbol</code> that is exposed by the specified library. The library can be specified in the same ways that they can be to the <code>native</code> trait.</p>
+<h2 id="sub_nativesizeof"><a class="u" href="#___top" title="go to top of document">sub nativesizeof</a></h2>
+<pre class="pod-block-code">sub nativesizeof($obj) is export(:DEFAULT)</pre>
+<p>This returns the size in bytes of the supplied object, it can be thought of as being equivalent to <code>sizeof</code> in <strong>C</strong>. The object can be a builtin native type such as <code>int64</code> or <code>num64</code>, a <code>CArray</code> or a class with the <code>repr</code> <code>CStruct</code>, <code>CUnion</code> or <code>CPointer</code>.</p>
+<h2 id="sub_explicitly-manage"><a class="u" href="#___top" title="go to top of document">sub explicitly-manage</a></h2>
+<pre class="pod-block-code">sub explicitly-manage($str) is export(:DEFAULT)</pre>
+<p>This returns a <code>CStr</code> object for the given <code>Str</code>. If the string returned is passed to a NativeCall subroutine, it will not be freed by the runtime&#39;s garbage collector.</p>
+<h1 id="Examples"><a class="u" href="#___top" title="go to top of document">Examples</a></h1>
+<p>Some specific examples, and instructions to use examples above in particular platforms.</p>
+<h2 id="PostgreSQL"><a class="u" href="#___top" title="go to top of document">PostgreSQL</a></h2>
+<p>The PostgreSQL examples in <a href="https://github.com/raku-community-modules/DBIish/blob/master/examples/pg.p6">DBIish</a> make use of the NativeCall library and <code>is native</code> to use the native <code>_putenv</code> function call in Windows.</p>
+<h2 id="MySQL"><a class="u" href="#___top" title="go to top of document">MySQL</a></h2>
+<p><strong>NOTE:</strong> Please bear in mind that, under the hood, Debian has substituted MySQL with MariaDB since the Stretch version, so if you want to install MySQL, use <a href="https://dev.mysql.com/downloads/repo/apt/">MySQL APT repository</a> instead of the default repository.</p>
+<p>To use the MySQL example in <a href="https://github.com/raku-community-modules/DBIish/blob/master/examples/mysql.p6">DBIish</a>, you&#39;ll need to install MySQL server locally; on Debian-esque systems it can be installed with something like:</p>
+<pre class="pod-block-code">wget https://dev.mysql.com/get/mysql-apt-config_0.8.10-1_all.deb
+sudo dpkg -i mysql-apt-config_0.8.10-1_all.deb # Don&#39;t forget to select 5.6.x
+sudo apt-get update
+sudo apt-get install mysql-community-server -y
+sudo apt-get install libmysqlclient18 -y
+</pre>
+<p>Prepare your system along these lines before trying out the examples:</p>
+<pre class="pod-block-code">$ mysql -u root -p
+SET PASSWORD = PASSWORD(&#39;sa&#39;);
+DROP DATABASE test;
+CREATE DATABASE test;
+</pre>
+<h2 id="Microsoft_Windows"><a class="u" href="#___top" title="go to top of document">Microsoft Windows</a></h2>
+<p>Here is an example of a Windows API call:</p>
+<pre class="pod-block-code">use NativeCall;
+
+sub MessageBoxA(int32, Str, Str, int32)
+    returns int32
+    is native(&#39;user32&#39;)
+    { * }
+
+MessageBoxA(0, &quot;We have NativeCall&quot;, &quot;ohai&quot;, 64);
+</pre>
+<h2 id="Short_tutorial_on_calling_a_C_function"><a class="u" href="#___top" title="go to top of document">Short tutorial on calling a C function</a></h2>
+<p>This is an example for calling a standard function and using the returned information in a Raku program.</p>
+<p><code>getaddrinfo</code> is a POSIX standard function for obtaining network information about a network node, e.g., <code>google.com</code>. It is an interesting function to look at because it illustrates a number of the elements of NativeCall.</p>
+<p>The Linux manual provides the following information about the C callable function:</p>
+<pre class="pod-block-code">int getaddrinfo(const char *node, const char *service,
+       const struct addrinfo *hints,
+       struct addrinfo **res);
+</pre>
+<p>The function returns a response code 0 for success and 1 for error. The data are extracted from a linked list of <code>addrinfo</code> elements, with the first element pointed to by <code>res</code>.</p>
+<p>From the table of NativeCall types we know that an <code>int</code> is <code>int32</code>. We also know that a <code>char *</code> is one of the forms C for a C <code>Str</code>, which maps simply to Str. But <code>addrinfo</code> is a structure, which means we will need to write our own type class. However, the function declaration is straightforward:</p>
+<pre class="pod-block-code">sub getaddrinfo( Str $node, Str $service, Addrinfo $hints, Pointer $res is rw )
+    returns int32
+    is native
+    { * }
+</pre>
+<p>Note that <code>$res</code> is to be written by the function, so it must be labeled with the <code>is rw</code> trait. Since the library is standard POSIX, the library name can be the type definition or null.</p>
+<p>We now have to handle structure <code>Addrinfo</code>. The Linux Manual provides this information:</p>
+<pre class="pod-block-code">struct addrinfo {
+               int              ai_flags;
+               int              ai_family;
+               int              ai_socktype;
+               int              ai_protocol;
+               socklen_t        ai_addrlen;
+               struct sockaddr *ai_addr;
+               char            *ai_canonname;
+               struct addrinfo *ai_next;
+           };
+</pre>
+<p>The <code>int, char*</code> parts are straightforward. Some research indicates that <code>socklen_t</code> can be architecture dependent, but is an unsigned integer of at least 32 bits. So <code>socklen_t</code> can be mapped to the <code>uint32</code> type.</p>
+<p>The complication is <code>sockaddr</code> which differs depending on whether <code>ai_socktype</code> is undefined, INET, or INET6 (a standard v4 IP address or a v6 address).</p>
+<p>So we create a Raku <code>class</code> to map to the C <code>struct addrinfo</code>; while we&#39;re at it, we also create another class for <code>SockAddr</code> which is needed for it.</p>
+<pre class="pod-block-code">class SockAddr is repr(&#39;CStruct&#39;) {
+    has int32    $.sa_family;
+    has Str      $.sa_data;
+}
+
+class Addrinfo is repr(&#39;CStruct&#39;) {
+    has int32     $.ai_flags;
+    has int32     $.ai_family;
+    has int32     $.ai_socktype;
+    has int32     $.ai_protocol;
+    has int32     $.ai_addrlen;
+    has SockAddr  $.ai_addr       is rw;
+    has Str       $.ai_cannonname is rw;
+    has Addrinfo  $.ai_next       is rw;
+
+}
+</pre>
+<p>The <code>is rw</code> on the last three attributes reflects that these were defined in C to be pointers.</p>
+<p>The important thing here for mapping to a C <code>Struct</code> is the structure of the state part of the class, that is the attributes. However, a class can have methods and <code>NativeCall</code> does not &#39;touch&#39; them for mapping to C. This means that we can add extra methods to the class to unpack the attributes in a more readable manner, e.g.,</p>
+<pre class="pod-block-code">method flags {
+    do for AddrInfo-Flags.enums { .key if $!ai_flags +&amp; .value }
+}
+</pre>
+<p>By defining an appropriate <code>enum</code>, <code>flags</code> will return a string of keys rather than a bit packed integer.</p>
+<p>The most useful information in the <code>sockaddr</code> structure is the address of node, which depends on the family of the Socket. So we can add method <code>address</code> to the Raku class that interprets the address depending on the family.</p>
+<p>In order to get a human readable IP address, there is the C function <code>inet_ntop</code> which returns a <code>char *</code> given a buffer with the <code>addrinfo</code>.</p>
+<p>Putting all these together, leads to the following program:</p>
+<pre class="pod-block-code">#!/usr/bin/env raku
+
+use v6;
+use NativeCall;
+
+constant \INET_ADDRSTRLEN = 16;
+constant \INET6_ADDRSTRLEN = 46;
+
+enum AddrInfo-Family (
+    AF_UNSPEC                   =&gt; 0;
+    AF_INET                     =&gt; 2;
+    AF_INET6                    =&gt; 10;
+);
+
+enum AddrInfo-Socktype (
+    SOCK_STREAM                 =&gt; 1;
+    SOCK_DGRAM                  =&gt; 2;
+    SOCK_RAW                    =&gt; 3;
+    SOCK_RDM                    =&gt; 4;
+    SOCK_SEQPACKET              =&gt; 5;
+    SOCK_DCCP                   =&gt; 6;
+    SOCK_PACKET                 =&gt; 10;
+);
+
+enum AddrInfo-Flags (
+    AI_PASSIVE                  =&gt; 0x0001;
+    AI_CANONNAME                =&gt; 0x0002;
+    AI_NUMERICHOST              =&gt; 0x0004;
+    AI_V4MAPPED                 =&gt; 0x0008;
+    AI_ALL                      =&gt; 0x0010;
+    AI_ADDRCONFIG               =&gt; 0x0020;
+    AI_IDN                      =&gt; 0x0040;
+    AI_CANONIDN                 =&gt; 0x0080;
+    AI_IDN_ALLOW_UNASSIGNED     =&gt; 0x0100;
+    AI_IDN_USE_STD3_ASCII_RULES =&gt; 0x0200;
+    AI_NUMERICSERV              =&gt; 0x0400;
+);
+
+sub inet_ntop(int32, Pointer, Blob, int32 --&gt; Str)
+    is native {}
+
+class SockAddr is repr(&#39;CStruct&#39;) {
+    has uint16 $.sa_family;
+}
+
+class SockAddr-in is repr(&#39;CStruct&#39;) {
+    has int16 $.sin_family;
+    has uint16 $.sin_port;
+    has uint32 $.sin_addr;
+
+    method address {
+        my $buf = buf8.allocate(INET_ADDRSTRLEN);
+        inet_ntop(AF_INET, Pointer.new(nativecast(Pointer,self)+4),
+            $buf, INET_ADDRSTRLEN)
+    }
+}
+
+class SockAddr-in6 is repr(&#39;CStruct&#39;) {
+    has uint16 $.sin6_family;
+    has uint16 $.sin6_port;
+    has uint32 $.sin6_flowinfo;
+    has uint64 $.sin6_addr0;
+    has uint64 $.sin6_addr1;
+    has uint32 $.sin6_scope_id;
+
+    method address {
+        my $buf = buf8.allocate(INET6_ADDRSTRLEN);
+        inet_ntop(AF_INET6, Pointer.new(nativecast(Pointer,self)+8),
+            $buf, INET6_ADDRSTRLEN)
+    }
+}
+
+class Addrinfo is repr(&#39;CStruct&#39;) {
+    has int32 $.ai_flags;
+    has int32 $.ai_family;
+    has int32 $.ai_socktype;
+    has int32 $.ai_protocol;
+    has uint32 $.ai_addrNativeCalllen;
+    has SockAddr $.ai_addr is rw;
+    has Str $.ai_cannonname is rw;
+    has Addrinfo $.ai_next is rw;
+
+    method flags {
+        do for AddrInfo-Flags.enums { .key if $!ai_flags +&amp; .value }
+    }
+
+    method family {
+        AddrInfo-Family($!ai_family)
+    }
+
+    method socktype {
+        AddrInfo-Socktype($!ai_socktype)
+    }
+
+    method address {
+        given $.family {
+            when AF_INET {
+                nativecast(SockAddr-in, $!ai_addr).address
+            }
+            when AF_INET6 {
+                nativecast(SockAddr-in6, $!ai_addr).address
+            }
+        }
+    }
+}
+
+sub getaddrinfo(Str $node, Str $service, Addrinfo $hints,
+                Pointer $res is rw --&gt; int32)
+    is native {};
+
+sub freeaddrinfo(Pointer)
+    is native {}
+
+sub MAIN() {
+    my Addrinfo $hint .= new(:ai_flags(AI_CANONNAME));
+    my Pointer $res .= new;
+    my $rv = getaddrinfo(&quot;google.com&quot;, Str, $hint, $res);
+    say &quot;return val: $rv&quot;;
+    if ( ! $rv ) {
+        my $addr = nativecast(Addrinfo, $res);
+        while $addr {
+            with $addr {
+                say &quot;Name: &quot;, $_ with .ai_cannonname;
+                say .family, &#39; &#39;, .socktype;
+                say .address;
+                $addr = .ai_next;
+            }
+        }
+    }
+    freeaddrinfo($res);
+}
+</pre>
+<p>This produces the following output:</p>
+<pre class="pod-block-code">return val: 0
+Name: google.com
+AF_INET SOCK_STREAM
+216.58.219.206
+AF_INET SOCK_DGRAM
+216.58.219.206
+AF_INET SOCK_RAW
+216.58.219.206
+AF_INET6 SOCK_STREAM
+2607:f8b0:4006:800::200e
+AF_INET6 SOCK_DGRAM
+2607:f8b0:4006:800::200e
+AF_INET6 SOCK_RAW
+2607:f8b0:4006:800::200e
+</pre>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/nativecall.pod6">https://github.com/Raku/doc/blob/master/doc/Language/nativecall.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

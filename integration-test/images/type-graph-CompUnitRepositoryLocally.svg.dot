@@ -1,0 +1,24 @@
+digraph "perl6-type-graph" {
+    rankdir=BT;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "CompUnit::Repository::Locally" [color="#6666FF", fontcolor="#6666FF", href="/type/CompUnit::Repository::Locally", fontname="FreeSans"];
+    "Mu" [color="#000000", fontcolor="#000000", href="/type/Mu", fontname="FreeSans"];
+    "Any" [color="#000000", fontcolor="#000000", href="/type/Any", fontname="FreeSans"];
+    "CompUnit::Repository::Installable" [color="#6666FF", fontcolor="#6666FF", href="/type/CompUnit::Repository::Installable", fontname="FreeSans"];
+    "CompUnit::Repository::Installation" [color="#000000", fontcolor="#000000", href="/type/CompUnit::Repository::Installation", fontname="FreeSans"];
+    "CompUnit::Repository" [color="#6666FF", fontcolor="#6666FF", href="/type/CompUnit::Repository", fontname="FreeSans"];
+    "CompUnit::Repository::FileSystem" [color="#000000", fontcolor="#000000", href="/type/CompUnit::Repository::FileSystem", fontname="FreeSans"];
+
+    // Superclasses
+    "Any" -> "Mu" [color="#000000"];
+    "CompUnit::Repository::Installation" -> "Any" [color="#000000"];
+    "CompUnit::Repository::FileSystem" -> "Any" [color="#000000"];
+
+    // Roles
+    "CompUnit::Repository::Installation" -> "CompUnit::Repository::Locally" [color="#6666FF"];
+    "CompUnit::Repository::Installation" -> "CompUnit::Repository::Installable" [color="#6666FF"];
+    "CompUnit::Repository::FileSystem" -> "CompUnit::Repository::Locally" [color="#6666FF"];
+    "CompUnit::Repository::FileSystem" -> "CompUnit::Repository" [color="#6666FF"];
+}

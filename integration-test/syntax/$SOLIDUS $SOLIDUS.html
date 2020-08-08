@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>syntax / /</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">syntax / /</h1>
+        <p class="subtitle"></p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#language_documentation_Regexes">language documentation Regexes</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#(Regexes)_quote_/_/_/_/">(Regexes) quote / / / /</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#Anonymous_regex_definition_syntax">Anonymous regex definition syntax</a></td></tr>
+                                                     <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#Named_regex_definition_syntax">Named regex definition syntax</a></td></tr>
+                                                            <tr class="toc-level-2"><td class="toc-number">1.4</td><td class="toc-text"><a href="#Regex_readability:_whitespace_and_comments">Regex readability: whitespace and comments</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">1.5</td><td class="toc-text"><a href="#Match_syntax">Match syntax</a></td></tr>
+                                                                                    
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Documentation for syntax <code>/ /</code> assembled from the following types:</p>
+<h1 id="language_documentation_Regexes"><a class="u" href="#___top" title="go to top of document">language documentation Regexes</a></h1>
+<p>From <a href="/Documentable/integration-test/language/regexes#Lexical_conventions">Regexes</a></p>
+<h2 id="(Regexes)_quote_/_/_/_/"><a href="/Documentable/integration-test/language/regexes#Lexical_conventions">(Regexes) quote / / / /</a></h2>
+<p>Fundamentally, Raku regexes are very much like subroutines: both are code objects, and just as you can have anonymous subs and named subs, you can have anonymous and named regexes.</p>
+<p>A regex, whether anonymous or named, is represented by a <a href="/Documentable/integration-test/type/Regex"><code>Regex</code></a> object. Yet, the syntax for constructing anonymous and named <code>Regex</code> objects differs. We will therefore discuss them in turn.</p>
+<h2 id="Anonymous_regex_definition_syntax"><a class="u" href="#___top" title="go to top of document">Anonymous regex definition syntax</a></h2>
+<p>An anonymous regex may be constructed in one of the following ways:</p>
+<pre class="pod-block-code">rx/pattern/;          # an anonymous Regex object; &#39;rx&#39; stands for &#39;regex&#39;
+/pattern/;            # an anonymous Regex object; shorthand for &#39;rx/.../&#39;
+
+regex { pattern };    # keyword-declared anonymous regex; this form is
+                      # intended for defining named regexes and is discussed
+                      # in that context in the next section</pre>
+<p>The <code>rx/ /</code> form has two advantages over the bare shorthand form <code>/ /</code>.</p>
+<p>Firstly, it enables the use of delimiters other than the slash, which may be used to improve the readability of the regex definition:</p>
+<pre class="pod-block-code">rx{ &#39;/tmp/&#39;.* };      # the use of curly braces as delimiters makes this first
+rx/ &#39;/tmp/&#39;.* /;      # definition somewhat easier on the eyes than the second</pre>
+<p>Although the choice is vast, not every character may be chosen as an alternative regex delimiter:</p>
+<ul><li><p>You cannot use whitespace or alphanumeric characters as delimiters. Whitespace in regex definition syntax is generally optional, except where it is required to distinguish from function call syntax (discussed hereafter).</p>
+</li>
+<li><p>Parentheses can be used as alternative regex delimiters, but only with a space between <code>rx</code> and the opening delimiter. This is because identifiers that are immediately followed by parentheses are always parsed as a subroutine call. For example, in <code>rx()</code> the <a href="/Documentable/integration-test/language/operators#postcircumfix_(_)">call operator</a> <code>()</code> invokes the subroutine <code>rx</code>. The form <code>rx ( abc )</code>, however, <em>does</em> define a <code>Regex</code> object.</p>
+</li>
+<li><p>Use of a colon as a delimiter would clash with the use of <a href="/Documentable/integration-test/language/regexes#Adverbs">adverbs</a>, which take the form <code>:adverb</code>; accordingly, such use of the colon is forbidden.</p>
+</li>
+<li><p>The hash character <code>#</code> is not available as a delimiter since it is parsed as the start of a <a href="/Documentable/integration-test/language/syntax#Single-line_comments">comment</a> that runs until the end of the line.</p>
+</li>
+</ul>
+<p>Secondly, the <code>rx</code> form enables the use of <a href="/Documentable/integration-test/language/regexes#Regex_adverbs">regex adverbs</a>, which may be placed between <code>rx</code> and the opening delimiter to modify the definition of the entire regex:</p>
+<pre class="pod-block-code">rx:r:s/pattern/;            # :r (:ratchet) and :s (:sigspace) adverbs, defining
+                            # a ratcheting regex in which whitespace is significant</pre>
+<p>Although anonymous regexes are not, as such, <em>named</em>, they may effectively be given a name by putting them inside a named variable, after which they can be referenced, both outside of an embedding regex and from within an embedding regex by means of <a href="/Documentable/integration-test/language/regexes#Regex_interpolation">interpolation</a>:</p>
+<pre class="pod-block-code">my $regex = / R \w+ /;
+say &quot;Zen Buddhists like Raku too&quot; ~~ $regex; # OUTPUT: «｢Raku｣␤»
+
+my $regex = /pottery/;
+&quot;Japanese pottery rocks!&quot; ~~ / &lt;$regex&gt; /;  # Interpolation of $regex into /.../
+say $/;                                     # OUTPUT: «｢pottery｣␤»</pre>
+<h2 id="Named_regex_definition_syntax"><a class="u" href="#___top" title="go to top of document">Named regex definition syntax</a></h2>
+<p>A named regex may be constructed using the <code>regex</code> declarator as follows:</p>
+<pre class="pod-block-code">regex R { pattern };        # a named Regex object, named &#39;R&#39;</pre>
+<p>Unlike with the <code>rx</code> form, you cannot chose your preferred delimiter: curly braces are mandatory. In this regard it should be noted that the definition of a named regex using the <code>regex</code> form is syntactically similar to the definition of a subroutine:</p>
+<pre class="pod-block-code">my sub   S { /pattern/ };   # definition of Sub object (returning a Regex)
+my regex R {  pattern  };   # definition of Regex object</pre>
+<p>which emphasizes the fact that a <a href="/Documentable/integration-test/type/Regex"><code>Regex</code></a> object represents code rather than data:</p>
+<pre class="pod-block-code">&amp;S ~~ Code;                 # OUTPUT: «True␤»
+
+&amp;R ~~ Code;                 # OUTPUT: «True␤»
+&amp;R ~~ Method;               # OUTPUT: «True␤»   (A Regex is really a Method!)
+</pre>
+<p>Also unlike with the <code>rx</code> form for defining an anonymous regex, the definition of a named regex using the <code>regex</code> keyword does not allow for adverbs to be inserted before the opening delimiter. Instead, adverbs that are to modify the entire regex pattern may be included first thing within the curly braces:</p>
+<pre class="pod-block-code">regex R { :i pattern };     # :i (:ignorecase), renders pattern case insensitive</pre>
+<p>Alternatively, by way of shorthand, it is also possible (and recommended) to use the <code>rule</code> and <code>token</code> variants of the <code>regex</code> declarator for defining a <code>Regex</code> when the <code>:ratchet</code> and <code>:sigspace</code> adverbs are of interest:</p>
+<pre class="pod-block-code">regex R { :r pattern };     # apply :r (:ratchet) to entire pattern
+</pre>
+<p>and, alternatively</p>
+<pre class="pod-block-code">token R { pattern };        # same thing: &#39;token&#39; implies &#39;:r&#39;
+</pre>
+<p>Or</p>
+<pre class="pod-block-code">regex R { :r :s pattern };  # apply :r (:ratchet) and :s (:sigspace) to pattern
+</pre>
+<p>with this alternative:</p>
+<pre class="pod-block-code">rule  R { pattern };        # same thing: &#39;rule&#39; implies &#39;:r:s&#39;
+</pre>
+<p>Named regexes may be used as building blocks for other regexes, as they are methods that may called from within other regexes using the <code>&lt;regex-name&gt;</code> syntax. When they are used this way, they are often referred to as <em>subrules</em>; see for more details on their use <a href="/Documentable/integration-test/language/regexes#Subrules">here</a>. <a href="/Documentable/integration-test/type/Grammar"><code>Grammars</code></a> are the natural habitat of subrules, but many common predefined character classes are also implemented as named regexes.</p>
+<h2 id="Regex_readability:_whitespace_and_comments"><a class="u" href="#___top" title="go to top of document">Regex readability: whitespace and comments</a></h2>
+<p>Whitespace in regexes is ignored unless the <a href="/Documentable/integration-test/language/regexes#Sigspace"><code>:sigspace</code></a> adverb is used to make whitespace syntactically significant.</p>
+<p>In addition to whitespace, comments may be used inside of regexes to improve their comprehensibility just as in code in general. This is true for both <a href="/Documentable/integration-test/language/syntax#Single-line_comments">single line comments</a> and <a href="/Documentable/integration-test/language/syntax#Multi-line_/_embedded_comments">multi line/embedded comments</a>:</p>
+<pre class="pod-block-code">my $regex =  rx/ \d ** 4            #`(match the year YYYY)
+                 &#39;-&#39;
+                 \d ** 2            # ...the month MM
+                 &#39;-&#39;
+                 \d ** 2 /;         # ...and the day DD
+
+say &#39;2015-12-25&#39;.match($regex);     # OUTPUT: «｢2015-12-25｣␤»</pre>
+<h2 id="Match_syntax"><a class="u" href="#___top" title="go to top of document">Match syntax</a></h2>
+<p>There are a variety of ways to match a string against a regex. Irrespective of the syntax chosen, a successful match results in a <a href="/Documentable/integration-test/type/Match"><code>Match</code></a> object. In case the match is unsuccessful, the result is <a href="/Documentable/integration-test/type/Nil"><code>Nil</code></a>. In either case, the result of the match operation is available via the special match variable <a href="/Documentable/integration-test/syntax/$$SOLIDUS"><code>$/</code></a>.</p>
+<p>The most common ways to match a string against an anonymous regex <code>/pattern/</code> or against a named regex <code>R</code> include the following:</p>
+<ul><li><p><em>Smartmatch: &quot;string&quot; ~~ /pattern/, or &quot;string&quot; ~~ /&lt;R&gt;/</em></p>
+<p><a href="/Documentable/integration-test/language/operators#index-entry-smartmatch_operator">Smartmatching</a> a string against a <code>Regex</code> performs a regex match of the string against the <code>Regex</code>:</p>
+<pre class="pod-block-code">say &quot;Go ahead, make my day.&quot; ~~ / \w+ /;   # OUTPUT: «｢Go｣␤»
+
+my regex R { me|you };
+say &quot;You talkin&#39; to me?&quot; ~~ / &lt;R&gt; /;       # OUTPUT: «｢me｣␤ R =&gt; ｢me｣␤»
+say &quot;May the force be with you.&quot; ~~ &amp;R ;   # OUTPUT: «｢you｣␤»</pre>
+<p>The different outputs of the last two statements show that these two ways of smartmatching against a named regex are not identical. The difference arises because the method call <code>&lt;R&gt;</code> from within the anonymous regex <code>/ /</code> installs a so-called <a href="/Documentable/integration-test/language/regexes#Named_captures">&#39;named capture&#39;</a> in the <code>Match</code> object, while the smartmatch against the named <code>Regex</code> as such does not.</p>
+</li>
+<li><p><em>Explicit topic match: m/pattern/, or m/&lt;R&gt;/</em></p>
+<p>The match operator <code>m/ /</code> immediately matches the topic variable <a href="/Documentable/integration-test/language/variables#index-entry-topic_variable"><code>$_</code></a> against the regex following the <code>m</code>.</p>
+<p>As with the <code>rx/ /</code> syntax for regex definitions, the match operator may be used with adverbs in between <code>m</code> and the opening regex delimiter, and with delimiters other than the slash. However, while the <code>rx/ /</code> syntax may only be used with <a href="/Documentable/integration-test/language/regexes#Regex_adverbs"><em>regex adverbs</em></a> that affect the compilation of the regex, the <code>m/ /</code> syntax may additionally be used with <a href="/Documentable/integration-test/language/regexes#Matching_adverbs"><em>matching adverbs</em></a> that determine how the regex engine is to perform pattern matching.</p>
+<p>Here&#39;s an example that illustrates the primary difference between the <code>m/ /</code> and <code>/ /</code> syntax:</p>
+<pre class="pod-block-code">my $match;
+$_ = &quot;abc&quot;;
+$match = m/.+/; say $match; say $match.^name; # OUTPUT: «｢abc｣␤Match␤»
+$match =  /.+/; say $match; say $match.^name; # OUTPUT: «/.+/␤Regex␤»</pre>
+</li>
+<li><p><em>Implicit topic match in sink and Boolean contexts</em></p>
+<p>In case a <code>Regex</code> object is used in sink context, or in a context in which it is coerced to <a href="/Documentable/integration-test/type/Bool"><code>Bool</code></a>, the topic variable <a href="/Documentable/integration-test/language/variables#index-entry-topic_variable"><code>$_</code></a> is automatically matched against it:</p>
+<pre class="pod-block-code">$_ = &quot;dummy string&quot;;        # Set the topic explicitly
+
+rx/ s.* /;                  # Regex object in sink context matches automatically
+say $/;                     # OUTPUT: «｢string｣␤»
+
+say $/ if rx/ d.* /;        # Regex object in Boolean context matches automatically
+                            # OUTPUT: «｢dummy string｣␤»</pre>
+</li>
+<li><p><em>Match method: &quot;string&quot;.match: /pattern/, or &quot;string&quot;.match: /&lt;R&gt;/</em></p>
+<p>The <a href="/Documentable/integration-test/type/Str#method_match"><code>match</code></a> method is analogous to the <code>m/ /</code> operator discussed above. Invoking it on a string, with a <code>Regex</code> as an argument, matches the string against the <code>Regex</code>.</p>
+</li>
+<li><p><em>Parsing grammars: grammar-name.parse($string)</em></p>
+<p>Although parsing a <a href="/Documentable/integration-test/language/grammars">Grammar</a> involves more than just matching a string against a regex, this powerful regex-based text destructuring tool can&#39;t be left out from this overview of common pattern matching methods.</p>
+<p>If you feel that your needs exceed what simple regexes have to offer, check out this <a href="/Documentable/integration-test/language/grammar_tutorial">grammar tutorial</a> to take regexes to the next level.</p>
+</li>
+</ul>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

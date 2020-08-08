@@ -1,0 +1,89 @@
+digraph "perl6-type-graph" {
+    rankdir=LR;
+    splines=polyline;
+    overlap=false; 
+    // Layout hints
+
+    subgraph "cluster: Mu children" {
+        rank=same;
+        style=invis;
+        "Any";
+        "Junction";
+    }
+    subgraph "cluster: Pod:: top level" {
+        rank=same;
+        style=invis;
+        "Pod::Config";
+        "Pod::Block";
+    }
+    subgraph "cluster: Date/time handling" {
+        rank=same;
+        style=invis;
+        "Date";
+        "DateTime";
+        "DateTime-local-timezone";
+    }
+    subgraph "cluster: Collection roles" {
+        rank=same;
+        style=invis;
+        "Positional";
+        "Associative";
+        "Baggy";
+    }
+
+    // Types
+    "Any" [color="#000000", fontcolor="#000000", href="/type/Any", fontname="FreeSans"];
+    "Documentable" [color="#000000", fontcolor="#000000", href="/type/Documentable", fontname="FreeSans"];
+    "Documentable::Config" [color="#000000", fontcolor="#000000", href="/type/Documentable::Config", fontname="FreeSans"];
+    "Documentable::DocPage" [color="#6666FF", fontcolor="#6666FF", href="/type/Documentable::DocPage", fontname="FreeSans"];
+    "Documentable::DocPage::Factory" [color="#000000", fontcolor="#000000", href="/type/Documentable::DocPage::Factory", fontname="FreeSans"];
+    "Documentable::DocPage::Index" [color="#000000", fontcolor="#000000", href="/type/Documentable::DocPage::Index", fontname="FreeSans"];
+    "Documentable::DocPage::Index::Language" [color="#000000", fontcolor="#000000", href="/type/Documentable::DocPage::Index::Language", fontname="FreeSans"];
+    "Documentable::DocPage::Index::Programs" [color="#000000", fontcolor="#000000", href="/type/Documentable::DocPage::Index::Programs", fontname="FreeSans"];
+    "Documentable::DocPage::Index::Routine" [color="#000000", fontcolor="#000000", href="/type/Documentable::DocPage::Index::Routine", fontname="FreeSans"];
+    "Documentable::DocPage::Index::Type" [color="#000000", fontcolor="#000000", href="/type/Documentable::DocPage::Index::Type", fontname="FreeSans"];
+    "Documentable::DocPage::Primary::Language" [color="#000000", fontcolor="#000000", href="/type/Documentable::DocPage::Primary::Language", fontname="FreeSans"];
+    "Documentable::DocPage::Primary::Programs" [color="#000000", fontcolor="#000000", href="/type/Documentable::DocPage::Primary::Programs", fontname="FreeSans"];
+    "Documentable::DocPage::Primary::Type" [color="#000000", fontcolor="#000000", href="/type/Documentable::DocPage::Primary::Type", fontname="FreeSans"];
+    "Documentable::DocPage::Secondary" [color="#000000", fontcolor="#000000", href="/type/Documentable::DocPage::Secondary", fontname="FreeSans"];
+    "Documentable::DocPage::SubIndex::Routine" [color="#000000", fontcolor="#000000", href="/type/Documentable::DocPage::SubIndex::Routine", fontname="FreeSans"];
+    "Documentable::DocPage::SubIndex::Type" [color="#000000", fontcolor="#000000", href="/type/Documentable::DocPage::SubIndex::Type", fontname="FreeSans"];
+    "Documentable::Heading::Actions" [color="#000000", fontcolor="#000000", href="/type/Documentable::Heading::Actions", fontname="FreeSans"];
+    "Documentable::Heading::Grammar" [color="#000000", fontcolor="#000000", href="/type/Documentable::Heading::Grammar", fontname="FreeSans"];
+    "Documentable::Index" [color="#000000", fontcolor="#000000", href="/type/Documentable::Index", fontname="FreeSans"];
+    "Documentable::Primary" [color="#000000", fontcolor="#000000", href="/type/Documentable::Primary", fontname="FreeSans"];
+    "Documentable::Registry" [color="#000000", fontcolor="#000000", href="/type/Documentable::Registry", fontname="FreeSans"];
+    "Documentable::Search" [color="#000000", fontcolor="#000000", href="/type/Documentable::Search", fontname="FreeSans"];
+    "Documentable::Secondary" [color="#000000", fontcolor="#000000", href="/type/Documentable::Secondary", fontname="FreeSans"];
+    "Documentable::To::HTML::Wrapper" [color="#000000", fontcolor="#000000", href="/type/Documentable::To::HTML::Wrapper", fontname="FreeSans"];
+    "Exception" [color="#000000", fontcolor="#000000", href="/type/Exception", fontname="FreeSans"];
+    "Kind" [color="#33BB33", fontcolor="#33BB33", href="/type/Kind", fontname="FreeSans"];
+
+    // Superclasses
+    "Documentable" -> "Any" [color="#000000"];
+    "Documentable::Config" -> "Any" [color="#000000"];
+    "Documentable::DocPage::Factory" -> "Any" [color="#000000"];
+    "Documentable::DocPage::Index" -> "Any" [color="#000000"];
+    "Documentable::DocPage::Index::Language" -> "Documentable::DocPage" [color="#000000"];
+    "Documentable::DocPage::Index::Programs" -> "Documentable::DocPage" [color="#000000"];
+    "Documentable::DocPage::Index::Routine" -> "Documentable::DocPage" [color="#000000"];
+    "Documentable::DocPage::Index::Type" -> "Documentable::DocPage" [color="#000000"];
+    "Documentable::DocPage::Primary::Language" -> "Documentable::DocPage" [color="#000000"];
+    "Documentable::DocPage::Primary::Programs" -> "Documentable::DocPage" [color="#000000"];
+    "Documentable::DocPage::Primary::Type" -> "Documentable::DocPage" [color="#000000"];
+    "Documentable::DocPage::Secondary" -> "Documentable::DocPage" [color="#000000"];
+    "Documentable::DocPage::SubIndex::Routine" -> "Documentable::DocPage" [color="#000000"];
+    "Documentable::DocPage::SubIndex::Type" -> "Documentable::DocPage" [color="#000000"];
+    "Documentable::Heading::Actions" -> "Any" [color="#000000"];
+    "Documentable::Heading::Grammar" -> "Any" [color="#000000"];
+    "Documentable::Index" -> "Documentable" [color="#000000"];
+    "Documentable::Primary" -> "Documentable" [color="#000000"];
+    "Documentable::Registry" -> "Any" [color="#000000"];
+    "Documentable::Search" -> "Any" [color="#000000"];
+    "Documentable::Secondary" -> "Documentable" [color="#000000"];
+    "Documentable::To::HTML::Wrapper" -> "Any" [color="#000000"];
+    "Exception" -> "Any" [color="#000000"];
+    "Kind" -> "Any" [color="#000000"];
+
+    // Roles
+}

@@ -1,0 +1,17 @@
+digraph "perl6-type-graph" {
+    rankdir=BT;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "ValueObjAt" [color="#000000", fontcolor="#000000", href="/type/ValueObjAt", fontname="FreeSans"];
+    "Mu" [color="#000000", fontcolor="#000000", href="/type/Mu", fontname="FreeSans"];
+    "Any" [color="#000000", fontcolor="#000000", href="/type/Any", fontname="FreeSans"];
+    "ObjAt" [color="#000000", fontcolor="#000000", href="/type/ObjAt", fontname="FreeSans"];
+
+    // Superclasses
+    "ValueObjAt" -> "ObjAt" [color="#000000"];
+    "Any" -> "Mu" [color="#000000"];
+    "ObjAt" -> "Any" [color="#000000"];
+
+    // Roles
+}

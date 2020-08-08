@@ -1,0 +1,897 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Ruby to Raku - nutshell</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/rb-nutshell.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Ruby to Raku - nutshell</h1>
+        <p class="subtitle">Learning Raku from Ruby, in a nutshell: what do I already know?</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Basic_syntax">Basic syntax</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#Statement_ending_semicolons">Statement ending semicolons</a></td></tr>
+              <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#Whitespace">Whitespace</a></td></tr>
+                                                    <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#._Method_calls,_.public_send"><code class="pod-code-inline">.</code> Method calls, <code class="pod-code-inline">.public_send</code></a></td></tr>
+                    <tr class="toc-level-2"><td class="toc-number">1.4</td><td class="toc-text"><a href="#Variables,_sigils,_scope,_and_common_types">Variables, sigils, scope, and common types</a></td></tr>
+                    <tr class="toc-level-3"><td class="toc-number">1.4.1</td><td class="toc-text"><a href="#Variable_scope">Variable scope</a></td></tr>
+                   <tr class="toc-level-3"><td class="toc-number">1.4.2</td><td class="toc-text"><a href="#$_Scalar"><code class="pod-code-inline">$</code> Scalar</a></td></tr>
+             <tr class="toc-level-3"><td class="toc-number">1.4.3</td><td class="toc-text"><a href="#@_Array"><code class="pod-code-inline">@</code> Array</a></td></tr>
+                        <tr class="toc-level-3"><td class="toc-number">1.4.4</td><td class="toc-text"><a href="#%_Hash"><code class="pod-code-inline">%</code> Hash</a></td></tr>
+                                                 <tr class="toc-level-3"><td class="toc-number">1.4.5</td><td class="toc-text"><a href="#&amp;_Sub"><code class="pod-code-inline">&amp;</code> Sub</a></td></tr>
+                                                                                      <tr class="toc-level-3"><td class="toc-number">1.4.6</td><td class="toc-text"><a href="#*_Slurpy_params_/_argument_expansion"><code class="pod-code-inline">*</code> Slurpy params / argument expansion</a></td></tr>
+                                        <tr class="toc-level-2"><td class="toc-number">1.5</td><td class="toc-text"><a href="#Twigils">Twigils</a></td></tr>
+                           <tr class="toc-level-2"><td class="toc-number">1.6</td><td class="toc-text"><a href="#:_Symbols"><code class="pod-code-inline">:</code> Symbols</a></td></tr>
+                        <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Operators">Operators</a></td></tr>
+                                      <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#==_!=_&lt;_&gt;_&lt;=_&gt;=_Comparisons"><code class="pod-code-inline">== != &lt; &gt; &lt;= &gt;=</code> Comparisons</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">2.2</td><td class="toc-text"><a href="#&lt;=&gt;_Three-way_comparisons"><code class="pod-code-inline">&lt;=&gt;</code> Three-way comparisons</a></td></tr>
+                    <tr class="toc-level-2"><td class="toc-number">2.3</td><td class="toc-text"><a href="#~~_Smartmatch_operator"><code class="pod-code-inline">~~</code> Smartmatch operator</a></td></tr>
+                    <tr class="toc-level-2"><td class="toc-number">2.4</td><td class="toc-text"><a href="#&amp;_|_^_Numeric_bitwise_ops"><code class="pod-code-inline">&amp; | ^</code> Numeric bitwise ops</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">2.5</td><td class="toc-text"><a href="#&amp;_|_^_Boolean_ops"><code class="pod-code-inline">&amp; | ^</code> Boolean ops</a></td></tr>
+                   <tr class="toc-level-2"><td class="toc-number">2.6</td><td class="toc-text"><a href="#&amp;._Conditional_chaining_operator"><code class="pod-code-inline">&amp;.</code> Conditional chaining operator</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">2.7</td><td class="toc-text"><a href="#&lt;&lt;_&gt;&gt;_Numeric_shift_left,_right_ops,_shovel_operator"><code class="pod-code-inline">&lt;&lt; &gt;&gt;</code> Numeric shift left, right ops, shovel operator</a></td></tr>
+               <tr class="toc-level-2"><td class="toc-number">2.8</td><td class="toc-text"><a href="#=&gt;_and_:_Key-value_separators"><code class="pod-code-inline">=&gt;</code> and <code class="pod-code-inline">:</code> Key-value separators</a></td></tr>
+                <tr class="toc-level-2"><td class="toc-number">2.9</td><td class="toc-text"><a href="#?_:_Ternary_operator"><code class="pod-code-inline">? :</code> Ternary operator</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">2.10</td><td class="toc-text"><a href="#+_String_concatenation"><code class="pod-code-inline">+</code> String concatenation</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">2.11</td><td class="toc-text"><a href="#String_interpolation">String interpolation</a></td></tr>
+                            <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Compound_statements">Compound statements</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#Conditionals">Conditionals</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-number">3.1.1</td><td class="toc-text"><a href="#if_elsif_else_unless"><code class="pod-code-inline">if</code>  <code class="pod-code-inline">elsif</code>  <code class="pod-code-inline">else</code>  <code class="pod-code-inline">unless</code></a></td></tr>
+                                                    <tr class="toc-level-3"><td class="toc-number">3.1.2</td><td class="toc-text"><a href="#case-when"><code class="pod-code-inline">case</code> - <code class="pod-code-inline">when</code></a></td></tr>
+                                            <tr class="toc-level-2"><td class="toc-number">3.2</td><td class="toc-text"><a href="#Loops">Loops</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-number">3.2.1</td><td class="toc-text"><a href="#while_until"><code class="pod-code-inline">while</code>  <code class="pod-code-inline">until</code></a></td></tr>
+        <tr class="toc-level-3"><td class="toc-number">3.2.2</td><td class="toc-text"><a href="#for_.each"><code class="pod-code-inline">for</code>  <code class="pod-code-inline">.each</code></a></td></tr>
+                                                               <tr class="toc-level-2"><td class="toc-number">3.3</td><td class="toc-text"><a href="#Flow_interruption_statements">Flow interruption statements</a></td></tr>
+        <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#Regular_expressions_(_regex_/_regexp_)">Regular expressions ( regex / regexp )</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">4.1</td><td class="toc-text"><a href="#.match_method_and_=~_operator"><code class="pod-code-inline">.match</code> method and <code class="pod-code-inline">=~</code> operator</a></td></tr>
+                                 <tr class="toc-level-2"><td class="toc-number">4.2</td><td class="toc-text"><a href="#.sub_and_.sub!"><code class="pod-code-inline">.sub</code> and <code class="pod-code-inline">.sub!</code></a></td></tr>
+                <tr class="toc-level-2"><td class="toc-number">4.3</td><td class="toc-text"><a href="#Regex_options">Regex options</a></td></tr>
+            <tr class="toc-level-2"><td class="toc-number">4.4</td><td class="toc-text"><a href="#Whitespace_is_ignored,_most_things_must_be_quoted">Whitespace is ignored, most things must be quoted</a></td></tr>
+            <tr class="toc-level-2"><td class="toc-number">4.5</td><td class="toc-text"><a href="#Special_matchers_generally_fall_under_the_&lt;&gt;_syntax">Special matchers generally fall under the &lt;&gt; syntax</a></td></tr>
+                                                <tr class="toc-level-2"><td class="toc-number">4.6</td><td class="toc-text"><a href="#Longest_token_matching_(LTM)_displaces_alternation">Longest token matching (LTM) displaces alternation</a></td></tr>
+         <tr class="toc-level-1"><td class="toc-number">5</td><td class="toc-text"><a href="#File-related_operations">File-related operations</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">5.1</td><td class="toc-text"><a href="#Reading_the_lines_of_a_text_file_into_an_array">Reading the lines of a text file into an array</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">5.2</td><td class="toc-text"><a href="#Iterating_over_the_lines_of_a_text_file">Iterating over the lines of a text file</a></td></tr>
+                    <tr class="toc-level-1"><td class="toc-number">6</td><td class="toc-text"><a href="#Object_orientation">Object orientation</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">6.1</td><td class="toc-text"><a href="#Basic_classes,_methods,_attributes">Basic classes, methods, attributes</a></td></tr>
+                                                                                                                    <tr class="toc-level-2"><td class="toc-number">6.2</td><td class="toc-text"><a href="#Private_methods">Private methods</a></td></tr>
+                                                     <tr class="toc-level-2"><td class="toc-number">6.3</td><td class="toc-text"><a href="#Going_meta">Going meta</a></td></tr>
+                                      <tr class="toc-level-1"><td class="toc-number">7</td><td class="toc-text"><a href="#Environment_variables">Environment variables</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">7.1</td><td class="toc-text"><a href="#Perl_module_library_path">Perl module library path</a></td></tr>
+                    <tr class="toc-level-1"><td class="toc-number">8</td><td class="toc-text"><a href="#Misc.">Misc.</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">8.1</td><td class="toc-text"><a href="#Importing_specific_functions_from_a_module">Importing specific functions from a module</a></td></tr>
+                                              <tr class="toc-level-2"><td class="toc-number">8.2</td><td class="toc-text"><a href="#OptionParser,_parsing_command-line_flags"><code class="pod-code-inline">OptionParser</code> , parsing command-line flags</a></td></tr>
+                                                                                   <tr class="toc-level-1"><td class="toc-number">9</td><td class="toc-text"><a href="#RubyGems,_external_libraries">RubyGems, external libraries</a></td></tr>
+          
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>This page attempts to index the high-level differences in syntax and semantics between Ruby and Raku. Whatever works in Ruby and must be written differently in Raku should be listed here (whereas many Raku features and idioms won&#39;t be).</p>
+<p>Hence this should not be mistaken for a beginner tutorial or overview of Raku; it is intended as a technical reference for Raku learners with a strong Ruby background.</p>
+<h1 id="Basic_syntax"><a class="u" href="#___top" title="go to top of document">Basic syntax</a></h1>
+<h2 id="Statement_ending_semicolons"><a class="u" href="#___top" title="go to top of document">Statement ending semicolons</a></h2>
+<p>Ruby detects the end of most statements with a newline (and a few exceptions), as long as the expression is complete. It is common break up a long expression by leaving an operator dangling at the end of a line to ensure that the parsing will continue:</p>
+<pre class="pod-block-code">foo +     # In Ruby a trailing operator means parsing should continue
+  bar +
+  baz
+</pre>
+<p>In Raku you must explicitly terminate statements with a <code>;</code>, which allows for better feedback and more flexibility in breaking up long lines. Two exceptions not needing an explicit <code>;</code> are the last statement in a block, and after the closing curly brace of the block itself (if there is nothing else on that line):</p>
+<pre class="pod-block-code">my $x;
+...;
+if 5 &lt; $x &lt; 10 {
+  say &quot;Yep!&quot;;
+  $x = 17         # No ; required before closing }
+}                 # No ; required after closing } because of the newline
+say &quot;Done!&quot;;      # The ; is not required here if nothing follows</pre>
+<h2 id="Whitespace"><a class="u" href="#___top" title="go to top of document">Whitespace</a></h2>
+<p>Ruby allows a surprising amount of flexibility in the use of whitespace, even with strict mode and warnings turned on:</p>
+<pre class="pod-block-code"># unidiomatic but valid Ruby
+puts&quot;Hello &quot;+
+(people [ i]
+    . name
+    ) . upcase+&quot;!&quot;if$greeted[i]&lt;1
+</pre>
+<p>Raku also endorses programmer freedom and creativity, but balanced syntactic flexibility against its design goal of having a consistent, deterministic, extensible grammar that supports single-pass parsing and helpful error messages, integrates features like custom operators cleanly, and doesn&#39;t lead programmers to accidentally misstate their intent. Also, the practice of &quot;code golf&quot; is slightly de-emphasized; Raku is designed to be more concise in concepts than in keystrokes.</p>
+<p>As a result, there are various places in the syntax where whitespace is optional in Ruby, but is either mandatory or forbidden in Raku. Many of those restrictions are unlikely to concern much real-life Perl code (e.g. whitespace being disallowed between an array variable and its square brackets), but there are a few that will unfortunately conflict with some Ruby hackers&#39; habitual coding styles:</p>
+<ul><li><p><em>No space allowed before the opening parenthesis of an argument list.</em></p>
+<pre class="pod-block-code">foo (3, 4, 1); # Not right in Ruby or Raku (in Raku this would
+               # try to pass a single argument of type List to foo)
+</pre>
+<pre class="pod-block-code">foo(3, 4, 1);  # Ruby and Raku
+foo 3, 4, 1;   # Ruby and Raku - alternative parentheses-less style
+</pre>
+</li>
+<li><p><em>Space is <strong>required</strong> immediately after keywords</em></p>
+</li>
+</ul>
+<pre class="pod-block-code">if(a &lt; 0); ...; end         # OK in Ruby
+</pre>
+<pre class="pod-block-code">my $a; ...;
+if ($a &lt; 0) { ... }         # Raku
+if $a &lt; 0 { ... }           # Raku, more idiomatic
+</pre>
+<pre class="pod-block-code">while(x &gt; 5); ...; end      # OK in Ruby
+</pre>
+<pre class="pod-block-code">my $x; ...;
+while ($x &gt; 5) { ... }      # Raku
+while $x &gt; 5 { ... }        # Raku, more idiomatic
+</pre>
+<ul><li><p><em>No space allowed before a postfix/postcircumfix operator (including array/hash subscripts).</em></p>
+<pre class="pod-block-code">seen [ :fish ] = 1    # Ruby, not idiomatic but allowed
+</pre>
+<pre class="pod-block-code">%seen&lt; fish &gt; = 1;    # Raku, no space allowed after &#39;seen&#39;
+</pre>
+</li>
+<li><p><em>Space required before an infix operator if it would conflict with an existing postfix/postcircumfix operator.</em></p>
+<pre class="pod-block-code">n&lt;1     # Ruby (in Raku this would conflict with postcircumfix &lt; &gt;)
+</pre>
+<pre class="pod-block-code">$n &lt; 1; # Raku
+</pre>
+</li>
+</ul>
+<h2 id="._Method_calls,_.public_send"><a class="u" href="#___top" title="go to top of document"><code>.</code> Method calls, <code>.public_send</code></a></h2>
+<p>Method call syntax uses a dot just like Ruby:</p>
+<pre class="pod-block-code">person.name    # Ruby
+</pre>
+<pre class="pod-block-code">my $person; ...;
+$person.name   # Raku
+</pre>
+<p>To call a method whose name is not known until runtime:</p>
+<pre class="pod-block-code">object.public_send(methodname, args);  # Ruby
+</pre>
+<pre class="pod-block-code">my $object; my Str $methodname; my @args; ...;
+$object.&quot;$methodname&quot;(@args);   # Raku
+</pre>
+<p>If you leave out the quotes, then Raku expects <code>$methodname</code> to contain a <code>Method</code> object, rather than the simple string name of the method.</p>
+<h2 id="Variables,_sigils,_scope,_and_common_types"><a class="u" href="#___top" title="go to top of document">Variables, sigils, scope, and common types</a></h2>
+<p>In Ruby, variables use sigils primarily to indicate scope. <code>$</code> for global scope, <code>@@</code> for class scope, <code>@</code> for instance scope, and no sigil for local variables (including parameters). The <code>&amp;</code> sigil is also used to indicate method references. Symbols are prefixed with <code>:</code>, but they are not variable and so not really sigils.</p>
+<p>In Raku sigils are primarily used to indicate a role that the contained value implements, indicating the type (or at least the interface) of the value. The sigils are invariant, no matter how the variable is being used - you can think of them as part of the variable&#39;s name.</p>
+<p>The scope of a variable is instead indicated by the declaration itself (<code>my</code>, <code>has</code>, <code>our</code>, etc).</p>
+<h3 id="Variable_scope"><a class="u" href="#___top" title="go to top of document">Variable scope</a></h3>
+<p>For local variables, Ruby uses implicit variable declaration upon assignment and limited to the current block. In Ruby the content of an <code>if</code> or <code>while</code> built-in construct is not a block or scope.</p>
+<p>Raku uses explicit scope indicators, and never creates variables implicitly. Every place you see <code>{ ... }</code> is a scope, including the body of a conditional or loop. The commonly used scope declarations:</p>
+<pre class="pod-block-code">foo = 7        # Ruby, variable scope is defined by first assignment and
+               # extends to the end of the current block
+</pre>
+<pre class="pod-block-code">my  $foo = 7;   # Raku, lexical scoped to the current block
+our $foo = 7;   # Raku, package scoped
+has $!foo = 7;  # Raku, instance scoped (attribute)
+</pre>
+<h3 id="$_Scalar"><a class="u" href="#___top" title="go to top of document"><code>$</code> Scalar</a></h3>
+<p>The <code>$</code> sigil is always used with &quot;scalar&quot; variables (e.g. <code>$name</code>). These are single-value containers.</p>
+<p>This is the most general-purpose variable type, with no restrictions on its contents. Note that you can still address/use its contents, like <code>$x[1]</code>, <code>$x{&quot;foo&quot;}</code>, and <code>$f(&quot;foo&quot;)</code>.</p>
+<h3 id="@_Array"><a class="u" href="#___top" title="go to top of document"><code>@</code> Array</a></h3>
+<p>The <code>@</code> sigil is always used with &quot;array&quot; variables (e.g. <code>@months</code>, <code>@months[2]</code>, <code>@months[2, 4]</code> for an array slice). Variables using the <code>@</code> sigil can only contain things that do the <code>Positional</code> role, indicating positional indexing and slicing capabilities.</p>
+<ul><li><p><em>Indexing</em></p>
+<pre class="pod-block-code">puts months[2]; # Ruby
+</pre>
+<pre class="pod-block-code">say @months[2]; # Raku
+</pre>
+</li>
+<li><p><em>Value-slicing</em></p>
+<pre class="pod-block-code">puts months[8..11].join(&#39;,&#39;) # Ruby
+</pre>
+<pre class="pod-block-code">say @months[8..11].join(&#39;,&#39;) # Raku
+</pre>
+</li>
+</ul>
+<h3 id="%_Hash"><a class="u" href="#___top" title="go to top of document"><code>%</code> Hash</a></h3>
+<p>The <code>%</code> sigil is always used with &quot;hash&quot; variables (e.g. <code>%calories</code>, <code>%calories&lt;apple&gt;</code>, <code>%calories&lt;pear plum&gt;</code>). Variables using the <code>%</code> sigil can only contain things that do the <code>Associative</code> role.</p>
+<p>Ruby uses square brackets to access values for both Arrays and Hashes. Raku uses curly braces for hashes instead. The angle brackets version is available which always autoquotes its contents (strings without quotes):</p>
+<p>Adverbs can be used to control the type of slice.</p>
+<ul><li><p><em>Indexing</em></p>
+<pre class="pod-block-code">puts calories[&quot;apple&quot;]  # Ruby
+</pre>
+<pre class="pod-block-code">say %calories{&quot;apple&quot;}; # Raku
+</pre>
+<pre class="pod-block-code">puts calories[&quot;apple&quot;]  # Ruby
+puts calories[:apple]   # Ruby, symbols for keys are common
+</pre>
+<pre class="pod-block-code">say %calories&lt;apple&gt;;   # Raku - angle brackets instead of single-quotes
+say %calories«&quot;$key&quot;»;  # Raku - double angles interpolate as double-quotes
+</pre>
+</li>
+<li><p><em>Value-slicing</em></p>
+<pre class="pod-block-code">puts calories.values_at(&#39;pear&#39;, &#39;plum&#39;).join(&#39;,&#39;) # Ruby
+puts calories.values_at(%w(pear plum)).join(&#39;,&#39;)  # Ruby, pretty?
+</pre>
+<pre class="pod-block-code">say %calories{&#39;pear&#39;, &#39;plum&#39;}.join(&#39;,&#39;);          # Raku
+say %calories&lt;pear plum&gt;.join(&#39;,&#39;);               # Raku (prettier)
+my $keys = &#39;pear plum&#39;;
+say %calories« $keys ».join(&#39;,&#39;); # Raku, interpolated split
+</pre>
+</li>
+<li><p><em>Key/value-slicing</em></p>
+<pre class="pod-block-code">puts calories.slice(&#39;pear&#39;, &#39;plum&#39;)  # Ruby &gt;= 2.5
+</pre>
+<pre class="pod-block-code">say %calories{&#39;pear&#39;, &#39;plum&#39;}:kv.Hash;   # Raku - use :kv adverb
+say %calories&lt;pear plum&gt;:kv.Hash;        # Raku (prettier version)
+</pre>
+</li>
+</ul>
+<h3 id="&_Sub"><a class="u" href="#___top" title="go to top of document"><code>&amp;</code> Sub</a></h3>
+<p>The <code>&amp;</code> sigil is used very similarly to Ruby&#39;s <code>&amp;</code> to refer to the function object of a named subroutine/operator without invoking it, i.e. to use the name as a &quot;noun&quot; instead of a &quot;verb&quot;. Variables using the <code>&amp;</code> sigil can only contain things that do the <code>Callable</code> role.</p>
+<pre class="pod-block-code">add = -&gt; n, m { n + m } # Ruby lambda for an addition function
+add.(2, 3)              # =&gt; 5, Ruby invocation of a lambda
+add.call(2, 3)          # =&gt; 5, Ruby invocation of a lambda
+</pre>
+<pre class="pod-block-code">my &amp;add = -&gt; $n, $m { $n + $m }; # Raku addition function
+&amp;add(2, 3);                      # =&gt; 5, you can keep the sigil
+add(2, 3);                       # =&gt; 5, and it works without it
+</pre>
+<pre class="pod-block-code">foo_method = &amp;foo;     # Ruby
+</pre>
+<pre class="pod-block-code">sub foo { ... };
+my &amp;foo_method = &amp;foo; # Raku
+</pre>
+<pre class="pod-block-code">some_func(&amp;say) # Ruby pass a function reference
+</pre>
+<pre class="pod-block-code">sub some_func { ... };
+some_func(&amp;say) # Raku passes function references the same way
+</pre>
+<p>Often in Ruby we pass a block as the last parameter, which is especially used for DSLs. This can be an implicit parameter called by <code>yield</code>, or an explicit block prefixed with <code>&amp;</code>. In Raku a <code>Callable</code> parameter is always listed and called by the variable name (instead of yield), and there are a variety of ways of invoking the function.</p>
+<pre class="pod-block-code"># Ruby, declare a method and call the implicit block argument
+def f
+  yield 2
+end
+
+# Ruby, invoke f, pass it a block with 1 argument
+f do |n|
+  puts &quot;Hi #{n}&quot;
+end
+</pre>
+<pre class="pod-block-code"># Raku, declare a method with an explicit block argument
+sub f(&amp;g:($)) {
+  g(2)
+}
+
+# Raku, invoke f, pass it a block with 1 argument
+# There are several other ways to do this
+f(-&gt; $n { say &quot;Hi {$n}&quot; }); # Explicit argument
+f -&gt; $n { say &quot;Hi {$n}&quot; };  # Explicit argument, no parenthesis
+
+# Additionally, if &#39;f&#39; is a method on instance &#39;obj&#39; you can use &#39;:&#39;
+# instead of parenthesis
+my $obj; ...;
+$obj.f(-&gt; $n { say &quot;Hi {$n}&quot; });  # Explicit argument
+$obj.f: -&gt; $n { say &quot;Hi {$n}&quot; };  # Explicit argument, no parenthesis
+</pre>
+<h3 id="*_Slurpy_params_/_argument_expansion"><a class="u" href="#___top" title="go to top of document"><code>*</code> Slurpy params / argument expansion</a></h3>
+<p>In Ruby you can declare an argument to slurp the remainder of the passed parameters into an array using a <code>*</code> prefix. It works similarly in Raku:</p>
+<pre class="pod-block-code">def foo(*args); puts &quot;I got #{args.length} args!&quot;; end # Ruby
+</pre>
+<pre class="pod-block-code">sub foo(*@args) { say &quot;I got #{@args.elems} args!&quot; }   # Raku
+</pre>
+<p>The Raku version above is slightly different in that when it slurps in the arguments into @args, one level of nesting, if any, is automatically removed:</p>
+<pre class="pod-block-code">sub foo(*@args) { say @args.raku }
+foo([1, [2, 3], 4], 5, [6, 7]);   # [1, [2, 3], 4, 5, 6, 7]
+</pre>
+<p>To preserve the structure of the arguments, you can use <code>**</code>:</p>
+<pre class="pod-block-code">sub foo(**@args) { say @args.raku }
+foo([1, [2, 3], 4], 5, [6, 7]);  # [[1, [2, 3], 4], 5, [6, 7]]
+</pre>
+<p>You might want to expand an array into a set of arguments. In Raku this is done using a <a href="/Documentable/integration-test/type/Slip">Slip</a> <code>|</code>:</p>
+<pre class="pod-block-code">args = %w(a b c)         # Ruby
+foo(*args)
+</pre>
+<pre class="pod-block-code">sub foo($q, $r, $s) { ... };
+my @args = &lt;a b c&gt;;       # Raku
+foo(|@args);
+</pre>
+<p>Raku has many more advanced ways of passing parameters and receiving arguments, see <a href="/Documentable/integration-test/language/functions#Signatures">Signatures</a> and <a href="/Documentable/integration-test/type/Capture">Captures</a>.</p>
+<h2 id="Twigils"><a class="u" href="#___top" title="go to top of document">Twigils</a></h2>
+<p>Raku additionally uses &quot;twigils&quot;, which are further indicators about the variable and go between the sigil and the rest of the variable name. Examples:</p>
+<table class="pod-table">
+<thead><tr>
+<th>Variable</th> <th>Description</th>
+</tr></thead>
+<tbody>
+<tr> <td>$foo</td> <td>Scalar with no twigil</td> </tr> <tr> <td>$!foo</td> <td>Private instance variable</td> </tr> <tr> <td>$.foo</td> <td>Instance variable accessor</td> </tr> <tr> <td>$*foo</td> <td>Dynamically scoped variable</td> </tr> <tr> <td>$^foo</td> <td>A positional (placeholder) parameter to a block</td> </tr> <tr> <td>$:foo</td> <td>A named (placeholder) parameter to a block</td> </tr> <tr> <td>$=foo</td> <td>POD (documentation) variables</td> </tr> <tr> <td>$?FILE</td> <td>Current source filename. The ? twigil indicates a compile-time value</td> </tr> <tr> <td>$~foo</td> <td>Sublanguage seen by parser, uncommon</td> </tr>
+</tbody>
+</table><p>Though each of these examples use the <code>$</code> sigil, most could use <code>@</code> (Positional) or <code>%</code> (Associative).</p>
+<h2 id=":_Symbols"><a class="u" href="#___top" title="go to top of document"><code>:</code> Symbols</a></h2>
+<p>Raku generally uses strings in the places where Ruby uses symbols. A primary example of this is in hash keys.</p>
+<pre class="pod-block-code">address[:joe][:street] # Typical Ruby nested hash with symbol keys
+</pre>
+<pre class="pod-block-code">my %address; ...;
+%address&lt;joe&gt;&lt;street&gt;  # Typical Raku nested hash with string keys
+</pre>
+<p>Raku has <em>colon-pair</em> syntax, which can sometimes look like Ruby symbols.</p>
+<pre class="pod-block-code">:age            # Ruby symbol
+</pre>
+<pre class="pod-block-code"># All of these are equivalent for Raku
+:age            ;# Raku pair with implicit True value
+:age(True)      ;# Raku pair with explicit True value
+age =&gt; True     ;# Raku pair using arrow notation
+&quot;age&quot; =&gt; True   ;# Raku pair using arrow notation and explicit quotes
+</pre>
+<p>You could probably get away with using a colon-pair without an explicit value and pretend that it is a Ruby symbol a lot of the time, but it isn&#39;t idiomatic Raku.</p>
+<h1 id="Operators"><a class="u" href="#___top" title="go to top of document">Operators</a></h1>
+<p>Many operators have a similar usage in both Ruby and Raku:</p>
+<ul><li><p><code>,</code> List Separator</p>
+</li>
+<li><p><code>+</code> Numeric Addition</p>
+</li>
+<li><p><code>-</code> Numeric Subtraction</p>
+</li>
+<li><p><code>*</code> Numeric Multiplication</p>
+</li>
+<li><p><code>/</code> Numeric Division</p>
+</li>
+<li><p><code>%</code> Numeric Modulus</p>
+</li>
+<li><p><code>**</code> Numeric Exponentiation</p>
+</li>
+<li><p><code>! &amp;&amp; ||</code> Booleans, high-precedence</p>
+</li>
+<li><p><code>not and or</code> Booleans, low-precedence</p>
+</li>
+</ul>
+<p>You may use <code>$x++</code> instead of <code>x += 1</code> as a shortcut for incrementing a variable. This can be used as a pre-increment <code>++$x</code> (increment, return new value) or post-increment <code>$x++</code> (increment, return old value).</p>
+<p>You may use <code>$x--</code> instead of <code>x -= 1</code> as a shortcut for decrementing a variable. This can be used as a pre-decrement <code>--$x</code> (decrement, return new value) or post-decrement <code>$x--</code> (decrement, return old value).</p>
+<h2 id="==_!=_<_>_<=_>=_Comparisons"><a class="u" href="#___top" title="go to top of document"><code>== != &lt; &gt; &lt;= &gt;=</code> Comparisons</a></h2>
+<p>Comparisons in Raku are separated between numeric and string to avoid common errors.</p>
+<ul><li><p><code>== != &lt; &gt; &lt;= &gt;=</code> Comparisons</p>
+</li>
+<li><p><code>eq ne lt gt le ge</code> String comparisons</p>
+</li>
+</ul>
+<p>For example, using <code>==</code> tries to convert the values to numbers, and <code>eq</code> tries to convert the values to strings.</p>
+<h2 id="<=>_Three-way_comparisons"><a class="u" href="#___top" title="go to top of document"><code>&lt;=&gt;</code> Three-way comparisons</a></h2>
+<p>In Ruby, the <code>&lt;=&gt;</code> operator returns -1, 0, or 1. In Raku, they return <code>Order::Less</code>, <code>Order::Same</code>, or <code>Order::More</code>.</p>
+<p><code>&lt;=&gt;</code> forces numeric context for the comparison.</p>
+<p><code>leg</code> (&quot;Less, Equal, or Greater?&quot;) forces string context for the comparison.</p>
+<p><code>cmp</code> does either <code>&lt;=&gt;</code> or <code>leg</code>, depending on the existing type of its arguments.</p>
+<h2 id="~~_Smartmatch_operator"><a class="u" href="#___top" title="go to top of document"><code>~~</code> Smartmatch operator</a></h2>
+<p>This is a very common matching operator which is similar to <code>===</code> in Ruby. Here are some examples:</p>
+<pre class="pod-block-code">my $foo; ...;
+say &quot;match!&quot; if $foo ~~ /bar/;       # Regex match
+say &quot;match!&quot; if $foo ~~ &quot;bar&quot;;       # String match
+say &quot;match!&quot; if $foo ~~ :(Int, Str); # Signature match (destructure)</pre>
+<p>An equivalent in Ruby would be</p>
+<pre class="pod-block-code">$foo = &#39;bar&#39;;
+puts &quot;match 1!&quot; if /bar/ === $foo;       # Regex match
+puts &quot;match 2!&quot; if $foo === &quot;bar&quot;;       # String match
+puts &quot;match 3!&quot; if String === $foo;      # Class match
+</pre>
+<p>Please note that, in this case, <code>===</code> is not symmetric; in the first and last case, the variable has to be in the right-hand side. There is no equivalent to the signature class in Ruby, either.</p>
+<p>See <a href="https://design.raku.org/S03.html#Smart_matching">S03/Smartmatching</a> for more information on this feature.</p>
+<h2 id="&_|_^_Numeric_bitwise_ops"><a class="u" href="#___top" title="go to top of document"><code>&amp; | ^</code> Numeric bitwise ops</a></h2>
+<h2 id="&_|_^_Boolean_ops"><a class="u" href="#___top" title="go to top of document"><code>&amp; | ^</code> Boolean ops</a></h2>
+<p>In Raku, these single-character ops have been removed, and replaced by two-character ops which coerce their arguments to the needed context.</p>
+<pre class="pod-block-code"># Infix ops (two arguments; one on each side of the op)
++&amp;  +|  +^  And Or Xor: Numeric
+~&amp;  ~|  ~^  And Or Xor: String
+?&amp;  ?|  ?^  And Or Xor: Boolean
+
+# Prefix ops (one argument, after the op)
++^  Not: Numeric
+~^  Not: String
+?^  Not: Boolean (same as the ! op)
+</pre>
+<h2 id="&._Conditional_chaining_operator"><a class="u" href="#___top" title="go to top of document"><code>&amp;.</code> Conditional chaining operator</a></h2>
+<p>Ruby uses the <code>&amp;.</code> operator to chain methods without raising an error if one invocation returns nil. In Raku use <code>.?</code> for the same purpose.</p>
+<h2 id="<<_>>_Numeric_shift_left,_right_ops,_shovel_operator"><a class="u" href="#___top" title="go to top of document"><code>&lt;&lt; &gt;&gt;</code> Numeric shift left, right ops, shovel operator</a></h2>
+<p>Replaced by <code>+&lt;</code> and <code>+&gt;</code> .</p>
+<pre class="pod-block-code">puts 42 &lt;&lt; 3  # Ruby
+</pre>
+<pre class="pod-block-code">say  42 +&lt; 3; # Raku
+</pre>
+<p>Note that Ruby often uses the <code>&lt;&lt;</code> operator as the &quot;shovel operator&quot;, which is similar to <code>.push</code>. This usage isn&#39;t common in Raku.</p>
+<h2 id="=>_and_:_Key-value_separators"><a class="u" href="#___top" title="go to top of document"><code>=&gt;</code> and <code>:</code> Key-value separators</a></h2>
+<p>In Ruby, <code>=&gt;</code> is used in the context of key/value pairs for Hash literal declaration and parameter passing. <code>:</code> is used as a shorthand when the left side is a symbol.</p>
+<p>In Raku, <code>=&gt;</code> is the Pair operator, which is quite different in principle, but works the same in many situations.</p>
+<p>If you are using <code>=&gt;</code> in a hash literal, then the usage is very similar:</p>
+<pre class="pod-block-code">hash = { &quot;AAA&quot; =&gt; 1, &quot;BBB&quot; =&gt; 2 }  # Ruby, though symbol keys are more common
+</pre>
+<pre class="pod-block-code">my %hash = ( AAA =&gt; 1, BBB =&gt; 2 ); # Raku, uses ()&#39;s though {} usually work
+</pre>
+<h2 id="?_:_Ternary_operator"><a class="u" href="#___top" title="go to top of document"><code>? :</code> Ternary operator</a></h2>
+<p>In Raku, this is spelled with two question marks instead of one question mark, and two exclamation points instead of one colon. This deviation from the common ternary operators disambiguates several situations and makes the false-case stand out more.</p>
+<pre class="pod-block-code">result     = (  score &gt; 60 )  ? &#39;Pass&#39;  : &#39;Fail&#39;; # Ruby
+</pre>
+<pre class="pod-block-code">my $score; ...;
+my $result = ( $score &gt; 60 ) ?? &#39;Pass&#39; !! &#39;Fail&#39;; # Raku
+</pre>
+<h2 id="+_String_concatenation"><a class="u" href="#___top" title="go to top of document"><code>+</code> String concatenation</a></h2>
+<p>Replaced by the tilde. Mnemonic: think of &quot;stitching&quot; together the two strings with needle and thread.</p>
+<pre class="pod-block-code">$food = &#39;grape&#39; + &#39;fruit&#39;  # Ruby
+</pre>
+<pre class="pod-block-code">my $food = &#39;grape&#39; ~ &#39;fruit&#39;; # Raku
+</pre>
+<h2 id="String_interpolation"><a class="u" href="#___top" title="go to top of document">String interpolation</a></h2>
+<p>In Ruby, <code>&quot;#{foo}s&quot;</code> deliminates a block embedded in a double-quoted string. In Raku drop the <code>#</code> prefix: <code>&quot;{$foo}s&quot;</code>. As in Ruby, you can place arbitrary code into the embedded block and it will be rendered in string context.</p>
+<p>Simple variables can be interpolated into a double-quoted string without using the block syntax:</p>
+<pre class="pod-block-code"># Ruby
+name = &quot;Bob&quot;
+puts &quot;Hello! My name is #{name}!&quot;
+</pre>
+<pre class="pod-block-code"># Raku
+my $name = &quot;Bob&quot;;
+say &quot;Hello! My name is $name!&quot;
+</pre>
+<p>The result of an embedded block in Ruby uses <code>.to_s</code> to get string context. Raku uses <code>.Str</code>, or <code>.gist</code> for the same affect.</p>
+<h1 id="Compound_statements"><a class="u" href="#___top" title="go to top of document">Compound statements</a></h1>
+<h2 id="Conditionals"><a class="u" href="#___top" title="go to top of document">Conditionals</a></h2>
+<h3 id="if_elsif_else_unless"><a class="u" href="#___top" title="go to top of document"><code>if</code> <code>elsif</code> <code>else</code> <code>unless</code></a></h3>
+<p>This work very similarly between Ruby and Raku, but Raku uses <code>{ }</code> to clearly delineate the blocks.</p>
+<pre class="pod-block-code"># Ruby
+if x &gt; 5
+    puts &quot;Bigger!&quot;
+elsif x == 5
+    puts &quot;The same!&quot;
+else
+    puts &quot;Smaller!&quot;
+end
+</pre>
+<pre class="pod-block-code"># Raku
+my $x; ...;
+if $x &gt; 5 {
+    say &quot;Bigger!&quot;
+} elsif $x == 5 {
+    say &quot;The same!&quot;
+} else {
+    say &quot;Smaller!&quot;
+}
+</pre>
+<p>Binding the conditional expression to a variable is a little different:</p>
+<pre class="pod-block-code">if x = dostuff(); ...; end   # Ruby
+</pre>
+<pre class="pod-block-code">sub dostuff() {...};
+if dostuff() -&gt; $x {...}     # Raku, block-assignment uses arrow
+</pre>
+<p>The <code>unless</code> conditional only allows for a single block in Raku; it does not allow for an <code>elsif</code> or <code>else</code> clause.</p>
+<h3 id="case-when"><a class="u" href="#___top" title="go to top of document"><code>case</code>-<code>when</code></a></h3>
+<p>The Raku <code>given</code>-<code>when</code> construct is like a chain of <code>if</code>-<code>elsif</code>-<code>else</code> statements, and its direct analog is Ruby&#39;s <code>case</code>-<code>when</code> construct. Just as Ruby uses the <code>===</code> (case equality) operator for each condition in a <code>case</code>-<code>when</code> expression, Raku, likewise, uses the smartmatch <code>~~</code> operator with <code>given</code>-<code>when</code>.</p>
+<p>It has the general structure:</p>
+<pre class="pod-block-code">given EXPR {
+    when EXPR { ... }
+    when EXPR { ... }
+    default { ... }
+}
+</pre>
+<p>In its simplest form, the construct is as follows:</p>
+<pre class="pod-block-code">my $value; ...;
+given $value {
+    when &quot;a match&quot; {
+        # do-something();
+    }
+    when &quot;another match&quot; {
+        # do-something-else();
+    }
+    default {
+        # do-default-thing();
+    }
+}</pre>
+<p>This is simple in the sense that a scalar value is matched in the <code>when</code> statements. More generally, the matches are actually smartmatches on the input value such that lookups using more complex entities such as regexps can be used instead of scalar values.</p>
+<h2 id="Loops"><a class="u" href="#___top" title="go to top of document">Loops</a></h2>
+<h3 id="while_until"><a class="u" href="#___top" title="go to top of document"><code>while</code> <code>until</code></a></h3>
+<p>Mostly unchanged; parentheses around the conditions are optional, but if used, must not immediately follow the keyword, or it will be taken as a function call instead. Binding the conditional expression to a variable is also a little different:</p>
+<pre class="pod-block-code">while x = dostuff(); ...; end    # Ruby
+</pre>
+<pre class="pod-block-code">sub dostuff {...}; ...;
+while dostuff() -&gt; $x {...}      # Raku
+</pre>
+<h3 id="for_.each"><a class="u" href="#___top" title="go to top of document"><code>for</code> <code>.each</code></a></h3>
+<p><code>for</code> loops are rare in Ruby, instead we typically use <code>.each</code> on an enumerable. The most direct translation to Raku would be to use <code>.map</code> for both <code>.each</code> and <code>.map</code>, but we typically use a <code>for</code> loop directly.</p>
+<pre class="pod-block-code"># Ruby for loop
+for n in 0..5
+    puts &quot;n: #{n}&quot;
+end
+
+# Ruby, more common usage of .each
+(0..5).each do |n|
+    puts &quot;n: #{n}&quot;
+end
+</pre>
+<pre class="pod-block-code"># Raku
+for 0..5 -&gt; $n {
+    say &quot;n: $n&quot;;
+}
+
+# Raku, misusing .map
+(0..5).map: -&gt; $n {
+    say &quot;n: $n&quot;;
+}
+</pre>
+<p>In Ruby, the iteration variable for <code>.each</code> is a copy of the list element, and modifying it does nothing to the original list. Note that it is a copy of the REFERENCE, so you can still change the values to which it refers.</p>
+<p>In Raku, that alias is read-only (for safety) and thus behaves exactly like Ruby, unless you change <code>-&gt;</code> to <code>&lt;-&gt;</code>.</p>
+<pre class="pod-block-code">cars.each { |car| ... }    # Ruby; read-only reference
+</pre>
+<pre class="pod-block-code">my @cars; ...;
+for @cars  -&gt; $car   {...} # Raku; read-only
+for @cars &lt;-&gt; $car   {...} # Raku; read-write
+</pre>
+<h2 id="Flow_interruption_statements"><a class="u" href="#___top" title="go to top of document">Flow interruption statements</a></h2>
+<p>Same as Ruby:</p>
+<ul><li><p><code>next</code></p>
+</li>
+<li><p><code>redo</code></p>
+</li>
+<ul><li><p><code>break</code></p>
+</li>
+</ul>
+</ul>
+<p>This is <code>last</code> in Raku.</p>
+<h1 id="Regular_expressions_(_regex_/_regexp_)"><a class="u" href="#___top" title="go to top of document">Regular expressions ( regex / regexp )</a></h1>
+<p>Regular expressions in Raku are significantly different, and more powerful, than in Ruby. By default whitespace is ignored and all characters must be escaped, for example. Regexes can be easily combined and declared in ways to build efficient grammars.</p>
+<p>There are many powerful features of Raku regexes, especially defining entire grammars using the same syntax. See <a href="/Documentable/integration-test/language/regexes">Regexes</a> and <a href="/Documentable/integration-test/language/grammars">Grammars</a>.</p>
+<h2 id=".match_method_and_=~_operator"><a class="u" href="#___top" title="go to top of document"><code>.match</code> method and <code>=~</code> operator</a></h2>
+<p>In Ruby, regex matches can be done against a variable using the <code>=~</code> regexp match operator or the <code>.match</code> method. In Raku, the <code>~~</code> smartmatch op is used instead, or the <code>.match</code> method.</p>
+<pre class="pod-block-code">next if line   =~ /static/   # Ruby
+next if line  !~  /dynamic/; # Ruby
+next if line.match(/static/) # Ruby
+</pre>
+<pre class="pod-block-code">my $line; ...;
+next if $line  ~~ /static/;    # Raku
+next if $line !~~ /dynamic/ ;  # Raku
+next if $line.match(/static/); # Raku
+</pre>
+<p>Alternately, the <code>.match</code> and <code>.subst</code> methods can be used. Note that <code>.subst</code> is non-mutating. See <a href="https://design.raku.org/S05.html#Substitution">S05/Substitution</a>.</p>
+<h2 id=".sub_and_.sub!"><a class="u" href="#___top" title="go to top of document"><code>.sub</code> and <code>.sub!</code></a></h2>
+<p>In Raku you typically use the <code>s///</code> operator to do regex substitution.</p>
+<pre class="pod-block-code">fixed = line.sub(/foo/, &#39;bar&#39;)        # Ruby, non-mutating
+</pre>
+<pre class="pod-block-code">my $line; ...;
+my $fixed = $line.subst(/foo/, &#39;bar&#39;) # Raku, non-mutating
+</pre>
+<pre class="pod-block-code">line.sub!(/foo/, &#39;bar&#39;)   # Ruby, mutating
+</pre>
+<pre class="pod-block-code">my $line; ...;
+$line ~~ s/foo/bar/;      # Raku, mutating
+</pre>
+<h2 id="Regex_options"><a class="u" href="#___top" title="go to top of document">Regex options</a></h2>
+<p>Move any options from the end of the regex to the beginning. This may require you to add the optional <code>m</code> on a plain match like <code>/abc/</code>.</p>
+<pre class="pod-block-code">next if $line =~    /static/i # Ruby
+</pre>
+<pre class="pod-block-code">my $line; ...;
+next if $line ~~ m:i/static/; # Raku
+</pre>
+<h2 id="Whitespace_is_ignored,_most_things_must_be_quoted"><a class="u" href="#___top" title="go to top of document">Whitespace is ignored, most things must be quoted</a></h2>
+<p>In order to aid in readability and reusability, whitespace is not significant in Raku regexes.</p>
+<pre class="pod-block-code">/this is a test/ # Ruby, boring string
+/this.*/         # Ruby, possibly interesting string
+</pre>
+<pre class="pod-block-code">/ this &quot; &quot; is &quot; &quot; a &quot; &quot; test /; # Raku, each space is quoted
+/ &quot;this is a test&quot; /;           # Raku, quoting the whole string
+/ this .* /;                    # Raku, possibly interesting string
+</pre>
+<h2 id="Special_matchers_generally_fall_under_the_<>_syntax"><a class="u" href="#___top" title="go to top of document">Special matchers generally fall under the &lt;&gt; syntax</a></h2>
+<p>There are many cases of special matching syntax that Raku regexes support. They won&#39;t all be listed here, but often instead of being surrounded by <code>()</code>, the assertions will be surrounded by <code>&lt;&gt;</code>.</p>
+<p>For character classes, this means that:</p>
+<ul><li><p><code>[abc]</code> becomes <code>&lt;[abc]&gt;</code></p>
+</li>
+<li><p><code>[^abc]</code> becomes <code>&lt;-[abc]&gt;</code></p>
+</li>
+<li><p><code>[a-zA-Z]</code> becomes <code>&lt;[a..zA..Z]&gt;</code></p>
+</li>
+<li><p><code>[[:upper:]]</code> becomes <code>&lt;:upper&gt;</code></p>
+</li>
+<li><p><code>[abc[:upper:]]</code> becomes <code>&lt;[abc]+:Upper&gt;</code></p>
+</li>
+</ul>
+<p>For look-around assertions:</p>
+<ul><li><p><code>(?=[abc])</code> becomes <code>&lt;?[abc]&gt;</code></p>
+</li>
+<li><p><code>(?=ar?bitrary* pattern)</code> becomes <code>&lt;before ar?bitrary* pattern&gt;</code></p>
+</li>
+<li><p><code>(?!=[abc])</code> becomes <code>&lt;![abc]&gt;</code></p>
+</li>
+<li><p><code>(?!=ar?bitrary* pattern)</code> becomes <code>&lt;!before ar?bitrary* pattern&gt;</code></p>
+</li>
+<li><p><code>(?&lt;=ar?bitrary* pattern)</code> becomes <code>&lt;after ar?bitrary* pattern&gt;</code></p>
+</li>
+<li><p><code>(?&lt;!ar?bitrary* pattern)</code> becomes <code>&lt;!after ar?bitrary* pattern&gt;</code></p>
+</li>
+</ul>
+<p>(Unrelated to &lt;&gt; syntax, the &quot;lookaround&quot; <code>/foo\Kbar/</code> becomes <code>/foo &lt;( bar )&gt; /</code></p>
+<ul><li><p><code>(?(?{condition))yes-pattern|no-pattern)</code> becomes <code>[ &lt;?{condition}&gt; yes-pattern | no-pattern ]</code></p>
+</li>
+</ul>
+<h2 id="Longest_token_matching_(LTM)_displaces_alternation"><a class="u" href="#___top" title="go to top of document">Longest token matching (LTM) displaces alternation</a></h2>
+<p>In Raku regexes, <code>|</code> does Longest Token Match (LTM), which decides which alternation wins an ambiguous match based off of a set of rules, rather than about which was written first in the regex.</p>
+<p>To avoid the new logic, change any <code>|</code> in your Ruby regex to a <code>||</code>.</p>
+<h1 id="File-related_operations"><a class="u" href="#___top" title="go to top of document">File-related operations</a></h1>
+<h2 id="Reading_the_lines_of_a_text_file_into_an_array"><a class="u" href="#___top" title="go to top of document">Reading the lines of a text file into an array</a></h2>
+<p>Both Ruby and Raku make it easy to read all of the lines in a file into a single variable, and in both cases each line has the newline removed.</p>
+<pre class="pod-block-code">lines = File.readlines(&quot;file&quot;)   # Ruby
+</pre>
+<pre class="pod-block-code">my @lines = &quot;file&quot;.IO.lines;     # Raku, create an IO object from a string
+</pre>
+<h2 id="Iterating_over_the_lines_of_a_text_file"><a class="u" href="#___top" title="go to top of document">Iterating over the lines of a text file</a></h2>
+<p>Reading the entire file into memory isn&#39;t recommended. The <code>.lines</code> method in Raku returns a lazy sequence, but assigning to an array forces the file to be read. It is better to iterate over the results:</p>
+<pre class="pod-block-code"># Ruby
+File.foreach(&quot;file&quot;) do |line|
+    puts line
+end
+</pre>
+<pre class="pod-block-code"># Raku
+for &quot;file&quot;.IO.lines -&gt; $line {
+    say $line
+}
+</pre>
+<h1 id="Object_orientation"><a class="u" href="#___top" title="go to top of document">Object orientation</a></h1>
+<h2 id="Basic_classes,_methods,_attributes"><a class="u" href="#___top" title="go to top of document">Basic classes, methods, attributes</a></h2>
+<p>Classes are defined similarly between Ruby and Raku, using the <code>class</code> keyword. Ruby uses <code>def</code> for methods, whereas Raku uses <code>method</code>.</p>
+<pre class="pod-block-code"># Ruby
+class Foo
+    def greet(name)
+        puts &quot;Hi #{name}!&quot;
+    end
+end
+</pre>
+<pre class="pod-block-code"># Raku
+class Foo {
+    method greet($name) {
+        say &quot;Hi $name!&quot;
+    }
+}
+</pre>
+<p>In Ruby you can use an attribute without declaring it beforehand, and you can tell it is an attribute because of the <code>@</code> sigil. You can also easily create accessors using <code>attr_accessor</code> and its variants. In Raku you use a <code>has</code> declaration and a variety of sigils. You can use the <code>!</code> twigil for private attributes or <code>.</code> to create an accessor.</p>
+<pre class="pod-block-code"># Ruby
+class Person
+    attr_accessor :age    # Declare .age as an accessor method for @age
+    def initialize
+        @name = &#39;default&#39; # Assign default value to private instance var
+    end
+end
+</pre>
+<pre class="pod-block-code"># Raku
+class Person {
+    has $.age;              # Declare $!age and accessor methods
+    has $!name = &#39;default&#39;; # Assign default value to private instance var
+}
+</pre>
+<p>Creating a new instance of the class uses the <code>.new</code> method. In Ruby you must manually assign instance variables as needed inside <code>initialize</code>. In Raku you get a default constructor that accepts key/value pairs of accessor attributes, and can do further setup in the <code>BUILD</code> method. Like with Ruby, you can override <code>new</code> itself for more advanced functionality, but this is rare.</p>
+<pre class="pod-block-code"># Ruby
+class Person
+    attr_accessor :name, :age
+    def initialize(attrs)
+        @name = attrs[:name] || &#39;Jill&#39;
+        @age  = attrs[:age] || 42
+        @birth_year = Time.now.year - @age
+    end
+end
+p = Person.new( name: &#39;Jack&#39;, age: 23 )
+</pre>
+<pre class="pod-block-code"># Raku
+class Person {
+    has $.name = &#39;Jill&#39;;
+    has $.age  = 42;
+    has $!birth_year;
+    method BUILD {
+        $!birth_year = now.Date.year - $.age;
+    }
+}
+my $p = Person.new( name =&gt; &#39;Jack&#39;, age =&gt; 23 )
+</pre>
+<h2 id="Private_methods"><a class="u" href="#___top" title="go to top of document">Private methods</a></h2>
+<p>Private methods in Raku are declared with a <code>!</code> prefixed in their name, and are invoked with a <code>!</code> instead of a <code>.</code>.</p>
+<pre class="pod-block-code"># Ruby
+class Foo
+    def visible
+        puts &quot;I can be seen!&quot;
+        hidden
+    end
+
+    private
+    def hidden
+        puts &quot;I cannot easily be called!&quot;
+    end
+end
+</pre>
+<pre class="pod-block-code"># Raku
+class Foo {
+    method visible {
+        say &quot;I can be seen!&quot;;
+        self!hidden;
+    }
+
+    method !hidden {
+        say &quot;I cannot easily be called!&quot;;
+    }
+}
+</pre>
+<p>An important note is that in Ruby child objects can see parent private methods (so they are more like &quot;protected&quot; methods in other languages). In Raku child objects cannot call parent private methods.</p>
+<h2 id="Going_meta"><a class="u" href="#___top" title="go to top of document">Going <em>meta</em></a></h2>
+<p>Here are a few examples of metaprogramming. Note that Raku separates the metamethods from the regular methods with a caret.</p>
+<pre class="pod-block-code"># Ruby
+person = Person.new
+person.class
+person.methods
+person.instance_variables
+</pre>
+<pre class="pod-block-code"># Raku
+class Person {};
+...
+my $person = Person.new;
+$person.^name;             # Raku, returns Person (class)
+$person.^methods;          # Raku, using .^ syntax to access metamethods
+$person.^attributes;
+</pre>
+<p>Like Ruby, in Raku, everything is an object, but not all operations are equivalent to <code>.public_send</code>. Many operators are global functions that use typed multi-dispatch (function signatures with types) to decide which implementation to use.</p>
+<pre class="pod-block-code">5.public_send(:+, 3)    # =&gt; 8, Ruby
+</pre>
+<pre class="pod-block-code">&amp;[+](5, 3)       # =&gt; 8, Raku, reference to infix addition operator
+&amp;[+].^candidates # Raku, lists all signatures for the + operator
+</pre>
+<p>See <a href="/Documentable/integration-test/language/mop">Metaobject Protocol</a> for lots of further details.</p>
+<h1 id="Environment_variables"><a class="u" href="#___top" title="go to top of document">Environment variables</a></h1>
+<h2 id="Perl_module_library_path"><a class="u" href="#___top" title="go to top of document">Perl module library path</a></h2>
+<p>In Ruby, one of the environment variables to specify extra search paths for modules is <code>RUBYLIB</code>.</p>
+<pre class="pod-block-code">$ RUBYLIB=&quot;/some/module/lib&quot; ruby program.rb
+</pre>
+<p>In Raku this is similar, you merely needs to change the name. As you probably guessed, you just need to use <code>PERL6LIB</code>:</p>
+<pre class="pod-block-code">$ PERL6LIB=&quot;/some/module/lib&quot; perl6 program.p6
+</pre>
+<p>As with Ruby, if you don&#39;t specify <code>PERL6LIB</code>, you need to specify the library path within the program via the <code>use lib</code> pragma:</p>
+<pre class="pod-block-code"># Ruby and Raku
+use lib &#39;/some/module/lib&#39;;
+</pre>
+<h1 id="Misc."><a class="u" href="#___top" title="go to top of document">Misc.</a></h1>
+<h2 id="Importing_specific_functions_from_a_module"><a class="u" href="#___top" title="go to top of document">Importing specific functions from a module</a></h2>
+<p>In Ruby there is no built-in way to selectively import/export methods from a module.</p>
+<p>In Raku you specify the functions which are to be exported by using the <code>is export</code> role on the relevant subs and <em>all</em> subs with this role are then exported. Hence, the following module <code>Bar</code> exports the subs <code>foo</code> and <code>bar</code> but not <code>baz</code>:</p>
+<pre class="pod-block-code">unit module Bar; # remainder of the file is in module Bar { ... }
+sub foo($a) is export { say &quot;foo $a&quot; }
+sub bar($b) is export { say &quot;bar $b&quot; }
+sub baz($z) { say &quot;baz $z&quot; }
+</pre>
+<p>To use this module, simply <code>use Bar</code> and the functions <code>foo</code> and <code>bar</code> will be available:</p>
+<pre class="pod-block-code">use Bar;
+foo(1);    #=&gt; &quot;foo 1&quot;
+bar(2);    #=&gt; &quot;bar 2&quot;
+</pre>
+<p>If you try to use <code>baz</code> an &quot;Undeclared routine&quot; error is raised at compile time.</p>
+<p>Some modules allow for selectively importing functions, which would look like:</p>
+<pre class="pod-block-code">use Bar &lt;foo&gt;; # Import only foo
+foo(1);        #=&gt; &quot;foo 1&quot;
+bar(2);        # Error!
+</pre>
+<h2 id="OptionParser,_parsing_command-line_flags"><a class="u" href="#___top" title="go to top of document"><code>OptionParser</code>, parsing command-line flags</a></h2>
+<p>Command line argument switch parsing in Raku is done by the parameter list of the <code>MAIN</code> subroutine.</p>
+<pre class="pod-block-code"># Ruby
+require &#39;optparse&#39;
+options = {}
+OptionParser.new do |opts|
+    opts.banner = &#39;Usage: example.rb --length=abc&#39;
+    opts.on(&quot;--length&quot;, &quot;Set the file&quot;) do |length|
+        raise &quot;Length must be &gt; 0&quot; unless length.to_i &gt; 0
+        options[:length] = length
+    end
+    opts.on(&quot;--filename&quot;, &quot;Set the file&quot;) do |filename|
+        options[:file] = filename
+    end
+    opts.on(&quot;--verbose&quot;, &quot;Increase verbosity&quot;) do |verbose|
+        options[:verbose] = true
+    end
+end.parse!
+
+puts options[:length]
+puts options[:filename]
+puts &#39;Verbosity &#39;, (options[:verbose] ? &#39;on&#39; : &#39;off&#39;)
+</pre>
+<pre class="pod-block-code">ruby example.rb --filename=foo --length=42 --verbose
+    42
+    foo
+    Verbosity on
+
+ruby example.rb --length=abc
+    Length must be &gt; 0
+</pre>
+<pre class="pod-block-code"># Raku
+sub MAIN ( Int :$length where * &gt; 0, :$filename = &#39;file.dat&#39;, Bool :$verbose ) {
+    say $length;
+    say $filename;
+    say &#39;Verbosity &#39;, ($verbose ?? &#39;on&#39; !! &#39;off&#39;);
+}
+</pre>
+<pre class="pod-block-code">perl6 example.p6 --file=foo --length=42 --verbose
+    42
+    foo
+    Verbosity on
+perl6 example.p6 --length=abc
+    Usage:
+      example.p6 [--length=&lt;Int&gt;] [--file=&lt;Any&gt;] [--verbose]
+</pre>
+<p>Note that Raku auto-generates a full usage message on error in command-line parsing.</p>
+<h1 id="RubyGems,_external_libraries"><a class="u" href="#___top" title="go to top of document">RubyGems, external libraries</a></h1>
+<p>See <a href="https://modules.raku.org/">https://modules.raku.org/</a>, where a growing number of Raku libraries are available along with the tools to manage them.</p>
+<p>If the module that you were using has not been converted to Raku, and no alternative is listed in this document, then its use under Raku may not have been addressed yet.</p>
+<p>You can experiment with <a href="https://modules.raku.org/dist/Inline::Ruby:github:github:awwaiid">Inline::Ruby</a> to call existing Ruby code from your Raku programs. This uses an embedded instance of the <code>ruby</code> interpreter to run Ruby code called from your Raku script. Note that this is an EXPERIMENTAL library. You can similarly call other language&#39;s libraries with Inline::Perl5, Inline::Python, and others.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/rb-nutshell.pod6">https://github.com/Raku/doc/blob/master/doc/Language/rb-nutshell.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

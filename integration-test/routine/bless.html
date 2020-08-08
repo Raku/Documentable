@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>method bless</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/routine.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-sub.html"> Sub </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-method.html"> Method </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-term.html"> Term </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-operator.html"> Operator </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-trait.html"> Trait </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-submethod.html"> Submethod </a>
+            </div></div></div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">method bless</h1>
+        <p class="subtitle"></p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#class_Mu">class Mu</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#(Mu)_method_bless">(Mu) method bless</a></td></tr>
+                                                                                                                                                                                     
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Documentation for method <code>bless</code> assembled from the following types:</p>
+<h1 id="class_Mu"><a class="u" href="#___top" title="go to top of document">class Mu</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Mu#method_bless">Mu</a></p>
+<h2 id="(Mu)_method_bless"><a href="/Documentable/integration-test/type/Mu#method_bless">(Mu) method bless</a></h2>
+<pre class="pod-block-code">method bless(*%attrinit --&gt; Mu:D)</pre>
+<p>Low-level object construction method, usually called from within <code>new</code>, implicitly from the default constructor, or explicitly if you create your own constructor. <code>bless</code> creates a new object of the same type as the invocant, using the named arguments to initialize attributes and returns the created object.</p>
+<p>It is usually invoked within custom <code>new</code> method implementations:</p>
+<pre class="pod-block-code">class Point {
+    has $.x;
+    has $.y;
+    multi method new($x, $y) {
+        self.bless(:$x, :$y);
+    }
+}
+my $p = Point.new(-1, 1);
+</pre>
+<p>In this case we are declaring <code>new</code> as a <code>multi method</code> so that we can still use the default constructor like this: <code>Point.new( x =&gt; 3, y =&gt; 8 )</code>. In this case we are declaring this <code>new</code> method simply to avoid the extra syntax of using pairs when creating the object. <code>self.bless</code> returns the object, which is in turn returned by <code>new</code>.</p>
+<p>However, in general, implementing a customized <code>new</code> method might not be the best way of initializing a class, even more so if the default constructor is disabled, since it can make it harder to correctly initialize the class from a subclass. For instance, in the above example, the <code>new</code> implementation takes two positional arguments that must be passed from the subclass to the superclass in the exact order. That is not a real problem if it&#39;s documented, but take into account <code>bless</code> will eventually be calling <code>BUILD</code> in the class that is being instantiated. This might result in some unwanted problems, like having to create a <code>BUILD</code> submethod to serve it correctly:</p>
+<pre class="pod-block-code">class Point {
+    has Int $.x;
+    has Int $.y;
+    multi method new($x, $y) {
+        self.bless(:$x, :$y);
+    }
+}
+
+class Point-with-ID is Point {
+    has Int $.ID  is rw = 0;
+
+    submethod BUILD( *%args ) {
+        say %args;                # OUTPUT: «{x =&gt; 1, y =&gt; 2}␤»
+        for self.^attributes -&gt; $attr {
+            if $attr.Str ~~ /ID/ {
+                $attr.set_value( self, &quot;*&quot; ~ %args&lt;x&gt; ~ &quot;-&quot; ~ %args&lt;y&gt; ) ;
+            }
+        }
+    }
+}
+
+my $p = Point-with-ID.new(1,2);
+say $p.raku;
+# OUTPUT: «Point-with-ID.new(ID =&gt; &quot;*1-2&quot;, x =&gt; 1, y =&gt; 2)␤»
+</pre>
+<p>In this code, <code>bless</code>, called within <code>Point.new</code>, is eventually calling <code>BUILD</code> with the same parameters. We have to create a convoluted way of using the <code>$.ID</code> attribute using the metaobject protocol so that we can instantiate it and thus serve that <code>new</code> constructor, which can be called on <code>Point-with-ID</code> since it is a subclass.</p>
+<p>We might have to use something similar if we want to instantiate superclasses. <code>bless</code> will help us with that, since it is calling across all the hierarchy:</p>
+<pre class="pod-block-code">class Str-with-ID is Str {
+    my $.counter = 0;
+    has Int $.ID  is rw = 0;
+
+    multi method new( $str ) {
+        self.bless( value =&gt; $str, ID =&gt; $.counter++ );
+    }
+
+    submethod BUILD( *%args ) {
+        for self.^attributes -&gt; $attr {
+            if $attr.Str ~~ /ID/ {
+                $attr.set_value( self, %args&lt;ID&gt; ) ;
+            }
+        }
+    }
+}
+
+say Str-with-ID.new(&quot;1.1,2e2&quot;).ID;                  # OUTPUT: «0␤»
+my $enriched-str = Str-with-ID.new(&quot;3,4&quot;);
+say &quot;$enriched-str, {$enriched-str.^name}, {$enriched-str.ID}&quot;;
+# OUTPUT: «3,4, Str-with-ID, 1␤»
+</pre>
+<p>We are <em>enriching</em> <code>Str</code> with an auto-incrementing ID. We create a <code>new</code> since we want to initialize it with a string and, besides, we need to instantiate the superclass. We do so using <code>bless</code> from within <code>new</code>. <code>bless</code> is going to call <code>Str.BUILD</code>. It will *capture* the value it&#39;s looking for, the pair <code>value =</code> $str&gt; and initialize itself. But we have to initialize also the properties of the subclass, which is why within <code>BUILD</code> we use the previously explained method to initialize <code>$.ID</code> with the value that is in the <code>%args</code> variable. As shown in the output, the objects will be correctly initialized with its ID, and will correctly behave as <code>Str</code>, converting themselves in just the string in the <code>say</code> statement, and including the <code>ID</code> property as required.</p>
+<p>For more details see <a href="/Documentable/integration-test/language/objects#Object_construction">the documentation on object construction</a>.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

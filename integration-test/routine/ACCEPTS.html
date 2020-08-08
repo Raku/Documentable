@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>method ACCEPTS</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/routine.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-sub.html"> Sub </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-method.html"> Method </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-term.html"> Term </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-operator.html"> Operator </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-trait.html"> Trait </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-submethod.html"> Submethod </a>
+            </div></div></div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">method ACCEPTS</h1>
+        <p class="subtitle"></p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#class_Range">class Range</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#(Range)_method_ACCEPTS">(Range) method ACCEPTS</a></td></tr>
+                                                 <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#enum_Bool">enum Bool</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#(Bool)_method_ACCEPTS">(Bool) method ACCEPTS</a></td></tr>
+                                  <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#class_NumStr">class NumStr</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#(NumStr)_method_ACCEPTS">(NumStr) method ACCEPTS</a></td></tr>
+                                   <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#class_ComplexStr">class ComplexStr</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">4.1</td><td class="toc-text"><a href="#(ComplexStr)_method_ACCEPTS">(ComplexStr) method ACCEPTS</a></td></tr>
+                                   <tr class="toc-level-1"><td class="toc-number">5</td><td class="toc-text"><a href="#role_Setty">role Setty</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">5.1</td><td class="toc-text"><a href="#(Setty)_method_ACCEPTS">(Setty) method ACCEPTS</a></td></tr>
+         <tr class="toc-level-1"><td class="toc-number">6</td><td class="toc-text"><a href="#class_Pair">class Pair</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">6.1</td><td class="toc-text"><a href="#(Pair)_method_ACCEPTS">(Pair) method ACCEPTS</a></td></tr>
+                                           <tr class="toc-level-1"><td class="toc-number">7</td><td class="toc-text"><a href="#class_IO::Path">class IO::Path</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">7.1</td><td class="toc-text"><a href="#(IO::Path)_method_ACCEPTS">(IO::Path) method ACCEPTS</a></td></tr>
+                   <tr class="toc-level-1"><td class="toc-number">8</td><td class="toc-text"><a href="#class_RatStr">class RatStr</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">8.1</td><td class="toc-text"><a href="#(RatStr)_method_ACCEPTS">(RatStr) method ACCEPTS</a></td></tr>
+                                   <tr class="toc-level-1"><td class="toc-number">9</td><td class="toc-text"><a href="#class_Str">class Str</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">9.1</td><td class="toc-text"><a href="#(Str)_method_ACCEPTS">(Str) method ACCEPTS</a></td></tr>
+         <tr class="toc-level-1"><td class="toc-number">10</td><td class="toc-text"><a href="#class_IntStr">class IntStr</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">10.1</td><td class="toc-text"><a href="#(IntStr)_method_ACCEPTS">(IntStr) method ACCEPTS</a></td></tr>
+                                   <tr class="toc-level-1"><td class="toc-number">11</td><td class="toc-text"><a href="#class_Any">class Any</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">11.1</td><td class="toc-text"><a href="#(Any)_method_ACCEPTS">(Any) method ACCEPTS</a></td></tr>
+            <tr class="toc-level-1"><td class="toc-number">12</td><td class="toc-text"><a href="#role_Baggy">role Baggy</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">12.1</td><td class="toc-text"><a href="#(Baggy)_method_ACCEPTS">(Baggy) method ACCEPTS</a></td></tr>
+                           <tr class="toc-level-1"><td class="toc-number">13</td><td class="toc-text"><a href="#class_Regex">class Regex</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">13.1</td><td class="toc-text"><a href="#(Regex)_method_ACCEPTS">(Regex) method ACCEPTS</a></td></tr>
+            <tr class="toc-level-1"><td class="toc-number">14</td><td class="toc-text"><a href="#class_Whatever">class Whatever</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">14.1</td><td class="toc-text"><a href="#(Whatever)_method_ACCEPTS">(Whatever) method ACCEPTS</a></td></tr>
+        <tr class="toc-level-1"><td class="toc-number">15</td><td class="toc-text"><a href="#class_Map">class Map</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">15.1</td><td class="toc-text"><a href="#(Map)_method_ACCEPTS">(Map) method ACCEPTS</a></td></tr>
+                <tr class="toc-level-1"><td class="toc-number">16</td><td class="toc-text"><a href="#class_Signature">class Signature</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">16.1</td><td class="toc-text"><a href="#(Signature)_method_ACCEPTS">(Signature) method ACCEPTS</a></td></tr>
+                                                   <tr class="toc-level-1"><td class="toc-number">17</td><td class="toc-text"><a href="#class_Code">class Code</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">17.1</td><td class="toc-text"><a href="#(Code)_method_ACCEPTS">(Code) method ACCEPTS</a></td></tr>
+       <tr class="toc-level-1"><td class="toc-number">18</td><td class="toc-text"><a href="#class_List">class List</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">18.1</td><td class="toc-text"><a href="#(List)_method_ACCEPTS">(List) method ACCEPTS</a></td></tr>
+                                                 <tr class="toc-level-1"><td class="toc-number">19</td><td class="toc-text"><a href="#class_Numeric">class Numeric</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">19.1</td><td class="toc-text"><a href="#(Numeric)_method_ACCEPTS">(Numeric) method ACCEPTS</a></td></tr>
+             <tr class="toc-level-1"><td class="toc-number">20</td><td class="toc-text"><a href="#class_Mu">class Mu</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">20.1</td><td class="toc-text"><a href="#(Mu)_method_ACCEPTS">(Mu) method ACCEPTS</a></td></tr>
+                
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Documentation for method <code>ACCEPTS</code> assembled from the following types:</p>
+<h1 id="class_Range"><a class="u" href="#___top" title="go to top of document">class Range</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Range#method_ACCEPTS">Range</a></p>
+<h2 id="(Range)_method_ACCEPTS"><a href="/Documentable/integration-test/type/Range#method_ACCEPTS">(Range) method ACCEPTS</a></h2>
+<p>Defined as</p>
+<pre class="pod-block-code">multi method ACCEPTS(Range:D: Mu \topic)
+multi method ACCEPTS(Range:D: Range \topic)
+multi method ACCEPTS(Range:D: Cool:D \got)
+multi method ACCEPTS(Range:D: Complex:D \got)</pre>
+<p>Indicates if the <code>Range</code> contains (overlaps with) another <code>Range</code>. As an example:</p>
+<pre class="pod-block-code">my $p = Range.new( 3, 5  );
+my $r = Range.new( 1, 10 );
+
+say $p.ACCEPTS( $r );    # OUTPUT: «False␤»
+say $r.ACCEPTS( $p );    # OUTPUT: «True␤»
+say $r ~~ $p;            # OUTPUT: «False␤»  (same as $p.ACCEPTS( $r )
+say $p ~~ $r;            # OUTPUT: «True␤»   (same as $r.ACCEPTS( $p )</pre>
+<p>Of course, an infinite <code>Range</code> always contains another <code>Range</code>, therefore:</p>
+<pre class="pod-block-code">say 1..10 ~~ -∞..∞;    # OUTPUT: «True␤»
+say 1..10 ~~ -∞^..^∞;  # OUTPUT: «True␤»</pre>
+<p>Similarly, a <code>Range</code> with open boundaries often includes other ranges:</p>
+<pre class="pod-block-code">say 1..2 ~~ *..10;  # OUTPUT: «True␤»
+say 2..5 ~~ 1..*;   # OUTPUT: «True␤»</pre>
+<p>It is also possible to use non-numeric ranges, for instance string based ones:</p>
+<pre class="pod-block-code">say &#39;a&#39;..&#39;j&#39; ~~ &#39;b&#39;..&#39;c&#39;;  # OUTPUT: «False␤»
+say &#39;b&#39;..&#39;c&#39; ~~ &#39;a&#39;..&#39;j&#39;;  # OUTPUT: «True␤»
+say &#39;perl&#39; ~~ -∞^..^∞;     # OUTPUT: «True␤»
+say &#39;perl&#39; ~~ -∞..∞;       # OUTPUT: «True␤»
+say &#39;perl&#39; ~~ 1..*;        # OUTPUT: «True␤»</pre>
+<p>When smartmatching a <code>Range</code> of integers with a <a href="/Documentable/integration-test/type/Cool">Cool</a> (string) the <code>ACCEPTS</code> methods exploits the <a href="/Documentable/integration-test/routine/before">before</a> and <a href="/Documentable/integration-test/routine/after">after</a> operators in order to check that the <code>Cool</code> value is overlapping the range:</p>
+<pre class="pod-block-code">say 1.10 ~~ &#39;5&#39;;   # OUTPUT: «False␤»
+say &#39;5&#39; before 1;  # OUTPUT: «False␤»
+say &#39;5&#39; after 10;  # OUTPUT: «True␤»
+say &#39;5&#39; ~~ *..10;  # OUTPUT: «False␤»</pre>
+<p>In the above example, since the <code>&#39;5&#39;</code> string is <em>after</em> the <code>10</code> integer value, the <code>Range</code> does not overlap with the specified value.</p>
+<p>When matching with a <code>Mu</code> instance (i.e., a generic instance), the <a href="/Documentable/integration-test/routine/cmp">cmp</a> operator is used.</p>
+<h1 id="enum_Bool"><a class="u" href="#___top" title="go to top of document">enum Bool</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Bool#method_ACCEPTS">Bool</a></p>
+<h2 id="(Bool)_method_ACCEPTS"><a href="/Documentable/integration-test/type/Bool#method_ACCEPTS">(Bool) method ACCEPTS</a></h2>
+<pre class="pod-block-code">method ACCEPTS(Bool:D: --&gt; Bool:D)</pre>
+<p>Used for smartmatch comparison. When the right side is <code>True</code> returns always <code>True</code>, when the right side of the match is <code>False</code> returns always <code>False</code>. In particular, <code>ACCEPTS</code> returns always the instance on which it is invoked, that is the right side of a smartmatch. As an example:</p>
+<pre class="pod-block-code">my $b = Bool.new( True );
+# when True on the right side returns
+# always True
+True  ~~ $b;     # True
+False ~~ $b;     # True
+
+$b = Bool.new( False );
+# when False on the right side
+# returns always False
+False ~~ $b;     # False
+True ~~ $b;      # False
+</pre>
+<h1 id="class_NumStr"><a class="u" href="#___top" title="go to top of document">class NumStr</a></h1>
+<p>From <a href="/Documentable/integration-test/type/NumStr#method_ACCEPTS">NumStr</a></p>
+<h2 id="(NumStr)_method_ACCEPTS"><a href="/Documentable/integration-test/type/NumStr#method_ACCEPTS">(NumStr) method ACCEPTS</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method ACCEPTS(NumStr:D: Any:D $value)</pre>
+<p>If <code>$value</code> is <a href="/Documentable/integration-test/type/Numeric">Numeric</a> (including another <a href="/Documentable/integration-test/language/glossary#index-entry-Allomorph">allomorph</a>), checks if invocant&#39;s <a href="/Documentable/integration-test/type/Numeric">Numeric</a> part <a href="/Documentable/integration-test/type/Numeric#method_ACCEPTS">ACCEPTS</a> the <code>$value</code>. If <code>$value</code> is <a href="/Documentable/integration-test/type/Str">Str</a>, checks if invocant&#39;s <a href="/Documentable/integration-test/type/Str">Str</a> part <a href="/Documentable/integration-test/type/Str#method_ACCEPTS">ACCEPTS</a> the <code>$value</code>. If value is anything else, checks if both <a href="/Documentable/integration-test/type/Numeric">Numeric</a> and <a href="/Documentable/integration-test/type/Str">Str</a> parts <code>ACCEPTS</code> the <code>$value</code>.</p>
+<pre class="pod-block-code">say &lt;5e0&gt; ~~ &quot;5.0&quot;; # OUTPUT: «False␤»
+say &lt;5e0&gt; ~~  5.0 ; # OUTPUT: «True␤»
+say &lt;5e0&gt; ~~ &lt;5.0&gt;; # OUTPUT: «True␤»</pre>
+<h1 id="class_ComplexStr"><a class="u" href="#___top" title="go to top of document">class ComplexStr</a></h1>
+<p>From <a href="/Documentable/integration-test/type/ComplexStr#method_ACCEPTS">ComplexStr</a></p>
+<h2 id="(ComplexStr)_method_ACCEPTS"><a href="/Documentable/integration-test/type/ComplexStr#method_ACCEPTS">(ComplexStr) method ACCEPTS</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method ACCEPTS(ComplexStr:D: Any:D $value)</pre>
+<p>If <code>$value</code> is <a href="/Documentable/integration-test/type/Numeric">Numeric</a> (including another <a href="/Documentable/integration-test/language/glossary#index-entry-Allomorph">allomorph</a>), checks if invocant&#39;s <a href="/Documentable/integration-test/type/Numeric">Numeric</a> part <a href="/Documentable/integration-test/type/Numeric#method_ACCEPTS">ACCEPTS</a> the <code>$value</code>. If <code>$value</code> is <a href="/Documentable/integration-test/type/Str">Str</a>, checks if invocant&#39;s <a href="/Documentable/integration-test/type/Str">Str</a> part <a href="/Documentable/integration-test/type/Str#method_ACCEPTS">ACCEPTS</a> the <code>$value</code>. If value is anything else, checks if both <a href="/Documentable/integration-test/type/Numeric">Numeric</a> and <a href="/Documentable/integration-test/type/Str">Str</a> parts <code>ACCEPTS</code> the <code>$value</code>.</p>
+<pre class="pod-block-code">say &lt; 5+0i&gt; ~~ &quot;5.0&quot;; # OUTPUT: «False␤»
+say &lt; 5+0i&gt; ~~  5.0 ; # OUTPUT: «True␤»
+say &lt; 5+0i&gt; ~~ &lt;5.0&gt;; # OUTPUT: «True␤»</pre>
+<h1 id="role_Setty"><a class="u" href="#___top" title="go to top of document">role Setty</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Setty#method_ACCEPTS">Setty</a></p>
+<h2 id="(Setty)_method_ACCEPTS"><a href="/Documentable/integration-test/type/Setty#method_ACCEPTS">(Setty) method ACCEPTS</a></h2>
+<pre class="pod-block-code">method ACCEPTS($other)</pre>
+<p>Returns <code>True</code> if <code>$other</code> and <code>self</code> contain all the same elements, and no others.</p>
+<h1 id="class_Pair"><a class="u" href="#___top" title="go to top of document">class Pair</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Pair#method_ACCEPTS">Pair</a></p>
+<h2 id="(Pair)_method_ACCEPTS"><a href="/Documentable/integration-test/type/Pair#method_ACCEPTS">(Pair) method ACCEPTS</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method ACCEPTS(Pair:D $: %topic)
+multi method ACCEPTS(Pair:D $: Pair:D $topic)
+multi method ACCEPTS(Pair:D $: Mu $topic)</pre>
+<p>If <code>%topic</code> is an <a href="/Documentable/integration-test/type/Associative">Associative</a>, looks up the value using invocant&#39;s key in it and checks invocant&#39;s value <code>.ACCEPTS</code> that value:</p>
+<pre class="pod-block-code">say %(:42a) ~~ :42a; # OUTPUT: «True␤»
+say %(:42a) ~~ :10a; # OUTPUT: «False␤»</pre>
+<p>If <code>$topic</code> is another <a href="/Documentable/integration-test/type/Pair">Pair</a>, checks the invocant&#39;s value <code>.ACCEPTS</code> the <code>$topic</code>&#39;s value. Note that the keys are not considered and can be different:</p>
+<pre class="pod-block-code">say :42a ~~ :42a; # OUTPUT: «True␤»
+say :42z ~~ :42a; # OUTPUT: «True␤»
+say :10z ~~ :42a; # OUTPUT: «False␤»</pre>
+<p>If <code>$topic</code> is any other value, the invocant <code>Pair</code>&#39;s key is treated as a method name. This method is called on <code>$topic</code>, the <a href="/Documentable/integration-test/type/Bool">Bool</a> result of which is compared against the invocant <code>Pair</code>&#39;s <a href="/Documentable/integration-test/type/Bool">Bool</a> value. For example, primality can be tested using smartmatch:</p>
+<pre class="pod-block-code">say 3 ~~ :is-prime;             # OUTPUT: «True␤»
+say 3 ~~  is-prime =&gt; &#39;truthy&#39;; # OUTPUT: «True␤»
+say 4 ~~ :is-prime;             # OUTPUT: «False␤»</pre>
+<p>This form can also be used to check <a href="/Documentable/integration-test/type/Bool">Bool</a> values of multiple methods on the same object, such as <a href="/Documentable/integration-test/type/IO::Path">IO::Path</a>, by using <a href="/Documentable/integration-test/type/Junction">Junctions</a>:</p>
+<pre class="pod-block-code">say &quot;foo&quot; .IO ~~ :f &amp; :rw; # OUTPUT: «False␤»
+say &quot;/tmp&quot;.IO ~~ :!f;      # OUTPUT: «True␤»
+say &quot;.&quot;   .IO ~~ :f | :d;  # OUTPUT: «True␤»</pre>
+<h1 id="class_IO::Path"><a class="u" href="#___top" title="go to top of document">class IO::Path</a></h1>
+<p>From <a href="/Documentable/integration-test/type/IO::Path#method_ACCEPTS">IO::Path</a></p>
+<h2 id="(IO::Path)_method_ACCEPTS"><a href="/Documentable/integration-test/type/IO::Path#method_ACCEPTS">(IO::Path) method ACCEPTS</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method ACCEPTS(IO::Path:D: Cool:D $other --&gt; Bool:D)</pre>
+<p>Coerces the argument to <code>IO::Path</code>, if necessary. Returns <code>True</code> if <a href="/Documentable/integration-test/routine/absolute"><code>.absolute</code></a> method on both paths returns the same string. <strong>NOTE:</strong> it&#39;s possible for two paths that superficially point to the same resource to NOT smartmatch as <code>True</code>, if they were constructed differently and were never fully resolved:</p>
+<pre class="pod-block-code">say &quot;foo/../bar&quot;.IO ~~ &quot;bar&quot;.IO # False</pre>
+<p>The reason is the two paths above may point to different resources when fully resolved (e.g. if <code>foo</code> is a symlink). Resolve the paths before smartmatching to check they point to same resource:</p>
+<pre class="pod-block-code">say &quot;foo/../bar&quot;.IO.resolve(:completely) ~~ &quot;bar&quot;.IO.resolve(:completely) # True</pre>
+<h1 id="class_RatStr"><a class="u" href="#___top" title="go to top of document">class RatStr</a></h1>
+<p>From <a href="/Documentable/integration-test/type/RatStr#method_ACCEPTS">RatStr</a></p>
+<h2 id="(RatStr)_method_ACCEPTS"><a href="/Documentable/integration-test/type/RatStr#method_ACCEPTS">(RatStr) method ACCEPTS</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method ACCEPTS(RatStr:D: Any:D $value)</pre>
+<p>If <code>$value</code> is <a href="/Documentable/integration-test/type/Numeric">Numeric</a> (including another <a href="/Documentable/integration-test/language/glossary#index-entry-Allomorph">allomorph</a>), checks if invocant&#39;s <a href="/Documentable/integration-test/type/Numeric">Numeric</a> part <a href="/Documentable/integration-test/type/Numeric#method_ACCEPTS">ACCEPTS</a> the <code>$value</code>. If <code>$value</code> is <a href="/Documentable/integration-test/type/Str">Str</a>, checks if invocant&#39;s <a href="/Documentable/integration-test/type/Str">Str</a> part <a href="/Documentable/integration-test/type/Str#method_ACCEPTS">ACCEPTS</a> the <code>$value</code>. If value is anything else, checks if both <a href="/Documentable/integration-test/type/Numeric">Numeric</a> and <a href="/Documentable/integration-test/type/Str">Str</a> parts <code>ACCEPTS</code> the <code>$value</code>.</p>
+<pre class="pod-block-code">say &lt;5.0&gt; ~~ &quot;5&quot;; # OUTPUT: «False␤»
+say &lt;5.0&gt; ~~  5 ; # OUTPUT: «True␤»
+say &lt;5.0&gt; ~~ &lt;5&gt;; # OUTPUT: «True␤»</pre>
+<h1 id="class_Str"><a class="u" href="#___top" title="go to top of document">class Str</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Str#method_ACCEPTS">Str</a></p>
+<h2 id="(Str)_method_ACCEPTS"><a href="/Documentable/integration-test/type/Str#method_ACCEPTS">(Str) method ACCEPTS</a></h2>
+<pre class="pod-block-code">multi method ACCEPTS(Str:D: $other)</pre>
+<p>Returns <code>True</code> if the string is <a href="/Documentable/integration-test/routine/eq">the same as</a> <code>$other</code>.</p>
+<h1 id="class_IntStr"><a class="u" href="#___top" title="go to top of document">class IntStr</a></h1>
+<p>From <a href="/Documentable/integration-test/type/IntStr#method_ACCEPTS">IntStr</a></p>
+<h2 id="(IntStr)_method_ACCEPTS"><a href="/Documentable/integration-test/type/IntStr#method_ACCEPTS">(IntStr) method ACCEPTS</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method ACCEPTS(IntStr:D: Any:D $value)</pre>
+<p>If <code>$value</code> is <a href="/Documentable/integration-test/type/Numeric">Numeric</a> (including another <a href="/Documentable/integration-test/language/glossary#index-entry-Allomorph">allomorph</a>), checks if invocant&#39;s <a href="/Documentable/integration-test/type/Numeric">Numeric</a> part <a href="/Documentable/integration-test/type/Numeric#method_ACCEPTS">ACCEPTS</a> the <code>$value</code>. If <code>$value</code> is <a href="/Documentable/integration-test/type/Str">Str</a>, checks if invocant&#39;s <a href="/Documentable/integration-test/type/Str">Str</a> part <a href="/Documentable/integration-test/type/Str#method_ACCEPTS">ACCEPTS</a> the <code>$value</code>. If value is anything else, checks if both <a href="/Documentable/integration-test/type/Numeric">Numeric</a> and <a href="/Documentable/integration-test/type/Str">Str</a> parts <code>ACCEPTS</code> the <code>$value</code>.</p>
+<pre class="pod-block-code">say &lt;5&gt; ~~ &quot;5.0&quot;; # OUTPUT: «False␤»
+say &lt;5&gt; ~~  5.0 ; # OUTPUT: «True␤»
+say &lt;5&gt; ~~ &lt;5.0&gt;; # OUTPUT: «True␤»</pre>
+<h1 id="class_Any"><a class="u" href="#___top" title="go to top of document">class Any</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Any#method_ACCEPTS">Any</a></p>
+<h2 id="(Any)_method_ACCEPTS"><a href="/Documentable/integration-test/type/Any#method_ACCEPTS">(Any) method ACCEPTS</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method ACCEPTS(Any:D: Mu $other)</pre>
+<p>Usage:</p>
+<pre class="pod-block-code">EXPR.ACCEPTS(EXPR);
+</pre>
+<p>Returns <code>True</code> if <code>$other === self</code> (i.e. it checks object identity).</p>
+<p>Many built-in types override this for more specific comparisons.</p>
+<h1 id="role_Baggy"><a class="u" href="#___top" title="go to top of document">role Baggy</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Baggy#method_ACCEPTS">Baggy</a></p>
+<h2 id="(Baggy)_method_ACCEPTS"><a href="/Documentable/integration-test/type/Baggy#method_ACCEPTS">(Baggy) method ACCEPTS</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method ACCEPTS($other --&gt; Bool:D)</pre>
+<p>Used in smartmatching if the right-hand side is a <code>Baggy</code>.</p>
+<p>If the right-hand side is the type object, i.e. <code>Baggy</code>, the method returns <code>True</code> if <code>$other</code> <a href="/Documentable/integration-test/routine/does#class_Mu">does</a> <code>Baggy</code> otherwise <code>False</code> is returned.</p>
+<p>If the right-hand side is a <code>Baggy</code> object, <code>True</code> is returned only if <code>$other</code> has the same elements, with the same weights, as the invocant.</p>
+<pre class="pod-block-code">my $breakfast = bag &lt;eggs bacon&gt;;
+say $breakfast ~~ Baggy;                            # OUTPUT: «True␤»
+say $breakfast.does(Baggy);                         # OUTPUT: «True␤»
+
+my $second-breakfast = (eggs =&gt; 1, bacon =&gt; 1).Mix;
+say $breakfast ~~ $second-breakfast;                # OUTPUT: «True␤»
+
+my $third-breakfast = (eggs =&gt; 1, bacon =&gt; 2).Bag;
+say $second-breakfast ~~ $third-breakfast;          # OUTPUT: «False␤»</pre>
+<h1 id="class_Regex"><a class="u" href="#___top" title="go to top of document">class Regex</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Regex#method_ACCEPTS">Regex</a></p>
+<h2 id="(Regex)_method_ACCEPTS"><a href="/Documentable/integration-test/type/Regex#method_ACCEPTS">(Regex) method ACCEPTS</a></h2>
+<pre class="pod-block-code">multi method ACCEPTS(Regex:D: Mu --&gt; Match:D)
+multi method ACCEPTS(Regex:D: @)
+multi method ACCEPTS(Regex:D: %)</pre>
+<p>Matches the regex against the argument passed in. If the argument is <a href="/Documentable/integration-test/type/Positional">Positional</a>, it returns the first successful match of any list item. If the argument is <a href="/Documentable/integration-test/type/Associative">Associative</a>, it returns the first successful match of any key. Otherwise it interprets the argument as a <a href="/Documentable/integration-test/type/Str">Str</a> and matches against it.</p>
+<p>In the case of Positional and Associative matches, <a href="/Documentable/integration-test/type/Nil">Nil</a> is returned on failure.</p>
+<h1 id="class_Whatever"><a class="u" href="#___top" title="go to top of document">class Whatever</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Whatever#method_ACCEPTS">Whatever</a></p>
+<h2 id="(Whatever)_method_ACCEPTS"><a href="/Documentable/integration-test/type/Whatever#method_ACCEPTS">(Whatever) method ACCEPTS</a></h2>
+<pre class="pod-block-code">multi method ACCEPTS(Whatever:D: Mu $other)
+multi method ACCEPTS(Whatever:U: Mu $other)</pre>
+<p>If the invocant is <a href="/Documentable/integration-test/language/classtut#index-entry-.DEFINITE">an instance</a>, always returns <code>True</code>. If the invocant is a type object, performs a typecheck.</p>
+<pre class="pod-block-code">say 42 ~~ (*);       # OUTPUT: «True␤»
+say 42 ~~ Whatever;  # OUTPUT: «False␤»</pre>
+<h1 id="class_Map"><a class="u" href="#___top" title="go to top of document">class Map</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Map#method_ACCEPTS">Map</a></p>
+<h2 id="(Map)_method_ACCEPTS"><a href="/Documentable/integration-test/type/Map#method_ACCEPTS">(Map) method ACCEPTS</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method ACCEPTS(Map:D: Positional $topic)
+multi method ACCEPTS(Map:D: Cool:D     $topic)
+multi method ACCEPTS(Map:D: Regex      $topic)
+multi method ACCEPTS(Map:D: Any        $topic)</pre>
+<p>Used in smartmatching if the right-hand side is an <code>Map</code>.</p>
+<p>If the topic is list-like (<a href="/Documentable/integration-test/type/Positional">Positional</a>), returns True if any of the list elements exist as a key in the Map.</p>
+<p>If the topic is of type <code>Cool</code> (strings, integers etc.), returns True if the topic exists as a key.</p>
+<p>If the topic is a regex, returns True if any of the keys match the regex.</p>
+<p>As a fallback, the topic is coerced to a list, and the <code>Positional</code> behavior is applied.</p>
+<h1 id="class_Signature"><a class="u" href="#___top" title="go to top of document">class Signature</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Signature#method_ACCEPTS">Signature</a></p>
+<h2 id="(Signature)_method_ACCEPTS"><a href="/Documentable/integration-test/type/Signature#method_ACCEPTS">(Signature) method ACCEPTS</a></h2>
+<pre class="pod-block-code">multi method ACCEPTS(Signature:D: Signature $topic)
+multi method ACCEPTS(Signature:D: Capture $topic)
+multi method ACCEPTS(Signature:D: Mu \topic)</pre>
+<p>If <code>$topic</code> is a <a href="/Documentable/integration-test/type/Signature">Signature</a> returns <code>True</code> if anything accepted by <code>$topic</code> would also be accepted by the invocant, otherwise returns <code>False</code>:</p>
+<pre class="pod-block-code">:($a, $b) ~~ :($foo, $bar, $baz?);   # OUTPUT: «True»
+:(Int $n) ~~ :(Str);                 # OUTPUT: «False»</pre>
+<p>The <code>$topic</code> is a <a href="/Documentable/integration-test/type/Capture">Capture</a>, returns <code>True</code> if it can be bound to the invocant, i.e., if a function with invocant&#39;s <code>Signature</code> would be able to be called with the <code>$topic</code>:</p>
+<pre class="pod-block-code">\(1, 2, :foo) ~~ :($a, $b, :foo($bar)); # OUTPUT: «True»
+\(1, :bar)    ~~ :($a);                 # OUTPUT: «False»</pre>
+<p>Lastly, the candidate with <code>Mu \topic</code> converts <code>topic</code> to <a href="/Documentable/integration-test/type/Capture">Capture</a> and follows the same semantics as <a href="/Documentable/integration-test/type/Capture">Capture</a> <code>$topic</code>:</p>
+<pre class="pod-block-code">&lt;a b c d&gt;  ~~ :(Int $a);      # OUTPUT: «False»
+42         ~~ :(Int);         # OUTPUT: «False» (Int.Capture throws)
+set(&lt;a b&gt;) ~~ :(:$a, :$b);    # OUTPUT: «True»</pre>
+<p>Since <a href="/Documentable/integration-test/type/Signature#index-entry-where_clause_(Signature)"><code>where</code> clauses</a> are not introspectable, the method cannot determine whether two signatures <a href="/Documentable/integration-test/type/Signature#method_ACCEPTS">ACCEPTS</a> the same sort of <code>where</code>-constrained parameters. Such comparisons will return <code>False</code>. This includes signatures with literals, which are just sugar for the <code>where</code>-constraints:</p>
+<pre class="pod-block-code">say :(42) ~~ :($ where 42)    # OUTPUT: «False␤»</pre>
+<h1 id="class_Code"><a class="u" href="#___top" title="go to top of document">class Code</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Code#method_ACCEPTS">Code</a></p>
+<h2 id="(Code)_method_ACCEPTS"><a href="/Documentable/integration-test/type/Code#method_ACCEPTS">(Code) method ACCEPTS</a></h2>
+<pre class="pod-block-code">multi method ACCEPTS(Code:D: Mu $topic)</pre>
+<p>Usually calls the code object and passes <code>$topic</code> as an argument. However, when called on a code object that takes no arguments, the code object is invoked with no arguments and <code>$topic</code> is dropped. The result of the call is returned.</p>
+<h1 id="class_List"><a class="u" href="#___top" title="go to top of document">class List</a></h1>
+<p>From <a href="/Documentable/integration-test/type/List#method_ACCEPTS">List</a></p>
+<h2 id="(List)_method_ACCEPTS"><a href="/Documentable/integration-test/type/List#method_ACCEPTS">(List) method ACCEPTS</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method ACCEPTS(List:D: $topic)</pre>
+<p>If <code>$topic</code> is an <a href="/Documentable/integration-test/type/Iterable">Iterable</a>, returns <code>True</code> or <code>False</code> based on whether the contents of the two <code>Iterables</code> match. A <a href="/Documentable/integration-test/type/Whatever">Whatever</a> element in the invocant matches anything in the corresponding position of the <code>$topic</code> <code>Iterable</code>. A <a href="/Documentable/integration-test/type/HyperWhatever">HyperWhatever</a> matches any number of any elements, including no elements:</p>
+<pre class="pod-block-code">say (1, 2, 3)       ~~ (1,  *, 3);  # OUTPUT: «True␤»
+say (1, 2, 3)       ~~ (9,  *, 5);  # OUTPUT: «False␤»
+say (1, 2, 3)       ~~ (   **, 3);  # OUTPUT: «True␤»
+say (1, 2, 3)       ~~ (   **, 5);  # OUTPUT: «False␤»
+say (1, 3)          ~~ (1, **, 3); # OUTPUT: «True␤»
+say (1, 2, 4, 5, 3) ~~ (1, **, 3); # OUTPUT: «True␤»
+say (1, 2, 4, 5, 6) ~~ (1, **, 5); # OUTPUT: «False␤»
+say (1, 2, 4, 5, 6) ~~ (   **   ); # OUTPUT: «True␤»
+say ()              ~~ (   **   ); # OUTPUT: «True␤»</pre>
+<p>In addition, returns <code>False</code> if either the invocant or <code>$topic</code> <a href="/Documentable/integration-test/routine/is-lazy">is a lazy</a> <code>Iterable</code>, unless <code>$topic</code> is the same object as the invocant, in which case <code>True</code> is returned.</p>
+<p>If <code>$topic</code> is <em>not</em> an <a href="/Documentable/integration-test/type/Iterable">Iterable</a>, returns the invocant if the invocant has no elements or its first element is a <a href="/Documentable/integration-test/type/Match">Match</a> object (this behavior powers <code>m:g//</code> smartmatch), or <code>False</code> otherwise.</p>
+<h1 id="class_Numeric"><a class="u" href="#___top" title="go to top of document">class Numeric</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Numeric#method_ACCEPTS">Numeric</a></p>
+<h2 id="(Numeric)_method_ACCEPTS"><a href="/Documentable/integration-test/type/Numeric#method_ACCEPTS">(Numeric) method ACCEPTS</a></h2>
+<pre class="pod-block-code">multi method ACCEPTS(Numeric:D: $other)</pre>
+<p>Returns <code>True</code> if <code>$other</code> can be coerced to <a href="/Documentable/integration-test/type/Numeric">Numeric</a> and is <a href="/Documentable/integration-test/routine/==">numerically equal</a> to the invocant (or both evaluate to <code>NaN</code>).</p>
+<h1 id="class_Mu"><a class="u" href="#___top" title="go to top of document">class Mu</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Mu#method_ACCEPTS">Mu</a></p>
+<h2 id="(Mu)_method_ACCEPTS"><a href="/Documentable/integration-test/type/Mu#method_ACCEPTS">(Mu) method ACCEPTS</a></h2>
+<pre class="pod-block-code">multi method ACCEPTS(Mu:U: $other)</pre>
+<p><code>ACCEPTS</code> is the method that smartmatching with the <a href="/Documentable/integration-test/routine/~~">infix ~~</a> operator and given/when invokes on the right-hand side (the matcher).</p>
+<p>The <code>Mu:U</code> multi performs a type check. Returns <code>True</code> if <code>$other</code> conforms to the invocant (which is always a type object or failure).</p>
+<pre class="pod-block-code">say 42 ~~ Mu;           # OUTPUT: «True␤»
+say 42 ~~ Int;          # OUTPUT: «True␤»
+say 42 ~~ Str;          # OUTPUT: «False␤»</pre>
+<p>Note that there is no multi for defined invocants; this is to allow autothreading of <a href="/Documentable/integration-test/type/Junction">junctions</a>, which happens as a fallback mechanism when no direct candidate is available to dispatch to.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

@@ -1,0 +1,653 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>role Metamodel::PrivateMethodContainer</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/type.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-basic.html"> Basic </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-composite.html"> Composite </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-domain-specific.html"> Domain-specific </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-exception.html"> Exceptions </a>
+            </div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Type/Metamodel/PrivateMethodContainer.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">role Metamodel::PrivateMethodContainer</h1>
+        <p class="subtitle">Metaobject that supports private methods</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+          <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#method_add_private_method">method add_private_method</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#method_private_method_table">method private_method_table</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Type_Graph">Type Graph</a></td></tr>
+ 
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <pre class="pod-block-code">role Metamodel::PrivateMethodContainer { ... }</pre>
+<p><em>Warning</em>: this role is part of the Rakudo implementation, and is not a part of the language specification.</p>
+<p>In Raku, classes, roles and grammars can have private methods, that is, methods that are only callable from within the class, and are not inherited by types derived by inheritance.</p>
+<pre class="pod-block-code">class A {
+    # the ! declares a private method
+    method !double($x) {
+        say 2 * $x;
+    }
+    method call-double($y) {
+        # call with ! instead of .
+        self!double($y);
+    }
+}</pre>
+<p>For the purposes of dispatching and scoping, private methods are closer to subroutines than to methods. However they share access to <code>self</code> and attributes with methods.</p>
+<h1 id="Methods"><a class="u" href="#___top" title="go to top of document">Methods</a></h1>
+<h2 id="method_add_private_method"><a class="u" href="#___top" title="go to top of document">method add_private_method</a></h2>
+<pre class="pod-block-code">method add_private_method(Metamodel::PrivateMethodContainer: $obj, $name, $code)</pre>
+<p>Adds a private method <code>$code</code> with name <code>$name</code>.</p>
+<h2 id="method_private_method_table"><a class="u" href="#___top" title="go to top of document">method private_method_table</a></h2>
+<pre class="pod-block-code">method private_method_table(Metamodel::PrivateMethodContainer: $obj)</pre>
+<p>Returns a hash of <code>name =&gt; &amp;method_object</code></p>
+<h1 id="Type_Graph"><a class="u" href="#___top" title="go to top of document">Type Graph</a></h1>
+<figure>
+  <figcaption>Type relations for <code>Metamodel::PrivateMethodContainer</code></figcaption>
+  <svg width="2441pt" height="1154pt"
+ viewBox="0.00 0.00 2441.26 1153.68" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 1149.68)">
+<title>perl6&#45;type&#45;graph</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-1149.68 2437.26,-1149.68 2437.26,4 -4,4"/>
+<!-- Metamodel::PrivateMethodContainer -->
+<g id="node1" class="node">
+<title>Metamodel::PrivateMethodContainer</title>
+<g id="a_node1"><a xlink:href="/type/Metamodel::PrivateMethodContainer" xlink:title="Metamodel::PrivateMethodContainer">
+<ellipse fill="none" stroke="#6666ff" cx="1232.46" cy="-563.22" rx="171.67" ry="18"/>
+<text text-anchor="middle" x="1232.46" y="-559.52" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::PrivateMethodContainer</text>
+</a>
+</g>
+</g>
+<!-- Mu -->
+<g id="node2" class="node">
+<title>Mu</title>
+<g id="a_node2"><a xlink:href="/type/Mu" xlink:title="Mu">
+<ellipse fill="none" stroke="#000000" cx="1757.36" cy="-36.84" rx="27" ry="18"/>
+<text text-anchor="middle" x="1757.36" y="-33.14" font-family="FreeSans" font-size="14.00" fill="#000000">Mu</text>
+</a>
+</g>
+</g>
+<!-- Any -->
+<g id="node3" class="node">
+<title>Any</title>
+<g id="a_node3"><a xlink:href="/type/Any" xlink:title="Any">
+<ellipse fill="none" stroke="#000000" cx="1398.82" cy="-18" rx="27" ry="18"/>
+<text text-anchor="middle" x="1398.82" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">Any</text>
+</a>
+</g>
+</g>
+<!-- Any&#45;&gt;Mu -->
+<g id="edge1" class="edge">
+<title>Any&#45;&gt;Mu</title>
+<path fill="none" stroke="#000000" d="M1425.77,-19.42C1489.1,-22.74 1647.51,-31.07 1720.04,-34.88"/>
+<polygon fill="#000000" stroke="#000000" points="1719.93,-38.38 1730.1,-35.41 1720.3,-31.39 1719.93,-38.38"/>
+</g>
+<!-- Metamodel::Naming -->
+<g id="node4" class="node">
+<title>Metamodel::Naming</title>
+<g id="a_node4"><a xlink:href="/type/Metamodel::Naming" xlink:title="Metamodel::Naming">
+<ellipse fill="none" stroke="#6666ff" cx="1498.03" cy="-806.43" rx="93.68" ry="18"/>
+<text text-anchor="middle" x="1498.03" y="-802.73" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::Naming</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::Documenting -->
+<g id="node5" class="node">
+<title>Metamodel::Documenting</title>
+<g id="a_node5"><a xlink:href="/type/Metamodel::Documenting" xlink:title="Metamodel::Documenting">
+<ellipse fill="none" stroke="#6666ff" cx="1353.7" cy="-1127.68" rx="118.08" ry="18"/>
+<text text-anchor="middle" x="1353.7" y="-1123.98" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::Documenting</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::Versioning -->
+<g id="node6" class="node">
+<title>Metamodel::Versioning</title>
+<g id="a_node6"><a xlink:href="/type/Metamodel::Versioning" xlink:title="Metamodel::Versioning">
+<ellipse fill="none" stroke="#6666ff" cx="1221.22" cy="-817.86" rx="113.18" ry="18"/>
+<text text-anchor="middle" x="1221.22" y="-814.16" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::Versioning</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::Stashing -->
+<g id="node7" class="node">
+<title>Metamodel::Stashing</title>
+<g id="a_node7"><a xlink:href="/type/Metamodel::Stashing" xlink:title="Metamodel::Stashing">
+<ellipse fill="none" stroke="#6666ff" cx="1074.11" cy="-350.12" rx="103.18" ry="18"/>
+<text text-anchor="middle" x="1074.11" y="-346.42" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::Stashing</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::AttributeContainer -->
+<g id="node8" class="node">
+<title>Metamodel::AttributeContainer</title>
+<g id="a_node8"><a xlink:href="/type/Metamodel::AttributeContainer" xlink:title="Metamodel::AttributeContainer">
+<ellipse fill="none" stroke="#6666ff" cx="1788.54" cy="-388.97" rx="152.17" ry="18"/>
+<text text-anchor="middle" x="1788.54" y="-385.27" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::AttributeContainer</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::Finalization -->
+<g id="node9" class="node">
+<title>Metamodel::Finalization</title>
+<g id="a_node9"><a xlink:href="/type/Metamodel::Finalization" xlink:title="Metamodel::Finalization">
+<ellipse fill="none" stroke="#6666ff" cx="156.51" cy="-84.38" rx="122.68" ry="18"/>
+<text text-anchor="middle" x="156.51" y="-80.68" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::Finalization</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::MethodContainer -->
+<g id="node10" class="node">
+<title>Metamodel::MethodContainer</title>
+<g id="a_node10"><a xlink:href="/type/Metamodel::MethodContainer" xlink:title="Metamodel::MethodContainer">
+<ellipse fill="none" stroke="#6666ff" cx="1506.45" cy="-536.71" rx="137.58" ry="18"/>
+<text text-anchor="middle" x="1506.45" y="-533.01" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::MethodContainer</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::MultiMethodContainer -->
+<g id="node11" class="node">
+<title>Metamodel::MultiMethodContainer</title>
+<g id="a_node11"><a xlink:href="/type/Metamodel::MultiMethodContainer" xlink:title="Metamodel::MultiMethodContainer">
+<ellipse fill="none" stroke="#6666ff" cx="1369.15" cy="-316.49" rx="161.67" ry="18"/>
+<text text-anchor="middle" x="1369.15" y="-312.79" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::MultiMethodContainer</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::RoleContainer -->
+<g id="node12" class="node">
+<title>Metamodel::RoleContainer</title>
+<g id="a_node12"><a xlink:href="/type/Metamodel::RoleContainer" xlink:title="Metamodel::RoleContainer">
+<ellipse fill="none" stroke="#6666ff" cx="984.6" cy="-701.5" rx="128.08" ry="18"/>
+<text text-anchor="middle" x="984.6" y="-697.8" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::RoleContainer</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::MultipleInheritance -->
+<g id="node13" class="node">
+<title>Metamodel::MultipleInheritance</title>
+<g id="a_node13"><a xlink:href="/type/Metamodel::MultipleInheritance" xlink:title="Metamodel::MultipleInheritance">
+<ellipse fill="none" stroke="#6666ff" cx="1745.26" cy="-1105.72" rx="157.07" ry="18"/>
+<text text-anchor="middle" x="1745.26" y="-1102.02" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::MultipleInheritance</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::DefaultParent -->
+<g id="node14" class="node">
+<title>Metamodel::DefaultParent</title>
+<g id="a_node14"><a xlink:href="/type/Metamodel::DefaultParent" xlink:title="Metamodel::DefaultParent">
+<ellipse fill="none" stroke="#6666ff" cx="1012.72" cy="-1091.01" rx="128.08" ry="18"/>
+<text text-anchor="middle" x="1012.72" y="-1087.31" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::DefaultParent</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::C3MRO -->
+<g id="node15" class="node">
+<title>Metamodel::C3MRO</title>
+<g id="a_node15"><a xlink:href="/type/Metamodel::C3MRO" xlink:title="Metamodel::C3MRO">
+<ellipse fill="none" stroke="#6666ff" cx="654.6" cy="-1107.87" rx="89.08" ry="18"/>
+<text text-anchor="middle" x="654.6" y="-1104.17" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::C3MRO</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::MROBasedMethodDispatch -->
+<g id="node16" class="node">
+<title>Metamodel::MROBasedMethodDispatch</title>
+<g id="a_node16"><a xlink:href="/type/Metamodel::MROBasedMethodDispatch" xlink:title="Metamodel::MROBasedMethodDispatch">
+<ellipse fill="none" stroke="#6666ff" cx="685.64" cy="-50.29" rx="171.67" ry="18"/>
+<text text-anchor="middle" x="685.64" y="-46.59" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::MROBasedMethodDispatch</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::MROBasedTypeChecking -->
+<g id="node17" class="node">
+<title>Metamodel::MROBasedTypeChecking</title>
+<g id="a_node17"><a xlink:href="/type/Metamodel::MROBasedTypeChecking" xlink:title="Metamodel::MROBasedTypeChecking">
+<ellipse fill="none" stroke="#6666ff" cx="1059.7" cy="-23.51" rx="161.67" ry="18"/>
+<text text-anchor="middle" x="1059.7" y="-19.81" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::MROBasedTypeChecking</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::Trusting -->
+<g id="node18" class="node">
+<title>Metamodel::Trusting</title>
+<g id="a_node18"><a xlink:href="/type/Metamodel::Trusting" xlink:title="Metamodel::Trusting">
+<ellipse fill="none" stroke="#6666ff" cx="151.53" cy="-1046.4" rx="103.18" ry="18"/>
+<text text-anchor="middle" x="151.53" y="-1042.7" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::Trusting</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::BUILDPLAN -->
+<g id="node19" class="node">
+<title>Metamodel::BUILDPLAN</title>
+<g id="a_node19"><a xlink:href="/type/Metamodel::BUILDPLAN" xlink:title="Metamodel::BUILDPLAN">
+<ellipse fill="none" stroke="#6666ff" cx="108.54" cy="-572.77" rx="108.58" ry="18"/>
+<text text-anchor="middle" x="108.54" y="-569.07" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::BUILDPLAN</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::Mixins -->
+<g id="node20" class="node">
+<title>Metamodel::Mixins</title>
+<g id="a_node20"><a xlink:href="/type/Metamodel::Mixins" xlink:title="Metamodel::Mixins">
+<ellipse fill="none" stroke="#6666ff" cx="545.27" cy="-453.02" rx="93.68" ry="18"/>
+<text text-anchor="middle" x="545.27" y="-449.32" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::Mixins</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::BoolificationProtocol -->
+<g id="node21" class="node">
+<title>Metamodel::BoolificationProtocol</title>
+<g id="a_node21"><a xlink:href="/type/Metamodel::BoolificationProtocol" xlink:title="Metamodel::BoolificationProtocol">
+<ellipse fill="none" stroke="#6666ff" cx="669.34" cy="-761.78" rx="167.07" ry="18"/>
+<text text-anchor="middle" x="669.34" y="-758.08" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::BoolificationProtocol</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::ClassHOW -->
+<g id="node22" class="node">
+<title>Metamodel::ClassHOW</title>
+<g id="a_node22"><a xlink:href="/type/Metamodel::ClassHOW" xlink:title="Metamodel::ClassHOW">
+<ellipse fill="none" stroke="#000000" cx="845.32" cy="-425.7" rx="103.18" ry="18"/>
+<text text-anchor="middle" x="845.32" y="-422" font-family="FreeSans" font-size="14.00" fill="#000000">Metamodel::ClassHOW</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::ClassHOW&#45;&gt;Metamodel::PrivateMethodContainer -->
+<g id="edge12" class="edge">
+<title>Metamodel::ClassHOW&#45;&gt;Metamodel::PrivateMethodContainer</title>
+<path fill="none" stroke="#6666ff" d="M890.87,-441.88C961.31,-466.9 1096.62,-514.97 1174.13,-542.5"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1173.15,-545.87 1183.74,-545.91 1175.49,-539.27 1173.15,-545.87"/>
+</g>
+<!-- Metamodel::ClassHOW&#45;&gt;Any -->
+<g id="edge2" class="edge">
+<title>Metamodel::ClassHOW&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M869.1,-408.18C959.1,-341.89 1278.43,-106.68 1372.54,-37.36"/>
+<polygon fill="#000000" stroke="#000000" points="1374.7,-40.11 1380.68,-31.36 1370.55,-34.47 1374.7,-40.11"/>
+</g>
+<!-- Metamodel::ClassHOW&#45;&gt;Metamodel::Naming -->
+<g id="edge5" class="edge">
+<title>Metamodel::ClassHOW&#45;&gt;Metamodel::Naming</title>
+<path fill="none" stroke="#6666ff" d="M872.42,-443.1C929.99,-480.05 1059.28,-563.05 1059.28,-563.05 1059.28,-563.05 1350.11,-724.37 1458.2,-784.34"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1456.73,-787.52 1467.18,-789.31 1460.13,-781.4 1456.73,-787.52"/>
+</g>
+<!-- Metamodel::ClassHOW&#45;&gt;Metamodel::Documenting -->
+<g id="edge6" class="edge">
+<title>Metamodel::ClassHOW&#45;&gt;Metamodel::Documenting</title>
+<path fill="none" stroke="#6666ff" d="M862.96,-443.8C922.79,-505.18 1114.23,-701.6 1114.23,-701.6 1114.23,-701.6 1106.53,-817.81 1106.53,-817.81 1106.53,-817.81 1273.48,-1027.11 1332.96,-1101.68"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1330.37,-1104.05 1339.34,-1109.68 1335.84,-1099.68 1330.37,-1104.05"/>
+</g>
+<!-- Metamodel::ClassHOW&#45;&gt;Metamodel::Versioning -->
+<g id="edge7" class="edge">
+<title>Metamodel::ClassHOW&#45;&gt;Metamodel::Versioning</title>
+<path fill="none" stroke="#6666ff" d="M862.96,-443.8C922.79,-505.18 1114.23,-701.6 1114.23,-701.6 1114.23,-701.6 1166.08,-757.94 1197.59,-792.18"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1195.39,-794.96 1204.74,-799.95 1200.54,-790.22 1195.39,-794.96"/>
+</g>
+<!-- Metamodel::ClassHOW&#45;&gt;Metamodel::Stashing -->
+<g id="edge8" class="edge">
+<title>Metamodel::ClassHOW&#45;&gt;Metamodel::Stashing</title>
+<path fill="none" stroke="#6666ff" d="M893.56,-409.76C929.18,-398 977.85,-381.92 1015.68,-369.43"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1017.15,-372.63 1025.54,-366.17 1014.95,-365.98 1017.15,-372.63"/>
+</g>
+<!-- Metamodel::ClassHOW&#45;&gt;Metamodel::AttributeContainer -->
+<g id="edge9" class="edge">
+<title>Metamodel::ClassHOW&#45;&gt;Metamodel::AttributeContainer</title>
+<path fill="none" stroke="#6666ff" d="M946.26,-421.77C1111.15,-415.35 1439.36,-402.57 1633.82,-395"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1633.98,-398.5 1643.84,-394.61 1633.71,-391.5 1633.98,-398.5"/>
+</g>
+<!-- Metamodel::ClassHOW&#45;&gt;Metamodel::Finalization -->
+<g id="edge10" class="edge">
+<title>Metamodel::ClassHOW&#45;&gt;Metamodel::Finalization</title>
+<path fill="none" stroke="#6666ff" d="M810.69,-408.54C695.98,-351.7 328.47,-169.59 200.75,-106.3"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="202.13,-103.08 191.62,-101.78 199.02,-109.36 202.13,-103.08"/>
+</g>
+<!-- Metamodel::ClassHOW&#45;&gt;Metamodel::MethodContainer -->
+<g id="edge11" class="edge">
+<title>Metamodel::ClassHOW&#45;&gt;Metamodel::MethodContainer</title>
+<path fill="none" stroke="#6666ff" d="M919.87,-438.22C1040.66,-458.5 1278.95,-498.51 1411.63,-520.79"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1411.34,-524.29 1421.78,-522.49 1412.5,-517.38 1411.34,-524.29"/>
+</g>
+<!-- Metamodel::ClassHOW&#45;&gt;Metamodel::MultiMethodContainer -->
+<g id="edge13" class="edge">
+<title>Metamodel::ClassHOW&#45;&gt;Metamodel::MultiMethodContainer</title>
+<path fill="none" stroke="#6666ff" d="M912.78,-411.96C1001.88,-393.8 1147.62,-364.11 1147.62,-364.11 1147.62,-364.11 1222.21,-348.07 1284.83,-334.61"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1285.72,-338 1294.77,-332.48 1284.25,-331.16 1285.72,-338"/>
+</g>
+<!-- Metamodel::ClassHOW&#45;&gt;Metamodel::RoleContainer -->
+<g id="edge14" class="edge">
+<title>Metamodel::ClassHOW&#45;&gt;Metamodel::RoleContainer</title>
+<path fill="none" stroke="#6666ff" d="M854.46,-443.8C878.31,-491.04 942.58,-618.29 970.89,-674.35"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="967.79,-675.99 975.42,-683.34 974.04,-672.83 967.79,-675.99"/>
+</g>
+<!-- Metamodel::ClassHOW&#45;&gt;Metamodel::MultipleInheritance -->
+<g id="edge15" class="edge">
+<title>Metamodel::ClassHOW&#45;&gt;Metamodel::MultipleInheritance</title>
+<path fill="none" stroke="#6666ff" d="M868.93,-443.54C993.19,-537.44 1571.12,-974.14 1713.5,-1081.72"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1711.39,-1084.52 1721.48,-1087.76 1715.61,-1078.94 1711.39,-1084.52"/>
+</g>
+<!-- Metamodel::ClassHOW&#45;&gt;Metamodel::DefaultParent -->
+<g id="edge16" class="edge">
+<title>Metamodel::ClassHOW&#45;&gt;Metamodel::DefaultParent</title>
+<path fill="none" stroke="#6666ff" d="M845.95,-443.79C848.09,-505.13 854.96,-701.4 854.96,-701.4 854.96,-701.4 965.7,-974.89 1001.62,-1063.59"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="998.43,-1065.04 1005.43,-1073 1004.92,-1062.42 998.43,-1065.04"/>
+</g>
+<!-- Metamodel::ClassHOW&#45;&gt;Metamodel::C3MRO -->
+<g id="edge17" class="edge">
+<title>Metamodel::ClassHOW&#45;&gt;Metamodel::C3MRO</title>
+<path fill="none" stroke="#6666ff" d="M844.92,-443.77C843.4,-513.6 837.97,-761.88 837.97,-761.88 837.97,-761.88 712.35,-998.9 669.06,-1080.59"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="665.79,-1079.28 664.2,-1089.76 671.98,-1082.56 665.79,-1079.28"/>
+</g>
+<!-- Metamodel::ClassHOW&#45;&gt;Metamodel::MROBasedMethodDispatch -->
+<g id="edge18" class="edge">
+<title>Metamodel::ClassHOW&#45;&gt;Metamodel::MROBasedMethodDispatch</title>
+<path fill="none" stroke="#6666ff" d="M837.62,-407.59C811.85,-347.02 728.56,-151.2 697.48,-78.12"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="700.59,-76.49 693.45,-68.66 694.15,-79.23 700.59,-76.49"/>
+</g>
+<!-- Metamodel::ClassHOW&#45;&gt;Metamodel::MROBasedTypeChecking -->
+<g id="edge19" class="edge">
+<title>Metamodel::ClassHOW&#45;&gt;Metamodel::MROBasedTypeChecking</title>
+<path fill="none" stroke="#6666ff" d="M854.94,-407.64C889.09,-343.58 1004.52,-127.03 1045.29,-50.54"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1048.48,-51.99 1050.1,-41.52 1042.31,-48.7 1048.48,-51.99"/>
+</g>
+<!-- Metamodel::ClassHOW&#45;&gt;Metamodel::Trusting -->
+<g id="edge20" class="edge">
+<title>Metamodel::ClassHOW&#45;&gt;Metamodel::Trusting</title>
+<path fill="none" stroke="#6666ff" d="M825.3,-443.61C726.69,-531.83 292.71,-920.09 178.92,-1021.89"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="176.41,-1019.44 171.29,-1028.72 181.08,-1024.66 176.41,-1019.44"/>
+</g>
+<!-- Metamodel::ClassHOW&#45;&gt;Metamodel::BUILDPLAN -->
+<g id="edge21" class="edge">
+<title>Metamodel::ClassHOW&#45;&gt;Metamodel::BUILDPLAN</title>
+<path fill="none" stroke="#6666ff" d="M777.32,-439.27C640.78,-466.53 333.85,-527.79 188.18,-556.87"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="187.1,-553.52 177.98,-558.91 188.47,-560.38 187.1,-553.52"/>
+</g>
+<!-- Metamodel::ClassHOW&#45;&gt;Metamodel::Mixins -->
+<g id="edge22" class="edge">
+<title>Metamodel::ClassHOW&#45;&gt;Metamodel::Mixins</title>
+<path fill="none" stroke="#6666ff" d="M753.66,-434.05C717.67,-437.33 676.36,-441.09 640.06,-444.39"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="639.61,-440.92 629.97,-445.31 640.24,-447.89 639.61,-440.92"/>
+</g>
+<!-- Metamodel::ClassHOW&#45;&gt;Metamodel::BoolificationProtocol -->
+<g id="edge23" class="edge">
+<title>Metamodel::ClassHOW&#45;&gt;Metamodel::BoolificationProtocol</title>
+<path fill="none" stroke="#6666ff" d="M835.86,-443.77C806.73,-499.39 718.31,-668.25 683.57,-734.6"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="680.38,-733.14 678.85,-743.62 686.58,-736.38 680.38,-733.14"/>
+</g>
+<!-- Metamodel::TypePretense -->
+<g id="node23" class="node">
+<title>Metamodel::TypePretense</title>
+<g id="a_node23"><a xlink:href="/type/Metamodel::TypePretense" xlink:title="Metamodel::TypePretense">
+<ellipse fill="none" stroke="#6666ff" cx="2270.98" cy="-1046.83" rx="122.68" ry="18"/>
+<text text-anchor="middle" x="2270.98" y="-1043.13" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::TypePretense</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::RolePunning -->
+<g id="node24" class="node">
+<title>Metamodel::RolePunning</title>
+<g id="a_node24"><a xlink:href="/type/Metamodel::RolePunning" xlink:title="Metamodel::RolePunning">
+<ellipse fill="none" stroke="#6666ff" cx="2270.61" cy="-89.51" rx="118.08" ry="18"/>
+<text text-anchor="middle" x="2270.61" y="-85.81" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::RolePunning</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::ParametricRoleHOW -->
+<g id="node25" class="node">
+<title>Metamodel::ParametricRoleHOW</title>
+<g id="a_node25"><a xlink:href="/type/Metamodel::ParametricRoleHOW" xlink:title="Metamodel::ParametricRoleHOW">
+<ellipse fill="none" stroke="#000000" cx="1830.65" cy="-724.65" rx="147.57" ry="18"/>
+<text text-anchor="middle" x="1830.65" y="-720.95" font-family="FreeSans" font-size="14.00" fill="#000000">Metamodel::ParametricRoleHOW</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::ParametricRoleHOW&#45;&gt;Metamodel::PrivateMethodContainer -->
+<g id="edge28" class="edge">
+<title>Metamodel::ParametricRoleHOW&#45;&gt;Metamodel::PrivateMethodContainer</title>
+<path fill="none" stroke="#6666ff" d="M1769.72,-708.21C1658.64,-678.23 1423.72,-614.83 1304.75,-582.73"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1305.56,-579.32 1294.99,-580.09 1303.74,-586.08 1305.56,-579.32"/>
+</g>
+<!-- Metamodel::ParametricRoleHOW&#45;&gt;Any -->
+<g id="edge3" class="edge">
+<title>Metamodel::ParametricRoleHOW&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M1819.54,-706.47C1760.48,-609.82 1483.36,-156.34 1414.39,-43.48"/>
+<polygon fill="#000000" stroke="#000000" points="1417.28,-41.49 1409.08,-34.79 1411.31,-45.15 1417.28,-41.49"/>
+</g>
+<!-- Metamodel::ParametricRoleHOW&#45;&gt;Metamodel::Naming -->
+<g id="edge24" class="edge">
+<title>Metamodel::ParametricRoleHOW&#45;&gt;Metamodel::Naming</title>
+<path fill="none" stroke="#6666ff" d="M1764.94,-740.81C1707.31,-754.98 1623.86,-775.49 1565.67,-789.8"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1564.71,-786.43 1555.83,-792.22 1566.38,-793.23 1564.71,-786.43"/>
+</g>
+<!-- Metamodel::ParametricRoleHOW&#45;&gt;Metamodel::Documenting -->
+<g id="edge25" class="edge">
+<title>Metamodel::ParametricRoleHOW&#45;&gt;Metamodel::Documenting</title>
+<path fill="none" stroke="#6666ff" d="M1809.54,-742.49C1733.06,-807.12 1470.34,-1029.12 1382.54,-1103.32"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1380.22,-1100.7 1374.84,-1109.82 1384.73,-1106.04 1380.22,-1100.7"/>
+</g>
+<!-- Metamodel::ParametricRoleHOW&#45;&gt;Metamodel::Versioning -->
+<g id="edge26" class="edge">
+<title>Metamodel::ParametricRoleHOW&#45;&gt;Metamodel::Versioning</title>
+<path fill="none" stroke="#6666ff" d="M1738.42,-738.76C1623.43,-756.34 1428.06,-786.23 1313.19,-803.8"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1312.37,-800.38 1303.02,-805.35 1313.43,-807.3 1312.37,-800.38"/>
+</g>
+<!-- Metamodel::ParametricRoleHOW&#45;&gt;Metamodel::Stashing -->
+<g id="edge33" class="edge">
+<title>Metamodel::ParametricRoleHOW&#45;&gt;Metamodel::Stashing</title>
+<path fill="none" stroke="#6666ff" d="M1787.87,-707.3C1673.1,-660.74 1367.06,-536.58 1367.06,-536.58 1367.06,-536.58 1188.19,-422.73 1109.99,-372.96"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1111.73,-369.91 1101.41,-367.5 1107.97,-375.82 1111.73,-369.91"/>
+</g>
+<!-- Metamodel::ParametricRoleHOW&#45;&gt;Metamodel::AttributeContainer -->
+<g id="edge30" class="edge">
+<title>Metamodel::ParametricRoleHOW&#45;&gt;Metamodel::AttributeContainer</title>
+<path fill="none" stroke="#6666ff" d="M1828.39,-706.6C1821.46,-651.39 1800.51,-484.46 1792.1,-417.35"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1795.53,-416.6 1790.81,-407.11 1788.58,-417.47 1795.53,-416.6"/>
+</g>
+<!-- Metamodel::ParametricRoleHOW&#45;&gt;Metamodel::MethodContainer -->
+<g id="edge27" class="edge">
+<title>Metamodel::ParametricRoleHOW&#45;&gt;Metamodel::MethodContainer</title>
+<path fill="none" stroke="#6666ff" d="M1800.15,-706.97C1741.14,-672.76 1611.38,-597.54 1545.9,-559.58"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1547.51,-556.46 1537.1,-554.48 1544,-562.52 1547.51,-556.46"/>
+</g>
+<!-- Metamodel::ParametricRoleHOW&#45;&gt;Metamodel::MultiMethodContainer -->
+<g id="edge29" class="edge">
+<title>Metamodel::ParametricRoleHOW&#45;&gt;Metamodel::MultiMethodContainer</title>
+<path fill="none" stroke="#6666ff" d="M1812.93,-706.64C1766.67,-659.63 1645.83,-536.83 1645.83,-536.83 1645.83,-536.83 1471.56,-398.05 1399.64,-340.76"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1401.79,-338.01 1391.79,-334.52 1397.43,-343.49 1401.79,-338.01"/>
+</g>
+<!-- Metamodel::ParametricRoleHOW&#45;&gt;Metamodel::RoleContainer -->
+<g id="edge31" class="edge">
+<title>Metamodel::ParametricRoleHOW&#45;&gt;Metamodel::RoleContainer</title>
+<path fill="none" stroke="#6666ff" d="M1686.65,-720.71C1528.22,-716.38 1275.52,-709.46 1120.42,-705.22"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1120.44,-701.72 1110.35,-704.94 1120.25,-708.72 1120.44,-701.72"/>
+</g>
+<!-- Metamodel::ParametricRoleHOW&#45;&gt;Metamodel::MultipleInheritance -->
+<g id="edge32" class="edge">
+<title>Metamodel::ParametricRoleHOW&#45;&gt;Metamodel::MultipleInheritance</title>
+<path fill="none" stroke="#6666ff" d="M1826.59,-742.78C1812.88,-803.96 1768.23,-1003.19 1751.59,-1077.47"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1748.12,-1076.97 1749.34,-1087.49 1754.95,-1078.5 1748.12,-1076.97"/>
+</g>
+<!-- Metamodel::ParametricRoleHOW&#45;&gt;Metamodel::TypePretense -->
+<g id="edge34" class="edge">
+<title>Metamodel::ParametricRoleHOW&#45;&gt;Metamodel::TypePretense</title>
+<path fill="none" stroke="#6666ff" d="M1854.95,-742.43C1929.38,-796.89 2154.25,-961.42 2238.57,-1023.12"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="2236.62,-1026.02 2246.75,-1029.1 2240.75,-1020.37 2236.62,-1026.02"/>
+</g>
+<!-- Metamodel::ParametricRoleHOW&#45;&gt;Metamodel::RolePunning -->
+<g id="edge35" class="edge">
+<title>Metamodel::ParametricRoleHOW&#45;&gt;Metamodel::RolePunning</title>
+<path fill="none" stroke="#6666ff" d="M1843.11,-706.67C1904.93,-617.42 2178.7,-222.2 2252.33,-115.9"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="2255.24,-117.85 2258.05,-107.64 2249.48,-113.86 2255.24,-117.85"/>
+</g>
+<!-- Metamodel::ConcreteRoleHOW -->
+<g id="node26" class="node">
+<title>Metamodel::ConcreteRoleHOW</title>
+<g id="a_node26"><a xlink:href="/type/Metamodel::ConcreteRoleHOW" xlink:title="Metamodel::ConcreteRoleHOW">
+<ellipse fill="none" stroke="#000000" cx="2295.48" cy="-563.35" rx="137.58" ry="18"/>
+<text text-anchor="middle" x="2295.48" y="-559.65" font-family="FreeSans" font-size="14.00" fill="#000000">Metamodel::ConcreteRoleHOW</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::ConcreteRoleHOW&#45;&gt;Metamodel::PrivateMethodContainer -->
+<g id="edge38" class="edge">
+<title>Metamodel::ConcreteRoleHOW&#45;&gt;Metamodel::PrivateMethodContainer</title>
+<path fill="none" stroke="#6666ff" d="M2157.59,-563.33C1967.74,-563.31 1625.43,-563.27 1414.65,-563.24"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1414.41,-559.74 1404.4,-563.24 1414.4,-566.74 1414.41,-559.74"/>
+</g>
+<!-- Metamodel::ConcreteRoleHOW&#45;&gt;Any -->
+<g id="edge4" class="edge">
+<title>Metamodel::ConcreteRoleHOW&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M2266.4,-545.67C2130.85,-463.23 1561.81,-117.13 1427.37,-35.36"/>
+<polygon fill="#000000" stroke="#000000" points="1429.17,-32.36 1418.8,-30.15 1425.53,-38.34 1429.17,-32.36"/>
+</g>
+<!-- Metamodel::ConcreteRoleHOW&#45;&gt;Metamodel::Naming -->
+<g id="edge36" class="edge">
+<title>Metamodel::ConcreteRoleHOW&#45;&gt;Metamodel::Naming</title>
+<path fill="none" stroke="#6666ff" d="M2233.11,-579.48C2085.19,-617.73 1725.4,-710.77 1725.4,-710.77 1725.4,-710.77 1681.51,-724.61 1681.51,-724.61 1681.51,-724.61 1598.98,-761.41 1544.62,-785.65"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1542.87,-782.6 1535.16,-789.87 1545.72,-789 1542.87,-782.6"/>
+</g>
+<!-- Metamodel::ConcreteRoleHOW&#45;&gt;Metamodel::Versioning -->
+<g id="edge37" class="edge">
+<title>Metamodel::ConcreteRoleHOW&#45;&gt;Metamodel::Versioning</title>
+<path fill="none" stroke="#6666ff" d="M2228.68,-579.17C2038.1,-624.33 1492.69,-753.54 1294.41,-800.52"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1293.31,-797.19 1284.39,-802.9 1294.93,-804 1293.31,-797.19"/>
+</g>
+<!-- Metamodel::ConcreteRoleHOW&#45;&gt;Metamodel::AttributeContainer -->
+<g id="edge41" class="edge">
+<title>Metamodel::ConcreteRoleHOW&#45;&gt;Metamodel::AttributeContainer</title>
+<path fill="none" stroke="#6666ff" d="M2246.41,-546.47C2152.86,-514.29 1949.34,-444.29 1848.14,-409.48"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1848.97,-406.06 1838.38,-406.12 1846.7,-412.68 1848.97,-406.06"/>
+</g>
+<!-- Metamodel::ConcreteRoleHOW&#45;&gt;Metamodel::MethodContainer -->
+<g id="edge39" class="edge">
+<title>Metamodel::ConcreteRoleHOW&#45;&gt;Metamodel::MethodContainer</title>
+<path fill="none" stroke="#6666ff" d="M2161.63,-558.83C2019.61,-554.03 1796.03,-546.48 1650.32,-541.56"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1650.07,-538.05 1639.96,-541.21 1649.84,-545.05 1650.07,-538.05"/>
+</g>
+<!-- Metamodel::ConcreteRoleHOW&#45;&gt;Metamodel::MultiMethodContainer -->
+<g id="edge40" class="edge">
+<title>Metamodel::ConcreteRoleHOW&#45;&gt;Metamodel::MultiMethodContainer</title>
+<path fill="none" stroke="#6666ff" d="M2233.6,-547.22C2077.42,-506.51 1679.58,-402.8 1679.58,-402.8 1679.58,-402.8 1530.69,-361.4 1439.14,-335.95"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1439.94,-332.54 1429.37,-333.23 1438.07,-339.28 1439.94,-332.54"/>
+</g>
+<!-- Metamodel::ConcreteRoleHOW&#45;&gt;Metamodel::RoleContainer -->
+<g id="edge42" class="edge">
+<title>Metamodel::ConcreteRoleHOW&#45;&gt;Metamodel::RoleContainer</title>
+<path fill="none" stroke="#6666ff" d="M2188.2,-574.66C1943.79,-600.41 1347.44,-663.26 1097.61,-689.59"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1097,-686.14 1087.43,-690.66 1097.74,-693.1 1097,-686.14"/>
+</g>
+<!-- Metamodel::ConcreteRoleHOW&#45;&gt;Metamodel::MultipleInheritance -->
+<g id="edge43" class="edge">
+<title>Metamodel::ConcreteRoleHOW&#45;&gt;Metamodel::MultipleInheritance</title>
+<path fill="none" stroke="#6666ff" d="M2277.17,-581.4C2195.65,-661.75 1865.56,-987.14 1770.8,-1080.54"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1768.3,-1078.1 1763.63,-1087.61 1773.21,-1083.08 1768.3,-1078.1"/>
+</g>
+</g>
+</svg>
+
+  <p class="fallback">
+    <a
+      rel="alternate"
+      href="/images/type-graph-Metamodel%3A%3APrivateMethodContainer.svg"
+      type="image/svg+xml"
+      >Expand above chart</a
+    >
+  </p>
+</figure>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Type/Metamodel/PrivateMethodContainer.pod6">https://github.com/Raku/doc/blob/master/doc/Type/Metamodel/PrivateMethodContainer.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

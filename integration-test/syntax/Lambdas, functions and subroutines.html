@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Python Lambdas, functions and subroutines</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Python Lambdas, functions and subroutines</h1>
+        <p class="subtitle"></p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#language_documentation_Python_to_Raku_-_nutshell">language documentation Python to Raku - nutshell</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#(Python_to_Raku_-_nutshell)_Python_Lambdas,_functions_and_subroutines">(Python to Raku - nutshell) Python Lambdas, functions and subroutines</a></td></tr>
+                                                                  
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Documentation for Python <code>Lambdas, functions and subroutines</code> assembled from the following types:</p>
+<h1 id="language_documentation_Python_to_Raku_-_nutshell"><a class="u" href="#___top" title="go to top of document">language documentation Python to Raku - nutshell</a></h1>
+<p>From <a href="/Documentable/integration-test/language/py-nutshell#Lambdas,_functions_and_subroutines">Python to Raku - nutshell</a></p>
+<h2 id="(Python_to_Raku_-_nutshell)_Python_Lambdas,_functions_and_subroutines"><a href="/Documentable/integration-test/language/py-nutshell#Lambdas,_functions_and_subroutines">(Python to Raku - nutshell) Python Lambdas, functions and subroutines</a></h2>
+<p>Declaring a function (subroutine) with <code>def</code> in Python is accomplished with <code>sub</code> in Raku.</p>
+<pre class="pod-block-code">def add(a, b):
+    return a + b
+
+sub add(\a, \b) {
+    return a + b
+}
+</pre>
+<p>The <code>return</code> is optional; the value of the last expression is used as the return value:</p>
+<pre class="pod-block-code">sub add(\a, \b) {
+    a + b
+}
+</pre>
+<pre class="pod-block-code"># using variables with sigils
+sub add($a, $b) {
+    $a + $b
+}
+</pre>
+<p>Python 2 functions can be called with positional arguments or keyword arguments. These are determined by the caller. In Python 3, some arguments may be &quot;keyword only&quot;. In Raku, positional and named arguments are determined by the signature of the routine.</p>
+<p>Python</p>
+<pre class="pod-block-code">def speak(word, times):
+    for i in range(times):
+        print word
+speak(&#39;hi&#39;, 2)
+speak(word=&#39;hi&#39;, times=2)
+</pre>
+<p>Raku</p>
+<p>Positional parameters:</p>
+<pre class="pod-block-code">sub speak($word, $times) {
+  say $word for ^$times
+}
+speak(&#39;hi&#39;, 2);</pre>
+<p>Named parameters start with a colon:</p>
+<pre class="pod-block-code">sub speak(:$word, :$times) {
+  say $word for ^$times
+}
+speak(word =&gt; &#39;hi&#39;, times =&gt; 2);
+speak(:word&lt;hi&gt;, :times&lt;2&gt;);      # Alternative, more idiomatic</pre>
+<p>Raku supports multiple dispatch, so several signatures could be made available by declaring a routine as a <code>multi</code>.</p>
+<pre class="pod-block-code">multi sub speak($word, $times) {
+  say $word for ^$times
+}
+multi sub speak(:$word, :$times) {
+    speak($word, $times);
+}
+speak(&#39;hi&#39;, 2);
+speak(:word&lt;hi&gt;, :times&lt;2&gt;);</pre>
+<p>Named parameters can be sent using a variety of formats:</p>
+<pre class="pod-block-code">sub hello {...};
+# all the same
+hello(name =&gt; &#39;world&#39;); # fat arrow syntax
+hello(:name(&#39;world&#39;));  # pair constructor
+hello :name&lt;world&gt;;     # &lt;&gt; quotes words and makes a list
+my $name = &#39;world&#39;;
+hello(:$name);          # lexical var with the same name</pre>
+<p>Creating an anonymous function can be done with <code>sub</code>, with a block or with a pointy block.</p>
+<p>Python</p>
+<pre class="pod-block-code">square = lambda x: x ** 2
+</pre>
+<p>Raku</p>
+<pre class="pod-block-code">my $square = sub ($x) { $x ** 2 };  # anonymous sub
+my $square = -&gt; $x { $x ** 2 };     # pointy block
+my $square = { $^x ** 2 };          # placeholder variable
+my $square = { $_ ** 2 };           # topic variable</pre>
+<p>Placeholder variables are lexicographically ordered to form positional parameters. Thus these are the same:</p>
+<pre class="pod-block-code">my $power = { $^x ** $^y };
+my $power = -&gt; $x, $y { $x ** $y };</pre>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

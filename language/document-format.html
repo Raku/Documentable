@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Pod6 Format</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/">
+            <img src="/Documentable/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/routine.html"> Routines </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/Documentable/tree/master/docs/Language/document-format.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Pod6 Format</h1>
+        <p class="subtitle">How to write Pod6 files for Documentable</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+             <tr class="toc-level-2"><td class="toc-number">0.1</td><td class="toc-text"><a href="#Inline_metadata">Inline metadata</a></td></tr>
+                                  <tr class="toc-level-2"><td class="toc-number">0.2</td><td class="toc-text"><a href="#Main_headers">Main headers</a></td></tr>
+                                                      <tr class="toc-level-2"><td class="toc-number">0.3</td><td class="toc-text"><a href="#Multi-class_file_support">Multi-class file support</a></td></tr>
+                            
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>In <code>Documentable</code>, the documentation units are <strong>pod blocks</strong>. Each and every one of this <em>pod block</em>, is represented by a <a href="/Documentable/type/Documentable::Primary">Documentable::Primary</a> object. You could write this <em>pod blocks</em> in a lot of ways, so it would be hard to detect some needed data to generate an &quot;useful&quot; site. For this reason, you need to follow some basic requirements when writing documentation.</p>
+<h2 id="Inline_metadata"><a class="u" href="#___top" title="go to top of document">Inline metadata</a></h2>
+<p>You need to specify three different values for each <em>pod block</em>:</p>
+<ul><li><p><code>kind</code>: this value will be used to categorize the documentation block in menus (see <a href="/Documentable/type/Kind">Kind</a>).</p>
+</li>
+<li><p><code>subkind</code>: more specific categorization. I recommend you to use values from <a href="/Documentable/type/Documentable::Heading::Grammar">Documentable::Heading::Grammar</a>.</p>
+</li>
+<li><p><code>category</code>: submenu categorization. You will find some big menus corresponding to <code>kinds</code>, and inside each <code>kind</code>, there will be as many menus as different values for <code>category</code>. <strong>Note:</strong> you need to specify these values in the <a href="/Documentable/language/configuration-file">configuration file</a>.</p>
+</li>
+</ul>
+<p>Example: if you have a class that you want to document, you would write the pod6 file as:</p>
+<pre class="editor editor-colors"><div class="line"><span class="source perl6fe"><span class="storage modifier block delimited perl6fe"><span>=</span></span><span class="keyword operator block delimited perl6fe"><span>begin</span></span><span>&nbsp;</span><span class="entity other attribute-name block delimited perl6fe"><span>pod</span></span><span class="comment block delimited perl6fe"><span>&nbsp;:kind(&quot;Type&quot;)&nbsp;:subkind(&quot;class&quot;)&nbsp;:category(&quot;processing&quot;)</span></span></span></div><div class="line"><span class="source perl6fe"><span class="comment block delimited perl6fe"><span>&nbsp;</span></span></span></div><div class="line"><span class="source perl6fe"><span class="comment block delimited perl6fe"><span>(...)</span></span></span></div><div class="line"><span class="source perl6fe"><span class="comment block delimited perl6fe"><span>&nbsp;</span></span></span></div><div class="line"><span class="source perl6fe"><span class="storage modifier block delimited perl6fe"><span>=</span></span><span class="keyword operator block delimited perl6fe"><span>end</span></span><span>&nbsp;</span><span class="entity other attribute-name block delimited perl6fe"><span>pod</span></span></span></div><div class="line"><span class="source perl6fe"><span>&nbsp;</span></span></div></pre><h2 id="Main_headers"><a class="u" href="#___top" title="go to top of document">Main headers</a></h2>
+<p>You must always specify a <code>=TITLE</code> and <code>=SUBTITLE</code> element.</p>
+<ul><li><p>The content of this element, if <code>kind</code> is set to <code>&quot;type&quot;</code>, will be used to set the name of the <a href="/Documentable/type/Documentable::Primary">Documentable::Primary</a> object. So, if you are documenting a type, you will need to write the title as follows:</p>
+<pre class="editor editor-colors"><div class="line"><span class="source perl6fe"><span class="storage modifier block delimited perl6fe"><span>=</span></span><span class="keyword operator block delimited perl6fe"><span>begin</span></span><span>&nbsp;</span><span class="entity other attribute-name block delimited perl6fe"><span>pod</span></span></span></div><div class="line"><span class="source perl6fe"><span class="comment block delimited perl6fe"><span class="storage modifier block abbreviated perl6fe"><span>=</span></span><span class="entity other attribute-name block abbreviated perl6fe"><span>TITLE</span></span><span>&nbsp;</span><span class="entity name section abbreviated perl6fe"><span>class&nbsp;Your::Class</span></span><span>&nbsp;</span></span></span></div><div class="line"><span class="source perl6fe"><span class="comment block delimited perl6fe"><span>&nbsp;</span></span></span></div><div class="line"><span class="source perl6fe"><span class="comment block delimited perl6fe"><span>&#39;Your::Class&#39;&nbsp;will&nbsp;be&nbsp;considered&nbsp;as&nbsp;name!</span></span></span></div><div class="line"><span class="source perl6fe"><span class="comment block delimited perl6fe"><span>&nbsp;</span></span></span></div><div class="line"><span class="source perl6fe"><span class="comment block delimited perl6fe"><span class="storage modifier block abbreviated perl6fe"><span>=</span></span><span class="entity other attribute-name block abbreviated perl6fe"><span>TITLE</span></span><span>&nbsp;</span><span class="entity name section abbreviated perl6fe"><span>role&nbsp;Your::Role</span></span><span>&nbsp;</span></span></span></div><div class="line"><span class="source perl6fe"><span class="comment block delimited perl6fe"><span>&nbsp;</span></span></span></div><div class="line"><span class="source perl6fe"><span class="comment block delimited perl6fe"><span>&#39;Your::Role&#39;&nbsp;will&nbsp;be&nbsp;considered&nbsp;as&nbsp;name!</span></span></span></div><div class="line"><span class="source perl6fe"><span class="comment block delimited perl6fe"><span>&nbsp;</span></span></span></div><div class="line"><span class="source perl6fe"><span class="comment block delimited perl6fe"><span class="storage modifier block abbreviated perl6fe"><span>=</span></span><span class="entity other attribute-name block abbreviated perl6fe"><span>TITLE</span></span><span>&nbsp;</span><span class="entity name section abbreviated perl6fe"><span>enum&nbsp;YourEnum</span></span><span>&nbsp;</span></span></span></div><div class="line"><span class="source perl6fe"><span class="comment block delimited perl6fe"><span>&nbsp;</span></span></span></div><div class="line"><span class="source perl6fe"><span class="comment block delimited perl6fe"><span>&#39;YourEnum&#39;&nbsp;will&nbsp;be&nbsp;considered&nbsp;as&nbsp;name!</span></span></span></div><div class="line"><span class="source perl6fe"><span class="storage modifier block delimited perl6fe"><span>=</span></span><span class="keyword operator block delimited perl6fe"><span>end</span></span><span>&nbsp;</span><span class="entity other attribute-name block delimited perl6fe"><span>pod</span></span></span></div></pre><p>If it&#39;s not a type, then the full content of this element will be considered as name.</p>
+</li>
+<li><p><code>=SUBTITLE</code> element will be used as <code>$summary</code> attribute in <a href="/Documentable/type/Documentable::Primary">Documentable::Primary</a>.</p>
+</li>
+</ul>
+<p>And that&#39;s all, at the end, all your pod blocks should be something like:</p>
+<pre class="editor editor-colors"><div class="line"><span class="source perl6fe"><span class="storage modifier block delimited perl6fe"><span>=</span></span><span class="keyword operator block delimited perl6fe"><span>begin</span></span><span>&nbsp;</span><span class="entity other attribute-name block delimited perl6fe"><span>pod</span></span><span class="comment block delimited perl6fe"><span>&nbsp;:kind(&lt;kind&gt;)&nbsp;:subkind(&lt;subkind&gt;)&nbsp;:category(&lt;category&gt;)</span></span></span></div><div class="line"><span class="source perl6fe"><span class="comment block delimited perl6fe"><span>&nbsp;</span></span></span></div><div class="line"><span class="source perl6fe"><span class="comment block delimited perl6fe"><span class="storage modifier block abbreviated perl6fe"><span>=</span></span><span class="entity other attribute-name block abbreviated perl6fe"><span>TITLE</span></span><span>&nbsp;</span><span class="entity name section abbreviated perl6fe"><span>Something</span></span><span>&nbsp;</span></span></span></div><div class="line"><span class="source perl6fe"><span class="comment block delimited perl6fe"><span>&nbsp;</span></span></span></div><div class="line"><span class="source perl6fe"><span class="comment block delimited perl6fe"><span class="storage modifier block abbreviated perl6fe"><span>=</span></span><span class="entity other attribute-name block abbreviated perl6fe"><span>SUBTITLE</span></span><span>&nbsp;</span><span class="entity name section abbreviated perl6fe"><span>Minimal&nbsp;description&nbsp;of&nbsp;Something</span></span><span>&nbsp;</span></span></span></div><div class="line"><span class="source perl6fe"><span class="comment block delimited perl6fe"><span>&nbsp;</span></span></span></div><div class="line"><span class="source perl6fe"><span class="storage modifier block delimited perl6fe"><span>=</span></span><span class="keyword operator block delimited perl6fe"><span>end</span></span><span>&nbsp;</span><span class="entity other attribute-name block delimited perl6fe"><span>pod</span></span></span></div><div class="line"><span class="source perl6fe"><span>&nbsp;</span></span></div></pre><h2 id="Multi-class_file_support"><a class="u" href="#___top" title="go to top of document">Multi-class file support</a></h2>
+<p>Sometimes is a pain to create a new file for every class, role or enum you want to document. Even sometimes, you have in the same code file an enum, some related exceptions, and who knows more, so the possibility to write all its documentation in the same file looks like quite useful. You are lucky! With <code>Documentable</code> you can do that!.</p>
+<p>You only need to write more than one pod block in the same file (following the previous rules). For instance, let&#39;s document two different types: (the following code is in the same file)</p>
+<pre class="editor editor-colors"><div class="line"><span class="source perl6fe"><span class="storage modifier block delimited perl6fe"><span>=</span></span><span class="keyword operator block delimited perl6fe"><span>begin</span></span><span>&nbsp;</span><span class="entity other attribute-name block delimited perl6fe"><span>pod</span></span><span class="comment block delimited perl6fe"><span>&nbsp;:kind(&quot;type&quot;)&nbsp;:subkind(&quot;class&quot;)&nbsp;:category(&quot;destruction&quot;)</span></span></span></div><div class="line"><span class="source perl6fe"><span class="comment block delimited perl6fe"><span>&nbsp;</span></span></span></div><div class="line"><span class="source perl6fe"><span class="comment block delimited perl6fe"><span class="storage modifier block abbreviated perl6fe"><span>=</span></span><span class="entity other attribute-name block abbreviated perl6fe"><span>TITLE</span></span><span>&nbsp;</span><span class="entity name section abbreviated perl6fe"><span>class&nbsp;Ultra::Weapon</span></span><span>&nbsp;</span></span></span></div><div class="line"><span class="source perl6fe"><span class="comment block delimited perl6fe"><span>&nbsp;</span></span></span></div><div class="line"><span class="source perl6fe"><span class="comment block delimited perl6fe"><span class="storage modifier block abbreviated perl6fe"><span>=</span></span><span class="entity other attribute-name block abbreviated perl6fe"><span>SUBTITLE</span></span><span>&nbsp;</span><span class="entity name section abbreviated perl6fe"><span>Destruction&nbsp;weapon</span></span><span>&nbsp;</span></span></span></div><div class="line"><span class="source perl6fe"><span class="comment block delimited perl6fe"><span>&nbsp;</span></span></span></div><div class="line"><span class="source perl6fe"><span class="storage modifier block delimited perl6fe"><span>=</span></span><span class="keyword operator block delimited perl6fe"><span>end</span></span><span>&nbsp;</span><span class="entity other attribute-name block delimited perl6fe"><span>pod</span></span></span></div><div class="line"><span class="source perl6fe"><span>&nbsp;</span></span></div><div class="line"><span class="source perl6fe"><span class="storage modifier block delimited perl6fe"><span>=</span></span><span class="keyword operator block delimited perl6fe"><span>begin</span></span><span>&nbsp;</span><span class="entity other attribute-name block delimited perl6fe"><span>pod</span></span><span class="comment block delimited perl6fe"><span>&nbsp;:kind(&quot;type&quot;)&nbsp;:subkind(&quot;role&quot;)&nbsp;:category(&quot;exception&quot;)</span></span></span></div><div class="line"><span class="source perl6fe"><span class="comment block delimited perl6fe"><span>&nbsp;</span></span></span></div><div class="line"><span class="source perl6fe"><span class="comment block delimited perl6fe"><span class="storage modifier block abbreviated perl6fe"><span>=</span></span><span class="entity other attribute-name block abbreviated perl6fe"><span>TITLE</span></span><span>&nbsp;</span><span class="entity name section abbreviated perl6fe"><span>role&nbsp;X::IO</span></span><span>&nbsp;</span></span></span></div><div class="line"><span class="source perl6fe"><span class="comment block delimited perl6fe"><span>&nbsp;</span></span></span></div><div class="line"><span class="source perl6fe"><span class="comment block delimited perl6fe"><span class="storage modifier block abbreviated perl6fe"><span>=</span></span><span class="entity other attribute-name block abbreviated perl6fe"><span>SUBTITLE</span></span><span>&nbsp;</span><span class="entity name section abbreviated perl6fe"><span>IO&nbsp;related</span></span><span>&nbsp;</span></span></span></div><div class="line"><span class="source perl6fe"><span class="comment block delimited perl6fe"><span>&nbsp;</span></span></span></div><div class="line"><span class="source perl6fe"><span class="storage modifier block delimited perl6fe"><span>=</span></span><span class="keyword operator block delimited perl6fe"><span>end</span></span><span>&nbsp;</span><span class="entity other attribute-name block delimited perl6fe"><span>pod</span></span></span></div><div class="line"><span class="source perl6fe"><span>&nbsp;</span></span></div></pre>
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/Documentable/tree/master/docs/Language/document-format.pod6">https://github.com/Raku/Documentable/tree/master/docs/Language/document-format.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/js/search.js?v=3"></script>
+</body>
+</html>
+

@@ -1,0 +1,807 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Glossary</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/glossary.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Glossary</h1>
+        <p class="subtitle">Glossary of Raku terminology</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+   <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Abstract_class">Abstract class</a></td></tr>
+            <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Advent_calendar">Advent calendar</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Adverb">Adverb</a></td></tr>
+                <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#Adverbial_pair">Adverbial pair</a></td></tr>
+                      <tr class="toc-level-1"><td class="toc-number">5</td><td class="toc-text"><a href="#Allomorph">Allomorph</a></td></tr>
+                                                          <tr class="toc-level-1"><td class="toc-number">6</td><td class="toc-text"><a href="#Anonymous">Anonymous</a></td></tr>
+               <tr class="toc-level-1"><td class="toc-number">7</td><td class="toc-text"><a href="#API">API</a></td></tr>
+      <tr class="toc-level-1"><td class="toc-number">8</td><td class="toc-text"><a href="#Apocalypse">Apocalypse</a></td></tr>
+         <tr class="toc-level-1"><td class="toc-number">9</td><td class="toc-text"><a href="#Arity">Arity</a></td></tr>
+                    <tr class="toc-level-1"><td class="toc-number">10</td><td class="toc-text"><a href="#ASCII_operator">ASCII operator </a></td></tr>
+              <tr class="toc-level-1"><td class="toc-number">11</td><td class="toc-text"><a href="#Autothreading">Autothreading</a></td></tr>
+                                        <tr class="toc-level-1"><td class="toc-number">12</td><td class="toc-text"><a href="#Backtracking">Backtracking</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">13</td><td class="toc-text"><a href="#binder">binder</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">14</td><td class="toc-text"><a href="#block">block</a></td></tr>
+    <tr class="toc-level-1"><td class="toc-number">15</td><td class="toc-text"><a href="#bytecode">bytecode</a></td></tr>
+           <tr class="toc-level-1"><td class="toc-number">16</td><td class="toc-text"><a href="#Camelia">Camelia</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">17</td><td class="toc-text"><a href="#Colon_pair_and_colon_list">Colon pair and colon list</a></td></tr>
+                           <tr class="toc-level-1"><td class="toc-number">18</td><td class="toc-text"><a href="#Community">Community</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">19</td><td class="toc-text"><a href="#Damian_Conway">Damian Conway</a></td></tr>
+       <tr class="toc-level-1"><td class="toc-number">20</td><td class="toc-text"><a href="#decont">decont</a></td></tr>
+         <tr class="toc-level-1"><td class="toc-number">21</td><td class="toc-text"><a href="#diffy">diffy</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">22</td><td class="toc-text"><a href="#Exegesis">Exegesis</a></td></tr>
+         <tr class="toc-level-1"><td class="toc-number">23</td><td class="toc-text"><a href="#fiddly">fiddly</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">24</td><td class="toc-text"><a href="#Handle">Handle</a></td></tr>
+       <tr class="toc-level-1"><td class="toc-number">25</td><td class="toc-text"><a href="#Huffmanize">Huffmanize</a></td></tr>
+              <tr class="toc-level-1"><td class="toc-number">26</td><td class="toc-text"><a href="#iffy">iffy</a></td></tr>
+        <tr class="toc-level-1"><td class="toc-number">27</td><td class="toc-text"><a href="#import">import</a></td></tr>
+   <tr class="toc-level-1"><td class="toc-number">28</td><td class="toc-text"><a href="#Instance">Instance</a></td></tr>
+                  <tr class="toc-level-1"><td class="toc-number">29</td><td class="toc-text"><a href="#Interface">Interface</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">30</td><td class="toc-text"><a href="#Invocant">Invocant</a></td></tr>
+         <tr class="toc-level-1"><td class="toc-number">31</td><td class="toc-text"><a href="#IRC">IRC</a></td></tr>
+         <tr class="toc-level-1"><td class="toc-number">32</td><td class="toc-text"><a href="#IRC_lingo">IRC lingo</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">32.1</td><td class="toc-text"><a href="#ALAP">ALAP</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">32.2</td><td class="toc-text"><a href="#autopun">autopun</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">32.3</td><td class="toc-text"><a href="#backlog">backlog</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">32.4</td><td class="toc-text"><a href="#Bot">Bot</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">32.5</td><td class="toc-text"><a href="#Compilation_unit_or_compunit">Compilation unit or compunit</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">32.6</td><td class="toc-text"><a href="#DWIM">DWIM</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">32.7</td><td class="toc-text"><a href="#flap">flap</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">32.8</td><td class="toc-text"><a href="#fossil">fossil</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">32.9</td><td class="toc-text"><a href="#FSVO">FSVO</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">32.10</td><td class="toc-text"><a href="#FTFY">FTFY</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">32.11</td><td class="toc-text"><a href="#gradual_typing">gradual typing</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">32.12</td><td class="toc-text"><a href="#IIRC">IIRC</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">32.13</td><td class="toc-text"><a href="#IMHO">IMHO</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">32.14</td><td class="toc-text"><a href="#IWBN">IWBN</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">32.15</td><td class="toc-text"><a href="#LHF">LHF</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">32.16</td><td class="toc-text"><a href="#LGTM">LGTM</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">32.17</td><td class="toc-text"><a href="#LTA">LTA</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">32.18</td><td class="toc-text"><a href="#NST">NST</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">32.19</td><td class="toc-text"><a href="#Opt">Opt</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">32.20</td><td class="toc-text"><a href="#PB">PB</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">32.21</td><td class="toc-text"><a href="#PR">PR</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">32.22</td><td class="toc-text"><a href="#P5">P5</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">32.23</td><td class="toc-text"><a href="#P6">P6</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">32.24</td><td class="toc-text"><a href="#RSN">RSN</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">32.25</td><td class="toc-text"><a href="#RT">RT</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">32.26</td><td class="toc-text"><a href="#TIMTOWTDI">TIMTOWTDI</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">32.27</td><td class="toc-text"><a href="#TMI">TMI</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">32.28</td><td class="toc-text"><a href="#TMTOWTDI">TMTOWTDI</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">32.29</td><td class="toc-text"><a href="#UGT">UGT</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">32.30</td><td class="toc-text"><a href="#WFM">WFM</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">32.31</td><td class="toc-text"><a href="#WIP">WIP</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">32.32</td><td class="toc-text"><a href="#WP">WP</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">32.33</td><td class="toc-text"><a href="#WW">WW</a></td></tr>
+       <tr class="toc-level-1"><td class="toc-number">33</td><td class="toc-text"><a href="#Larry_Wall">Larry Wall</a></td></tr>
+      <tr class="toc-level-1"><td class="toc-number">34</td><td class="toc-text"><a href="#Lexing">Lexing</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">35</td><td class="toc-text"><a href="#Literal">Literal</a></td></tr>
+         <tr class="toc-level-1"><td class="toc-number">36</td><td class="toc-text"><a href="#LHS">LHS</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">37</td><td class="toc-text"><a href="#lvalue">lvalue</a></td></tr>
+                                          <tr class="toc-level-1"><td class="toc-number">38</td><td class="toc-text"><a href="#Mainline">Mainline</a></td></tr>
+                    <tr class="toc-level-1"><td class="toc-number">39</td><td class="toc-text"><a href="#Mayspec">Mayspec</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">40</td><td class="toc-text"><a href="#MoarVM">MoarVM</a></td></tr>
+               <tr class="toc-level-1"><td class="toc-number">41</td><td class="toc-text"><a href="#Multi-dispatch">Multi-dispatch</a></td></tr>
+         <tr class="toc-level-1"><td class="toc-number">42</td><td class="toc-text"><a href="#multi-method">multi-method</a></td></tr>
+       <tr class="toc-level-1"><td class="toc-number">43</td><td class="toc-text"><a href="#Née">Née</a></td></tr>
+   <tr class="toc-level-1"><td class="toc-number">44</td><td class="toc-text"><a href="#NFG">NFG</a></td></tr>
+       <tr class="toc-level-1"><td class="toc-number">45</td><td class="toc-text"><a href="#Niecza">Niecza</a></td></tr>
+   <tr class="toc-level-1"><td class="toc-number">46</td><td class="toc-text"><a href="#Not_Quite_Perl">Not Quite Perl</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">47</td><td class="toc-text"><a href="#NQP">NQP</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">48</td><td class="toc-text"><a href="#NYI">NYI</a></td></tr>
+   <tr class="toc-level-1"><td class="toc-number">49</td><td class="toc-text"><a href="#opcode">opcode</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">50</td><td class="toc-text"><a href="#Operator">Operator</a></td></tr>
+                                       <tr class="toc-level-1"><td class="toc-number">51</td><td class="toc-text"><a href="#Parse_tree">Parse tree</a></td></tr>
+       <tr class="toc-level-1"><td class="toc-number">52</td><td class="toc-text"><a href="#Parameter">Parameter</a></td></tr>
+       <tr class="toc-level-1"><td class="toc-number">53</td><td class="toc-text"><a href="#Parrot">Parrot</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">54</td><td class="toc-text"><a href="#PAST">PAST</a></td></tr>
+    <tr class="toc-level-1"><td class="toc-number">55</td><td class="toc-text"><a href="#Perl">Perl</a></td></tr>
+   <tr class="toc-level-1"><td class="toc-number">56</td><td class="toc-text"><a href="#Perl_6">Perl&nbsp;6</a></td></tr>
+   <tr class="toc-level-1"><td class="toc-number">57</td><td class="toc-text"><a href="#PERL">PERL</a></td></tr>
+       <tr class="toc-level-1"><td class="toc-number">58</td><td class="toc-text"><a href="#POD">POD</a></td></tr>
+          <tr class="toc-level-1"><td class="toc-number">59</td><td class="toc-text"><a href="#POV">POV</a></td></tr>
+   <tr class="toc-level-1"><td class="toc-number">60</td><td class="toc-text"><a href="#Propspec">Propspec</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">61</td><td class="toc-text"><a href="#Pull_request">Pull request</a></td></tr>
+         <tr class="toc-level-1"><td class="toc-number">62</td><td class="toc-text"><a href="#property">property</a></td></tr>
+       <tr class="toc-level-1"><td class="toc-number">63</td><td class="toc-text"><a href="#pugs">pugs</a></td></tr>
+    <tr class="toc-level-1"><td class="toc-number">64</td><td class="toc-text"><a href="#QAST">QAST</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">65</td><td class="toc-text"><a href="#Rakudo">Rakudo</a></td></tr>
+       <tr class="toc-level-1"><td class="toc-number">66</td><td class="toc-text"><a href="#Reify">Reify</a></td></tr>
+       <tr class="toc-level-1"><td class="toc-number">67</td><td class="toc-text"><a href="#Repository">Repository</a></td></tr>
+          <tr class="toc-level-1"><td class="toc-number">68</td><td class="toc-text"><a href="#RHS">RHS</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">69</td><td class="toc-text"><a href="#roast">roast</a></td></tr>
+                   <tr class="toc-level-1"><td class="toc-number">70</td><td class="toc-text"><a href="#Roles">Roles</a></td></tr>
+            <tr class="toc-level-1"><td class="toc-number">71</td><td class="toc-text"><a href="#rule">rule</a></td></tr>
+   <tr class="toc-level-1"><td class="toc-number">72</td><td class="toc-text"><a href="#rvalue">rvalue</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">73</td><td class="toc-text"><a href="#SAP">SAP</a></td></tr>
+        <tr class="toc-level-1"><td class="toc-number">74</td><td class="toc-text"><a href="#Semilist">Semilist</a></td></tr>
+           <tr class="toc-level-1"><td class="toc-number">75</td><td class="toc-text"><a href="#Sigil">Sigil</a></td></tr>
+             <tr class="toc-level-1"><td class="toc-number">76</td><td class="toc-text"><a href="#Sigilless_variable">Sigilless variable</a></td></tr>
+      <tr class="toc-level-1"><td class="toc-number">77</td><td class="toc-text"><a href="#Spesh">Spesh</a></td></tr>
+       <tr class="toc-level-1"><td class="toc-number">78</td><td class="toc-text"><a href="#STD">STD</a></td></tr>
+      <tr class="toc-level-1"><td class="toc-number">79</td><td class="toc-text"><a href="#Stub">Stub</a></td></tr>
+       <tr class="toc-level-1"><td class="toc-number">80</td><td class="toc-text"><a href="#Symbol">Symbol</a></td></tr>
+       <tr class="toc-level-1"><td class="toc-number">81</td><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+           <tr class="toc-level-1"><td class="toc-number">82</td><td class="toc-text"><a href="#Syntax_analysis">Syntax analysis</a></td></tr>
+       <tr class="toc-level-1"><td class="toc-number">83</td><td class="toc-text"><a href="#Test_suite">Test suite</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">84</td><td class="toc-text"><a href="#TheDamian">TheDamian</a></td></tr>
+        <tr class="toc-level-1"><td class="toc-number">85</td><td class="toc-text"><a href="#TimToady">TimToady</a></td></tr>
+        <tr class="toc-level-1"><td class="toc-number">86</td><td class="toc-text"><a href="#token">token</a></td></tr>
+         <tr class="toc-level-1"><td class="toc-number">87</td><td class="toc-text"><a href="#Thunk">Thunk</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">88</td><td class="toc-text"><a href="#Tight_and_loose_precedence">Tight and loose precedence</a></td></tr>
+             <tr class="toc-level-1"><td class="toc-number">89</td><td class="toc-text"><a href="#twine">twine</a></td></tr>
+                   <tr class="toc-level-1"><td class="toc-number">90</td><td class="toc-text"><a href="#Type_objects">Type objects</a></td></tr>
+       <tr class="toc-level-1"><td class="toc-number">91</td><td class="toc-text"><a href="#Type_smiley">Type smiley</a></td></tr>
+           <tr class="toc-level-1"><td class="toc-number">92</td><td class="toc-text"><a href="#value">value</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">93</td><td class="toc-text"><a href="#UB">UB</a></td></tr>
+   <tr class="toc-level-1"><td class="toc-number">94</td><td class="toc-text"><a href="#Value_type">Value type</a></td></tr>
+                                    <tr class="toc-level-1"><td class="toc-number">95</td><td class="toc-text"><a href="#Variable">Variable</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">96</td><td class="toc-text"><a href="#Variable_interpolation">Variable interpolation</a></td></tr>
+           <tr class="toc-level-1"><td class="toc-number">97</td><td class="toc-text"><a href="#Virtual_machine">Virtual machine</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">97.1</td><td class="toc-text"><a href="#WAT">WAT</a></td></tr>
+       <tr class="toc-level-1"><td class="toc-number">98</td><td class="toc-text"><a href="#whitespace">whitespace</a></td></tr>
+   <tr class="toc-level-1"><td class="toc-number">99</td><td class="toc-text"><a href="#6model">6model</a></td></tr>
+        
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p><a name="Documentable/integration-test/index-entry-Abstract_Class"></a></p>
+<h1 id="Abstract_class"><a class="u" href="#___top" title="go to top of document">Abstract class</a></h1>
+<p>The generic Computer Science term &quot;abstract class&quot; defines the <a href="#Interface">interface</a> or <a href="#API">API</a> of a class. In Raku, this is implemented using <a href="#Roles">roles</a> with <a href="#Stub">stubbed</a> methods.</p>
+<pre class="pod-block-code">role Canine {
+    method bark { ... }          # the ... indicates a stub
+}
+
+class Dog does Canine {
+    method bark { say &quot;woof&quot; }   # *MUST* be implemented by class
+}</pre>
+<p><a name="Documentable/integration-test/index-entry-Advent_Calendar"></a></p>
+<h1 id="Advent_calendar"><a class="u" href="#___top" title="go to top of document">Advent calendar</a></h1>
+<p>In the context of Raku, a yearly set of blog posts for each day from the 1st until the 25th of December, to be found at <a href="https://raku-advent.blog">https://raku-advent.blog</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-Adverb"></a></p>
+<h1 id="Adverb"><a class="u" href="#___top" title="go to top of document">Adverb</a></h1>
+<p>Generically, an adverb is a named argument to a function. There are also some specific syntax forms that allow adverbs to be tucked into some convenient places:</p>
+<pre class="pod-block-code">q:w&quot;foo bar&quot;;   # &quot;:w&quot; is a Quotelike form modifier adverb
+m:g/a|b|c/;     # &quot;:g&quot; is too
+@h{3}:exists;   # &quot;:exists&quot; is too, but is known as a subscript adverb
+</pre>
+<p>Adverbs are usually expressed with colon pair notation, and for this reason colon pair notation is also known as the adverbial pair form:</p>
+<pre class="pod-block-code">:a(4)          # Same as &quot;a&quot; =&gt; 4</pre>
+<p>Some other forms that use a colon in ways that have adverb-like semantics are called adverbial forms. One special form starts with an integer value, followed by a name (for the key):</p>
+<pre class="pod-block-code">:20seconds     # same as seconds =&gt; 20</pre>
+<p>Also see <a href="#Colon_pair_and_colon_list">Colon pair and colon list</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-Adverbial_Pair"></a></p>
+<h1 id="Adverbial_pair"><a class="u" href="#___top" title="go to top of document">Adverbial pair</a></h1>
+<p>A generalized form of <code>pair notation</code>. They all start with the colon, as shown in the following examples:</p>
+<table class="pod-table">
+<thead><tr>
+<th>adverbial pair</th> <th>pair notation</th>
+</tr></thead>
+<tbody>
+<tr> <td>:foo&lt;bar&gt;</td> <td>foo =&gt; &#39;bar&#39;</td> </tr> <tr> <td>:foo(42)</td> <td>foo =&gt; 42</td> </tr> <tr> <td>:42foo</td> <td>foo =&gt; 42</td> </tr> <tr> <td>:$foo</td> <td>foo =&gt; $foo</td> </tr> <tr> <td>:foo</td> <td>foo =&gt; True</td> </tr> <tr> <td>:!foo</td> <td>foo =&gt; False</td> </tr>
+</tbody>
+</table><p>Also see <a href="#Adverb">Adverb</a> and <a href="#Colon_pair_and_colon_list">Colon pair and colon list</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-Allomorph"></a></p>
+<h1 id="Allomorph"><a class="u" href="#___top" title="go to top of document">Allomorph</a></h1>
+<p>A type that has two related values which may be used depending on the context. For example <a href="/Documentable/integration-test/type/IntStr">IntStr</a> allomorph <code>is</code> both an <a href="/Documentable/integration-test/type/Int">Int</a> and a <a href="/Documentable/integration-test/type/Str">Str</a>, so it will be accepted by anything that expects an <code>Int</code>, a <code>Str</code>, or an <code>IntStr</code>. Keep in mind that certain constructs, such as <a href="/Documentable/integration-test/language/setbagmix">sets, bags, and mixes</a> care about object identity, and so will not accept an allomorph as equivalent of its components alone.</p>
+<p>The <em>allomorph</em> types <a href="/Documentable/integration-test/type/IntStr">IntStr</a>, <a href="/Documentable/integration-test/type/NumStr">NumStr</a>, <a href="/Documentable/integration-test/type/RatStr">RatStr</a> and <a href="/Documentable/integration-test/type/ComplexStr">ComplexStr</a> may be created as a result of parsing a string quoted with angle brackets:</p>
+<pre class="pod-block-code">say &lt;42&gt;.^name;     # OUTPUT: «IntStr␤»
+say &lt;42.1e0&gt;.^name; # OUTPUT: «NumStr␤»
+say &lt;42.1&gt;.^name;   # OUTPUT: «RatStr␤»</pre>
+<p><strong>Note</strong>: angle brackets can also be used to create literals for which you&#39;d normally need to use some operator (e.g. <code>/</code> for <a href="/Documentable/integration-test/type/Rat">Rat</a> or <code>+</code> for <a href="/Documentable/integration-test/type/Complex">Complex</a>). This allows you to use such literals in places where expressions are not allowed, for example, as literals in signatures:</p>
+<pre class="pod-block-code"># Wrong, can&#39;t use an operator there:
+multi foo (1/3) { say &quot;It&#39;s one third!&quot; }
+</pre>
+<pre class="pod-block-code"># Right, a Rat literal:
+multi foo (&lt;1/3&gt;) { say &quot;It&#39;s one third!&quot; }
+</pre>
+<p>If you <em>do</em> want an allomorph and not a literal <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, then include whitespace around angle brackets:</p>
+<pre class="pod-block-code">say &lt;42/1&gt;.^name;    # OUTPUT: «Rat␤»
+say &lt;42+0i&gt;.^name;   # OUTPUT: «Complex␤»
+say &lt; 42+0i &gt;.^name; # OUTPUT: «ComplexStr␤»
+say &lt; 42/1 &gt;.^name;  # OUTPUT: «RatStr␤»</pre>
+<p>Please see <a href="/Documentable/integration-test/language/numerics#Allomorphs">the Numerics page</a> for a more complete description on how to work with these allomorphs.</p>
+<p><a name="Documentable/integration-test/index-entry-Anonymous"></a></p>
+<h1 id="Anonymous"><a class="u" href="#___top" title="go to top of document">Anonymous</a></h1>
+<p>A subroutine, method or submethod is called <em>anonymous</em> if it can&#39;t be called by name.</p>
+<pre class="pod-block-code"># named subroutine
+sub double($x) { 2 * $x };
+
+# anonymous subroutine, stored in a named scalar
+my $double = sub ($x) { 2 * $x };</pre>
+<p>Note that it is still allowed to have a name, but you cannot call it by that name:</p>
+<pre class="pod-block-code"># anonymous, but knows its own name
+my $s = anon sub triple($x) { 3 * $x }
+say $s.name;        # OUTPUT: «triple␤»
+</pre>
+<pre class="pod-block-code">say triple(42);     # OUTPUT: «Undeclared routine: triple␤»
+</pre>
+<p><a name="Documentable/integration-test/index-entry-API"></a></p>
+<h1 id="API"><a class="u" href="#___top" title="go to top of document">API</a></h1>
+<p>Application Programming Interface. Ideally, someone using your system or library should be able to do so with knowledge only of the API, but not necessarily knowing anything about the internals or the implementation details.</p>
+<p>See also <a href="#Abstract_class">Abstract class</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-Apocalypse"></a></p>
+<h1 id="Apocalypse"><a class="u" href="#___top" title="go to top of document">Apocalypse</a></h1>
+<p>A document originally written by <a href="#TimToady">TimToady</a>, in which he processed the initial barrage of RFCs that came out of the Perl community. Now only kept as a historical document for reference. See also <a href="#Exegesis">Exegesis</a> and <a href="#Synopsis">Synopsis</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-Arity"></a></p>
+<h1 id="Arity"><a class="u" href="#___top" title="go to top of document">Arity</a></h1>
+<p>The number of <a href="/Documentable/integration-test/type/Positional">positional</a> operands expected by an <a href="#Operator">operator</a>, subroutine, method or callable block.</p>
+<pre class="pod-block-code">sub infix:&lt;+&gt;(Foo $a, Foo $b) { $a.Int + $b.Int }  # arity of &quot;+&quot; is 2
+sub frobnicate($x) { ... }                         # arity of 1
+sub the-answer() { 42 }                            # arity of 0
+-&gt; $key, $value { ... }                            # arity of 2
+</pre>
+<p>The arity of a <code>Callable</code> is one of the main selectors in <a href="#Multi-dispatch">multi-dispatch</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-ASCII_operator"></a></p>
+<h1 id="ASCII_operator"><a class="u" href="#___top" title="go to top of document">ASCII operator <a name="Documentable/integration-test/index-entry-Texas_operator"></a></a></h1>
+<p>The ASCII variant of a non-ASCII Unicode <a href="#Operator">operator</a> or <a href="#Symbol">symbol</a>. For instance, <code>(elem)</code> corresponds to the <code>∈</code> (&quot;Is this an element of that set?&quot;) operator that comes from set theory. ASCII operators are a workaround to the problem that people don&#39;t know how to type Unicode yet. Culturally, while we encourage people to use the Unicode symbols in a vague sort of way, we do not disparage the use of the <a href="/Documentable/integration-test/language/unicode_ascii">ASCII variants</a>. Well, maybe just a little...</p>
+<p><a name="Documentable/integration-test/index-entry-Autothreading"></a></p>
+<h1 id="Autothreading"><a class="u" href="#___top" title="go to top of document">Autothreading</a></h1>
+<p>Autothreading is what happens if you pass a <a href="/Documentable/integration-test/type/Junction">Junction</a> to a subroutine that expects a parameter of type <a href="/Documentable/integration-test/type/Any">Any</a> or a subtype thereof (such as anything <a href="/Documentable/integration-test/type/Cool">Cool</a>). The call is then executed for each value of the junction. The result of these calls is assembled in a new junction of the same type as the original junction.</p>
+<pre class="pod-block-code">sub f($x) { 2 * $x };
+say f(1|2|3) == 4;    # OUTPUT: «any(False, True, False)␤»</pre>
+<p>Here <code>f()</code> is a sub with one parameter, and since it has no explicit type, it is implicitly typed as <code>Any</code>. The <code>Junction</code> argument causes the <code>f(1|2|3)</code> call to be internally executed as <code>f(1)|f(2)|f(3)</code>, and the resulting junction is <code>2|4|6</code>. These are then all compared to <code>4</code>, resulting in a junction <code>False|True|False</code>. This process of separating junction arguments into multiple calls to a function is called <em>autothreading</em>.</p>
+<p>If you use the resulting junction in a Boolean context, such as with an <code>if</code>, it collapses into a single Boolean which is <code>True</code> if any of the values in the junction are True.</p>
+<pre class="pod-block-code">if f(1|2|3) == 4 {    # fires because f(2) == 4 is true
+    say &#39;success&#39;;
+}
+</pre>
+<p><a name="Documentable/integration-test/index-entry-Backtracking"></a></p>
+<h1 id="Backtracking"><a class="u" href="#___top" title="go to top of document">Backtracking</a></h1>
+<p>Backtracking is the default way a regexp is matched. The engine is allowed to explore several ways moving backward in the string characters in order to allow every piece of a regexp to match something. For more information, see <a href="/Documentable/integration-test/language/regexes#Backtracking">Regexp Backtracking section</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-binder"></a></p>
+<h1 id="binder"><a class="u" href="#___top" title="go to top of document">binder</a></h1>
+<p>When you pass an argument list to a function (or any other callable, like a method or a block), the argument list gets bound to the parameters in the signature. The code that does this is called the <em>binder</em>.</p>
+<p><a name="Documentable/integration-test/index-entry-block"></a></p>
+<h1 id="block"><a class="u" href="#___top" title="go to top of document">block</a></h1>
+<p><a href="/Documentable/integration-test/type/Block">Blocks</a> are code object with its own lexical scope, which allows them to define variables without interfering with other in the containing block.</p>
+<p><a name="Documentable/integration-test/index-entry-bytecode"></a></p>
+<h1 id="bytecode"><a class="u" href="#___top" title="go to top of document">bytecode</a></h1>
+<p>Although Raku looks like an interpreted language, since it uses the <code>#!</code> form to run its scripts (and they are called <em>scripts</em>), it is actually <a href="https://www.reddit.com/r/perl6/comments/42dkme/perl6_not_being_an_interpreted_language/">compiled to run in a virtual machine</a> so the compiler (currently Rakudo) generates <a href="https://en.wikipedia.org/wiki/Bytecode">bytecode</a> that runs either in MoarVM or the Java Virtual Machine, the two VMs currently supported.</p>
+<p><a name="Documentable/integration-test/index-entry-Camelia"></a></p>
+<h1 id="Camelia"><a class="u" href="#___top" title="go to top of document">Camelia</a></h1>
+<p>A butterfly image intended primarily to represent Raku, The Language.</p>
+<p><a name="Documentable/integration-test/index-entry-Colon_Pair"></a> <a name="Documentable/integration-test/index-entry-Colon_List"></a></p>
+<h1 id="Colon_pair_and_colon_list"><a class="u" href="#___top" title="go to top of document">Colon pair and colon list</a></h1>
+<p>A colon pair is a shorthand syntax used to create or visually present a <a href="/Documentable/integration-test/type/Pair">Pair</a> object. The two most common forms are:</p>
+<pre class="pod-block-code">:a(4)          # Same as &quot;a&quot; =&gt; 4,   same as Pair.new(&quot;a&quot;, 4)
+:a&lt;4&gt;          # Same as &quot;a&quot; =&gt; &quot;4&quot;, same as Pair.new(&quot;a&quot;, val(&quot;4&quot;))</pre>
+<p>This is also known as the adverbial pair form.</p>
+<p><strong>Note</strong>: when the part after the colon and before the balanced delimiters is not a legal identifier, other semantics apply, not all of which produce <code>Pair</code> objects.</p>
+<p>Two other common forms are:</p>
+<pre class="pod-block-code">:a             # Same as :a(True)
+:!a            # Same as :a(False)</pre>
+<p>A colon list just means that a list that contains only colon pairs, does not need commas, or even spaces:</p>
+<pre class="pod-block-code">:a(4):c:!d:c   # Same as a =&gt; 4, c =&gt; True, d =&gt; False, c =&gt; True</pre>
+<p>Finally, if there is a variable with the same name as an intended adverbial pair, you don&#39;t have to specify the name twice, but just specify the adverb with the appropriate sigil:</p>
+<table class="pod-table">
+<thead><tr>
+<th>variable only</th> <th>same as</th>
+</tr></thead>
+<tbody>
+<tr> <td>:$foo</td> <td>foo =&gt; $foo</td> </tr> <tr> <td>:@bar</td> <td>bar =&gt; @bar</td> </tr> <tr> <td>:%mapper</td> <td>mapper =&gt; %mapper</td> </tr> <tr> <td>:&amp;test</td> <td>test =&gt; &amp;test</td> </tr>
+</tbody>
+</table><p>See also <a href="#Adverb">Adverb</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-Community"></a></p>
+<h1 id="Community"><a class="u" href="#___top" title="go to top of document">Community</a></h1>
+<p>See <a href="https://raku.org/community/">https://raku.org/community/</a> for information about how to participate in the friendly Raku community.</p>
+<p><a name="Documentable/integration-test/index-entry-Damian_Conway"></a></p>
+<h1 id="Damian_Conway"><a class="u" href="#___top" title="go to top of document">Damian Conway</a></h1>
+<p>Original author of the <a href="#Exegesis">Exegesis</a> (among many other things). See also <a href="https://en.wikipedia.org/wiki/Damian_Conway">https://en.wikipedia.org/wiki/Damian_Conway</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-decont"></a></p>
+<h1 id="decont"><a class="u" href="#___top" title="go to top of document">decont</a></h1>
+<p>Short for &quot;decontainerize&quot;, meaning to remove an item <a href="/Documentable/integration-test/language/containers">from its <code>Scalar</code> container</a>, often to obtain <a href="https://perl6advent.wordpress.com/2017/12/02/#theoneandonly">a different behavior</a> for items that have it.</p>
+<p><a name="Documentable/integration-test/index-entry-diffy"></a></p>
+<h1 id="diffy"><a class="u" href="#___top" title="go to top of document">diffy</a></h1>
+<p>See <a href="#Operator">operator</a>. It means the type of the operator result is sufficiently different from its arguments that op= makes little sense.</p>
+<p><a name="Documentable/integration-test/index-entry-Exegesis"></a></p>
+<h1 id="Exegesis"><a class="u" href="#___top" title="go to top of document">Exegesis</a></h1>
+<p>A document originally written by <a href="#TheDamian">TheDamian</a>, in which he tried to explain the <a href="#Apocalypse">Apocalypses</a> to the common (wo)man. Now only kept as an historical document for reference. See also <a href="#Synopsis">Synopsis</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-fiddly"></a></p>
+<h1 id="fiddly"><a class="u" href="#___top" title="go to top of document">fiddly</a></h1>
+<p>Too complicated to apply a metaop to. See <a href="#Operator">operator</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-Handle"></a></p>
+<h1 id="Handle"><a class="u" href="#___top" title="go to top of document">Handle</a></h1>
+<p>A handle is a data structure used to store information about some input/output operation such as file or socket reading or writing. Raku uses <a href="/Documentable/integration-test/type/IO::Handle">IO::Handle</a> as a base class for filehandles, and <a href="/Documentable/integration-test/type/IO::Socket">IO::Socket</a> for sockets.</p>
+<p><a name="Documentable/integration-test/index-entry-Huffmanize"></a></p>
+<h1 id="Huffmanize"><a class="u" href="#___top" title="go to top of document">Huffmanize</a></h1>
+<p>With reference to <a href="https://en.wikipedia.org/wiki/Huffman_coding">Huffman coding</a>, &quot;huffmanizing&quot; is making things that are commonly used easier, and often shorter, to type. With things that are used less frequently it&#39;s both less of a bother to type longer pieces of code and often longer, more descriptive naming is necessary to easily be reminded of what the rarely-used feature does.</p>
+<p>For example, printing output is a common task, while performing thread-safe atomic addition on native atomicity-safe integers is much less so. There&#39;s a need to &quot;huffmanize&quot; the task printing and that&#39;s why you can do it by just typing three letters <a href="/Documentable/integration-test/routine/put">put</a>. But there&#39;s no need to &quot;huffmanize&quot; the rarely-needed atomic operators, which is why you type the lengthier names, such as <a href="/Documentable/integration-test/routine/atomic-inc-fetch">atomic-inc-fetch</a>. The name <a href="/Documentable/integration-test/routine/put">put</a> is a bit vague, but because it&#39;s commonly used, it&#39;s easy to learn what it does. On the other hand, the name <a href="/Documentable/integration-test/routine/atomic-inc-fetch">atomic-inc-fetch</a> is rarer, and the more descriptive name helps recall its purpose better.</p>
+<p><a name="Documentable/integration-test/index-entry-iffy"></a></p>
+<h1 id="iffy"><a class="u" href="#___top" title="go to top of document">iffy</a></h1>
+<p>Often used as a Boolean value. See <a href="#Operator">operator</a>. Made via the <a href="/Documentable/integration-test/language/modules#index-entry-use"><code>use</code> keyword</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-import"></a></p>
+<h1 id="import"><a class="u" href="#___top" title="go to top of document">import</a></h1>
+<p>Include functions from a module in the current namespace.</p>
+<p><a name="Documentable/integration-test/index-entry-instance"></a></p>
+<h1 id="Instance"><a class="u" href="#___top" title="go to top of document">Instance</a></h1>
+<p>An <em>instance</em> of a class is also called an <em>object</em> in some other programming languages. It has storage for attributes and is often the return value of a call to a method called <code>new</code>, or a literal.</p>
+<p>Instances of most types are defined to be <code>True</code> e.g., <code>defined($instance)</code> is <code>True</code>.</p>
+<pre class="pod-block-code">my Str $str = &quot;hello&quot;;  ## this is with built-in types, e.g. Str
+if defined($str) {
+    say &quot;Oh, yeah. I&#39;m defined.&quot;;
+}
+else {
+    say &quot;No. Something off? &quot;;
+}
+
+## if you wanted objects...
+class A {
+    # nothing here for now.
+}
+
+my $an_instance = A.new;
+say $an_instance.defined.raku;# defined($an_instance) works too.</pre>
+<p>To put things another way, a class contains the blueprints of methods and attributes, and an instance carries it into the real world.</p>
+<p><a name="Documentable/integration-test/index-entry-Interface"></a></p>
+<h1 id="Interface"><a class="u" href="#___top" title="go to top of document">Interface</a></h1>
+<p>An interface is an <a href="#Abstract_class">abstract class</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-Invocant"></a></p>
+<h1 id="Invocant"><a class="u" href="#___top" title="go to top of document">Invocant</a></h1>
+<p>Caller, <em>the one who calls or invokes</em>. The invocant of a method would be the object on which that method is being called, or, in some cases, the class itself. <em>Invocant</em> is used instead of caller because the latter refers to the <em>scope</em>.</p>
+<p><a name="Documentable/integration-test/index-entry-IRC"></a></p>
+<h1 id="IRC"><a class="u" href="#___top" title="go to top of document">IRC</a></h1>
+<p>Internet Relay Chat. Raku developers and users usually hang out on the <code>#raku</code> channel of <code>irc.freenode.org</code>. This channel is also populated by a host of friendly bots that allow you to interact with Raku and its codebase, as well as send delayed messages and other goodies. Check the full list in <a href="https://raku.org/community/irc">the community page of raku.org</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-IRC_lingo"></a></p>
+<h1 id="IRC_lingo"><a class="u" href="#___top" title="go to top of document">IRC lingo</a></h1>
+<p>The following terms are often used on the Raku related <a href="#IRC">IRC</a> channels:</p>
+<p><a name="Documentable/integration-test/index-entry-ALAP"></a></p>
+<h2 id="ALAP"><a class="u" href="#___top" title="go to top of document">ALAP</a></h2>
+<p>As Late As Possible</p>
+<p><a name="Documentable/integration-test/index-entry-autopun"></a></p>
+<h2 id="autopun"><a class="u" href="#___top" title="go to top of document">autopun</a></h2>
+<p>A self-referencing pun, e.g. &quot;Are you ignorant or apathetic?&quot; - &quot;I don&#39;t know, and I don&#39;t care.&quot;</p>
+<p><a name="Documentable/integration-test/index-entry-backlog"></a></p>
+<h2 id="backlog"><a class="u" href="#___top" title="go to top of document">backlog</a></h2>
+<p>That part of a discussion on an <a href="#IRC">IRC</a> channel that you&#39;ve missed. If it is not or no longer available in your IRC client, you can go to sites such as <a href="http://colabti.org/irclogger/irclogger_logs/raku">http://colabti.org/irclogger/irclogger_logs/raku</a> to see what has been logged for you.</p>
+<p><a name="Documentable/integration-test/index-entry-Bot"></a></p>
+<h2 id="Bot"><a class="u" href="#___top" title="go to top of document">Bot</a></h2>
+<p>A program that does automatic tasks on one or more <a href="#IRC">IRC</a> channels by acting like a regular user (as far as the IRC server is concerned) and performing some tasks that may involve answering to users requests. Examples are <a href="#camelia">camelia</a>, <a href="#dalek">dalek</a> and <a href="#yoleaux">yoleaux</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-compunit_(glossary)"></a> <a name="Documentable/integration-test/index-entry-compilation_unit"></a></p>
+<h2 id="Compilation_unit_or_compunit"><a class="u" href="#___top" title="go to top of document">Compilation unit or <em>compunit</em></a></h2>
+<p>A <a href="https://github.com/rakudo/rakudo/blob/master/docs/module_management.md">compunit</a>&gt; is a piece of Raku code that is analyzed and compiled as a single unit. Typically, this piece of code will be contained in a single file, but code inside an <a href="/Documentable/integration-test/routine/EVAL">EVAL</a> is also considered a compunit.</p>
+<p><a name="Documentable/integration-test/index-entry-DWIM"></a></p>
+<h2 id="DWIM"><a class="u" href="#___top" title="go to top of document">DWIM</a></h2>
+<p><em>Do What I Mean</em>. A programming language designer motto. The opposite of a DWIM is a <a href="#WAT">WAT</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-flap"></a></p>
+<h2 id="flap"><a class="u" href="#___top" title="go to top of document">flap</a></h2>
+<p>Sometimes a test will fail under some conditions, but not others; when this test passes in some test runs and fails in others, it&#39;s called flapping.</p>
+<p><a name="Documentable/integration-test/index-entry-fossil"></a></p>
+<h2 id="fossil"><a class="u" href="#___top" title="go to top of document">fossil</a></h2>
+<p>Something in a generally current document that is no longer true but which has not yet been fixed by correcting or removing it.</p>
+<p><a name="Documentable/integration-test/index-entry-FSVO"></a></p>
+<h2 id="FSVO"><a class="u" href="#___top" title="go to top of document">FSVO</a></h2>
+<p>For Some Value Of...</p>
+<p><a name="Documentable/integration-test/index-entry-FTFY"></a></p>
+<h2 id="FTFY"><a class="u" href="#___top" title="go to top of document">FTFY</a></h2>
+<p>Fixed That For You</p>
+<p><a name="Documentable/integration-test/index-entry-gradual_typing"></a></p>
+<h2 id="gradual_typing"><a class="u" href="#___top" title="go to top of document">gradual typing</a></h2>
+<p>You don&#39;t have to specify types of variables and parameters, but if you do, it helps in early determination of impossible dispatches and better optimization. See also <a href="https://en.wikipedia.org/wiki/Gradual_typing">https://en.wikipedia.org/wiki/Gradual_typing</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-IIRC"></a></p>
+<h2 id="IIRC"><a class="u" href="#___top" title="go to top of document">IIRC</a></h2>
+<p>If I Read (or Remember) Correctly.</p>
+<p><a name="Documentable/integration-test/index-entry-IMHO"></a></p>
+<h2 id="IMHO"><a class="u" href="#___top" title="go to top of document">IMHO</a></h2>
+<p>In My Humble Opinion.</p>
+<p><a name="Documentable/integration-test/index-entry-IWBN"></a></p>
+<h2 id="IWBN"><a class="u" href="#___top" title="go to top of document">IWBN</a></h2>
+<p>It Would Be Nice</p>
+<p><a name="Documentable/integration-test/index-entry-LHF"></a></p>
+<h2 id="LHF"><a class="u" href="#___top" title="go to top of document">LHF</a></h2>
+<p>Low Hanging Fruit. Usually used in the context of a (relatively) simple task to be performed by a (relative) newbie.</p>
+<p><a name="Documentable/integration-test/index-entry-LGTM"></a></p>
+<h2 id="LGTM"><a class="u" href="#___top" title="go to top of document">LGTM</a></h2>
+<p>Looks Good To Me</p>
+<p><a name="Documentable/integration-test/index-entry-LTA"></a></p>
+<h2 id="LTA"><a class="u" href="#___top" title="go to top of document">LTA</a></h2>
+<p>Less Than Awesome. Usually used in the context of an error message that is rather non-descriptive or unrelated to the actual error.</p>
+<p><a name="Documentable/integration-test/index-entry-NST"></a></p>
+<h2 id="NST"><a class="u" href="#___top" title="go to top of document">NST</a></h2>
+<p>No Such Thing</p>
+<p><a name="Documentable/integration-test/index-entry-Opt"></a></p>
+<h2 id="Opt"><a class="u" href="#___top" title="go to top of document">Opt</a></h2>
+<p>Short for &quot;optimization&quot;, usually in either the context of <a href="#Spesh">spesh</a> or JIT.</p>
+<p><a name="Documentable/integration-test/index-entry-PB"></a></p>
+<h2 id="PB"><a class="u" href="#___top" title="go to top of document">PB</a></h2>
+<p>Short for &quot;problem&quot;. As in &quot;that&#39;s not the pb&quot;.</p>
+<p><a name="Documentable/integration-test/index-entry-PR"></a></p>
+<h2 id="PR"><a class="u" href="#___top" title="go to top of document">PR</a></h2>
+<p>See <a href="#Pull_Request">Pull Request</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-P5"></a></p>
+<h2 id="P5"><a class="u" href="#___top" title="go to top of document">P5</a></h2>
+<p>Perl&nbsp;5</p>
+<p><a name="Documentable/integration-test/index-entry-P6"></a></p>
+<h2 id="P6"><a class="u" href="#___top" title="go to top of document">P6</a></h2>
+<p>Raku (née Perl&nbsp;6)</p>
+<p><a name="Documentable/integration-test/index-entry-RSN"></a></p>
+<h2 id="RSN"><a class="u" href="#___top" title="go to top of document">RSN</a></h2>
+<p>Real Soon Now.</p>
+<p><a name="Documentable/integration-test/index-entry-RT"></a></p>
+<h2 id="RT"><a class="u" href="#___top" title="go to top of document">RT</a></h2>
+<p>Request Tracker (<a href="https://rt.perl.org/">https://rt.perl.org/</a>). The place where all the bugs related to <a href="#Rakudo">Rakudo</a> used to live. Nowadays, the Github issue tracker of the rakudo/rakudo repository is used for that.</p>
+<p><a name="Documentable/integration-test/index-entry-TIMTOWTDI"></a></p>
+<h2 id="TIMTOWTDI"><a class="u" href="#___top" title="go to top of document">TIMTOWTDI</a></h2>
+<p>An alternative form of <a href="#TMTOWTDI">TMTOWTDI</a>, explicitly including the &quot;is&quot; from the contraction &quot;There&#39;s&quot;.</p>
+<p><a name="Documentable/integration-test/index-entry-TMI"></a></p>
+<h2 id="TMI"><a class="u" href="#___top" title="go to top of document">TMI</a></h2>
+<p>Too Much Information.</p>
+<p><a name="Documentable/integration-test/index-entry-TMTOWTDI"></a></p>
+<h2 id="TMTOWTDI"><a class="u" href="#___top" title="go to top of document">TMTOWTDI</a></h2>
+<p>&quot;There&#39;s More Than One Way To Do It&quot;, the Perl motto.</p>
+<p><a name="Documentable/integration-test/index-entry-UGT"></a></p>
+<h2 id="UGT"><a class="u" href="#___top" title="go to top of document">UGT</a></h2>
+<p>&quot;Universal Greeting Time&quot; - i.e., it&#39;s always &quot;morning&quot;.</p>
+<p><a name="Documentable/integration-test/index-entry-WFM"></a></p>
+<h2 id="WFM"><a class="u" href="#___top" title="go to top of document">WFM</a></h2>
+<p>Works For Me</p>
+<p><a name="Documentable/integration-test/index-entry-WIP"></a></p>
+<h2 id="WIP"><a class="u" href="#___top" title="go to top of document">WIP</a></h2>
+<p>Work In Progress</p>
+<p><a name="Documentable/integration-test/index-entry-WP"></a></p>
+<h2 id="WP"><a class="u" href="#___top" title="go to top of document">WP</a></h2>
+<p>Wikipedia</p>
+<p><a name="Documentable/integration-test/index-entry-WW"></a></p>
+<h2 id="WW"><a class="u" href="#___top" title="go to top of document">WW</a></h2>
+<p>Short for <code>wrong window</code>. When on <a href="#IRC">IRC</a>, someone types something in a channel that was intended for another channel, or for a private message.</p>
+<p><a name="Documentable/integration-test/index-entry-Larry_Wall"></a></p>
+<h1 id="Larry_Wall"><a class="u" href="#___top" title="go to top of document">Larry Wall</a></h1>
+<p><a href="#Perl">Perl&#39;s</a> benevolent dictator for life, among many other things. See also <a href="https://en.wikipedia.org/wiki/Larry_Wall">https://en.wikipedia.org/wiki/Larry_Wall</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-Lexing"></a></p>
+<h1 id="Lexing"><a class="u" href="#___top" title="go to top of document">Lexing</a></h1>
+<p>Performing <a href="https://en.wikipedia.org/wiki/Lexical_analysis">lexical analysis</a>, a step which usually precedes parsing.</p>
+<p><a name="Documentable/integration-test/index-entry-Literal"></a></p>
+<h1 id="Literal"><a class="u" href="#___top" title="go to top of document">Literal</a></h1>
+<p>A <em>literal</em> is a piece of code that directly stands for an (often built-in) object and also refers to the object itself.</p>
+<pre class="pod-block-code">my $x = 2;      # the 2 is a literal
+say $x;         # $x is not a literal, but a variable
+my $s = &quot;Foo&quot;;  # the &quot;Foo&quot; is a literal, the $s is a variable</pre>
+<p>Different types of literals are described in <a href="/Documentable/integration-test/language/syntax#Literals">the syntax document</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-LHS"></a></p>
+<h1 id="LHS"><a class="u" href="#___top" title="go to top of document">LHS</a></h1>
+<p>As an acronym left-hand side, it usually refers to the left hand side of an expression, and more specifically to the left-hand side of expressions such as <code>$lhs = &quot;this would be the right-hand side&quot;</code>. Since the left hand side of these expressions modify their value, when something behaves as a LHS it means that it can be read and written to.</p>
+<p><a name="Documentable/integration-test/index-entry-Value"></a></p>
+<h1 id="lvalue"><a class="u" href="#___top" title="go to top of document">lvalue</a></h1>
+<p>An <em>lvalue</em>, or a <em>left value</em>, is anything that can appear on the left-hand side of the assignment operator <code>=</code>. It is anything you can assign to.</p>
+<p>Typical lvalues are variables, private and <code>is rw</code> attributes, lists of variables and lvalue subroutines.</p>
+<p>Examples of lvalues:</p>
+<table class="pod-table">
+<thead><tr>
+<th>Declaration</th> <th>lvalue</th> <th>Comments</th>
+</tr></thead>
+<tbody>
+<tr> <td>my $x;</td> <td>$x</td> <td></td> </tr> <tr> <td>my ($a, $b);</td> <td>($a, $b)</td> <td></td> </tr> <tr> <td>has $!attribute;</td> <td>$!attribute</td> <td>Only inside classes</td> </tr> <tr> <td>has $.attrib is rw;</td> <td>$.attrib</td> <td></td> </tr> <tr> <td>sub a is rw { $x };</td> <td>a()</td> <td></td> </tr>
+</tbody>
+</table><p>Examples of things that are not lvalues:</p>
+<table class="pod-table">
+<tbody>
+<tr> <td>3</td> <td>literals</td> </tr> <tr> <td>constant x = 3;</td> <td>constants</td> </tr> <tr> <td>has $.attrib;</td> <td>attributes; you can only assign to $!attrib</td> </tr> <tr> <td>sub f { }; f();</td> <td>&quot;normal&quot; subs are not writable</td> </tr> <tr> <td>sub f($x) { $x = 3 };</td> <td>error - parameters are read-only by default</td> </tr>
+</tbody>
+</table><p>These are typically called <a href="#rvalue">rvalues</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-Mainline"></a></p>
+<h1 id="Mainline"><a class="u" href="#___top" title="go to top of document">Mainline</a></h1>
+<p>The <code>mainline</code> is the program text that is not part of any kind of block.</p>
+<pre class="pod-block-code">use v6.c;     # mainline
+sub f {
+              # not in mainline, in sub f
+}
+f();          # in mainline again
+</pre>
+<p>You can also have the mainline of any package-like declarator, such as class, <a href="/Documentable/integration-test/language/modules">module</a>, <a href="/Documentable/integration-test/language/grammars">grammar</a>, etc. These are typically run just after the class/module/grammar have been compiled (or when loaded from a precompiled file).</p>
+<p><a name="Documentable/integration-test/index-entry-Mayspec"></a></p>
+<h1 id="Mayspec"><a class="u" href="#___top" title="go to top of document">Mayspec</a></h1>
+<p>Stands for &quot;Maybe Specification&quot;. Usually refers to existing tests in the <a href="https://github.com/Raku/roast/">language specification</a>. The speaker is indicating they did not check whether the test is a spectest or a propspec test; i.e., whether the test is included in a released language specification or is a new test, proposed for the next version of the spec.</p>
+<p><a name="Documentable/integration-test/index-entry-MoarVM"></a></p>
+<h1 id="MoarVM"><a class="u" href="#___top" title="go to top of document">MoarVM</a></h1>
+<p>MoarVM is short for Metamodel On A Runtime Virtual Machine. It&#39;s a virtual machine designed specifically for <a href="#NQP">NQP</a> and its <a href="/Documentable/integration-test/language/mop">MOP</a>: <a href="#6model">6model</a>. A document about <a href="https://github.com/MoarVM/MoarVM/blob/master/docs/reveal.md">the purpose of MoarVM</a>. MoarVM has some similarities with the Hotspot VM so you may peruse its <a href="http://openjdk.java.net/groups/hotspot/docs/HotSpotGlossary.html">glossary</a> for entries missing from the present one.</p>
+<p><a name="Documentable/integration-test/index-entry-Multi-Dispatch"></a> <a name="Documentable/integration-test/index-entry-MMD"></a></p>
+<h1 id="Multi-dispatch"><a class="u" href="#___top" title="go to top of document">Multi-dispatch</a></h1>
+<p>The process of picking a candidate for calling of a set of <a href="/Documentable/integration-test/type/Method">methods</a> or <a href="/Documentable/integration-test/type/Sub">subs</a> that come by the same name but with different arguments. The most narrow candidate wins. In case of an ambiguity, a routine with <code>is default</code> trait will be chosen if one exists, otherwise an exception is thrown.</p>
+<p><a name="Documentable/integration-test/index-entry-multi-method"></a></p>
+<h1 id="multi-method"><a class="u" href="#___top" title="go to top of document">multi-method</a></h1>
+<p>A <a href="/Documentable/integration-test/type/Method">method</a> that has multiple candidates going by the same name and are subject to <a href="#Multi-dispatch">Multi-Dispatch</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-Née"></a></p>
+<h1 id="Née"><a class="u" href="#___top" title="go to top of document">Née</a></h1>
+<p>&quot;Formerly known as&quot;.</p>
+<p><a name="Documentable/integration-test/index-entry-NFG"></a></p>
+<h1 id="NFG"><a class="u" href="#___top" title="go to top of document">NFG</a></h1>
+<p>Normal Form Grapheme is the way Raku implements graphemes, using a normal form in which strings with the same graphemes can be easily compared in constant time. More on that on <a href="https://6guts.wordpress.com/2015/04/12/this-week-unicode-normalization-many-rts/">this article in 6guts</a> and an explanation of how NFG works in <a href="https://colabti.org/irclogger/irclogger_log/perl6?date=2018-04-29#l465">this IRC log</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-Niecza"></a></p>
+<h1 id="Niecza"><a class="u" href="#___top" title="go to top of document">Niecza</a></h1>
+<p>An implementation of Raku targeting the .NET platform. No longer actively maintained.</p>
+<p><a name="Documentable/integration-test/index-entry-NQP"></a></p>
+<h1 id="Not_Quite_Perl"><a class="u" href="#___top" title="go to top of document">Not Quite Perl</a></h1>
+<p>See <a href="#NQP">NQP</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-Not_Quite_Perl"></a></p>
+<h1 id="NQP"><a class="u" href="#___top" title="go to top of document">NQP</a></h1>
+<p>NQP is a primitive language for writing subroutines and methods using a subset of the Raku syntax. It&#39;s not intended to be a full-fledged programming language, nor does it provide a runtime environment beyond the basic VM primitives. Compilers (such as <a href="#Rakudo">Rakudo</a>) typically use NQP to compile action methods that convert a parse tree into its equivalent abstract syntax tree representation.</p>
+<p><a name="Documentable/integration-test/index-entry-NYI"></a></p>
+<h1 id="NYI"><a class="u" href="#___top" title="go to top of document">NYI</a></h1>
+<p>Not Yet Implemented</p>
+<p><a name="Documentable/integration-test/index-entry-opcode"></a></p>
+<h1 id="opcode"><a class="u" href="#___top" title="go to top of document">opcode</a></h1>
+<p>An opcode, or operation code, is a bytecode operation, that is, a command of the language actually used on the virtual machine. They are not usually intended for human consumption, but they are usually specified somewhere, like <a href="https://github.com/MoarVM/MoarVM/blob/master/docs/bytecode.markdown">this document for MoarVM</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-Operator"></a></p>
+<h1 id="Operator"><a class="u" href="#___top" title="go to top of document">Operator</a></h1>
+<p>An expression is made of operators and operands. More precisely it is made of an operator and operands that can be subexpressions or <a href="#value">value</a>s. Operators are an alternative syntax for a <a href="#multi-method">multi-method</a>. With that syntax, what would be the arguments of the function are named operands instead. Operators are classified into <a href="https://design.raku.org/S02.html#Grammatical_Categories">categories</a> of categories. A category has a precedence, an arity, and can be <a href="#fiddly">fiddly</a>, <a href="#iffy">iffy</a>, <a href="#diffy">diffy</a>. Raku is very creative as to what is an operator, so there are many categories. Operators are made of many tokens, possibly with a subexpression. For example, <code>@a[0]</code> belongs to the postcircumfix category, is broken into the operand <code>@a</code> and the postcircumfix operator <code>[0]</code> where <code>0</code> is the postcircumfixed subexpression.</p>
+<p>The <code>&lt;O(I&lt;...&gt;)&gt; </code> construction gives information about an operator that completes the information provided by its category. Below <code>%conditional</code> is the category, <code>:reducecheck&lt;ternary&gt; </code>, which specifies calling <code>.ternary</code> to post-process the <a href="#Parse_tree">parse subtree</a> and <code>:pasttype&lt;if&gt; </code> specifies the NQP <a href="#opcode">opcode</a> generated in the AST from the parse subtree.</p>
+<pre class="pod-block-code">&lt;O(&#39;%conditional, :reducecheck&lt;ternary&gt;, :pasttype&lt;if&gt;&#39;)&gt;</pre>
+<p><a name="Documentable/integration-test/index-entry-Parse_Tree"></a></p>
+<h1 id="Parse_tree"><a class="u" href="#___top" title="go to top of document">Parse tree</a></h1>
+<p>A <a href="https://en.wikipedia.org/wiki/Parse_tree">parse tree</a> represents the structure of a string or sentence according to a grammar. <a href="/Documentable/integration-test/type/Grammar">Grammar</a>s in Raku output parse trees when they successfully match a string.</p>
+<p><a name="Documentable/integration-test/index-entry-Parameter"></a></p>
+<h1 id="Parameter"><a class="u" href="#___top" title="go to top of document">Parameter</a></h1>
+<p><a href="/Documentable/integration-test/type/Parameter">Parameter</a> is a class to define parameters to subroutines, method and a <a href="/Documentable/integration-test/type/Callable">callable blocks</a>. As opposed to the arguments you specify when calling a subroutine/method/callable block.</p>
+<pre class="pod-block-code">sub foo($bar) { say $bar }     # $bar is a parameter
+foo(42);                       # 42 is an argument</pre>
+<p><a name="Documentable/integration-test/index-entry-Parrot"></a></p>
+<h1 id="Parrot"><a class="u" href="#___top" title="go to top of document">Parrot</a></h1>
+<p>A <a href="#Virtual_machine">virtual machine</a> designed to run Raku and other dynamic languages. No longer actively maintained.</p>
+<p><a name="Documentable/integration-test/index-entry-PAST"></a></p>
+<h1 id="PAST"><a class="u" href="#___top" title="go to top of document">PAST</a></h1>
+<p><a href="#Parrot">Parrot</a> AST.</p>
+<p><a name="Documentable/integration-test/index-entry-Perl"></a></p>
+<h1 id="Perl"><a class="u" href="#___top" title="go to top of document">Perl</a></h1>
+<p>The Perl programming language in its many forms.</p>
+<p><a name="Documentable/integration-test/index-entry-Perl 6"></a></p>
+<h1 id="Perl_6"><a class="u" href="#___top" title="go to top of document">Perl&nbsp;6</a></h1>
+<p>The name used for Raku before October 2019.</p>
+<p><a name="Documentable/integration-test/index-entry-PERL"></a></p>
+<h1 id="PERL"><a class="u" href="#___top" title="go to top of document">PERL</a></h1>
+<p>A way to describe <a href="#Perl">Perl</a> as a language, considered to be improper by many in the <a href="/Documentable/integration-test/language/community">Perl Community</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-POD"></a></p>
+<h1 id="POD"><a class="u" href="#___top" title="go to top of document">POD</a></h1>
+<p><strong>P</strong>lain <strong>O</strong>l&#39; <strong>D</strong>ocumentation, a documentation format understood by Raku. See <a href="/Documentable/integration-test/language/pod">here</a> for further information.</p>
+<p><a name="Documentable/integration-test/index-entry-POV"></a></p>
+<h1 id="POV"><a class="u" href="#___top" title="go to top of document">POV</a></h1>
+<p>Stands for &quot;Proof Of Viability&quot;. To be included in the language specification, a &quot;proof of viability&quot; implementation of the feature must exist in at least one mostly-compliant Raku compiler.</p>
+<p><a name="Documentable/integration-test/index-entry-Propspec"></a></p>
+<h1 id="Propspec"><a class="u" href="#___top" title="go to top of document">Propspec</a></h1>
+<p>Stands for &quot;Proposed Specification&quot;. Usually refers to existing tests in the <a href="https://github.com/Raku/roast/">language specification</a> that are proposed for inclusion in the next release.</p>
+<p><a name="Documentable/integration-test/index-entry-Pull_request"></a></p>
+<h1 id="Pull_request"><a class="u" href="#___top" title="go to top of document">Pull request</a></h1>
+<p>A feature of <a href="https://github.com">GitHub</a> and other git hosts like <a href="https://gitlab.com">GitLab</a> that allows you to make patches to be easily applied using the GitHub web user interface. It means you request someone to do a git pull from your <a href="#Repository">repository</a> to hers. PR is its usual acronym.</p>
+<p><a name="Documentable/integration-test/index-entry-property"></a></p>
+<h1 id="property"><a class="u" href="#___top" title="go to top of document">property</a></h1>
+<p>In this context, it either refers to an <a href="/Documentable/integration-test/language/objects#index-entry-Property">object property</a>, which is the value of an instance variable, or an <a href="/Documentable/integration-test/language/regexes#Unicode_properties">Unicode property</a> which are codepoint features that allow programs to identify what kind of entity they represent, that is, if they are a letter, or a number, or something completely different like a control character.</p>
+<p><a name="Documentable/integration-test/index-entry-pugs"></a></p>
+<h1 id="pugs"><a class="u" href="#___top" title="go to top of document">pugs</a></h1>
+<p><a href="https://en.wikipedia.org/wiki/Pugs">pugs</a> was one of the first interpreters/compilers written for Raku. It was written in Haskell by Audrey Tang.</p>
+<p><a name="Documentable/integration-test/index-entry-QAST"></a></p>
+<h1 id="QAST"><a class="u" href="#___top" title="go to top of document">QAST</a></h1>
+<p>Successor to <a href="#PAST">PAST</a> (&#39;Q&#39; being the next letter after &#39;P&#39;).</p>
+<p><a name="Documentable/integration-test/index-entry-Rakudo"></a></p>
+<h1 id="Rakudo"><a class="u" href="#___top" title="go to top of document">Rakudo</a></h1>
+<p>Rakudo is the name of a Raku implementation that runs on <a href="#MoarVM">MoarVM</a> and the JVM. It is an abbreviation of <code>Rakuda-do</code>, which, when translated from Japanese, means &quot;The Way of the Camel&quot;. Also, in Japanese, &quot;Rakudo&quot; means &quot;Paradise.&quot;</p>
+<p><a name="Documentable/integration-test/index-entry-Reify"></a></p>
+<h1 id="Reify"><a class="u" href="#___top" title="go to top of document">Reify</a></h1>
+<p>In the English language, <a href="https://www.dictionary.com/browse/reify">reify means</a> &quot;to convert into or regard as a concrete thing.&quot; Its meaning in Raku is very similar, in that conceptual things, like &quot;elements of an infinite list&quot;, get <em>reified</em> when you try to operate on some of them. In general, reification means turning a potential element (be it an element in a lazy list that has not been computed yet or a element in a container that has not been extracted) into its actual value.</p>
+<p><a name="Documentable/integration-test/index-entry-Repository"></a></p>
+<h1 id="Repository"><a class="u" href="#___top" title="go to top of document">Repository</a></h1>
+<p>A filesystem under control of a source control management application, usually git, that holds the sources for a project, library or application. This file, for instance, is in <a href="https://github.com/Raku/doc">a GitHub repository</a>. Repositories store not only files, but also history of changes and can be used by the developing or writing team for interaction through issues or comments to code.</p>
+<p>In Raku context, however, a repository is also a short name for <em>compilation unit repository</em> and constitutes a system that locates and loads modules, managing their installation and precompilation. They are structured as linked lists, including chain of repositories ending in the default <code>Compunit::Repository::Installation</code>.</p>
+<p><a name="Documentable/integration-test/index-entry-RHS"></a></p>
+<h1 id="RHS"><a class="u" href="#___top" title="go to top of document">RHS</a></h1>
+<p>Acronym for Right-Hand Side, usually refers to the right-hand side of assignment expressions such as <code>my $bound := $rhs</code>.</p>
+<p><a name="Documentable/integration-test/index-entry-roast"></a></p>
+<h1 id="roast"><a class="u" href="#___top" title="go to top of document">roast</a></h1>
+<p>The Raku <a href="#test_suite">specification tests</a>, which live here: <a href="https://github.com/Raku/roast/">https://github.com/Raku/roast/</a>. Originally developed for <a href="#pugs">pugs</a>, it now serves all Raku implementations. Why roast? It&#39;s the <strong>r</strong>epository <strong>o</strong>f <strong>a</strong>ll <strong>s</strong>pec <strong>t</strong>ests.</p>
+<p><a name="Documentable/integration-test/index-entry-role"></a></p>
+<h1 id="Roles"><a class="u" href="#___top" title="go to top of document">Roles</a></h1>
+<p>Roles, mix-ins or traits define interfaces and/or implementation of those interfaces as well as instance variables using them, and are mixed-in when declaring classes that follow that interface. <a href="#Abstract_class">Abstract classes</a> are particular examples of Roles where the actual implementation is deferred to the class that uses that Role.</p>
+<p>Roles are part of Raku&#39;s <a href="/Documentable/integration-test/language/objects">object system</a>, and are declared using the <a href="/Documentable/integration-test/language/objects#index-entry-declarator_role-Roles">role</a> keyword and used in class declaration via <a href="/Documentable/integration-test/routine/does">does</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-rule"></a></p>
+<h1 id="rule"><a class="u" href="#___top" title="go to top of document">rule</a></h1>
+<p>(Used in regular expressions)</p>
+<p><a name="Documentable/integration-test/index-entry-rvalue"></a></p>
+<h1 id="rvalue"><a class="u" href="#___top" title="go to top of document">rvalue</a></h1>
+<p>A value that can be used on the right-hand side of an assignment. See also <a href="#lvalue">lvalue</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-SAP"></a></p>
+<h1 id="SAP"><a class="u" href="#___top" title="go to top of document">SAP</a></h1>
+<p>Stands for &quot;Specification APpendices&quot;. The <a href="https://github.com/Raku/roast/tree/master/APPENDICES">SAP</a> includes optional tests that implementations may choose to follow, but don&#39;t necessarily have to.</p>
+<p>Can be used as a verb. To <em>SAP</em> something is to place it into Specification Appendices.</p>
+<p><a name="Documentable/integration-test/index-entry-Semilist"></a></p>
+<h1 id="Semilist"><a class="u" href="#___top" title="go to top of document">Semilist</a></h1>
+<p>A semilist is a <em>semicolon-separated</em> list like this one: <code>1;3;5</code>, and is actually a list of lists, with each component of the semilist being a slice of a particular dimension. <code>@array[1;3;5]</code> would be equivalent to <code>@array[1][3][5]</code>.</p>
+<p><a name="Documentable/integration-test/index-entry-Sigil"></a></p>
+<h1 id="Sigil"><a class="u" href="#___top" title="go to top of document">Sigil</a></h1>
+<p>In Perl, the sigil is the first character of a variable name. It must be either $, @, %, or &amp; respectively for a <a href="/Documentable/integration-test/type/Scalar">scalar</a>, <a href="/Documentable/integration-test/type/Array">array</a>, <a href="/Documentable/integration-test/type/Hash">hash</a>, or <a href="/Documentable/integration-test/type/Code">code</a> variable. See also Twigil and role. Also sigiled variables allow short conventions for <a href="#Variable_interpolation">variable interpolation</a> in a double quoted string, or even postcircumfix expressions starting with such a variable.</p>
+<p><a name="Documentable/integration-test/index-entry-Sigilless_Variable"></a></p>
+<h1 id="Sigilless_variable"><a class="u" href="#___top" title="go to top of document">Sigilless variable</a></h1>
+<p><a href="/Documentable/integration-test/language/variables#index-entry-\_(sigilless_variables)">Sigilless variables</a> are actually aliases to the value it is assigned to them, since they are not containers. Once you assign a sigilless variable (using the escape <code>\</code>), its value cannot be changed.</p>
+<p><a name="Documentable/integration-test/index-entry-Spesh"></a></p>
+<h1 id="Spesh"><a class="u" href="#___top" title="go to top of document">Spesh</a></h1>
+<p>A functionality of the <a href="#MoarVM">MoarVM</a> platform that uses runtime gathered data to improve commonly used pieces of <a href="#bytecode">bytecode</a>. It is much like a JIT compiler, except that those usually output machine code rather than bytecode.</p>
+<p><a name="Documentable/integration-test/index-entry-STD"></a></p>
+<h1 id="STD"><a class="u" href="#___top" title="go to top of document">STD</a></h1>
+<p><code>STD.pm</code> is the &quot;standard&quot; Raku grammar definition (see <a href="https://github.com/perl6/std/">https://github.com/perl6/std/</a>) that was used to implement Raku. STD.pm is no longer really a &quot;specification&quot; in a proscriptive sense: it&#39;s more of a guideline or model for Raku implementations to follow.</p>
+<p><a name="Documentable/integration-test/index-entry-Stub"></a></p>
+<h1 id="Stub"><a class="u" href="#___top" title="go to top of document">Stub</a></h1>
+<p>Stubs define name and signature of methods whose implementation is deferred to other classes.</p>
+<pre class="pod-block-code">role Canine {
+    method bark { ... }          # the ... indicates a stub
+}</pre>
+<p>Classes with stubs are <a href="#Abstract_class">Abstract classes</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-Symbol"></a></p>
+<h1 id="Symbol"><a class="u" href="#___top" title="go to top of document">Symbol</a></h1>
+<p>Fancy alternative way to denote a name. Generally used in the context of <a href="/Documentable/integration-test/language/modules">module</a>s linking, be it in the OS level, or at the Raku <a href="#Virtual_machine">Virtual_machine</a> level for modules generated from languages targeting these VMs. The set of imported or exported symbols is called the symbol table.</p>
+<p><a name="Documentable/integration-test/index-entry-Synopsis"></a></p>
+<h1 id="Synopsis"><a class="u" href="#___top" title="go to top of document">Synopsis</a></h1>
+<p>The current human-readable description of the Raku language. Still in development. Much more a community effort than the <a href="#Apocalypse">Apocalypses</a> and <a href="#Exegesis">Exegeses</a> were. The current state of the language is reflected by <a href="#roast">roast</a>, its <a href="#test_suite">test suite</a>, not the synopses where speculative material is not always so flagged or more recent additions have not been documented. This is even more true of material that has not been yet implemented.</p>
+<p><a name="Documentable/integration-test/index-entry-Syntax_Analysis"></a></p>
+<h1 id="Syntax_analysis"><a class="u" href="#___top" title="go to top of document">Syntax analysis</a></h1>
+<p>A syntax or syntactic analysis is equivalent to <a href="https://en.wikipedia.org/wiki/Parsing">parsing</a> a string to generate its <a href="#Parse_tree">parse tree</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-test_suite"></a></p>
+<h1 id="Test_suite"><a class="u" href="#___top" title="go to top of document">Test suite</a></h1>
+<p>The Raku test suite is <a href="#roast">roast</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-TheDamian"></a></p>
+<h1 id="TheDamian"><a class="u" href="#___top" title="go to top of document">TheDamian</a></h1>
+<p><a href="#IRC">IRC</a> screen name for <a href="#Damian_Conway">Damian Conway</a>, writer of the original <a href="#Exegesis">Exegeses</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-TimToady"></a></p>
+<h1 id="TimToady"><a class="u" href="#___top" title="go to top of document">TimToady</a></h1>
+<p><a href="#IRC">IRC</a> screen name for <a href="#Larry_Wall">Larry Wall</a>, creator of Perl. The name comes from the pronunciation of <a href="#TIMTOWTDI">TIMTOWTDI</a> as a word.</p>
+<p><a name="Documentable/integration-test/index-entry-Token"></a></p>
+<h1 id="token"><a class="u" href="#___top" title="go to top of document">token</a></h1>
+<p>In this context, a <a href="/Documentable/integration-test/syntax/token"><code>token</code></a> is a regex that does not backtrack. In general, <a href="https://en.wikipedia.org/wiki/Lexical_analysis">tokens</a> are extracted from the source program while <a href="#Lexing">lexing</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-Thunk"></a></p>
+<h1 id="Thunk"><a class="u" href="#___top" title="go to top of document">Thunk</a></h1>
+<p>A piece of code that isn&#39;t immediately executed, but doesn&#39;t have an independent scope.</p>
+<p><a name="Documentable/integration-test/index-entry-Loose"></a> <a name="Documentable/integration-test/index-entry-Tight"></a></p>
+<h1 id="Tight_and_loose_precedence"><a class="u" href="#___top" title="go to top of document">Tight and loose precedence</a></h1>
+<p>In this context, tight or tighter refers to <a href="/Documentable/integration-test/language/functions#index-entry-is_tighter">precedence rules</a> and is the opposite of <code>looser</code>. Precedence rules for new terms are always expressed in relationship with other terms, so <code>is tighter</code> implies that operands with that operator will be grouped before operands with the looser operator. Operators with <a href="/Documentable/integration-test/language/operators#Tight_AND_precedence">tight precedence</a> are grouped with priority to others and are generally tighter than most others; loose <a href="/Documentable/integration-test/language/traps#Loose_Boolean_operators">exactly the opposite</a>, so it is always convenient to be aware of the exact precedence of all operators used in an expression.</p>
+<p><a name="Documentable/integration-test/index-entry-twine"></a></p>
+<h1 id="twine"><a class="u" href="#___top" title="go to top of document">twine</a></h1>
+<p>A data structure used to hold a POD string with embedded formatting codes. For example:</p>
+<pre class="pod-block-code">=begin pod
+C&lt;foo&gt;
+=end pod
+say $=pod[0].contents[0].contents.raku;
+</pre>
+<p>The output will be:</p>
+<pre class="pod-block-code">[&quot;&quot;, Pod::FormattingCode.new(type =&gt; &quot;C&quot;, meta =&gt; [], config =&gt; {}, contents =&gt; [&quot;foo&quot;]),&quot;&quot;]
+</pre>
+<p><a href="#fn-1" id="fn-ref-1">[1]</a></p>
+<p><a name="Documentable/integration-test/index-entry-Type_Objects"></a></p>
+<h1 id="Type_objects"><a class="u" href="#___top" title="go to top of document">Type objects</a></h1>
+<p>A <a href="/Documentable/integration-test/language/classtut#index-entry-type_object">type object</a> is an object that is used to represent a type or a class. Since in object oriented programming everything is an object, classes are objects too, and they inherit from <a href="/Documentable/integration-test/type/Mu">Mu</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-Type_Smiley"></a></p>
+<h1 id="Type_smiley"><a class="u" href="#___top" title="go to top of document">Type smiley</a></h1>
+<p>A <a href="/Documentable/integration-test/type/Signature#Constraining_argument_definiteness">type smiley</a> is a suffix a type may have that indicates the definiteness of values that can typecheck against it. This may be <code>:D</code> to indicate that only defined values can typecheck (i.e. instances), <code>:U</code> to indicate that only undefined values can typecheck (i.e. type objects), or <code>:_</code> to indicate that both defined and undefined values can typecheck. These resemble emoticons, thus the name.</p>
+<p><a name="Documentable/integration-test/index-entry-value"></a></p>
+<h1 id="value"><a class="u" href="#___top" title="go to top of document">value</a></h1>
+<p>A value is what is actually contained in a container such as a variable. Used in expressions such as <a href="/Documentable/integration-test/language/glossary#lvalue">lvalue</a>, to indicate that that particular container can be assigned to.</p>
+<p><a name="Documentable/integration-test/index-entry-UB"></a></p>
+<h1 id="UB"><a class="u" href="#___top" title="go to top of document">UB</a></h1>
+<p>Stands for &quot;Undefined Behavior&quot;. In other words, it is something that is not explicitly specified by the language specification.</p>
+<p><a name="Documentable/integration-test/index-entry-Value_type"></a></p>
+<h1 id="Value_type"><a class="u" href="#___top" title="go to top of document">Value type</a></h1>
+<p>A type is known as a <strong>value type</strong> if it is immutable and any instance of that type is interchangeable with any other instance &quot;of the same value&quot;—that is, any instance constructed in the same way. An instance of a value type is often <em>called</em> a <strong>value</strong> (but should not be confused with <a href="#lvalue">lvalue</a>s or <a href="#rvalue">rvalue</a>s).</p>
+<p>For example, numbers are value types, so a number constructed one place in your program with, for instance, the literal <code>3</code> can&#39;t be changed in any way—it simply <em>is</em> 3—and any later use of the literal <code>3</code> can safely be pointed at the same place in memory as the first with no ill consequences.</p>
+<p>Classes doing the roles <a href="/Documentable/integration-test/type/Numeric">Numeric</a> and <a href="/Documentable/integration-test/type/Stringy">Stringy</a> are among a few examples of built-in value types.</p>
+<p>A value type is created by ensuring that an instance of the value type is immutable (i.e., its attributes cannot be modified after construction) and that its <a href="/Documentable/integration-test/routine/WHICH"><code>WHICH</code></a> method returns the same thing every time an instance with the same value is constructed (and conversely returns a different thing every time an instance with a different value is constructed).</p>
+<p>The language is free to optimize based on the assumption that equivalent instances of value types are interchangeable, but you should not depend on any such optimization. For instance, if you want <a href="/Documentable/integration-test/routine/clone"><code>clone</code></a> to return an instance of <code>self</code>, or you want instance construction to be <a href="https://en.wikipedia.org/wiki/Memoization">memoized</a> so that re-construction of a previously-constructed value always returns the same instance, you currently must override this behavior yourself.</p>
+<p>(The same would hold true of object finalization, but if your instances need special destruction behavior, you almost certainly do not actually have a value type. Values should be thought of as &quot;timeless&quot; and existing in some ideal form outside of your program&#39;s memory, like natural values are.)</p>
+<p><a name="Documentable/integration-test/index-entry-Variable"></a></p>
+<h1 id="Variable"><a class="u" href="#___top" title="go to top of document">Variable</a></h1>
+<p>A variable is a name for a <a href="/Documentable/integration-test/language/containers">container</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-Variable_Interpolation"></a></p>
+<h1 id="Variable_interpolation"><a class="u" href="#___top" title="go to top of document">Variable interpolation</a></h1>
+<p>The value of variables is interpolated into strings by simply inserting that variable into the string:</p>
+<pre class="pod-block-code">my $polation=&quot;polation&quot;;
+say &quot;inter$polation&quot;;     # OUTPUT: «interpolation␤»</pre>
+<p>This might need curly braces in case it precedes some alphanumeric characters</p>
+<pre class="pod-block-code">my $inter=&quot;inter&quot;;
+say &quot;{$inter}polation&quot;; # OUTPUT: «interpolation␤»</pre>
+<p>Interpolation occurs in <a href="/Documentable/integration-test/language/contexts#String">string context</a>, so a valid stringification method must exist for the class. More general interpolation can be achieved using the <a href="/Documentable/integration-test/language/quoting#Interpolation:_qq">double q</a> quoting constructs.</p>
+<p><a name="Documentable/integration-test/index-entry-Virtual_Machine"></a></p>
+<h1 id="Virtual_machine"><a class="u" href="#___top" title="go to top of document">Virtual machine</a></h1>
+<p>A virtual machine is the Raku compiler entity that executes the <a href="#bytecode">bytecode</a>. It can optimize the bytecode or generate machine code Just in Time. Examples are <a href="#MoarVM">MoarVM</a>, <a href="#Parrot">Parrot</a> (who are intended to run Raku) and more generic virtual machines such as JVM and Javascript.</p>
+<p><a name="Documentable/integration-test/index-entry-WAT"></a></p>
+<h2 id="WAT"><a class="u" href="#___top" title="go to top of document">WAT</a></h2>
+<p>The opposite of a <a href="#DWIM">DWIM</a>; counter-intuitive behavior. It is said that to every DWIM there is a corresponding WAT. See also <a href="https://www.destroyallsoftware.com/talks/wat">https://www.destroyallsoftware.com/talks/wat</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-whitespace"></a></p>
+<h1 id="whitespace"><a class="u" href="#___top" title="go to top of document">whitespace</a></h1>
+<p>A character or group of blank characters, used to separate words. An example is the space character « ».</p>
+<p><a name="Documentable/integration-test/index-entry-6model"></a></p>
+<h1 id="6model"><a class="u" href="#___top" title="go to top of document">6model</a></h1>
+<p><code>6model</code> is used in the <a href="/Documentable/integration-test/language/glossary#MoarVM">MoarVM</a>, and provides primitives used to create an object system. It is described in <a href="https://jnthn.net/papers/2013-yapceu-moarvm.pdf">this presentation by Jonathan Worthington</a> and implemented <a href="https://github.com/MoarVM/MoarVM/tree/master/src/6model">here in MoarVM</a>.</p>
+
+        </div>
+    </div>
+
+    <aside><ol start="1">
+<li><a href="#fn-ref-1" id="fn-1">[↑]</a> The <code>twine</code> is an array with an odd number of elements beginning with a simple string, alternating with formatting code objects and simple strings, and ending with a simple string; the formatting code objects are inter<code>twine</code>d with the strings. The strings may be empty (as shown in the example). A twine with no formatting code will contain one simple string. </li>
+</ol></aside>
+
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/glossary.pod6">https://github.com/Raku/doc/blob/master/doc/Language/glossary.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

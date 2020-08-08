@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>class Backtrace</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/type.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-basic.html"> Basic </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-composite.html"> Composite </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-domain-specific.html"> Domain-specific </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-exception.html"> Exceptions </a>
+            </div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Type/Backtrace.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">class Backtrace</h1>
+        <p class="subtitle">Snapshot of the dynamic call stack</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+                       <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#method_new">method new</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#method_gist">method gist</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#method_Str">method Str</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.4</td><td class="toc-text"><a href="#method_next-interesting-index">method next-interesting-index</a></td></tr>
+                      <tr class="toc-level-2"><td class="toc-number">1.5</td><td class="toc-text"><a href="#method_outer-caller-idx">method outer-caller-idx</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">1.6</td><td class="toc-text"><a href="#method_nice">method nice</a></td></tr>
+                <tr class="toc-level-2"><td class="toc-number">1.7</td><td class="toc-text"><a href="#method_full">method full</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">1.8</td><td class="toc-text"><a href="#method_list">method list</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">1.9</td><td class="toc-text"><a href="#method_summary">method summary</a></td></tr>
+                 <tr class="toc-level-2"><td class="toc-number">1.10</td><td class="toc-text"><a href="#method_concise">method concise</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">1.11</td><td class="toc-text"><a href="#method_map">method map</a></td></tr>
+                     <tr class="toc-level-2"><td class="toc-number">1.12</td><td class="toc-text"><a href="#method_flat">method flat</a></td></tr>
+      <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Type_Graph">Type Graph</a></td></tr>
+ 
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <pre class="pod-block-code">class Backtrace {}</pre>
+<p>A backtrace contains the dynamic call stack, usually leading up to a point where an exception was thrown, and is a List of <a href="/Documentable/integration-test/type/Backtrace::Frame">Backtrace::Frame</a> objects. Its default stringification excludes backtrace frames that are deemed unnecessary or confusing; for example routines like <code>&amp;die</code> are hidden by default. Being a list, you can also access individual elements.</p>
+<pre class="pod-block-code">sub zipi { { { die &quot;Something bad happened&quot; }() }() };
+try {
+    zipi;
+}
+if ($!) {
+    say $!.backtrace[*-1].raku;
+}
+</pre>
+<p>This will print the last frame in the list, pointing at the line where it&#39;s happened.</p>
+<h1 id="Methods"><a class="u" href="#___top" title="go to top of document">Methods</a></h1>
+<h2 id="method_new"><a class="u" href="#___top" title="go to top of document">method new</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method new()
+multi method new(Int:D $offset)
+multi method new(Mu \ex)
+multi method new(Mu \ex, Int:D $offset)
+multi method new(List:D $bt)
+multi method new(List:D $bt, Int:D $offset)</pre>
+<p>Creates a new backtrace, using its calling location as the origin of the backtrace or the <code>$offset</code> that is passed as a parameter. If an object or a list (that will already contain a backtrace in list form) is passed, they will be used instead of the current code.</p>
+<pre class="pod-block-code">my $backtrace = Backtrace.new;</pre>
+<h2 id="method_gist"><a class="u" href="#___top" title="go to top of document">method gist</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method gist(Backtrace:D:)</pre>
+<p>Returns string <code>&quot;Backtrace(42 frames)&quot;</code> where the number indicates the number of frames available via <a href="/Documentable/integration-test/routine/list">list</a> method.</p>
+<h2 id="method_Str"><a class="u" href="#___top" title="go to top of document">method Str</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method Str(Backtrace:D:)</pre>
+<p>Returns a concise string representation of the backtrace, omitting routines marked as <code>is hidden-from-backtrace</code>, and at the discretion of the implementation, also some routines from the setting.</p>
+<pre class="pod-block-code">my $backtrace = Backtrace.new;
+say $backtrace.Str;</pre>
+<h2 id="method_next-interesting-index"><a class="u" href="#___top" title="go to top of document">method next-interesting-index</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method next-interesting-index(Backtrace:D: Int $idx = 0, :$named, :$noproto, :$setting)</pre>
+<p>Returns the index of the next <code>interesting</code> frame, once hidden and other settings are taken into account. <code>$named</code> will decide whether to printed only those with a name, <code>$noproto</code> will hide <code>proto</code>s, and <code>$setting</code> will hide those are considered setting.</p>
+<pre class="pod-block-code">sub zipi { { { die &quot;Something bad happened&quot; }() }() };
+try zipi;
+say $!.backtrace.next-interesting-index;           # OUTPUT: «2␤»
+say $!.backtrace.next-interesting-index( :named ); #  OUTPUT: «4␤»
+</pre>
+<h2 id="method_outer-caller-idx"><a class="u" href="#___top" title="go to top of document">method outer-caller-idx</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method outer-caller-idx(Backtrace:D: Int $startidx)</pre>
+<p>Returns as a list the index of the frames that called the current one.</p>
+<pre class="pod-block-code">sub zipi { { { die &quot;Something bad happened&quot; }() }() };
+try zipi;
+say $!.backtrace.outer-caller-idx( 4 ); # OUTPUT: «[6]␤»
+</pre>
+<h2 id="method_nice"><a class="u" href="#___top" title="go to top of document">method nice</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method nice(Backtrace:D: :$oneline)</pre>
+<p>Returns the backtrace as a list of <em>interesting</em> frames. If <code>:$oneline</code> is set, will stop after the first frame.</p>
+<pre class="pod-block-code">sub zipi { { { die &quot;Something bad happened&quot; }() }() };
+try zipi;
+say $!.backtrace.nice( :oneline ) if $!;
+# OUTPUT: «  in sub zipi at /tmp/... line 1␤␤»
+</pre>
+<h2 id="method_full"><a class="u" href="#___top" title="go to top of document">method full</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method full(Backtrace:D:)</pre>
+<p>Returns a full string representation of the backtrace, including hidden frames, compiler-specific frames, and those from the setting.</p>
+<pre class="pod-block-code">my $backtrace = Backtrace.new;
+say $backtrace.full;</pre>
+<h2 id="method_list"><a class="u" href="#___top" title="go to top of document">method list</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method list(Backtrace:D:)</pre>
+<p>Returns a list of <a href="/Documentable/integration-test/type/Backtrace::Frame">Backtrace::Frame</a> objects for this backtrace.</p>
+<h2 id="method_summary"><a class="u" href="#___top" title="go to top of document">method summary</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method summary(Backtrace:D: --&gt; Str:D)</pre>
+<p>Returns a summary string representation of the backtrace, filtered by <code>!.is-hidden &amp;&amp; (.is-routine || !.is-setting)</code>.</p>
+<p>This program:</p>
+<pre class="pod-block-code">sub inner { say Backtrace.new.summary }
+sub outer { inner; }
+outer;</pre>
+<p>results in:</p>
+<pre class="pod-block-code">in method new at SETTING::src/core.c/Backtrace.pm6 line 85
+in sub inner at test.p6 line 1
+in sub outer at test.p6 line 2
+in block &lt;unit&gt; at test.p6 line 3
+</pre>
+<h2 id="method_concise"><a class="u" href="#___top" title="go to top of document">method concise</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method concise(Backtrace:D:)</pre>
+<p>Returns a concise string representation of the backtrace, filtered by <code>!.is-hidden &amp;&amp; .is-routine &amp;&amp; !.is-setting</code>.</p>
+<p>This program:</p>
+<pre class="pod-block-code">sub inner { say Backtrace.new.concise }
+sub outer { inner; }
+outer;</pre>
+<p>results in:</p>
+<pre class="pod-block-code">in sub inner at test.p6 line 1
+in sub outer at test.p6 line 2
+</pre>
+<h2 id="method_map"><a class="u" href="#___top" title="go to top of document">method map</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method map(Backtrace:D: &amp;block --&gt; Seq:D)</pre>
+<p>It invokes <code>&amp;block</code> for each element and gathers the return values in a sequence and returns it.</p>
+<p>This program:</p>
+<pre class="pod-block-code">sub inner { Backtrace.new.map({ say &quot;{$_.file}: {$_.line}&quot; }); }
+sub outer { inner; }
+outer;</pre>
+<p>results in:</p>
+<pre class="pod-block-code">SETTING::src/core.c/Backtrace.pm6: 85
+SETTING::src/core.c/Backtrace.pm6: 85
+test.p6: 1
+test.p6: 2
+test.p6: 3
+test.p6: 1
+</pre>
+<h2 id="method_flat"><a class="u" href="#___top" title="go to top of document">method flat</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method flat(Backtrace:D:)</pre>
+<p>Returns the backtrace same as <a href="#method_list">list</a>.</p>
+<h1 id="Type_Graph"><a class="u" href="#___top" title="go to top of document">Type Graph</a></h1>
+<figure>
+  <figcaption>Type relations for <code>Backtrace</code></figcaption>
+  <svg width="117pt" height="188pt"
+ viewBox="0.00 0.00 117.19 188.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 184)">
+<title>perl6&#45;type&#45;graph</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-184 113.19,-184 113.19,4 -4,4"/>
+<!-- Backtrace -->
+<g id="node1" class="node">
+<title>Backtrace</title>
+<g id="a_node1"><a xlink:href="/type/Backtrace" xlink:title="Backtrace">
+<ellipse fill="none" stroke="#000000" cx="54.6" cy="-18" rx="54.69" ry="18"/>
+<text text-anchor="middle" x="54.6" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">Backtrace</text>
+</a>
+</g>
+</g>
+<!-- Any -->
+<g id="node3" class="node">
+<title>Any</title>
+<g id="a_node3"><a xlink:href="/type/Any" xlink:title="Any">
+<ellipse fill="none" stroke="#000000" cx="54.6" cy="-90" rx="27" ry="18"/>
+<text text-anchor="middle" x="54.6" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Any</text>
+</a>
+</g>
+</g>
+<!-- Backtrace&#45;&gt;Any -->
+<g id="edge1" class="edge">
+<title>Backtrace&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M54.6,-36.3C54.6,-44.02 54.6,-53.29 54.6,-61.89"/>
+<polygon fill="#000000" stroke="#000000" points="51.1,-61.9 54.6,-71.9 58.1,-61.9 51.1,-61.9"/>
+</g>
+<!-- Mu -->
+<g id="node2" class="node">
+<title>Mu</title>
+<g id="a_node2"><a xlink:href="/type/Mu" xlink:title="Mu">
+<ellipse fill="none" stroke="#000000" cx="54.6" cy="-162" rx="27" ry="18"/>
+<text text-anchor="middle" x="54.6" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#000000">Mu</text>
+</a>
+</g>
+</g>
+<!-- Any&#45;&gt;Mu -->
+<g id="edge2" class="edge">
+<title>Any&#45;&gt;Mu</title>
+<path fill="none" stroke="#000000" d="M54.6,-108.3C54.6,-116.02 54.6,-125.29 54.6,-133.89"/>
+<polygon fill="#000000" stroke="#000000" points="51.1,-133.9 54.6,-143.9 58.1,-133.9 51.1,-133.9"/>
+</g>
+</g>
+</svg>
+
+  <p class="fallback">
+    <a
+      rel="alternate"
+      href="/images/type-graph-Backtrace.svg"
+      type="image/svg+xml"
+      >Expand above chart</a
+    >
+  </p>
+</figure>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Type/Backtrace.pod6">https://github.com/Raku/doc/blob/master/doc/Type/Backtrace.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

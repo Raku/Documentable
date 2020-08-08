@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>routine open</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/routine.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-sub.html"> Sub </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-method.html"> Method </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-term.html"> Term </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-operator.html"> Operator </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-trait.html"> Trait </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-submethod.html"> Submethod </a>
+            </div></div></div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">routine open</h1>
+        <p class="subtitle"></p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#class_IO::CatHandle">class IO::CatHandle</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#(IO::CatHandle)_method_open">(IO::CatHandle) method open</a></td></tr>
+      <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#class_IO::Handle">class IO::Handle</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#(IO::Handle)_method_open">(IO::Handle) method open</a></td></tr>
+                                                                                                                                                            <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#class_IO::Path">class IO::Path</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#(IO::Path)_method_open">(IO::Path) method open</a></td></tr>
+      <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#language_documentation_Independent_routines">language documentation Independent routines</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">4.1</td><td class="toc-text"><a href="#(Independent_routines)_sub_open">(Independent routines) sub open</a></td></tr>
+                                  
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Documentation for routine <code>open</code> assembled from the following types:</p>
+<h1 id="class_IO::CatHandle"><a class="u" href="#___top" title="go to top of document">class IO::CatHandle</a></h1>
+<p>From <a href="/Documentable/integration-test/type/IO::CatHandle#method_open">IO::CatHandle</a></p>
+<h2 id="(IO::CatHandle)_method_open"><a href="/Documentable/integration-test/type/IO::CatHandle#method_open">(IO::CatHandle) method open</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method open(IO::CatHandle:D: --&gt; IO::CatHandle:D)</pre>
+<p>Returns the invocant. The intent of this method is to merely make CatHandle workable with things that open <a href="/Documentable/integration-test/type/IO::Handle">IO::Handle</a>. You never have to call this method intentionally.</p>
+<h1 id="class_IO::Handle"><a class="u" href="#___top" title="go to top of document">class IO::Handle</a></h1>
+<p>From <a href="/Documentable/integration-test/type/IO::Handle#method_open">IO::Handle</a></p>
+<h2 id="(IO::Handle)_method_open"><a href="/Documentable/integration-test/type/IO::Handle#method_open">(IO::Handle) method open</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method open(IO::Handle:D:
+      :$r, :$w, :$x, :$a, :$update,
+      :$rw, :$rx, :$ra,
+      :$mode is copy,
+      :$create is copy,
+      :$append is copy,
+      :$truncate is copy,
+      :$exclusive is copy,
+      :$bin,
+      :$enc is copy,
+      :$chomp = $!chomp,
+      :$nl-in is copy = $!nl-in,
+      Str:D :$nl-out is copy = $!nl-out,
+      :$out-buffer is copy,
+    )
+</pre>
+<p>Opens the handle in one of the modes. <a href="/Documentable/integration-test/routine/fail">Fails</a> with appropriate exception if the open fails.</p>
+<p>See description of individual methods for the accepted values and behavior of <a href="/Documentable/integration-test/type/IO::Handle#method_chomp"><code>:$chomp</code></a>, <a href="/Documentable/integration-test/type/IO::Handle#method_nl-in"><code>:$nl-in</code></a>, <a href="/Documentable/integration-test/type/IO::Handle#method_nl-out"><code>:$nl-out</code></a>, and <a href="/Documentable/integration-test/type/IO::Handle#method_encoding"><code>:$enc</code></a>. The values for parameters default to the invocant&#39;s attributes and if any of them are provided, the attributes will be updated to the new values. Specify <code>:$bin</code> set to <code>True</code> instead of <code>:$enc</code> to indicate the handle should be opened in binary mode. Specifying undefined value as <code>:$enc</code> is equivalent to not specifying <code>:$enc</code> at all. Specifying both a defined encoding as <code>:$enc</code> and <code>:$bin</code> set to true will cause <code>X::IO::BinaryAndEncoding</code> exception to be thrown.</p>
+<p>The open mode defaults to non-exclusive, read only (same as specifying <code>:r</code>) and can be controlled by a mix of the following arguments:</p>
+<pre class="pod-block-code">:r      same as specifying   :mode&lt;ro&gt;  same as specifying nothing
+
+:w      same as specifying   :mode&lt;wo&gt;, :create, :truncate
+:a      same as specifying   :mode&lt;wo&gt;, :create, :append
+:x      same as specifying   :mode&lt;wo&gt;, :create, :exclusive
+
+:update same as specifying   :mode&lt;rw&gt;
+:rw     same as specifying   :mode&lt;rw&gt;, :create
+:ra     same as specifying   :mode&lt;rw&gt;, :create, :append
+:rx     same as specifying   :mode&lt;rw&gt;, :create, :exclusive
+</pre>
+<p>Argument <code>:r</code> along with <code>:w</code>, <code>:a</code>, <code>:x</code> are exactly the same as the combination of both letters, shown in the three last rows in the table above. Support for combinations of modes <em>other</em> than what is listed above is implementation-dependent and should be assumed unsupported. That is, specifying, for example, <code>.open(:r :create)</code> or <code>.open(:mode&lt;wo&gt; :append :truncate)</code> might work or might cause the Universe to implode, depending on a particular implementation. This applies to reads/writes to a handle opened in such unsupported modes as well.</p>
+<p>The mode details are:</p>
+<pre class="pod-block-code">:mode&lt;ro&gt;  means &quot;read only&quot;
+:mode&lt;wo&gt;  means &quot;write only&quot;
+:mode&lt;rw&gt;  means &quot;read and write&quot;
+
+:create    means the file will be created, if it does not exist
+:truncate  means the file will be emptied, if it exists
+:exclusive means .open will fail if the file already exists
+:append    means writes will be done at the end of file&#39;s current contents
+</pre>
+<p>Attempts to open a directory, write to a handle opened in read-only mode or read from a handle opened in write-only mode, or using text-reading methods on a handle opened in binary mode will fail or throw.</p>
+<p>In <strong>6.c</strong> language, it&#39;s possible to open path <code>&#39;-&#39;</code>, which will cause <code>open</code> to open (if <code>closed</code>) the <code>$*IN</code> handle if opening in read-only mode or to open the <code>$*OUT</code> handle if opening in write-only mode. All other modes in this case will result in exception being thrown.</p>
+<p>As of <strong>6.d</strong> language version, the use of path <code>&#39;-&#39;</code> is deprecated and it will be removed in future language versions entirely.</p>
+<p>The <code>:out-buffer</code> controls output buffering and by default behaves as if it were <code>Nil</code>. See method <a href="/Documentable/integration-test/routine/out-buffer">out-buffer</a> for details.</p>
+<p><strong>Note (Rakudo versions before 2017.09): Filehandles are NOT flushed or closed when they go out of scope</strong>. While they <em>will</em> get closed when garbage collected, garbage collection isn&#39;t guaranteed to get run. This means <em>you should</em> use an explicit <code>close</code> on handles opened for writing, to avoid data loss, and an explicit <code>close</code> is <em>recommended</em> on handles opened for reading as well, so that your program does not open too many files at the same time, triggering exceptions on further <code>open</code> calls.</p>
+<p><strong>Note (Rakudo versions 2017.09 and after):</strong> Open filehandles are automatically closed on program exit, but it is still highly recommended that you <code>close</code> opened handles explicitly.</p>
+<h1 id="class_IO::Path"><a class="u" href="#___top" title="go to top of document">class IO::Path</a></h1>
+<p>From <a href="/Documentable/integration-test/type/IO::Path#method_open">IO::Path</a></p>
+<h2 id="(IO::Path)_method_open"><a href="/Documentable/integration-test/type/IO::Path#method_open">(IO::Path) method open</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method open(IO::Path:D: *%opts)</pre>
+<p>Opens the path as a file; the named options control the mode, and are the same as the <a href="/Documentable/integration-test/routine/open">open</a> function accepts.</p>
+<h1 id="language_documentation_Independent_routines"><a class="u" href="#___top" title="go to top of document">language documentation Independent routines</a></h1>
+<p>From <a href="/Documentable/integration-test/language/independent-routines#sub_open">Independent routines</a></p>
+<h2 id="(Independent_routines)_sub_open"><a href="/Documentable/integration-test/language/independent-routines#sub_open">(Independent routines) sub open</a></h2>
+<pre class="pod-block-code">multi sub open(IO() $path, |args --&gt; IO::Handle:D)</pre>
+<p>Creates <a href="/Documentable/integration-test/type/IO::Handle">a handle</a> with the given <code>$path</code>, and calls <a href="/Documentable/integration-test/type/IO::Handle#method_open"><code>IO::Handle.open</code></a>, passing any of the remaining arguments to it. Note that <a href="/Documentable/integration-test/type/IO::Path">IO::Path</a> type provides numerous methods for reading and writing from files, so in many common cases you do not need to <code>open</code> files or deal with <a href="/Documentable/integration-test/type/IO::Handle">IO::Handle</a> type directly.</p>
+<pre class="pod-block-code">my $fh = open :w, &#39;/tmp/some-file.txt&#39;;
+$fh.say: &#39;I ♥ writing Perl code&#39;;
+$fh.close;
+
+$fh = open &#39;/tmp/some-file.txt&#39;;
+print $fh.readchars: 4;
+$fh.seek: 7, SeekFromCurrent;
+say $fh.readchars: 4;
+$fh.close;
+
+# OUTPUT: «I ♥ Perl␤»
+</pre>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

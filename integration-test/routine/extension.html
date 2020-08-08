@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>method extension</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/routine.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-sub.html"> Sub </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-method.html"> Method </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-term.html"> Term </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-operator.html"> Operator </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-trait.html"> Trait </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-submethod.html"> Submethod </a>
+            </div></div></div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">method extension</h1>
+        <p class="subtitle"></p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#class_IO::Path">class IO::Path</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#(IO::Path)_method_extension">(IO::Path) method extension</a></td></tr>
+                                                            <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#class_IO::Spec::Unix">class IO::Spec::Unix</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#(IO::Spec::Unix)_method_extension">(IO::Spec::Unix) method extension</a></td></tr>
+          
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Documentation for method <code>extension</code> assembled from the following types:</p>
+<h1 id="class_IO::Path"><a class="u" href="#___top" title="go to top of document">class IO::Path</a></h1>
+<p>From <a href="/Documentable/integration-test/type/IO::Path#method_extension">IO::Path</a></p>
+<h2 id="(IO::Path)_method_extension"><a href="/Documentable/integration-test/type/IO::Path#method_extension">(IO::Path) method extension</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method extension(IO::Path:D:                                         --&gt; Str:D)
+multi method extension(IO::Path:D:               Int :$parts               --&gt; Str:D)
+multi method extension(IO::Path:D:             Range :$parts               --&gt; Str:D)
+multi method extension(IO::Path:D: Str $subst,   Int :$parts, Str :$joiner --&gt; IO::Path:D)
+multi method extension(IO::Path:D: Str $subst, Range :$parts, Str :$joiner --&gt; IO::Path:D)</pre>
+<p>Returns the extension consisting of <code>$parts</code> parts (defaults to <code>1</code>), where a &quot;part&quot; is defined as a dot followed by possibly-empty string up to the end of the string, or previous part. That is <code>&quot;foo.tar.gz&quot;</code> has an extension of two parts: first part is <code>&quot;gz&quot;</code> and second part is <code>&quot;tar&quot;</code> and calling <code>&quot;foo.tar.gz&quot;.IO.extension: :2parts</code> gives <code>&quot;tar.gz&quot;</code>. If an extension with the specified number of <code>$parts</code> is not found, returns an empty string.</p>
+<p><code>$parts</code> can be a <a href="/Documentable/integration-test/type/Range"><code>Range</code></a>, specifying the minimum number of parts and maximum number of parts the extension should have. The routine will attempt to much the most parts it can. If <code>$parts</code> range&#39;s endpoints that are smaller than <code>0</code> they&#39;ll be treated as <code>0</code>; implementations may treat endpoints larger than <code>2⁶³-1</code> as <code>2⁶³-1</code>. Ranges with <code>NaN</code> or <a href="/Documentable/integration-test/type/Str"><code>Str</code></a> endpoints will cause an exception to be thrown.</p>
+<p>If <code>$subst</code> is provided, the extension will be instead replaced with <code>$subst</code> and a new <code>IO::Path</code> object will be returned. It will be joined to the file&#39;s name with <code>$joiner</code>, which defaults to an empty string when <code>$subst</code> is an empty string and to <code>&quot;.&quot;</code> when <code>$subst</code> is not empty. <strong>Note:</strong> if as the result of replacement the <a href="/Documentable/integration-test/routine/basename"><code>basename</code></a> of the path ends up being empty, it will be assumed to be <code>.</code> (a single dot).</p>
+<pre class="pod-block-code"># Getting an extension:
+say &quot;foo.tar.gz&quot;.IO.extension;               # OUTPUT: «gz␤»
+say &quot;foo.tar.gz&quot;.IO.extension: :2parts;      # OUTPUT: «tar.gz␤»
+say &quot;foo.tar.gz&quot;.IO.extension: :parts(^5);   # OUTPUT: «tar.gz␤»
+say &quot;foo.tar.gz&quot;.IO.extension: :parts(0..1); # OUTPUT: «gz␤»
+
+# Replacing an extension
+say &quot;foo.tar.gz&quot;.IO.extension: &#39;&#39;;                # OUTPUT: «&quot;foo.tar&quot;.IO␤»
+say &quot;foo.tar.gz&quot;.IO.extension: &#39;ZIP&#39;;             # OUTPUT: «&quot;foo.tar.ZIP&quot;.IO␤»
+say &quot;foo.tar.gz&quot;.IO.extension: &#39;ZIP&#39;, :0parts;    # OUTPUT: «&quot;foo.tar.gz.ZIP&quot;.IO␤»
+say &quot;foo.tar.gz&quot;.IO.extension: &#39;ZIP&#39;, :2parts;    # OUTPUT: «&quot;foo.ZIP&quot;.IO␤»
+say &quot;foo.tar.gz&quot;.IO.extension: &#39;ZIP&#39;, :parts(^5); # OUTPUT: «&quot;foo.ZIP&quot;.IO␤»
+
+# Replacing an extension using non-standard joiner:
+say &quot;foo.tar.gz&quot;.IO.extension: &#39;&#39;,    :joiner&lt;_&gt;;  # OUTPUT: «&quot;foo.tar_&quot;.IO␤»
+say &quot;foo.tar.gz&quot;.IO.extension: &#39;ZIP&#39;, :joiner&lt;_&gt;;  # OUTPUT: «&quot;foo.tar_ZIP&quot;.IO␤»
+say &quot;foo.tar.gz&quot;.IO.extension: &#39;ZIP&#39;, :joiner&lt;_&gt;,
+                                       :2parts;     # OUTPUT: «&quot;foo_ZIP&quot;.IO␤»
+say &quot;foo.tar.gz&quot;.IO.extension: &#39;ZIP&#39;, :joiner&lt;_&gt;,
+                                       :parts(^5);  # OUTPUT: «&quot;foo_ZIP&quot;.IO␤»
+
+# EDGE CASES:
+
+# There is no 5-part extension, so returned value is an empty string
+say &quot;foo.tar.gz&quot;.IO.extension: :5parts; # OUTPUT: «␤»
+
+# There is no 5-part extension, so we replaced nothing:
+say &quot;foo.tar.gz&quot;.IO.extension: &#39;ZIP&#39;, :5parts; # OUTPUT: «&quot;foo.tar.gz&quot;.IO␤»
+
+# Replacing a 0-part extension is just appending:
+say &quot;foo.tar.gz&quot;.IO.extension: &#39;ZIP&#39;, :0parts; # OUTPUT: «&quot;foo.tar.gz.ZIP&quot;.IO␤»
+
+# Replace 1-part of the extension, using &#39;.&#39; joiner
+say &quot;...&quot;.IO.extension: &#39;tar&#39;; # OUTPUT: «&quot;...tar&quot;.IO␤»
+
+# Replace 1-part of the extension, using empty string joiner
+say &quot;...&quot;.IO.extension: &#39;tar&#39;, :joiner(&#39;&#39;); # OUTPUT: «&quot;..tar&quot;.IO␤»
+
+# Remove 1-part extension; results in empty basename, so result is &quot;.&quot;.IO
+say &quot;.&quot;.IO.extension: &#39;&#39;; # OUTPUT: «&quot;.&quot;.IO␤»</pre>
+<h1 id="class_IO::Spec::Unix"><a class="u" href="#___top" title="go to top of document">class IO::Spec::Unix</a></h1>
+<p>From <a href="/Documentable/integration-test/type/IO::Spec::Unix#method_extension">IO::Spec::Unix</a></p>
+<h2 id="(IO::Spec::Unix)_method_extension"><a href="/Documentable/integration-test/type/IO::Spec::Unix#method_extension">(IO::Spec::Unix) method extension</a></h2>
+<p><strong>NOTE:</strong> Most users would want to use the higher-level routine <a href="/Documentable/integration-test/type/IO::Path#method_extension"><code>IO::Path.extension</code></a> instead of this lower-level version.</p>
+<p>Defined as:</p>
+<pre class="pod-block-code">method extension(Str:D $path --&gt; Str:D)</pre>
+<p>Takes a string representing a base name and returns the characters after the last dot (<code>&quot;.&quot;</code>), or empty string if no dots are present. The routine makes no attempt to detect path separators and will return everything after the last dot.</p>
+<pre class="pod-block-code">$*SPEC.extension(&#39;foo.&#39;      ).raku.say;  # OUTPUT: «&quot;&quot;␤»
+$*SPEC.extension(&#39;foo.txt&#39;   ).raku.say;  # OUTPUT: «&quot;txt&quot;␤»
+$*SPEC.extension(&#39;foo.tar.gz&#39;).raku.say;  # OUTPUT: «&quot;gz&quot;␤»
+$*SPEC.extension(&#39;foo&#39;       ).raku.say;  # OUTPUT: «&quot;&quot;␤»
+$*SPEC.extension(&#39;bar.foo/foo&#39;).raku.say; # OUTPUT: «&quot;foo/foo&quot;␤»</pre>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

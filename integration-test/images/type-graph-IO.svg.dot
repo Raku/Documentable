@@ -1,0 +1,30 @@
+digraph "perl6-type-graph" {
+    rankdir=BT;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "IO" [color="#6666FF", fontcolor="#6666FF", href="/type/IO", fontname="FreeSans"];
+    "Mu" [color="#000000", fontcolor="#000000", href="/type/Mu", fontname="FreeSans"];
+    "Any" [color="#000000", fontcolor="#000000", href="/type/Any", fontname="FreeSans"];
+    "Cool" [color="#000000", fontcolor="#000000", href="/type/Cool", fontname="FreeSans"];
+    "IO::Path" [color="#000000", fontcolor="#000000", href="/type/IO::Path", fontname="FreeSans"];
+    "IO::Special" [color="#000000", fontcolor="#000000", href="/type/IO::Special", fontname="FreeSans"];
+    "IO::Path::Win32" [color="#000000", fontcolor="#000000", href="/type/IO::Path::Win32", fontname="FreeSans"];
+    "IO::Path::QNX" [color="#000000", fontcolor="#000000", href="/type/IO::Path::QNX", fontname="FreeSans"];
+    "IO::Path::Unix" [color="#000000", fontcolor="#000000", href="/type/IO::Path::Unix", fontname="FreeSans"];
+    "IO::Path::Cygwin" [color="#000000", fontcolor="#000000", href="/type/IO::Path::Cygwin", fontname="FreeSans"];
+
+    // Superclasses
+    "Any" -> "Mu" [color="#000000"];
+    "Cool" -> "Any" [color="#000000"];
+    "IO::Path" -> "Cool" [color="#000000"];
+    "IO::Special" -> "Any" [color="#000000"];
+    "IO::Path::Win32" -> "IO::Path" [color="#000000"];
+    "IO::Path::QNX" -> "IO::Path" [color="#000000"];
+    "IO::Path::Unix" -> "IO::Path" [color="#000000"];
+    "IO::Path::Cygwin" -> "IO::Path" [color="#000000"];
+
+    // Roles
+    "IO::Path" -> "IO" [color="#6666FF"];
+    "IO::Special" -> "IO" [color="#6666FF"];
+}

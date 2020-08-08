@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>routine gist</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/routine.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-sub.html"> Sub </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-method.html"> Method </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-term.html"> Term </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-operator.html"> Operator </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-trait.html"> Trait </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-submethod.html"> Submethod </a>
+            </div></div></div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">routine gist</h1>
+        <p class="subtitle"></p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#class_Exception">class Exception</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#(Exception)_method_gist">(Exception) method gist</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#class_IO::Handle">class IO::Handle</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#(IO::Handle)_method_gist">(IO::Handle) method gist</a></td></tr>
+            <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#class_IO::Notification::Change">class IO::Notification::Change</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#(IO::Notification::Change)_method_gist">(IO::Notification::Change) method gist</a></td></tr>
+    <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#class_IO::Path">class IO::Path</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">4.1</td><td class="toc-text"><a href="#(IO::Path)_method_gist">(IO::Path) method gist</a></td></tr>
+           <tr class="toc-level-1"><td class="toc-number">5</td><td class="toc-text"><a href="#role_Blob">role Blob</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">5.1</td><td class="toc-text"><a href="#(Blob)_method_gist">(Blob) method gist</a></td></tr>
+           <tr class="toc-level-1"><td class="toc-number">6</td><td class="toc-text"><a href="#class_ForeignCode">class ForeignCode</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">6.1</td><td class="toc-text"><a href="#(ForeignCode)_method_gist">(ForeignCode) method gist</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">7</td><td class="toc-text"><a href="#class_Date">class Date</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">7.1</td><td class="toc-text"><a href="#(Date)_method_gist">(Date) method gist</a></td></tr>
+         <tr class="toc-level-1"><td class="toc-number">8</td><td class="toc-text"><a href="#class_Submethod">class Submethod</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">8.1</td><td class="toc-text"><a href="#(Submethod)_method_gist">(Submethod) method gist</a></td></tr>
+    <tr class="toc-level-1"><td class="toc-number">9</td><td class="toc-text"><a href="#class_Nil">class Nil</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">9.1</td><td class="toc-text"><a href="#(Nil)_method_gist">(Nil) method gist</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">10</td><td class="toc-text"><a href="#class_Version">class Version</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">10.1</td><td class="toc-text"><a href="#(Version)_method_gist">(Version) method gist</a></td></tr>
+        <tr class="toc-level-1"><td class="toc-number">11</td><td class="toc-text"><a href="#class_Backtrace">class Backtrace</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">11.1</td><td class="toc-text"><a href="#(Backtrace)_method_gist">(Backtrace) method gist</a></td></tr>
+        <tr class="toc-level-1"><td class="toc-number">12</td><td class="toc-text"><a href="#role_Systemic">role Systemic</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">12.1</td><td class="toc-text"><a href="#(Systemic)_method_gist">(Systemic) method gist</a></td></tr>
+        <tr class="toc-level-1"><td class="toc-number">13</td><td class="toc-text"><a href="#class_Map">class Map</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">13.1</td><td class="toc-text"><a href="#(Map)_method_gist">(Map) method gist</a></td></tr>
+          <tr class="toc-level-1"><td class="toc-number">14</td><td class="toc-text"><a href="#class_List">class List</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">14.1</td><td class="toc-text"><a href="#(List)_method_gist">(List) method gist</a></td></tr>
+                            <tr class="toc-level-1"><td class="toc-number">15</td><td class="toc-text"><a href="#role_Sequence">role Sequence</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">15.1</td><td class="toc-text"><a href="#(Sequence)_method_gist">(Sequence) method gist</a></td></tr>
+       <tr class="toc-level-1"><td class="toc-number">16</td><td class="toc-text"><a href="#class_Complex">class Complex</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">16.1</td><td class="toc-text"><a href="#(Complex)_method_gist">(Complex) method gist</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">17</td><td class="toc-text"><a href="#class_Junction">class Junction</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">17.1</td><td class="toc-text"><a href="#(Junction)_method_gist">(Junction) method gist</a></td></tr>
+           <tr class="toc-level-1"><td class="toc-number">18</td><td class="toc-text"><a href="#class_Array">class Array</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">18.1</td><td class="toc-text"><a href="#(Array)_method_gist">(Array) method gist</a></td></tr>
+    <tr class="toc-level-1"><td class="toc-number">19</td><td class="toc-text"><a href="#class_Attribute">class Attribute</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">19.1</td><td class="toc-text"><a href="#(Attribute)_method_gist">(Attribute) method gist</a></td></tr>
+                         <tr class="toc-level-1"><td class="toc-number">20</td><td class="toc-text"><a href="#class_Mu">class Mu</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">20.1</td><td class="toc-text"><a href="#(Mu)_routine_gist">(Mu) routine gist</a></td></tr>
+                    
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Documentation for routine <code>gist</code> assembled from the following types:</p>
+<h1 id="class_Exception"><a class="u" href="#___top" title="go to top of document">class Exception</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Exception#method_gist">Exception</a></p>
+<h2 id="(Exception)_method_gist"><a href="/Documentable/integration-test/type/Exception#method_gist">(Exception) method gist</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method gist(Exception:D:)</pre>
+<p>Returns whatever the exception printer should produce for this exception. The default implementation returns message and backtrace separated by a newline.</p>
+<pre class="pod-block-code">my $e = X::AdHoc.new(payload =&gt; &quot;This exception is pretty bad&quot;);
+try $e.throw;
+if ($!) { say $!.gist; };
+# OUTPUT: «This exception is pretty bad
+#   in block &lt;unit&gt; at &lt;unknown file&gt; line 1␤»</pre>
+<h1 id="class_IO::Handle"><a class="u" href="#___top" title="go to top of document">class IO::Handle</a></h1>
+<p>From <a href="/Documentable/integration-test/type/IO::Handle#method_gist">IO::Handle</a></p>
+<h2 id="(IO::Handle)_method_gist"><a href="/Documentable/integration-test/type/IO::Handle#method_gist">(IO::Handle) method gist</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method gist(IO::Handle:D: --&gt; Str:D)</pre>
+<p>Returns a string containing information which <a href="/Documentable/integration-test/type/IO::Handle#method_path"><code>.path</code></a>, if any, the handle is created for and whether it is <a href="/Documentable/integration-test/type/IO::Handle#method_opened"><code>.opened</code></a>.</p>
+<pre class="pod-block-code">say IO::Handle.new; # IO::Handle&lt;(Any)&gt;(closed)
+say &quot;foo&quot;.IO.open;  # IO::Handle&lt;&quot;foo&quot;.IO&gt;(opened)
+</pre>
+<h1 id="class_IO::Notification::Change"><a class="u" href="#___top" title="go to top of document">class IO::Notification::Change</a></h1>
+<p>From <a href="/Documentable/integration-test/type/IO::Notification::Change#method_gist">IO::Notification::Change</a></p>
+<h2 id="(IO::Notification::Change)_method_gist"><a href="/Documentable/integration-test/type/IO::Notification::Change#method_gist">(IO::Notification::Change) method gist</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method gist(IO::Notification::Change:D:)</pre>
+<p>Returns the path and event attributes, separated by semicolon.</p>
+<h1 id="class_IO::Path"><a class="u" href="#___top" title="go to top of document">class IO::Path</a></h1>
+<p>From <a href="/Documentable/integration-test/type/IO::Path#method_gist">IO::Path</a></p>
+<h2 id="(IO::Path)_method_gist"><a href="/Documentable/integration-test/type/IO::Path#method_gist">(IO::Path) method gist</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method gist(IO::Path:D: --&gt; Str:D)</pre>
+<p>Returns a string, part of which contains either the value of <a href="/Documentable/integration-test/type/IO::Path#method_absolute"><code>.absolute</code></a> (if path is absolute) or <a href="/Documentable/integration-test/type/IO::Path#attribute_path"><code>.path</code></a>. Note that no escaping of special characters is made, so e.g. <code>&quot;\b&quot;</code> means a path contains a backslash and letter &quot;b&quot;, not a backspace.</p>
+<pre class="pod-block-code">say &quot;foo/bar&quot;.IO;                       # OUTPUT: «&quot;foo/bar&quot;.IO␤»
+say IO::Path::Win32.new: ｢C:\foo/bar\｣; # OUTPUT: «&quot;C:\foo/bar\&quot;.IO␤»</pre>
+<h1 id="role_Blob"><a class="u" href="#___top" title="go to top of document">role Blob</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Blob#method_gist">Blob</a></p>
+<h2 id="(Blob)_method_gist"><a href="/Documentable/integration-test/type/Blob#method_gist">(Blob) method gist</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method gist(Blob:D: --&gt; Str:D)</pre>
+<p>Returns the string containing the &quot;gist&quot; of the <a href="/Documentable/integration-test/type/Blob">Blob</a>, <strong>listing up to the first 100</strong> elements, separated by space, appending an ellipsis if the <a href="/Documentable/integration-test/type/Blob">Blob</a> has more than 100 elements.</p>
+<pre class="pod-block-code">put Blob.new(1, 2, 3).gist; # OUTPUT: «Blob:0x&lt;01 02 03&gt;␤»
+put Blob.new(1..2000).gist;
+# OUTPUT:
+# Blob:0x&lt;01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F 10 11 12 13 14 15
+# 16 17 18 19 1A 1B 1C 1D 1E 1F 20 21 22 23 24 25 26 27 28 29 2A 2B 2C
+# 2D 2E 2F 30 31 32 33 34 35 36 37 38 39 3A 3B 3C 3D 3E 3F 40 41 42 43
+# 44 45 46 47 48 49 4A 4B 4C 4D 4E 4F 50 51 52 53 54 55 56 57 58 59 5A
+# 5B 5C 5D 5E 5F 60 61 62 63 64 ...&gt;</pre>
+<h1 id="class_ForeignCode"><a class="u" href="#___top" title="go to top of document">class ForeignCode</a></h1>
+<p>From <a href="/Documentable/integration-test/type/ForeignCode#method_gist">ForeignCode</a></p>
+<h2 id="(ForeignCode)_method_gist"><a href="/Documentable/integration-test/type/ForeignCode#method_gist">(ForeignCode) method gist</a></h2>
+<pre class="pod-block-code">method gist( ForeignCode:D: )</pre>
+<p>Returns the name of the code by calling <code>name</code>.</p>
+<h1 id="class_Date"><a class="u" href="#___top" title="go to top of document">class Date</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Date#method_gist">Date</a></p>
+<h2 id="(Date)_method_gist"><a href="/Documentable/integration-test/type/Date#method_gist">(Date) method gist</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method gist(Date:D: --&gt; Str:D)</pre>
+<p>Returns the date in <code>YYYY-MM-DD</code> format (<a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>)</p>
+<pre class="pod-block-code">say Date.new(&#39;2015-12-24&#39;).gist;                    # OUTPUT: «2015-12-24␤»</pre>
+<h1 id="class_Submethod"><a class="u" href="#___top" title="go to top of document">class Submethod</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Submethod#method_gist">Submethod</a></p>
+<h2 id="(Submethod)_method_gist"><a href="/Documentable/integration-test/type/Submethod#method_gist">(Submethod) method gist</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method gist(Submethod:D:)</pre>
+<p>Returns the name of the submethod.</p>
+<h1 id="class_Nil"><a class="u" href="#___top" title="go to top of document">class Nil</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Nil#method_gist">Nil</a></p>
+<h2 id="(Nil)_method_gist"><a href="/Documentable/integration-test/type/Nil#method_gist">(Nil) method gist</a></h2>
+<pre class="pod-block-code">method gist(--&gt; Str:D)</pre>
+<p>Returns <code>&quot;Nil&quot;</code>.</p>
+<h1 id="class_Version"><a class="u" href="#___top" title="go to top of document">class Version</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Version#method_gist">Version</a></p>
+<h2 id="(Version)_method_gist"><a href="/Documentable/integration-test/type/Version#method_gist">(Version) method gist</a></h2>
+<pre class="pod-block-code">method gist(Version:D: --&gt; Str:D)</pre>
+<p>Returns a string representation of the invocant, just like <a href="#method_Str">Str</a>, prepended with a lower-case <code>v</code>.</p>
+<pre class="pod-block-code">my $v1 = v1.0.1;
+my $v2 = Version.new(&#39;1.0.1&#39;);
+say $v1.gist;                                      # OUTPUT: «v1.0.1␤»
+say $v2.gist;                                      # OUTPUT: «v1.0.1␤»</pre>
+<h1 id="class_Backtrace"><a class="u" href="#___top" title="go to top of document">class Backtrace</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Backtrace#method_gist">Backtrace</a></p>
+<h2 id="(Backtrace)_method_gist"><a href="/Documentable/integration-test/type/Backtrace#method_gist">(Backtrace) method gist</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method gist(Backtrace:D:)</pre>
+<p>Returns string <code>&quot;Backtrace(42 frames)&quot;</code> where the number indicates the number of frames available via <a href="/Documentable/integration-test/routine/list">list</a> method.</p>
+<h1 id="role_Systemic"><a class="u" href="#___top" title="go to top of document">role Systemic</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Systemic#method_gist">Systemic</a></p>
+<h2 id="(Systemic)_method_gist"><a href="/Documentable/integration-test/type/Systemic#method_gist">(Systemic) method gist</a></h2>
+<pre class="pod-block-code">method gist( Systemic:D: )</pre>
+<p>Instance method returning the name and version of the object.</p>
+<pre class="pod-block-code">say $*RAKU.gist; # OUTPUT: «Raku (6.d)␤»</pre>
+<p><code>$*RAKU</code> is an object of the <a href="/Documentable/integration-test/type/Raku">Raku</a> type, which mixes in this role and thus implements this method.</p>
+<h1 id="class_Map"><a class="u" href="#___top" title="go to top of document">class Map</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Map#method_gist">Map</a></p>
+<h2 id="(Map)_method_gist"><a href="/Documentable/integration-test/type/Map#method_gist">(Map) method gist</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method gist(Map:D: --&gt; Str:D)</pre>
+<p>Returns the string containing the &quot;gist&quot; of the <a href="/Documentable/integration-test/type/Map">Map</a>, sorts the pairs and lists <strong>up to the first 100</strong>, appending an ellipsis if the <a href="/Documentable/integration-test/type/Map">Map</a> has more than 100 pairs.</p>
+<h1 id="class_List"><a class="u" href="#___top" title="go to top of document">class List</a></h1>
+<p>From <a href="/Documentable/integration-test/type/List#method_gist">List</a></p>
+<h2 id="(List)_method_gist"><a href="/Documentable/integration-test/type/List#method_gist">(List) method gist</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method gist(List:D: --&gt; Str:D)</pre>
+<p>Returns the string containing the parenthesized &quot;gist&quot; of the List, <strong>listing up to the first 100</strong> elements, separated by space, appending an ellipsis if the List has more than 100 elements. If List <a href="/Documentable/integration-test/routine/is-lazy"><code>is-lazy</code></a>, returns string <code>&#39;(...)&#39;</code></p>
+<pre class="pod-block-code">put (1, 2, 3).gist;   # OUTPUT «(1 2 3)␤»
+put (1..∞).List.gist; # OUTPUT «(...)␤»
+
+put (1..200).List.gist;
+# OUTPUT:
+# (1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26
+# 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49
+# 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72
+# 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95
+# 96 97 98 99 100 ...)
+</pre>
+<h1 id="role_Sequence"><a class="u" href="#___top" title="go to top of document">role Sequence</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Sequence#method_gist">Sequence</a></p>
+<h2 id="(Sequence)_method_gist"><a href="/Documentable/integration-test/type/Sequence#method_gist">(Sequence) method gist</a></h2>
+<pre class="pod-block-code">multi method gist(::?CLASS:D:)</pre>
+<p>Returns the <a href="/Documentable/integration-test/type/List#method_gist">gist</a> of the <a href="/Documentable/integration-test/type/PositionalBindFailover#method_cache">cached</a> sequence.</p>
+<h1 id="class_Complex"><a class="u" href="#___top" title="go to top of document">class Complex</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Complex#method_gist">Complex</a></p>
+<h2 id="(Complex)_method_gist"><a href="/Documentable/integration-test/type/Complex#method_gist">(Complex) method gist</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method gist(Complex:D: --&gt; Str:D)</pre>
+<p>Returns a string representation of the form &quot;1+2i&quot;, without internal spaces. (Str coercion also returns this.)</p>
+<pre class="pod-block-code">say (1-4i).gist;                # OUTPUT: «1-4i␤»</pre>
+<h1 id="class_Junction"><a class="u" href="#___top" title="go to top of document">class Junction</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Junction#method_gist">Junction</a></p>
+<h2 id="(Junction)_method_gist"><a href="/Documentable/integration-test/type/Junction#method_gist">(Junction) method gist</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method gist(Junction:D:)</pre>
+<p>Collapses the <a href="/Documentable/integration-test/type/Junction">Junction</a> and returns a <a href="/Documentable/integration-test/type/Str">Str</a> composed of the type of the junction and the <a href="/Documentable/integration-test/routine/gist">gists</a> of its components:</p>
+<pre class="pod-block-code">&lt;a 42 c&gt;.all.say; # OUTPUT: «all(a, 42, c)␤»</pre>
+<h1 id="class_Array"><a class="u" href="#___top" title="go to top of document">class Array</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Array#method_gist">Array</a></p>
+<h2 id="(Array)_method_gist"><a href="/Documentable/integration-test/type/Array#method_gist">(Array) method gist</a></h2>
+<p>Exactly the same as <a href="/Documentable/integration-test/type/List#method_gist"><code>List.gist</code></a>, except using square brackets for surrounding delimiters.</p>
+<h1 id="class_Attribute"><a class="u" href="#___top" title="go to top of document">class Attribute</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Attribute#method_gist">Attribute</a></p>
+<h2 id="(Attribute)_method_gist"><a href="/Documentable/integration-test/type/Attribute#method_gist">(Attribute) method gist</a></h2>
+<p>Defined as</p>
+<pre class="pod-block-code">multi method gist(Attribute:D:)</pre>
+<p>Returns the name of the type followed by the name of the attribute.</p>
+<pre class="pod-block-code">class Hero {
+    has @!inventory;
+    has Str $.name;
+    submethod BUILD( :$name, :@inventory ) {
+        $!name = $name;
+        @!inventory = @inventory
+    }
+}
+say Hero.^attributes(:local)[0]; # OUTPUT: «Positional @!inventory»
+</pre>
+<p>Since say implicitly calls <code>.gist</code>, that is what produces the output here.</p>
+<h1 id="class_Mu"><a class="u" href="#___top" title="go to top of document">class Mu</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Mu#routine_gist">Mu</a></p>
+<h2 id="(Mu)_routine_gist"><a href="/Documentable/integration-test/type/Mu#routine_gist">(Mu) routine gist</a></h2>
+<pre class="pod-block-code">multi sub    gist(+args --&gt; Str)
+multi method gist(   --&gt; Str)</pre>
+<p>Returns a string representation of the invocant, optimized for fast recognition by humans. As such lists will be truncated at 100 elements. Use <code>.raku</code> to get all elements.</p>
+<p>The default <code>gist</code> method in <code>Mu</code> re-dispatches to the <a href="/Documentable/integration-test/routine/perl">perl</a> method for defined invocants, and returns the type name in parenthesis for type object invocants. Many built-in classes override the case of instances to something more specific that may truncate output.</p>
+<p><code>gist</code> is the method that <a href="/Documentable/integration-test/routine/say">say</a> calls implicitly, so <code>say $something</code> and <code>say $something.gist</code> generally produce the same output.</p>
+<pre class="pod-block-code">say Mu.gist;        # OUTPUT: «(Mu)␤»
+say Mu.new.gist;    # OUTPUT: «Mu.new␤»</pre>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Inter-process communication</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/ipc.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Inter-process communication</h1>
+        <p class="subtitle">Programs running other programs and communicating with them</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+   <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Running_programs">Running programs</a></td></tr>
+           <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#The_Proc_object">The <code class="pod-code-inline">Proc</code> object</a></td></tr>
+                           <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#The_Proc::Async_object">The <code class="pod-code-inline">Proc::Async</code> object</a></td></tr>
+                                                
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p><a name="Documentable/integration-test/index-entry-IPC"></a></p>
+<h1 id="Running_programs"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-Running_programs"><span class="index-entry">Running programs</span></a></a></h1>
+<p>Many programs need to be able to run other programs, and we need to pass information to them and receive their output and exit status. Running a program in Raku is as easy as:</p>
+<pre class="pod-block-code">run &#39;git&#39;, &#39;status&#39;;</pre>
+<p>This line runs the program named &quot;git&quot; and passes &quot;git&quot; and &quot;status&quot; to its command-line. It will find the program using the <code>%*ENV&lt;PATH&gt; </code> setting.</p>
+<p>If you would like to run a program by sending a command-line to the shell, there&#39;s a tool for that as well. All shell metacharacters are interpreted by the shell, including pipes, redirects, environment variable substitutions and so on.</p>
+<pre class="pod-block-code">shell &#39;ls -lR | gzip -9 &gt; ls-lR.gz&#39;;</pre>
+<p>Caution should be taken when using <code>shell</code> with user input.</p>
+<h1 id="The_Proc_object"><a class="u" href="#___top" title="go to top of document">The <code>Proc</code> object</a></h1>
+<p>Both <code>run</code> and <code>shell</code> return a <a href="/Documentable/integration-test/type/Proc">Proc</a> object, which can be used to communicate with the process in more detail. Please note that unless you close all output pipes, the program will usually not terminate.</p>
+<pre class="pod-block-code">my $git = run &#39;git&#39;, &#39;log&#39;, &#39;--oneline&#39;, :out;
+for $git.out.lines -&gt; $line {
+    my ($sha, $subject) = $line.split: &#39; &#39;, 2;
+    say &quot;$subject [$sha]&quot;;
+}
+$git.out.close();</pre>
+<p>If the program fails (exits with a non-zero exit code), it will throw an exception when the returned <a href="/Documentable/integration-test/type/Proc">Proc</a> object is sunk. You can save it into a variable, even anonymous one, to prevent the sinking:</p>
+<pre class="pod-block-code">$ = run &#39;/bin/false&#39;; # does not sink the Proc and so does not throw</pre>
+<p>You can tell the <code>Proc</code> object to capture output as a filehandle by passing the <code>:out</code> and <code>:err</code> flags. You may also pass input via the <code>:in</code> flag.</p>
+<pre class="pod-block-code">my $echo = run &#39;echo&#39;, &#39;Hello, world&#39;, :out;
+my $cat  = run &#39;cat&#39;, &#39;-n&#39;, :in($echo.out), :out;
+say $cat.out.get;
+$cat.out.close();</pre>
+<p>You may also use <code>Proc</code> to capture the PID, send signals to the application, and check the exitcode.</p>
+<pre class="pod-block-code">my $crontab = run &#39;crontab&#39;, &#39;-l&#39;;
+if $crontab.exitcode == 0 {
+    say &#39;crontab -l ran ok&#39;;
+}
+else {
+    say &#39;something went wrong&#39;;
+}</pre>
+<h1 id="The_Proc::Async_object"><a class="u" href="#___top" title="go to top of document">The <code>Proc::Async</code> object</a></h1>
+<p>When you need more control over the communication with and from another process, you will want to make use of <a href="/Documentable/integration-test/type/Proc::Async">Proc::Async</a>. This class provides support for asynchronous communication with a program, as well as the ability to send signals to that program.</p>
+<pre class="pod-block-code"># Get ready to run the program
+my $log = Proc::Async.new(&#39;tail&#39;, &#39;-f&#39;,  &#39;/var/log/system.log&#39;);
+$log.stdout.tap(-&gt; $buf { print $buf });
+$log.stderr.tap(-&gt; $buf { $*ERR.print($buf) });
+
+# Start the program
+my $done = $log.start;
+sleep 10;
+
+# Tell the program to stop
+$log.kill(&#39;QUIT&#39;);
+
+# Wait for the program to finish
+await $done;
+</pre>
+<p>The small program above uses the &quot;tail&quot; program to print out the contents of the log named <code>system.log</code> for 10 seconds and then tells the program to stop with a QUIT signal.</p>
+<p>Whereas <code>Proc</code> provides access to output using <code>IO::Handle</code>s, <code>Proc::Async</code> provides access using asynchronous supplies (see <a href="/Documentable/integration-test/type/Supply">Supply</a>).</p>
+<p>If you want to run a program and do some work while you wait for the original program to finish, the <code>start</code> routine returns a <a href="/Documentable/integration-test/type/Promise">Promise</a>, which is kept when the program quits.</p>
+<p>Use the <code>write</code> method to pass data into the program.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/ipc.pod6">https://github.com/Raku/doc/blob/master/doc/Language/ipc.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

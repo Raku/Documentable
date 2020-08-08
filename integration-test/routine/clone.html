@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>method clone</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/routine.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-sub.html"> Sub </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-method.html"> Method </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-term.html"> Term </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-operator.html"> Operator </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-trait.html"> Trait </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-submethod.html"> Submethod </a>
+            </div></div></div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">method clone</h1>
+        <p class="subtitle"></p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#class_Match">class Match</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#(Match)_method_clone">(Match) method clone</a></td></tr>
+      <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#class_Date">class Date</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#(Date)_method_clone">(Date) method clone</a></td></tr>
+       <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#class_DateTime">class DateTime</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#(DateTime)_method_clone">(DateTime) method clone</a></td></tr>
+         <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#class_Array">class Array</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">4.1</td><td class="toc-text"><a href="#(Array)_method_clone">(Array) method clone</a></td></tr>
+             <tr class="toc-level-1"><td class="toc-number">5</td><td class="toc-text"><a href="#class_Mu">class Mu</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">5.1</td><td class="toc-text"><a href="#(Mu)_method_clone">(Mu) method clone</a></td></tr>
+                                                                                                                          
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Documentation for method <code>clone</code> assembled from the following types:</p>
+<h1 id="class_Match"><a class="u" href="#___top" title="go to top of document">class Match</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Match#method_clone">Match</a></p>
+<h2 id="(Match)_method_clone"><a href="/Documentable/integration-test/type/Match#method_clone">(Match) method clone</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method clone()</pre>
+<p>Clones the <code>Match</code> object.</p>
+<h1 id="class_Date"><a class="u" href="#___top" title="go to top of document">class Date</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Date#method_clone">Date</a></p>
+<h2 id="(Date)_method_clone"><a href="/Documentable/integration-test/type/Date#method_clone">(Date) method clone</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method clone(:$year, :$month, :$day, :&amp;formatter)</pre>
+<p>Creates a new <code>Date</code> object based on the invocant, but with the given arguments overriding the values from the invocant.</p>
+<pre class="pod-block-code">say Date.new(&#39;2015-11-24&#39;).clone(month =&gt; 12);    # OUTPUT: «2015-12-24␤»</pre>
+<h1 id="class_DateTime"><a class="u" href="#___top" title="go to top of document">class DateTime</a></h1>
+<p>From <a href="/Documentable/integration-test/type/DateTime#method_clone">DateTime</a></p>
+<h2 id="(DateTime)_method_clone"><a href="/Documentable/integration-test/type/DateTime#method_clone">(DateTime) method clone</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method clone(:$year, :$month, :$day, :$hour, :$minute, :$second, :$timezone, :&amp;formatter)</pre>
+<p>Creates a new <code>DateTime</code> object based on the invocant, but with the given arguments overriding the values from the invocant.</p>
+<pre class="pod-block-code">say DateTime.new(&#39;2015-12-24T12:23:00Z&#39;).clone(hour =&gt; 0);
+# OUTPUT: «2015-12-24T00:23:00Z␤»</pre>
+<p>Note that this can lead to invalid dates in some circumstances:</p>
+<pre class="pod-block-code">say DateTime.new(&quot;2012-02-29T12:34:56Z&quot;).clone(year =&gt; 2015);
+CATCH { default { put .^name, &#39;: &#39;, .Str } };
+# OUTPUT: «X::OutOfRange: Day out of range. Is: 29, should be in 1..28␤»</pre>
+<h1 id="class_Array"><a class="u" href="#___top" title="go to top of document">class Array</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Array#method_clone">Array</a></p>
+<h2 id="(Array)_method_clone"><a href="/Documentable/integration-test/type/Array#method_clone">(Array) method clone</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method clone(Array:D: --&gt; Array:D)</pre>
+<p>Clones the original <code>Array</code>. Modifications of elements in the clone are not propagated to the original and vice-versa:</p>
+<pre class="pod-block-code">my @a = &lt;a b c&gt;; my @b = @a.clone;
+@b[1] = 42; @a.push: 72;
+say @b; # OUTPUT: «[a 42 c]␤»
+say @a; # OUTPUT: «[a b c 72]␤»</pre>
+<p>However, note that the reifier <em>is</em> shared between the two Arrays, so both Arrays will have the same elements even when each is randomly-generated on reification and each element will be reified just once, regardless of whether the reification was done by the clone or the original Array. <strong>Note:</strong> just as reifying an Array from multiple threads is not safe, so is, for example, reifying the clone from one thread while reifying the original from another thread is not safe.</p>
+<pre class="pod-block-code">my @a = 1, {rand} … ∞; my @b = @a.clone;
+say @b[^3]; # OUTPUT: «(1 0.0216426755282736 0.567660896142156)␤»
+say @a[^3]; # OUTPUT: «(1 0.0216426755282736 0.567660896142156)␤»</pre>
+<h1 id="class_Mu"><a class="u" href="#___top" title="go to top of document">class Mu</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Mu#method_clone">Mu</a></p>
+<h2 id="(Mu)_method_clone"><a href="/Documentable/integration-test/type/Mu#method_clone">(Mu) method clone</a></h2>
+<pre class="pod-block-code">multi method clone(Mu:U: *%twiddles)
+multi method clone(Mu:D: *%twiddles)</pre>
+<p>This method will clone type objects, or die if it&#39;s invoked with any argument.</p>
+<pre class="pod-block-code">say Num.clone( :yes )
+# OUTPUT: «(exit code 1) Cannot set attribute values when cloning a type object␤  in block &lt;unit&gt;␤␤»
+</pre>
+<p>If invoked with value objects, it creates a shallow clone of the invocant, including shallow cloning of private attributes. Alternative values for <em>public</em> attributes can be provided via named arguments with names matching the attributes&#39; names.</p>
+<pre class="pod-block-code">class Point2D {
+    has ($.x, $.y);
+    multi method gist(Point2D:D:) {
+        &quot;Point($.x, $.y)&quot;;
+    }
+}
+
+my $p = Point2D.new(x =&gt; 2, y =&gt; 3);
+
+say $p;                     # OUTPUT: «Point(2, 3)␤»
+say $p.clone(y =&gt; -5);      # OUTPUT: «Point(2, -5)␤»
+</pre>
+<p>Note that <code>.clone</code> does not go the extra mile to shallow-copy <code>@.</code> and <code>%.</code> sigiled attributes and, if modified, the modifications will still be available in the original object:</p>
+<pre class="pod-block-code">class Foo {
+    has $.foo is rw = 42;
+    has &amp;.boo is rw = { say &quot;Hi&quot; };
+    has @.bar       = &lt;a b&gt;;
+    has %.baz       = &lt;a b c d&gt;;
+}
+
+my $o1 = Foo.new;
+with my $o2 = $o1.clone {
+    .foo = 70;
+    .bar = &lt;Z Y&gt;;
+    .baz = &lt;Z Y X W&gt;;
+    .boo = { say &quot;Bye&quot; };
+}
+
+# Hash and Array attribute modifications in clone appear in original as well:
+say $o1;
+# OUTPUT: «Foo.new(foo =&gt; 42, bar =&gt; [&quot;Z&quot;, &quot;Y&quot;], baz =&gt; {:X(&quot;W&quot;), :Z(&quot;Y&quot;)}, …␤»
+say $o2;
+# OUTPUT: «Foo.new(foo =&gt; 70, bar =&gt; [&quot;Z&quot;, &quot;Y&quot;], baz =&gt; {:X(&quot;W&quot;), :Z(&quot;Y&quot;)}, …␤»
+$o1.boo.(); # OUTPUT: «Hi␤»
+$o2.boo.(); # OUTPUT: «Bye␤»
+</pre>
+<p>To clone those, you could implement your own <code>.clone</code> that clones the appropriate attributes and passes the new values to <code>Mu.clone</code>, for example, via <a href="/Documentable/integration-test/language/functions#sub_nextwith"><code>nextwith</code></a>.</p>
+<pre class="pod-block-code">class Bar {
+    has $.quux;
+    has @.foo = &lt;a b&gt;;
+    has %.bar = &lt;a b c d&gt;;
+    method clone { nextwith :foo(@!foo.clone), :bar(%!bar.clone), |%_  }
+}
+
+my $o1 = Bar.new( :42quux );
+with my $o2 = $o1.clone {
+    .foo = &lt;Z Y&gt;;
+    .bar = &lt;Z Y X W&gt;;
+}
+
+# Hash and Array attribute modifications in clone do not affect original:
+say $o1;
+# OUTPUT: «Bar.new(quux =&gt; 42, foo =&gt; [&quot;a&quot;, &quot;b&quot;], bar =&gt; {:a(&quot;b&quot;), :c(&quot;d&quot;)})␤»
+say $o2;
+# OUTPUT: «Bar.new(quux =&gt; 42, foo =&gt; [&quot;Z&quot;, &quot;Y&quot;], bar =&gt; {:X(&quot;W&quot;), :Z(&quot;Y&quot;)})␤»
+</pre>
+<p>The <code>|%_</code> is needed to slurp the rest of the attributes that would have been copied via shallow copy.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

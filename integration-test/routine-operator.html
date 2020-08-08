@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Raku operator Routines</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/routine.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-sub.html"> Sub </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-method.html"> Method </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-term.html"> Term </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-operator.html"> Operator </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-trait.html"> Trait </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-submethod.html"> Submethod </a>
+            </div></div></div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Raku operator Routines</h1>
+        <p class="subtitle"></p>
+
+        
+        <div class="pod-body  no-toc">
+            <table class="pod-table">
+<tbody>
+<tr> <td>prefix</td> <td><a href="/Documentable/integration-test/routine/!">!</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>listop</td> <td><a href="/Documentable/integration-test/routine/!!!">!!!</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/!=">!=</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/$PERCENT_SIGN">%</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/$PERCENT_SIGN$PERCENT_SIGN">%%</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/&">&amp;</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/&&">&amp;&amp;</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>postcircumfix</td> <td><a href="/Documentable/integration-test/routine/( )">( )</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/(&), infix ∩">(&amp;), infix ∩</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>, <a href="/Documentable/integration-test/language/setbagmix">Sets, bags, and mixes</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/(+), infix ⊎">(+), infix ⊎</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>, <a href="/Documentable/integration-test/language/setbagmix">Sets, bags, and mixes</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/(-), infix ∖">(-), infix ∖</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>, <a href="/Documentable/integration-test/language/setbagmix">Sets, bags, and mixes</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/(.), infix ⊍">(.), infix ⊍</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>, <a href="/Documentable/integration-test/language/setbagmix">Sets, bags, and mixes</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/(<), infix ⊂">(&lt;), infix ⊂</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>, <a href="/Documentable/integration-test/language/setbagmix">Sets, bags, and mixes</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/(<=), infix ⊆">(&lt;=), infix ⊆</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>, <a href="/Documentable/integration-test/language/setbagmix">Sets, bags, and mixes</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/(>), infix ⊃">(&gt;), infix ⊃</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>, <a href="/Documentable/integration-test/language/setbagmix">Sets, bags, and mixes</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/(>=), infix ⊇">(&gt;=), infix ⊇</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>, <a href="/Documentable/integration-test/language/setbagmix">Sets, bags, and mixes</a>)</p>
+</td> </tr> <tr> <td>prefix</td> <td><a href="/Documentable/integration-test/routine/(C-like) form">(C-like) form</a></td> <td><p>(From <a href="/Documentable/integration-test/type/Signature">Signature</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/($CIRCUMFLEX_ACCENT), infix ⊖">(^), infix ⊖</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>, <a href="/Documentable/integration-test/language/setbagmix">Sets, bags, and mixes</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/(cont), infix ∋">(cont), infix ∋</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>, <a href="/Documentable/integration-test/language/setbagmix">Sets, bags, and mixes</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/(elem), infix ∈">(elem), infix ∈</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>, <a href="/Documentable/integration-test/language/setbagmix">Sets, bags, and mixes</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/(|), infix ∪">(|), infix ∪</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>, <a href="/Documentable/integration-test/language/setbagmix">Sets, bags, and mixes</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/*">*</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/**">**</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>prefix, infix</td> <td><a href="/Documentable/integration-test/routine/+">+</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>, <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/+&">+&amp;</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>prefix, postfix</td> <td><a href="/Documentable/integration-test/routine/++">++</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>, <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>prefix</td> <td><a href="/Documentable/integration-test/routine/++⚛">++⚛</a></td> <td><p>(From <a href="/Documentable/integration-test/type/atomicint">atomicint</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/+<">+&lt;</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/+>">+&gt;</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>prefix, infix</td> <td><a href="/Documentable/integration-test/routine/+$CIRCUMFLEX_ACCENT">+^</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>, <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/+|">+|</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/,">,</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>postfix</td> <td><a href="/Documentable/integration-test/routine/,=">,=</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>prefix, infix</td> <td><a href="/Documentable/integration-test/routine/-">-</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>, <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>prefix, postfix</td> <td><a href="/Documentable/integration-test/routine/--">--</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>, <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>prefix</td> <td><a href="/Documentable/integration-test/routine/--⚛">--⚛</a></td> <td><p>(From <a href="/Documentable/integration-test/type/atomicint">atomicint</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/..html">.</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/...html">..</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix, listop</td> <td><a href="/Documentable/integration-test/routine/....html">...</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>, <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/..$CIRCUMFLEX_ACCENT">..^</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/.=">.=</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/$SOLIDUS">/</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/$SOLIDUS$SOLIDUS">//</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/:">:</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/::=">::=</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/:=">:=</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/<">&lt;</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>postcircumfix</td> <td><a href="/Documentable/integration-test/routine/< >">&lt; &gt;</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/<=">&lt;=</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/<==">&lt;==</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/<=>">&lt;=&gt;</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>, <a href="/Documentable/integration-test/type/Order">Order</a>)</p>
+</td> </tr> <tr> <td>postcircumfix</td> <td><a href="/Documentable/integration-test/routine/<>">&lt;&gt;</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/= (item assignment)">= (item assignment)</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/= (list assignment)">= (list assignment)</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/=:=">=:=</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/==">==</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/===">===</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/==>">==&gt;</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/=>">=&gt;</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/=~=">=~=</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/>">&gt;</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/>=">&gt;=</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>prefix</td> <td><a href="/Documentable/integration-test/routine/?">?</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>, <a href="/Documentable/integration-test/type/Bool">Bool</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/?&">?&amp;</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/?? !!">?? !!</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>listop</td> <td><a href="/Documentable/integration-test/routine/???">???</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>prefix, infix</td> <td><a href="/Documentable/integration-test/routine/?$CIRCUMFLEX_ACCENT">?^</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>, <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/?|">?|</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/X">X</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/Z">Z</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>circumfix, postcircumfix</td> <td><a href="/Documentable/integration-test/routine/[ ]">[ ]</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>, <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>prefix, infix</td> <td><a href="/Documentable/integration-test/routine/$CIRCUMFLEX_ACCENT">^</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>, <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/$CIRCUMFLEX_ACCENT...html">^..</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/$CIRCUMFLEX_ACCENT..$CIRCUMFLEX_ACCENT">^..^</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/$CIRCUMFLEX_ACCENT$CIRCUMFLEX_ACCENT">^^</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/$CIRCUMFLEX_ACCENTff">^ff</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/$CIRCUMFLEX_ACCENTff$CIRCUMFLEX_ACCENT">^ff^</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/$CIRCUMFLEX_ACCENTfff">^fff</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/$CIRCUMFLEX_ACCENTfff$CIRCUMFLEX_ACCENT">^fff^</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/after">after</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/and">and</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/andthen">andthen</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/before">before</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/but">but</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/cmp">cmp</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>, <a href="/Documentable/integration-test/type/NumStr">NumStr</a>, <a href="/Documentable/integration-test/type/ComplexStr">ComplexStr</a>, <a href="/Documentable/integration-test/type/Pair">Pair</a>, <a href="/Documentable/integration-test/type/RatStr">RatStr</a>, <a href="/Documentable/integration-test/type/IntStr">IntStr</a>, <a href="/Documentable/integration-test/type/Order">Order</a>, <a href="/Documentable/integration-test/type/List">List</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/coll">coll</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>prefix</td> <td><a href="/Documentable/integration-test/routine/constant">constant</a></td> <td><p>(From <a href="/Documentable/integration-test/language/variables">Variables</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/div">div</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>, <a href="/Documentable/integration-test/type/Int">Int</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/does">does</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/eq">eq</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/eqv">eqv</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>, <a href="/Documentable/integration-test/type/Match">Match</a>, <a href="/Documentable/integration-test/type/ObjAt">ObjAt</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/ff">ff</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/ff$CIRCUMFLEX_ACCENT">ff^</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/fff">fff</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/fff$CIRCUMFLEX_ACCENT">fff^</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/gcd">gcd</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/ge">ge</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/gt">gt</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>postfix</td> <td><a href="/Documentable/integration-test/routine/i">i</a></td> <td><p>(From <a href="/Documentable/integration-test/type/Complex">Complex</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/lcm">lcm</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/le">le</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/leg">leg</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>prefix</td> <td><a href="/Documentable/integration-test/routine/let">let</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>, <a href="/Documentable/integration-test/language/variables">Variables</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/lt">lt</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/max">max</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/min">min</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/minmax">minmax</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/mod">mod</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/ne">ne</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>prefix</td> <td><a href="/Documentable/integration-test/routine/not">not</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/notandthen">notandthen</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/or">or</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/orelse">orelse</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>prefix</td> <td><a href="/Documentable/integration-test/routine/so">so</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>, <a href="/Documentable/integration-test/type/Bool">Bool</a>)</p>
+</td> </tr> <tr> <td>prefix</td> <td><a href="/Documentable/integration-test/routine/temp">temp</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>, <a href="/Documentable/integration-test/language/variables">Variables</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/unicmp">unicmp</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/x">x</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/xor">xor</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/xx">xx</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>postcircumfix</td> <td><a href="/Documentable/integration-test/routine/{ }">{ }</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>prefix, infix</td> <td><a href="/Documentable/integration-test/routine/|">|</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>, <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/||">||</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>prefix, infix</td> <td><a href="/Documentable/integration-test/routine/~">~</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>, <a href="/Documentable/integration-test/language/operators">Operators</a>, <a href="/Documentable/integration-test/type/Junction">Junction</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/~&">~&amp;</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/~<">~&lt;</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/~>">~&gt;</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>prefix, infix</td> <td><a href="/Documentable/integration-test/routine/~$CIRCUMFLEX_ACCENT">~^</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>, <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/~|">~|</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/~~">~~</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>postcircumfix</td> <td><a href="/Documentable/integration-test/routine/« »">« »</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/∉">∉</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>, <a href="/Documentable/integration-test/language/setbagmix">Sets, bags, and mixes</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/∌">∌</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>, <a href="/Documentable/integration-test/language/setbagmix">Sets, bags, and mixes</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/∘">∘</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/≠">≠</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/≤">≤</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/≥">≥</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/⊄">⊄</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>, <a href="/Documentable/integration-test/language/setbagmix">Sets, bags, and mixes</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/⊅">⊅</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>, <a href="/Documentable/integration-test/language/setbagmix">Sets, bags, and mixes</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/⊈">⊈</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>, <a href="/Documentable/integration-test/language/setbagmix">Sets, bags, and mixes</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/⊉">⊉</a></td> <td><p>(From <a href="/Documentable/integration-test/language/operators">Operators</a>, <a href="/Documentable/integration-test/language/setbagmix">Sets, bags, and mixes</a>)</p>
+</td> </tr> <tr> <td>prefix</td> <td><a href="/Documentable/integration-test/routine/⚛">⚛</a></td> <td><p>(From <a href="/Documentable/integration-test/type/Scalar">Scalar</a>, <a href="/Documentable/integration-test/type/atomicint">atomicint</a>)</p>
+</td> </tr> <tr> <td>postfix</td> <td><a href="/Documentable/integration-test/routine/⚛++">⚛++</a></td> <td><p>(From <a href="/Documentable/integration-test/type/atomicint">atomicint</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/⚛+=">⚛+=</a></td> <td><p>(From <a href="/Documentable/integration-test/type/atomicint">atomicint</a>)</p>
+</td> </tr> <tr> <td>postfix</td> <td><a href="/Documentable/integration-test/routine/⚛--">⚛--</a></td> <td><p>(From <a href="/Documentable/integration-test/type/atomicint">atomicint</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/⚛-=">⚛-=</a></td> <td><p>(From <a href="/Documentable/integration-test/type/atomicint">atomicint</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/⚛=">⚛=</a></td> <td><p>(From <a href="/Documentable/integration-test/type/Scalar">Scalar</a>, <a href="/Documentable/integration-test/type/atomicint">atomicint</a>)</p>
+</td> </tr> <tr> <td>infix</td> <td><a href="/Documentable/integration-test/routine/⚛−=">⚛−=</a></td> <td><p>(From <a href="/Documentable/integration-test/type/atomicint">atomicint</a>)</p>
+</td> </tr>
+</tbody>
+</table>
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

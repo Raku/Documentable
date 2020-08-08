@@ -1,0 +1,757 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Independent routines</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Type/independent-routines.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Independent routines</h1>
+        <p class="subtitle">Routines not defined within any class or role.</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+   <tr class="toc-level-2"><td class="toc-number">0.1</td><td class="toc-text"><a href="#routine_EVAL">routine EVAL</a></td></tr>
+                                                                                <tr class="toc-level-2"><td class="toc-number">0.2</td><td class="toc-text"><a href="#sub_EVALFILE">sub EVALFILE</a></td></tr>
+            <tr class="toc-level-2"><td class="toc-number">0.3</td><td class="toc-text"><a href="#sub_mkdir">sub mkdir</a></td></tr>
+                             <tr class="toc-level-2"><td class="toc-number">0.4</td><td class="toc-text"><a href="#sub_chdir">sub chdir</a></td></tr>
+                                                                <tr class="toc-level-2"><td class="toc-number">0.5</td><td class="toc-text"><a href="#sub_&amp;*chdir">sub &amp;*chdir</a></td></tr>
+                                               <tr class="toc-level-2"><td class="toc-number">0.6</td><td class="toc-text"><a href="#sub_chmod">sub chmod</a></td></tr>
+                   <tr class="toc-level-2"><td class="toc-number">0.7</td><td class="toc-text"><a href="#sub_indir">sub indir</a></td></tr>
+                                                                                   <tr class="toc-level-2"><td class="toc-number">0.8</td><td class="toc-text"><a href="#sub_print">sub print</a></td></tr>
+                     <tr class="toc-level-2"><td class="toc-number">0.9</td><td class="toc-text"><a href="#sub_put">sub put</a></td></tr>
+                         <tr class="toc-level-2"><td class="toc-number">0.10</td><td class="toc-text"><a href="#sub_say">sub say</a></td></tr>
+                           <tr class="toc-level-2"><td class="toc-number">0.11</td><td class="toc-text"><a href="#routine_note">routine note</a></td></tr>
+                           <tr class="toc-level-2"><td class="toc-number">0.12</td><td class="toc-text"><a href="#sub_prompt">sub prompt</a></td></tr>
+                                         <tr class="toc-level-2"><td class="toc-number">0.13</td><td class="toc-text"><a href="#sub_open">sub open</a></td></tr>
+                                   <tr class="toc-level-2"><td class="toc-number">0.14</td><td class="toc-text"><a href="#sub_slurp">sub slurp</a></td></tr>
+                                          <tr class="toc-level-2"><td class="toc-number">0.15</td><td class="toc-text"><a href="#sub_spurt">sub spurt</a></td></tr>
+            <tr class="toc-level-3"><td class="toc-number">0.15.1</td><td class="toc-text"><a href="#Options">Options</a></td></tr>
+           <tr class="toc-level-3"><td class="toc-number">0.15.2</td><td class="toc-text"><a href="#Examples">Examples</a></td></tr>
+                        <tr class="toc-level-2"><td class="toc-number">0.16</td><td class="toc-text"><a href="#sub_run">sub run</a></td></tr>
+                                                                                             <tr class="toc-level-2"><td class="toc-number">0.17</td><td class="toc-text"><a href="#sub_shell">sub shell</a></td></tr>
+                     <tr class="toc-level-2"><td class="toc-number">0.18</td><td class="toc-text"><a href="#routine_unpolar">routine unpolar</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">0.19</td><td class="toc-text"><a href="#routine_printf">routine printf</a></td></tr>
+            <tr class="toc-level-2"><td class="toc-number">0.20</td><td class="toc-text"><a href="#routine_sprintf">routine sprintf</a></td></tr>
+                                                                      <tr class="toc-level-3"><td class="toc-number">0.20.1</td><td class="toc-text"><a href="#Directives">Directives</a></td></tr>
+                                        <tr class="toc-level-2"><td class="toc-number">0.21</td><td class="toc-text"><a href="#Modifiers">Modifiers</a></td></tr>
+                    <tr class="toc-level-3"><td class="toc-number">0.21.1</td><td class="toc-text"><a href="#NYI_Format_parameter_index_using_the_'$'_symbol">NYI Format parameter index using the &#39;$&#39; symbol</a></td></tr>
+        <tr class="toc-level-4"><td class="toc-number">0.21.1.1</td><td class="toc-text"><a href="#Without_index:">Without index:</a></td></tr>
+     <tr class="toc-level-4"><td class="toc-number">0.21.1.2</td><td class="toc-text"><a href="#NYI_With_index:">NYI With index:</a></td></tr>
+       <tr class="toc-level-3"><td class="toc-number">0.21.2</td><td class="toc-text"><a href="#Flags">Flags</a></td></tr>
+                          <tr class="toc-level-3"><td class="toc-number">0.21.3</td><td class="toc-text"><a href="#Vector_flag_'v'">Vector flag &#39;v&#39;</a></td></tr>
+                 <tr class="toc-level-3"><td class="toc-number">0.21.4</td><td class="toc-text"><a href="#Width_(minimum)">Width (minimum)</a></td></tr>
+                     <tr class="toc-level-3"><td class="toc-number">0.21.5</td><td class="toc-text"><a href="#Precision,_or_maximum_width">Precision, or maximum width</a></td></tr>
+                                                          <tr class="toc-level-3"><td class="toc-number">0.21.6</td><td class="toc-text"><a href="#Size">Size</a></td></tr>
+                                                 <tr class="toc-level-3"><td class="toc-number">0.21.7</td><td class="toc-text"><a href="#Order_of_arguments">Order of arguments</a></td></tr>
+                                                           <tr class="toc-level-2"><td class="toc-number">0.22</td><td class="toc-text"><a href="#sub_flat">sub flat</a></td></tr>
+            <tr class="toc-level-2"><td class="toc-number">0.23</td><td class="toc-text"><a href="#routine_unique">routine unique</a></td></tr>
+                                       <tr class="toc-level-2"><td class="toc-number">0.24</td><td class="toc-text"><a href="#routine_repeated">routine repeated</a></td></tr>
+                 <tr class="toc-level-2"><td class="toc-number">0.25</td><td class="toc-text"><a href="#routine_squish">routine squish</a></td></tr>
+                       <tr class="toc-level-2"><td class="toc-number">0.26</td><td class="toc-text"><a href="#sub_emit">sub emit</a></td></tr>
+                         <tr class="toc-level-2"><td class="toc-number">0.27</td><td class="toc-text"><a href="#sub_undefine">sub undefine</a></td></tr>
+               <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Control_routines">Control routines</a></td></tr>
+  <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#sub_exit">sub exit</a></td></tr>
+                    <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#sub_done">sub done</a></td></tr>
+                                 
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>These routines are defined in different files along with one or several other classes, but are not actually attached to any particular class or role.</p>
+<h2 id="routine_EVAL"><a class="u" href="#___top" title="go to top of document">routine EVAL</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">proto sub EVAL($code where Blob|Cool|Callable, Str() :$lang = &#39;Raku&#39;,
+                PseudoStash :$context, *%n)
+</pre>
+<pre class="pod-block-code">multi sub EVAL($code, Str :$lang where { ($lang // &#39;&#39;) eq &#39;Perl5&#39; },
+                PseudoStash :$context)
+</pre>
+<p>This routine coerces <a href="/Documentable/integration-test/type/Cool">Cool</a> <code>$code</code> to <a href="/Documentable/integration-test/type/Str">Str</a>. If <code>$code</code> is a <a href="/Documentable/integration-test/type/Blob">Blob</a>, it&#39;ll be processed using the same encoding as the <code>$lang</code> compiler would: for <code>Raku</code> <code>$lang</code>, uses <code>utf-8</code>; for <code>Perl5</code>, processes using the same rules as <code>perl</code>.</p>
+<p>This works as-is with a literal string parameter. More complex input, such as a variable or string with embedded code, is illegal by default. This can be overridden in any of several ways:</p>
+<pre class="pod-block-code">use MONKEY-SEE-NO-EVAL; # Or...
+use MONKEY;             # shortcut that turns on all MONKEY pragmas
+use Test;
+
+# any of the above allows:
+EVAL &quot;say { 5 + 5 }&quot;;   # OUTPUT: «10␤»</pre>
+<p>In case the <code>MONKEY-SEE-NO-EVAL</code> pragma is not activated, the compiler will complain with a <code>EVAL is a very dangerous function!!!</code> exception. And it is essentially right, since that will run arbitrary code with the same permissions as the program. You should take care of cleaning the code that is going to pass through EVAL if you activate the <code>MONKEY-SEE-NO-EVAL</code> pragma.</p>
+<p>Please note that you can interpolate to create routine names using quotation, as can be seen in <a href="/Documentable/integration-test/language/quoting#index-entry-%26_(interpolation)">this example</a> or <a href="/Documentable/integration-test/language/syntax#Identifiers">other ways to interpolate to create identifier names</a>. This only works, however, for already declared functions and other objects and is thus safer to use.</p>
+<p>Symbols in the current lexical scope are visible to code in an <code>EVAL</code>.</p>
+<pre class="pod-block-code">my $answer = 42;
+EVAL &#39;say $answer;&#39;;    # OUTPUT: «42␤»</pre>
+<p>However, since the set of symbols in a lexical scope is immutable after compile time, an <code>EVAL</code> can never introduce symbols into the surrounding scope.</p>
+<pre class="pod-block-code">EVAL &#39;my $lives = 9&#39;; say $lives;   # error, $lives not declared
+</pre>
+<p>Furthermore, the <code>EVAL</code> is evaluated in the current package:</p>
+<pre class="pod-block-code">module M {
+    EVAL &#39;our $answer = 42&#39;
+}
+say $M::answer;         # OUTPUT: «42␤»</pre>
+<p>And also in the current language, meaning any added syntax is available:</p>
+<pre class="pod-block-code">sub infix:&lt;mean&gt;(*@a) is assoc&lt;list&gt; {
+    @a.sum / @a.elems
+}
+EVAL &#39;say 2 mean 6 mean 4&#39;;     # OUTPUT: «4␤»</pre>
+<p>An <code>EVAL</code> statement evaluates to the result of the last statement:</p>
+<pre class="pod-block-code">sub infix:&lt;mean&gt;(*@a) is assoc&lt;list&gt; {
+    @a.sum / @a.elems
+}
+say EVAL &#39;say 1; 2 mean 6 mean 4&#39;;         # OUTPUT: «1␤4␤»
+</pre>
+<p><code>EVAL</code> is also a gateway for executing code in other languages:</p>
+<pre class="pod-block-code">EVAL &quot;use v5.20; say &#39;Hello from perl!&#39;&quot;, :lang&lt;Perl5&gt;;
+</pre>
+<p>You need to have <a href="https://github.com/niner/Inline-Perl5"><code>Inline::Perl5</code></a> for this to work correctly.</p>
+<h2 id="sub_EVALFILE"><a class="u" href="#___top" title="go to top of document">sub EVALFILE</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub EVALFILE($filename where Blob|Cool, :$lang = &#39;Raku&#39;)</pre>
+<p>Slurps the specified file and evaluates it. Behaves the same way as <code>EVAL</code> with regard to <a href="/Documentable/integration-test/type/Blob">Blob</a> decoding, scoping, and the <code>$lang</code> parameter. Evaluates to the value produced by the final statement in the file.</p>
+<pre class="pod-block-code">EVALFILE &quot;foo.p6&quot;;
+</pre>
+<h2 id="sub_mkdir"><a class="u" href="#___top" title="go to top of document">sub mkdir</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub    mkdir(IO() $path, Int() $mode = 0o777 --&gt; IO::Path:D)</pre>
+<p>Creates a new directory; see <a href="/Documentable/integration-test/routine/mode"><code>mode</code></a> for explanation and valid values for <code>$mode</code>. Returns the <a href="/Documentable/integration-test/type/IO::Path">IO::Path</a> object pointing to the newly created directory on success; <a href="/Documentable/integration-test/routine/fail">fails</a> with <a href="/Documentable/integration-test/type/X::IO::Mkdir">X::IO::Mkdir</a> if directory cannot be created.</p>
+<p>Also creates parent directories, as needed (similar to *nix utility <code>mkdir</code> with <code>-p</code> option); that is, <code>mkdir &quot;foo/bar/ber/meow&quot;</code> will create <code>foo</code>, <code>foo/bar</code>, and <code>foo/bar/ber</code> directories if they do not exist, as well as <code>foo/bar/ber/meow</code>.</p>
+<h2 id="sub_chdir"><a class="u" href="#___top" title="go to top of document">sub chdir</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub chdir(IO() $path, :$d = True, :$r, :$w, :$x --&gt; IO::Path:D)</pre>
+<p>Changes value of <code>$*CWD</code> variable to the provided <code>$path</code>, optionally ensuring the new path passes several file tests. <strong>NOTE:</strong> that this routine does <em>NOT</em> alter the process&#39;s current directory (see <a href="/Documentable/integration-test/routine/&*chdir"><code>&amp;*chdir</code></a>).</p>
+<p>Returns <a href="/Documentable/integration-test/type/IO::Path"><code>IO::Path</code></a> representing new <code>$*CWD</code> on success. On failure, returns <a href="/Documentable/integration-test/type/Failure"><code>Failure</code></a> and leaves <code>$*CWD</code> untouched. The <code>$path</code> can be any object with an IO method that returns an <a href="/Documentable/integration-test/type/IO::Path"><code>IO::Path</code></a> object. The available file tests are:</p>
+<ul><li><p><code>:d</code> — check <a href="/Documentable/integration-test/routine/d"><code>.d</code></a> returns <code>True</code></p>
+</li>
+<li><p><code>:r</code> — check <a href="/Documentable/integration-test/routine/r"><code>.r</code></a> returns <code>True</code></p>
+</li>
+<li><p><code>:w</code> — check <a href="/Documentable/integration-test/routine/w"><code>.w</code></a> returns <code>True</code></p>
+</li>
+<li><p><code>:x</code> — check <a href="/Documentable/integration-test/routine/x"><code>.x</code></a> returns <code>True</code></p>
+</li>
+</ul>
+<p>By default, only <code>:d</code> test is performed.</p>
+<pre class="pod-block-code">chdir         &#39;/tmp&#39;; # change $*CWD to &#39;/tmp&#39; and check its .d is True
+chdir :r, :w, &#39;/tmp&#39;; # … check its .r and .w are True
+chdir &#39;/not-there&#39;;   # returns Failure
+</pre>
+<p>Note that the following construct is a mistake:</p>
+<pre class="pod-block-code"># WRONG! DO NOT DO THIS!
+my $*CWD = chdir &#39;/tmp/&#39;;
+</pre>
+<p>Use <a href="/Documentable/integration-test/routine/indir"><code>indir</code></a> instead.</p>
+<h2 id="sub_&*chdir"><a class="u" href="#___top" title="go to top of document">sub &amp;*chdir</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">PROCESS::&lt;&amp;chdir&gt; = sub (IO() $path --&gt; IO::Path:D) { }
+</pre>
+<p>Changes value of <code>$*CWD</code> variable to the provided <code>$path</code> and sets the process&#39;s current directory to the value of <a href="/Documentable/integration-test/routine/absolute"><code>$path.absolute</code></a>. <strong>NOTE:</strong> that in most cases, you want to use <a href="/Documentable/integration-test/routine/chdir"><code>chdir</code></a> routine instead.</p>
+<p>Returns an <a href="/Documentable/integration-test/type/IO::Path"><code>IO::Path</code></a> representing the new <code>$*CWD</code> on success. On failure, returns <a href="/Documentable/integration-test/type/Failure"><code>Failure</code></a> and leaves <code>$*CWD</code> untouched. The <code>$path</code> can be any object with an IO method that returns an <a href="/Documentable/integration-test/type/IO::Path"><code>IO::Path</code></a> object.</p>
+<p>Note that unlike regular <a href="/Documentable/integration-test/routine/chdir"><code>chdir</code></a>, there are no arguments to specify which file tests to perform.</p>
+<pre class="pod-block-code">&amp;*chdir(&#39;/tmp&#39;);  # change $*CWD and process&#39;s current directory to &#39;/tmp&#39;
+&amp;*chdir(&#39;/not-there&#39;); # returns Failure
+</pre>
+<p>Note that the following construct is a mistake:</p>
+<pre class="pod-block-code"># WRONG! DO NOT DO THIS!
+my $*CWD = &amp;*chdir(&#39;/tmp&#39;);
+</pre>
+<p>Use the following, instead; or see <a href="/Documentable/integration-test/routine/indir"><code>indir</code></a> if you do not need to change process&#39;s current directory:</p>
+<pre class="pod-block-code">temp $*CWD;
+&amp;*chdir(&#39;/tmp&#39;);
+</pre>
+<h2 id="sub_chmod"><a class="u" href="#___top" title="go to top of document">sub chmod</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub chmod(Int() $mode, *@filenames --&gt; List)</pre>
+<p>Coerces all <code>@filenames</code> to <a href="/Documentable/integration-test/type/IO::Path"><code>IO::Path</code></a> and calls <a href="/Documentable/integration-test/type/IO::Path#method_chmod"><code>IO::Path.chmod</code></a> with <code>$mode</code> on them. Returns a <a href="/Documentable/integration-test/type/List"><code>List</code></a> containing a subset of <code>@filenames</code> for which <code>chmod</code> was successfully executed.</p>
+<pre class="pod-block-code">chmod 0o755, &lt;myfile1  myfile2&gt;; # make two files executable by the owner</pre>
+<h2 id="sub_indir"><a class="u" href="#___top" title="go to top of document">sub indir</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub indir(IO() $path, &amp;code, :$d = True, :$r, :$w, :$x --&gt; Mu)</pre>
+<p>Takes <a href="/Documentable/integration-test/type/Callable"><code>Callable</code></a> <code>&amp;code</code> and executes it after locally (to <code>&amp;code</code>) changing <code>$*CWD</code> variable to an <a href="/Documentable/integration-test/type/IO::Path">IO::Path</a> object based on <code>$path</code>, optionally ensuring the new path passes several file tests. If <code>$path</code> is relative, it will be turned into an absolute path, even if an <a href="/Documentable/integration-test/type/IO::Path">IO::Path</a> object was given. <strong>NOTE:</strong> that this routine does <em>NOT</em> alter the process&#39;s current directory (see <a href="/Documentable/integration-test/routine/&*chdir"><code>&amp;*chdir</code></a>). The <code>$*CWD</code> outside of the <code>&amp;code</code> is not affected, even if <code>&amp;code</code> explicitly assigns a new value to <code>$*CWD</code>.</p>
+<p>Returns the return value of <code>&amp;code</code> on success. On failure to successfully change <code>$*CWD</code>, returns <a href="/Documentable/integration-test/type/Failure"><code>Failure</code></a>. <strong>WARNING:</strong> keep in mind that lazily evaluated things might end up NOT having the <code>$*CWD</code> set by <code>indir</code> in their dynamic scope by the time they&#39;re actually evaluated. Either ensure the generators have their <code>$*CWD</code> set or <a href="/Documentable/integration-test/routine/eager">eagerly evaluate</a> them before returning the results from <code>indir</code>:</p>
+<pre class="pod-block-code">say indir(&quot;/tmp&quot;, {
+    gather { take &quot;.&quot;.IO }
+})».CWD; # OUTPUT: «(/home/camelia)␤»
+
+say indir(&quot;/tmp&quot;, {
+    eager gather { take &quot;.&quot;.IO }
+})».CWD; # OUTPUT: «(/tmp)␤»
+
+say indir(&quot;/tmp&quot;, {
+    my $cwd = $*CWD;
+    gather { temp $*CWD = $cwd; take &quot;.&quot;.IO }
+})».CWD; # OUTPUT: «(/tmp)␤»</pre>
+<p>The routine&#39;s <code>$path</code> argument can be any object with an IO method that returns an <a href="/Documentable/integration-test/type/IO::Path"><code>IO::Path</code></a> object. The available file tests are:</p>
+<ul><li><p><code>:d</code> — check <a href="/Documentable/integration-test/routine/d"><code>.d</code></a> returns <code>True</code></p>
+</li>
+<li><p><code>:r</code> — check <a href="/Documentable/integration-test/routine/d"><code>.r</code></a> returns <code>True</code></p>
+</li>
+<li><p><code>:w</code> — check <a href="/Documentable/integration-test/routine/d"><code>.w</code></a> returns <code>True</code></p>
+</li>
+<li><p><code>:x</code> — check <a href="/Documentable/integration-test/routine/d"><code>.x</code></a> returns <code>True</code></p>
+</li>
+</ul>
+<p>By default, only <code>:d</code> test is performed.</p>
+<pre class="pod-block-code">say $*CWD;                   # OUTPUT: «&quot;/home/camelia&quot;.IO␤»
+indir &#39;/tmp&#39;, { say $*CWD }; # OUTPUT: «&quot;/tmp&quot;.IO␤»
+say $*CWD;                   # OUTPUT: «&quot;/home/camelia&quot;.IO␤»
+
+indir &#39;/not-there&#39;, {;};     # returns Failure; path does not exist</pre>
+<h2 id="sub_print"><a class="u" href="#___top" title="go to top of document">sub print</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub print(**@args --&gt; True)
+multi sub print(Junction:D --&gt; True)</pre>
+<p>Prints the given text on standard output (the <a href="/Documentable/integration-test/language/variables#index-entry-%24%2AOUT"><code>$*OUT</code></a> filehandle), coercing non-<a href="/Documentable/integration-test/type/Str">Str</a> objects to <a href="/Documentable/integration-test/type/Str">Str</a> by calling <a href="/Documentable/integration-test/routine/Str"><code>.Str</code> method</a>. <a href="/Documentable/integration-test/type/Junction">Junction</a> arguments <a href="/Documentable/integration-test/language/glossary#index-entry-Autothreading">autothread</a> and the order of printed strings is not guaranteed.</p>
+<pre class="pod-block-code">print &quot;Hi there!\n&quot;;       # OUTPUT: «Hi there!␤»
+print &quot;Hi there!&quot;;         # OUTPUT: «Hi there!»
+print [1, 2, 3];           # OUTPUT: «1 2 3»
+print &quot;Hello&quot; | &quot;Goodbye&quot;; # OUTPUT: «HelloGoodbye»</pre>
+<p>To print text and include the trailing newline, use <a href="/Documentable/integration-test/language/independent-routines#sub_put"><code>put</code></a>.</p>
+<h2 id="sub_put"><a class="u" href="#___top" title="go to top of document">sub put</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub put()
+multi sub put(**@args --&gt; True)
+multi sub put(Junction:D --&gt; True)
+multi sub put(Str:D \x)
+multi sub put(\x)</pre>
+<p>Same as <a href="/Documentable/integration-test/language/independent-routines#sub_print"><code>print</code></a>, except it uses <a href="/Documentable/integration-test/routine/print-nl"><code>print-nl</code></a> (which prints a <a href="/Documentable/integration-test/language/newline">newline</a>, by default) at the end. <a href="/Documentable/integration-test/type/Junction">Junction</a> arguments <a href="/Documentable/integration-test/language/glossary#index-entry-Autothreading">autothread</a> and the order of printed strings is not guaranteed.</p>
+<pre class="pod-block-code">put &quot;Hi there!\n&quot;;   # OUTPUT: «Hi there!␤␤»
+put &quot;Hi there!&quot;;     # OUTPUT: «Hi there!␤»
+put [1, 2, 3];       # OUTPUT: «1 2 3␤»
+put &quot;Hello&quot; | &quot;Goodbye&quot;; # OUTPUT: «Hello␤Goodbye␤»</pre>
+<p>By itself, <code>put()</code> will print a new line</p>
+<pre class="pod-block-code">put &quot;Hey&quot;; put(); put(&quot;Hey&quot;); # OUTPUT: «Hey␤␤Hey␤»</pre>
+<p>but please note that we have used parentheses after <code>put</code>. Without these parentheses, it will throw an exception (with version 6.d and after). It will also raise an exception if it&#39;s used that way before <code>for</code>; use the method form &lt;.put&gt; instead.</p>
+<pre class="pod-block-code">.put for &lt;1 2 3&gt;;             # # OUTPUT: «1␤2␤3␤»</pre>
+<h2 id="sub_say"><a class="u" href="#___top" title="go to top of document">sub say</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub say(**@args --&gt; True)</pre>
+<p>Prints the &quot;gist&quot; of given objects; it will always invoke <code>.gist</code> in the case the object is a subclass of <code>Str</code>. Same as <a href="/Documentable/integration-test/language/independent-routines#sub_put"><code>put</code></a>, except it uses <a href="/Documentable/integration-test/routine/gist"><code>.gist</code></a> method to obtain string representation of the object; as in the case of <code>put</code>, it will also autothread for <code>Junction</code>s.</p>
+<p><strong>NOTE:</strong> the <a href="/Documentable/integration-test/routine/gist"><code>.gist</code></a> method of some objects, such as <a href="/Documentable/integration-test/type/List#method_gist">Lists</a>, returns only <strong>partial</strong> information about the object (hence the &quot;gist&quot;). If you mean to print textual information, you most likely want to use <a href="/Documentable/integration-test/language/independent-routines#sub_put"><code>put</code></a> instead.</p>
+<pre class="pod-block-code">say Range;        # OUTPUT: «(Range)␤»
+say class Foo {}; # OUTPUT: «(Foo)␤»
+say &#39;I ♥ Raku&#39;;   # OUTPUT: «I ♥ Raku␤»
+say 1..Inf;       # OUTPUT: «1..Inf␤»</pre>
+<h2 id="routine_note"><a class="u" href="#___top" title="go to top of document">routine note</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method note(Mu: --&gt;Bool:D)
+multi sub note(            --&gt; Bool:D)
+multi sub note(Str:D $note --&gt; Bool:D)
+multi sub note(**@args     --&gt; Bool:D)</pre>
+<p>Like <a href="/Documentable/integration-test/routine/say"><code>say</code></a> (in the sense it will invoke the <code>.gist</code> method of the printed object), except it prints output to <a href="/Documentable/integration-test/language/variables#index-entry-%24%2AERR"><code>$*ERR</code></a> handle (<code>STDERR</code>). If no arguments are given to subroutine forms, will use string <code>&quot;Noted&quot;</code>.</p>
+<pre class="pod-block-code">note;       # STDERR OUTPUT: «Noted␤»
+note &#39;foo&#39;; # STDERR OUTPUT: «foo␤»
+note 1..*;  # STDERR OUTPUT: «1..Inf␤»
+</pre>
+<p>This command will also autothread on <code>Junction</code>s, and is guaranteed to call <code> gist</code> on the object if it&#39;s a subclass of <code>Str</code>.</p>
+<h2 id="sub_prompt"><a class="u" href="#___top" title="go to top of document">sub prompt</a></h2>
+<pre class="pod-block-code">multi sub prompt()
+multi sub prompt($msg)</pre>
+<p><a href="/Documentable/integration-test/routine/print">Prints</a> <code>$msg</code> to <code>$*OUT</code> handle if <code>$msg</code> was provided, then <a href="/Documentable/integration-test/routine/get">gets</a> a line of input from <code>$*IN</code> handle. By default, this is equivalent to printing <code>$msg</code> to <a href="https://en.wikipedia.org/wiki/Standard_streams#Standard_output_.28stdout.29">STDOUT</a>, reading a line from <a href="https://en.wikipedia.org/wiki/Standard_streams#Standard_input_.28stdin.29">STDIN</a>, removing the trailing new line, and returning the resultant string. As of Rakudo 2018.08, <code>prompt</code> will create <a href="/Documentable/integration-test/language/numerics#Allomorphs">allomorphs</a> for numeric values, equivalent to calling <code>val prompt</code>.</p>
+<pre class="pod-block-code">my $name = prompt &quot;What&#39;s your name? &quot;;
+say &quot;Hi, $name! Nice to meet you!&quot;;
+my $age = prompt(&quot;Say your age (number)&quot;);
+my Int $years = $age;
+my Str $age-badge = $age;
+</pre>
+<p>In the code above, <code>$age</code> will be duck-typed to the allomorph <a href="/Documentable/integration-test/type/IntStr">IntStr</a> if it&#39;s entered correctly as a number.</p>
+<h2 id="sub_open"><a class="u" href="#___top" title="go to top of document">sub open</a></h2>
+<pre class="pod-block-code">multi sub open(IO() $path, |args --&gt; IO::Handle:D)</pre>
+<p>Creates <a href="/Documentable/integration-test/type/IO::Handle">a handle</a> with the given <code>$path</code>, and calls <a href="/Documentable/integration-test/type/IO::Handle#method_open"><code>IO::Handle.open</code></a>, passing any of the remaining arguments to it. Note that <a href="/Documentable/integration-test/type/IO::Path">IO::Path</a> type provides numerous methods for reading and writing from files, so in many common cases you do not need to <code>open</code> files or deal with <a href="/Documentable/integration-test/type/IO::Handle">IO::Handle</a> type directly.</p>
+<pre class="pod-block-code">my $fh = open :w, &#39;/tmp/some-file.txt&#39;;
+$fh.say: &#39;I ♥ writing Perl code&#39;;
+$fh.close;
+
+$fh = open &#39;/tmp/some-file.txt&#39;;
+print $fh.readchars: 4;
+$fh.seek: 7, SeekFromCurrent;
+say $fh.readchars: 4;
+$fh.close;
+
+# OUTPUT: «I ♥ Perl␤»
+</pre>
+<h2 id="sub_slurp"><a class="u" href="#___top" title="go to top of document">sub slurp</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub slurp(IO::Handle:D $fh = $*ARGFILES, |c)
+multi sub slurp(IO() $path, |c)</pre>
+<p>Slurps the contents of the entire file into a <code>Str</code> (or <code>Buf</code> if <code>:bin</code>). Accepts <code>:bin</code> and <code>:enc</code> optional named parameters, with the same meaning as <a href="/Documentable/integration-test/routine/open">open()</a>; possible encodings are the same as in all the other <code>IO</code> methods and are listed in <a href="/Documentable/integration-test/type/IO::Handle#method_encoding"><code>encoding</code></a> routine. The routine will <code>fail</code> if the file does not exist, or is a directory. Without any arguments, sub <code>slurp</code> operates on <code>$*ARGFILES</code>, which defaults to <code>$*IN</code> in the absence of any filenames.</p>
+<pre class="pod-block-code"># read entire file as (Unicode) Str
+my $text_contents   = slurp &quot;path/to/file&quot;;
+
+# read entire file as Latin1 Str
+my $text_contents   = slurp &quot;path/to/file&quot;, enc =&gt; &quot;latin1&quot;;
+
+# read entire file as Buf
+my $binary_contents = slurp &quot;path/to/file&quot;, :bin;
+</pre>
+<h2 id="sub_spurt"><a class="u" href="#___top" title="go to top of document">sub spurt</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi spurt(IO() $path, |c)</pre>
+<p>The <code>$path</code> can be any object with an IO method that returns an <a href="/Documentable/integration-test/type/IO::Path"><code>IO::Path</code></a> object. Calls <a href="/Documentable/integration-test/routine/spurt"><code>IO::Path.spurt</code></a> on the <code>$path</code>, forwarding any of the remaining arguments.</p>
+<h3 id="Options"><a class="u" href="#___top" title="go to top of document">Options</a></h3>
+<ul><li><p>:enc</p>
+</li>
+</ul>
+<p>The encoding with which the contents will be written.</p>
+<ul><li><p>:append</p>
+</li>
+</ul>
+<p>Boolean indicating whether to append to a (potentially) existing file. If the file did not exist yet, it will be created. Defaults to <code>False</code>.</p>
+<ul><li><p>:createonly</p>
+</li>
+</ul>
+<p>Boolean indicating whether to fail if the file already exists. Defaults to <code>False</code>.</p>
+<h3 id="Examples"><a class="u" href="#___top" title="go to top of document">Examples</a></h3>
+<pre class="pod-block-code"># write directly to a file
+spurt &#39;path/to/file&#39;, &#39;default text, directly written&#39;;
+
+# write directly with a non-Unicode encoding
+spurt &#39;path/to/latin1_file&#39;, &#39;latin1 text: äöüß&#39;, :enc&lt;latin1&gt;;
+
+spurt &#39;file-that-already-exists&#39;, &#39;some text&#39;;           # overwrite file&#39;s contents:
+spurt &#39;file-that-already-exists&#39;, &#39; new text&#39;, :append;  # append to file&#39;s contents:
+say slurp &#39;file-that-already-exists&#39;;                    # OUTPUT: «some text new text␤»
+
+# fail when writing to a pre-existing file
+spurt &#39;file-that-already-exists&#39;, &#39;new text&#39;, :createonly;
+# OUTPUT: «Failed to open file /home/camelia/file-that-already-exists: file already exists …»
+</pre>
+<h2 id="sub_run"><a class="u" href="#___top" title="go to top of document">sub run</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub run(
+    *@args ($, *@),
+    :$in = &#39;-&#39;,
+    :$out = &#39;-&#39;,
+    :$err = &#39;-&#39;,
+    Bool :$bin = False,
+    Bool :$chomp = True,
+    Bool :$merge = False,
+    Str:D :$enc = &#39;UTF-8&#39;,
+    Str:D :$nl = &quot;\n&quot;,
+    :$cwd = $*CWD,
+    Hash() :$env = %*ENV,
+    :$win-verbatim-args = False
+--&gt; Proc:D)
+</pre>
+<p>Runs an external command <em>without involving a shell</em> and returns a <a href="/Documentable/integration-test/type/Proc">Proc</a> object. By default, the external command will print to standard output and error, and read from standard input.</p>
+<pre class="pod-block-code">run &#39;touch&#39;, &#39;--&#39;, &#39;*.txt&#39;; # Create a file named “*.txt”
+
+run &lt;rm -- *.txt&gt;; # Another way to use run, using word quoting for the
+                   # arguments</pre>
+<p>If you want to pass some variables you can still use <code>&lt; &gt;</code>, but try to avoid using <code>« »</code> as it will do word splitting if you forget to quote variables:</p>
+<pre class="pod-block-code">my $file = ‘--my arbitrary filename’;
+run ‘touch’, ‘--’, $file;  # RIGHT
+run &lt;touch --&gt;, $file;     # RIGHT
+
+run «touch -- &quot;$file&quot;»;    # RIGHT but WRONG if you forget quotes
+run «touch -- $file»;      # WRONG; touches ‘--my’, ‘arbitrary’ and ‘filename’
+run ‘touch’, $file;        # WRONG; error from `touch`
+run «touch &quot;$file&quot;»;       # WRONG; error from `touch`
+</pre>
+<p>Note that <code>--</code> is required for many programs to disambiguate between command-line arguments and <a href="https://mywiki.wooledge.org/BashPitfalls#Filenames_with_leading_dashes">filenames that begin with hyphens</a>.</p>
+<p>A sunk <a href="/Documentable/integration-test/type/Proc">Proc</a> object for a process that <a href="/Documentable/integration-test/routine/exitcode">exited</a> unsuccessfully will throw. If you wish to ignore such failures, simply use <a href="/Documentable/integration-test/routine/run">run</a> in non-sink context:</p>
+<pre class="pod-block-code">run &#39;false&#39;;     # SUNK! Will throw
+run(&#39;false&#39;).so; # OK. Evaluates Proc in Bool context; no sinking</pre>
+<p>If you want to capture standard output or error instead of having it printed directly you can use the <code>:out</code> or <code>:err</code> arguments, which will make them available using their respective methods: <a href="/Documentable/integration-test/type/Proc"><code>Proc.out</code></a> and <a href="/Documentable/integration-test/type/Proc"><code>Proc.err</code></a>.</p>
+<pre class="pod-block-code">my $proc = run &#39;echo&#39;, &#39;Raku is Great!&#39;, :out, :err;
+$proc.out.slurp(:close).say; # OUTPUT: «Raku is Great!␤»
+$proc.err.slurp(:close).say; # OUTPUT: «␤»</pre>
+<p>You can use these arguments to redirect them to a filehandle, thus creating a kind of <em>pipe</em>:</p>
+<pre class="pod-block-code">my $ls-alt-handle = open :w, &#39;/tmp/cur-dir-ls-alt.txt&#39;;
+my $proc = run &quot;ls&quot;, &quot;-alt&quot;, :out($ls-alt-handle);
+# (The file will contain the output of the ls -alt command)</pre>
+<p>These argument are quite flexible and admit, for instance, handles to redirect them. See <a href="/Documentable/integration-test/type/Proc">Proc</a> and <a href="/Documentable/integration-test/type/Proc::Async">Proc::Async</a> for more details.</p>
+<p>See also <a href="/Documentable/integration-test/type/Proc#method_new"><code>new</code></a> and <a href="/Documentable/integration-test/type/Proc#method_spawn"><code>spawn</code></a> for more examples and explanation of all arguments.</p>
+<h2 id="sub_shell"><a class="u" href="#___top" title="go to top of document">sub shell</a></h2>
+<pre class="pod-block-code">multi sub shell($cmd, :$in = &#39;-&#39;, :$out = &#39;-&#39;, :$err = &#39;-&#39;,
+                Bool :$bin, Bool :$chomp = True, Bool :$merge,
+                Str :$enc, Str:D :$nl = &quot;\n&quot;, :$cwd = $*CWD, :$env)
+</pre>
+<p>Runs a command through the system shell, which defaults to <code>%*ENV&lt;ComSpec&gt; /c</code> in Windows, <code>/bin/sh -c</code> otherwise. All shell metacharacters are interpreted by the shell, including pipes, redirects, environment variable substitutions and so on. Shell escapes are a severe security concern and can cause confusion with unusual file names. Use <a href="/Documentable/integration-test/type/Proc#sub_run">run</a> if you want to be safe.</p>
+<p>The return value is of <a href="/Documentable/integration-test/type/Proc">type Proc</a>.</p>
+<pre class="pod-block-code">shell &#39;ls -lR | gzip -9 &gt; ls-lR.gz&#39;;</pre>
+<p>See <a href="/Documentable/integration-test/type/Proc#method_shell">Proc</a> for more details, for example on how to capture output.</p>
+<h2 id="routine_unpolar"><a class="u" href="#___top" title="go to top of document">routine unpolar</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method unpolar(Real $angle)
+multi sub unpolar(Real $mag, Real $angle)</pre>
+<p>Returns a <code>Complex</code> with the coordinates corresponding to the angle in radians and magnitude corresponding to the object value or <code>$mag</code> in the case it&#39;s being used as a <code>sub</code></p>
+<pre class="pod-block-code">say 1.unpolar(⅓*pi);
+# OUTPUT: «0.5000000000000001+0.8660254037844386i␤»</pre>
+<h2 id="routine_printf"><a class="u" href="#___top" title="go to top of document">routine printf</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method printf (*@args)
+multi sub printf(Cool:D $format, *@args)</pre>
+<p>As a method, takes the object as a format using <a href="/Documentable/integration-test/routine/sprintf">the same language as <code>Str.sprintf</code></a>; as a sub, its first argument will be the format string, and the rest of the arguments will be substituted in the format following the format conventions.</p>
+<pre class="pod-block-code">&quot;%s is %s&quot;.printf(&quot;þor&quot;, &quot;mighty&quot;);    # OUTPUT: «þor is mighty»
+printf( &quot;%s is %s&quot;, &quot;þor&quot;, &quot;mighty&quot;);  # OUTPUT: «þor is mighty»</pre>
+<p>On <code>Junction</code>s, it will also autothread, without a guaranteed order.</p>
+<pre class="pod-block-code">printf( &quot;%.2f &quot;, ⅓ | ¼ | ¾ ); # OUTPUT: «0.33 0.25 0.75 »</pre>
+<h2 id="routine_sprintf"><a class="u" href="#___top" title="go to top of document">routine sprintf</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method sprintf(*@args)
+multi sub sprintf(Cool:D $format, *@args)</pre>
+<p>Formats and returns a string, following <a href="/Documentable/integration-test/routine/sprintf">the same language as <code>Str.sprintf</code></a>, using as such format either the object (if called in method form) or the first argument (if called as a routine)</p>
+<pre class="pod-block-code">sprintf( &quot;%s the %d%s&quot;, &quot;þor&quot;, 1, &quot;st&quot;).put; # OUTPUT: «þor the 1st␤»
+sprintf( &quot;%s is %s&quot;, &quot;þor&quot;, &quot;mighty&quot;).put;   # OUTPUT: «þor is mighty␤»
+&quot;%s&#39;s weight is %.2f %s&quot;.sprintf( &quot;Mjölnir&quot;, 3.3392, &quot;kg&quot;).put;
+# OUTPUT: «Mjölnir&#39;s weight is 3.34 kg␤»</pre>
+<p>This function is mostly identical to the C library&#39;s <code>sprintf</code> and <code>printf</code> functions. The only difference between the two functions is that <code>sprintf</code> returns a string while the <code>printf</code> function writes to a filehandle. <code>sprintf</code> returns a <code>Str</code>, not a literal.</p>
+<p>The <code>$format</code> is scanned for <code>%</code> characters. Any <code>%</code> introduces a format token. Directives guide the use (if any) of the arguments. When a directive other than <code>%</code> is used, it indicates how the next argument passed is to be formatted into the string to be created. <em>Parameter indexes</em> may also be used in the format tokens. They take the form <code>N$</code> and are explained in more detail below.</p>
+<p>The <code>$format</code> may be defined enclosed in single or double quotes. The double-quoted <code>$format</code> string is interpolated before being scanned and any embedded string whose interpolated value contains a <code>%</code> character will cause an exception. For example:</p>
+<pre class="pod-block-code">my $prod = &quot;Ab-%x-42&quot;;
+my $cost = &quot;30&quot;;
+sprintf(&quot;Product $prod; cost: \$%d&quot;, $cost).put;
+# OUTPUT: «Your printf-style directives specify 2 arguments, but 1 argument was supplied␤»
+          «  in block &lt;unit&gt; at &lt;unknown file&gt; line 1␤»
+</pre>
+<p>When handling unknown input you should avoid using such syntax by putting all variables in the <code>*@args</code> array and have one <code>%</code> for each in <code>$format</code>. If you need to include a <code>$</code> symbol in the format string (even as a <em>parameter index</em>) either escape it or use the single-quoted form. For example, either of the following forms works without error:</p>
+<pre class="pod-block-code">sprintf(&quot;2 x \$20 = \$%d&quot;, 2*20).put; # OUTPUT: «2 x $20 = $40␤»
+sprintf(&#39;2 x $20 = $%d&#39;, 2*20).put;   # OUTPUT: «2 x $20 = $40␤»
+</pre>
+<p>In summary, unless you need something very special, you will have fewer unexpected problems by using the single-quoted format string and not using interpolated strings inside the format string.</p>
+<p><a href="#fn-1" id="fn-ref-1">[1]</a></p>
+<h3 id="Directives"><a class="u" href="#___top" title="go to top of document">Directives</a></h3>
+<table class="pod-table">
+<tbody>
+<tr> <td>%</td> <td>a literal percent sign</td> </tr> <tr> <td>c</td> <td>a character with the given codepoint</td> </tr> <tr> <td>s</td> <td>a string</td> </tr> <tr> <td>d</td> <td>a signed integer, in decimal</td> </tr> <tr> <td>u</td> <td>an unsigned integer, in decimal</td> </tr> <tr> <td>o</td> <td>an unsigned integer, in octal</td> </tr> <tr> <td>x</td> <td>an unsigned integer, in hexadecimal</td> </tr> <tr> <td>e</td> <td>a floating-point number, in scientific notation</td> </tr> <tr> <td>f</td> <td>a floating-point number, in fixed decimal notation</td> </tr> <tr> <td>g</td> <td>a floating-point number, in %e or %f notation</td> </tr> <tr> <td>X</td> <td>like x, but using uppercase letters</td> </tr> <tr> <td>E</td> <td>like e, but using an uppercase &quot;E&quot;</td> </tr> <tr> <td>G</td> <td>like g, but with an uppercase &quot;E&quot; (if applicable)</td> </tr> <tr> <td>b</td> <td>an unsigned integer, in binary</td> </tr>
+</tbody>
+</table><p>Compatibility:</p>
+<table class="pod-table">
+<tbody>
+<tr> <td>i</td> <td>a synonym for %d</td> </tr> <tr> <td>D</td> <td>a synonym for %ld</td> </tr> <tr> <td>U</td> <td>a synonym for %lu</td> </tr> <tr> <td>O</td> <td>a synonym for %lo</td> </tr> <tr> <td>F</td> <td>a synonym for %f</td> </tr>
+</tbody>
+</table><h2 id="Modifiers"><a class="u" href="#___top" title="go to top of document">Modifiers</a></h2>
+<p>Modifiers change the meaning of format directives, but are largely no-ops (the semantics are still being determined).</p>
+<table class="pod-table">
+<tbody>
+<tr> <td></td> <td>h</td> <td>interpret integer as native &quot;short&quot; (typically int16)</td> </tr> <tr> <td>NYI</td> <td>l</td> <td>interpret integer as native &quot;long&quot; (typically int32 or int64)</td> </tr> <tr> <td>NYI</td> <td>ll</td> <td>interpret integer as native &quot;long long&quot; (typically int64)</td> </tr> <tr> <td>NYI</td> <td>L</td> <td>interpret integer as native &quot;long long&quot; (typically uint64)</td> </tr> <tr> <td>NYI</td> <td>q</td> <td>interpret integer as native &quot;quads&quot; (typically int64 or larger)</td> </tr>
+</tbody>
+</table><p>Between the <code>%</code> and the format letter, you may specify several additional attributes controlling the interpretation of the format. In order, these are:</p>
+<h3 id="NYI_Format_parameter_index_using_the_'$'_symbol"><a class="u" href="#___top" title="go to top of document">NYI Format parameter index using the &#39;$&#39; symbol</a></h3>
+<p>An explicit format parameter index (ranging from 1 to N args) before the directive, such as <code>%2$d</code>. By default, <code>sprintf</code> will format the next unused argument in the list, but the parameter index allows you to take the arguments out of order (note single quotes are required unless you escape the <code>$</code>):</p>
+<h4 id="Without_index:"><a class="u" href="#___top" title="go to top of document">Without index:</a></h4>
+<pre class="pod-block-code">sprintf &#39;%d %d&#39;, 12, 34;      # OUTPUT: «12 34␤»
+sprintf &#39;%d %d %d&#39;, 1, 2, 3;  # OUTPUT: «1 2 3␤»
+</pre>
+<h4 id="NYI_With_index:"><a class="u" href="#___top" title="go to top of document">NYI With index:</a></h4>
+<p>The first example works as we expect it to when we index all directives.</p>
+<pre class="pod-block-code">sprintf &#39;%2$d %1$d&#39;, 12, 34;      # OUTPUT: «34 12␤»
+</pre>
+<p>But notice the effect when mixing indexed and non-indexed directives in the second example (be careful what you ask for). The second, non-indexed directive gets the first argument, but it is also specifically requested in the last directive:</p>
+<pre class="pod-block-code">sprintf &#39;%3$d %d %1$d&#39;, 1, 2, 3;  # OUTPUT: «3 1 1␤»
+</pre>
+<h3 id="Flags"><a class="u" href="#___top" title="go to top of document">Flags</a></h3>
+<p>One or more of:</p>
+<table class="pod-table">
+<tbody>
+<tr> <td>space</td> <td>prefix non-negative number with a space</td> </tr> <tr> <td>+</td> <td>prefix non-negative number with a plus sign</td> </tr> <tr> <td>-</td> <td>left-justify within the field</td> </tr> <tr> <td>0</td> <td>use leading zeros, not spaces, for required padding</td> </tr> <tr> <td>#</td> <td>ensure the leading &quot;0&quot; for any octal, prefix non-zero hexadecimal with &quot;0x&quot; or &quot;0X&quot;, prefix non-zero binary with &quot;0b&quot; or &quot;0B&quot;</td> </tr> <tr> <td>v</td> <td>NYI vector flag (used only with directive &quot;d&quot;), see description below</td> </tr>
+</tbody>
+</table><p>For example:</p>
+<pre class="pod-block-code">sprintf &#39;&lt;% d&gt;&#39;,  12;   # OUTPUT: «&lt; 12&gt;␤»
+sprintf &#39;&lt;% d&gt;&#39;,   0;   # OUTPUT: «&lt; 0&gt;&quot;»
+sprintf &#39;&lt;% d&gt;&#39;, -12;   # OUTPUT: «&lt;-12&gt;␤»
+sprintf &#39;&lt;%+d&gt;&#39;,  12;   # OUTPUT: «&lt;+12&gt;␤»
+sprintf &#39;&lt;%+d&gt;&#39;,   0;   # OUTPUT: «&lt;+0&gt;&quot;»
+sprintf &#39;&lt;%+d&gt;&#39;, -12;   # OUTPUT: «&lt;-12&gt;␤»
+sprintf &#39;&lt;%6s&gt;&#39;,  12;   # OUTPUT: «&lt;    12&gt;␤»
+sprintf &#39;&lt;%-6s&gt;&#39;, 12;   # OUTPUT: «&lt;12    &gt;␤»
+sprintf &#39;&lt;%06s&gt;&#39;, 12;   # OUTPUT: «&lt;000012&gt;␤»
+sprintf &#39;&lt;%#o&gt;&#39;,  12;   # OUTPUT: «&lt;014&gt;␤»
+sprintf &#39;&lt;%#x&gt;&#39;,  12;   # OUTPUT: «&lt;0xc&gt;␤»
+sprintf &#39;&lt;%#X&gt;&#39;,  12;   # OUTPUT: «&lt;0XC&gt;␤»
+sprintf &#39;&lt;%#b&gt;&#39;,  12;   # OUTPUT: «&lt;0b1100&gt;␤»
+sprintf &#39;&lt;%#B&gt;&#39;,  12;   # OUTPUT: «&lt;0B1100&gt;␤»</pre>
+<p>When a space and a plus sign are given as the flags at once, the space is ignored:</p>
+<pre class="pod-block-code">sprintf &#39;&lt;%+ d&gt;&#39;, 12;   # OUTPUT: «&lt;+12&gt;␤»
+sprintf &#39;&lt;% +d&gt;&#39;, 12;   # OUTPUT: «&lt;+12&gt;␤»</pre>
+<p>When the <code>#</code> flag and a precision are given in the <code>%o</code> conversion, the necessary number of 0s is added at the beginning. If the value of the number is <code>0</code> and the precision is 0, it will output nothing; precision 0 or smaller than the actual number of elements will return the number with 0 to the left:</p>
+<pre class="pod-block-code">say sprintf &#39;&lt;%#.5o&gt;&#39;, 0o12;     # OUTPUT: «&lt;00012&gt;␤»
+say sprintf &#39;&lt;%#.5o&gt;&#39;, 0o12345;  # OUTPUT: «&lt;012345&gt;␤»
+say sprintf &#39;&lt;%#.0o&gt;&#39;, 0;        # OUTPUT: «&lt;&gt;␤» zero precision and value 0
+                                 #               results in no output!
+say sprintf &#39;&lt;%#.0o&gt;&#39;, 0o1       # OUTPUT: «&lt;01&gt;␤»</pre>
+<h3 id="Vector_flag_'v'"><a class="u" href="#___top" title="go to top of document">Vector flag &#39;v&#39;</a></h3>
+<p>This special flag (<code>v</code>, followed by directive <code>d</code>) tells Raku to interpret the supplied string as a vector of integers, one for each character in the string (the `ord` routine is used for the conversion to an integer). Raku applies the format to each integer in turn, then joins the resulting strings with a separator (a dot <code>&#39;.&#39;</code>, by default). This can be useful for displaying ordinal values of characters in arbitrary strings:</p>
+<pre class="pod-block-code">NYI sprintf &quot;%vd&quot;, &quot;AB\x[100]&quot;;           # OUTPUT: «65.66.256␤»
+</pre>
+<p>You can also explicitly specify the argument number to use for the separator string by using an asterisk with a parameter index (e.g., <code>*2$v</code>); for example:</p>
+<pre class="pod-block-code">NYI sprintf &#39;%*4$vX %*4$vX %*4$vX&#39;,       # 3 IPv6 addresses
+        @addr[1..3], &quot;:&quot;;
+</pre>
+<h3 id="Width_(minimum)"><a class="u" href="#___top" title="go to top of document">Width (minimum)</a></h3>
+<p>Arguments are usually formatted by default to be only as wide as required to display the given value. You specify a minimum width that can override the default width by putting a number here, or get the desired width from the next argument (with <code>*</code> ) or from a specified argument (e.g., with <code>*2$</code>):</p>
+<pre class="pod-block-code"> sprintf &quot;&lt;%s&gt;&quot;, &quot;a&quot;;           # OUTPUT: «&lt;a&gt;␤»
+ sprintf &quot;&lt;%6s&gt;&quot;, &quot;a&quot;;          # OUTPUT: «&lt;     a&gt;␤»
+ sprintf &quot;&lt;%*s&gt;&quot;, 6, &quot;a&quot;;       # OUTPUT: «&lt;     a&gt;␤»
+ NYI sprintf &#39;&lt;%*2$s&gt;&#39;, &quot;a&quot;, 6; # OUTPUT: «&lt;     a&gt;␤»
+ sprintf &quot;&lt;%2s&gt;&quot;, &quot;long&quot;;       # OUTPUT: «&lt;long&gt;␤»   (does not truncate)
+</pre>
+<p>In all cases, the specified width will be increased as necessary to accommodate the given integral numerical value or string. If a field width obtained through <code>*</code> is negative, it has the same effect as the <code>-</code> flag: left-justification.</p>
+<h3 id="Precision,_or_maximum_width"><a class="u" href="#___top" title="go to top of document">Precision, or maximum width</a></h3>
+<p>You can specify a precision (for numeric conversions) or a maximum width (for string conversions) by specifying a <code>.</code> followed by a number. For floating-point formats, except <code>g</code> and <code>G</code>, this specifies how many places right of the decimal point to show (the default being 6). For example:</p>
+<pre class="pod-block-code"># These examples are subject to system-specific variation.
+sprintf &#39;&lt;%f&gt;&#39;, 1;    # OUTPUT: «&quot;&lt;1.000000&gt;&quot;␤»
+sprintf &#39;&lt;%.1f&gt;&#39;, 1;  # OUTPUT: «&quot;&lt;1.0&gt;&quot;␤»
+sprintf &#39;&lt;%.0f&gt;&#39;, 1;  # OUTPUT: «&quot;&lt;1&gt;&quot;␤»
+sprintf &#39;&lt;%e&gt;&#39;, 10;   # OUTPUT: «&quot;&lt;1.000000e+01&gt;&quot;␤»
+sprintf &#39;&lt;%.1e&gt;&#39;, 10; # OUTPUT: «&quot;&lt;1.0e+01&gt;&quot;␤»</pre>
+<p>For &quot;g&quot; and &quot;G&quot;, this specifies the maximum number of digits to show, including those prior to the decimal point and those after it; for example:</p>
+<pre class="pod-block-code"># These examples are subject to system-specific variation.
+sprintf &#39;&lt;%g&gt;&#39;, 1;        # OUTPUT: «&lt;1&gt;␤»
+sprintf &#39;&lt;%.10g&gt;&#39;, 1;     # OUTPUT: «&lt;1&gt;␤»
+sprintf &#39;&lt;%g&gt;&#39;, 100;      # OUTPUT: «&lt;100&gt;␤»
+sprintf &#39;&lt;%.1g&gt;&#39;, 100;    # OUTPUT: «&lt;1e+02&gt;␤»
+sprintf &#39;&lt;%.2g&gt;&#39;, 100.01; # OUTPUT: «&lt;1e+02&gt;␤»
+sprintf &#39;&lt;%.5g&gt;&#39;, 100.01; # OUTPUT: «&lt;100.01&gt;␤»
+sprintf &#39;&lt;%.4g&gt;&#39;, 100.01; # OUTPUT: «&lt;100&gt;␤»</pre>
+<p>For integer conversions, specifying a precision implies the output of the number itself should be zero-padded to this width (where the <code>0</code> flag is ignored):</p>
+<p>(Note that this feature currently works for unsigned integer conversions, but not for signed integer.)</p>
+<pre class="pod-block-code">sprintf &#39;&lt;%.6d&gt;&#39;, 1;         # OUTPUT: «&lt;000001&gt;␤»
+NYI sprintf &#39;&lt;%+.6d&gt;&#39;, 1;    # OUTPUT: «&lt;+000001&gt;␤»
+NYI sprintf &#39;&lt;%-10.6d&gt;&#39;, 1;  # OUTPUT: «&lt;000001    &gt;␤»
+sprintf &#39;&lt;%10.6d&gt;&#39;, 1;       # OUTPUT: «&lt;    000001&gt;␤»
+NYI sprintf &#39;&lt;%010.6d&gt;&#39;, 1;  # OUTPUT: «&lt;    000001&gt;␤»
+NYI sprintf &#39;&lt;%+10.6d&gt;&#39;, 1;  # OUTPUT: «&lt;   +000001&gt;␤»
+sprintf &#39;&lt;%.6x&gt;&#39;, 1;         # OUTPUT: «&lt;000001&gt;␤»
+sprintf &#39;&lt;%#.6x&gt;&#39;, 1;        # OUTPUT: «&lt;0x000001&gt;␤»
+sprintf &#39;&lt;%-10.6x&gt;&#39;, 1;      # OUTPUT: «&lt;000001    &gt;␤»
+sprintf &#39;&lt;%10.6x&gt;&#39;, 1;       # OUTPUT: «&lt;    000001&gt;␤»
+sprintf &#39;&lt;%010.6x&gt;&#39;, 1;      # OUTPUT: «&lt;    000001&gt;␤»
+sprintf &#39;&lt;%#10.6x&gt;&#39;, 1;      # OUTPUT: «&lt;  0x000001&gt;␤»
+</pre>
+<p>For string conversions, specifying a precision truncates the string to fit the specified width:</p>
+<pre class="pod-block-code">sprintf &#39;&lt;%.5s&gt;&#39;, &quot;truncated&quot;;   # OUTPUT: «&lt;trunc&gt;␤»
+sprintf &#39;&lt;%10.5s&gt;&#39;, &quot;truncated&quot;; # OUTPUT: «&lt;     trunc&gt;␤»</pre>
+<p>You can also get the precision from the next argument using <code>.*</code>, or from a specified argument (e.g., with <code>.*2$</code>):</p>
+<pre class="pod-block-code">sprintf &#39;&lt;%.6x&gt;&#39;, 1;           # OUTPUT: «&lt;000001&gt;␤»
+sprintf &#39;&lt;%.*x&gt;&#39;, 6, 1;        # OUTPUT: «&lt;000001&gt;␤»
+NYI sprintf &#39;&lt;%.*2$x&gt;&#39;, 1, 6;  # OUTPUT: «&lt;000001&gt;␤»
+NYI sprintf &#39;&lt;%6.*2$x&gt;&#39;, 1, 4; # OUTPUT: «&lt;  0001&gt;␤»
+</pre>
+<p>If a precision obtained through <code>*</code> is negative, it counts as having no precision at all:</p>
+<pre class="pod-block-code">sprintf &#39;&lt;%.*s&gt;&#39;,  7, &quot;string&quot;;   # OUTPUT: «&lt;string&gt;␤»
+sprintf &#39;&lt;%.*s&gt;&#39;,  3, &quot;string&quot;;   # OUTPUT: «&lt;str&gt;␤»
+sprintf &#39;&lt;%.*s&gt;&#39;,  0, &quot;string&quot;;   # OUTPUT: «&lt;&gt;␤»
+sprintf &#39;&lt;%.*s&gt;&#39;, -1, &quot;string&quot;;   # OUTPUT: «&lt;string&gt;␤»
+sprintf &#39;&lt;%.*d&gt;&#39;,  1, 0;          # OUTPUT: «&lt;0&gt;␤»
+sprintf &#39;&lt;%.*d&gt;&#39;,  0, 0;          # OUTPUT: «&lt;&gt;␤»
+sprintf &#39;&lt;%.*d&gt;&#39;, -1, 0;          # OUTPUT: «&lt;0&gt;␤»</pre>
+<h3 id="Size"><a class="u" href="#___top" title="go to top of document">Size</a></h3>
+<p>For numeric conversions, you can specify the size to interpret the number as using <code>l</code>, <code>h</code>, <code>V</code>, <code>q</code>, <code>L</code>, or <code>ll</code>. For integer conversions (<code>d</code> <code>u</code> <code>o</code> <code>x</code> <code>X</code> <code>b</code> <code>i</code> <code>D</code> <code>U</code> <code>O</code>), numbers are usually assumed to be whatever the default integer size is on your platform (usually 32 or 64 bits), but you can override this to use instead one of the standard C types, as supported by the compiler used to build Raku:</p>
+<p>(Note: None of the following have been implemented.)</p>
+<table class="pod-table">
+<tbody>
+<tr> <td>hh</td> <td>interpret integer as C type &quot;char&quot; or &quot;unsigned char&quot;</td> </tr> <tr> <td>h</td> <td>interpret integer as C type &quot;short&quot; or &quot;unsigned short&quot;</td> </tr> <tr> <td>j</td> <td>interpret integer as C type &quot;intmax_t&quot;, only with a C99 compiler (unportable)</td> </tr> <tr> <td>l</td> <td>interpret integer as C type &quot;long&quot; or &quot;unsigned long&quot;</td> </tr> <tr> <td>q, L, or ll</td> <td>interpret integer as C type &quot;long long&quot;, &quot;unsigned long long&quot;, or &quot;quad&quot; (typically 64-bit integers)</td> </tr> <tr> <td>t</td> <td>interpret integer as C type &quot;ptrdiff_t&quot;</td> </tr> <tr> <td>z</td> <td>interpret integer as C type &quot;size_t&quot;</td> </tr>
+</tbody>
+</table><h3 id="Order_of_arguments"><a class="u" href="#___top" title="go to top of document">Order of arguments</a></h3>
+<p>Normally, <code>sprintf</code> takes the next unused argument as the value to format for each format specification. If the format specification uses <code>*</code> to require additional arguments, these are consumed from the argument list in the order they appear in the format specification before the value to format. Where an argument is specified by an explicit index, this does not affect the normal order for the arguments, even when the explicitly specified index would have been the next argument.</p>
+<p>So:</p>
+<pre class="pod-block-code">my $a = 5; my $b = 2; my $c = &#39;net&#39;;
+sprintf &quot;&lt;%*.*s&gt;&quot;, $a, $b, $c; # OUTPUT: «&lt;   ne&gt;␤»</pre>
+<p>uses <code>$a</code> for the width, <code>$b</code> for the precision, and <code>$c</code> as the value to format; while:</p>
+<pre class="pod-block-code">NYI sprintf &#39;&lt;%*1$.*s&gt;&#39;, $a, $b;
+</pre>
+<p>would use <code>$a</code> for the width and precision and <code>$b</code> as the value to format.</p>
+<p>Here are some more examples; be aware that when using an explicit index, the <code>$</code> will need escaping if the format string is double-quoted:</p>
+<pre class="pod-block-code">sprintf &quot;%2\$d %d\n&quot;,      12, 34;         # OUTPUT: «34 12␤␤»
+sprintf &quot;%2\$d %d %d\n&quot;,   12, 34;         # OUTPUT: «34 12 34␤␤»
+sprintf &quot;%3\$d %d %d\n&quot;,   12, 34, 56;     # OUTPUT: «56 12 34␤␤»
+NYI sprintf &quot;%2\$*3\$d %d\n&quot;,  12, 34,  3; # OUTPUT: « 34 12␤␤»
+NYI sprintf &quot;%*1\$.*f\n&quot;,       4,  5, 10; # OUTPUT: «5.0000␤␤»
+</pre>
+<p>Other examples:</p>
+<pre class="pod-block-code">NYI sprintf &quot;%ld a big number&quot;, 4294967295;
+NYI sprintf &quot;%%lld a bigger number&quot;, 4294967296;
+sprintf(&#39;%c&#39;, 97);                  # OUTPUT: «a␤»
+sprintf(&quot;%.2f&quot;, 1.969);             # OUTPUT: «1.97␤»
+sprintf(&quot;%+.3f&quot;, 3.141592);         # OUTPUT: «+3.142␤»
+sprintf(&#39;%2$d %1$d&#39;, 12, 34);       # OUTPUT: «34 12␤»
+sprintf(&quot;%x&quot;, 255);                 # OUTPUT: «ff␤»
+</pre>
+<p>Special case: <code>sprintf(&quot;&lt;b&gt;%s&lt;/b&gt;\n&quot;, &quot;Raku&quot;)</code> will not work, but one of the following will:</p>
+<pre class="pod-block-code">sprintf Q:b &quot;&lt;b&gt;%s&lt;/b&gt;\n&quot;,  &quot;Raku&quot;; # OUTPUT: «&lt;b&gt;Raku&lt;/b&gt;␤␤»
+sprintf     &quot;&lt;b&gt;\%s&lt;/b&gt;\n&quot;, &quot;Raku&quot;; # OUTPUT: «&lt;b&gt;Raku&lt;/b&gt;␤␤»
+sprintf     &quot;&lt;b&gt;%s\&lt;/b&gt;\n&quot;, &quot;Raku&quot;; # OUTPUT: «&lt;b&gt;Raku&lt;/b&gt;␤␤»
+</pre>
+<h2 id="sub_flat"><a class="u" href="#___top" title="go to top of document">sub flat</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi flat(**@list)
+multi flat(Iterable \a)</pre>
+<p>Constructs a list which contains any arguments provided, and returns the result of calling the <code>.flat</code> method (<a href="/Documentable/integration-test/type/Any#method_flat">inherited from <code>Any</code></a>) on that list or <code>Iterable</code>:</p>
+<pre class="pod-block-code">say flat 1, (2, (3, 4), $(5, 6)); # OUTPUT: «(1 2 3 4 (5 6))␤»</pre>
+<h2 id="routine_unique"><a class="u" href="#___top" title="go to top of document">routine unique</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub unique(+values, |c)</pre>
+<p>Returns a sequence of <strong>unique</strong> values from the invocant/argument list, such that only the first occurrence of each duplicated value remains in the result list. <code>unique</code> uses the semantics of the <a href="/Documentable/integration-test/routine/===">===</a> operator to decide whether two objects are the same, unless the optional <code>:with</code> parameter is specified with another comparator. The order of the original list is preserved even as duplicates are removed.</p>
+<p>Examples:</p>
+<pre class="pod-block-code">say &lt;a a b b b c c&gt;.unique;   # OUTPUT: «(a b c)␤»
+say &lt;a b b c c b a&gt;.unique;   # OUTPUT: «(a b c)␤»</pre>
+<p>(Use <a href="/Documentable/integration-test/routine/squish">squish</a> instead if you know the input is sorted such that identical objects are adjacent.)</p>
+<p>The optional <code>:as</code> parameter allows you to normalize/canonicalize the elements before unique-ing. The values are transformed for the purposes of comparison, but it&#39;s still the original values that make it to the result list; however, only the first occurrence will show up in that list:</p>
+<p>Example:</p>
+<pre class="pod-block-code">say &lt;a A B b c b C&gt;.unique(:as(&amp;lc))      # OUTPUT: «(a B c)␤»</pre>
+<p>One can also specify the comparator with the optional <code>:with</code> parameter. For instance if one wants a list of unique hashes, one could use the <code>eqv</code> comparator.</p>
+<p>Example:</p>
+<pre class="pod-block-code">my @list = %(a =&gt; 42), %(b =&gt; 13), %(a =&gt; 42);
+say @list.unique(:with(&amp;[eqv]))           # OUTPUT: «({a =&gt; 42} {b =&gt; 13})␤»</pre>
+<p><strong>Note:</strong> since <code>:with</code> <a href="/Documentable/integration-test/type/Callable">Callable</a> has to be tried with all the items in the list, this makes <code>unique</code> follow a path with much higher algorithmic complexity. You should try to use the <code>:as</code> argument instead, whenever possible.</p>
+<h2 id="routine_repeated"><a class="u" href="#___top" title="go to top of document">routine repeated</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub    repeated(+values, |c)</pre>
+<p>This returns a sequence of <strong>repeated</strong> values from the invocant/argument list. It takes the same parameters as <a href="/Documentable/integration-test/routine/unique">unique</a>, but instead of passing through any elements when they&#39;re first seen, they&#39;re only passed through as soon as they&#39;re seen for the second time (or more).</p>
+<p>Examples:</p>
+<pre class="pod-block-code">say &lt;a a b b b c c&gt;.repeated;                   # OUTPUT: «(a b b c)␤»
+say &lt;a b b c c b a&gt;.repeated;                   # OUTPUT: «(b c b a)␤»
+say &lt;a A B b c b C&gt;.repeated(:as(&amp;lc));         # OUTPUT: «(A b b C)␤»
+
+my @list = %(a =&gt; 42), %(b =&gt; 13), %(a =&gt; 42);
+say @list.repeated(:with(&amp;[eqv]))               # OUTPUT: «({a =&gt; 42})␤»</pre>
+<p>As in the case of <a href="/Documentable/integration-test/type/Any#method_unique"><code>unique</code></a> the associative argument <code>:as</code> takes a Callable that normalizes the element before comparison, and <code>:with</code> takes a the equality comparison function that is going to be used.</p>
+<h2 id="routine_squish"><a class="u" href="#___top" title="go to top of document">routine squish</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub          squish( +values, |c)</pre>
+<p>Returns a sequence of values from the invocant/argument list where runs of one or more values are replaced with only the first instance. Like <a href="/Documentable/integration-test/routine/unique"><code>unique</code></a>, <code>squish</code> uses the semantics of the <a href="/Documentable/integration-test/routine/===">===</a> operator to decide whether two objects are the same. Unlike <a href="/Documentable/integration-test/routine/unique"><code>unique</code></a>, this function only removes adjacent duplicates; identical values further apart are still kept. The order of the original list is preserved even as duplicates are removed.</p>
+<p>Examples:</p>
+<pre class="pod-block-code">say &lt;a a b b b c c&gt;.squish; # OUTPUT: «(a b c)␤»
+say &lt;a b b c c b a&gt;.squish; # OUTPUT: «(a b c b a)␤»</pre>
+<p>The optional <code>:as</code> parameter, just like with <a href="/Documentable/integration-test/routine/unique"><code>unique</code></a>, allows values to be temporarily transformed before comparison.</p>
+<p>The optional <code>:with</code> parameter is used to set an appropriate comparison operator:</p>
+<pre class="pod-block-code">say [42, &quot;42&quot;].squish;                      # OUTPUT: «(42 42)␤»
+# Note that the second item in the result is still Str
+say [42, &quot;42&quot;].squish(with =&gt; &amp;infix:&lt;eq&gt;); # OUTPUT: «(42)␤»
+# The resulting item is Int</pre>
+<h2 id="sub_emit"><a class="u" href="#___top" title="go to top of document">sub emit</a></h2>
+<p>Defined as</p>
+<pre class="pod-block-code">sub emit(\value --&gt; Nil)</pre>
+<p>If used outside any supply or react block, throws an exception <code>emit without supply or react</code>. Within a <a href="/Documentable/integration-test/type/Supply">Supply</a> block, it will add a message to the stream.</p>
+<pre class="pod-block-code">my $supply = supply {
+  for 1 .. 10 {
+      emit($_);
+  }
+}
+$supply.tap( -&gt; $v { say &quot;First : $v&quot; });
+</pre>
+<p>See also <a href="/Documentable/integration-test/routine/emit">the page for <code>emit</code> methods</a>.</p>
+<h2 id="sub_undefine"><a class="u" href="#___top" title="go to top of document">sub undefine</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub undefine(Mu    \x)
+multi sub undefine(Array \x)
+multi sub undefine(Hash  \x)</pre>
+<p><strong>DEPRECATED</strong> in 6.d language version and will be removed in 6.e. For <a href="/Documentable/integration-test/type/Array">Array</a> and <a href="/Documentable/integration-test/type/Hash">Hash</a>, it will become equivalent to assigning <a href="/Documentable/integration-test/type/Slip#index-entry-Empty-Empty">Empty</a>; for everything else, equivalent to assigning <a href="/Documentable/integration-test/type/Nil">Nil</a> or <code>Empty</code> in the case of arrays or hashes, whose use is advised.</p>
+<h1 id="Control_routines"><a class="u" href="#___top" title="go to top of document">Control routines</a></h1>
+<p>Routines that change the flow of the program, maybe returning a value.</p>
+<h2 id="sub_exit"><a class="u" href="#___top" title="go to top of document">sub exit</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub exit()
+multi sub exit(Int(Any) $status)</pre>
+<p>Exits the current process with return code <code>$status</code> or zero if no value has been specified. The exit value (<code>$status</code>), when different from zero, has to be opportunely evaluated from the process that catches it (e.g., a shell); it is the only way to return an exit code different from zero from a <a href="/Documentable/integration-test/routine/MAIN">Main</a>.</p>
+<p><code>exit</code> prevents the <a href="/Documentable/integration-test/language/phasers#LEAVE">LEAVE</a> phaser to be executed, but it will run the code in the <a href="/Documentable/integration-test/language/variables#index-entry-%24*EXIT"><code>&amp;*EXIT</code></a> variable.</p>
+<p><code>exit</code> should be used as last resort only to signal the parent process about an exit code different from zero, and not to terminate exceptionally a method or a sub: use <a href="/Documentable/integration-test/language/exceptions">exceptions</a> instead.</p>
+<h2 id="sub_done"><a class="u" href="#___top" title="go to top of document">sub done</a></h2>
+<p>Defined as</p>
+<pre class="pod-block-code">sub done(--&gt; Nil)</pre>
+<p>If used outside any supply or react block, throws an exception <code>done without supply or react</code>. Within a <a href="/Documentable/integration-test/type/Supply">Supply</a> block, it will indicate the supply will no longer emit anything. See also <a href="/Documentable/integration-test/routine/done">documentation on method <code>done</code></a>.</p>
+<pre class="pod-block-code">my $supply = supply {
+    for 1 .. 3 {
+        emit($_);
+    }
+    done;
+}
+$supply.tap( -&gt; $v { say &quot;Second : $v&quot; }, done =&gt; { say &quot;No more&quot; });
+# OUTPUT: OUTPUT: «Second : 1␤Second : 2␤Second : 3␤No More␤»
+</pre>
+<p>The block passed to the <code>done</code> named argument will be run when <code>done</code> is called within the <code>supply</code> block.</p>
+
+        </div>
+    </div>
+
+    <aside><ol start="1">
+<li><a href="#fn-ref-1" id="fn-1">[↑]</a> The information below is for a fully functioning <code>sprintf</code> implementation which hasn&#39;t been achieved yet. Formats or features not yet implemented are marked NYI. </li>
+</ol></aside>
+
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Type/independent-routines.pod6">https://github.com/Raku/doc/blob/master/doc/Type/independent-routines.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

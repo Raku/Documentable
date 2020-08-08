@@ -1,0 +1,680 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>module Test</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/type.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-basic.html"> Basic </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-composite.html"> Composite </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-domain-specific.html"> Domain-specific </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-exception.html"> Exceptions </a>
+            </div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Type/Test.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">module Test</h1>
+        <p class="subtitle">Writing and running tests</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+     <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#sub_plan">sub plan</a></td></tr>
+                                                                   <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#sub_done-testing">sub done-testing</a></td></tr>
+                                                      <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#sub_ok">sub ok</a></td></tr>
+                              <tr class="toc-level-2"><td class="toc-number">1.4</td><td class="toc-text"><a href="#sub_nok">sub nok</a></td></tr>
+              <tr class="toc-level-2"><td class="toc-number">1.5</td><td class="toc-text"><a href="#sub_is">sub is</a></td></tr>
+                                                  <tr class="toc-level-2"><td class="toc-number">1.6</td><td class="toc-text"><a href="#sub_isnt">sub isnt</a></td></tr>
+                    <tr class="toc-level-2"><td class="toc-number">1.7</td><td class="toc-text"><a href="#sub_is_approx">sub is_approx</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">1.8</td><td class="toc-text"><a href="#sub_is-approx">sub is-approx</a></td></tr>
+                                                                    <tr class="toc-level-3"><td class="toc-number">1.8.1</td><td class="toc-text"><a href="#Absolute_tolerance">Absolute tolerance</a></td></tr>
+                    <tr class="toc-level-3"><td class="toc-number">1.8.2</td><td class="toc-text"><a href="#Relative_tolerance">Relative tolerance</a></td></tr>
+                              <tr class="toc-level-3"><td class="toc-number">1.8.3</td><td class="toc-text"><a href="#Both_absolute_and_relative_tolerance_specified">Both absolute and relative tolerance specified</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">1.9</td><td class="toc-text"><a href="#sub_is-approx-calculate">sub is-approx-calculate</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.10</td><td class="toc-text"><a href="#sub_is-deeply">sub is-deeply</a></td></tr>
+                                                          <tr class="toc-level-2"><td class="toc-number">1.11</td><td class="toc-text"><a href="#sub_cmp-ok">sub cmp-ok</a></td></tr>
+                                          <tr class="toc-level-2"><td class="toc-number">1.12</td><td class="toc-text"><a href="#sub_isa-ok">sub isa-ok</a></td></tr>
+                   <tr class="toc-level-2"><td class="toc-number">1.13</td><td class="toc-text"><a href="#sub_can-ok">sub can-ok</a></td></tr>
+                          <tr class="toc-level-2"><td class="toc-number">1.14</td><td class="toc-text"><a href="#sub_does-ok">sub does-ok</a></td></tr>
+                                        <tr class="toc-level-2"><td class="toc-number">1.15</td><td class="toc-text"><a href="#sub_like">sub like</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">1.16</td><td class="toc-text"><a href="#sub_unlike">sub unlike</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">1.17</td><td class="toc-text"><a href="#sub_use-ok">sub use-ok</a></td></tr>
+               <tr class="toc-level-2"><td class="toc-number">1.18</td><td class="toc-text"><a href="#sub_dies-ok">sub dies-ok</a></td></tr>
+                <tr class="toc-level-2"><td class="toc-number">1.19</td><td class="toc-text"><a href="#sub_lives-ok">sub lives-ok</a></td></tr>
+                  <tr class="toc-level-2"><td class="toc-number">1.20</td><td class="toc-text"><a href="#sub_eval-dies-ok">sub eval-dies-ok</a></td></tr>
+               <tr class="toc-level-2"><td class="toc-number">1.21</td><td class="toc-text"><a href="#sub_eval-lives-ok">sub eval-lives-ok</a></td></tr>
+                 <tr class="toc-level-2"><td class="toc-number">1.22</td><td class="toc-text"><a href="#sub_throws-like">sub throws-like</a></td></tr>
+                                                    <tr class="toc-level-2"><td class="toc-number">1.23</td><td class="toc-text"><a href="#sub_fails-like">sub fails-like</a></td></tr>
+                  <tr class="toc-level-2"><td class="toc-number">1.24</td><td class="toc-text"><a href="#sub_subtest">sub subtest</a></td></tr>
+                                                                      <tr class="toc-level-2"><td class="toc-number">1.25</td><td class="toc-text"><a href="#sub_todo">sub todo</a></td></tr>
+                                         <tr class="toc-level-2"><td class="toc-number">1.26</td><td class="toc-text"><a href="#sub_skip">sub skip</a></td></tr>
+                          <tr class="toc-level-2"><td class="toc-number">1.27</td><td class="toc-text"><a href="#sub_skip-rest">sub skip-rest</a></td></tr>
+                                     <tr class="toc-level-2"><td class="toc-number">1.28</td><td class="toc-text"><a href="#sub_bail-out">sub bail-out</a></td></tr>
+                    <tr class="toc-level-2"><td class="toc-number">1.29</td><td class="toc-text"><a href="#sub_pass">sub pass</a></td></tr>
+               <tr class="toc-level-2"><td class="toc-number">1.30</td><td class="toc-text"><a href="#sub_flunk">sub flunk</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">1.31</td><td class="toc-text"><a href="#sub_diag">sub diag</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Type_Graph">Type Graph</a></td></tr>
+ 
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>This module provides a testing framework, and is used in the official suite that tests the specification. All its functions emit output conforming to the <a href="https://testanything.org">Test Anything Protocol</a>.</p>
+<h1 id="Methods"><a class="u" href="#___top" title="go to top of document">Methods</a></h1>
+<h2 id="sub_plan"><a class="u" href="#___top" title="go to top of document">sub plan</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub plan(Cool:D :skip-all($reason)!)
+multi sub plan($number_of_tests)</pre>
+<p>Specify the count of tests -- usually written at the beginning of a test file.</p>
+<pre class="pod-block-code">plan 15;   # expect to run 15 tests
+</pre>
+<p>In <code>subtest</code>s, <code>plan</code> is used to specify the count of tests within the subtest.</p>
+<p>If a <code>plan</code> is used, it&#39;s not necessary to specify the end of testing with <code>done-testing</code>.</p>
+<p>You can also provide a <code>:skip-all</code> named argument instead of a test count, to indicate that you want to skip all of the tests. Such a plan will call <a href="/Documentable/integration-test/routine/exit"><code>exit</code></a>, unless used inside of a <code>subtest</code>.</p>
+<pre class="pod-block-code">plan :skip-all&lt;These tests are only for Windows&gt; unless $*DISTRO.is-win;
+plan 1;
+ok dir &#39;C:/&#39;; # this won&#39;t get run on non-Windows
+</pre>
+<p>If used in a <code>subtest</code>, it will instead <code>return</code> from that <code>subtest</code>&#39;s <a href="/Documentable/integration-test/type/Callable"><code>Callable</code></a>. For that reason, to be able to use <code>:skip-all</code> inside a <code>subtest</code>, you must use a <code>sub</code> instead of a regular block:</p>
+<pre class="pod-block-code">plan 2;
+subtest &quot;Some Windows tests&quot; =&gt; sub { # &lt;-- note the `sub`; can&#39;t use bare block
+    plan :skip-all&lt;We aren&#39;t on Windows&gt; unless $*DISTRO.is-win;
+    plan 1;
+    ok dir &#39;C:/&#39;; # this won&#39;t get run on non-Windows
+}
+ok 42; # this will run everywhere and isn&#39;t affected by skip-all inside subtest
+</pre>
+<p>Note that <code>plan</code> with <code>:skip-all</code> is to avoid performing any tests without marking the test run as failed (i.e. the plan is to not run anything and that&#39;s all good). Use <a href="/Documentable/integration-test/language/testing#index-entry-skip-rest-skip-rest($reason?)"><code>skip-rest</code></a> to skip all further tests, once the run has started (i.e. planned to run some tests, maybe even ran some, but now we&#39;re skipping all the rest of them). Use <a href="/Documentable/integration-test/language/testing#index-entry-bail-out-bail-out($reason?)"><code>bail-out</code></a> to fail the test run without running any further tests (i.e. things are so bad, there&#39;s no point in running anything else; we&#39;ve failed).</p>
+<h2 id="sub_done-testing"><a class="u" href="#___top" title="go to top of document">sub done-testing</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub done-testing()</pre>
+<p>Specify that testing has finished. Use this function when you don&#39;t have a <code>plan</code> with the number of tests to run. A <code>plan</code> is not required when using <code>done-testing</code>.</p>
+<p>It&#39;s recommended that the <code>done-testing</code> function be removed and replaced with a <code>plan</code> function when all tests are finalized. Use of <code>plan</code> can help detect test failures otherwise not reported because tests were accidentally skipped due to bugs in the tests or bugs in the compiler. For example:</p>
+<pre class="pod-block-code">    sub do-stuff {@};
+    use Test;
+    ok .is-prime for do-stuff;
+    done-testing;
+    # output:
+    1..0
+</pre>
+<p>The above example is where a <code>done-testing</code> fails. <code>do-stuff()</code> returned nothing and tested nothing, even though it should&#39;ve returned results to test. But the test suite doesn&#39;t know how many tests were meant to be run, so it passes.</p>
+<p>Adding <code>plan</code> gives a true picture of the test:</p>
+<pre class="pod-block-code">    sub do-stuff {@};
+    use Test;
+    plan 1;
+    ok .is-prime for do-stuff;
+    # output:
+    1..1
+    # Looks like you planned 1 test, but ran 0
+</pre>
+<p>Note that leaving the <code>done-testing</code> in place will have no effect on the new test results, but it should be removed for clarity.</p>
+<h2 id="sub_ok"><a class="u" href="#___top" title="go to top of document">sub ok</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub ok(Mu $cond, $desc = &#39;&#39;)</pre>
+<p>The <code>ok</code> function marks a test as passed if the given <code>$value</code> evaluates to <code>True</code>. The <code>nok</code> function marks a test as passed if the given value evaluates to <code>False</code>. Both functions accept an optional description of the test as second parameter.</p>
+<pre class="pod-block-code">    my $response; my $query; ...;
+    ok  $response.success, &#39;HTTP response was successful&#39;;
+    nok $query.error,      &#39;Query completed without error&#39;;
+</pre>
+<p>In principle, you could use <code>ok</code> for every kind of comparison test, by including the comparison in the expression passed to <code>$value</code>:</p>
+<pre class="pod-block-code">    sub factorial($x) { ... };
+    ok factorial(6) == 720, &#39;Factorial - small integer&#39;;
+</pre>
+<p>However, where possible it&#39;s better to use one of the specialized comparison test functions below, because they can print more helpful diagnostics output in case the comparison fails.</p>
+<h2 id="sub_nok"><a class="u" href="#___top" title="go to top of document">sub nok</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub nok(Mu $cond, $desc = &#39;&#39;)</pre>
+<p>The <code>nok</code> function marks a test as passed if the given value evaluates to <code>False</code>. It also accepts an optional description of the test as second argument.</p>
+<pre class="pod-block-code">    my $response; my $query; ...;
+    ok  $response.success, &#39;HTTP response was successful&#39;;
+    nok $query.error,      &#39;Query completed without error&#39;;
+</pre>
+<h2 id="sub_is"><a class="u" href="#___top" title="go to top of document">sub is</a></h2>
+<p>Defined as</p>
+<pre class="pod-block-code">multi sub is(Mu $got, Mu:U $expected, $desc = &#39;&#39;)
+multi sub is(Mu $got, Mu:D $expected, $desc = &#39;&#39;)</pre>
+<p>Marks a test as passed if <code>$value</code> and <code>$expected</code> compare positively with the <a href="/Documentable/integration-test/routine/eq">eq operator</a>, unless <code>$expected</code> is a type object, in which case <code>===</code> operator will be used instead; accepts an optional description of the test as the last argument.</p>
+<p><strong>NOTE:</strong> <code>eq</code> operator the <code>is()</code> uses stringifies, which means <code>is()</code> is not a good function for testing more complex things, such as lists: <code>is (1, (2, (3,))), [1, 2, 3]</code> passes the test, even though the operands are vastly different. For those cases, use <a href="/Documentable/integration-test/language/testing#index-entry-is-deeply-is-deeply($value,_$expected,_$description?)"><code>is-deeply</code> routine</a></p>
+<pre class="pod-block-code">    my $pdf-document; sub factorial($x) { ... }; ...;
+    is $pdf-document.author, &quot;Joe&quot;, &#39;Retrieving the author field&#39;;
+    is factorial(6),         720,   &#39;Factorial - small integer&#39;;
+    my Int $a;
+    is $a, Int, &#39;The variable $a is an unassigned Int&#39;;
+</pre>
+<p><strong>Note:</strong> if <em>only</em> whitespace differs between the values, <code>is()</code> will output failure message differently, to show the whitespace in each values. For example, in the output below, the second test shows the literal <code>\t</code> in the <code>got:</code> line:</p>
+<pre class="pod-block-code">is &quot;foo\tbar&quot;, &quot;foo\tbaz&quot;;   # expected: &#39;foo     baz&#39;␤#      got: &#39;foo   bar&#39;
+is &quot;foo\tbar&quot;, &quot;foo    bar&quot;; # expected: &quot;foo    bar&quot;␤#      got: &quot;foo\tbar&quot;
+</pre>
+<h2 id="sub_isnt"><a class="u" href="#___top" title="go to top of document">sub isnt</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub isnt(Mu $got, Mu:U $expected, $desc = &#39;&#39;)
+multi sub isnt(Mu $got, Mu:D $expected, $desc = &#39;&#39;)</pre>
+<p>Marks a test as passed if <code>$value</code> and <code>$expected</code> are <strong>not</strong> equal using the same rules as <code>is()</code>. The function accepts an optional description of the test.</p>
+<pre class="pod-block-code">    isnt pi, 3, &#39;The constant π is not equal to 3&#39;;
+    my Int $a = 23;
+    $a = Nil;
+    isnt $a, Nil, &#39;Nil should not survive being put in a container&#39;;
+</pre>
+<h2 id="sub_is_approx"><a class="u" href="#___top" title="go to top of document">sub is_approx</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub is_approx(Mu $got, Mu $expected, $desc = &#39;&#39;)</pre>
+<p><strong>NOTE</strong>: Deprecated as of version 6.d. Please use <code>is-approx</code> instead.</p>
+<p>Checks if result and the expected value are approximately equal to a certain degree of tolerance, fixed to 1e-5 or one-millionth of the expected value is its value is less than that.</p>
+<pre class="pod-block-code">use Test;
+is_approx(1e4, 1e4-1e-6, &quot;Real close&quot;); # OUTPUT: «ok 1 - Real close␤»
+</pre>
+<p>(This will print also a deprecation notice if you&#39;re using 6.d)</p>
+<h2 id="sub_is-approx"><a class="u" href="#___top" title="go to top of document">sub is-approx</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub is-approx(Numeric $got, Numeric $expected, $desc = &#39;&#39;)</pre>
+<pre class="pod-block-code">multi sub is-approx(Numeric $got, Numeric $expected, Numeric $abs-tol,
+                    $desc = &#39;&#39;)
+</pre>
+<pre class="pod-block-code">multi sub is-approx(Numeric $got, Numeric $expected, $desc = &#39;&#39;,
+                    Numeric :$rel-tol is required)
+</pre>
+<pre class="pod-block-code">multi sub is-approx(Numeric $got, Numeric $expected, $desc = &#39;&#39;,
+                    Numeric :$abs-tol is required)
+</pre>
+<pre class="pod-block-code">multi sub is-approx(Numeric $got, Numeric $expected, $desc = &#39;&#39;,
+                    Numeric :$rel-tol is required,
+                    Numeric :$abs-tol is required)
+</pre>
+<p>Marks a test as passed if the <code>$value</code> and <code>$expected</code> numerical values are approximately equal to each other. The subroutine can be called in numerous ways that let you test using relative tolerance (<code>$rel-tol</code>) or absolute tolerance (<code>$abs-tol</code>) of different values.</p>
+<p>If no tolerance is set, the function will base the tolerance on the <em>absolute</em> value of <code>$expected</code>: if it&#39;s smaller than <code>1e-6</code>, use absolute tolerance of <code>1e-5</code>; if it&#39;s larger, use relative tolerance of <code>1e-6</code>.</p>
+<pre class="pod-block-code">    my Numeric ($value, $expected, $abs-tol, $rel-tol) = ...
+
+    is-approx $value, $expected;
+    is-approx $value, $expected, &#39;test description&#39;;
+
+    is-approx $value, $expected, $abs-tol;
+    is-approx $value, $expected, $abs-tol, &#39;test description&#39;;
+
+    is-approx $value, $expected, :$rel-tol;
+    is-approx $value, $expected, :$rel-tol, &#39;test description&#39;;
+
+    is-approx $value, $expected, :$abs-tol;
+    is-approx $value, $expected, :$abs-tol, &#39;test description&#39;;
+
+    is-approx $value, $expected, :$abs-tol, :$rel-tol;
+    is-approx $value, $expected, :$abs-tol, :$rel-tol, &#39;test description&#39;;
+</pre>
+<h3 id="Absolute_tolerance"><a class="u" href="#___top" title="go to top of document">Absolute tolerance</a></h3>
+<p>When an absolute tolerance is set, it&#39;s used as the actual maximum value by which the <code>$value</code> and <code>$expected</code> can differ. For example:</p>
+<pre class="pod-block-code">    is-approx 3, 4, 2; # success
+    is-approx 3, 6, 2; # fail
+
+    is-approx 300, 302, 2; # success
+    is-approx 300, 400, 2; # fail
+    is-approx 300, 600, 2; # fail
+</pre>
+<p>Regardless of values given, the difference between them cannot be more than <code>2</code>.</p>
+<h3 id="Relative_tolerance"><a class="u" href="#___top" title="go to top of document">Relative tolerance</a></h3>
+<p>When a relative tolerance is set, the test checks the relative difference between values. Given the same tolerance, the larger the numbers given, the larger the value they can differ by can be.</p>
+<p>For example:</p>
+<pre class="pod-block-code">    is-approx 10, 10.5, :rel-tol&lt;0.1&gt;; # success
+    is-approx 10, 11.5, :rel-tol&lt;0.1&gt;; # fail
+
+    is-approx 100, 105, :rel-tol&lt;0.1&gt;; # success
+    is-approx 100, 115, :rel-tol&lt;0.1&gt;; # fail
+</pre>
+<p>Both versions use <code>0.1</code> for relative tolerance, yet the first can differ by about <code>1</code> while the second can differ by about <code>10</code>. The function used to calculate the difference is:</p>
+<pre class="pod-block-code">              |value - expected|
+⁣rel-diff = ────────────────────────
+           max(|value|, |expected|)
+</pre>
+<p>and the test will fail if <code>rel-diff</code> is higher than <code>$rel-tol</code>.</p>
+<h3 id="Both_absolute_and_relative_tolerance_specified"><a class="u" href="#___top" title="go to top of document">Both absolute and relative tolerance specified</a></h3>
+<pre class="pod-block-code">is-approx $value, $expected, :rel-tol&lt;.5&gt;, :abs-tol&lt;10&gt;;
+</pre>
+<p>When both absolute and relative tolerances are specified, each will be tested independently, and the <code>is-approx</code> test will succeed only if both pass.</p>
+<h2 id="sub_is-approx-calculate"><a class="u" href="#___top" title="go to top of document">sub is-approx-calculate</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub is-approx-calculate ($got,$expected,$abs-tol where { !.defined or $_ &gt;= 0 },$rel-tol where { !.defined or $_ &gt;= 0 },$desc)</pre>
+<p>This is the actual routine called by <a href="/Documentable/integration-test/type/Test#Both_absolute_and_relative_tolerance_specified"><code>is-approx</code> when absolute and relative tolerance are specified</a>. They are tested independently, and the test succeeds only if both pass.</p>
+<h2 id="sub_is-deeply"><a class="u" href="#___top" title="go to top of document">sub is-deeply</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub is-deeply(Seq:D $got, Seq:D $expected, $reason = &#39;&#39;)
+multi sub is-deeply(Seq:D $got, Mu $expected, $reason = &#39;&#39;)
+multi sub is-deeply(Mu $got, Seq:D $expected, $reason = &#39;&#39;)
+multi sub is-deeply(Mu $got, Mu $expected, $reason = &#39;&#39;)</pre>
+<p>Marks a test as passed if <code>$value</code> and <code>$expected</code> are equivalent, using the same semantics as the <a href="/Documentable/integration-test/routine/eqv">eqv operator</a>. This is the best way to check for equality of (deep) data structures. The function accepts an optional description of the test as the last argument.</p>
+<pre class="pod-block-code">use Test;
+plan 1;
+
+sub string-info(Str() $_) {
+    Map.new: (
+      length  =&gt;  .chars,
+      char-counts =&gt; Bag.new-from-pairs: (
+          letters =&gt; +.comb(/&lt;:letter&gt;/),
+          digits  =&gt; +.comb(/&lt;:digit&gt;/),
+          other   =&gt; +.comb(/&lt;.-:letter-:digit&gt;/),
+    ))
+}
+
+is-deeply string-info(&#39;42 Butterflies ♥ Perl&#39;), Map.new((
+    :21length,
+    char-counts =&gt; Bag.new-from-pairs: ( :15letters, :2digits, :4other, )
+)), &#39;string-info gives right info&#39;;
+</pre>
+<p><strong>Note:</strong> for <a href="https://github.com/rakudo/rakudo/commit/096bc17cd5">historical reasons</a>,</p>
+<p><a href="/Documentable/integration-test/type/Seq">Seq:D</a> arguments to <code>is-deeply</code> get converted to <a href="/Documentable/integration-test/type/List">Lists</a> by calling <a href="/Documentable/integration-test/routine/cache"><code>.cache</code></a> on them. If you want to ensure strict <code>Seq</code> comparisons, use <a href="/Documentable/integration-test/language/testing#By_arbitrary_comparison"><code>cmp-ok $got, &#39;eqv&#39;, $expected, $desc</code></a> instead.</p>
+<h2 id="sub_cmp-ok"><a class="u" href="#___top" title="go to top of document">sub cmp-ok</a></h2>
+<pre class="pod-block-code">multi sub cmp-ok(Mu $got is raw, $op, Mu $expected is raw, $desc = &#39;&#39;)</pre>
+<p>Compares <code>$value</code> and <code>$expected</code> with the given <code>$comparison</code> comparator and passes the test if the comparison yields a <code>True</code> value. The description of the test is optional.</p>
+<p>The <code>$comparison</code> comparator can be either a <a href="/Documentable/integration-test/type/Callable">Callable</a> or a <a href="/Documentable/integration-test/type/Str">Str</a> containing an infix operator, such as <code>&#39;==&#39;</code>, a <code>&#39;~~&#39;</code>, or a user-defined infix.</p>
+<pre class="pod-block-code">    cmp-ok &#39;my spelling is apperling&#39;, &#39;~~&#39;, /perl/, &quot;bad speller&quot;;
+</pre>
+<p>Metaoperators cannot be given as a string; pass them as a <a href="/Documentable/integration-test/type/Callable">Callable</a> instead:</p>
+<pre class="pod-block-code">    cmp-ok &lt;a b c&gt;, &amp;[!eqv], &lt;b d e&gt;, &#39;not equal&#39;;
+</pre>
+<p>A <a href="/Documentable/integration-test/type/Callable">Callable</a> <code>$comparison</code> lets you use custom comparisons:</p>
+<pre class="pod-block-code">    sub my-comp { $^a / $^b  &lt; rand };
+    cmp-ok 1, &amp;my-comp, 2, &#39;the dice giveth and the dice taketh away&#39;
+    cmp-ok 2, -&gt; $a, $b { $a.is-prime and $b.is-prime and $a &lt; $b }, 7,
+        &#39;we got primes, one larger than the other!&#39;;
+</pre>
+<h2 id="sub_isa-ok"><a class="u" href="#___top" title="go to top of document">sub isa-ok</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub isa-ok(Mu $var, Mu $type, $desc = &quot;The object is-a &#39;$type.raku()&#39;&quot;)</pre>
+<p>Marks a test as passed if the given object <code>$value</code> is, or inherits from, the given <code>$expected-type</code>. For convenience, types may also be specified as a string. The function accepts an optional description of the test, which defaults to a string that describes the object.</p>
+<pre class="pod-block-code">    class Womble {}
+    class GreatUncleBulgaria is Womble {}
+    my $womble = GreatUncleBulgaria.new;
+
+    isa-ok $womble, Womble, &quot;Great Uncle Bulgaria is a womble&quot;;
+    isa-ok $womble, &#39;Womble&#39;;     # equivalent
+</pre>
+<h2 id="sub_can-ok"><a class="u" href="#___top" title="go to top of document">sub can-ok</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub can-ok(Mu $var, Str $meth,$desc = &quot;...&quot; )</pre>
+<p>Marks a test as passed if the given <code>$variable</code> can run the given <code>$method-name</code>. The function accepts an optional description. For instance:</p>
+<pre class="pod-block-code">    class Womble {};
+    my $womble = Womble.new;
+
+    # with automatically generated test description
+    can-ok $womble, &#39;collect-rubbish&#39;;
+    #  =&gt; An object of type &#39;Womble&#39; can do the method &#39;collect-rubbish&#39;
+
+    # with human-generated test description
+    can-ok $womble, &#39;collect-rubbish&#39;, &quot;Wombles can collect rubbish&quot;;
+    #  =&gt; Wombles can collect rubbish
+</pre>
+<h2 id="sub_does-ok"><a class="u" href="#___top" title="go to top of document">sub does-ok</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub does-ok(Mu $var, Mu $type, $desc = &quot;...&quot;)</pre>
+<p>Marks a test as passed if the given <code>$variable</code> can do the given <code>$role</code>. The function accepts an optional description of the test.</p>
+<pre class="pod-block-code">    # create a Womble who can invent
+    role Invent {
+        method brainstorm { say &quot;Aha!&quot; }
+    }
+    class Womble {}
+    class Tobermory is Womble does Invent {}
+
+    # ... and later in the tests
+    use Test;
+
+    my $tobermory = Tobermory.new;
+
+    # with automatically generated test description
+    does-ok $tobermory, Invent;
+    #  =&gt; The object does role Type
+
+    does-ok $tobermory, Invent, &quot;Tobermory can invent&quot;;
+    #  =&gt; Tobermory can invent
+</pre>
+<h2 id="sub_like"><a class="u" href="#___top" title="go to top of document">sub like</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub like(Str() $got, Regex:D $expected,$desc = &quot;text matches $expected.raku()&quot;)</pre>
+<p>Use it this way:</p>
+<pre class="pod-block-code">    like &#39;foo&#39;, /fo/, &#39;foo looks like fo&#39;;
+</pre>
+<p>Marks a test as passed if the <code>$value</code>, when coerced to a string, matches the <code>$expected-regex</code>. The function accepts an optional description of the test with a default value printing the expected match.</p>
+<h2 id="sub_unlike"><a class="u" href="#___top" title="go to top of document">sub unlike</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub unlike(Str() $got, Regex:D $expected,$desc = &quot;text does not match $expected.raku()&quot;)</pre>
+<p>Used this way:</p>
+<pre class="pod-block-code">    unlike &#39;foo&#39;, /bar/, &#39;foo does not look like bar&#39;;
+</pre>
+<p>Marks a test as passed if the <code>$value</code>, when coerced to a string, does <strong>not</strong> match the <code>$expected-regex</code>. The function accepts an optional description of the test, which defaults to printing the text that did not match.</p>
+<h2 id="sub_use-ok"><a class="u" href="#___top" title="go to top of document">sub use-ok</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub use-ok(Str $code, $desc = &quot;$code module can be use-d ok&quot;)</pre>
+<p>Marks a test as passed if the given <code>$module</code> loads correctly.</p>
+<pre class="pod-block-code">use-ok &#39;Full::Qualified::ModuleName&#39;;
+</pre>
+<p>Since <code>$code</code> is being turned into an <code>EVAL</code>, you can also pass arguments:</p>
+<pre class="pod-block-code">use-ok &#39;Full::Qualified::ModuleName :my-argument&#39;;
+</pre>
+<h2 id="sub_dies-ok"><a class="u" href="#___top" title="go to top of document">sub dies-ok</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub dies-ok(Callable $code, $reason = &#39;&#39;)</pre>
+<p>Marks a test as passed if the given <code>$code</code> throws an exception.</p>
+<p>The function accepts an optional description of the test.</p>
+<pre class="pod-block-code">sub saruman(Bool :$ents-destroy-isengard) {
+    die &quot;Killed by Wormtongue&quot; if $ents-destroy-isengard;
+}
+
+dies-ok { saruman(ents-destroy-isengard =&gt; True) }, &quot;Saruman dies&quot;;
+</pre>
+<h2 id="sub_lives-ok"><a class="u" href="#___top" title="go to top of document">sub lives-ok</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub lives-ok(Callable $code, $reason = &#39;&#39;)</pre>
+<p>Marks a test as passed if the given <code>$code</code> <strong>does not</strong> throw an exception.</p>
+<p>The function accepts an optional description of the test.</p>
+<pre class="pod-block-code">sub frodo(Bool :$destroys-ring) {
+    die &quot;Oops, that wasn&#39;t supposed to happen&quot; unless $destroys-ring;
+}
+
+lives-ok { frodo(destroys-ring =&gt; True) }, &quot;Frodo survives&quot;;
+</pre>
+<h2 id="sub_eval-dies-ok"><a class="u" href="#___top" title="go to top of document">sub eval-dies-ok</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub eval-dies-ok(Str $code, $reason = &#39;&#39;)</pre>
+<p>Marks a test as passed if the given <code>$string</code> throws an exception when <code>eval</code>ed as code.</p>
+<p>The function accepts an optional description of the test.</p>
+<pre class="pod-block-code">eval-dies-ok q[my $joffrey = &quot;nasty&quot;;
+               die &quot;bye bye Ned&quot; if $joffrey ~~ /nasty/],
+    &quot;Ned Stark dies&quot;;
+</pre>
+<h2 id="sub_eval-lives-ok"><a class="u" href="#___top" title="go to top of document">sub eval-lives-ok</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub eval-lives-ok(Str $code, $reason = &#39;&#39;)</pre>
+<p>Marks a test as passed if the given <code>$string</code> <strong>does not</strong> throw an exception when <code>eval</code>ed as code.</p>
+<p>The function accepts an optional description of the test.</p>
+<pre class="pod-block-code">eval-lives-ok q[my $daenerys-burns = False;
+                die &quot;Oops, Khaleesi now ashes&quot; if $daenerys-burns],
+    &quot;Dany is blood of the dragon&quot;;
+</pre>
+<h2 id="sub_throws-like"><a class="u" href="#___top" title="go to top of document">sub throws-like</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub throws-like($code, $ex_type, $reason?, *%matcher)</pre>
+<p>Marks a test as passed if the given <code>$code</code> throws the specific exception expected exception type <code>$ex_type</code>. The code <code>$code</code> may be specified as something <code>Callable</code> or as a string to be <code>EVAL</code>ed. The exception may be specified as a type object or as a string containing its type name.</p>
+<p>If an exception was thrown, it will also try to match the matcher hash, where the key is the name of the method to be called on the exception, and the value is the value it should have to pass. For example:</p>
+<pre class="pod-block-code">sub frodo(Bool :$destroys-ring) {
+    fail &quot;Oops. Frodo dies&quot; unless $destroys-ring
+};
+throws-like { frodo }, Exception, message =&gt; /dies/;
+</pre>
+<p>The function accepts an optional description of the test as the third positional argument.</p>
+<p>The routine makes <a href="/Documentable/integration-test/type/Failure">Failures</a> fatal. If you wish to avoid that, use <a href="/Documentable/integration-test/language/pragmas#index-entry-fatal-fatal"><code>no fatal</code> pragma</a> and ensure the tested code does not sink the possible <a href="/Documentable/integration-test/type/Failure">Failures</a>. If you wish to test that the code returns a <a href="/Documentable/integration-test/type/Failure">Failure</a> instead of throwing, use <code>fails-like</code> routine instead.</p>
+<pre class="pod-block-code">sub fails-not-throws { +&quot;a&quot; }
+# test passes, even though it&#39;s just a Failure and would not always throw:
+throws-like { fails-not-throws }, Exception;
+
+# test detects nothing thrown, because our Failure wasn&#39;t sunk or made fatal:
+throws-like { no fatal; my $ = fails-not-throws; Nil }, Exception;
+</pre>
+<p>Please note that you can only use the string form (for <code>EVAL</code>) if you are not referencing any symbols in the surrounding scope. If you are, you should encapsulate your string with a block and an EVAL instead. For instance:</p>
+<pre class="pod-block-code">throws-like { EVAL q[ fac(&quot;foo&quot;) ] }, X::TypeCheck::Argument;
+</pre>
+<h2 id="sub_fails-like"><a class="u" href="#___top" title="go to top of document">sub fails-like</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub fails-like ( \test where Callable:D|Str:D, $ex-type, $reason?, *%matcher)</pre>
+<p>Same interface as <code>throws-like</code>, except checks that the code returns a <a href="/Documentable/integration-test/type/Failure">Failure</a> instead of throwing. If the code does throw or if the returned <a href="/Documentable/integration-test/type/Failure">Failure</a> has already been <a href="/Documentable/integration-test/routine/handled">handled</a>, that will be considered as a failed test.</p>
+<pre class="pod-block-code">fails-like { +&quot;a&quot; }, X::Str::Numeric,
+    :message(/&#39;Cannot convert string to number&#39;/),
+    &#39;converting non-numeric string to number fails&#39;;
+</pre>
+<h2 id="sub_subtest"><a class="u" href="#___top" title="go to top of document">sub subtest</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub subtest(Pair $what)
+multi sub subtest($desc, &amp;subtests)
+multi sub subtest(&amp;subtests, $desc = &#39;&#39;)</pre>
+<p>The <code>subtest</code> function executes the given block, consisting of usually more than one test, possibly including a <code>plan</code> or <code>done-testing</code>, and counts as <em>one</em> test in <code>plan</code>, <code>todo</code>, or <code>skip</code> counts. It will pass the test only if <strong>all</strong> tests in the block pass. The function accepts an optional description of the subtest.</p>
+<pre class="pod-block-code">class Womble {}
+
+class GreatUncleBulgaria is Womble {
+    has $.location = &quot;Wimbledon Common&quot;;
+    has $.spectacles = True;
+}
+
+subtest {
+    my $womble = GreatUncleBulgaria.new;
+
+    isa-ok $womble,            Womble,             &quot;Correct type&quot;;
+    is     $womble.location,   &quot;Wimbledon Common&quot;, &quot;Correct location&quot;;
+    ok     $womble.spectacles,                     &quot;Correct eyewear&quot;;
+
+}, &quot;Check Great Uncle Bulgaria&quot;;
+</pre>
+<p>You can also place the description as the first positional argument, or use a <code>Pair</code> with description as the key and subtest&#39;s code as the value. This can be useful for subtests with large bodies.</p>
+<pre class="pod-block-code">subtest &#39;A bunch of tests&#39;, {
+    plan 42;
+    ...
+    ...
+}
+
+subtest &#39;Another bunch of tests&#39; =&gt; {
+    plan 72;
+    ...
+    ...
+}
+</pre>
+<h2 id="sub_todo"><a class="u" href="#___top" title="go to top of document">sub todo</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub todo($reason, $count = 1)</pre>
+<p>Sometimes tests just aren&#39;t ready to be run, for instance a feature might not yet be implemented, in which case tests can be marked as <code>todo</code>. Or it could be the case that a given feature only works on a particular platform - in which case one would <code>skip</code> the test on other platforms.</p>
+<p>Mark <code>$count</code> tests as TODO, giving a <code>$reason</code> as to why. By default only one test will be marked TODO.</p>
+<pre class="pod-block-code">    sub my-custom-pi { 3 };
+
+    todo &#39;not yet precise enough&#39;;         # Mark the test as TODO.
+    is my-custom-pi(), pi, &#39;my-custom-pi&#39;; # Run the test, but don&#39;t report
+                                           # failure in test harness.
+</pre>
+<p>The result from the test code above will be something like:</p>
+<pre class="pod-block-code">not ok 1 - my-custom-pi# TODO not yet precise enough
+
+# Failed test &#39;my-custom-pi&#39;
+# at test-todo.t line 7
+# expected: &#39;3.14159265358979&#39;
+#      got: &#39;3&#39;
+</pre>
+<p>Note that if you <code>todo</code> a <code>subtest</code>, all of the failing tests inside of it will be automatically marked TODO as well and will <em>not</em> count towards your original TODO count.</p>
+<h2 id="sub_skip"><a class="u" href="#___top" title="go to top of document">sub skip</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub skip()
+multi sub skip($reason, $count = 1)</pre>
+<p>Skip <code>$count</code> tests, giving a <code>$reason</code> as to why. By default only one test will be skipped. Use such functionality when a test (or tests) would die if run.</p>
+<pre class="pod-block-code">sub num-forward-slashes($arg) { ... } ;
+
+if $*KERNEL ~~ &#39;linux&#39; {
+    is num-forward-slashes(&quot;/a/b&quot;),             2;
+    is num-forward-slashes(&quot;/a//b&quot;.IO.cleanup), 2;
+}
+else {
+    skip &quot;Can&#39;t use forward slashes on Windows&quot;, 2;
+}
+</pre>
+<p>Note that if you mark a test as skipped, you must also prevent that test from running.</p>
+<h2 id="sub_skip-rest"><a class="u" href="#___top" title="go to top of document">sub skip-rest</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub skip-rest($reason = &#39;&lt;unknown&gt;&#39;)</pre>
+<p>Skip the remaining tests. If the remainder of the tests in the test file would all fail due to some condition, use this function to skip them, providing an optional <code>$reason</code> as to why.</p>
+<pre class="pod-block-code">my $location; sub womble { ... }; ...;
+unless $location ~~ &quot;Wimbledon Common&quot; {
+    skip-rest &quot;We can&#39;t womble, the remaining tests will fail&quot;;
+    exit;
+}
+
+# tests requiring functional wombling
+ok womble();
+# ...
+</pre>
+<p>Note that <code>skip-rest</code> requires a <code>plan</code> to be set, otherwise the <code>skip-rest</code> call will throw an error. Note that <code>skip-rest</code> does not exit the test run. Do it manually, or use conditionals to avoid running any further tests.</p>
+<p>See also <a href="/Documentable/integration-test/language/testing#index-entry-plan-plan($count)"><code>plan :skip-all(&#39;...&#39;)</code></a> to avoid running any tests at all and <a href="/Documentable/integration-test/language/testing#index-entry-bail-out-bail-out($reason?)"><code>bail-out</code></a> to abort the test run and mark it as failed.</p>
+<h2 id="sub_bail-out"><a class="u" href="#___top" title="go to top of document">sub bail-out</a></h2>
+<pre class="pod-block-code">sub bail-out ($desc?)</pre>
+<p>If you already know the tests will fail, you can bail out of the test run using <code>bail-out()</code>:</p>
+<pre class="pod-block-code">my $has-db-connection;
+...
+$has-db-connection  or bail-out &#39;Must have database connection for testing&#39;;
+</pre>
+<p>The function aborts the current test run, signaling failure to the harness. Takes an optional reason for bailing out. The subroutine will call <code>exit()</code>, so if you need to do a clean-up, do it before calling <code>bail-out()</code>.</p>
+<p>If you want to abort the test run, but without marking it as failed, see <a href="/Documentable/integration-test/language/testing#index-entry-skip-rest-skip-rest($reason?)"><code>skip-rest</code></a> or <a href="/Documentable/integration-test/language/testing#index-entry-plan-plan($count)"><code>plan :skip-all(&#39;...&#39;)</code></a></p>
+<h2 id="sub_pass"><a class="u" href="#___top" title="go to top of document">sub pass</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub pass($desc = &#39;&#39;)</pre>
+<p>The <code>pass</code> function marks a test as passed. <code>flunk</code> marks a test as <strong>not</strong> passed. Both functions accept an optional test description.</p>
+<pre class="pod-block-code">pass &quot;Actually, this test has passed&quot;;
+flunk &quot;But this one hasn&#39;t passed&quot;;
+</pre>
+<p>Since these subroutines do not provide indication of what value was received and what was expected, they should be used sparingly, such as when evaluating a complex test condition.</p>
+<h2 id="sub_flunk"><a class="u" href="#___top" title="go to top of document">sub flunk</a></h2>
+<pre class="pod-block-code">multi sub flunk($reason = &#39;&#39;)</pre>
+<p>The opposite of <code>pass</code>, makes a test fail with an optional message.</p>
+<h2 id="sub_diag"><a class="u" href="#___top" title="go to top of document">sub diag</a></h2>
+<pre class="pod-block-code">sub diag($message)</pre>
+<p>Display diagnostic information in a TAP-compatible manner on the standard error stream. This is usually used when a particular test has failed to provide information that the test itself did not provide. Or it can be used to provide visual markers on how the testing of a test-file is progressing (which can be important when doing stress testing).</p>
+<pre class="pod-block-code">diag &quot;Yay!  The tests got to here!&quot;;
+</pre>
+<h1 id="Type_Graph"><a class="u" href="#___top" title="go to top of document">Type Graph</a></h1>
+<figure>
+  <figcaption>Type relations for <code>Test</code></figcaption>
+  <svg width="69pt" height="188pt"
+ viewBox="0.00 0.00 69.09 188.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 184)">
+<title>perl6&#45;type&#45;graph</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-184 65.09,-184 65.09,4 -4,4"/>
+<!-- Test -->
+<g id="node1" class="node">
+<title>Test</title>
+<g id="a_node1"><a xlink:href="/type/Test" xlink:title="Test">
+<ellipse fill="none" stroke="#000000" cx="30.55" cy="-18" rx="30.59" ry="18"/>
+<text text-anchor="middle" x="30.55" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">Test</text>
+</a>
+</g>
+</g>
+<!-- Any -->
+<g id="node3" class="node">
+<title>Any</title>
+<g id="a_node3"><a xlink:href="/type/Any" xlink:title="Any">
+<ellipse fill="none" stroke="#000000" cx="30.55" cy="-90" rx="27" ry="18"/>
+<text text-anchor="middle" x="30.55" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Any</text>
+</a>
+</g>
+</g>
+<!-- Test&#45;&gt;Any -->
+<g id="edge1" class="edge">
+<title>Test&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M30.55,-36.3C30.55,-44.02 30.55,-53.29 30.55,-61.89"/>
+<polygon fill="#000000" stroke="#000000" points="27.05,-61.9 30.55,-71.9 34.05,-61.9 27.05,-61.9"/>
+</g>
+<!-- Mu -->
+<g id="node2" class="node">
+<title>Mu</title>
+<g id="a_node2"><a xlink:href="/type/Mu" xlink:title="Mu">
+<ellipse fill="none" stroke="#000000" cx="30.55" cy="-162" rx="27" ry="18"/>
+<text text-anchor="middle" x="30.55" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#000000">Mu</text>
+</a>
+</g>
+</g>
+<!-- Any&#45;&gt;Mu -->
+<g id="edge2" class="edge">
+<title>Any&#45;&gt;Mu</title>
+<path fill="none" stroke="#000000" d="M30.55,-108.3C30.55,-116.02 30.55,-125.29 30.55,-133.89"/>
+<polygon fill="#000000" stroke="#000000" points="27.05,-133.9 30.55,-143.9 34.05,-133.9 27.05,-133.9"/>
+</g>
+</g>
+</svg>
+
+  <p class="fallback">
+    <a
+      rel="alternate"
+      href="/images/type-graph-Test.svg"
+      type="image/svg+xml"
+      >Expand above chart</a
+    >
+  </p>
+</figure>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Type/Test.pod6">https://github.com/Raku/doc/blob/master/doc/Type/Test.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

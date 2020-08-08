@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Numerics</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/numerics.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Numerics</h1>
+        <p class="subtitle">Numeric types available in Raku</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+  <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Int"><code class="pod-code-inline">Int</code></a></td></tr>
+                                                                  <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Num"><code class="pod-code-inline">Num</code></a></td></tr>
+                                                            <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Complex"><code class="pod-code-inline">Complex</code></a></td></tr>
+                                                      <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#Rational"><code class="pod-code-inline">Rational</code></a></td></tr>
+                <tr class="toc-level-2"><td class="toc-number">4.1</td><td class="toc-text"><a href="#Rat"><code class="pod-code-inline">Rat</code></a></td></tr>
+                                                                    <tr class="toc-level-3"><td class="toc-number">4.1.1</td><td class="toc-text"><a href="#Degradation_to_Num">Degradation to <code class="pod-code-inline">Num</code></a></td></tr>
+               <tr class="toc-level-2"><td class="toc-number">4.2</td><td class="toc-text"><a href="#FatRat"><code class="pod-code-inline">FatRat</code></a></td></tr>
+                                           <tr class="toc-level-2"><td class="toc-number">4.3</td><td class="toc-text"><a href="#Printing_rationals">Printing rationals</a></td></tr>
+                                         <tr class="toc-level-1"><td class="toc-number">5</td><td class="toc-text"><a href="#Division_by_zero">Division by zero</a></td></tr>
+                                       <tr class="toc-level-2"><td class="toc-number">5.1</td><td class="toc-text"><a href="#Zero-denominator_rationals">Zero-denominator rationals</a></td></tr>
+                                                           <tr class="toc-level-1"><td class="toc-number">6</td><td class="toc-text"><a href="#Allomorphs">Allomorphs</a></td></tr>
+                                                          <tr class="toc-level-2"><td class="toc-number">6.1</td><td class="toc-text"><a href="#Available_allomorphs">Available allomorphs</a></td></tr>
+                 <tr class="toc-level-2"><td class="toc-number">6.2</td><td class="toc-text"><a href="#Coercion_of_allomorphs">Coercion of allomorphs</a></td></tr>
+                                                              <tr class="toc-level-2"><td class="toc-number">6.3</td><td class="toc-text"><a href="#Object_identity">Object identity</a></td></tr>
+                                               <tr class="toc-level-1"><td class="toc-number">7</td><td class="toc-text"><a href="#Native_numerics">Native numerics</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">7.1</td><td class="toc-text"><a href="#Available_native_numerics">Available native numerics</a></td></tr>
+                                           <tr class="toc-level-2"><td class="toc-number">7.2</td><td class="toc-text"><a href="#Creating_native_numerics">Creating native numerics</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">7.3</td><td class="toc-text"><a href="#Overflow/Underflow">Overflow/Underflow</a></td></tr>
+                                          <tr class="toc-level-2"><td class="toc-number">7.4</td><td class="toc-text"><a href="#Auto-boxing">Auto-boxing</a></td></tr>
+                                          <tr class="toc-level-2"><td class="toc-number">7.5</td><td class="toc-text"><a href="#Default_values">Default values</a></td></tr>
+            <tr class="toc-level-2"><td class="toc-number">7.6</td><td class="toc-text"><a href="#Native_dispatch">Native dispatch</a></td></tr>
+                                                                        <tr class="toc-level-2"><td class="toc-number">7.7</td><td class="toc-text"><a href="#Atomic_operations">Atomic operations</a></td></tr>
+                                   <tr class="toc-level-1"><td class="toc-number">8</td><td class="toc-text"><a href="#Numeric_infectiousness">Numeric infectiousness</a></td></tr>
+                      
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <h1 id="Int"><a class="u" href="#___top" title="go to top of document"><code>Int</code></a></h1>
+<p>The <code>Int</code> type offers arbitrary-size integer numbers. They can get as big as your computer memory allows, although some implementations choose to throw a numeric overflow error when asked to produce integers of truly staggering size:</p>
+<pre class="pod-block-code">say 10**600**600
+# OUTPUT: «Numeric overflow␤»
+</pre>
+<p>Unlike some languages, division performed using <a href="/Documentable/integration-test/routine/$SOLIDUS"><code>/</code> operator</a> when both operands are of <a href="/Documentable/integration-test/type/Int">Int</a> type, would produce a fractional number, without any rounding performed.</p>
+<pre class="pod-block-code">say 4/5; # OUTPUT: «0.8␤»
+</pre>
+<p>The type produced by this division is either a <a href="/Documentable/integration-test/type/Rat">Rat</a> or a <a href="/Documentable/integration-test/type/Num">Num</a> type. The <a href="/Documentable/integration-test/type/Rat">Rat</a> is produced if, after reduction, the fraction&#39;s denominator is smaller than 64 bits, otherwise a <a href="/Documentable/integration-test/type/Num">Num</a> type is produced.</p>
+<p>The <a href="/Documentable/integration-test/routine/div">div</a> and <a href="/Documentable/integration-test/routine/narrow">narrow</a> routines can be helpful if you wish to end up with an <a href="/Documentable/integration-test/type/Int">Int</a> result, whenever possible. The <a href="/Documentable/integration-test/routine/div">div</a> operator performs integer division, discarding the remainder, while <a href="/Documentable/integration-test/routine/narrow">narrow</a> fits the number into the narrowest type it&#39;ll fit:</p>
+<pre class="pod-block-code">say 5 div 2; # OUTPUT: «2␤»
+
+# Result `2` is narrow enough to be an Int:
+say (4/2).narrow; # OUTPUT: «2␤»
+say (4/2).narrow.^name; # OUTPUT: «Int␤»
+
+# But 2.5 has fractional part, so it ends up being a Rat type:
+say (5/2).narrow.^name; # OUTPUT: «Rat␤»
+say (5/2).narrow;       # OUTPUT: «2.5␤»
+
+# Denominator is too big for a Rat, so a Num is produced:
+say 1 / 10⁹⁹; # OUTPUT: «1e-99␤»
+</pre>
+<p>Raku has a <a href="/Documentable/integration-test/type/FatRat">FatRat</a> type that offers arbitrary precision fractions. How come a limited-precision <a href="/Documentable/integration-test/type/Num">Num</a> is produced instead of a <a href="/Documentable/integration-test/type/FatRat">FatRat</a> type in the last example above? The reason is: performance. Most operations are fine with a little bit of precision lost and so do not require the use of a more expensive <a href="/Documentable/integration-test/type/FatRat">FatRat</a> type. You&#39;ll need to instantiate one yourself if you wish to have the extra precision.</p>
+<h1 id="Num"><a class="u" href="#___top" title="go to top of document"><code>Num</code></a></h1>
+<p>The <a href="/Documentable/integration-test/type/Num">Num</a> type offers <a href="https://en.wikipedia.org/wiki/Double-precision_floating-point_format">double-precision floating-point</a> decimal numbers, sometimes called &quot;doubles&quot; in other languages.</p>
+<p>A <a href="/Documentable/integration-test/type/Num">Num</a> literal is written with the exponent separated using the letter <code>e</code>. Keep in mind that the letter <code>e</code> <strong>is required</strong> even if the exponent is zero, as otherwise you&#39;ll get a <a href="/Documentable/integration-test/type/Rat">Rat</a> rational literal instead:</p>
+<pre class="pod-block-code">say 42e0.^name; # OUTPUT: «Num␤»
+say 42.0.^name; # OUTPUT: «Rat␤»
+</pre>
+<p>Case-sensitive words <a href="/Documentable/integration-test/type/Num#Inf">Inf</a> and <a href="/Documentable/integration-test/type/Num#NaN">NaN</a> represent the special values infinity and not-a-number respectively. The U+221E INFINITY (<code>∞</code>) character can be used instead of <a href="/Documentable/integration-test/type/Num#Inf">Inf</a>:</p>
+<p>Raku follows the <a href="https://en.wikipedia.org/wiki/IEEE_754">IEEE 754-2008 Standard for Floating-Point Arithmetic</a> as much as possible, with more conformance planned to be implemented in later language versions. The language guarantees the closest representable number is chosen for any given <a href="/Documentable/integration-test/type/Num">Num</a> literal and does offer support for negative zero and <a href="https://en.wikipedia.org/wiki/Denormal_number">denormals</a> (also known as &quot;subnormals&quot;).</p>
+<p>Keep in mind that output routines like <a href="/Documentable/integration-test/routine/say">say</a> or <a href="/Documentable/integration-test/routine/put">put</a> do not try very hard to distinguish between how <a href="/Documentable/integration-test/type/Numeric">Numeric</a> types are output and may choose to display a <a href="/Documentable/integration-test/type/Num">Num</a> as an <a href="/Documentable/integration-test/type/Int">Int</a> or a <a href="/Documentable/integration-test/type/Rat">Rat</a> number. For a more definitive string to output, use the <a href="/Documentable/integration-test/routine/raku">raku</a> method:</p>
+<pre class="pod-block-code">say  1e0;      # OUTPUT: «1␤»
+say .5e0;      # OUTPUT: «0.5␤»
+say  1e0.raku; # OUTPUT: «1e0␤»
+say .5e0.raku; # OUTPUT: «0.5e0␤»
+</pre>
+<h1 id="Complex"><a class="u" href="#___top" title="go to top of document"><code>Complex</code></a></h1>
+<p>The <a href="/Documentable/integration-test/type/Complex">Complex</a> type numerics of the <a href="https://en.wikipedia.org/wiki/Complex_plane">complex plane</a>. The <a href="/Documentable/integration-test/type/Complex">Complex</a> objects consist of two <a href="/Documentable/integration-test/type/Num">Num</a> objects representing the <a href="/Documentable/integration-test/routine/re">real</a> and <a href="/Documentable/integration-test/routine/im">imaginary</a> portions of the complex number.</p>
+<p>To create a <a href="/Documentable/integration-test/type/Complex">Complex</a>, you can use the <a href="/Documentable/integration-test/routine/i">postfix <code>i</code> operator</a> on any other non-complex number, optionally setting the real part with addition. To use the <code>i</code> operator on <code>NaN</code> or <code>Inf</code> literals, separate it from them with a backslash.</p>
+<pre class="pod-block-code">say 42i;      # OUTPUT: «0+42i␤»
+say 73+42i;   # OUTPUT: «73+42i␤»
+say 73+Inf\i; # OUTPUT: «73+Inf\i␤»
+</pre>
+<p>Keep in mind the above syntax is just an addition expression and precedence rules apply. It also cannot be used in places that forbid expressions, such as literals in routine parameters.</p>
+<pre class="pod-block-code"># Precedence of `*` is higher than that of `+`
+say 2 * 73+10i; # OUTPUT: «146+10i␤»
+</pre>
+<p>To avoid these issues, you can choose to use the <a href="/Documentable/integration-test/type/Complex">Complex</a> literal syntax instead, which involves surrounding the real and imaginary parts with angle brackets, <em>without any spaces</em>:</p>
+<pre class="pod-block-code">say 2 * &lt;73+10i&gt;; # OUTPUT: «146+20i␤»
+
+multi how-is-it (&lt;2+4i&gt;) { say &quot;that&#39;s my favorite number!&quot; }
+multi how-is-it (|)      { say &quot;meh&quot;                        }
+how-is-it 2+4i;  # OUTPUT: «that&#39;s my favorite number!␤»
+how-is-it 3+2i;  # OUTPUT: «meh␤»
+</pre>
+<h1 id="Rational"><a class="u" href="#___top" title="go to top of document"><code>Rational</code></a></h1>
+<p>The types that do the <a href="/Documentable/integration-test/type/Rational">Rational</a> role offer high-precision and arbitrary-precision decimal numbers. Since the higher the precision the larger the performance penalty, the <a href="/Documentable/integration-test/type/Rational">Rational</a> types come in two flavors: <a href="/Documentable/integration-test/type/Rat">Rat</a> and <a href="/Documentable/integration-test/type/FatRat">FatRat</a>. The <a href="/Documentable/integration-test/type/Rat">Rat</a> is the most often-used variant that degrades into a <a href="/Documentable/integration-test/type/Num">Num</a> in most cases, when it can no longer hold all of the requested precision. The <a href="/Documentable/integration-test/type/FatRat">FatRat</a> is the arbitrary-precision variant that keeps growing to provide all of the requested precision.</p>
+<h2 id="Rat"><a class="u" href="#___top" title="go to top of document"><code>Rat</code></a></h2>
+<p>The most common of <a href="/Documentable/integration-test/type/Rational">Rational</a> types. It supports rationals with denominators as large as 64 bits (after reduction of the fraction to the lowest denominator). <code>Rat</code> objects with larger denominators can be created directly, however, when <code>Rat</code>s with such denominators are the result of mathematical operations, they degrade to a <a href="/Documentable/integration-test/type/Num">Num</a> object.</p>
+<p>The <a href="/Documentable/integration-test/type/Rat">Rat</a> literals use syntax similar to <a href="/Documentable/integration-test/type/Num">Num</a> literals in many other languages, using the dot to indicate the number is a decimal:</p>
+<pre class="pod-block-code">say .1 + .2 == .3; # OUTPUT: «True␤»
+</pre>
+<p>If you try to execute a statement similar to the above in many common languages, you&#39;ll get <code>False</code> as the answer, due to imprecision of floating point math. To get the same result in Raku, you&#39;d have to use <a href="/Documentable/integration-test/type/Num">Num</a> literals instead:</p>
+<pre class="pod-block-code">say .1e0 + .2e0 == .3e0; # OUTPUT: «False␤»
+</pre>
+<p>You can also use <a href="/Documentable/integration-test/routine/$SOLIDUS"><code>/</code> division operator</a> with <a href="/Documentable/integration-test/type/Int">Int</a> or <a href="/Documentable/integration-test/type/Rat">Rat</a> objects to produce a <a href="/Documentable/integration-test/type/Rat">Rat</a>:</p>
+<pre class="pod-block-code">say 3/4;     # OUTPUT: «0.75␤»
+say 3/4.2;   # OUTPUT: «0.714286␤»
+say 1.1/4.2; # OUTPUT: «0.261905␤»
+</pre>
+<p>Keep in mind the above syntax is just a division expression and precedence rules apply. It also cannot be used in places that forbid expressions, such as literals in routine parameters.</p>
+<pre class="pod-block-code"># Precedence of power operators is higher than division
+say 3/2²; # OUTPUT: «0.75␤»
+</pre>
+<p>To avoid these issues, you can choose to use the <a href="/Documentable/integration-test/type/Rational">Rational</a> literal syntax instead, which involves surrounding the numerator and denominator with angle brackets, <em>without any spaces</em>:</p>
+<pre class="pod-block-code">say &lt;3/2&gt;²; # OUTPUT: «2.25␤»
+
+multi how-is-it (&lt;3/2&gt;) { say &quot;that&#39;s my favorite number!&quot; }
+multi how-is-it (|)     { say &quot;meh&quot;                        }
+how-is-it 3/2;  # OUTPUT: «that&#39;s my favorite number!␤»
+how-is-it 1/3;  # OUTPUT: «meh␤»
+</pre>
+<p>Lastly, any Unicode character with property <code>No</code> that represents a fractional number can be used as a <a href="/Documentable/integration-test/type/Rat">Rat</a> literal:</p>
+<pre class="pod-block-code">say ½ + ⅓ + ⅝ + ⅙; # OUTPUT: «1.625␤»
+</pre>
+<h3 id="Degradation_to_Num"><a class="u" href="#___top" title="go to top of document">Degradation to <code>Num</code></a></h3>
+<p>If a <em>mathematical operation</em> that produces a <a href="/Documentable/integration-test/type/Rat">Rat</a> answer would produce a <a href="/Documentable/integration-test/type/Rat">Rat</a> with denominator larger than 64 bits, that operation would instead return a <a href="/Documentable/integration-test/type/Num">Num</a> object. When <em>constructing</em> a <a href="/Documentable/integration-test/type/Rat">Rat</a> (i.e. when it is not a result of some mathematical expression), however, a larger denominator can be used:</p>
+<pre class="pod-block-code">my $a = 1 / (2⁶⁴ - 1);
+say $a;                   # OUTPUT: «0.000000000000000000054␤»
+say $a.^name;             # OUTPUT: «Rat␤»
+say $a.nude;              # OUTPUT: «(1 18446744073709551615)␤»
+
+my $b = 1 / 2⁶⁴;
+say $b;                   # OUTPUT: «5.421010862427522e-20␤»
+say $b.^name;             # OUTPUT: «Num␤»
+
+my $c = Rat.new(1, 2⁶⁴);
+say $c;                   # OUTPUT: «0.000000000000000000054␤»
+say $c.^name;             # OUTPUT: «Rat␤»
+say $c.nude;              # OUTPUT: «(1 18446744073709551616)␤»
+say $c.Num;               # OUTPUT: «5.421010862427522e-20␤»</pre>
+<h2 id="FatRat"><a class="u" href="#___top" title="go to top of document"><code>FatRat</code></a></h2>
+<p>The last <a href="/Documentable/integration-test/type/Rational">Rational</a> type—<a href="/Documentable/integration-test/type/FatRat">FatRat</a>—keeps all of the precision you ask of it, storing the numerator and denominator as two <a href="/Documentable/integration-test/type/Int">Int</a> objects. A <a href="/Documentable/integration-test/type/FatRat">FatRat</a> is more infectious than a <a href="/Documentable/integration-test/type/Rat">Rat</a>, so many math operations with a <a href="/Documentable/integration-test/type/FatRat">FatRat</a> will produce another <a href="/Documentable/integration-test/type/FatRat">FatRat</a>, preserving all of the available precision. Where a <a href="/Documentable/integration-test/type/Rat">Rat</a> degrades to a <a href="/Documentable/integration-test/type/Num">Num</a>, math with a <a href="/Documentable/integration-test/type/FatRat">FatRat</a> keeps chugging along:</p>
+<pre class="pod-block-code">say ((42 + Rat.new(1,2))/999999999999999999).^name;         # OUTPUT: «Rat␤»
+say ((42 + Rat.new(1,2))/9999999999999999999).^name;        # OUTPUT: «Num␤»
+say ((42 + FatRat.new(1,2))/999999999999999999).^name;      # OUTPUT: «FatRat␤»
+say ((42 + FatRat.new(1,2))/99999999999999999999999).^name; # OUTPUT: «FatRat␤»
+</pre>
+<p>There&#39;s no special operator or syntax available for construction of <a href="/Documentable/integration-test/type/FatRat">FatRat</a> objects. Simply use <a href="/Documentable/integration-test/type/FatRat#(Rational)_method_new"><code>FatRat.new</code> method</a>, giving numerator as first positional argument and denominator as the second.</p>
+<p>If your program requires a significant amount of <a href="/Documentable/integration-test/type/FatRat">FatRat</a> creation, you could create your own custom operator:</p>
+<pre class="pod-block-code">sub infix:&lt;🙼&gt; { FatRat.new: $^a, $^b }
+say (1🙼3).raku; # OUTPUT: «FatRat.new(1, 3)␤»
+</pre>
+<h2 id="Printing_rationals"><a class="u" href="#___top" title="go to top of document">Printing rationals</a></h2>
+<p>Keep in mind that output routines like <a href="/Documentable/integration-test/routine/say">say</a> or <a href="/Documentable/integration-test/routine/put">put</a> do not try very hard to distinguish between how <a href="/Documentable/integration-test/type/Numeric">Numeric</a> types are output and may choose to display a <a href="/Documentable/integration-test/type/Num">Num</a> as an <a href="/Documentable/integration-test/type/Int">Int</a> or a <a href="/Documentable/integration-test/type/Rat">Rat</a> number. For a more definitive string to output, use the <a href="/Documentable/integration-test/routine/perl">perl</a> method:</p>
+<pre class="pod-block-code">say 1.0;        # OUTPUT: «1␤»
+say ⅓;          # OUTPUT: «0.333333␤»
+say 1.0.raku;   # OUTPUT: «1.0␤»
+say ⅓.raku;     # OUTPUT: «&lt;1/3&gt;␤»
+</pre>
+<p>For even more information, you may choose to see the <a href="/Documentable/integration-test/type/Rational">Rational</a> object in the <a href="/Documentable/integration-test/routine/nude">nude</a>, displaying its <strong>nu</strong>merator and <strong>de</strong>nominator:</p>
+<pre class="pod-block-code">say ⅓;          # OUTPUT: «0.333333␤»
+say 4/2;        # OUTPUT: «2␤»
+say ⅓.raku;     # OUTPUT: «&lt;1/3&gt;␤»
+say &lt;4/2&gt;.nude; # OUTPUT: «(2 1)␤»
+</pre>
+<h1 id="Division_by_zero"><a class="u" href="#___top" title="go to top of document">Division by zero</a></h1>
+<p>In many languages division by zero is an immediate exception. In Raku, what happens depends on what you&#39;re dividing and how you use the result.</p>
+<p>Raku follows <a href="https://en.wikipedia.org/wiki/IEEE_754">IEEE 754-2008 Standard for Floating-Point Arithmetic</a>, but for historical reasons 6.c and 6.d language versions do not comply fully. <a href="/Documentable/integration-test/type/Num">Num</a> division by zero produces a <a href="/Documentable/integration-test/type/Failure">Failure</a>, while <a href="/Documentable/integration-test/type/Complex">Complex</a> division by zero produces <code>NaN</code> components, regardless of what the numerator is.</p>
+<p>As of 6.e language, both <a href="/Documentable/integration-test/type/Num">Num</a> and <a href="/Documentable/integration-test/type/Complex">Complex</a> division by zero will produce a -<a href="/Documentable/integration-test/type/Num#Inf">Inf</a>, <code>+Inf</code>, or <a href="/Documentable/integration-test/type/Num#NaN">NaN</a> depending on whether the numerator was negative, positive, or zero, respectively (for <a href="/Documentable/integration-test/type/Complex">Complex</a> the real and imaginary components are <a href="/Documentable/integration-test/type/Num">Num</a> and are considered separately).</p>
+<p>Division of <a href="/Documentable/integration-test/type/Int">Int</a> numerics produces a <a href="/Documentable/integration-test/type/Rat">Rat</a> object (or a <a href="/Documentable/integration-test/type/Num">Num</a>, if after reduction the denominator is larger than 64-bits, which isn&#39;t the case when you&#39;re dividing by zero). This means such division never produces an <a href="/Documentable/integration-test/type/Exception">Exception</a> or a <a href="/Documentable/integration-test/type/Failure">Failure</a>. The result is a Zero-Denominator Rational, which can be explosive.</p>
+<h2 id="Zero-denominator_rationals"><a class="u" href="#___top" title="go to top of document">Zero-denominator rationals</a></h2>
+<p>A Zero-Denominator Rational is a numeric that does role <a href="/Documentable/integration-test/type/Rational">Rational</a>, which among core numerics would be <a href="/Documentable/integration-test/type/Rat">Rat</a> and <a href="/Documentable/integration-test/type/FatRat">FatRat</a> objects, which has denominator of zero. The numerator of such Rationals is normalized to <code>-1</code>, <code>0</code>, or <code>1</code> depending on whether the original numerator is negative, zero or positive, respectively.</p>
+<p>Operations that can be performed without requiring actual division to occur are non-explosive. For example, you can separately examine <a href="/Documentable/integration-test/routine/numerator">numerator</a> and <a href="/Documentable/integration-test/routine/denominator">denominator</a> in the <a href="/Documentable/integration-test/routine/nude">nude</a> or perform mathematical operations without any exceptions or failures popping up.</p>
+<p>Converting zero-denominator rationals to <a href="/Documentable/integration-test/type/Num">Num</a> follows the <a href="https://en.wikipedia.org/wiki/IEEE_754">IEEE</a> conventions, and the result is a <code>-Inf</code>, <code>Inf</code>, or <code>NaN</code>, depending on whether the numerator is negative, positive, or zero, respectively. The same is true going the other way: converting <code>±Inf</code>/<code>NaN</code> to one of the <a href="/Documentable/integration-test/type/Rational">Rational</a> types will produce a zero-denominator rational with an appropriate numerator:</p>
+<pre class="pod-block-code">say  &lt;1/0&gt;.Num;   # OUTPUT: «Inf␤»
+say &lt;-1/0&gt;.Num;   # OUTPUT: «-Inf␤»
+say  &lt;0/0&gt;.Num;   # OUTPUT: «NaN␤»
+say Inf.Rat.nude; # OUTPUT: «(1 0)␤»
+</pre>
+<p>All other operations that require non-<a href="https://en.wikipedia.org/wiki/IEEE_754">IEEE</a> division of the numerator and denominator to occur will result in <code>X::Numeric::DivideByZero</code> exception to be thrown. The most common of such operations would likely be trying to print or stringify a zero-denominator rational:</p>
+<pre class="pod-block-code">say 0/0;
+# OUTPUT:
+# Attempt to divide by zero using div
+#  in block &lt;unit&gt; at -e line 1
+</pre>
+<h1 id="Allomorphs"><a class="u" href="#___top" title="go to top of document">Allomorphs</a></h1>
+<p><a href="/Documentable/integration-test/language/glossary#index-entry-Allomorph">Allomorphs</a> are subclasses of two types that can behave as either of them. For example, the allomorph <a href="/Documentable/integration-test/type/IntStr">IntStr</a> is the subclass of <a href="/Documentable/integration-test/type/Int">Int</a> and <a href="/Documentable/integration-test/type/Str">Str</a> types and will be accepted by any type constraint that requires an <a href="/Documentable/integration-test/type/Int">Int</a> or <a href="/Documentable/integration-test/type/Str">Str</a> object.</p>
+<p>Allomorphs can be created using <a href="/Documentable/integration-test/language/quoting#Word_quoting:_<_>">angle brackets</a>, either used standalone or as part of a hash key lookup; directly using method <code>.new</code> and are also provided by some constructs such as parameters of <a href="/Documentable/integration-test/language/functions#sub_MAIN"><code>sub MAIN</code></a>.</p>
+<pre class="pod-block-code">say &lt;42&gt;.^name;                 # OUTPUT: «IntStr␤»
+say &lt;42e0&gt;.^name;               # OUTPUT: «NumStr␤»
+say &lt; 42+42i&gt;.^name;            # OUTPUT: «ComplexStr␤»
+say &lt; 1/2&gt;.^name;               # OUTPUT: «RatStr␤»
+say &lt;0.5&gt;.^name;                # OUTPUT: «RatStr␤»
+
+@*ARGS = &quot;42&quot;;
+sub MAIN($x) { say $x.^name }   # OUTPUT: «IntStr␤»
+
+say IntStr.new(42, &quot;42&quot;).^name; # OUTPUT: «IntStr␤»
+</pre>
+<p>A couple of constructs above have a space after the opening angle bracket. That space isn&#39;t accidental. Numerics that are often written using an operator, such as <code>1/2</code> (<a href="/Documentable/integration-test/type/Rat">Rat</a>, division operator) and <code>1+2i</code> (<a href="/Documentable/integration-test/type/Complex">Complex</a>, addition) can be written as a literal that doesn&#39;t involve the use of an operator: angle brackets <em>without</em> any spaces between the angle brackets and the characters inside. By adding spaces within the angle brackets, we tell the compiler that not only we want a <a href="/Documentable/integration-test/type/Rat">Rat</a> or <a href="/Documentable/integration-test/type/Complex">Complex</a> literal, but we also want it to be an allomorph: the <a href="/Documentable/integration-test/type/RatStr">RatStr</a> or <a href="/Documentable/integration-test/type/ComplexStr">ComplexStr</a>, in this case.</p>
+<p>If the numeric literal doesn&#39;t use any operators, then writing it inside the angle brackets, even without including any spaces within, would produce the allomorph. (Logic: if you didn&#39;t want the allomorph, you wouldn&#39;t use the angle brackets. The same isn&#39;t true for operator-using numbers as some constructs, such as signature literals, do not let you use operators, so you can&#39;t just omit angle brackets for such numeric literals).</p>
+<h2 id="Available_allomorphs"><a class="u" href="#___top" title="go to top of document">Available allomorphs</a></h2>
+<p>The core language offers the following allomorphs:</p>
+<table class="pod-table">
+<thead><tr>
+<th>Type</th> <th>Allomorph of</th> <th>Example</th>
+</tr></thead>
+<tbody>
+<tr> <td>IntStr</td> <td>Int and Str</td> <td>&lt;42&gt;</td> </tr> <tr> <td>NumStr</td> <td>Num and Str</td> <td>&lt;42e0&gt;</td> </tr> <tr> <td>ComplexStr</td> <td>Complex and Str</td> <td>&lt; 1+2i&gt;</td> </tr> <tr> <td>RatStr</td> <td>Rat and Str</td> <td>&lt;1.5&gt;</td> </tr>
+</tbody>
+</table><p>Note: there is no <code>FatRatStr</code> type.</p>
+<h2 id="Coercion_of_allomorphs"><a class="u" href="#___top" title="go to top of document">Coercion of allomorphs</a></h2>
+<p>Keep in mind that allomorphs are simply subclasses of the types they represent. Just as a variable or parameter type-constrained to <code>Foo</code> can accept any subclass of <code>Foo</code>, so will a variable or parameter type-constrained to <a href="/Documentable/integration-test/type/Int">Int</a> will accept an <a href="/Documentable/integration-test/type/IntStr">IntStr</a> allomorph:</p>
+<pre class="pod-block-code">sub foo(Int $x) { say $x.^name }
+foo &lt;42&gt;;                          # OUTPUT: «IntStr␤»
+my Num $y = &lt;42e0&gt;;
+say $y.^name;                      # OUTPUT: «NumStr␤»
+</pre>
+<p>This, of course, also applies to parameter <a href="/Documentable/integration-test/type/Signature#Coercion_type">coercers</a>:</p>
+<pre class="pod-block-code">sub foo(Int(Cool) $x) { say $x.^name }
+foo &lt;42&gt;;  # OUTPUT: «IntStr␤»
+</pre>
+<p>The given allomorph is <em>already</em> an object of type <a href="/Documentable/integration-test/type/Int">Int</a>, so it does not get converted to a &quot;plain&quot; <a href="/Documentable/integration-test/type/Int">Int</a> in this case.</p>
+<p>Of course, the power of allomorphs would be severely diminished if there were no way to &quot;collapse&quot; them to one of their components. Thus, if you explicitly call a method with the name of the type to coerce to, you&#39;ll get just that component. The same applies to any proxy methods, such as calling method <a href="/Documentable/integration-test/routine/Numeric"><code>.Numeric</code></a> instead of <a href="/Documentable/integration-test/routine/Int"><code>.Int</code></a> or using the <a href="/Documentable/integration-test/routine/~"><code>prefix:&lt;~&gt; </code> operator</a> instead of <a href="/Documentable/integration-test/routine/Str"><code>.Str</code></a> method call.</p>
+<pre class="pod-block-code">my $al := IntStr.new: 42, &quot;forty two&quot;;
+say $al.Str;  # OUTPUT: «forty two␤»
+say +$al;     # OUTPUT: «42␤»
+
+say &lt;1/99999999999999999999&gt;.Rat.^name;    # OUTPUT: «Rat␤»
+say &lt;1/99999999999999999999&gt;.FatRat.^name; # OUTPUT: «FatRat␤»
+</pre>
+<p>A handy way to coerce a whole list of allomorphs is by applying the <a href="/Documentable/integration-test/language/operators#Hyper_operators">hyper operator</a> to the appropriate prefix:</p>
+<pre class="pod-block-code">say map *.^name,   &lt;42 50e0 100&gt;;  # OUTPUT: «(IntStr NumStr IntStr)␤»
+say map *.^name, +«&lt;42 50e0 100&gt;;  # OUTPUT: «(Int Num Int)␤»
+say map *.^name, ~«&lt;42 50e0 100&gt;;  # OUTPUT: «(Str Str Str)␤»
+</pre>
+<h2 id="Object_identity"><a class="u" href="#___top" title="go to top of document">Object identity</a></h2>
+<p>The above discussion on coercing allomorphs becomes more important when we consider object identity. Some constructs utilize it to ascertain whether two objects are &quot;the same&quot;. And while to humans an allomorphic <code>42</code> and regular <code>42</code> might appear &quot;the same&quot;, to those constructs, they&#39;re entirely different objects:</p>
+<pre class="pod-block-code"># &quot;42&quot; shows up twice in the result: 42 and &lt;42&gt; are different objects:
+say unique 1, 1, 1, 42, &lt;42&gt;; # OUTPUT: «(1 42 42)␤»
+# Use a different operator to `unique` with:
+say unique :with(&amp;[==]), 1, 1, 1, 42, &lt;42&gt;; # OUTPUT: «(1 42)␤»
+# Or coerce the input instead (faster than using a different `unique` operator):
+say unique :as(*.Int), 1, 1, 1, 42, &lt;42&gt;; # OUTPUT: «(1 42)␤»
+say unique +«(1, 1, 1, 42, &lt;42&gt;);         # OUTPUT: «(1 42)␤»
+
+# Parameterized Hash with `Any` keys does not stringify them; our key is of type `Int`:
+my %h{Any} = 42 =&gt; &quot;foo&quot;;
+# But we use the allomorphic key of type `IntStr`, which is not in the Hash:
+say %h&lt;42&gt;:exists;           # OUTPUT: «False␤»
+# Must use curly braces to avoid the allomorph:
+say %h{42}:exists;           # OUTPUT: «True␤»
+
+# We are using a set operator to look up an `Int` object in a list of `IntStr` objects:
+say 42 ∈ &lt;42 100 200&gt;; # OUTPUT: «False␤»
+# Convert it to an allomorph:
+say &lt;42&gt; ∈ &lt;42 100 200&gt;; # OUTPUT: «True␤»
+# Or convert the items in the list to plain `Int` objects:
+say 42 ∈ +«&lt;42 100 200&gt;; # OUTPUT: «True␤»
+</pre>
+<p>Be mindful of these object identity differences and coerce your allomorphs as needed.</p>
+<h1 id="Native_numerics"><a class="u" href="#___top" title="go to top of document">Native numerics</a></h1>
+<p>As the name suggests, native numerics offer access to native numerics—i.e. those offered directly by your hardware. This in turn offers two features: overflow/underflow and better performance.</p>
+<p><strong>NOTE:</strong> at the time of this writing (2018.05), certain implementations (such as Rakudo) offer somewhat spotty details on native types, such as whether <code>int64</code> is available and is of 64-bit size on 32-bit machines, and how to detect when your program is running on such hardware.</p>
+<h2 id="Available_native_numerics"><a class="u" href="#___top" title="go to top of document">Available native numerics</a></h2>
+<table class="pod-table">
+<thead><tr>
+<th>Native type</th> <th>Base numeric</th> <th>Size</th>
+</tr></thead>
+<tbody>
+<tr> <td>int</td> <td>integer</td> <td>64-bits</td> </tr> <tr> <td>int8</td> <td>integer</td> <td>8-bits</td> </tr> <tr> <td>int16</td> <td>integer</td> <td>16-bits</td> </tr> <tr> <td>int32</td> <td>integer</td> <td>32-bits</td> </tr> <tr> <td>int64</td> <td>integer</td> <td>64-bits</td> </tr> <tr> <td>uint</td> <td>unsigned integer</td> <td>64-bits</td> </tr> <tr> <td>uint8</td> <td>unsigned integer</td> <td>8-bits</td> </tr> <tr> <td>uint16</td> <td>unsigned integer</td> <td>16-bits</td> </tr> <tr> <td>uint32</td> <td>unsigned integer</td> <td>32-bits</td> </tr> <tr> <td>uint64</td> <td>unsigned integer</td> <td>64-bits</td> </tr> <tr> <td>num</td> <td>floating point</td> <td>64-bits</td> </tr> <tr> <td>num32</td> <td>floating point</td> <td>32-bits</td> </tr> <tr> <td>num64</td> <td>floating point</td> <td>64-bits</td> </tr> <tr> <td>atomicint</td> <td>integer</td> <td>sized to offer CPU-provided atomic operations. (typically 64 bits on 64-bit platforms and 32 bits on 32-bit ones)</td> </tr>
+</tbody>
+</table><h2 id="Creating_native_numerics"><a class="u" href="#___top" title="go to top of document">Creating native numerics</a></h2>
+<p>To create a natively-typed variable or parameter, simply use the name of one of the available numerics as the type constraint:</p>
+<pre class="pod-block-code">my int32 $x = 42;
+sub foo(num $y) {}
+class { has int8 $.z }
+</pre>
+<p>At times, you may wish to coerce some value to a native type without creating any usable variables. There are no <code>.int</code> or similar coercion methods (method calls are latebound, so they&#39;re not well-suited for this purpose). Instead, simply use an anonymous variable:</p>
+<pre class="pod-block-code">some-native-taking-sub (my int $ = $y), (my int32 $ = $z)
+</pre>
+<h2 id="Overflow/Underflow"><a class="u" href="#___top" title="go to top of document">Overflow/Underflow</a></h2>
+<p>Trying to <strong>assign</strong> a value that does not fit into a particular native type, produces an exception. This includes attempting to give too large an argument to a native parameter:</p>
+<pre class="pod-block-code">my int $x = 2¹⁰⁰;
+# OUTPUT:
+# Cannot unbox 101 bit wide bigint into native integer
+#  in block &lt;unit&gt; at -e line 1
+
+sub f(int $x) { $x }; say f 2⁶⁴
+# OUTPUT:
+# Cannot unbox 65 bit wide bigint into native integer
+#   in sub f at -e line 1
+#   in block &lt;unit&gt; at -e line 1
+</pre>
+<p>However, modifying an already-existing value in such a way that it becomes too big/small, produces overflow/underflow behavior:</p>
+<pre class="pod-block-code">my int $x = 2⁶³-1;
+say $x;             # OUTPUT: «9223372036854775807␤»
+say ++$x;           # OUTPUT: «-9223372036854775808␤»
+
+my uint8 $x;
+say $x;             # OUTPUT: «0␤»
+say $x -= 100;      # OUTPUT: «156␤»
+</pre>
+<p>Creating objects that utilize native types does not involve direct assignment by the programmer; that is why these constructs offer overflow/underflow behavior instead of throwing exceptions.</p>
+<pre class="pod-block-code">say Buf.new(1000, 2000, 3000).List; # OUTPUT: «(232 208 184)␤»
+say my uint8 @a = 1000, 2000, 3000; # OUTPUT: «232 208 184␤»
+</pre>
+<h2 id="Auto-boxing"><a class="u" href="#___top" title="go to top of document">Auto-boxing</a></h2>
+<p>While they can be referred to as &quot;native <em>types</em>&quot;, native numerics are not actually classes that have any sort of methods available. However, you <em>can</em> call any of the methods available on non-native versions of these numerics. What&#39;s going on?</p>
+<pre class="pod-block-code">my int8 $x = -42;
+say $x.abs; # OUTPUT: «42␤»
+</pre>
+<p>This behavior is known as &quot;auto-boxing&quot;. The compiler automatically &quot;boxes&quot; the native type into a full-featured higher-level type with all the methods. In other words, the <code>int8</code> above was automatically converted to an <a href="/Documentable/integration-test/type/Int">Int</a> and it&#39;s the <a href="/Documentable/integration-test/type/Int">Int</a> class that then provided the <a href="/Documentable/integration-test/routine/abs">abs</a> method that was called.</p>
+<p>This detail is significant when you&#39;re using native types for performance gains. If the code you&#39;re using results in a lot of auto-boxing being performed you might get <em>worse</em> performance with native types than you would with non-natives:</p>
+<pre class="pod-block-code">my $a = -42;
+my int $a-native = -42;
+{ for ^1000_000 { $a.abs        }; say now - ENTER now } # OUTPUT: «0.38180862␤»
+{ for ^1000_000 { $a-native.abs }; say now - ENTER now } # OUTPUT: «0.938720␤»
+</pre>
+<p>As you can see above, the native variant is more than twice slower. The reason is the method call requires the native type to be boxed, while no such thing is needed in the non-native variant, hence the performance loss.</p>
+<p>In this particular case, we can simply switch to a subroutine form of <a href="/Documentable/integration-test/routine/abs">abs</a>, which can work with native types without boxing them. In other cases, you may need to seek out other solutions to avoid excessive autoboxing, including switching to non-native types for a portion of the code.</p>
+<pre class="pod-block-code">my $a = -42;
+my int $a-native = -42;
+{ for ^1000_000 { abs $a        }; say now - ENTER now } # OUTPUT: «0.38229177␤»
+{ for ^1000_000 { abs $a-native }; say now - ENTER now } # OUTPUT: «0.3088305␤»
+</pre>
+<h2 id="Default_values"><a class="u" href="#___top" title="go to top of document">Default values</a></h2>
+<p>Since there are no classes behind native types, there are no type objects you&#39;d normally get with variables that haven&#39;t been initialized. Thus, native types are automatically initialized to zero. In 6.c language, native floating point types (<code>num</code>, <code>num32</code>, and <code>num64</code>) were initialized to value <code>NaN</code>; in 6.d language the default is <code>0e0</code>.</p>
+<h2 id="Native_dispatch"><a class="u" href="#___top" title="go to top of document">Native dispatch</a></h2>
+<p>It is possible to have native candidates alongside non-native candidates to, for example, offer faster algorithms with native candidates when sizes are predictable, but to fallback to slower non-native alternatives otherwise. The following are the rules concerning multi-dispatch involving native candidates.</p>
+<p>First, the size of the native type does not play a role in dispatch and an <code>int8</code> is considered to be the same as <code>int16</code> or <code>int</code>:</p>
+<pre class="pod-block-code">multi foo(int   $x) { say &quot;int&quot; }
+multi foo(int32 $x) { say &quot;int32&quot; }
+foo my int $x = 42;
+# OUTPUT:
+# Ambiguous call to &#39;foo(Int)&#39;; these signatures all match:
+# :(int $x)
+# :(int32 $x)
+</pre>
+<p>Second, if a routine is an <code>only</code>—i.e. it is not a <a href="/Documentable/integration-test/language/functions#Multi-dispatch"><code>multi</code></a>—that takes a non-native type but a native one was given during the call, or vice-versa, then the argument will be auto-boxed or auto-unboxed to make the call possible. If the given argument is too large to fit into the native parameter, an exception will be thrown:</p>
+<pre class="pod-block-code">-&gt; int {}( 42 );            # OK; auto-unboxing
+-&gt; int {}( 2¹⁰⁰ );          # Too large; exception
+-&gt; Int {}( 2¹⁰⁰ );          # OK; non-native parameter
+-&gt; Int {}( my int $ = 42 ); # OK; auto-boxing
+</pre>
+<p>When it comes to <a href="/Documentable/integration-test/language/functions#Multi-dispatch"><code>multi</code></a> routines, native arguments will always be auto-boxed if no native candidates are available to take them:</p>
+<pre class="pod-block-code">multi foo (Int $x) { $x }
+say foo my int $ = 42; # OUTPUT: «42␤»
+</pre>
+<p>The same luxury is not afforded when going the other way. If only a native candidate is available, a non-native argument will <em>not</em> be auto-unboxed and instead an exception indicating no candidates matched will be thrown (the reason for this asymmetry is a native type can always be boxed, but a non-native may be too large to fit into a native):</p>
+<pre class="pod-block-code">multi f(int $x) { $x }
+my $x = 2;
+say f $x;
+# OUTPUT:
+# Cannot resolve caller f(Int); none of these signatures match:
+#     (int $x)
+#   in block &lt;unit&gt; at -e line 1
+</pre>
+<p>However, this rule is waived if a call is being made where one of the arguments is a native type and another one is a <a href="/Documentable/integration-test/language/syntax#Number_literals">numeric literal</a>:</p>
+<pre class="pod-block-code">multi f(int, int) {}
+f 42, my int $x; # Successful call
+</pre>
+<p>This way you do not have to constantly write, for example, <code>$n +&gt; 2</code> as <code>$n +&gt; (my int $ = 2)</code>. The compiler knows the literal is small enough to fit to a native type and converts it to a native.</p>
+<h2 id="Atomic_operations"><a class="u" href="#___top" title="go to top of document">Atomic operations</a></h2>
+<p>The language offers <a href="/Documentable/integration-test/type/atomicint">some operations</a> that are guaranteed to be performed atomically, i.e. safe to be executed by multiple threads without the need for locking with no risk of data races.</p>
+<p>For such operations, the <a href="/Documentable/integration-test/type/atomicint">atomicint</a> native type is required. This type is similar to a plain native <a href="/Documentable/integration-test/type/int">int</a>, except it is sized such that CPU-provided atomic operations can be performed upon it. On a 32-bit CPU it will typically be 32 bits in size, and on an a 64-bit CPU it will typically be 64 bits in size.</p>
+<pre class="pod-block-code"># !!WRONG!! Might be non-atomic on some systems
+my int $x;
+await ^100 .map: { start $x⚛++ };
+say $x; # OUTPUT: «98␤»
+
+# RIGHT! The use of `atomicint` type guarantees operation is atomic
+my atomicint $x;
+await ^100 .map: { start $x⚛++ };
+say $x; # OUTPUT: «100␤»
+</pre>
+<p>The similarity to <code>int</code> is present in multi dispatch as well: an <code>atomicint</code>, plain <code>int</code>, and the sized <code>int</code> variants are all considered to be the same by the dispatcher and cannot be differentiated through multi-dispatch.</p>
+<h1 id="Numeric_infectiousness"><a class="u" href="#___top" title="go to top of document">Numeric infectiousness</a></h1>
+<p>Numeric &quot;infectiousness&quot; dictates the resultant type when two numerics of different types are involved in some mathematical operations. A type is said to be more infectious than the other type if the result is of that type rather than the type of the other operand. For example, <a href="/Documentable/integration-test/type/Num">Num</a> type is more infectious than an <a href="/Documentable/integration-test/type/Int">Int</a>, thus we can expect <code>42e0 + 42</code> to produce a <a href="/Documentable/integration-test/type/Num">Num</a> as the result.</p>
+<p>The infectiousness is as follows, with the most infectious type listed first:</p>
+<ul><li><p>Complex</p>
+</li>
+<li><p>Num</p>
+</li>
+<li><p>FatRat</p>
+</li>
+<li><p>Rat</p>
+</li>
+<li><p>Int</p>
+</li>
+</ul>
+<pre class="pod-block-code">say (2 + 2e0).^name; # Int + Num =&gt; OUTPUT: «Num␤»
+say (½ + ½).^name; # Rat + Rat =&gt; OUTPUT: «Rat␤»
+say (FatRat.new(1,2) + ½).^name; # FatRat + Rat =&gt; OUTPUT: «FatRat␤»
+</pre>
+<p>The allomorphs have the same infectiousness as their numeric component. Native types get autoboxed and have the same infectiousness as their boxed variant.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/numerics.pod6">https://github.com/Raku/doc/blob/master/doc/Language/numerics.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

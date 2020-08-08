@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>routine push</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/routine.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-sub.html"> Sub </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-method.html"> Method </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-term.html"> Term </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-operator.html"> Operator </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-trait.html"> Trait </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-submethod.html"> Submethod </a>
+            </div></div></div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">routine push</h1>
+        <p class="subtitle"></p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#class_Hash">class Hash</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#(Hash)_method_push">(Hash) method push</a></td></tr>
+                                        <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#class_Any">class Any</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#(Any)_method_push">(Any) method push</a></td></tr>
+         <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#class_Nil">class Nil</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#(Nil)_method_push">(Nil) method push</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#role_Buf">role Buf</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">4.1</td><td class="toc-text"><a href="#(Buf)_method_push">(Buf) method push</a></td></tr>
+    <tr class="toc-level-1"><td class="toc-number">5</td><td class="toc-text"><a href="#class_Array">class Array</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">5.1</td><td class="toc-text"><a href="#(Array)_routine_push">(Array) routine push</a></td></tr>
+                  
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Documentation for routine <code>push</code> assembled from the following types:</p>
+<h1 id="class_Hash"><a class="u" href="#___top" title="go to top of document">class Hash</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Hash#method_push">Hash</a></p>
+<h2 id="(Hash)_method_push"><a href="/Documentable/integration-test/type/Hash#method_push">(Hash) method push</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method push(Hash:D: *@new)</pre>
+<p>Adds the <code>@new</code> elements to the hash with the same semantics as hash assignment, but with three exceptions:</p>
+<ul><li><p>The hash isn&#39;t emptied first, i.e. old pairs are not deleted.</p>
+</li>
+<li><p>If a key already exists in the hash, and the corresponding value is an <a href="/Documentable/integration-test/type/Array">Array</a>, the new value is pushed onto the array (instead of replacing it).</p>
+</li>
+<li><p>If a key already exists in the hash, and the corresponding value is not an <a href="/Documentable/integration-test/type/Array">Array</a>, old and new value are both placed into an array in the place of the old value.</p>
+</li>
+</ul>
+<p>Example:</p>
+<pre class="pod-block-code">my %h  = a =&gt; 1;
+%h.push: (a =&gt; 1);              # a =&gt; [1,1]
+%h.push: (a =&gt; 1) xx 3 ;        # a =&gt; [1,1,1,1,1]
+%h.push: (b =&gt; 3);              # a =&gt; [1,1,1,1,1], b =&gt; 3
+%h.push(&#39;c&#39; =&gt; 4);              # a =&gt; [1,1,1,1,1], b =&gt; 3, c =&gt; 4
+push %h, &#39;d&#39; =&gt; 5;              # a =&gt; [1,1,1,1,1], b =&gt; 3, c =&gt; 4, d =&gt; 5</pre>
+<p>Please note that <code>Pair</code>s or <a href="/Documentable/integration-test/language/glossary#index-entry-Colon_Pair">colon pairs</a> as arguments to push will be treated as extra named arguments and as such wont end up the <code>Hash</code>. The same applies to the sub <code>push</code>.</p>
+<pre class="pod-block-code">my %h .= push(e =&gt; 6);
+push %h, f =&gt; 7;
+say %h.raku;
+# OUTPUT: «{}␤»</pre>
+<p>Also note that push can be used as a replacement for assignment during hash initialization very useful ways. Take for instance the case of an inverted index:</p>
+<pre class="pod-block-code">my %wc = &#39;hash&#39; =&gt; 323, &#39;pair&#39; =&gt; 322, &#39;pipe&#39; =&gt; 323;
+(my %inv).push: %wc.invert;
+say %inv;                     # OUTPUT: «{322 =&gt; pair, 323 =&gt; [pipe hash]}␤»</pre>
+<p>Note that such an initialization could also be written as</p>
+<pre class="pod-block-code">my %wc = &#39;hash&#39; =&gt; 323, &#39;pair&#39; =&gt; 322, &#39;pipe&#39; =&gt; 323;
+my %inv .= push: %wc.invert;</pre>
+<p><strong>Note:</strong> Compared to <a href="/Documentable/integration-test/routine/append"><code>append</code></a>, <code>push</code> will add the given value as is, whereas <code>append</code> will <a href="/Documentable/integration-test/routine/slip"><code>slip</code></a> it in:</p>
+<pre class="pod-block-code">my %ha = :a[42, ]; %ha.push: &quot;a&quot; =&gt; &lt;a b c a&gt;;
+say %ha; # OUTPUT: «{a =&gt; [42 (a b c a)]}␤»
+
+my %hb = :a[42, ]; %hb.append: &quot;a&quot; =&gt; &lt;a b c a&gt;;
+say %hb; # OUTPUT: «{a =&gt; [42 a b c a]}␤»</pre>
+<h1 id="class_Any"><a class="u" href="#___top" title="go to top of document">class Any</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Any#method_push">Any</a></p>
+<h2 id="(Any)_method_push"><a href="/Documentable/integration-test/type/Any#method_push">(Any) method push</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method push(|values --&gt; Positional:D)</pre>
+<p>The method push is defined for undefined invocants and allows for autovivifying undefined to an empty <a href="/Documentable/integration-test/type/Array">Array</a>, unless the undefined value implements <a href="/Documentable/integration-test/type/Positional">Positional</a> already. The argument provided will then be pushed into the newly created Array.</p>
+<pre class="pod-block-code">my %h;
+say %h&lt;a&gt;;     # OUTPUT: «(Any)␤»      &lt;-- Undefined
+%h&lt;a&gt;.push(1); # .push on Any
+say %h;        # OUTPUT: «{a =&gt; [1]}␤» &lt;-- Note the Array</pre>
+<h1 id="class_Nil"><a class="u" href="#___top" title="go to top of document">class Nil</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Nil#method_push">Nil</a></p>
+<h2 id="(Nil)_method_push"><a href="/Documentable/integration-test/type/Nil#method_push">(Nil) method push</a></h2>
+<pre class="pod-block-code">method push(*@)</pre>
+<p>Warns the user that they tried to push onto a <code>Nil</code> or derived type object.</p>
+<h1 id="role_Buf"><a class="u" href="#___top" title="go to top of document">role Buf</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Buf#method_push">Buf</a></p>
+<h2 id="(Buf)_method_push"><a href="/Documentable/integration-test/type/Buf#method_push">(Buf) method push</a></h2>
+<pre class="pod-block-code">method push( $elems )</pre>
+<p>Adds elements at the end of the buffer</p>
+<pre class="pod-block-code">my @φ =  1,1, * + * … ∞;
+my $bú = Buf.new( @φ[^5] );
+$bú.push( @φ[5] );
+say $bú.raku; # OUTPUT: «Buf.new(1,1,2,3,5,8)»</pre>
+<h1 id="class_Array"><a class="u" href="#___top" title="go to top of document">class Array</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Array#routine_push">Array</a></p>
+<h2 id="(Array)_routine_push"><a href="/Documentable/integration-test/type/Array#routine_push">(Array) routine push</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub    push(Array:D, **@values --&gt; Array:D)
+multi method push(Array:D: **@values --&gt; Array:D)</pre>
+<p>Adds the <code>@values</code> to the end of the array, and returns the modified array. Throws for lazy arrays.</p>
+<p>Example:</p>
+<pre class="pod-block-code">my @foo = &lt;a b c&gt;;
+@foo.push: &#39;d&#39;;
+say @foo;                   # OUTPUT: «[a b c d]␤»</pre>
+<p>Note that <code>push</code> does not attempt to flatten its argument list. If you pass an array or list as the thing to push, it becomes one additional element:</p>
+<pre class="pod-block-code">my @a = &lt;a b c&gt;;
+my @b = &lt;d e f&gt;;
+@a.push: @b;
+say @a.elems;               # OUTPUT: «4␤»
+say @a[3].join;             # OUTPUT: «def␤»</pre>
+<p>Only if you supply multiple values as separate arguments to <code>push</code> are multiple values added to the array:</p>
+<pre class="pod-block-code">my @a = &#39;1&#39;;
+my @b = &lt;a b&gt;;
+my @c = &lt;E F&gt;;
+@a.push: @b, @c;
+say @a.elems;                # OUTPUT: «3␤»</pre>
+<p>See <a href="#method_append">method append</a> for when you want to append multiple values that are stored in a single array.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

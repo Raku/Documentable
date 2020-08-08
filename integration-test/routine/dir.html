@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>routine dir</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/routine.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-sub.html"> Sub </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-method.html"> Method </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-term.html"> Term </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-operator.html"> Operator </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-trait.html"> Trait </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-submethod.html"> Submethod </a>
+            </div></div></div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">routine dir</h1>
+        <p class="subtitle"></p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#class_IO::Path">class IO::Path</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#(IO::Path)_routine_dir">(IO::Path) routine dir</a></td></tr>
+                                                           
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Documentation for routine <code>dir</code> assembled from the following types:</p>
+<h1 id="class_IO::Path"><a class="u" href="#___top" title="go to top of document">class IO::Path</a></h1>
+<p>From <a href="/Documentable/integration-test/type/IO::Path#routine_dir">IO::Path</a></p>
+<h2 id="(IO::Path)_routine_dir"><a href="/Documentable/integration-test/type/IO::Path#routine_dir">(IO::Path) routine dir</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub dir(*%_)
+multi sub dir(IO::Path:D $path, |c)
+multi sub dir(IO()       $path, |c)
+method dir(IO::Path:D: Mu :$test = $*SPEC.curupdir)</pre>
+<p>Returns the contents of a directory as a lazy list of <code>IO::Path</code> objects representing relative paths, filtered by <a href="/Documentable/integration-test/language/operators#infix_~~">smartmatching</a> their names (as strings) against the <code>:test</code> parameter. The path of returned files will be absolute or relative depending on what <code>$path</code> is.</p>
+<p>Since the tests are performed against <code>Str</code> arguments, not <code>IO</code>, the tests are executed in the <code>$*CWD</code>, instead of the target directory. When testing against file test operators, this won&#39;t work:</p>
+<pre class="pod-block-code">dir(&#39;mydir&#39;, test =&gt; { .IO.d })</pre>
+<p>while this will:</p>
+<pre class="pod-block-code">dir(&#39;mydir&#39;, test =&gt; { &quot;mydir/$_&quot;.IO.d })</pre>
+<p><strong>NOTE:</strong> a <code>dir</code> call opens a directory for reading, which counts towards maximum per-process open files for your program. Be sure to exhaust returned <a href="/Documentable/integration-test/type/Seq">Seq</a> before doing something like recursively performing more <code>dir</code> calls. You can exhaust it by assigning to a <code>@-</code>sigiled variable or simply looping over it. Note how examples below push further dirs to look through into an <a href="/Documentable/integration-test/type/Array">Array</a>, rather than immediately calling <code>dir</code> on them. See also <a href="https://modules.raku.org/dist/IO::Dir"><code>IO::Dir</code> module</a> that gives you finer control over closing dir handles.</p>
+<p>Examples:</p>
+<pre class="pod-block-code"># To iterate over the contents of the current directory:
+for dir() -&gt; $file {
+    say $file;
+}
+
+# As before, but include even &#39;.&#39; and &#39;..&#39; which are filtered out by
+# the default :test matcher:
+for dir(test =&gt; *) -&gt; $file {
+    say $file;
+}
+
+# To get the names of all .jpg and .jpeg files in the home directory of the current user:
+my @jpegs = $*HOME.dir: test =&gt; /:i &#39;.&#39; jpe?g $/;</pre>
+<p>An example program that lists all files and directories recursively:</p>
+<pre class="pod-block-code">sub MAIN($dir = &#39;.&#39;) {
+    my @todo = $dir.IO;
+    while @todo {
+        for @todo.pop.dir -&gt; $path {
+            say $path.Str;
+            @todo.push: $path if $path.d;
+        }
+    }
+}</pre>
+<p>A lazy way to find the first three files ending in &quot;.p6&quot; recursively starting from the current directory:</p>
+<pre class="pod-block-code">my @stack = &#39;.&#39;.IO;
+my $perl-files = gather while @stack {
+    with @stack.pop {
+        when :d { @stack.append: .dir }
+        .take when .extension.lc eq &#39;p6&#39;
+    }
+}
+.put for $perl-files[^3];
+</pre>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

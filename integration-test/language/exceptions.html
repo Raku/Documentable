@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Exceptions</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/exceptions.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Exceptions</h1>
+        <p class="subtitle">Using exceptions in Raku</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+      <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Ad_hoc_exceptions">Ad hoc exceptions</a></td></tr>
+          <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Typed_exceptions">Typed exceptions</a></td></tr>
+           <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Catching_exceptions">Catching exceptions</a></td></tr>
+                            <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#Exception_handlers_and_enclosing_blocks">Exception handlers and enclosing blocks</a></td></tr>
+              <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#try_blocks"><code class="pod-code-inline">try</code> blocks</a></td></tr>
+                                                                                                                                                      <tr class="toc-level-1"><td class="toc-number">5</td><td class="toc-text"><a href="#Throwing_exceptions">Throwing exceptions</a></td></tr>
+                        <tr class="toc-level-1"><td class="toc-number">6</td><td class="toc-text"><a href="#Resuming_of_exceptions">Resuming of exceptions</a></td></tr>
+                                                               <tr class="toc-level-1"><td class="toc-number">7</td><td class="toc-text"><a href="#Uncaught_exceptions">Uncaught exceptions</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">8</td><td class="toc-text"><a href="#Control_exceptions">Control exceptions</a></td></tr>
+             
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Exceptions in Raku are objects that hold information about errors. An error can be, for example, the unexpected receiving of data or a network connection no longer available, or a missing file. The information that an exception object stores is, for instance, a human-readable message about the error condition, the backtrace of the raising of the error, and so on.</p>
+<p>All built-in exceptions inherit from <a href="/Documentable/integration-test/type/Exception">Exception</a>, which provides some basic behavior, including the storage of a backtrace and an interface for the backtrace printer.</p>
+<h1 id="Ad_hoc_exceptions"><a class="u" href="#___top" title="go to top of document"><em>Ad hoc</em> exceptions</a></h1>
+<p>Ad hoc exceptions can be used by calling <a href="/Documentable/integration-test/routine/die">die</a> with a description of the error:</p>
+<pre class="pod-block-code">die &quot;oops, something went wrong&quot;;
+# OUTPUT: «oops, something went wrong in block &lt;unit&gt; at my-script.p6:1␤»</pre>
+<p>It is worth noting that <code>die</code> prints the error message to the standard error <code>$*ERR</code>.</p>
+<h1 id="Typed_exceptions"><a class="u" href="#___top" title="go to top of document">Typed exceptions</a></h1>
+<p>Typed exceptions provide more information about the error stored within an exception object.</p>
+<p>For example, if while executing <code>.zombie copy</code> on an object, a needed path <code>foo/bar</code> becomes unavailable, then an <a href="/Documentable/integration-test/type/X::IO::DoesNotExist">X::IO::DoesNotExist</a> exception can be raised:</p>
+<pre class="pod-block-code">die X::IO::DoesNotExist.new(:path(&quot;foo/bar&quot;), :trying(&quot;zombie copy&quot;))
+
+# OUTPUT: «Failed to find &#39;foo/bar&#39; while trying to do &#39;.zombie copy&#39;
+#          in block &lt;unit&gt; at my-script.p6:1»</pre>
+<p>Note how the object has provided the backtrace with information about what went wrong. A user of the code can now more easily find and correct the problem.</p>
+<h1 id="Catching_exceptions"><a class="u" href="#___top" title="go to top of document">Catching exceptions</a></h1>
+<p>It&#39;s possible to handle exceptional circumstances by supplying a <code>CATCH</code> block:</p>
+<pre class="pod-block-code">die X::IO::DoesNotExist.new(:path(&quot;foo/bar&quot;), :trying(&quot;zombie copy&quot;));
+
+CATCH {
+    when X::IO { $*ERR.say: &quot;some kind of IO exception was caught!&quot; }
+}
+
+# OUTPUT: «some kind of IO exception was caught!»</pre>
+<p>Here, we are saying that if any exception of type <code>X::IO</code> occurs, then the message <code>some kind of IO exception was caught!</code> will be sent to <em>stderr</em>, which is what <code>$*ERR.say</code> does, getting displayed on whatever constitutes the standard error device in that moment, which will probably be the console by default.</p>
+<p>A <a name="Documentable/integration-test/index-entry-CATCH-CATCH"><span class="index-entry"><code>CATCH</code></span></a> block uses smartmatching similar to how <code>given/when</code> smartmatches on options, thus it&#39;s possible to catch and handle various categories of exceptions inside a <code>when</code> block.</p>
+<p>To handle all exceptions, use a <code>default</code> statement. This example prints out almost the same information as the normal backtrace printer.</p>
+<pre class="pod-block-code">CATCH {
+     default {
+         $*ERR.say: .message;
+         for .backtrace.reverse {
+             next if .file.starts-with(&#39;SETTING::&#39;);
+             next unless .subname;
+             $*ERR.say: &quot;  in block {.subname} at {.file} line {.line}&quot;;
+         }
+     }
+}</pre>
+<p>Note that the match target is a role. To allow user defined exceptions to match in the same manner, they must implement the given role. Just existing in the same namespace will look alike but won&#39;t match in a <code>CATCH</code> block.</p>
+<h2 id="Exception_handlers_and_enclosing_blocks"><a class="u" href="#___top" title="go to top of document">Exception handlers and enclosing blocks</a></h2>
+<p>After a CATCH has handled the exception, the block enclosing the <code>CATCH</code> block is exited.</p>
+<p>In other words, even when the exception is handled successfully, the <em>rest of the code</em> in the enclosing block will never be executed.</p>
+<pre class="pod-block-code">die &quot;something went wrong ...&quot;;
+
+CATCH {
+    # will definitely catch all the exception
+    default { .Str.say; }
+}
+
+say &quot;This won&#39;t be said.&quot;;   # but this line will be never reached since
+                             # the enclosing block will be exited immediately
+# OUTPUT: «something went wrong ...␤»</pre>
+<p>Compare with this:</p>
+<pre class="pod-block-code">CATCH {
+
+  CATCH {
+      default { .Str.say; }
+  }
+
+  die &quot;something went wrong ...&quot;;
+
+}
+
+say &quot;Hi! I am at the outer block!&quot;; # OUTPUT: «Hi! I am at the outer block!␤»</pre>
+<p>See <a href="/Documentable/integration-test/language/exceptions#Resuming_of_exceptions">Resuming of exceptions</a>, for how to return control back to where the exception originated.</p>
+<p><a name="Documentable/integration-test/index-entry-try_blocks"></a></p>
+<h1 id="try_blocks"><a class="u" href="#___top" title="go to top of document"><code>try</code> blocks</a></h1>
+<p>A <code>try</code> block is a normal block which implicitly turns on the <a href="/Documentable/integration-test/language/pragmas#index-entry-fatal-fatal"><code>use fatal</code> pragma</a> and includes an implicit <code>CATCH</code> block that drops the exception, which means you can use it to contain them. Caught exceptions are stored inside the <code>$!</code> variable, which holds a value of type <code>Exception</code>.</p>
+<p>A normal block like this one will simply fail:</p>
+<pre class="pod-block-code">{
+    my $x = +&quot;a&quot;;
+    say $x.^name;
+} # OUTPUT: «Failure␤»
+</pre>
+<p>However, a <code>try</code> block will contain the exception and put it into the <code>$!</code> variable:</p>
+<pre class="pod-block-code">try {
+    my $x = +&quot;a&quot;;
+    say $x.^name;
+}
+
+if $! { say &quot;Something failed!&quot; } # OUTPUT: «Something failed!␤»
+say $!.^name;                     # OUTPUT: «X::Str::Numeric␤»
+</pre>
+<p>Any exception that is thrown in such a block will be caught by a <code>CATCH</code> block, either implicit or provided by the user. In the latter case, any unhandled exception will be rethrown. If you choose not to handle the exception, they will be contained by the block.</p>
+<pre class="pod-block-code">try {
+    die &quot;Tough luck&quot;;
+    say &quot;Not gonna happen&quot;;
+}
+
+try {
+    fail &quot;FUBAR&quot;;
+}
+</pre>
+<p><a name="Documentable/integration-test/index-entry-resume_(Exceptions)"></a> In both <code>try</code> blocks above, exceptions will be contained within the block, but the <code>say</code> statement will not be run. We can handle them, though:</p>
+<pre class="pod-block-code">class E is Exception { method message() { &quot;Just stop already!&quot; } }
+
+try {
+    E.new.throw; # this will be local
+
+    say &quot;This won&#39;t be said.&quot;;
+}
+
+say &quot;I&#39;m alive!&quot;;
+
+try {
+    CATCH {
+        when X::AdHoc { .Str.say; .resume }
+    }
+
+    die &quot;No, I expect you to DIE Mr. Bond!&quot;;
+
+    say &quot;I&#39;m immortal.&quot;;
+
+    E.new.throw;
+
+    say &quot;No, you don&#39;t!&quot;;
+}</pre>
+<p>Which would output:</p>
+<pre class="pod-block-code">I&#39;m alive!
+No, I expect you to DIE Mr. Bond!
+I&#39;m immortal.
+Just stop already!
+  in block &lt;unit&gt; at exception.p6 line 21
+</pre>
+<p>Since the <code>CATCH</code> block is handling just the <code>X::AdHoc</code> exception thrown by the <code>die</code> statement, but not the <code>E</code> exception. In the absence of a <code>CATCH</code> block, all exceptions will be contained and dropped, as indicated above. <code>resume</code> will resume execution right after the exception has been thrown; in this case, in the <code>die</code> statement. Please consult the section on <a href="/Documentable/integration-test/language/exceptions#Resuming_of_exceptions">resuming of exceptions</a> for more information on this.</p>
+<p>A <code>try</code>-block is a normal block and as such treats its last statement as the return value of itself. We can therefore use it as a right-hand side.</p>
+<pre class="pod-block-code">say try { +&quot;99999&quot; } // &quot;oh no&quot;; # OUTPUT: «99999␤»
+say try { +&quot;hello&quot; } // &quot;oh no&quot;; # OUTPUT: «oh no␤»
+</pre>
+<p>Try blocks support <code>else</code> blocks indirectly by returning the return value of the expression or <a href="/Documentable/integration-test/type/Nil">Nil</a> if an exception was thrown.</p>
+<pre class="pod-block-code">with try +&quot;♥&quot; {
+    say &quot;this is my number: $_&quot;
+} else {
+    say &quot;not my number!&quot;
+}
+# OUTPUT: «not my number!␤»</pre>
+<p><code>try</code> can also be used with a statement instead of a block, that is, as a <a href="/Documentable/integration-test/language/statement-prefixes#try">statement prefix</a>:</p>
+<pre class="pod-block-code">say try &quot;some-filename.txt&quot;.IO.slurp // &quot;sane default&quot;;
+# OUTPUT: «sane default␤»
+</pre>
+<p>What <code>try</code> actually causes is, via the <code>use fatal</code> pragma, an immediate throw of the exceptions that happen within its scope, but by doing so the <code>CATCH</code> block is invoked from the point where the exception is thrown, which defines its scope.</p>
+<pre class="pod-block-code">my $error-code = &quot;333&quot;;
+sub bad-sub {
+    die &quot;Something bad happened&quot;;
+}
+try {
+    my $error-code = &quot;111&quot;;
+    bad-sub;
+
+    CATCH {
+        default {
+            say &quot;Error $error-code &quot;, .^name, &#39;: &#39;,.Str
+        }
+    }
+}
+# OUTPUT: «Error 111 X::AdHoc: Something bad happened␤»
+</pre>
+<h1 id="Throwing_exceptions"><a class="u" href="#___top" title="go to top of document">Throwing exceptions</a></h1>
+<p>Exceptions can be thrown explicitly with the <code>.throw</code> method of an <code>Exception</code> object.</p>
+<p>This example throws an <code>AdHoc</code> exception, catches it and allows the code to continue from the point of the exception by calling the <code>.resume</code> method.</p>
+<pre class="pod-block-code">{
+    X::AdHoc.new(:payload&lt;foo&gt;).throw;
+    &quot;OHAI&quot;.say;
+    CATCH {
+        when X::AdHoc { .resume }
+    }
+}
+
+&quot;OBAI&quot;.say;
+
+# OUTPUT: «OHAI␤OBAI␤»</pre>
+<p>If the <code>CATCH</code> block doesn&#39;t match the exception thrown, then the exception&#39;s payload is passed on to the backtrace printing mechanism.</p>
+<pre class="pod-block-code">{
+    X::AdHoc.new(:payload&lt;foo&gt;).throw;
+    &quot;OHAI&quot;.say;
+    CATCH {  }
+}
+
+&quot;OBAI&quot;.say;
+
+# OUTPUT: «foo
+#          in block &lt;unit&gt; at my-script.p6:1»</pre>
+<p>This next example doesn&#39;t resume from the point of the exception. Instead, it continues after the enclosing block, since the exception is caught, and then control continues after the <code>CATCH</code> block.</p>
+<pre class="pod-block-code">{
+    X::AdHoc.new(:payload&lt;foo&gt;).throw;
+    &quot;OHAI&quot;.say;
+    CATCH {
+        when X::AdHoc { }
+    }
+}
+
+&quot;OBAI&quot;.say;
+
+# OUTPUT: «OBAI␤»</pre>
+<p><code>throw</code> can be viewed as the method form of <code>die</code>, just that in this particular case, the sub and method forms of the routine have different names.</p>
+<h1 id="Resuming_of_exceptions"><a class="u" href="#___top" title="go to top of document">Resuming of exceptions</a></h1>
+<p>Exceptions interrupt control flow and divert it away from the statement following the statement that threw it. Any exception handled by the user can be resumed and control flow will continue with the statement following the statement that threw the exception. To do so, call the method <code>.resume</code> on the exception object.</p>
+<pre class="pod-block-code">CATCH { when X::AdHoc { .resume } }         # this is step 2
+
+die &quot;We leave control after this.&quot;;         # this is step 1
+
+say &quot;We have continued with control flow.&quot;; # this is step 3</pre>
+<p>Resuming will occur right after the statement that has caused the exception, and in the innermost call frame:</p>
+<pre class="pod-block-code">sub bad-sub {
+    die &quot;Something bad happened&quot;;
+    return &quot;not returning&quot;;
+}
+
+{
+    my $return = bad-sub;
+    say &quot;Returned $return&quot;;
+    CATCH {
+        default {
+            say &quot;Error &quot;, .^name, &#39;: &#39;,.Str;
+            $return = &#39;0&#39;;
+            .resume;
+
+        }
+    }
+}
+# OUTPUT:
+# Error X::AdHoc: Something bad happened
+# Returned not returning
+</pre>
+<p>In this case, <code>.resume</code> is getting to the <code>return</code> statement that happens right after the <code>die</code> statement. Please note that the assignment to <code>$return</code> is taking no effect, since the <code>CATCH</code> statement is happening <em>inside</em> the call to <code>bad-sub</code>, which, via the <code>return</code> statement, assigns the <code>not returning</code> value to it.</p>
+<h1 id="Uncaught_exceptions"><a class="u" href="#___top" title="go to top of document">Uncaught exceptions</a></h1>
+<p>If an exception is thrown and not caught, it causes the program to exit with a non-zero status code, and typically prints a message to the standard error stream of the program. This message is obtained by calling the <code>gist</code> method on the exception object. You can use this to suppress the default behavior of printing a backtrace along with the message:</p>
+<pre class="pod-block-code">class X::WithoutLineNumber is X::AdHoc {
+    multi method gist(X::WithoutLineNumber:D:) {
+        $.payload
+    }
+}
+die X::WithoutLineNumber.new(payload =&gt; &quot;message&quot;)
+
+# prints &quot;message\n&quot; to $*ERR and exits, no backtrace</pre>
+<h1 id="Control_exceptions"><a class="u" href="#___top" title="go to top of document">Control exceptions</a></h1>
+<p>Control exceptions are raised when throwing an Exception which does the <a href="/Documentable/integration-test/type/X::Control">X::Control</a> role (since Rakudo 2019.03). They are usually thrown by certain <a href="/Documentable/integration-test/language/phasers#CONTROL">keywords</a> and are handled either automatically or by the appropriate <a href="/Documentable/integration-test/language/phasers#Loop_phasers">phaser</a>. Any unhandled control exception is converted to a normal exception.</p>
+<pre class="pod-block-code">{ return; CATCH { default { $*ERR.say: .^name, &#39;: &#39;, .Str } } }
+# OUTPUT: «X::ControlFlow::Return: Attempt to return outside of any Routine␤»
+# was CX::Return
+</pre>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/exceptions.pod6">https://github.com/Raku/doc/blob/master/doc/Language/exceptions.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

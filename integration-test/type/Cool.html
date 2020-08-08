@@ -1,0 +1,1409 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>class Cool</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/type.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-basic.html"> Basic </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-composite.html"> Composite </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-domain-specific.html"> Domain-specific </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-exception.html"> Exceptions </a>
+            </div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Type/Cool.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">class Cool</h1>
+        <p class="subtitle">Object that can be treated as both a string and number</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+                                                                                                                                                                                                                                     <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#routine_abs">routine abs</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#method_conj">method conj</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#routine_EVAL">routine EVAL</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.4</td><td class="toc-text"><a href="#routine_sqrt">routine sqrt</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.5</td><td class="toc-text"><a href="#method_sign">method sign</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.6</td><td class="toc-text"><a href="#method_rand">method rand</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.7</td><td class="toc-text"><a href="#routine_sin">routine sin</a></td></tr>
+              <tr class="toc-level-2"><td class="toc-number">1.8</td><td class="toc-text"><a href="#routine_asin">routine asin</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.9</td><td class="toc-text"><a href="#routine_cos">routine cos</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.10</td><td class="toc-text"><a href="#routine_acos">routine acos</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.11</td><td class="toc-text"><a href="#routine_tan">routine tan</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.12</td><td class="toc-text"><a href="#routine_atan">routine atan</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.13</td><td class="toc-text"><a href="#routine_atan2">routine atan2</a></td></tr>
+              <tr class="toc-level-2"><td class="toc-number">1.14</td><td class="toc-text"><a href="#routine_sec">routine sec</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.15</td><td class="toc-text"><a href="#routine_asec">routine asec</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.16</td><td class="toc-text"><a href="#routine_cosec">routine cosec</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.17</td><td class="toc-text"><a href="#routine_acosec">routine acosec</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.18</td><td class="toc-text"><a href="#routine_cotan">routine cotan</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.19</td><td class="toc-text"><a href="#routine_acotan">routine acotan</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.20</td><td class="toc-text"><a href="#routine_sinh">routine sinh</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.21</td><td class="toc-text"><a href="#routine_asinh">routine asinh</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.22</td><td class="toc-text"><a href="#routine_cosh">routine cosh</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.23</td><td class="toc-text"><a href="#routine_acosh">routine acosh</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.24</td><td class="toc-text"><a href="#routine_tanh">routine tanh</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.25</td><td class="toc-text"><a href="#routine_atanh">routine atanh</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.26</td><td class="toc-text"><a href="#routine_sech">routine sech</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.27</td><td class="toc-text"><a href="#routine_asech">routine asech</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.28</td><td class="toc-text"><a href="#routine_cosech">routine cosech</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.29</td><td class="toc-text"><a href="#routine_acosech">routine acosech</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.30</td><td class="toc-text"><a href="#routine_cotanh">routine cotanh</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.31</td><td class="toc-text"><a href="#routine_acotanh">routine acotanh</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.32</td><td class="toc-text"><a href="#routine_cis">routine cis</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.33</td><td class="toc-text"><a href="#routine_log">routine log</a></td></tr>
+                       <tr class="toc-level-2"><td class="toc-number">1.34</td><td class="toc-text"><a href="#routine_log10">routine log10</a></td></tr>
+               <tr class="toc-level-2"><td class="toc-number">1.35</td><td class="toc-text"><a href="#routine_log2">routine log2</a></td></tr>
+               <tr class="toc-level-2"><td class="toc-number">1.36</td><td class="toc-text"><a href="#routine_exp">routine exp</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">1.37</td><td class="toc-text"><a href="#method_unpolar">method unpolar</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.38</td><td class="toc-text"><a href="#routine_round">routine round</a></td></tr>
+                              <tr class="toc-level-2"><td class="toc-number">1.39</td><td class="toc-text"><a href="#routine_floor">routine floor</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.40</td><td class="toc-text"><a href="#method_fmt">method fmt</a></td></tr>
+                    <tr class="toc-level-2"><td class="toc-number">1.41</td><td class="toc-text"><a href="#routine_ceiling">routine ceiling</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.42</td><td class="toc-text"><a href="#routine_truncate">routine truncate</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.43</td><td class="toc-text"><a href="#routine_ord">routine ord</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">1.44</td><td class="toc-text"><a href="#method_path">method path</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">1.45</td><td class="toc-text"><a href="#routine_chr">routine chr</a></td></tr>
+                 <tr class="toc-level-2"><td class="toc-number">1.46</td><td class="toc-text"><a href="#routine_chars">routine chars</a></td></tr>
+                                <tr class="toc-level-2"><td class="toc-number">1.47</td><td class="toc-text"><a href="#routine_codes">routine codes</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">1.48</td><td class="toc-text"><a href="#routine_flip">routine flip</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.49</td><td class="toc-text"><a href="#routine_trim">routine trim</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.50</td><td class="toc-text"><a href="#routine_trim-leading">routine trim-leading</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.51</td><td class="toc-text"><a href="#routine_trim-trailing">routine trim-trailing</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.52</td><td class="toc-text"><a href="#routine_lc">routine lc</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.53</td><td class="toc-text"><a href="#routine_uc">routine uc</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.54</td><td class="toc-text"><a href="#routine_fc">routine fc</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.55</td><td class="toc-text"><a href="#routine_tc">routine tc</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.56</td><td class="toc-text"><a href="#routine_tclc">routine tclc</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.57</td><td class="toc-text"><a href="#routine_wordcase">routine wordcase</a></td></tr>
+               <tr class="toc-level-2"><td class="toc-number">1.58</td><td class="toc-text"><a href="#routine_samecase">routine samecase</a></td></tr>
+                        <tr class="toc-level-2"><td class="toc-number">1.59</td><td class="toc-text"><a href="#routine_uniprop">routine uniprop</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">1.60</td><td class="toc-text"><a href="#sub_uniprops">sub uniprops</a></td></tr>
+            <tr class="toc-level-2"><td class="toc-number">1.61</td><td class="toc-text"><a href="#routine_uniname">routine uniname</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">1.62</td><td class="toc-text"><a href="#routine_uninames">routine uninames</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">1.63</td><td class="toc-text"><a href="#routine_unimatch">routine unimatch</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">1.64</td><td class="toc-text"><a href="#routine_chop">routine chop</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.65</td><td class="toc-text"><a href="#routine_chomp">routine chomp</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.66</td><td class="toc-text"><a href="#routine_substr">routine substr</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">1.67</td><td class="toc-text"><a href="#routine_substr-rw">routine substr-rw</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">1.68</td><td class="toc-text"><a href="#routine_ords">routine ords</a></td></tr>
+              <tr class="toc-level-2"><td class="toc-number">1.69</td><td class="toc-text"><a href="#routine_chrs">routine chrs</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">1.70</td><td class="toc-text"><a href="#routine_split">routine split</a></td></tr>
+                                                           <tr class="toc-level-2"><td class="toc-number">1.71</td><td class="toc-text"><a href="#routine_lines">routine lines</a></td></tr>
+                                     <tr class="toc-level-2"><td class="toc-number">1.72</td><td class="toc-text"><a href="#method_words">method words</a></td></tr>
+                                 <tr class="toc-level-2"><td class="toc-number">1.73</td><td class="toc-text"><a href="#routine_comb">routine comb</a></td></tr>
+                                  <tr class="toc-level-2"><td class="toc-number">1.74</td><td class="toc-text"><a href="#method_contains">method contains</a></td></tr>
+                               <tr class="toc-level-2"><td class="toc-number">1.75</td><td class="toc-text"><a href="#routine_index">routine index</a></td></tr>
+                   <tr class="toc-level-2"><td class="toc-number">1.76</td><td class="toc-text"><a href="#routine_rindex">routine rindex</a></td></tr>
+                     <tr class="toc-level-2"><td class="toc-number">1.77</td><td class="toc-text"><a href="#method_match">method match</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">1.78</td><td class="toc-text"><a href="#routine_roots">routine roots</a></td></tr>
+                                           <tr class="toc-level-2"><td class="toc-number">1.79</td><td class="toc-text"><a href="#method_match">method match</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">1.80</td><td class="toc-text"><a href="#method_subst">method subst</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">1.81</td><td class="toc-text"><a href="#method_trans">method trans</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.82</td><td class="toc-text"><a href="#method_IO">method IO</a></td></tr>
+        <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Type_Graph">Type Graph</a></td></tr>
+ 
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <pre class="pod-block-code">class Cool is Any { }</pre>
+<p><code>Cool</code>, also known as the <strong>C</strong>onvenient <strong>OO</strong> <strong>L</strong>oop, is a base class employed by a number of built-in classes whose instances can be meaningfully coerced to a string and a number. For example, an <a href="/Documentable/integration-test/type/Array">Array</a> can be used in mathematical operations, where its numerical representation is the number of elements it contains. At the same time, it can be concatenated to a string, where its stringy representation is all of its elements <a href="/Documentable/integration-test/routine/join">joined</a> by a space. Because <a href="/Documentable/integration-test/type/Array">Array</a> is <a href="/Documentable/integration-test/type/Cool">Cool</a>, the appropriate coercion happens automatically.</p>
+<p>Methods in <code>Cool</code> coerce the invocant to a more specific type, and then call the same method on that type. For example both <a href="/Documentable/integration-test/type/Int">Int</a> and <a href="/Documentable/integration-test/type/Str">Str</a> inherit from <code>Cool</code>, and calling method <code>substr</code> on an <code>Int</code> converts the integer to <code>Str</code> first.</p>
+<pre class="pod-block-code">123.substr(1, 1);   # &#39;2&#39;, same as 123.Str.substr(1, 1)</pre>
+<p>The following built-in types inherit from <code>Cool</code>: <a href="/Documentable/integration-test/type/Array">Array</a> <a href="/Documentable/integration-test/type/Bool">Bool</a> <a href="/Documentable/integration-test/type/Complex">Complex</a> <a href="/Documentable/integration-test/type/Cool">Cool</a> <a href="/Documentable/integration-test/type/Duration">Duration</a> <a href="/Documentable/integration-test/type/Map">Map</a> <a href="/Documentable/integration-test/type/FatRat">FatRat</a> <a href="/Documentable/integration-test/type/Hash">Hash</a> <a href="/Documentable/integration-test/type/Instant">Instant</a> <a href="/Documentable/integration-test/type/Int">Int</a> <a href="/Documentable/integration-test/type/List">List</a> <a href="/Documentable/integration-test/type/Match">Match</a> <a href="/Documentable/integration-test/type/Nil">Nil</a> <a href="/Documentable/integration-test/type/Num">Num</a> <a href="/Documentable/integration-test/type/Range">Range</a> <a href="/Documentable/integration-test/type/Seq">Seq</a> <a href="/Documentable/integration-test/type/Stash">Stash</a> <a href="/Documentable/integration-test/type/Str">Str</a>.</p>
+<p>The following table summarizes the methods that <code>Cool</code> provides, and what type they coerce to:</p>
+<table class="pod-table">
+<thead><tr>
+<th>method</th> <th>coercion type</th>
+</tr></thead>
+<tbody>
+<tr> <td>abs</td> <td>Numeric</td> </tr> <tr> <td>conj</td> <td>Numeric</td> </tr> <tr> <td>sqrt</td> <td>Numeric</td> </tr> <tr> <td>sign</td> <td>Real</td> </tr> <tr> <td>rand</td> <td>Numeric</td> </tr> <tr> <td>sin</td> <td>Numeric</td> </tr> <tr> <td>asin</td> <td>Numeric</td> </tr> <tr> <td>cos</td> <td>Numeric</td> </tr> <tr> <td>acos</td> <td>Numeric</td> </tr> <tr> <td>tan</td> <td>Numeric</td> </tr> <tr> <td>tanh</td> <td>Numeric</td> </tr> <tr> <td>atan</td> <td>Numeric</td> </tr> <tr> <td>atan2</td> <td>Numeric</td> </tr> <tr> <td>atanh</td> <td>Numeric</td> </tr> <tr> <td>sec</td> <td>Numeric</td> </tr> <tr> <td>asec</td> <td>Numeric</td> </tr> <tr> <td>cosec</td> <td>Numeric</td> </tr> <tr> <td>acosec</td> <td>Numeric</td> </tr> <tr> <td>cotan</td> <td>Numeric</td> </tr> <tr> <td>cotanh</td> <td>Numeric</td> </tr> <tr> <td>acotan</td> <td>Numeric</td> </tr> <tr> <td>sinh</td> <td>Numeric</td> </tr> <tr> <td>asinh</td> <td>Numeric</td> </tr> <tr> <td>cosh</td> <td>Numeric</td> </tr> <tr> <td>acosh</td> <td>Numeric</td> </tr> <tr> <td>sech</td> <td>Numeric</td> </tr> <tr> <td>asech</td> <td>Numeric</td> </tr> <tr> <td>cosech</td> <td>Numeric</td> </tr> <tr> <td>acosech</td> <td>Numeric</td> </tr> <tr> <td>acotanh</td> <td>Numeric</td> </tr> <tr> <td>cis</td> <td>Numeric</td> </tr> <tr> <td>log</td> <td>Numeric</td> </tr> <tr> <td>exp</td> <td>Numeric</td> </tr> <tr> <td>roots</td> <td>Numeric</td> </tr> <tr> <td>log10</td> <td>Numeric</td> </tr> <tr> <td>log2</td> <td>Numeric</td> </tr> <tr> <td>unpolar</td> <td>Numeric</td> </tr> <tr> <td>round</td> <td>Numeric</td> </tr> <tr> <td>floor</td> <td>Numeric</td> </tr> <tr> <td>ceiling</td> <td>Numeric</td> </tr> <tr> <td>truncate</td> <td>Numeric</td> </tr> <tr> <td>chr</td> <td>Int</td> </tr> <tr> <td>ord</td> <td>Str</td> </tr> <tr> <td>chars</td> <td>Str</td> </tr> <tr> <td>fmt</td> <td>Str</td> </tr> <tr> <td>uniname</td> <td>Str</td> </tr> <tr> <td>uninames</td> <td>Seq</td> </tr> <tr> <td>unival</td> <td>Str</td> </tr> <tr> <td>univals</td> <td>Str</td> </tr> <tr> <td>uniprop</td> <td>Str</td> </tr> <tr> <td>unimatch</td> <td>Str</td> </tr> <tr> <td>uc</td> <td>Str</td> </tr> <tr> <td>lc</td> <td>Str</td> </tr> <tr> <td>fc</td> <td>Str</td> </tr> <tr> <td>tc</td> <td>Str</td> </tr> <tr> <td>tclc</td> <td>Str</td> </tr> <tr> <td>flip</td> <td>Str</td> </tr> <tr> <td>trans</td> <td>Str</td> </tr> <tr> <td>contains</td> <td>Str</td> </tr> <tr> <td>index</td> <td>Str</td> </tr> <tr> <td>rindex</td> <td>Str</td> </tr> <tr> <td>ords</td> <td>Str</td> </tr> <tr> <td>split</td> <td>Str</td> </tr> <tr> <td>match</td> <td>Str</td> </tr> <tr> <td>comb</td> <td>Str</td> </tr> <tr> <td>subst</td> <td>Str</td> </tr> <tr> <td>sprintf</td> <td>Str</td> </tr> <tr> <td>printf</td> <td>Str</td> </tr> <tr> <td>samecase</td> <td>Str</td> </tr> <tr> <td>trim</td> <td>Str</td> </tr> <tr> <td>trim-leading</td> <td>Str</td> </tr> <tr> <td>trim-trailing</td> <td>Str</td> </tr> <tr> <td>EVAL</td> <td>Str</td> </tr> <tr> <td>chomp</td> <td>Str</td> </tr> <tr> <td>chop</td> <td>Str</td> </tr> <tr> <td>codes</td> <td>Str</td> </tr>
+</tbody>
+</table><h1 id="Methods"><a class="u" href="#___top" title="go to top of document">Methods</a></h1>
+<h2 id="routine_abs"><a class="u" href="#___top" title="go to top of document">routine abs</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub abs(Numeric() $x)
+method abs()</pre>
+<p>Coerces the invocant (or in the sub form, the argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a> and returns the absolute value (that is, a non-negative number).</p>
+<pre class="pod-block-code">say (-2).abs;       # OUTPUT: «2␤»
+say abs &quot;6+8i&quot;;     # OUTPUT: «10␤»</pre>
+<h2 id="method_conj"><a class="u" href="#___top" title="go to top of document">method conj</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method conj()</pre>
+<p>Coerces the invocant to <a href="/Documentable/integration-test/type/Numeric">Numeric</a> and returns the <a href="/Documentable/integration-test/type/Complex">complex</a> conjugate (that is, the number with the sign of the imaginary part negated).</p>
+<pre class="pod-block-code">say (1+2i).conj;        # OUTPUT: «1-2i␤»</pre>
+<h2 id="routine_EVAL"><a class="u" href="#___top" title="go to top of document">routine EVAL</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method EVAL(*%_)
+</pre>
+<p>It calls the <a href="/Documentable/integration-test/language/independent-routines#routine_EVAL">subroutine form</a> with the invocant as the first argument, <code>$code</code>, passing along named args, if any.</p>
+<h2 id="routine_sqrt"><a class="u" href="#___top" title="go to top of document">routine sqrt</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub sqrt(Numeric(Cool) $x)
+method sqrt()</pre>
+<p>Coerces the invocant to <a href="/Documentable/integration-test/type/Numeric">Numeric</a> (or in the sub form, the argument) and returns the square root, that is, a non-negative number that, when multiplied with itself, produces the original number.</p>
+<pre class="pod-block-code">say 4.sqrt;             # OUTPUT: «2␤»
+say sqrt(2);            # OUTPUT: «1.4142135623731␤»</pre>
+<h2 id="method_sign"><a class="u" href="#___top" title="go to top of document">method sign</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method sign()</pre>
+<p>Coerces the invocant to <a href="/Documentable/integration-test/type/Real">Numeric</a> and returns its sign, that is, 0 if the number is 0, 1 for positive and -1 for negative values.</p>
+<pre class="pod-block-code">say 6.sign;             # OUTPUT: «1␤»
+say (-6).sign;          # OUTPUT: «-1␤»
+say &quot;0&quot;.sign;           # OUTPUT: «0␤»</pre>
+<h2 id="method_rand"><a class="u" href="#___top" title="go to top of document">method rand</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method rand()</pre>
+<p>Coerces the invocant to <a href="/Documentable/integration-test/type/Num">Num</a> and returns a pseudo-random value between zero and the number.</p>
+<pre class="pod-block-code">say 1e5.rand;           # OUTPUT: «33128.495184283␤»</pre>
+<h2 id="routine_sin"><a class="u" href="#___top" title="go to top of document">routine sin</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub sin(Numeric(Cool))
+method sin()</pre>
+<p>Coerces the invocant (or in the sub form, the argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, interprets it as radians, returns its <a href="https://en.wikipedia.org/wiki/Sine">sine</a>.</p>
+<pre class="pod-block-code">say sin(0);             # OUTPUT: «0␤»
+say sin(pi/4);          # OUTPUT: «0.707106781186547␤»
+say sin(pi/2);          # OUTPUT: «1␤»</pre>
+<p>Note that Raku is no computer algebra system, so <code>sin(pi)</code> typically does not produce an exact 0, but rather a very small <a href="/Documentable/integration-test/type/Num">floating-point number</a>.</p>
+<h2 id="routine_asin"><a class="u" href="#___top" title="go to top of document">routine asin</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub asin(Numeric(Cool))
+method asin()</pre>
+<p>Coerces the invocant (or in the sub form, the argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns its <a href="https://en.wikipedia.org/wiki/Inverse_trigonometric_functions">arc-sine</a> in radians.</p>
+<pre class="pod-block-code">say 0.1.asin;               # OUTPUT: «0.10016742116156␤»
+say asin(0.1);              # OUTPUT: «0.10016742116156␤»</pre>
+<h2 id="routine_cos"><a class="u" href="#___top" title="go to top of document">routine cos</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub cos(Numeric(Cool))
+method cos()</pre>
+<p>Coerces the invocant (or in sub form, the argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, interprets it as radians, returns its <a href="https://en.wikipedia.org/wiki/Cosine">cosine</a>.</p>
+<pre class="pod-block-code">say 0.cos;                  # OUTPUT: «1␤»
+say pi.cos;                 # OUTPUT: «-1␤»
+say cos(pi/2);              # OUTPUT: «6.12323399573677e-17␤»</pre>
+<h2 id="routine_acos"><a class="u" href="#___top" title="go to top of document">routine acos</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub acos(Numeric(Cool))
+method acos()</pre>
+<p>Coerces the invocant (or in sub form, the argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns its <a href="https://en.wikipedia.org/wiki/Inverse_trigonometric_functions">arc-cosine</a> in radians.</p>
+<pre class="pod-block-code">say 1.acos;                 # OUTPUT: «0␤»
+say acos(-1);               # OUTPUT: «3.14159265358979␤»</pre>
+<h2 id="routine_tan"><a class="u" href="#___top" title="go to top of document">routine tan</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub tan(Numeric(Cool))
+method tan()</pre>
+<p>Coerces the invocant (or in sub form, the argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, interprets it as radians, returns its <a href="https://en.wikipedia.org/wiki/Tangent">tangent</a>.</p>
+<pre class="pod-block-code">say tan(3);                 # OUTPUT: «-0.142546543074278␤»
+say 3.tan;                  # OUTPUT: «-0.142546543074278␤»</pre>
+<h2 id="routine_atan"><a class="u" href="#___top" title="go to top of document">routine atan</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub atan(Numeric(Cool))
+method atan()</pre>
+<p>Coerces the invocant (or in sub form, the argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns its <a href="https://en.wikipedia.org/wiki/Inverse_trigonometric_functions">arc-tangent</a> in radians.</p>
+<pre class="pod-block-code">say atan(3);                # OUTPUT: «1.24904577239825␤»
+say 3.atan;                 # OUTPUT: «1.24904577239825␤»</pre>
+<h2 id="routine_atan2"><a class="u" href="#___top" title="go to top of document">routine atan2</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub atan2($y, $x = 1e0)
+method atan2($x = 1e0)</pre>
+<p>The sub should usually be written with two arguments for clarity as it is seen in other languages and in mathematical texts, but the single-argument form is available; its result will always match that of <a href="/Documentable/integration-test/routine/atan">atan</a>.</p>
+<pre class="pod-block-code">say atan2 3, 1;             # OUTPUT: «1.2490457723982544␤»
+say atan2 3;                # OUTPUT: «1.2490457723982544␤»
+say atan2 ⅔, ⅓;             # OUTPUT: «1.1071487177940904␤»</pre>
+<p>The method coerces self and its single argument to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, using them to compute the two-argument <a href="https://en.wikipedia.org/wiki/Atan2">arc-tangent</a> in radians.</p>
+<pre class="pod-block-code">say 3.atan2;                # OUTPUT: «1.24904577239825␤»
+say ⅔.atan2(⅓);             # OUTPUT: «1.1071487177940904␤»</pre>
+<p>The $x argument in either the method or the sub defaults to 1 so, in both single-argument cases, the function will return the angle θ in radians between the x-axis and a vector that goes from the origin to the point (3, 1).</p>
+<h2 id="routine_sec"><a class="u" href="#___top" title="go to top of document">routine sec</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub sec(Numeric(Cool))
+method sec()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, interprets it as radians, returns its <a href="https://en.wikipedia.org/wiki/Trigonometric_functions#Reciprocal_functions">secant</a>, that is, the reciprocal of its cosine.</p>
+<pre class="pod-block-code">say 45.sec;                 # OUTPUT: «1.90359440740442␤»
+say sec(45);                # OUTPUT: «1.90359440740442␤»</pre>
+<h2 id="routine_asec"><a class="u" href="#___top" title="go to top of document">routine asec</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub asec(Numeric(Cool))
+method asec()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns its <a href="https://en.wikipedia.org/wiki/Inverse_trigonometric_functions">arc-secant</a> in radians.</p>
+<pre class="pod-block-code">say 1.asec;                 # OUTPUT: «0␤»
+say sqrt(2).asec;           # OUTPUT: «0.785398163397448␤»</pre>
+<h2 id="routine_cosec"><a class="u" href="#___top" title="go to top of document">routine cosec</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub cosec(Numeric(Cool))
+method cosec()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, interprets it as radians, returns its <a href="https://en.wikipedia.org/wiki/Trigonometric_functions#Reciprocal_functions">cosecant</a>, that is, the reciprocal of its sine.</p>
+<pre class="pod-block-code">say 0.45.cosec;             # OUTPUT: «2.29903273150897␤»
+say cosec(0.45);            # OUTPUT: «2.29903273150897␤»</pre>
+<h2 id="routine_acosec"><a class="u" href="#___top" title="go to top of document">routine acosec</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub acosec(Numeric(Cool))
+method acosec()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns its <a href="https://en.wikipedia.org/wiki/Inverse_trigonometric_functions">arc-cosecant</a> in radians.</p>
+<pre class="pod-block-code">say 45.acosec;              # OUTPUT: «0.0222240516182672␤»
+say acosec(45)              # OUTPUT: «0.0222240516182672␤»</pre>
+<h2 id="routine_cotan"><a class="u" href="#___top" title="go to top of document">routine cotan</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub cotan(Numeric(Cool))
+method cotan()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, interprets it as radians, returns its <a href="https://en.wikipedia.org/wiki/Trigonometric_functions#Reciprocal_functions">cotangent</a>, that is, the reciprocal of its tangent.</p>
+<pre class="pod-block-code">say 45.cotan;               # OUTPUT: «0.617369623783555␤»
+say cotan(45);              # OUTPUT: «0.617369623783555␤»</pre>
+<h2 id="routine_acotan"><a class="u" href="#___top" title="go to top of document">routine acotan</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub acotan(Numeric(Cool))
+method acotan()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns its <a href="https://en.wikipedia.org/wiki/Inverse_trigonometric_functions">arc-cotangent</a> in radians.</p>
+<pre class="pod-block-code">say 45.acotan;              # OUTPUT: «0.0222185653267191␤»
+say acotan(45)              # OUTPUT: «0.0222185653267191␤»</pre>
+<h2 id="routine_sinh"><a class="u" href="#___top" title="go to top of document">routine sinh</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub sinh(Numeric(Cool))
+method sinh()</pre>
+<p>Coerces the invocant (or in method form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns its <a href="https://en.wikipedia.org/wiki/Hyperbolic_function">Sine hyperbolicus</a>.</p>
+<pre class="pod-block-code">say 1.sinh;                 # OUTPUT: «1.1752011936438␤»
+say sinh(1);                # OUTPUT: «1.1752011936438␤»</pre>
+<h2 id="routine_asinh"><a class="u" href="#___top" title="go to top of document">routine asinh</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub asinh(Numeric(Cool))
+method asinh()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns its <a href="https://en.wikipedia.org/wiki/Inverse_hyperbolic_function">Inverse Sine hyperbolicus</a>.</p>
+<pre class="pod-block-code">say 1.asinh;                # OUTPUT: «0.881373587019543␤»
+say asinh(1);               # OUTPUT: «0.881373587019543␤»</pre>
+<h2 id="routine_cosh"><a class="u" href="#___top" title="go to top of document">routine cosh</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub cosh(Numeric(Cool))
+method cosh()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns its <a href="https://en.wikipedia.org/wiki/Hyperbolic_function">Cosine hyperbolicus</a>.</p>
+<pre class="pod-block-code">say cosh(0.5);              # OUTPUT: «1.12762596520638␤»</pre>
+<h2 id="routine_acosh"><a class="u" href="#___top" title="go to top of document">routine acosh</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub acosh(Numeric(Cool))
+method acosh()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns its <a href="https://en.wikipedia.org/wiki/Inverse_hyperbolic_function">Inverse Cosine hyperbolicus</a>.</p>
+<pre class="pod-block-code">say acosh(45);              # OUTPUT: «4.4996861906715␤»</pre>
+<h2 id="routine_tanh"><a class="u" href="#___top" title="go to top of document">routine tanh</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub tanh(Numeric(Cool))
+method tanh()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, interprets it as radians and returns its <a href="https://en.wikipedia.org/wiki/Hyperbolic_function">Tangent hyperbolicus</a>.</p>
+<pre class="pod-block-code">say tanh(0.5);              # OUTPUT: «0.46211715726001␤»
+say tanh(atanh(0.5));       # OUTPUT: «0.5␤»</pre>
+<h2 id="routine_atanh"><a class="u" href="#___top" title="go to top of document">routine atanh</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub atanh(Numeric(Cool))
+method atanh()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns its <a href="https://en.wikipedia.org/wiki/Inverse_hyperbolic_function">Inverse tangent hyperbolicus</a>.</p>
+<pre class="pod-block-code">say atanh(0.5);             # OUTPUT: «0.549306144334055␤»</pre>
+<h2 id="routine_sech"><a class="u" href="#___top" title="go to top of document">routine sech</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub sech(Numeric(Cool))
+method sech()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns its <a href="https://en.wikipedia.org/wiki/Hyperbolic_function">Secant hyperbolicus</a>.</p>
+<pre class="pod-block-code">say 0.sech;                 # OUTPUT: «1␤»</pre>
+<h2 id="routine_asech"><a class="u" href="#___top" title="go to top of document">routine asech</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub asech(Numeric(Cool))
+method asech()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns its <a href="https://en.wikipedia.org/wiki/Hyperbolic_function">Inverse hyperbolic secant</a>.</p>
+<pre class="pod-block-code">say 0.8.asech;              # OUTPUT: «0.693147180559945␤»</pre>
+<h2 id="routine_cosech"><a class="u" href="#___top" title="go to top of document">routine cosech</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub cosech(Numeric(Cool))
+method cosech()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns its <a href="https://en.wikipedia.org/wiki/Hyperbolic_function">Hyperbolic cosecant</a>.</p>
+<pre class="pod-block-code">say cosech(pi/2);           # OUTPUT: «0.434537208094696␤»</pre>
+<h2 id="routine_acosech"><a class="u" href="#___top" title="go to top of document">routine acosech</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub acosech(Numeric(Cool))
+method acosech()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns its <a href="https://en.wikipedia.org/wiki/Inverse_hyperbolic_function">Inverse hyperbolic cosecant</a>.</p>
+<pre class="pod-block-code">say acosech(4.5);           # OUTPUT: «0.220432720979802␤»</pre>
+<h2 id="routine_cotanh"><a class="u" href="#___top" title="go to top of document">routine cotanh</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub cotanh(Numeric(Cool))
+method cotanh()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns its <a href="https://en.wikipedia.org/wiki/Hyperbolic_function">Hyperbolic cotangent</a>.</p>
+<pre class="pod-block-code">say cotanh(pi);             # OUTPUT: «1.00374187319732␤»</pre>
+<h2 id="routine_acotanh"><a class="u" href="#___top" title="go to top of document">routine acotanh</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub acotanh(Numeric(Cool))
+method acotanh()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns its <a href="https://en.wikipedia.org/wiki/Inverse_hyperbolic_function">Inverse hyperbolic cotangent</a>.</p>
+<pre class="pod-block-code">say acotanh(2.5);           # OUTPUT: «0.423648930193602␤»</pre>
+<h2 id="routine_cis"><a class="u" href="#___top" title="go to top of document">routine cis</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub cis(Numeric(Cool))
+method cis()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns <a href="https://en.wikipedia.org/wiki/Cis_%28mathematics%29">cos(argument) + i*sin(argument)</a>.</p>
+<pre class="pod-block-code">say cis(pi/4);              # OUTPUT: «0.707106781186548+0.707106781186547i␤»</pre>
+<h2 id="routine_log"><a class="u" href="#___top" title="go to top of document">routine log</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub log(Numeric(Cool) $number, Numeric(Cool) $base?)
+multi method log(Cool:D: Cool:D $base?)</pre>
+<p>Coerces the arguments (including the invocant in the method form) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns its <a href="https://en.wikipedia.org/wiki/Logarithm">Logarithm</a> to base <code>$base</code>, or to base <code>e</code> (Euler&#39;s Number) if no base was supplied (<a href="https://en.wikipedia.org/wiki/Natural_logarithm">Natural logarithm</a>). Returns <code>NaN</code> if <code>$base</code> is negative. Throws an exception if <code>$base</code> is <code>1</code>.</p>
+<pre class="pod-block-code">say (e*e).log;              # OUTPUT: «2␤»</pre>
+<h2 id="routine_log10"><a class="u" href="#___top" title="go to top of document">routine log10</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub log10(Cool(Numeric))
+multi method log10()</pre>
+<p>Coerces the invocant (or in the sub form, the invocant) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns its <a href="https://en.wikipedia.org/wiki/Logarithm">Logarithm</a> to base 10, that is, a number that approximately produces the original number when raised to the power of 10. Returns <code>NaN</code> for negative arguments and <code>-Inf</code> for <code>0</code>.</p>
+<pre class="pod-block-code">say log10(1001);            # OUTPUT: «3.00043407747932␤»</pre>
+<h2 id="routine_log2"><a class="u" href="#___top" title="go to top of document">routine log2</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method log2()</pre>
+<p>Coerces the invocant to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns its <a href="https://en.wikipedia.org/wiki/Logarithm">Logarithm</a> to base 2, that is, a number that approximately produces the original number when raised to the power of 2. Returns <code>NaN</code> for negative arguments and <code>-Inf</code> for <code>0</code>.</p>
+<pre class="pod-block-code">say log2(5);            # OUTPUT: «2.321928094887362␤»
+say &quot;4&quot;.log2;           # OUTPUT: «2␤»</pre>
+<h2 id="routine_exp"><a class="u" href="#___top" title="go to top of document">routine exp</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub exp(Cool:D $pow, Cool:D $base?)
+multi method exp(Cool:D: Cool:D $base?)</pre>
+<p>Coerces the arguments (including the invocant in the method from) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns <code>$base</code> raised to the power of the first number. If no <code>$base</code> is supplied, <code>e</code> (Euler&#39;s Number) is used.</p>
+<pre class="pod-block-code">say 0.exp;      # OUTPUT: «1␤»
+say 1.exp;      # OUTPUT: «2.71828182845905␤»
+say 10.exp;     # OUTPUT: «22026.4657948067␤»</pre>
+<h2 id="method_unpolar"><a class="u" href="#___top" title="go to top of document">method unpolar</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method unpolar(Numeric(Cool))</pre>
+<p>Coerces the arguments (including the invocant in the method form) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns a complex number from the given polar coordinates. The invocant (or the first argument in sub form) is the magnitude while the argument (i.e. the second argument in sub form) is the angle. The angle is assumed to be in radians.</p>
+<pre class="pod-block-code">say sqrt(2).unpolar(pi/4);      # OUTPUT: «1+1i␤»</pre>
+<h2 id="routine_round"><a class="u" href="#___top" title="go to top of document">routine round</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub round(Numeric(Cool))
+multi method round(Cool:D: $unit = 1)</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and rounds it to the unit of <code>$unit</code>. If <code>$unit</code> is 1, rounds to the nearest integer.</p>
+<pre class="pod-block-code">say 1.7.round;          # OUTPUT: «2␤»
+say 1.07.round(0.1);    # OUTPUT: «1.1␤»
+say 21.round(10);       # OUTPUT: «20␤»</pre>
+<p>Always rounds <strong>up</strong> if the number is at mid-point:</p>
+<pre class="pod-block-code">say (−.5 ).round;       # OUTPUT: «0␤»
+say ( .5 ).round;       # OUTPUT: «1␤»
+say (−.55).round(.1);   # OUTPUT: «-0.5␤»
+say ( .55).round(.1);   # OUTPUT: «0.6␤»</pre>
+<p><strong>Pay attention</strong> to types when using this method, as ending up with the wrong type may affect the precision you seek to achieve. For <a href="/Documentable/integration-test/type/Real">Real</a> types, the type of the result is the type of the argument (<a href="/Documentable/integration-test/type/Complex">Complex</a> argument gets coerced to <a href="/Documentable/integration-test/type/Real">Real</a>, ending up a <a href="/Documentable/integration-test/type/Num">Num</a>). If rounding a <a href="/Documentable/integration-test/type/Complex">Complex</a>, the result is <a href="/Documentable/integration-test/type/Complex">Complex</a> as well, regardless of the type of the argument.</p>
+<pre class="pod-block-code">9930972392403501.round(1)      .raku.say; # OUTPUT: «9930972392403501␤»
+9930972392403501.round(1e0)    .raku.say; # OUTPUT: «9.9309723924035e+15␤»
+9930972392403501.round(1e0).Int.raku.say; # OUTPUT: «9930972392403500␤»</pre>
+<h2 id="routine_floor"><a class="u" href="#___top" title="go to top of document">routine floor</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub floor(Numeric(Cool))
+multi method floor</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and rounds it downwards to the nearest integer.</p>
+<pre class="pod-block-code">say &quot;1.99&quot;.floor;       # OUTPUT: «1␤»
+say &quot;-1.9&quot;.floor;       # OUTPUT: «-2␤»
+say 0.floor;            # OUTPUT: «0␤»</pre>
+<h2 id="method_fmt"><a class="u" href="#___top" title="go to top of document">method fmt</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method fmt($format = &#39;%s&#39;)</pre>
+<p>Uses <code>$format</code> to return a formatted representation of the invocant; equivalent to calling <a href="/Documentable/integration-test/routine/sprintf">sprintf</a> with <code>$format</code> as format and the invocant as the second argument. The <code>$format</code> will be coerced to <a href="/Documentable/integration-test/type/Stringy">Stringy</a> and defaults to <code>&#39;%s&#39;</code>.</p>
+<p>For more information about formats strings, see <a href="/Documentable/integration-test/routine/sprintf">sprintf</a>.</p>
+<pre class="pod-block-code">say 11.fmt(&#39;This Int equals %03d&#39;);         # OUTPUT: «This Int equals 011␤»
+say &#39;16&#39;.fmt(&#39;Hexadecimal %x&#39;);             # OUTPUT: «Hexadecimal 10␤»</pre>
+<h2 id="routine_ceiling"><a class="u" href="#___top" title="go to top of document">routine ceiling</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub ceiling(Numeric(Cool))
+multi method ceiling</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and rounds it upwards to the nearest integer.</p>
+<pre class="pod-block-code">say &quot;1&quot;.ceiling;        # OUTPUT: «1␤»
+say &quot;-0.9&quot;.ceiling;     # OUTPUT: «0␤»
+say &quot;42.1&quot;.ceiling;     # OUTPUT: «43␤»</pre>
+<h2 id="routine_truncate"><a class="u" href="#___top" title="go to top of document">routine truncate</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub truncate(Numeric(Cool))
+multi method truncate()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and rounds it towards zero.</p>
+<pre class="pod-block-code">say 1.2.truncate;       # OUTPUT: «1␤»
+say truncate -1.2;      # OUTPUT: «-1␤»</pre>
+<h2 id="routine_ord"><a class="u" href="#___top" title="go to top of document">routine ord</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub ord(Str(Cool))
+method ord()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and returns the <a href="https://en.wikipedia.org/wiki/Code_point">Unicode code point</a> number of the first code point.</p>
+<pre class="pod-block-code">say &#39;a&#39;.ord;            # OUTPUT: «97␤»</pre>
+<p>The inverse operation is <a href="/Documentable/integration-test/routine/chr">chr</a>.</p>
+<p>Mnemonic: returns an ordinal number</p>
+<h2 id="method_path"><a class="u" href="#___top" title="go to top of document">method path</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method path()</pre>
+<p><strong>DEPRECATED</strong>. <em>It&#39;s been deprecated as of the 6.d version. Will be removed in the next ones.</em></p>
+<p>Stringifies the invocant and converts it to <a href="/Documentable/integration-test/type/IO::Path">IO::Path</a> object. Use the <a href="/Documentable/integration-test/routine/IO"><code>.IO method</code></a> instead.</p>
+<h2 id="routine_chr"><a class="u" href="#___top" title="go to top of document">routine chr</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub chr(Int(Cool))
+method chr()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Int">Int</a>, interprets it as a <a href="https://en.wikipedia.org/wiki/Code_point">Unicode code points</a>, and returns a <a href="/Documentable/integration-test/type/Str">string</a> made of that code point.</p>
+<pre class="pod-block-code">say &#39;65&#39;.chr;       # OUTPUT: «A␤»</pre>
+<p>The inverse operation is <a href="/Documentable/integration-test/routine/ord">ord</a>.</p>
+<p>Mnemonic: turns an integer into a <em>char</em>acter.</p>
+<h2 id="routine_chars"><a class="u" href="#___top" title="go to top of document">routine chars</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub chars(Cool $x)
+multi sub chars(Str:D $x)
+multi sub chars(str $x --&gt; int)
+method chars(--&gt; Int:D)</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and returns the number of characters in the string. Please note that on the JVM, you currently get codepoints instead of graphemes.</p>
+<pre class="pod-block-code">say &#39;møp&#39;.chars;    # OUTPUT: «3␤»
+say &#39;ã̷̠̬̊&#39;.chars;     # OUTPUT: «1␤»
+say &#39;👨‍👩‍👧‍👦🏿&#39;.chars;    # OUTPUT: «1␤»</pre>
+<p>If the string is native, the number of chars will be also returned as a native <code>int</code>.</p>
+<p><a name="Documentable/integration-test/index-entry-Grapheme"></a></p>
+<p>Graphemes are user visible characters. That is, this is what the user thinks of as a “character”.</p>
+<p>Graphemes can contain more than one codepoint. Typically the number of graphemes and codepoints differs when <code>Prepend</code> or <code>Extend</code> characters are involved (also known as <a href="https://en.wikipedia.org/wiki/Combining_character">Combining characters</a>), but there are many other cases when this may happen. Another example is <code>\c[ZWJ]</code> (<a href="https://en.wikipedia.org/wiki/Zero-width_joiner">Zero-width joiner</a>).</p>
+<p>You can check <code>Grapheme_Cluster_Break</code> property of a character in order to see how it is going to behave:</p>
+<pre class="pod-block-code">say ‘ã̷̠̬̊’.uniprops(‘Grapheme_Cluster_Break’); # OUTPUT: «(Other Extend Extend Extend Extend)␤»
+say ‘👨‍👩‍👧‍👦🏿’.uniprops(‘Grapheme_Cluster_Break’); # OUTPUT: «(E_Base_GAZ ZWJ E_Base_GAZ ZWJ E_Base_GAZ ZWJ E_Base_GAZ E_Modifier)␤»</pre>
+<p>You can read more about graphemes in the <a href="https://unicode.org/reports/tr29/#Grapheme_Cluster_Boundaries">Unicode Standard</a>, which Raku tightly follows, using a method called <a href="/Documentable/integration-test/language/glossary#NFG">NFG, normal form graphemes</a> for efficiently representing them.</p>
+<h2 id="routine_codes"><a class="u" href="#___top" title="go to top of document">routine codes</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub codes(Str(Cool))
+method codes()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and returns the number of <a href="https://en.wikipedia.org/wiki/Code_point">Unicode code points</a>.</p>
+<pre class="pod-block-code">say &#39;møp&#39;.codes;    # OUTPUT: «3␤»</pre>
+<p>The same result will be obtained with</p>
+<pre class="pod-block-code">say +&#39;møp&#39;.ords;    # OUTPUT: «3␤»</pre>
+<p><a href="/Documentable/integration-test/routine/ords">ords</a> first obtains the actual codepoints, so there might be a difference in speed.</p>
+<h2 id="routine_flip"><a class="u" href="#___top" title="go to top of document">routine flip</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub flip(Cool $s --&gt; Str:D)
+method flip()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and returns a reversed version.</p>
+<pre class="pod-block-code">say 421.flip;       # OUTPUT: «124␤»</pre>
+<h2 id="routine_trim"><a class="u" href="#___top" title="go to top of document">routine trim</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub trim(Str(Cool))
+method trim()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and returns the string with both leading and trailing whitespace stripped.</p>
+<pre class="pod-block-code">my $stripped = &#39;  abc &#39;.trim;
+say &quot;&lt;$stripped&gt;&quot;;          # OUTPUT: «&lt;abc&gt;␤»</pre>
+<h2 id="routine_trim-leading"><a class="u" href="#___top" title="go to top of document">routine trim-leading</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub trim-leading(Str(Cool))
+method trim-leading()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and returns the string with leading whitespace stripped.</p>
+<pre class="pod-block-code">my $stripped = &#39;  abc &#39;.trim-leading;
+say &quot;&lt;$stripped&gt;&quot;;          # OUTPUT: «&lt;abc &gt;␤»</pre>
+<h2 id="routine_trim-trailing"><a class="u" href="#___top" title="go to top of document">routine trim-trailing</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub trim-trailing(Str(Cool))
+method trim-trailing()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and returns the string with trailing whitespace stripped.</p>
+<pre class="pod-block-code">my $stripped = &#39;  abc &#39;.trim-trailing;
+say &quot;&lt;$stripped&gt;&quot;;          # OUTPUT: «&lt;  abc&gt;␤»</pre>
+<h2 id="routine_lc"><a class="u" href="#___top" title="go to top of document">routine lc</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub lc(Str(Cool))
+method lc()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and returns it case-folded to lower case.</p>
+<pre class="pod-block-code">say &quot;ABC&quot;.lc;       # OUTPUT: «abc␤»</pre>
+<h2 id="routine_uc"><a class="u" href="#___top" title="go to top of document">routine uc</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub uc(Str(Cool))
+method uc()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and returns it case-folded to upper case (capital letters).</p>
+<pre class="pod-block-code">say &quot;Abc&quot;.uc;       # OUTPUT: «ABC␤»</pre>
+<h2 id="routine_fc"><a class="u" href="#___top" title="go to top of document">routine fc</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub fc(Str(Cool))
+method fc()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and returns the result a Unicode &quot;case fold&quot; operation suitable for doing caseless string comparisons. (In general, the returned string is unlikely to be useful for any purpose other than comparison.)</p>
+<pre class="pod-block-code">say &quot;groß&quot;.fc;       # OUTPUT: «gross␤»</pre>
+<h2 id="routine_tc"><a class="u" href="#___top" title="go to top of document">routine tc</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub tc(Str(Cool))
+method tc()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and returns it with the first letter case-folded to title case (or where not available, upper case).</p>
+<pre class="pod-block-code">say &quot;abC&quot;.tc;       # OUTPUT: «AbC␤»</pre>
+<h2 id="routine_tclc"><a class="u" href="#___top" title="go to top of document">routine tclc</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub tclc(Str(Cool))
+method tclc()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and returns it with the first letter case-folded to title case (or where not available, upper case), and the rest of the string case-folded to lower case.</p>
+<pre class="pod-block-code">say &#39;abC&#39;.tclc;     # OUTPUT: «Abc␤»</pre>
+<h2 id="routine_wordcase"><a class="u" href="#___top" title="go to top of document">routine wordcase</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub wordcase(Str(Cool) $input, :&amp;filter = &amp;tclc, Mu :$where = True)
+method wordcase(:&amp;filter = &amp;tclc, Mu :$where = True)</pre>
+<p>Coerces the invocant (or in sub form, the first argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and filters each word that smartmatches against <code>$where</code> through the <code>&amp;filter</code>. With the default filter (first character to upper case, rest to lower) and matcher (which accepts everything), this title-cases each word:</p>
+<pre class="pod-block-code">say &quot;raku programming&quot;.wordcase;        # OUTPUT: «Raku Programming␤»</pre>
+<p>With a matcher:</p>
+<pre class="pod-block-code">say &quot;have fun working on perl&quot;.wordcase(:where({ .chars &gt; 3 }));
+                                        # Have fun Working on Perl</pre>
+<p>With a customer filter too:</p>
+<pre class="pod-block-code">say &quot;have fun working on perl&quot;.wordcase(:filter(&amp;uc), :where({ .chars &gt; 3 }));
+                                        # HAVE fun WORKING on PERL</pre>
+<h2 id="routine_samecase"><a class="u" href="#___top" title="go to top of document">routine samecase</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub samecase(Cool $string, Cool $pattern)
+method samecase(Cool:D: Cool $pattern)</pre>
+<p>Coerces the invocant (or in sub form, the first argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and returns a copy of <code>$string</code> with case information for each individual character changed according to <code>$pattern</code>.</p>
+<p><strong>Note</strong>: The pattern string can contain three types of characters, i.e. uppercase, lowercase and caseless. For a given character in <code>$pattern</code> its case information determines the case of the corresponding character in the result.</p>
+<p>If <code>$string</code> is longer than <code>$pattern</code>, the case information from the last character of <code>$pattern</code> is applied to the remaining characters of <code>$string</code>.</p>
+<pre class="pod-block-code">say &quot;raKu&quot;.samecase(&quot;A_a_&quot;); # OUTPUT: «Raku␤»
+say &quot;rAKU&quot;.samecase(&quot;Ab&quot;);   # OUTPUT: «Raku␤»</pre>
+<h2 id="routine_uniprop"><a class="u" href="#___top" title="go to top of document">routine uniprop</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub uniprop(Str:D, |c)
+multi sub uniprop(Int:D $code)
+multi sub uniprop(Int:D $code, Stringy:D $propname)
+multi method uniprop(|c)</pre>
+<p>Returns the <a href="http://userguide.icu-project.org/strings/properties">unicode property</a> of the first character. If no property is specified returns the <a href="https://en.wikipedia.org/wiki/Unicode_character_property#General_Category">General Category</a>. Returns a Bool for Boolean properties. A <a href="/Documentable/integration-test/routine/uniprops">uniprops</a> routine can be used to get the property for every character in a string.</p>
+<pre class="pod-block-code">say &#39;a&#39;.uniprop;               # OUTPUT: «Ll␤»
+say &#39;1&#39;.uniprop;               # OUTPUT: «Nd␤»
+say &#39;a&#39;.uniprop(&#39;Alphabetic&#39;); # OUTPUT: «True␤»
+say &#39;1&#39;.uniprop(&#39;Alphabetic&#39;); # OUTPUT: «False␤»</pre>
+<h2 id="sub_uniprops"><a class="u" href="#___top" title="go to top of document">sub uniprops</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub uniprops(Str:D $str, Stringy:D $propname = &quot;General_Category&quot;)</pre>
+<p>Interprets the invocant as a <a href="/Documentable/integration-test/type/Str">Str</a>, and returns the <a href="http://userguide.icu-project.org/strings/properties">unicode property</a> for each character as a Seq. If no property is specified returns the <a href="https://en.wikipedia.org/wiki/Unicode_character_property#General_Category">General Category</a>. Returns a Bool for Boolean properties. Similar to <a href="/Documentable/integration-test/routine/uniprop">uniprop</a>, but for each character in the passed string.</p>
+<h2 id="routine_uniname"><a class="u" href="#___top" title="go to top of document">routine uniname</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub uniname(Str(Cool) --&gt; Str)
+method uniname(--&gt; Str)</pre>
+<p>Interprets the invocant or first argument as a <a href="/Documentable/integration-test/type/Str">Str</a>, and returns the Unicode codepoint name of the first codepoint of the first character. See <a href="/Documentable/integration-test/routine/uninames">uninames</a> for a routine that works with multiple codepoints, and <a href="/Documentable/integration-test/routine/uniparse">uniparse</a> for the opposite direction.</p>
+<pre class="pod-block-code"># Camelia in Unicode
+say ‘»ö«’.uniname;
+# OUTPUT: «&quot;RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK&quot;␤»
+say &quot;Ḍ̇&quot;.uniname; # Note, doesn&#39;t show &quot;COMBINING DOT ABOVE&quot;
+# OUTPUT: «&quot;LATIN CAPITAL LETTER D WITH DOT BELOW&quot;␤»
+
+# Find the char with the longest Unicode name.
+say (0..0x1FFFF).sort(*.uniname.chars)[*-1].chr.uniname;
+# OUTPUT: ««ARABIC LIGATURE UIGHUR KIRGHIZ YEH WITH HAMZA ABOVE WITH ALEF MAKSURA INITIAL FORM␤»␤»</pre>
+<h2 id="routine_uninames"><a class="u" href="#___top" title="go to top of document">routine uninames</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub uninames(Str:D)
+method uninames()</pre>
+<p>Returns of a Seq of Unicode names for the all the codepoints in the Str provided.</p>
+<pre class="pod-block-code">say ‘»ö«’.uninames.raku;
+# OUTPUT: «(&quot;RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK&quot;, &quot;LATIN SMALL LETTER O WITH DIAERESIS&quot;, &quot;LEFT-POINTING DOUBLE ANGLE QUOTATION MARK&quot;).Seq␤»</pre>
+<p>Note this example, which gets a Seq where each element is a Seq of all the codepoints in that character.</p>
+<pre class="pod-block-code">say &quot;Ḍ̇&#39;oh&quot;.comb&gt;&gt;.uninames.raku;
+# OUTPUT: «((&quot;LATIN CAPITAL LETTER D WITH DOT BELOW&quot;, &quot;COMBINING DOT ABOVE&quot;).Seq, (&quot;APOSTROPHE&quot;,).Seq, (&quot;LATIN SMALL LETTER O&quot;,).Seq, (&quot;LATIN SMALL LETTER H&quot;,).Seq)␤»</pre>
+<p>See <a href="/Documentable/integration-test/routine/uniparse">uniparse</a> for the opposite direction.</p>
+<h2 id="routine_unimatch"><a class="u" href="#___top" title="go to top of document">routine unimatch</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub unimatch(Str:D $str, |c)
+multi unimatch(Int:D $code, Stringy:D $pvalname, Stringy:D $propname = $pvalname)</pre>
+<p>Checks if the given integer codepoint or the first letter of the given string has a unicode property equal to the value you give. If you supply the Unicode property to be checked it will only return True if that property matches the given value.</p>
+<pre class="pod-block-code">say unimatch &#39;A&#39;, &#39;Latin&#39;;           # OUTPUT: «True␤»
+say unimatch &#39;A&#39;, &#39;Latin&#39;, &#39;Script&#39;; # OUTPUT: «True␤»
+say unimatch &#39;A&#39;, &#39;Ll&#39;;              # OUTPUT: «False␤»</pre>
+<p>The last property corresponds to &quot;lowercase letter&quot;, which explains why it returns false.</p>
+<h2 id="routine_chop"><a class="u" href="#___top" title="go to top of document">routine chop</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub chop(Str(Cool))
+method chop()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and returns it with the last character removed.</p>
+<pre class="pod-block-code">say &#39;perl&#39;.chop;                        # OUTPUT: «per␤»</pre>
+<h2 id="routine_chomp"><a class="u" href="#___top" title="go to top of document">routine chomp</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub chomp(Str(Cool))
+method chomp()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and returns it with the last character removed, if it is a logical newline.</p>
+<pre class="pod-block-code">say &#39;ab&#39;.chomp.chars;                   # OUTPUT: «2␤»
+say &quot;a\n&quot;.chomp.chars;                  # OUTPUT: «1␤»</pre>
+<h2 id="routine_substr"><a class="u" href="#___top" title="go to top of document">routine substr</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub substr(Str(Cool) $str, |c)
+method substr(|c)</pre>
+<p>Coerces the invocant (or in the sub form, the first argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and calls <a href="/Documentable/integration-test/type/Str#routine_substr">Str.substr</a> with the arguments.</p>
+<h2 id="routine_substr-rw"><a class="u" href="#___top" title="go to top of document">routine substr-rw</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method substr-rw(|) is rw
+multi sub substr-rw(|) is rw</pre>
+<p>Coerces the invocant (or in the sub form, the first argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and calls <a href="/Documentable/integration-test/type/Str#routine_substr-rw">Str.substr-rw</a> with the arguments.</p>
+<h2 id="routine_ords"><a class="u" href="#___top" title="go to top of document">routine ords</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub ords(Str(Cool) $str)
+method ords()</pre>
+<p>Coerces the invocant (or in the sub form, the first argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and returns a list of Unicode codepoints for each character.</p>
+<pre class="pod-block-code">say &quot;Camelia&quot;.ords;              # OUTPUT: «67 97 109 101 108 105 97␤»
+say ords 10;                     # OUTPUT: «49 48␤»</pre>
+<p>This is the list-returning version of <a href="/Documentable/integration-test/routine/ord">ord</a>. The inverse operation in <a href="/Documentable/integration-test/routine/chrs">chrs</a>. If you are only interested in the number of codepoints, <a href="/Documentable/integration-test/routine/codes">codes</a> is a possibly faster option.</p>
+<h2 id="routine_chrs"><a class="u" href="#___top" title="go to top of document">routine chrs</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub chrs(*@codepoints --&gt; Str:D)
+method chrs()</pre>
+<p>Coerces the invocant (or in the sub form, the argument list) to a list of integers, and returns the string created by interpreting each integer as a Unicode codepoint, and joining the characters.</p>
+<pre class="pod-block-code">say &lt;67 97 109 101 108 105 97&gt;.chrs;   # OUTPUT: «Camelia␤»</pre>
+<p>This is the list-input version of <a href="/Documentable/integration-test/routine/chr">chr</a>. The inverse operation is <a href="/Documentable/integration-test/routine/ords">ords</a>.</p>
+<h2 id="routine_split"><a class="u" href="#___top" title="go to top of document">routine split</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub    split(  Str:D $delimiter, Str(Cool) $input, $limit = Inf, :$k, :$v, :$kv, :$p, :$skip-empty)
+multi sub    split(Regex:D $delimiter, Str(Cool) $input, $limit = Inf, :$k, :$v, :$kv, :$p, :$skip-empty)
+multi sub    split(@delimiters, Str(Cool) $input, $limit = Inf, :$k, :$v, :$kv, :$p, :$skip-empty)
+multi method split(  Str:D $delimiter, $limit = Inf, :$k, :$v, :$kv, :$p, :$skip-empty)
+multi method split(Regex:D $delimiter, $limit = Inf, :$k, :$v, :$kv, :$p, :$skip-empty)
+multi method split(@delimiters, $limit = Inf, :$k, :$v, :$kv, :$p, :$skip-empty)</pre>
+<p><a href="#fn-1" id="fn-ref-1">[1]</a></p>
+<p>Coerces the invocant (or in the sub form, the second argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and splits it into pieces based on delimiters found in the string.</p>
+<p>If <code>$delimiter</code> is a string, it is searched for literally and not treated as a regex. You can also provide multiple delimiters by specifying them as a list; mixing Cool and Regex objects is OK.</p>
+<pre class="pod-block-code">say split(&#39;;&#39;, &quot;a;b;c&quot;).raku;               # OUTPUT: «(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;)␤»
+say split(&#39;;&#39;, &quot;a;b;c&quot;, 2).raku;            # OUTPUT: «(&quot;a&quot;, &quot;b;c&quot;).Seq␤»
+
+say split(&#39;;&#39;, &quot;a;b;c,d&quot;).raku;             # OUTPUT: «(&quot;a&quot;, &quot;b&quot;, &quot;c,d&quot;)␤»
+say split(/\;/, &quot;a;b;c,d&quot;).raku;            # OUTPUT: «(&quot;a&quot;, &quot;b&quot;, &quot;c,d&quot;)␤»
+say split(/&lt;[;,]&gt;/, &quot;a;b;c,d&quot;).raku;        # OUTPUT: «(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;)␤»
+
+say split([&#39;a&#39;, /b+/, 4], &#39;1a2bb345&#39;).raku; # OUTPUT: «(&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;5&quot;)␤»</pre>
+<p>By default, split omits the matches, and returns a list of only those parts of the string that did not match. Specifying one of the <code>:k, :v, :kv, :p</code> adverbs changes that. Think of the matches as a list that is interleaved with the non-matching parts.</p>
+<p>The <code>:v</code> interleaves the values of that list, which will be either <a href="/Documentable/integration-test/type/Match">Match</a> objects, if a <a href="/Documentable/integration-test/type/Regex">Regex</a> was used as a matcher in the split, or <a href="/Documentable/integration-test/type/Str">Str</a> objects, if a <a href="/Documentable/integration-test/type/Cool">Cool</a> was used as matcher. If multiple delimiters are specified, <a href="/Documentable/integration-test/type/Match">Match</a> objects will be generated for all of them, unless <strong>all</strong> of the delimiters are <a href="/Documentable/integration-test/type/Cool">Cool</a>.</p>
+<pre class="pod-block-code">say &#39;abc&#39;.split(/b/, :v);               # OUTPUT: «(a ｢b｣ c)␤»
+say &#39;abc&#39;.split(&#39;b&#39;, :v);               # OUTPUT: «(a b c)␤»</pre>
+<p><code>:k</code> interleaves the keys, that is, the indexes:</p>
+<pre class="pod-block-code">say &#39;abc&#39;.split(/b/, :k);               # OUTPUT: «(a 0 c)␤»</pre>
+<p><code>:kv</code> adds both indexes and matches:</p>
+<pre class="pod-block-code">say &#39;abc&#39;.split(/b/, :kv);               # OUTPUT: «(a 0 ｢b｣ c)␤»</pre>
+<p>and <code>:p</code> adds them as <a href="/Documentable/integration-test/type/Pair">Pairs</a>, using the same types for values as <code>:v</code> does:</p>
+<pre class="pod-block-code">say &#39;abc&#39;.split(/b/, :p);               # OUTPUT: «(a 0 =&gt; ｢b｣ c)␤»
+say &#39;abc&#39;.split(&#39;b&#39;, :p);               # OUTPUT: «(a 0 =&gt; b c)␤»</pre>
+<p>You can only use one of the <code>:k, :v, :kv, :p</code> adverbs in a single call to <code>split</code>.</p>
+<p>Note that empty chunks are not removed from the result list. For that behavior, use the <code>:skip-empty</code> named argument:</p>
+<pre class="pod-block-code">say (&quot;f,,b,c,d&quot;.split: /&quot;,&quot;/             ).raku;  # OUTPUT: «(&quot;f&quot;, &quot;&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;)␤»
+say (&quot;f,,b,c,d&quot;.split: /&quot;,&quot;/, :skip-empty).raku;  # OUTPUT: «(&quot;f&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;)␤»</pre>
+<h2 id="routine_lines"><a class="u" href="#___top" title="go to top of document">routine lines</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub lines(Str(Cool))
+method lines()</pre>
+<p>Coerces the invocant (and in sub form, the argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, decomposes it into lines (with the newline characters stripped), and returns the list of lines.</p>
+<pre class="pod-block-code">say lines(&quot;a\nb\n&quot;).join(&#39;|&#39;);          # OUTPUT: «a|b␤»
+say &quot;some\nmore\nlines&quot;.lines.elems;    # OUTPUT: «3␤»</pre>
+<p>This method can be used as part of an <code>IO::Path</code> to process a file line-by-line, since <code>IO::Path</code> objects inherit from <code>Cool</code>, e.g.:</p>
+<pre class="pod-block-code">for &#39;huge-csv&#39;.IO.lines -&gt; $line {
+    # Do something with $line
+}
+
+# or if you&#39;ll be processing later
+my @lines = &#39;huge-csv&#39;.IO.lines;
+</pre>
+<p>Without any arguments, sub <code>lines</code> operates on <code>$*ARGFILES</code>, which defaults to <code>$*IN</code> in the absence of any filenames.</p>
+<p>To modify values in place use <code>is copy</code> to force a writable container.</p>
+<pre class="pod-block-code">for $*IN.lines -&gt; $_ is copy { s/(\w+)/{$0 ~ $0}/; .say }
+</pre>
+<h2 id="method_words"><a class="u" href="#___top" title="go to top of document">method words</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method words(Cool:D: |c)</pre>
+<p>Coerces the invocant (or first argument, if it is called as a subroutine) to <a href="/Documentable/integration-test/type/Str">Str</a>, and returns a list of words that make up the string. Check <a href="/Documentable/integration-test/type/Str#routine_words"><code>Str.words</code></a> for additional arguments and its meaning.</p>
+<pre class="pod-block-code">say &lt;The quick brown fox&gt;.words.join(&#39;|&#39;);     # OUTPUT: «The|quick|brown|fox␤»
+say &lt;The quick brown fox&gt;.words(2).join(&#39;|&#39;);  # OUTPUT: «The|quick␤»
+</pre>
+<p><code>Cool</code> is the base class for many other classes, and some of them, like <a href="/Documentable/integration-test/type/Match">Match</a>, can be converted to a string. This is what happens in this case:</p>
+<pre class="pod-block-code">say ( &quot;easy come, easy goes&quot; ~~ m:g/(ea\w+)/).words(Inf);
+# OUTPUT: «(easy easy)␤»
+say words( &quot;easy come, easy goes&quot; ~~ m:g/(ea\w+)/ , ∞);
+# OUTPUT: «(easy easy)␤»</pre>
+<p>The example above illustrates two of the ways <code>words</code> can be invoked, with the first argument turned into invocant by its signature. Of course, <code>Inf</code> is the default value of the second argument, so in both cases (and forms) it can be simply omitted.</p>
+<p>Only whitespace (including no-break space) counts as word boundaries</p>
+<pre class="pod-block-code">say &lt;Flying on a Boeing&nbsp;747&gt;.words.join(&#39;|&#39;);  # OUTPUT: «Flying|on|a|Boeing|747␤»</pre>
+<p>In this case, &quot;Boeing&nbsp;747&quot; includes a (visible only in the source) no-break space; <code>words</code> still splits the (resulting) <code>Str</code> on it, even if the original array only had 4 elements:</p>
+<pre class="pod-block-code">say &lt;Flying on a Boeing&nbsp;747&gt;.join(&#39;|&#39;);        # OUTPUT: «Flying|on|a|Boeing&nbsp;747␤»</pre>
+<p>Please see <a href="/Documentable/integration-test/type/Str#routine_words"><code>Str.words</code></a> for more examples and ways to invoke it.</p>
+<h2 id="routine_comb"><a class="u" href="#___top" title="go to top of document">routine comb</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub comb(Regex $matcher, Cool $input, $limit = *)
+multi sub comb(Str $matcher, Cool $input, $limit = *)
+multi sub comb(Int:D $size, Cool $input, $limit = *)
+multi method comb(|c)</pre>
+<p>Returns a <a href="/Documentable/integration-test/type/Seq">Seq</a> of all (or if supplied, at most <code>$limit</code>) matches of the invocant (method form) or the second argument (sub form) against the <a href="/Documentable/integration-test/type/Regex">Regex</a>, string or defined number.</p>
+<pre class="pod-block-code">say &quot;6 or 12&quot;.comb(/\d+/).join(&quot;, &quot;);           # OUTPUT: «6, 12␤»
+say comb(/\d &lt;[1..9]&gt; /,(11..30)).join(&quot;--&quot;);
+# OUTPUT:
+# «11--12--13--14--15--16--17--18--19--21--22--23--24--25--26--27--28--29␤»</pre>
+<p>The second statement exemplifies the first form of <code>comb</code>, with a <code>Regex</code> that excludes multiples of ten, and a <code>Range</code> (which is <code>Cool</code>) as <code>$input</code>. <code>comb</code> stringifies the <code>Range</code> before applying <code>.comb</code> on the resulting string. Check <a href="/Documentable/integration-test/type/Str#routine_comb"><code>Str.comb</code></a> for its effect on different kind of input strings. When the first argument is an integer, it indicates the (maximum) size of the chunks the input is going to be divided in</p>
+<pre class="pod-block-code">say comb(3,[3,33,333,3333]).join(&quot;*&quot;);  # OUTPUT: «3 3*3 3*33 *333*3␤»</pre>
+<p>In this case the input is a list, which after transformation to <code>Str</code> (which includes the spaces) is divided in chunks of size 3.</p>
+<h2 id="method_contains"><a class="u" href="#___top" title="go to top of document">method contains</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method contains(Cool:D: |c)</pre>
+<p>Coerces the invocant to a <a href="/Documentable/integration-test/type/Str"><code>Str</code></a>, and calls <a href="/Documentable/integration-test/type/Str#method_contains"><code>Str.contains</code></a> on it. Please refer to that version of the method for arguments and general syntax.</p>
+<pre class="pod-block-code">say 123.contains(&quot;2&quot;)# OUTPUT: «True␤»</pre>
+<p>Since <a href="/Documentable/integration-test/type/Int">Int</a> is a subclass of <code>Cool</code>, <code>123</code> is coerced to a <code>Str</code> and then <code>contains</code> is called on it.</p>
+<pre class="pod-block-code">say (1,1, * + * … * &gt; 250).contains(233)# OUTPUT: «True␤»</pre>
+<p><a href="/Documentable/integration-test/type/Seq">Seq</a>s are also subclasses of <code>Cool</code>, and they are stringified to a comma-separated form. In this case we are also using an <code>Int</code>, which is going to be stringified also; <code>&quot;233&quot;</code> is included in that sequence, so it returns <code>True</code>. Please note that this sequence is not lazy; the stringification of lazy sequences does not include each and every one of their components for obvious reasons.</p>
+<h2 id="routine_index"><a class="u" href="#___top" title="go to top of document">routine index</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub index(Cool:D $s, Cool:D $needle, :i(:$ignorecase), :m(:$ignoremark) --&gt; Int:D)
+multi sub index(Cool:D $s, Cool:D $needle, Cool:D $pos, :i(:$ignorecase), :m(:$ignoremark) --&gt; Int:D)
+multi method index(Cool:D: Cool:D $needle --&gt; Int:D)
+multi method index(Cool:D: Cool:D $needle, :m(:$ignoremark)! --&gt; Int:D)
+multi method index(Cool:D: Cool:D $needle, :i(:$ignorecase)!, :m(:$ignoremark) --&gt; Int:D)
+multi method index(Cool:D: Cool:D $needle, Cool:D $pos --&gt; Int:D)
+multi method index(Cool:D: Cool:D $needle, Cool:D $pos, :m(:$ignoremark)!  --&gt; Int:D)
+multi method index(Cool:D: Cool:D $needle, Cool:D $pos, :i(:$ignorecase)!, :m(:$ignoremark) --&gt; Int:D)</pre>
+<p>Coerces the first two arguments (in method form, also counting the invocant) to a <a href="/Documentable/integration-test/type/Str">Str</a>, and searches for <code>$needle</code> in the string <code>$s</code> starting from <code>$pos</code>. It returns the offset into the string where <code>$needle</code> was found, and <code>Nil</code> if it was not found.</p>
+<p>See <a href="/Documentable/integration-test/type/Str#routine_index">the documentation in type Str</a> for examples.</p>
+<h2 id="routine_rindex"><a class="u" href="#___top" title="go to top of document">routine rindex</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub rindex(Cool:D $s, Cool:D $needle --&gt; Int:D)
+multi sub rindex(Cool:D $s, Cool:D $needle, Cool:D $pos --&gt; Int:D)
+multi method rindex(Cool:D: Cool:D $needle --&gt; Int:D)
+multi method rindex(Cool:D: Cool:D $needle, Cool:D $pos --&gt; Int:D)</pre>
+<p>Coerces the first two arguments (including the invocant in method form) to <a href="/Documentable/integration-test/type/Str">Str</a> and <code>$pos</code> to <a href="/Documentable/integration-test/type/Int">Int</a>, and returns the last position of <code>$needle</code> in the string not after <code>$pos</code>. Returns <code>Nil</code> if <code>$needle</code> wasn&#39;t found.</p>
+<p>See <a href="/Documentable/integration-test/type/Str#routine_rindex">the documentation in type Str</a> for examples.</p>
+<h2 id="method_match"><a class="u" href="#___top" title="go to top of document">method match</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method match(Cool:D: $target, *%adverbs)</pre>
+<p>Coerces the invocant to <a href="/Documentable/integration-test/type/Str">Str</a> and calls the method <a href="/Documentable/integration-test/type/Str#method_match">match</a> on it.</p>
+<h2 id="routine_roots"><a class="u" href="#___top" title="go to top of document">routine roots</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub roots(Numeric(Cool) $x, Int(Cool) $n)
+multi method roots(Int(Cool) $n)</pre>
+<p>Coerces the first argument (and in method form, the invocant) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a> and the second (<code>$n</code>) to <a href="/Documentable/integration-test/type/Int">Int</a>, and produces a list of <code>$n</code> <a href="/Documentable/integration-test/type/Complex">Complex</a> <code>$n</code>-roots, which means numbers that, raised to the <code>$n</code>th power, approximately produce the original number.</p>
+<p>For example</p>
+<pre class="pod-block-code">my $original = 16;
+my @roots = $original.roots(4);
+say @roots;
+
+for @roots -&gt; $r {
+    say abs($r ** 4 - $original);
+}
+
+# OUTPUT:«2+0i 1.22464679914735e-16+2i -2+2.44929359829471e-16i -3.67394039744206e-16-2i␤»
+# OUTPUT:«1.77635683940025e-15␤»
+# OUTPUT:«4.30267170434156e-15␤»
+# OUTPUT:«8.03651692704705e-15␤»
+# OUTPUT:«1.04441561648202e-14␤»
+</pre>
+<h2 id="method_match"><a class="u" href="#___top" title="go to top of document">method match</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method match(|)</pre>
+<p>Coerces the invocant to <a href="/Documentable/integration-test/type/Stringy">Stringy</a> and calls <a href="/Documentable/integration-test/type/Str#method_match">Str.match</a>.</p>
+<h2 id="method_subst"><a class="u" href="#___top" title="go to top of document">method subst</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method subst(|)</pre>
+<p>Coerces the invocant to <a href="/Documentable/integration-test/type/Stringy">Stringy</a> and calls <a href="/Documentable/integration-test/type/Str#method_subst">Str.subst</a>.</p>
+<h2 id="method_trans"><a class="u" href="#___top" title="go to top of document">method trans</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method trans(|)</pre>
+<p>Coerces the invocant to <a href="/Documentable/integration-test/type/Str">Str</a> and calls <a href="/Documentable/integration-test/type/Str#method_trans">Str.trans</a></p>
+<h2 id="method_IO"><a class="u" href="#___top" title="go to top of document">method IO</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method IO(--&gt; IO::Path:D)</pre>
+<p>Coerces the invocant to <a href="/Documentable/integration-test/type/IO::Path">IO::Path</a>.</p>
+<pre class="pod-block-code">.say for &#39;.&#39;.IO.dir;        # gives a directory listing
+</pre>
+<h1 id="Type_Graph"><a class="u" href="#___top" title="go to top of document">Type Graph</a></h1>
+<figure>
+  <figcaption>Type relations for <code>Cool</code></figcaption>
+  <svg width="1641pt" height="332pt"
+ viewBox="0.00 0.00 1640.89 332.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 328)">
+<title>perl6&#45;type&#45;graph</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-328 1636.89,-328 1636.89,4 -4,4"/>
+<!-- Cool -->
+<g id="node1" class="node">
+<title>Cool</title>
+<g id="a_node1"><a xlink:href="/type/Cool" xlink:title="Cool">
+<ellipse fill="none" stroke="#000000" cx="842.05" cy="-162" rx="30.59" ry="18"/>
+<text text-anchor="middle" x="842.05" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#000000">Cool</text>
+</a>
+</g>
+</g>
+<!-- Any -->
+<g id="node3" class="node">
+<title>Any</title>
+<g id="a_node3"><a xlink:href="/type/Any" xlink:title="Any">
+<ellipse fill="none" stroke="#000000" cx="795.05" cy="-234" rx="27" ry="18"/>
+<text text-anchor="middle" x="795.05" y="-230.3" font-family="FreeSans" font-size="14.00" fill="#000000">Any</text>
+</a>
+</g>
+</g>
+<!-- Cool&#45;&gt;Any -->
+<g id="edge1" class="edge">
+<title>Cool&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M831.38,-178.88C825.49,-187.66 818.05,-198.74 811.44,-208.58"/>
+<polygon fill="#000000" stroke="#000000" points="808.34,-206.93 805.67,-217.18 814.15,-210.83 808.34,-206.93"/>
+</g>
+<!-- Mu -->
+<g id="node2" class="node">
+<title>Mu</title>
+<g id="a_node2"><a xlink:href="/type/Mu" xlink:title="Mu">
+<ellipse fill="none" stroke="#000000" cx="795.05" cy="-306" rx="27" ry="18"/>
+<text text-anchor="middle" x="795.05" y="-302.3" font-family="FreeSans" font-size="14.00" fill="#000000">Mu</text>
+</a>
+</g>
+</g>
+<!-- Any&#45;&gt;Mu -->
+<g id="edge2" class="edge">
+<title>Any&#45;&gt;Mu</title>
+<path fill="none" stroke="#000000" d="M795.05,-252.3C795.05,-260.02 795.05,-269.29 795.05,-277.89"/>
+<polygon fill="#000000" stroke="#000000" points="791.55,-277.9 795.05,-287.9 798.55,-277.9 791.55,-277.9"/>
+</g>
+<!-- IO -->
+<g id="node4" class="node">
+<title>IO</title>
+<g id="a_node4"><a xlink:href="/type/IO" xlink:title="IO">
+<ellipse fill="none" stroke="#6666ff" cx="50.05" cy="-162" rx="27" ry="18"/>
+<text text-anchor="middle" x="50.05" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#6666ff">IO</text>
+</a>
+</g>
+</g>
+<!-- IO::Path -->
+<g id="node5" class="node">
+<title>IO::Path</title>
+<g id="a_node5"><a xlink:href="/type/IO::Path" xlink:title="IO::Path">
+<ellipse fill="none" stroke="#000000" cx="50.05" cy="-90" rx="50.09" ry="18"/>
+<text text-anchor="middle" x="50.05" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">IO::Path</text>
+</a>
+</g>
+</g>
+<!-- IO::Path&#45;&gt;Cool -->
+<g id="edge3" class="edge">
+<title>IO::Path&#45;&gt;Cool</title>
+<path fill="none" stroke="#000000" d="M87.75,-101.86C99.31,-105.19 109.05,-108 109.05,-108 109.05,-108 803.05,-144 803.05,-144 803.05,-144 805.24,-144.96 808.59,-146.42"/>
+<polygon fill="#000000" stroke="#000000" points="807.45,-149.74 818.01,-150.52 810.24,-143.32 807.45,-149.74"/>
+</g>
+<!-- IO::Path&#45;&gt;IO -->
+<g id="edge21" class="edge">
+<title>IO::Path&#45;&gt;IO</title>
+<path fill="none" stroke="#6666ff" d="M50.05,-108.3C50.05,-116.02 50.05,-125.29 50.05,-133.89"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="46.55,-133.9 50.05,-143.9 53.55,-133.9 46.55,-133.9"/>
+</g>
+<!-- Numeric -->
+<g id="node6" class="node">
+<title>Numeric</title>
+<g id="a_node6"><a xlink:href="/type/Numeric" xlink:title="Numeric">
+<ellipse fill="none" stroke="#6666ff" cx="485.05" cy="-234" rx="44.69" ry="18"/>
+<text text-anchor="middle" x="485.05" y="-230.3" font-family="FreeSans" font-size="14.00" fill="#6666ff">Numeric</text>
+</a>
+</g>
+</g>
+<!-- Real -->
+<g id="node7" class="node">
+<title>Real</title>
+<g id="a_node7"><a xlink:href="/type/Real" xlink:title="Real">
+<ellipse fill="none" stroke="#6666ff" cx="410.05" cy="-162" rx="30.59" ry="18"/>
+<text text-anchor="middle" x="410.05" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#6666ff">Real</text>
+</a>
+</g>
+</g>
+<!-- Real&#45;&gt;Numeric -->
+<g id="edge22" class="edge">
+<title>Real&#45;&gt;Numeric</title>
+<path fill="none" stroke="#6666ff" d="M425.59,-177.5C435.7,-186.94 449.09,-199.44 460.61,-210.19"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="458.52,-213.03 468.22,-217.3 463.3,-207.92 458.52,-213.03"/>
+</g>
+<!-- Int -->
+<g id="node8" class="node">
+<title>Int</title>
+<g id="a_node8"><a xlink:href="/type/Int" xlink:title="Int">
+<ellipse fill="none" stroke="#000000" cx="263.05" cy="-90" rx="27" ry="18"/>
+<text text-anchor="middle" x="263.05" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Int</text>
+</a>
+</g>
+</g>
+<!-- Int&#45;&gt;Cool -->
+<g id="edge4" class="edge">
+<title>Int&#45;&gt;Cool</title>
+<path fill="none" stroke="#000000" d="M284.4,-101.09C292.15,-104.75 299.05,-108 299.05,-108 299.05,-108 803.05,-144 803.05,-144 803.05,-144 805.24,-144.96 808.59,-146.42"/>
+<polygon fill="#000000" stroke="#000000" points="807.45,-149.74 818.01,-150.52 810.24,-143.32 807.45,-149.74"/>
+</g>
+<!-- Int&#45;&gt;Real -->
+<g id="edge23" class="edge">
+<title>Int&#45;&gt;Real</title>
+<path fill="none" stroke="#6666ff" d="M284.42,-101.18C308.89,-112.83 349.23,-132.04 377.59,-145.54"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="376.17,-148.74 386.7,-149.88 379.18,-142.42 376.17,-148.74"/>
+</g>
+<!-- Complex -->
+<g id="node9" class="node">
+<title>Complex</title>
+<g id="a_node9"><a xlink:href="/type/Complex" xlink:title="Complex">
+<ellipse fill="none" stroke="#000000" cx="651.05" cy="-90" rx="44.69" ry="18"/>
+<text text-anchor="middle" x="651.05" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Complex</text>
+</a>
+</g>
+</g>
+<!-- Complex&#45;&gt;Cool -->
+<g id="edge5" class="edge">
+<title>Complex&#45;&gt;Cool</title>
+<path fill="none" stroke="#000000" d="M683.65,-102.37C728.32,-117.94 803.05,-144 803.05,-144 803.05,-144 805.24,-144.96 808.59,-146.42"/>
+<polygon fill="#000000" stroke="#000000" points="807.45,-149.74 818.01,-150.52 810.24,-143.32 807.45,-149.74"/>
+</g>
+<!-- Complex&#45;&gt;Numeric -->
+<g id="edge24" class="edge">
+<title>Complex&#45;&gt;Numeric</title>
+<path fill="none" stroke="#6666ff" d="M632.65,-106.74C603.03,-132.08 544.69,-181.98 510.9,-210.88"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="508.6,-208.25 503.27,-217.41 513.15,-213.57 508.6,-208.25"/>
+</g>
+<!-- Instant -->
+<g id="node10" class="node">
+<title>Instant</title>
+<g id="a_node10"><a xlink:href="/type/Instant" xlink:title="Instant">
+<ellipse fill="none" stroke="#000000" cx="353.05" cy="-90" rx="44.69" ry="18"/>
+<text text-anchor="middle" x="353.05" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Instant</text>
+</a>
+</g>
+</g>
+<!-- Instant&#45;&gt;Cool -->
+<g id="edge6" class="edge">
+<title>Instant&#45;&gt;Cool</title>
+<path fill="none" stroke="#000000" d="M387.24,-101.77C397.96,-105.14 407.05,-108 407.05,-108 407.05,-108 803.05,-144 803.05,-144 803.05,-144 805.24,-144.96 808.59,-146.42"/>
+<polygon fill="#000000" stroke="#000000" points="807.45,-149.74 818.01,-150.52 810.24,-143.32 807.45,-149.74"/>
+</g>
+<!-- Instant&#45;&gt;Real -->
+<g id="edge25" class="edge">
+<title>Instant&#45;&gt;Real</title>
+<path fill="none" stroke="#6666ff" d="M366.27,-107.24C373.56,-116.2 382.76,-127.49 390.83,-137.41"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="388.26,-139.79 397.29,-145.33 393.69,-135.37 388.26,-139.79"/>
+</g>
+<!-- Capture -->
+<g id="node11" class="node">
+<title>Capture</title>
+<g id="a_node11"><a xlink:href="/type/Capture" xlink:title="Capture">
+<ellipse fill="none" stroke="#000000" cx="749.05" cy="-162" rx="44.69" ry="18"/>
+<text text-anchor="middle" x="749.05" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#000000">Capture</text>
+</a>
+</g>
+</g>
+<!-- Capture&#45;&gt;Any -->
+<g id="edge7" class="edge">
+<title>Capture&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M759.95,-179.59C765.64,-188.26 772.72,-199.03 779.03,-208.62"/>
+<polygon fill="#000000" stroke="#000000" points="776.12,-210.58 784.54,-217.01 781.97,-206.73 776.12,-210.58"/>
+</g>
+<!-- Match -->
+<g id="node12" class="node">
+<title>Match</title>
+<g id="a_node12"><a xlink:href="/type/Match" xlink:title="Match">
+<ellipse fill="none" stroke="#000000" cx="749.05" cy="-90" rx="35.19" ry="18"/>
+<text text-anchor="middle" x="749.05" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Match</text>
+</a>
+</g>
+</g>
+<!-- Match&#45;&gt;Cool -->
+<g id="edge9" class="edge">
+<title>Match&#45;&gt;Cool</title>
+<path fill="none" stroke="#000000" d="M768.32,-105.5C781.92,-115.75 800.34,-129.61 815.36,-140.91"/>
+<polygon fill="#000000" stroke="#000000" points="813.66,-144.01 823.75,-147.23 817.86,-138.42 813.66,-144.01"/>
+</g>
+<!-- Match&#45;&gt;Capture -->
+<g id="edge8" class="edge">
+<title>Match&#45;&gt;Capture</title>
+<path fill="none" stroke="#000000" d="M749.05,-108.3C749.05,-116.02 749.05,-125.29 749.05,-133.89"/>
+<polygon fill="#000000" stroke="#000000" points="745.55,-133.9 749.05,-143.9 752.55,-133.9 745.55,-133.9"/>
+</g>
+<!-- Positional -->
+<g id="node13" class="node">
+<title>Positional</title>
+<g id="a_node13"><a xlink:href="/type/Positional" xlink:title="Positional">
+<ellipse fill="none" stroke="#6666ff" cx="1083.05" cy="-162" rx="59.59" ry="18"/>
+<text text-anchor="middle" x="1083.05" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#6666ff">Positional</text>
+</a>
+</g>
+</g>
+<!-- Iterable -->
+<g id="node14" class="node">
+<title>Iterable</title>
+<g id="a_node14"><a xlink:href="/type/Iterable" xlink:title="Iterable">
+<ellipse fill="none" stroke="#6666ff" cx="1211.05" cy="-162" rx="50.09" ry="18"/>
+<text text-anchor="middle" x="1211.05" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#6666ff">Iterable</text>
+</a>
+</g>
+</g>
+<!-- Range -->
+<g id="node15" class="node">
+<title>Range</title>
+<g id="a_node15"><a xlink:href="/type/Range" xlink:title="Range">
+<ellipse fill="none" stroke="#000000" cx="1211.05" cy="-90" rx="35.19" ry="18"/>
+<text text-anchor="middle" x="1211.05" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Range</text>
+</a>
+</g>
+</g>
+<!-- Range&#45;&gt;Cool -->
+<g id="edge10" class="edge">
+<title>Range&#45;&gt;Cool</title>
+<path fill="none" stroke="#000000" d="M1183.93,-101.48C1174.88,-104.97 1167.05,-108 1167.05,-108 1167.05,-108 967.5,-140.54 881.12,-154.63"/>
+<polygon fill="#000000" stroke="#000000" points="880.48,-151.19 871.17,-156.25 881.61,-158.09 880.48,-151.19"/>
+</g>
+<!-- Range&#45;&gt;Positional -->
+<g id="edge26" class="edge">
+<title>Range&#45;&gt;Positional</title>
+<path fill="none" stroke="#6666ff" d="M1187.87,-103.68C1168.83,-114.09 1141.52,-129.02 1119.55,-141.04"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1117.6,-138.12 1110.5,-145.99 1120.95,-144.26 1117.6,-138.12"/>
+</g>
+<!-- Range&#45;&gt;Iterable -->
+<g id="edge27" class="edge">
+<title>Range&#45;&gt;Iterable</title>
+<path fill="none" stroke="#6666ff" d="M1211.05,-108.3C1211.05,-116.02 1211.05,-125.29 1211.05,-133.89"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1207.55,-133.9 1211.05,-143.9 1214.55,-133.9 1207.55,-133.9"/>
+</g>
+<!-- Stringy -->
+<g id="node16" class="node">
+<title>Stringy</title>
+<g id="a_node16"><a xlink:href="/type/Stringy" xlink:title="Stringy">
+<ellipse fill="none" stroke="#6666ff" cx="1588.05" cy="-162" rx="44.69" ry="18"/>
+<text text-anchor="middle" x="1588.05" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#6666ff">Stringy</text>
+</a>
+</g>
+</g>
+<!-- Str -->
+<g id="node17" class="node">
+<title>Str</title>
+<g id="a_node17"><a xlink:href="/type/Str" xlink:title="Str">
+<ellipse fill="none" stroke="#000000" cx="1512.05" cy="-90" rx="27" ry="18"/>
+<text text-anchor="middle" x="1512.05" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Str</text>
+</a>
+</g>
+</g>
+<!-- Str&#45;&gt;Cool -->
+<g id="edge11" class="edge">
+<title>Str&#45;&gt;Cool</title>
+<path fill="none" stroke="#000000" d="M1485.84,-94.94C1452.46,-99.96 1399.05,-108 1399.05,-108 1399.05,-108 1014.05,-144 1014.05,-144 1014.05,-144 932.86,-152.02 882.04,-157.05"/>
+<polygon fill="#000000" stroke="#000000" points="881.61,-153.57 872.01,-158.04 882.3,-160.54 881.61,-153.57"/>
+</g>
+<!-- Str&#45;&gt;Stringy -->
+<g id="edge28" class="edge">
+<title>Str&#45;&gt;Stringy</title>
+<path fill="none" stroke="#6666ff" d="M1527.43,-105.17C1537.74,-114.67 1551.56,-127.4 1563.4,-138.3"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1561.11,-140.95 1570.83,-145.15 1565.85,-135.8 1561.11,-140.95"/>
+</g>
+<!-- StrDistance -->
+<g id="node18" class="node">
+<title>StrDistance</title>
+<g id="a_node18"><a xlink:href="/type/StrDistance" xlink:title="StrDistance">
+<ellipse fill="none" stroke="#000000" cx="976.05" cy="-90" rx="64.19" ry="18"/>
+<text text-anchor="middle" x="976.05" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">StrDistance</text>
+</a>
+</g>
+</g>
+<!-- StrDistance&#45;&gt;Cool -->
+<g id="edge12" class="edge">
+<title>StrDistance&#45;&gt;Cool</title>
+<path fill="none" stroke="#000000" d="M946.97,-106.19C925.28,-117.52 895.69,-132.98 873.46,-144.59"/>
+<polygon fill="#000000" stroke="#000000" points="871.67,-141.57 864.43,-149.31 874.91,-147.78 871.67,-141.57"/>
+</g>
+<!-- Duration -->
+<g id="node19" class="node">
+<title>Duration</title>
+<g id="a_node19"><a xlink:href="/type/Duration" xlink:title="Duration">
+<ellipse fill="none" stroke="#000000" cx="466.05" cy="-90" rx="50.09" ry="18"/>
+<text text-anchor="middle" x="466.05" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Duration</text>
+</a>
+</g>
+</g>
+<!-- Duration&#45;&gt;Cool -->
+<g id="edge13" class="edge">
+<title>Duration&#45;&gt;Cool</title>
+<path fill="none" stroke="#000000" d="M503.75,-101.86C515.31,-105.19 525.05,-108 525.05,-108 525.05,-108 803.05,-144 803.05,-144 803.05,-144 805.24,-144.96 808.59,-146.42"/>
+<polygon fill="#000000" stroke="#000000" points="807.45,-149.74 818.01,-150.52 810.24,-143.32 807.45,-149.74"/>
+</g>
+<!-- Duration&#45;&gt;Real -->
+<g id="edge29" class="edge">
+<title>Duration&#45;&gt;Real</title>
+<path fill="none" stroke="#6666ff" d="M452.77,-107.59C445.6,-116.56 436.62,-127.79 428.74,-137.63"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="425.97,-135.49 422.45,-145.49 431.43,-139.87 425.97,-135.49"/>
+</g>
+<!-- Nil -->
+<g id="node20" class="node">
+<title>Nil</title>
+<g id="a_node20"><a xlink:href="/type/Nil" xlink:title="Nil">
+<ellipse fill="none" stroke="#000000" cx="867.05" cy="-90" rx="27" ry="18"/>
+<text text-anchor="middle" x="867.05" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Nil</text>
+</a>
+</g>
+</g>
+<!-- Nil&#45;&gt;Cool -->
+<g id="edge14" class="edge">
+<title>Nil&#45;&gt;Cool</title>
+<path fill="none" stroke="#000000" d="M861.12,-107.59C858.27,-115.58 854.77,-125.36 851.56,-134.36"/>
+<polygon fill="#000000" stroke="#000000" points="848.17,-133.45 848.1,-144.04 854.76,-135.8 848.17,-133.45"/>
+</g>
+<!-- List -->
+<g id="node21" class="node">
+<title>List</title>
+<g id="a_node21"><a xlink:href="/type/List" xlink:title="List">
+<ellipse fill="none" stroke="#000000" cx="1127.05" cy="-90" rx="30.59" ry="18"/>
+<text text-anchor="middle" x="1127.05" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">List</text>
+</a>
+</g>
+</g>
+<!-- List&#45;&gt;Cool -->
+<g id="edge15" class="edge">
+<title>List&#45;&gt;Cool</title>
+<path fill="none" stroke="#000000" d="M1101.91,-100.49C1091.61,-104.39 1082.05,-108 1082.05,-108 1082.05,-108 948.19,-137.56 880.41,-152.53"/>
+<polygon fill="#000000" stroke="#000000" points="879.53,-149.14 870.52,-154.71 881.04,-155.97 879.53,-149.14"/>
+</g>
+<!-- List&#45;&gt;Positional -->
+<g id="edge30" class="edge">
+<title>List&#45;&gt;Positional</title>
+<path fill="none" stroke="#6666ff" d="M1116.84,-107.24C1111.61,-115.56 1105.11,-125.9 1099.22,-135.27"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1096.17,-133.55 1093.81,-143.88 1102.09,-137.27 1096.17,-133.55"/>
+</g>
+<!-- List&#45;&gt;Iterable -->
+<g id="edge31" class="edge">
+<title>List&#45;&gt;Iterable</title>
+<path fill="none" stroke="#6666ff" d="M1144.04,-105.17C1155.56,-114.76 1171.01,-127.64 1184.18,-138.61"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1182.1,-141.43 1192.02,-145.15 1186.58,-136.06 1182.1,-141.43"/>
+</g>
+<!-- Num -->
+<g id="node22" class="node">
+<title>Num</title>
+<g id="a_node22"><a xlink:href="/type/Num" xlink:title="Num">
+<ellipse fill="none" stroke="#000000" cx="561.05" cy="-90" rx="27" ry="18"/>
+<text text-anchor="middle" x="561.05" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Num</text>
+</a>
+</g>
+</g>
+<!-- Num&#45;&gt;Cool -->
+<g id="edge16" class="edge">
+<title>Num&#45;&gt;Cool</title>
+<path fill="none" stroke="#000000" d="M582.4,-101.09C590.15,-104.75 597.05,-108 597.05,-108 597.05,-108 803.05,-144 803.05,-144 803.05,-144 805.24,-144.96 808.59,-146.42"/>
+<polygon fill="#000000" stroke="#000000" points="807.45,-149.74 818.01,-150.52 810.24,-143.32 807.45,-149.74"/>
+</g>
+<!-- Num&#45;&gt;Real -->
+<g id="edge32" class="edge">
+<title>Num&#45;&gt;Real</title>
+<path fill="none" stroke="#6666ff" d="M539.69,-101.09C531.94,-104.75 525.05,-108 525.05,-108 525.05,-108 476.48,-130.38 442.47,-146.06"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="440.93,-142.91 433.32,-150.27 443.86,-149.27 440.93,-142.91"/>
+</g>
+<!-- Associative -->
+<g id="node23" class="node">
+<title>Associative</title>
+<g id="a_node23"><a xlink:href="/type/Associative" xlink:title="Associative">
+<ellipse fill="none" stroke="#6666ff" cx="1343.05" cy="-162" rx="64.19" ry="18"/>
+<text text-anchor="middle" x="1343.05" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#6666ff">Associative</text>
+</a>
+</g>
+</g>
+<!-- Map -->
+<g id="node24" class="node">
+<title>Map</title>
+<g id="a_node24"><a xlink:href="/type/Map" xlink:title="Map">
+<ellipse fill="none" stroke="#000000" cx="1291.05" cy="-90" rx="27" ry="18"/>
+<text text-anchor="middle" x="1291.05" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Map</text>
+</a>
+</g>
+</g>
+<!-- Map&#45;&gt;Cool -->
+<g id="edge17" class="edge">
+<title>Map&#45;&gt;Cool</title>
+<path fill="none" stroke="#000000" d="M1269.69,-101.09C1261.94,-104.75 1255.05,-108 1255.05,-108 1255.05,-108 985.29,-142.62 881.8,-155.9"/>
+<polygon fill="#000000" stroke="#000000" points="881.22,-152.44 871.75,-157.19 882.11,-159.39 881.22,-152.44"/>
+</g>
+<!-- Map&#45;&gt;Iterable -->
+<g id="edge33" class="edge">
+<title>Map&#45;&gt;Iterable</title>
+<path fill="none" stroke="#6666ff" d="M1275.24,-104.83C1264.3,-114.4 1249.5,-127.35 1236.87,-138.4"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1234.56,-135.77 1229.34,-144.99 1239.17,-141.04 1234.56,-135.77"/>
+</g>
+<!-- Map&#45;&gt;Associative -->
+<g id="edge34" class="edge">
+<title>Map&#45;&gt;Associative</title>
+<path fill="none" stroke="#6666ff" d="M1302.59,-106.54C1308.97,-115.13 1317.07,-126.03 1324.34,-135.81"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1321.67,-138.1 1330.45,-144.04 1327.29,-133.92 1321.67,-138.1"/>
+</g>
+<!-- Rational -->
+<g id="node25" class="node">
+<title>Rational</title>
+<g id="a_node25"><a xlink:href="/type/Rational" xlink:title="Rational">
+<ellipse fill="none" stroke="#6666ff" cx="168.05" cy="-90" rx="50.09" ry="18"/>
+<text text-anchor="middle" x="168.05" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#6666ff">Rational</text>
+</a>
+</g>
+</g>
+<!-- Rational&#45;&gt;Real -->
+<g id="edge35" class="edge">
+<title>Rational&#45;&gt;Real</title>
+<path fill="none" stroke="#6666ff" d="M205.86,-101.94C251.59,-115.16 328.03,-137.28 373.28,-150.37"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="372.41,-153.76 382.99,-153.17 374.36,-147.03 372.41,-153.76"/>
+</g>
+<!-- Rat -->
+<g id="node26" class="node">
+<title>Rat</title>
+<g id="a_node26"><a xlink:href="/type/Rat" xlink:title="Rat">
+<ellipse fill="none" stroke="#000000" cx="490.05" cy="-18" rx="27" ry="18"/>
+<text text-anchor="middle" x="490.05" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">Rat</text>
+</a>
+</g>
+</g>
+<!-- Rat&#45;&gt;Cool -->
+<g id="edge18" class="edge">
+<title>Rat&#45;&gt;Cool</title>
+<path fill="none" stroke="#000000" d="M515.88,-23.52C589.15,-36.34 793.05,-72 793.05,-72 793.05,-72 813.56,-109.27 828.05,-135.57"/>
+<polygon fill="#000000" stroke="#000000" points="825.17,-137.6 833.06,-144.68 831.3,-134.23 825.17,-137.6"/>
+</g>
+<!-- Rat&#45;&gt;Rational -->
+<g id="edge36" class="edge">
+<title>Rat&#45;&gt;Rational</title>
+<path fill="none" stroke="#6666ff" d="M464.35,-24.18C398.17,-37.51 227.05,-72 227.05,-72 227.05,-72 222.44,-73.33 215.81,-75.24"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="214.39,-72.01 205.75,-78.14 216.32,-78.73 214.39,-72.01"/>
+</g>
+<!-- FatRat -->
+<g id="node27" class="node">
+<title>FatRat</title>
+<g id="a_node27"><a xlink:href="/type/FatRat" xlink:title="FatRat">
+<ellipse fill="none" stroke="#000000" cx="821.05" cy="-18" rx="40.09" ry="18"/>
+<text text-anchor="middle" x="821.05" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">FatRat</text>
+</a>
+</g>
+</g>
+<!-- FatRat&#45;&gt;Cool -->
+<g id="edge19" class="edge">
+<title>FatRat&#45;&gt;Cool</title>
+<path fill="none" stroke="#000000" d="M856.17,-27.17C920.13,-42.03 1049.05,-72 1049.05,-72 1049.05,-72 1049.05,-108 1049.05,-108 1049.05,-108 938.95,-136.19 879.34,-151.45"/>
+<polygon fill="#000000" stroke="#000000" points="878.35,-148.09 869.53,-153.96 880.09,-154.87 878.35,-148.09"/>
+</g>
+<!-- FatRat&#45;&gt;Rational -->
+<g id="edge37" class="edge">
+<title>FatRat&#45;&gt;Rational</title>
+<path fill="none" stroke="#6666ff" d="M781.61,-22.52C648.94,-34.36 227.05,-72 227.05,-72 227.05,-72 222.44,-73.33 215.81,-75.24"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="214.39,-72.01 205.75,-78.14 216.32,-78.73 214.39,-72.01"/>
+</g>
+<!-- PositionalBindFailover -->
+<g id="node28" class="node">
+<title>PositionalBindFailover</title>
+<g id="a_node28"><a xlink:href="/type/PositionalBindFailover" xlink:title="PositionalBindFailover">
+<ellipse fill="none" stroke="#6666ff" cx="1475.05" cy="-234" rx="118.08" ry="18"/>
+<text text-anchor="middle" x="1475.05" y="-230.3" font-family="FreeSans" font-size="14.00" fill="#6666ff">PositionalBindFailover</text>
+</a>
+</g>
+</g>
+<!-- Sequence -->
+<g id="node29" class="node">
+<title>Sequence</title>
+<g id="a_node29"><a xlink:href="/type/Sequence" xlink:title="Sequence">
+<ellipse fill="none" stroke="#6666ff" cx="1475.05" cy="-162" rx="50.09" ry="18"/>
+<text text-anchor="middle" x="1475.05" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#6666ff">Sequence</text>
+</a>
+</g>
+</g>
+<!-- Sequence&#45;&gt;PositionalBindFailover -->
+<g id="edge38" class="edge">
+<title>Sequence&#45;&gt;PositionalBindFailover</title>
+<path fill="none" stroke="#6666ff" d="M1475.05,-180.3C1475.05,-188.02 1475.05,-197.29 1475.05,-205.89"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1471.55,-205.9 1475.05,-215.9 1478.55,-205.9 1471.55,-205.9"/>
+</g>
+<!-- Seq -->
+<g id="node30" class="node">
+<title>Seq</title>
+<g id="a_node30"><a xlink:href="/type/Seq" xlink:title="Seq">
+<ellipse fill="none" stroke="#000000" cx="1363.05" cy="-90" rx="27" ry="18"/>
+<text text-anchor="middle" x="1363.05" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Seq</text>
+</a>
+</g>
+</g>
+<!-- Seq&#45;&gt;Cool -->
+<g id="edge20" class="edge">
+<title>Seq&#45;&gt;Cool</title>
+<path fill="none" stroke="#000000" d="M1341.69,-101.09C1333.94,-104.75 1327.05,-108 1327.05,-108 1327.05,-108 998.59,-143.89 882.28,-156.6"/>
+<polygon fill="#000000" stroke="#000000" points="881.58,-153.16 872.02,-157.72 882.34,-160.12 881.58,-153.16"/>
+</g>
+<!-- Seq&#45;&gt;Iterable -->
+<g id="edge39" class="edge">
+<title>Seq&#45;&gt;Iterable</title>
+<path fill="none" stroke="#6666ff" d="M1341.69,-101.09C1333.94,-104.75 1327.05,-108 1327.05,-108 1327.05,-108 1283.8,-127.76 1250.12,-143.15"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1248.56,-140.01 1240.92,-147.35 1251.47,-146.38 1248.56,-140.01"/>
+</g>
+<!-- Seq&#45;&gt;Sequence -->
+<g id="edge40" class="edge">
+<title>Seq&#45;&gt;Sequence</title>
+<path fill="none" stroke="#6666ff" d="M1382.04,-102.87C1398.61,-113.23 1422.98,-128.46 1442.62,-140.74"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="1440.93,-143.81 1451.27,-146.14 1444.64,-137.87 1440.93,-143.81"/>
+</g>
+</g>
+</svg>
+
+  <p class="fallback">
+    <a
+      rel="alternate"
+      href="/images/type-graph-Cool.svg"
+      type="image/svg+xml"
+      >Expand above chart</a
+    >
+  </p>
+</figure>
+
+        </div>
+    </div>
+
+    <aside><ol start="1">
+<li><a href="#fn-ref-1" id="fn-1">[↑]</a> <em>the <a href="/Documentable/integration-test/routine/comb">comb</a> routine is a much better choice for many tasks that in other languages are handled by the <code>split</code>.</em> </li>
+</ol></aside>
+
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Type/Cool.pod6">https://github.com/Raku/doc/blob/master/doc/Type/Cool.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

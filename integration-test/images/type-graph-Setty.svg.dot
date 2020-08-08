@@ -1,0 +1,24 @@
+digraph "perl6-type-graph" {
+    rankdir=BT;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "Setty" [color="#6666FF", fontcolor="#6666FF", href="/type/Setty", fontname="FreeSans"];
+    "Associative" [color="#6666FF", fontcolor="#6666FF", href="/type/Associative", fontname="FreeSans"];
+    "QuantHash" [color="#6666FF", fontcolor="#6666FF", href="/type/QuantHash", fontname="FreeSans"];
+    "Mu" [color="#000000", fontcolor="#000000", href="/type/Mu", fontname="FreeSans"];
+    "Any" [color="#000000", fontcolor="#000000", href="/type/Any", fontname="FreeSans"];
+    "SetHash" [color="#000000", fontcolor="#000000", href="/type/SetHash", fontname="FreeSans"];
+    "Set" [color="#000000", fontcolor="#000000", href="/type/Set", fontname="FreeSans"];
+
+    // Superclasses
+    "Any" -> "Mu" [color="#000000"];
+    "SetHash" -> "Any" [color="#000000"];
+    "Set" -> "Any" [color="#000000"];
+
+    // Roles
+    "Setty" -> "QuantHash" [color="#6666FF"];
+    "QuantHash" -> "Associative" [color="#6666FF"];
+    "SetHash" -> "Setty" [color="#6666FF"];
+    "Set" -> "Setty" [color="#6666FF"];
+}

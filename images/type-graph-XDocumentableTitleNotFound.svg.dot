@@ -1,0 +1,15 @@
+digraph "perl6-type-graph" {
+    rankdir=BT;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "X::Documentable::TitleNotFound" [color="#000000", fontcolor="#000000", href="/type/X::Documentable::TitleNotFound", fontname="FreeSans"];
+    "Any" [color="#000000", fontcolor="#000000", href="/type/Any", fontname="FreeSans"];
+    "Exception" [color="#000000", fontcolor="#000000", href="/type/Exception", fontname="FreeSans"];
+
+    // Superclasses
+    "X::Documentable::TitleNotFound" -> "Exception" [color="#000000"];
+    "Exception" -> "Any" [color="#000000"];
+
+    // Roles
+}

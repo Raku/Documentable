@@ -1,0 +1,25 @@
+digraph "perl6-type-graph" {
+    rankdir=BT;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "Stash" [color="#000000", fontcolor="#000000", href="/type/Stash", fontname="FreeSans"];
+    "Mu" [color="#000000", fontcolor="#000000", href="/type/Mu", fontname="FreeSans"];
+    "Any" [color="#000000", fontcolor="#000000", href="/type/Any", fontname="FreeSans"];
+    "Cool" [color="#000000", fontcolor="#000000", href="/type/Cool", fontname="FreeSans"];
+    "Iterable" [color="#6666FF", fontcolor="#6666FF", href="/type/Iterable", fontname="FreeSans"];
+    "Associative" [color="#6666FF", fontcolor="#6666FF", href="/type/Associative", fontname="FreeSans"];
+    "Map" [color="#000000", fontcolor="#000000", href="/type/Map", fontname="FreeSans"];
+    "Hash" [color="#000000", fontcolor="#000000", href="/type/Hash", fontname="FreeSans"];
+
+    // Superclasses
+    "Stash" -> "Hash" [color="#000000"];
+    "Any" -> "Mu" [color="#000000"];
+    "Cool" -> "Any" [color="#000000"];
+    "Map" -> "Cool" [color="#000000"];
+    "Hash" -> "Map" [color="#000000"];
+
+    // Roles
+    "Map" -> "Iterable" [color="#6666FF"];
+    "Map" -> "Associative" [color="#6666FF"];
+}

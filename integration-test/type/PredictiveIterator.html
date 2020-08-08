@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>role PredictiveIterator</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/type.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-basic.html"> Basic </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-composite.html"> Composite </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-domain-specific.html"> Domain-specific </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-exception.html"> Exceptions </a>
+            </div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Type/PredictiveIterator.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">role PredictiveIterator</h1>
+        <p class="subtitle">Iterators that can predict number of values</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+                     <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#method_count-only">method count-only</a></td></tr>
+                       <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#method_bool-only">method bool-only</a></td></tr>
+      <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Type_Graph">Type Graph</a></td></tr>
+  <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Routines_supplied_by_role_Iterator">Routines supplied by role Iterator</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#(Iterator)_method_pull-one">(Iterator) method pull-one</a></td></tr>
+                             <tr class="toc-level-2"><td class="toc-number">3.2</td><td class="toc-text"><a href="#(Iterator)_method_push-exactly">(Iterator) method push-exactly</a></td></tr>
+                                                                                                      <tr class="toc-level-2"><td class="toc-number">3.3</td><td class="toc-text"><a href="#(Iterator)_method_push-at-least">(Iterator) method push-at-least</a></td></tr>
+                           <tr class="toc-level-2"><td class="toc-number">3.4</td><td class="toc-text"><a href="#(Iterator)_method_push-all">(Iterator) method push-all</a></td></tr>
+                                                                                <tr class="toc-level-2"><td class="toc-number">3.5</td><td class="toc-text"><a href="#(Iterator)_method_push-until-lazy">(Iterator) method push-until-lazy</a></td></tr>
+            <tr class="toc-level-2"><td class="toc-number">3.6</td><td class="toc-text"><a href="#(Iterator)_method_is-lazy">(Iterator) method is-lazy</a></td></tr>
+                 <tr class="toc-level-2"><td class="toc-number">3.7</td><td class="toc-text"><a href="#(Iterator)_method_sink-all">(Iterator) method sink-all</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">3.8</td><td class="toc-text"><a href="#(Iterator)_method_skip-one">(Iterator) method skip-one</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">3.9</td><td class="toc-text"><a href="#(Iterator)_method_skip-at-least">(Iterator) method skip-at-least</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">3.10</td><td class="toc-text"><a href="#(Iterator)_method_skip-at-least-pull-one">(Iterator) method skip-at-least-pull-one</a></td></tr>
+             
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>A <code>PredictiveIterator</code> is a special kind of <a href="/Documentable/integration-test/type/Iterator">Iterator</a> that can know how many values it will (still) generate <strong>without</strong> actually needing to generate those values.</p>
+<p>The main addition to the API of the <a href="/Documentable/integration-test/type/Iterator">Iterator</a> role, is the <code>count-only</code> method, which should return the number of values the Iterator is still able to generate.</p>
+<p>The other addition is the <code>bool-only</code> method, that should return a <code>Bool</code> indicating whether the Iterator is still capable of producing values (aka, is not exhausted yet). By default, this is the Booleanification of the result of the call to the <code>count-only</code> method.</p>
+<h1 id="Methods"><a class="u" href="#___top" title="go to top of document">Methods</a></h1>
+<h2 id="method_count-only"><a class="u" href="#___top" title="go to top of document">method count-only</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method count-only(--&gt; Int:D) { ... }</pre>
+<p>It is expected to return the number of values the iterator can still produce <strong>without</strong> actually producing them. The returned number <strong>must adjust itself</strong> for items already pulled, so that the method can be called on a partially consumed <code>Iterator</code>.</p>
+<p>It will be used in situations where only the <strong>number</strong> of values of an iterator is needed, e.g. when the <code>.elems</code> method is called.</p>
+<p><strong>Important:</strong> it&#39;s expected the <code>Iterator</code>s that implement this method can return that number <strong>without</strong> producing any values. In other words, it&#39;s expected the user of the class will be able to still <a href="/Documentable/integration-test/routine/pull-one">pull-one</a> after calling this method, and eventually receive as many values as the return value of this method indicated.</p>
+<h2 id="method_bool-only"><a class="u" href="#___top" title="go to top of document">method bool-only</a></h2>
+<p>Defaults to the Booleanification of the result of calling the <code>count-only</code> method. If it is possible to have a faster way of finding out whether the iterator is capable of producing any value, it should be implemented.</p>
+<p>Defined as:</p>
+<pre class="pod-block-code">method bool-only(--&gt; Bool:D) { self.count-only.Bool }</pre>
+<h1 id="Type_Graph"><a class="u" href="#___top" title="go to top of document">Type Graph</a></h1>
+<figure>
+  <figcaption>Type relations for <code>PredictiveIterator</code></figcaption>
+  <svg width="206pt" height="116pt"
+ viewBox="0.00 0.00 205.58 116.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 112)">
+<title>perl6&#45;type&#45;graph</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-112 201.58,-112 201.58,4 -4,4"/>
+<!-- PredictiveIterator -->
+<g id="node1" class="node">
+<title>PredictiveIterator</title>
+<g id="a_node1"><a xlink:href="/type/PredictiveIterator" xlink:title="PredictiveIterator">
+<ellipse fill="none" stroke="#6666ff" cx="98.79" cy="-18" rx="98.58" ry="18"/>
+<text text-anchor="middle" x="98.79" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#6666ff">PredictiveIterator</text>
+</a>
+</g>
+</g>
+<!-- Iterator -->
+<g id="node2" class="node">
+<title>Iterator</title>
+<g id="a_node2"><a xlink:href="/type/Iterator" xlink:title="Iterator">
+<ellipse fill="none" stroke="#6666ff" cx="98.79" cy="-90" rx="50.09" ry="18"/>
+<text text-anchor="middle" x="98.79" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#6666ff">Iterator</text>
+</a>
+</g>
+</g>
+<!-- PredictiveIterator&#45;&gt;Iterator -->
+<g id="edge1" class="edge">
+<title>PredictiveIterator&#45;&gt;Iterator</title>
+<path fill="none" stroke="#6666ff" d="M98.79,-36.3C98.79,-44.02 98.79,-53.29 98.79,-61.89"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="95.29,-61.9 98.79,-71.9 102.29,-61.9 95.29,-61.9"/>
+</g>
+</g>
+</svg>
+
+  <p class="fallback">
+    <a
+      rel="alternate"
+      href="/images/type-graph-PredictiveIterator.svg"
+      type="image/svg+xml"
+      >Expand above chart</a
+    >
+  </p>
+</figure>
+<h1 id="Routines_supplied_by_role_Iterator"><a class="u" href="#___top" title="go to top of document">Routines supplied by role Iterator</a></h1>
+<p>PredictiveIterator does role <a href="/Documentable/integration-test/type/Iterator">Iterator</a>, which provides the following routines:</p>
+<h2 id="(Iterator)_method_pull-one"><a href="/Documentable/integration-test/type/Iterator#method_pull-one">(Iterator) method pull-one</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method pull-one(Iterator:D: --&gt; Mu)</pre>
+<p>This method stub ensures that classes implementing the <code>Iterator</code> role provide a method named <code>pull-one</code>.</p>
+<p>The <code>pull-one</code> method is supposed to produce and return the next value if possible, or return the sentinel value <code>IterationEnd</code> if no more values could be produced.</p>
+<pre class="pod-block-code">my $i = (1 .. 3).iterator;
+say $i.pull-one;       # OUTPUT: «1␤»
+say $i.pull-one;       # OUTPUT: «2␤»
+say $i.pull-one;       # OUTPUT: «3␤»
+say $i.pull-one.raku;  # OUTPUT: «IterationEnd␤»</pre>
+<p>As a more illustrative example of its use, here is a count down iterator along with a simplistic subroutine re-implementation of the <code>for</code> loop.</p>
+<pre class="pod-block-code"># works the same as (10 ... 1, &#39;lift off&#39;)
+class CountDown does Iterator {
+    has Int:D $!current = 10;
+
+    method pull-one ( --&gt; Mu ) {
+        my $result = $!current--;
+        if $result ==  0 { return &#39;lift off&#39; }
+        if $result == -1 { return IterationEnd }
+
+        # calling .pull-one again after it returns IterationEnd is undefined
+        if $result &lt;= -2 {
+            # so for fun we will give them nonsense data
+            return (1..10).pick;
+        }
+
+        return $result;
+    }
+}
+
+sub for( Iterable:D $sequence, &amp;do --&gt; Nil ) {
+    my Iterator:D $iterator = $sequence.iterator;
+
+    loop {
+        # must bind the result so that =:= works
+        my Mu $pulled := $iterator.pull-one;
+
+        # always check the result and make sure that .pull-one
+        # is not called again after it returns IterationEnd
+        if $pulled =:= IterationEnd { last }
+
+        do( $pulled );
+    }
+}
+
+for( Seq.new(CountDown.new), &amp;say );  # OUTPUT: «10␤9␤8␤7␤6␤5␤4␤3␤2␤1␤lift off␤»</pre>
+<p>It would be more idiomatic to use <code>while</code> or <code>until</code>, and a sigilless variable.</p>
+<pre class="pod-block-code">until IterationEnd =:= (my \pulled = $iterator.pull-one) {
+    do( pulled );
+}
+</pre>
+<h2 id="(Iterator)_method_push-exactly"><a href="/Documentable/integration-test/type/Iterator#method_push-exactly">(Iterator) method push-exactly</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method push-exactly(Iterator:D: $target, int $count --&gt; Mu)</pre>
+<p>Should produce <code>$count</code> elements, and for each of them, call <code>$target.push($value)</code>.</p>
+<p>If fewer than <code>$count</code> elements are available from the iterator, it should return the sentinel value <code>IterationEnd</code>. Otherwise it should return <code>$count</code>.</p>
+<pre class="pod-block-code">my @array;
+say (1 .. ∞).iterator.push-exactly(@array, 3); # OUTPUT: «3␤»
+say @array; # OUTPUT: «[1 2 3]␤»</pre>
+<p>The Iterator role implements this method in terms of <code>pull-one</code>. In general, this is a method that is not intended to be called directly from the end user who, instead, should implement it in classes that mix the iterator role. For instance, this class implements that role:</p>
+<pre class="pod-block-code">class DNA does Iterable does Iterator {
+    has $.chain;
+    has Int $!index = 0;
+
+    method new ($chain where {
+                       $chain ~~ /^^ &lt;[ACGT]&gt;+ $$ / and
+                       $chain.chars %% 3 } ) {
+        self.bless( :$chain );
+    }
+
+    method iterator( ){ self }
+
+    method pull-one( --&gt; Mu){
+      if $!index &lt; $.chain.chars {
+         my $codon = $.chain.comb.rotor(3)[$!index div 3];
+         $!index += 3;
+         return $codon;
+      } else {
+        return IterationEnd;
+      }
+    }
+
+    method push-exactly(Iterator:D: $target, int $count --&gt; Mu) {
+        return IterationEnd if $.chain.elems / 3 &lt; $count;
+        for ^($count) {
+            $target.push: $.chain.comb.rotor(3)[ $_ ];
+        }
+    }
+
+};
+
+my $b := DNA.new(&quot;AAGCCT&quot;);
+for $b -&gt; $a, $b, $c { say &quot;Never mind&quot; }; # Does not enter the loop
+my $þor := DNA.new(&quot;CAGCGGAAGCCT&quot;);
+for $þor -&gt; $first, $second {
+    say &quot;Coupled codons: $first, $second&quot;;
+    # OUTPUT: «Coupled codons: C A G, C G G␤Coupled codons: A A G, C C T␤»
+}
+</pre>
+<p>This code, which groups DNA chains in triplets (usually called <em>codons</em>) returns those codons when requested in a loop; if too many are requested, like in the first case <code>for $b -&gt; $a, $b, $c</code>, it simply does not enter the loop since <code>push-exactly</code> will return <code>IterationEnd</code> since it is not able to serve the request for exactly 3 codons. In the second case, however, it requests exactly two codons in each iteration of the loop; <code>push-exactly</code> is being called with the number of loop variables as the <code>$count</code> variable.</p>
+<h2 id="(Iterator)_method_push-at-least"><a href="/Documentable/integration-test/type/Iterator#method_push-at-least">(Iterator) method push-at-least</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method push-at-least(Iterator:D: $target, int $count --&gt; Mu)</pre>
+<p>Should produce at least <code>$count</code> elements, and for each of them, call <code>$target.push($value)</code>.</p>
+<p>If fewer than <code>$count</code> elements are available from the iterator, it should return the sentinel value <code>IterationEnd</code>. Otherwise it should return <code>$count</code>.</p>
+<p>Iterators with side effects should produce exactly <code>$count</code> elements; iterators without side effects (such as <a href="/Documentable/integration-test/type/Range">Range</a> iterators) can produce more elements to achieve better performance.</p>
+<pre class="pod-block-code">my @array;
+say (1 .. ∞).iterator.push-at-least(@array, 10); # OUTPUT: «10␤»
+say @array; # OUTPUT: «[1 2 3 4 5 6 7 8 9 10]␤»</pre>
+<p>The Iterator role implements this method in terms of <code>pull-one</code>. In general, it is also not intended to be called directly as in the example above. It can be implemented, if unhappy with this default implementation, by those using this role. See <a href="/Documentable/integration-test/type/Iterator#method_push-exactly">the documentation for <code>push-exactly</code></a> for an example implementation.</p>
+<h2 id="(Iterator)_method_push-all"><a href="/Documentable/integration-test/type/Iterator#method_push-all">(Iterator) method push-all</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method push-all(Iterator:D: $target)</pre>
+<p>Should produce all elements from the iterator and push them to <code>$target</code>.</p>
+<pre class="pod-block-code">my @array;
+say (1 .. 1000).iterator.push-all(@array); # All 1000 values are pushed</pre>
+<p>The Iterator role implements this method in terms of <code>push-at-least</code>. As in the case of the other <code>push-*</code> methods, it is mainly intended for developers implementing this role. <code>push-all</code> is called when assigning an object with this role to an array, for instance, like in this example:</p>
+<pre class="pod-block-code">class DNA does Iterable does Iterator {
+    has $.chain;
+    has Int $!index = 0;
+
+    method new ($chain where {
+                       $chain ~~ /^^ &lt;[ACGT]&gt;+ $$ / and
+                       $chain.chars %% 3 } ) {
+        self.bless( :$chain );
+    }
+
+    method iterator( ){ self }
+    method pull-one( --&gt; Mu){
+      if $!index &lt; $.chain.chars {
+         my $codon = $.chain.comb.rotor(3)[$!index div 3];
+         $!index += 3;
+         return $codon;
+      } else {
+        return IterationEnd;
+      }
+    }
+
+    method push-all(Iterator:D: $target) {
+        for $.chain.comb.rotor(3) -&gt; $codon {
+            $target.push: $codon;
+        }
+    }
+
+};
+
+my $b := DNA.new(&quot;AAGCCT&quot;);
+my @dna-array = $b;
+say @dna-array; # OUTPUT: «[(A A G) (C C T)]␤»
+</pre>
+<p>The <code>push-all</code> method implemented pushes to the target iterator in lists of three aminoacid representations; this is called under the covers when we assign <code>$b</code> to <code>@dna-array</code>.</p>
+<h2 id="(Iterator)_method_push-until-lazy"><a href="/Documentable/integration-test/type/Iterator#method_push-until-lazy">(Iterator) method push-until-lazy</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method push-until-lazy(Iterator:D: $target --&gt; Mu)</pre>
+<p>Should produce values until it considers itself to be lazy, and push them onto <code>$target</code>.</p>
+<p>The Iterator role implements this method as a no-op if <code>is-lazy</code> returns a True value, or as a synonym of <code>push-all</code> if not.</p>
+<p>This matters mostly for iterators that have other iterators embedded, some of which might be lazy, while others aren&#39;t.</p>
+<h2 id="(Iterator)_method_is-lazy"><a href="/Documentable/integration-test/type/Iterator#method_is-lazy">(Iterator) method is-lazy</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method is-lazy(Iterator:D: --&gt; Bool:D)</pre>
+<p>Should return <code>True</code> for iterators that consider themselves lazy, and <code>False</code> otherwise.</p>
+<p>Built-in operations that know that they can produce infinitely many values return <code>True</code> here, for example <code>(1..6).roll(*)</code>.</p>
+<pre class="pod-block-code">say (1 .. 100).is-lazy; # OUTPUT: «False␤»
+say (1 .. ∞).is-lazy; # OUTPUT: «True␤»</pre>
+<p>The Iterator role implements this method returning <code>False</code>, indicating a non-lazy iterator.</p>
+<h2 id="(Iterator)_method_sink-all"><a href="/Documentable/integration-test/type/Iterator#method_sink-all">(Iterator) method sink-all</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method sink-all(Iterator:D: --&gt; IterationEnd)</pre>
+<p>Should exhaust the iterator purely for the side-effects of producing the values, without actually saving them in any way. Should always return <code>IterationEnd</code>. If there are no side-effects associated with producing a value, then it can be implemented by a consuming class to be a virtual no-op.</p>
+<pre class="pod-block-code">say (1 .. 1000).iterator.sink-all;  # OUTPUT: «IterationEnd␤»</pre>
+<p>The Iterator role implements this method as a loop that calls <code>pull-one</code> until it is exhausted.</p>
+<h2 id="(Iterator)_method_skip-one"><a href="/Documentable/integration-test/type/Iterator#method_skip-one">(Iterator) method skip-one</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method skip-one(Iterator:D: $target --&gt; Mu)</pre>
+<p>Should skip producing one value. The return value should be truthy if the skip was successful and falsy if there were no values to be skipped:</p>
+<pre class="pod-block-code">my $i = &lt;a b&gt;.iterator;
+say $i.skip-one; say $i.pull-one; say $i.skip-one
+# OUTPUT: «1␤b␤0␤»</pre>
+<p>The Iterator role implements this method as a call <code>pull-one</code> and returning whether the value obtained was not <code>IterationEnd</code>.</p>
+<h2 id="(Iterator)_method_skip-at-least"><a href="/Documentable/integration-test/type/Iterator#method_skip-at-least">(Iterator) method skip-at-least</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method skip-at-least(Iterator:D: $target, int $to-skip --&gt; Mu)</pre>
+<p>Should skip producing <code>$to-skip</code> values. The return value should be truthy if the skip was successful and falsy if there were not enough values to be skipped:</p>
+<pre class="pod-block-code">my $i = &lt;a b c&gt;.iterator;
+say $i.skip-at-least(2); say $i.pull-one; say $i.skip-at-least(20);
+# OUTPUT: «1␤c␤0␤»</pre>
+<p>The Iterator role implements this method as a loop calling <code>skip-one</code> and returning whether it returned a truthy value sufficient number of times.</p>
+<h2 id="(Iterator)_method_skip-at-least-pull-one"><a href="/Documentable/integration-test/type/Iterator#method_skip-at-least-pull-one">(Iterator) method skip-at-least-pull-one</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method skip-at-least-pull-one(Iterator:D: $target, int $to-skip --&gt; Mu)</pre>
+<p>Should skip producing <code>$to-skip</code> values and if the iterator is still not exhausted, produce and return the next value. Should return <code>IterationEnd</code> if the iterator got exhausted at any point:</p>
+<pre class="pod-block-code">my $i = &lt;a b c&gt;.iterator;
+say $i.skip-at-least-pull-one(2);
+say $i.skip-at-least-pull-one(20) =:= IterationEnd;
+# OUTPUT: «c␤True␤»</pre>
+<p>The Iterator role implements this method as calling <code>skip-at-least</code> and then calling <code>pull-one</code> if it was not exhausted yet.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Type/PredictiveIterator.pod6">https://github.com/Raku/doc/blob/master/doc/Type/PredictiveIterator.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

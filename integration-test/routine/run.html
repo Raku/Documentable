@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>routine run</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/routine.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-sub.html"> Sub </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-method.html"> Method </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-term.html"> Term </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-operator.html"> Operator </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-trait.html"> Trait </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-submethod.html"> Submethod </a>
+            </div></div></div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">routine run</h1>
+        <p class="subtitle"></p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#language_documentation_Independent_routines">language documentation Independent routines</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#(Independent_routines)_sub_run">(Independent routines) sub run</a></td></tr>
+                                                                                             <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#class_Thread">class Thread</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#(Thread)_method_run">(Thread) method run</a></td></tr>
+  
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Documentation for routine <code>run</code> assembled from the following types:</p>
+<h1 id="language_documentation_Independent_routines"><a class="u" href="#___top" title="go to top of document">language documentation Independent routines</a></h1>
+<p>From <a href="/Documentable/integration-test/language/independent-routines#sub_run">Independent routines</a></p>
+<h2 id="(Independent_routines)_sub_run"><a href="/Documentable/integration-test/language/independent-routines#sub_run">(Independent routines) sub run</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub run(
+    *@args ($, *@),
+    :$in = &#39;-&#39;,
+    :$out = &#39;-&#39;,
+    :$err = &#39;-&#39;,
+    Bool :$bin = False,
+    Bool :$chomp = True,
+    Bool :$merge = False,
+    Str:D :$enc = &#39;UTF-8&#39;,
+    Str:D :$nl = &quot;\n&quot;,
+    :$cwd = $*CWD,
+    Hash() :$env = %*ENV,
+    :$win-verbatim-args = False
+--&gt; Proc:D)
+</pre>
+<p>Runs an external command <em>without involving a shell</em> and returns a <a href="/Documentable/integration-test/type/Proc">Proc</a> object. By default, the external command will print to standard output and error, and read from standard input.</p>
+<pre class="pod-block-code">run &#39;touch&#39;, &#39;--&#39;, &#39;*.txt&#39;; # Create a file named “*.txt”
+
+run &lt;rm -- *.txt&gt;; # Another way to use run, using word quoting for the
+                   # arguments</pre>
+<p>If you want to pass some variables you can still use <code>&lt; &gt;</code>, but try to avoid using <code>« »</code> as it will do word splitting if you forget to quote variables:</p>
+<pre class="pod-block-code">my $file = ‘--my arbitrary filename’;
+run ‘touch’, ‘--’, $file;  # RIGHT
+run &lt;touch --&gt;, $file;     # RIGHT
+
+run «touch -- &quot;$file&quot;»;    # RIGHT but WRONG if you forget quotes
+run «touch -- $file»;      # WRONG; touches ‘--my’, ‘arbitrary’ and ‘filename’
+run ‘touch’, $file;        # WRONG; error from `touch`
+run «touch &quot;$file&quot;»;       # WRONG; error from `touch`
+</pre>
+<p>Note that <code>--</code> is required for many programs to disambiguate between command-line arguments and <a href="https://mywiki.wooledge.org/BashPitfalls#Filenames_with_leading_dashes">filenames that begin with hyphens</a>.</p>
+<p>A sunk <a href="/Documentable/integration-test/type/Proc">Proc</a> object for a process that <a href="/Documentable/integration-test/routine/exitcode">exited</a> unsuccessfully will throw. If you wish to ignore such failures, simply use <a href="/Documentable/integration-test/routine/run">run</a> in non-sink context:</p>
+<pre class="pod-block-code">run &#39;false&#39;;     # SUNK! Will throw
+run(&#39;false&#39;).so; # OK. Evaluates Proc in Bool context; no sinking</pre>
+<p>If you want to capture standard output or error instead of having it printed directly you can use the <code>:out</code> or <code>:err</code> arguments, which will make them available using their respective methods: <a href="/Documentable/integration-test/type/Proc"><code>Proc.out</code></a> and <a href="/Documentable/integration-test/type/Proc"><code>Proc.err</code></a>.</p>
+<pre class="pod-block-code">my $proc = run &#39;echo&#39;, &#39;Raku is Great!&#39;, :out, :err;
+$proc.out.slurp(:close).say; # OUTPUT: «Raku is Great!␤»
+$proc.err.slurp(:close).say; # OUTPUT: «␤»</pre>
+<p>You can use these arguments to redirect them to a filehandle, thus creating a kind of <em>pipe</em>:</p>
+<pre class="pod-block-code">my $ls-alt-handle = open :w, &#39;/tmp/cur-dir-ls-alt.txt&#39;;
+my $proc = run &quot;ls&quot;, &quot;-alt&quot;, :out($ls-alt-handle);
+# (The file will contain the output of the ls -alt command)</pre>
+<p>These argument are quite flexible and admit, for instance, handles to redirect them. See <a href="/Documentable/integration-test/type/Proc">Proc</a> and <a href="/Documentable/integration-test/type/Proc::Async">Proc::Async</a> for more details.</p>
+<p>See also <a href="/Documentable/integration-test/type/Proc#method_new"><code>new</code></a> and <a href="/Documentable/integration-test/type/Proc#method_spawn"><code>spawn</code></a> for more examples and explanation of all arguments.</p>
+<h1 id="class_Thread"><a class="u" href="#___top" title="go to top of document">class Thread</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Thread#method_run">Thread</a></p>
+<h2 id="(Thread)_method_run"><a href="/Documentable/integration-test/type/Thread#method_run">(Thread) method run</a></h2>
+<pre class="pod-block-code">method run(Thread:D:)</pre>
+<p>Runs the thread, and returns the invocant. It is an error to run a thread that has already been started.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

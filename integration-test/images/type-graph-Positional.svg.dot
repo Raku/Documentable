@@ -1,0 +1,50 @@
+digraph "perl6-type-graph" {
+    rankdir=BT;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "Positional" [color="#6666FF", fontcolor="#6666FF", href="/type/Positional", fontname="FreeSans"];
+    "Stringy" [color="#6666FF", fontcolor="#6666FF", href="/type/Stringy", fontname="FreeSans"];
+    "Blob" [color="#6666FF", fontcolor="#6666FF", href="/type/Blob", fontname="FreeSans"];
+    "Mu" [color="#000000", fontcolor="#000000", href="/type/Mu", fontname="FreeSans"];
+    "Any" [color="#000000", fontcolor="#000000", href="/type/Any", fontname="FreeSans"];
+    "Cool" [color="#000000", fontcolor="#000000", href="/type/Cool", fontname="FreeSans"];
+    "Iterable" [color="#6666FF", fontcolor="#6666FF", href="/type/Iterable", fontname="FreeSans"];
+    "Range" [color="#000000", fontcolor="#000000", href="/type/Range", fontname="FreeSans"];
+    "Uni" [color="#000000", fontcolor="#000000", href="/type/Uni", fontname="FreeSans"];
+    "List" [color="#000000", fontcolor="#000000", href="/type/List", fontname="FreeSans"];
+    "NFD" [color="#000000", fontcolor="#000000", href="/type/NFD", fontname="FreeSans"];
+    "NFC" [color="#000000", fontcolor="#000000", href="/type/NFC", fontname="FreeSans"];
+    "NFKD" [color="#000000", fontcolor="#000000", href="/type/NFKD", fontname="FreeSans"];
+    "NFKC" [color="#000000", fontcolor="#000000", href="/type/NFKC", fontname="FreeSans"];
+    "Slip" [color="#000000", fontcolor="#000000", href="/type/Slip", fontname="FreeSans"];
+    "Array" [color="#000000", fontcolor="#000000", href="/type/Array", fontname="FreeSans"];
+    "Buf" [color="#6666FF", fontcolor="#6666FF", href="/type/Buf", fontname="FreeSans"];
+    "utf8" [color="#000000", fontcolor="#000000", href="/type/utf8", fontname="FreeSans"];
+
+    // Superclasses
+    "Any" -> "Mu" [color="#000000"];
+    "Cool" -> "Any" [color="#000000"];
+    "Range" -> "Cool" [color="#000000"];
+    "Uni" -> "Any" [color="#000000"];
+    "List" -> "Cool" [color="#000000"];
+    "NFD" -> "Uni" [color="#000000"];
+    "NFC" -> "Uni" [color="#000000"];
+    "NFKD" -> "Uni" [color="#000000"];
+    "NFKC" -> "Uni" [color="#000000"];
+    "Slip" -> "List" [color="#000000"];
+    "Array" -> "List" [color="#000000"];
+    "utf8" -> "Any" [color="#000000"];
+
+    // Roles
+    "Blob" -> "Positional" [color="#6666FF"];
+    "Blob" -> "Stringy" [color="#6666FF"];
+    "Range" -> "Positional" [color="#6666FF"];
+    "Range" -> "Iterable" [color="#6666FF"];
+    "Uni" -> "Positional" [color="#6666FF"];
+    "Uni" -> "Stringy" [color="#6666FF"];
+    "List" -> "Positional" [color="#6666FF"];
+    "List" -> "Iterable" [color="#6666FF"];
+    "Buf" -> "Blob" [color="#6666FF"];
+    "utf8" -> "Blob" [color="#6666FF"];
+}

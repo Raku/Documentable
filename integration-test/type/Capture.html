@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>class Capture</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/type.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-basic.html"> Basic </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-composite.html"> Composite </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-domain-specific.html"> Domain-specific </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-exception.html"> Exceptions </a>
+            </div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Type/Capture.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">class Capture</h1>
+        <p class="subtitle">Argument list suitable for passing to a Signature</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+                                                                                                     <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#method_list">method list</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#method_hash">method hash</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#method_elems">method elems</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.4</td><td class="toc-text"><a href="#method_keys">method keys</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.5</td><td class="toc-text"><a href="#method_values">method values</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.6</td><td class="toc-text"><a href="#method_kv">method kv</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">1.7</td><td class="toc-text"><a href="#method_pairs">method pairs</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.8</td><td class="toc-text"><a href="#method_antipairs">method antipairs</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">1.9</td><td class="toc-text"><a href="#method_Bool">method Bool</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.10</td><td class="toc-text"><a href="#method_Capture">method Capture</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">1.11</td><td class="toc-text"><a href="#method_Numeric">method Numeric</a></td></tr>
+       <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Type_Graph">Type Graph</a></td></tr>
+ 
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p><a name="Documentable/integration-test/index-entry-capture_literal_(Capture)"></a> <a name="Documentable/integration-test/index-entry-\()_(Capture)"></a></p>
+<pre class="pod-block-code">class Capture { }
+</pre>
+<p>A <code>Capture</code> is a container for passing arguments to a code object. Captures are the flip-side of <a href="/Documentable/integration-test/type/Signature">Signature</a>s. Thus, captures are the caller-defined arguments, while signatures are the callee-defined parameters. For example when you call <code>print $a, $b</code>, the <code>$a, $b</code> part is a capture.</p>
+<p>Captures contain a list-like part for positional arguments and a hash-like part for named arguments, thus behaving as <a href="/Documentable/integration-test/type/Positional">Positional</a> and <a href="/Documentable/integration-test/type/Associative">Associative</a>, although it does not actually mixes in those roles. Like any other data structure, a stand-alone capture can be created, stored, and used later.</p>
+<p>A literal <code>Capture</code> can be created by prefixing a term with a backslash <code>\</code>. Commonly, this term will be a <a href="/Documentable/integration-test/type/List">List</a> of terms, from which the forms <code>key =&gt; value</code> and <code>:key&lt;value&gt;</code> of a <a href="/Documentable/integration-test/type/Pair"><code>Pair</code></a> literal will be placed in the named part, and all other terms will be placed in the positional part (including <code>Pair</code>s of the form <code>&#39;key&#39; =&gt; value</code>).</p>
+<pre class="pod-block-code">my $a = \(42);                      # Capture with one positional arg
+my $b = \(1, 2, verbose =&gt; True);   # Capture with two positional args and one named arg
+my $c = \(1, 2, :verbose(True));    # same as before
+my $c = \(1, 2, &#39;verbose&#39; =&gt; True); # Capture with three positional args</pre>
+<p>To reiterate, named arguments in a capture must be created using one of two ways:</p>
+<ul><li><p>Use an <em>unquoted</em> key naming a parameter, followed by <code>=&gt;</code>, followed by the argument. For example, <code>as =&gt; by =&gt; {1/$_}</code>.</p>
+</li>
+<li><p>Use a <a href="/Documentable/integration-test/language/glossary#Colon_pair_and_colon_list">colon-pair</a> literal named after the parameter. For example, <code>:into(my %leap-years)</code>.</p>
+</li>
+</ul>
+<p>For example:</p>
+<pre class="pod-block-code">sub greet(:$name, :$age) {
+    &quot;$name, $age&quot;
+}
+
+my $d = \(name =&gt; &#39;Mugen&#39;, age =&gt; 19);   # OK
+my $e = \(:name(&#39;Jin&#39;), :age(20));       # OK
+my $f = \(&#39;name&#39; =&gt; &#39;Fuu&#39;, &#39;age&#39; =&gt; 15); # Not OK, keys are quoted.</pre>
+<p>For the <code>greet</code> subroutine that accepts two named arguments <code>name</code> and <code>age</code>, the captures <code>$d</code> and <code>$e</code> will work fine while the capture <code>$f</code> will throw a <code>Too many positionals passed...</code> error. This is because <code>&#39;age&#39; =&gt; 20</code> isn&#39;t a named argument (as per the two ways of creating one mentioned above) but a positional argument of which <code>greet</code> expects none. In the context of captures, quoted keys don&#39;t create named arguments. Any <code>&#39;key&#39; =&gt; value</code> is just another positional parameter, thus exercise some caution when creating captures with named arguments.</p>
+<p>Once a capture is created, you may use it by prefixing it with a vertical bar <code>|</code> in a subroutine call, and it will be as if the values in the capture were passed directly to the subroutine as arguments — named arguments will be passed as named arguments and positional arguments will be passed as positional arguments. You may re-use the capture as many times as you want, even with different subroutines.</p>
+<pre class="pod-block-code">    say greet |$d;                # OUTPUT: «Mugen, 19␤»
+    say greet |$e;                # OUTPUT: «Jin, 20␤»
+</pre>
+<pre class="pod-block-code">my $x = \(4, 2, 3, -2);
+say reverse |$x;              # OUTPUT: «(-2 3 2 4)␤»
+say sort 5, |$x;              # OUTPUT: «(-2 2 3 4 5)␤»
+
+say unique |$x, as =&gt; {.abs}; # OUTPUT: «(4 2 3)␤»
+say unique |$x, :as({.abs});  # OUTPUT: «(4 2 3)␤»
+
+my $y = \(1, 7, 3, by =&gt; {1/$_});
+say min |$y;                  # OUTPUT: «7␤», same as min 1, 7, 3, by =&gt; {1/$_}
+say max |$y;                  # OUTPUT: «1␤», same as max 1, 7, 3, by =&gt; {1/$_}</pre>
+<p>Inside a <code>Signature</code>, a <code>Capture</code> may be created by prefixing a <a href="/Documentable/integration-test/language/variables#Sigilless_variables">sigilless parameter</a> with a vertical bar <code>|</code>. This packs the remainder of the argument list into that <a href="/Documentable/integration-test/type/Signature#Capture_parameters">capture parameter</a>.</p>
+<pre class="pod-block-code">sub f($a, |c) {
+    say $a;
+    say c;
+    say c.^name;
+    say c.list; # see Methods section
+    say c.hash; # see Methods section
+}
+
+f 1, 2, 3, a =&gt; 4, :b(5);
+# OUTPUT:
+# 1
+# \(2, 3, :a(4), :b(5))
+# Capture
+# (2 3)
+# Map.new((a =&gt; 4, b =&gt; 5))</pre>
+<p>Note that <code>Capture</code>s are still <code>List</code>s in that they may contain containers, not just literal values:</p>
+<pre class="pod-block-code">my $b = 1;
+my $c = \(4, 2, $b, 3);
+say min |$c;        # OUTPUT: «1␤»
+$b = -5;
+say min |$c;        # OUTPUT: «-5␤»</pre>
+<h1 id="Methods"><a class="u" href="#___top" title="go to top of document">Methods</a></h1>
+<h2 id="method_list"><a class="u" href="#___top" title="go to top of document">method list</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method list(Capture:D:)</pre>
+<p>Returns the positional part of the <code>Capture</code>.</p>
+<pre class="pod-block-code">my Capture $c = \(2, 3, 5, apples =&gt; (red =&gt; 2));
+say $c.list; # OUTPUT: «(2 3 5)␤»</pre>
+<h2 id="method_hash"><a class="u" href="#___top" title="go to top of document">method hash</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method hash(Capture:D:)</pre>
+<p>Returns the named/hash part of the <code>Capture</code>.</p>
+<pre class="pod-block-code">my Capture $c = \(2, 3, 5, apples =&gt; (red =&gt; 2));
+say $c.hash; # OUTPUT: «Map.new((:apples(:red(2))))␤»</pre>
+<h2 id="method_elems"><a class="u" href="#___top" title="go to top of document">method elems</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method elems(Capture:D: --&gt; Int:D)</pre>
+<p>Returns the number of positional elements in the <code>Capture</code>.</p>
+<pre class="pod-block-code">my Capture $c = \(2, 3, 5, apples =&gt; (red =&gt; 2));
+say $c.elems; # OUTPUT: «3␤»</pre>
+<h2 id="method_keys"><a class="u" href="#___top" title="go to top of document">method keys</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method keys(Capture:D: --&gt; Seq:D)</pre>
+<p>Returns a <a href="/Documentable/integration-test/type/Seq">Seq</a> containing all positional keys followed by all named keys. For positional arguments the keys are the respective arguments ordinal position starting from zero.</p>
+<pre class="pod-block-code">my $capture = \(2, 3, 5, apples =&gt; (red =&gt; 2));
+say $capture.keys; # OUTPUT: «(0 1 2 apples)␤»</pre>
+<h2 id="method_values"><a class="u" href="#___top" title="go to top of document">method values</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method values(Capture:D: --&gt; Seq:D)</pre>
+<p>Returns a <a href="/Documentable/integration-test/type/Seq">Seq</a> containing all positional values followed by all named argument values.</p>
+<pre class="pod-block-code">my $capture = \(2, 3, 5, apples =&gt; (red =&gt; 2));
+say $capture.values; # OUTPUT: «(2 3 5 red =&gt; 2)␤»</pre>
+<h2 id="method_kv"><a class="u" href="#___top" title="go to top of document">method kv</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method kv(Capture:D: --&gt; Seq:D)</pre>
+<p>Returns a <a href="/Documentable/integration-test/type/Seq">Seq</a> of alternating <a href="#method_keys">keys</a> and <a href="#method_values">values</a>. The positional keys and values, if any, comes first followed by the named keys and values.</p>
+<pre class="pod-block-code">my $capture = \(2, 3, apples =&gt; (red =&gt; 2));
+say $capture.kv; # OUTPUT: «(0 2 1 3 apples red =&gt; 2)␤»</pre>
+<h2 id="method_pairs"><a class="u" href="#___top" title="go to top of document">method pairs</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method pairs(Capture:D: --&gt; Seq:D)</pre>
+<p>Returns all arguments, the positional followed by the named, as a <a href="/Documentable/integration-test/type/Seq">Seq</a> of <a href="/Documentable/integration-test/type/Pair">Pairs</a>. Positional arguments have their respective ordinal value, starting at zero, as key while the named arguments have their names as key.</p>
+<pre class="pod-block-code">my Capture $c = \(2, 3, apples =&gt; (red =&gt; 2));
+say $c.pairs; # OUTPUT: «(0 =&gt; 2 1 =&gt; 3 apples =&gt; red =&gt; 2)␤»</pre>
+<h2 id="method_antipairs"><a class="u" href="#___top" title="go to top of document">method antipairs</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method antipairs(Capture:D: --&gt; Seq:D)</pre>
+<p>Returns all arguments, the positional followed by the named, as a <a href="/Documentable/integration-test/type/Seq">Seq</a> of <a href="/Documentable/integration-test/type/Pair">pairs</a> where the keys and values have been swapped, i.e. the value becomes the key and the key becomes the value. This behavior is the opposite of the <a href="#method_pairs">pairs</a> method.</p>
+<pre class="pod-block-code">my $capture = \(2, 3, apples =&gt; (red =&gt; 2));
+say $capture.antipairs; # OUTPUT: «(2 =&gt; 0 3 =&gt; 1 (red =&gt; 2) =&gt; apples)␤»</pre>
+<h2 id="method_Bool"><a class="u" href="#___top" title="go to top of document">method Bool</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method Bool(Capture:D: --&gt; Bool:D)</pre>
+<p>Returns <code>True</code> if the <code>Capture</code> contains at least one named or one positional argument.</p>
+<pre class="pod-block-code">say \(1,2,3, apples =&gt; 2).Bool; # OUTPUT: «True␤»
+say \().Bool;                   # OUTPUT: «False␤»</pre>
+<h2 id="method_Capture"><a class="u" href="#___top" title="go to top of document">method Capture</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method Capture(Capture:D: --&gt; Capture:D)</pre>
+<p>Returns itself, i.e. the invocant.</p>
+<pre class="pod-block-code">say \(1,2,3, apples =&gt; 2).Capture; # OUTPUT: «\(1, 2, 3, :apples(2))␤»</pre>
+<h2 id="method_Numeric"><a class="u" href="#___top" title="go to top of document">method Numeric</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method Numeric(Capture:D: --&gt; Int:D)</pre>
+<p>Returns the number of positional elements in the <code>Capture</code>.</p>
+<pre class="pod-block-code">say \(1,2,3, apples =&gt; 2).Numeric; # OUTPUT: «3␤»</pre>
+<h1 id="Type_Graph"><a class="u" href="#___top" title="go to top of document">Type Graph</a></h1>
+<figure>
+  <figcaption>Type relations for <code>Capture</code></figcaption>
+  <svg width="176pt" height="332pt"
+ viewBox="0.00 0.00 176.39 332.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 328)">
+<title>perl6&#45;type&#45;graph</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-328 172.39,-328 172.39,4 -4,4"/>
+<!-- Capture -->
+<g id="node1" class="node">
+<title>Capture</title>
+<g id="a_node1"><a xlink:href="/type/Capture" xlink:title="Capture">
+<ellipse fill="none" stroke="#000000" cx="44.85" cy="-162" rx="44.69" ry="18"/>
+<text text-anchor="middle" x="44.85" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#000000">Capture</text>
+</a>
+</g>
+</g>
+<!-- Any -->
+<g id="node3" class="node">
+<title>Any</title>
+<g id="a_node3"><a xlink:href="/type/Any" xlink:title="Any">
+<ellipse fill="none" stroke="#000000" cx="90.85" cy="-234" rx="27" ry="18"/>
+<text text-anchor="middle" x="90.85" y="-230.3" font-family="FreeSans" font-size="14.00" fill="#000000">Any</text>
+</a>
+</g>
+</g>
+<!-- Capture&#45;&gt;Any -->
+<g id="edge1" class="edge">
+<title>Capture&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M55.75,-179.59C61.44,-188.26 68.52,-199.03 74.83,-208.62"/>
+<polygon fill="#000000" stroke="#000000" points="71.92,-210.58 80.34,-217.01 77.77,-206.73 71.92,-210.58"/>
+</g>
+<!-- Mu -->
+<g id="node2" class="node">
+<title>Mu</title>
+<g id="a_node2"><a xlink:href="/type/Mu" xlink:title="Mu">
+<ellipse fill="none" stroke="#000000" cx="90.85" cy="-306" rx="27" ry="18"/>
+<text text-anchor="middle" x="90.85" y="-302.3" font-family="FreeSans" font-size="14.00" fill="#000000">Mu</text>
+</a>
+</g>
+</g>
+<!-- Any&#45;&gt;Mu -->
+<g id="edge2" class="edge">
+<title>Any&#45;&gt;Mu</title>
+<path fill="none" stroke="#000000" d="M90.85,-252.3C90.85,-260.02 90.85,-269.29 90.85,-277.89"/>
+<polygon fill="#000000" stroke="#000000" points="87.35,-277.9 90.85,-287.9 94.35,-277.9 87.35,-277.9"/>
+</g>
+<!-- Cool -->
+<g id="node4" class="node">
+<title>Cool</title>
+<g id="a_node4"><a xlink:href="/type/Cool" xlink:title="Cool">
+<ellipse fill="none" stroke="#000000" cx="137.85" cy="-162" rx="30.59" ry="18"/>
+<text text-anchor="middle" x="137.85" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#000000">Cool</text>
+</a>
+</g>
+</g>
+<!-- Cool&#45;&gt;Any -->
+<g id="edge3" class="edge">
+<title>Cool&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M127.18,-178.88C121.29,-187.66 113.85,-198.74 107.24,-208.58"/>
+<polygon fill="#000000" stroke="#000000" points="104.14,-206.93 101.47,-217.18 109.95,-210.83 104.14,-206.93"/>
+</g>
+<!-- Match -->
+<g id="node5" class="node">
+<title>Match</title>
+<g id="a_node5"><a xlink:href="/type/Match" xlink:title="Match">
+<ellipse fill="none" stroke="#000000" cx="90.85" cy="-90" rx="35.19" ry="18"/>
+<text text-anchor="middle" x="90.85" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Match</text>
+</a>
+</g>
+</g>
+<!-- Match&#45;&gt;Capture -->
+<g id="edge4" class="edge">
+<title>Match&#45;&gt;Capture</title>
+<path fill="none" stroke="#000000" d="M80.18,-107.24C74.57,-115.77 67.57,-126.42 61.29,-135.98"/>
+<polygon fill="#000000" stroke="#000000" points="58.34,-134.09 55.78,-144.37 64.19,-137.93 58.34,-134.09"/>
+</g>
+<!-- Match&#45;&gt;Cool -->
+<g id="edge5" class="edge">
+<title>Match&#45;&gt;Cool</title>
+<path fill="none" stroke="#000000" d="M101.75,-107.24C107.56,-115.89 114.83,-126.73 121.33,-136.4"/>
+<polygon fill="#000000" stroke="#000000" points="118.52,-138.5 127,-144.85 124.34,-134.6 118.52,-138.5"/>
+</g>
+<!-- Grammar -->
+<g id="node6" class="node">
+<title>Grammar</title>
+<g id="a_node6"><a xlink:href="/type/Grammar" xlink:title="Grammar">
+<ellipse fill="none" stroke="#000000" cx="90.85" cy="-18" rx="44.69" ry="18"/>
+<text text-anchor="middle" x="90.85" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">Grammar</text>
+</a>
+</g>
+</g>
+<!-- Grammar&#45;&gt;Match -->
+<g id="edge6" class="edge">
+<title>Grammar&#45;&gt;Match</title>
+<path fill="none" stroke="#000000" d="M90.85,-36.3C90.85,-44.02 90.85,-53.29 90.85,-61.89"/>
+<polygon fill="#000000" stroke="#000000" points="87.35,-61.9 90.85,-71.9 94.35,-61.9 87.35,-61.9"/>
+</g>
+</g>
+</svg>
+
+  <p class="fallback">
+    <a
+      rel="alternate"
+      href="/images/type-graph-Capture.svg"
+      type="image/svg+xml"
+      >Expand above chart</a
+    >
+  </p>
+</figure>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Type/Capture.pod6">https://github.com/Raku/doc/blob/master/doc/Type/Capture.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

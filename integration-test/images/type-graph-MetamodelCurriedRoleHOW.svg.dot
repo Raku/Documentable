@@ -1,0 +1,19 @@
+digraph "perl6-type-graph" {
+    rankdir=BT;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "Metamodel::CurriedRoleHOW" [color="#000000", fontcolor="#000000", href="/type/Metamodel::CurriedRoleHOW", fontname="FreeSans"];
+    "Mu" [color="#000000", fontcolor="#000000", href="/type/Mu", fontname="FreeSans"];
+    "Any" [color="#000000", fontcolor="#000000", href="/type/Any", fontname="FreeSans"];
+    "Metamodel::RolePunning" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::RolePunning", fontname="FreeSans"];
+    "Metamodel::TypePretense" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::TypePretense", fontname="FreeSans"];
+
+    // Superclasses
+    "Metamodel::CurriedRoleHOW" -> "Any" [color="#000000"];
+    "Any" -> "Mu" [color="#000000"];
+
+    // Roles
+    "Metamodel::CurriedRoleHOW" -> "Metamodel::RolePunning" [color="#6666FF"];
+    "Metamodel::CurriedRoleHOW" -> "Metamodel::TypePretense" [color="#6666FF"];
+}

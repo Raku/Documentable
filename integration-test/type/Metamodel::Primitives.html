@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>class Metamodel::Primitives</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/type.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-basic.html"> Basic </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-composite.html"> Composite </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-domain-specific.html"> Domain-specific </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-exception.html"> Exceptions </a>
+            </div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Type/Metamodel/Primitives.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">class Metamodel::Primitives</h1>
+        <p class="subtitle">Metaobject that supports low-level type operations</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+           <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#method_create_type">method create_type</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#method_set_package">method set_package</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#method_install_method_cache">method install_method_cache</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">1.4</td><td class="toc-text"><a href="#method_configure_type_checking">method configure_type_checking</a></td></tr>
+                   <tr class="toc-level-2"><td class="toc-number">1.5</td><td class="toc-text"><a href="#method_configure_destroy">method configure_destroy</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.6</td><td class="toc-text"><a href="#method_compose_type">method compose_type</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.7</td><td class="toc-text"><a href="#method_rebless">method rebless</a></td></tr>
+                  <tr class="toc-level-2"><td class="toc-number">1.8</td><td class="toc-text"><a href="#method_is_type">method is_type</a></td></tr>
+      <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Type_Graph">Type Graph</a></td></tr>
+ 
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <pre class="pod-block-code">class Metamodel::Primitives {}</pre>
+<p><code>Metamodel::Primitives</code> provides low-level operations for working with types, which are otherwise only available as implementation-dependent directives. These primitives are available as class methods.</p>
+<p>Here is an example that steals the metamodel instance from the <a href="/Documentable/integration-test/type/Int">Int</a> class to create a custom type (usually you would create your own metaclass if you mess with something as low-level), which allows calling of just one method called <code>why</code>:</p>
+<pre class="pod-block-code">my Mu $type := Metamodel::Primitives.create_type(Int.HOW, &#39;P6opaque&#39;);
+$type.^set_name(&#39;why oh why?&#39;);
+my %methods =  why =&gt; sub ($) { say 42 };
+Metamodel::Primitives.install_method_cache($type, %methods, :authoritative);
+$type.why;      # 42
+$type.list;
+CATCH { default { put .^name, &#39;: &#39;, .Str } };
+# OUTPUT: «X::Method::NotFound: Method &#39;list&#39; not found for invocant of class &#39;why oh why?&#39;␤»</pre>
+<h1 id="Methods"><a class="u" href="#___top" title="go to top of document">Methods</a></h1>
+<h2 id="method_create_type"><a class="u" href="#___top" title="go to top of document">method create_type</a></h2>
+<pre class="pod-block-code">method create_type(Mu $how, $repr = &#39;P6opaque&#39;)</pre>
+<p>Creates and returns a new type from a metaobject <code>$how</code> and a representation name.</p>
+<h2 id="method_set_package"><a class="u" href="#___top" title="go to top of document">method set_package</a></h2>
+<pre class="pod-block-code">method set_package(Mu $type, $package)</pre>
+<p>Sets the package associated with the type.</p>
+<h2 id="method_install_method_cache"><a class="u" href="#___top" title="go to top of document">method install_method_cache</a></h2>
+<pre class="pod-block-code">method install_method_cache( Mu $type, %cache, :$authoritative = True)</pre>
+<p>Installs a method cache, that is, a mapping from method names to code objects. If <code>:authoritative</code> is missing, or set to <code>True</code>, then calls of methods that do not exist in the cache will throw an exception of type <a href="/Documentable/integration-test/type/X::Method::NotFound">X::Method::NotFound</a>. If <code>:authoritative</code> is set to <code>False</code>, the usual fallback mechanism are tried.</p>
+<h2 id="method_configure_type_checking"><a class="u" href="#___top" title="go to top of document">method configure_type_checking</a></h2>
+<pre class="pod-block-code">method configure_type_checking( Mu $type, @cache, :$authoritative = True, :$call_accepts = False )</pre>
+<p>Configures the type checking for <code>$type</code>. <code>@cache</code> is a list of known types against which <code>$type</code> checks positively (so in a classical class-based system, the type itself and all recursive superclasses). If <code>:authoritative</code> is missing or <code>True</code>, this type will fail checks against all types not in <code>@cache</code>. If <code>:call_accepts</code> is True, the method <a href="/Documentable/integration-test/routine/ACCEPTS">ACCEPTS</a> will be called for type checks against this type.</p>
+<h2 id="method_configure_destroy"><a class="u" href="#___top" title="go to top of document">method configure_destroy</a></h2>
+<pre class="pod-block-code">method configure_destroy(Mu $type, $destroy)</pre>
+<p>Configures whether <code>DESTROY</code> methods are called (if present) when the garbage collector collects an object of this type (if <code>$destroy</code> is set to a true value). This comes with a performance overhead, so should only be set to a true value if necessary.</p>
+<h2 id="method_compose_type"><a class="u" href="#___top" title="go to top of document">method compose_type</a></h2>
+<pre class="pod-block-code">method compose_type(Mu $type, $configuration)</pre>
+<p>Composes <code>$type</code> (that is, finalizes it to be ready for instantiation). See <a href="https://github.com/Raku/nqp/blob/master/docs/6model/repr-compose-protocol.markdown">https://github.com/Raku/nqp/blob/master/docs/6model/repr-compose-protocol.markdown</a> for what <code>$configuration</code> can contain (until we have better docs, sorry).</p>
+<h2 id="method_rebless"><a class="u" href="#___top" title="go to top of document">method rebless</a></h2>
+<pre class="pod-block-code">method rebless(Mu $object, Mu $type)</pre>
+<p>Changes <code>$object</code> to be of type <code>$type</code>. This only works if <code>$type</code> type-checks against the current type of <code>$object</code>, and if the storage of <code>$object</code> is a subset of that of <code>$type</code>. <a href="#fn-1" id="fn-ref-1">[1]</a></p>
+<h2 id="method_is_type"><a class="u" href="#___top" title="go to top of document">method is_type</a></h2>
+<pre class="pod-block-code">method is_type(Mu \obj, Mu \type --&gt; Bool:D)</pre>
+<p>Type-checks <code>obj</code> against <code>type</code></p>
+<h1 id="Type_Graph"><a class="u" href="#___top" title="go to top of document">Type Graph</a></h1>
+<figure>
+  <figcaption>Type relations for <code>Metamodel::Primitives</code></figcaption>
+  <svg width="451pt" height="44pt"
+ viewBox="0.00 0.00 451.16 44.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 40)">
+<title>perl6&#45;type&#45;graph</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-40 447.16,-40 447.16,4 -4,4"/>
+<!-- Metamodel::Primitives -->
+<g id="node1" class="node">
+<title>Metamodel::Primitives</title>
+<g id="a_node1"><a xlink:href="/type/Metamodel::Primitives" xlink:title="Metamodel::Primitives">
+<ellipse fill="none" stroke="#000000" cx="113.09" cy="-18" rx="113.18" ry="18"/>
+<text text-anchor="middle" x="113.09" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">Metamodel::Primitives</text>
+</a>
+</g>
+</g>
+<!-- Any -->
+<g id="node3" class="node">
+<title>Any</title>
+<g id="a_node3"><a xlink:href="/type/Any" xlink:title="Any">
+<ellipse fill="none" stroke="#000000" cx="269.76" cy="-18" rx="27" ry="18"/>
+<text text-anchor="middle" x="269.76" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">Any</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::Primitives&#45;&gt;Any -->
+<g id="edge1" class="edge">
+<title>Metamodel::Primitives&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M226.53,-18C228.6,-18 230.62,-18 232.59,-18"/>
+<polygon fill="#000000" stroke="#000000" points="232.64,-21.5 242.64,-18 232.64,-14.5 232.64,-21.5"/>
+</g>
+<!-- Mu -->
+<g id="node2" class="node">
+<title>Mu</title>
+<g id="a_node2"><a xlink:href="/type/Mu" xlink:title="Mu">
+<ellipse fill="none" stroke="#000000" cx="416.16" cy="-18" rx="27" ry="18"/>
+<text text-anchor="middle" x="416.16" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">Mu</text>
+</a>
+</g>
+</g>
+<!-- Any&#45;&gt;Mu -->
+<g id="edge2" class="edge">
+<title>Any&#45;&gt;Mu</title>
+<path fill="none" stroke="#000000" d="M296.95,-18C320.07,-18 353.47,-18 379.04,-18"/>
+<polygon fill="#000000" stroke="#000000" points="379.11,-21.5 389.11,-18 379.11,-14.5 379.11,-21.5"/>
+</g>
+</g>
+</svg>
+
+  <p class="fallback">
+    <a
+      rel="alternate"
+      href="/images/type-graph-Metamodel%3A%3APrimitives.svg"
+      type="image/svg+xml"
+      >Expand above chart</a
+    >
+  </p>
+</figure>
+
+        </div>
+    </div>
+
+    <aside><ol start="1">
+<li><a href="#fn-ref-1" id="fn-1">[↑]</a> As of Raku 2019.11, this method requires <a href="https://github.com/rakudo/rakudo/issues/3414#issuecomment-573251877">special arrangements</a>. </li>
+</ol></aside>
+
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Type/Metamodel/Primitives.pod6">https://github.com/Raku/doc/blob/master/doc/Type/Metamodel/Primitives.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

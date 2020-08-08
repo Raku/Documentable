@@ -1,0 +1,23 @@
+digraph "perl6-type-graph" {
+    rankdir=BT;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "IO::Spec" [color="#000000", fontcolor="#000000", href="/type/IO::Spec", fontname="FreeSans"];
+    "Mu" [color="#000000", fontcolor="#000000", href="/type/Mu", fontname="FreeSans"];
+    "Any" [color="#000000", fontcolor="#000000", href="/type/Any", fontname="FreeSans"];
+    "IO::Spec::Unix" [color="#000000", fontcolor="#000000", href="/type/IO::Spec::Unix", fontname="FreeSans"];
+    "IO::Spec::Cygwin" [color="#000000", fontcolor="#000000", href="/type/IO::Spec::Cygwin", fontname="FreeSans"];
+    "IO::Spec::QNX" [color="#000000", fontcolor="#000000", href="/type/IO::Spec::QNX", fontname="FreeSans"];
+    "IO::Spec::Win32" [color="#000000", fontcolor="#000000", href="/type/IO::Spec::Win32", fontname="FreeSans"];
+
+    // Superclasses
+    "IO::Spec" -> "Any" [color="#000000"];
+    "Any" -> "Mu" [color="#000000"];
+    "IO::Spec::Unix" -> "IO::Spec" [color="#000000"];
+    "IO::Spec::Cygwin" -> "IO::Spec::Unix" [color="#000000"];
+    "IO::Spec::QNX" -> "IO::Spec::Unix" [color="#000000"];
+    "IO::Spec::Win32" -> "IO::Spec::Unix" [color="#000000"];
+
+    // Roles
+}

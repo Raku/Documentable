@@ -1,0 +1,13 @@
+digraph "perl6-type-graph" {
+    rankdir=BT;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "Documentable::DocPage::Factory" [color="#000000", fontcolor="#000000", href="/type/Documentable::DocPage::Factory", fontname="FreeSans"];
+    "Any" [color="#000000", fontcolor="#000000", href="/type/Any", fontname="FreeSans"];
+
+    // Superclasses
+    "Documentable::DocPage::Factory" -> "Any" [color="#000000"];
+
+    // Roles
+}

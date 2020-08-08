@@ -1,0 +1,32 @@
+digraph "perl6-type-graph" {
+    rankdir=BT;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "Baggy" [color="#6666FF", fontcolor="#6666FF", href="/type/Baggy", fontname="FreeSans"];
+    "Associative" [color="#6666FF", fontcolor="#6666FF", href="/type/Associative", fontname="FreeSans"];
+    "QuantHash" [color="#6666FF", fontcolor="#6666FF", href="/type/QuantHash", fontname="FreeSans"];
+    "Mu" [color="#000000", fontcolor="#000000", href="/type/Mu", fontname="FreeSans"];
+    "Any" [color="#000000", fontcolor="#000000", href="/type/Any", fontname="FreeSans"];
+    "BagHash" [color="#000000", fontcolor="#000000", href="/type/BagHash", fontname="FreeSans"];
+    "Bag" [color="#000000", fontcolor="#000000", href="/type/Bag", fontname="FreeSans"];
+    "Mixy" [color="#6666FF", fontcolor="#6666FF", href="/type/Mixy", fontname="FreeSans"];
+    "Mix" [color="#000000", fontcolor="#000000", href="/type/Mix", fontname="FreeSans"];
+    "MixHash" [color="#000000", fontcolor="#000000", href="/type/MixHash", fontname="FreeSans"];
+
+    // Superclasses
+    "Any" -> "Mu" [color="#000000"];
+    "BagHash" -> "Any" [color="#000000"];
+    "Bag" -> "Any" [color="#000000"];
+    "Mix" -> "Any" [color="#000000"];
+    "MixHash" -> "Any" [color="#000000"];
+
+    // Roles
+    "Baggy" -> "QuantHash" [color="#6666FF"];
+    "QuantHash" -> "Associative" [color="#6666FF"];
+    "BagHash" -> "Baggy" [color="#6666FF"];
+    "Bag" -> "Baggy" [color="#6666FF"];
+    "Mixy" -> "Baggy" [color="#6666FF"];
+    "Mix" -> "Mixy" [color="#6666FF"];
+    "MixHash" -> "Mixy" [color="#6666FF"];
+}

@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>syntax &lt;&lt;</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">syntax &amp;lt;&amp;lt;</h1>
+        <p class="subtitle"></p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#language_documentation_Operators">language documentation Operators</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#(Operators)_hyper_&lt;&lt;_&lt;&lt;">(Operators) hyper &lt;&lt; &lt;&lt;</a></td></tr>
+                                                   
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Documentation for syntax <code>&lt;&lt;</code> assembled from the following types:</p>
+<h1 id="language_documentation_Operators"><a class="u" href="#___top" title="go to top of document">language documentation Operators</a></h1>
+<p>From <a href="/Documentable/integration-test/language/operators#Hyper_operators">Operators</a></p>
+<h2 id="(Operators)_hyper_<<_<<"><a href="/Documentable/integration-test/language/operators#Hyper_operators">(Operators) hyper &lt;&lt; &lt;&lt;</a></h2>
+<p>Hyper operators include <code>«</code> and <code>»</code>, with their ASCII variants <code>&lt;&lt;</code> and <code>&gt;&gt;</code>. They apply a given operator enclosed (or preceded or followed, in the case of unary operators) by <code>«</code> and/or <code>»</code> to one or two lists, returning the resulting list, with the pointy part of <code>«</code> or <code>»</code> aimed at the shorter list. Single elements are turned to a list, so they can be used too. If one of the lists is shorter than the other, the operator will cycle over the shorter list until all elements of the longer list are processed.</p>
+<pre class="pod-block-code">say (1, 2, 3) »*» 2;          # OUTPUT: «(2 4 6)␤»
+say (1, 2, 3, 4) »~» &lt;a b&gt;;   # OUTPUT: «(1a 2b 3a 4b)␤»
+say (1, 2, 3) »+« (4, 5, 6);  # OUTPUT: «(5 7 9)␤»
+say (&amp;sin, &amp;cos, &amp;sqrt)».(0.5);
+# OUTPUT: «(0.479425538604203 0.877582561890373 0.707106781186548)␤»</pre>
+<p>The last example illustrates how postcircumfix operators (in this case .()) can also be hypered.</p>
+<pre class="pod-block-code">my @a = &lt;1 2 3&gt;;
+my @b = &lt;4 5 6&gt;;
+say (@a,@b)»[1]; # OUTPUT: «(2 5)␤»</pre>
+<p>In this case, it&#39;s the <a href="/Documentable/integration-test/language/operators#circumfix_[_]">postcircumfix[]</a> which is being hypered.</p>
+<p>Assignment metaoperators can be <em>hyped</em>.</p>
+<pre class="pod-block-code">my @a = 1, 2, 3;
+say @a »+=» 1;    # OUTPUT: «[2 3 4]␤»
+my ($a, $b, $c);
+(($a, $b), $c) «=» ((1, 2), 3);
+say &quot;$a, $c&quot;;       #  OUTPUT: «1, 3␤»</pre>
+<p>Hyper forms of unary operators have the pointy bit aimed at the operator and the blunt end at the list to be operated on.</p>
+<pre class="pod-block-code">my @wisdom = True, False, True;
+say !« @wisdom;     # OUTPUT: «[False True False]␤»
+
+my @a = 1, 2, 3;
+@a»++;
+say @a;             # OUTPUT: «[2 3 4]␤»</pre>
+<p>Hyper operators are defined recursively on nested arrays.</p>
+<pre class="pod-block-code">say -« [[1, 2], 3]; # OUTPUT: «[[-1 -2] -3]␤»</pre>
+<p>Also, methods can be called in an out of order, concurrent fashion. The resulting list will be in order. Note that all hyper operators are candidates for parallelism and will cause tears if the methods have side effects. The optimizer has full reign over hyper operators, which is the reason that they cannot be defined by the user.</p>
+<pre class="pod-block-code">class CarefulClass { method take-care {} }
+my CarefulClass @objs;
+my @results = @objs».take-care();
+
+my @slops;        # May Contain Nuts
+@slops».?this-method-may-not-exist();</pre>
+<p>Hyper operators can work with hashes. The pointy direction indicates if missing keys are to be ignored in the resulting hash. The enclosed operator operates on all values that have keys in both hashes.</p>
+<table class="pod-table">
+<tbody>
+<tr> <td>%foo «+» %bar;</td> <td>intersection of keys</td> </tr> <tr> <td>%foo »+« %bar;</td> <td>union of keys</td> </tr> <tr> <td>%outer »+» %inner;</td> <td>only keys of %inner that exist in %outer will occur in the result</td> </tr>
+</tbody>
+</table><pre class="pod-block-code">my %outer = 1, 2, 3 Z=&gt; &lt;a b c&gt;;
+my %inner = 1, 2 Z=&gt; &lt;x z&gt;;
+say %outer «~» %inner;          # OUTPUT: «{&quot;1&quot; =&gt; &quot;ax&quot;, &quot;2&quot; =&gt; &quot;bz&quot;}␤»</pre>
+<p>Hyper operators can take user-defined operators as their operator argument.</p>
+<pre class="pod-block-code">sub pretty-file-size (Int $size --&gt; Str) {
+    # rounding version of infix:&lt;/&gt;(Int, Int)
+    sub infix:&lt;r/&gt;(Int \i1, Int \i2) {
+        round(i1 / i2, 0.1)
+    }
+
+    # we build a vector of fractions of $size and zip that with the fitting prefix
+    for $size «[r/]« (2**60, 2**50, 2**40, 2**30, 2**20, 2**10)
+              Z      &lt;EB     PB     TB     GB     MB     KB&gt; -&gt; [\v,\suffix] {
+        # starting with the biggest suffix,
+        # we take the first that is 0.5 of that suffix or bigger
+        return v ~ &#39; &#39; ~ suffix if v &gt; 0.4
+    }
+    # this be smaller or equal then 0.4 KB
+    return $size.Str;
+}
+
+for 60, 50, 40, 30, 20, 10 -&gt; $test {
+    my &amp;a = { (2 ** $test) * (1/4, 1/2, 1, 10, 100).pick * (1..10).pick };
+    print pretty-file-size(a.Int) xx 2, &#39; &#39;;
+}
+
+# OUTPUT: «10 EB 4 EB 2 PB 5 PB 0.5 PB 4 TB 300 GB 4.5 GB 50 MB 200 MB 9 KB 0.6 MB␤»</pre>
+<p>Whether hyperoperators descend into child lists depends on the <a href="/Documentable/integration-test/language/typesystem#trait_is_nodal">nodality</a> of the inner operator of a chain. For the hyper method call operator (».), the nodality of the target method is significant.</p>
+<pre class="pod-block-code">say (&lt;a b&gt;, &lt;c d e&gt;)».elems;        # OUTPUT: «(2 3)␤»
+say (&lt;a b&gt;, &lt;c d e&gt;)».&amp;{ .elems };  # OUTPUT: «((1 1) (1 1 1))␤»</pre>
+<p>You can chain hyper operators to destructure a List of Lists.</p>
+<pre class="pod-block-code">my $neighbors = ((-1, 0), (0, -1), (0, 1), (1, 0));
+my $p = (2, 3);
+say $neighbors »&gt;&gt;+&lt;&lt;» ($p, *);   # OUTPUT: «((1 3) (2 2) (2 4) (3 3))␤»</pre>
+<p><a name="Documentable/integration-test/index-entry-[]_(reduction_metaoperators)"></a><a name="Documentable/integration-test/index-entry-[+]_(reduction_metaoperators)"></a></p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

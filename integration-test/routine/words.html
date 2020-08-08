@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>routine words</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/routine.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-sub.html"> Sub </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-method.html"> Method </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-term.html"> Term </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-operator.html"> Operator </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-trait.html"> Trait </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-submethod.html"> Submethod </a>
+            </div></div></div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">routine words</h1>
+        <p class="subtitle"></p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#class_IO::CatHandle">class IO::CatHandle</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#(IO::CatHandle)_method_words">(IO::CatHandle) method words</a></td></tr>
+                     <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#class_IO::Handle">class IO::Handle</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#(IO::Handle)_routine_words">(IO::Handle) routine words</a></td></tr>
+                                                 <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#class_IO::Path">class IO::Path</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#(IO::Path)_method_words">(IO::Path) method words</a></td></tr>
+                                    <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#class_Str">class Str</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">4.1</td><td class="toc-text"><a href="#(Str)_routine_words">(Str) routine words</a></td></tr>
+               <tr class="toc-level-1"><td class="toc-number">5</td><td class="toc-text"><a href="#class_Supply">class Supply</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">5.1</td><td class="toc-text"><a href="#(Supply)_method_words">(Supply) method words</a></td></tr>
+    <tr class="toc-level-1"><td class="toc-number">6</td><td class="toc-text"><a href="#class_Cool">class Cool</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">6.1</td><td class="toc-text"><a href="#(Cool)_method_words">(Cool) method words</a></td></tr>
+                                
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Documentation for routine <code>words</code> assembled from the following types:</p>
+<h1 id="class_IO::CatHandle"><a class="u" href="#___top" title="go to top of document">class IO::CatHandle</a></h1>
+<p>From <a href="/Documentable/integration-test/type/IO::CatHandle#method_words">IO::CatHandle</a></p>
+<h2 id="(IO::CatHandle)_method_words"><a href="/Documentable/integration-test/type/IO::CatHandle#method_words">(IO::CatHandle) method words</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method words(IO::CatHandle:D: $limit = Inf, :$close --&gt; Seq:D)</pre>
+<p>Same as <a href="/Documentable/integration-test/type/IO::Handle#routine_words"><code>IO::Handle.words</code></a> (including the caveat about more data read than needed to make some number of words). Note that a boundary between source handles is considered to be word boundary.</p>
+<pre class="pod-block-code">(my $f1 = &#39;foo&#39;.IO).spurt: &#39;foo bar&#39;;
+(my $f2 = &#39;bar&#39;.IO).spurt: &#39;meow&#39;;
+IO::CatHandle.new($f1, $f2).words.raku.say;
+# OUTPUT: «(&quot;foo&quot;, &quot;bar&quot;, &quot;meow&quot;).Seq␤»
+</pre>
+<p>Note: if <code>:$close</code> is <code>False</code>, fully-consumed handles are <strong>still</strong> going to be closed.</p>
+<h1 id="class_IO::Handle"><a class="u" href="#___top" title="go to top of document">class IO::Handle</a></h1>
+<p>From <a href="/Documentable/integration-test/type/IO::Handle#routine_words">IO::Handle</a></p>
+<h2 id="(IO::Handle)_routine_words"><a href="/Documentable/integration-test/type/IO::Handle#routine_words">(IO::Handle) routine words</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub words(IO::Handle:D $fh = $*ARGFILES, $limit = Inf, :$close --&gt; Seq:D)
+multi method words(IO::Handle:D: $limit = Inf, :$close --&gt; Seq:D)</pre>
+<p>Similar to <a href="/Documentable/integration-test/type/Str#routine_words"><code>Str.words</code></a>, separates the handle&#39;s stream on contiguous chunks of whitespace (as defined by Unicode) and returns a <a href="/Documentable/integration-test/type/Seq">Seq</a> of the resultant &quot;words.&quot; Takes an optional <code>$limit</code> argument that can be a non-negative <a href="/Documentable/integration-test/type/Int">Int</a>, <code>Inf</code>, or <a href="/Documentable/integration-test/type/Whatever">Whatever</a> (which is interpreted to mean <code>Inf</code>), to indicate only up-to <code>$limit</code> words must be returned. If <a href="/Documentable/integration-test/type/Bool">Bool</a> <code>:$close</code> named argument is set to <code>True</code>, will automatically close the handle when the returned <a href="/Documentable/integration-test/type/Seq">Seq</a> is exhausted. Subroutine form defaults to <a href="/Documentable/integration-test/language/variables#index-entry-%24%2AARGFILES"><code>$*ARGFILES</code></a>, if no handle is provided.</p>
+<p>Attempting to call this method when the handle is <a href="/Documentable/integration-test/type/IO::Handle#method_encoding">in binary mode</a> will result in <code>X::IO::BinaryMode</code> exception being thrown.</p>
+<pre class="pod-block-code">my %dict := bag $*IN.words;
+say &quot;Most common words: &quot;, %dict.sort(-*.value).head: 5;
+</pre>
+<p><strong>NOTE:</strong> implementations may read <em>more</em> data than necessary when a call to <code>.words</code> is made. That is, <code>$handle.words(2)</code> may read more data than two &quot;words&quot; worth of data and subsequent calls to read methods might not read from the place right after the two fetched words. After a call to <code>.words</code>, the file position should be treated as undefined.</p>
+<h1 id="class_IO::Path"><a class="u" href="#___top" title="go to top of document">class IO::Path</a></h1>
+<p>From <a href="/Documentable/integration-test/type/IO::Path#method_words">IO::Path</a></p>
+<h2 id="(IO::Path)_method_words"><a href="/Documentable/integration-test/type/IO::Path#method_words">(IO::Path) method words</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method words(IO::Path:D: :$chomp = True, :$enc = &#39;utf8&#39;, :$nl-in = [&quot;\x0A&quot;, &quot;\r\n&quot;], |c --&gt; Seq:D)</pre>
+<p>Opens the invocant and returns its <a href="/Documentable/integration-test/type/IO::Handle#routine_words">words</a>.</p>
+<p>The behavior is equivalent to <a href="/Documentable/integration-test/routine/open">opening</a> the file specified by the invocant, forwarding the <code>:$chomp</code>, <code>:$enc</code>, and <code>:$nl-in</code> arguments to <a href="/Documentable/integration-test/type/IO::Handle#routine_open"><code>IO::Handle.open</code></a>, then calling <a href="/Documentable/integration-test/type/IO::Handle#routine_words"><code>IO::Handle.words</code></a> on that handle, forwarding any of the remaining arguments to that method, and returning the resultant <a href="/Documentable/integration-test/type/Seq">Seq</a>.</p>
+<p><strong>NOTE:</strong> words are lazily read. The handle used under the hood is not closed until the returned <a href="/Documentable/integration-test/type/Seq">Seq</a> is <a href="/Documentable/integration-test/language/glossary#index-entry-Reify">fully reified</a>, and this could lead to leaking open filehandles. It is possible to avoid leaking open filehandles using the <a href="/Documentable/integration-test/type/IO::Handle#routine_words"><code>$limit</code> argument</a> to cut down the <code>Seq</code> of words to be generated.</p>
+<pre class="pod-block-code">my %dict := bag &#39;my-file.txt&#39;.IO.words;
+say &quot;Most common words: &quot;, %dict.sort(-*.value).head: 5;
+</pre>
+<h1 id="class_Str"><a class="u" href="#___top" title="go to top of document">class Str</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Str#routine_words">Str</a></p>
+<h2 id="(Str)_routine_words"><a href="/Documentable/integration-test/type/Str#routine_words">(Str) routine words</a></h2>
+<pre class="pod-block-code">multi method words(Str:D: $limit)
+multi method words(Str:D:)</pre>
+<p>Returns a list of non-whitespace bits, i.e. the same as a call to <code>$input.comb( / \S+ /, $limit )</code> would.</p>
+<p>Examples:</p>
+<pre class="pod-block-code">say &quot;a\nb\n&quot;.words.raku;       # OUTPUT: «(&quot;a&quot;, &quot;b&quot;).Seq␤»
+say &quot;hello world&quot;.words.raku;  # OUTPUT: «(&quot;hello&quot;, &quot;world&quot;).Seq␤»
+say &quot;foo:bar&quot;.words.raku;      # OUTPUT: «(&quot;foo:bar&quot;,).Seq␤»
+say &quot;foo:bar\tbaz&quot;.words.raku; # OUTPUT: «(&quot;foo:bar&quot;, &quot;baz&quot;).Seq␤»</pre>
+<p>It can also be used as a subroutine, turning the first argument into the invocant. <code>$limit</code> is optional, but if it is provided (and not equal to <code>Inf</code>), it will return only the first <code>$limit</code> words.</p>
+<pre class="pod-block-code">say words(&quot;I will be very brief here&quot;, 2); # OUTPUT: «(I will)␤»</pre>
+<h1 id="class_Supply"><a class="u" href="#___top" title="go to top of document">class Supply</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Supply#method_words">Supply</a></p>
+<h2 id="(Supply)_method_words"><a href="/Documentable/integration-test/type/Supply#method_words">(Supply) method words</a></h2>
+<pre class="pod-block-code">method words(Supply:D: --&gt; Supply:D)</pre>
+<p>Creates a supply that will emit the characters coming in word for word from a supply that&#39;s usually created by some asynchronous I/O operation.</p>
+<pre class="pod-block-code">my $s = Supply.from-list(&quot;Hello Word!&quot;.comb);
+my $ws = $s.words;
+$ws.tap(&amp;say);           # OUTPUT: «Hello␤Word!␤»</pre>
+<h1 id="class_Cool"><a class="u" href="#___top" title="go to top of document">class Cool</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Cool#method_words">Cool</a></p>
+<h2 id="(Cool)_method_words"><a href="/Documentable/integration-test/type/Cool#method_words">(Cool) method words</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method words(Cool:D: |c)</pre>
+<p>Coerces the invocant (or first argument, if it is called as a subroutine) to <a href="/Documentable/integration-test/type/Str">Str</a>, and returns a list of words that make up the string. Check <a href="/Documentable/integration-test/type/Str#routine_words"><code>Str.words</code></a> for additional arguments and its meaning.</p>
+<pre class="pod-block-code">say &lt;The quick brown fox&gt;.words.join(&#39;|&#39;);     # OUTPUT: «The|quick|brown|fox␤»
+say &lt;The quick brown fox&gt;.words(2).join(&#39;|&#39;);  # OUTPUT: «The|quick␤»
+</pre>
+<p><code>Cool</code> is the base class for many other classes, and some of them, like <a href="/Documentable/integration-test/type/Match">Match</a>, can be converted to a string. This is what happens in this case:</p>
+<pre class="pod-block-code">say ( &quot;easy come, easy goes&quot; ~~ m:g/(ea\w+)/).words(Inf);
+# OUTPUT: «(easy easy)␤»
+say words( &quot;easy come, easy goes&quot; ~~ m:g/(ea\w+)/ , ∞);
+# OUTPUT: «(easy easy)␤»</pre>
+<p>The example above illustrates two of the ways <code>words</code> can be invoked, with the first argument turned into invocant by its signature. Of course, <code>Inf</code> is the default value of the second argument, so in both cases (and forms) it can be simply omitted.</p>
+<p>Only whitespace (including no-break space) counts as word boundaries</p>
+<pre class="pod-block-code">say &lt;Flying on a Boeing&nbsp;747&gt;.words.join(&#39;|&#39;);  # OUTPUT: «Flying|on|a|Boeing|747␤»</pre>
+<p>In this case, &quot;Boeing&nbsp;747&quot; includes a (visible only in the source) no-break space; <code>words</code> still splits the (resulting) <code>Str</code> on it, even if the original array only had 4 elements:</p>
+<pre class="pod-block-code">say &lt;Flying on a Boeing&nbsp;747&gt;.join(&#39;|&#39;);        # OUTPUT: «Flying|on|a|Boeing&nbsp;747␤»</pre>
+<p>Please see <a href="/Documentable/integration-test/type/Str#routine_words"><code>Str.words</code></a> for more examples and ways to invoke it.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

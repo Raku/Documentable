@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>syntax Creating grammars</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">syntax Creating grammars</h1>
+        <p class="subtitle"></p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#language_documentation_Grammars">language documentation Grammars</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#(Grammars)_Creating_grammars">(Grammars)  Creating grammars</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#Proto_regexes">Proto regexes</a></td></tr>
+                                                            <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#Special_tokens">Special tokens</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-number">1.3.1</td><td class="toc-text"><a href="#TOP"><code class="pod-code-inline">TOP</code></a></td></tr>
+                            <tr class="toc-level-3"><td class="toc-number">1.3.2</td><td class="toc-text"><a href="#ws"><code class="pod-code-inline">ws</code></a></td></tr>
+                                           <tr class="toc-level-3"><td class="toc-number">1.3.3</td><td class="toc-text"><a href="#sym"><code class="pod-code-inline">sym</code></a></td></tr>
+           <tr class="toc-level-3"><td class="toc-number">1.3.4</td><td class="toc-text"><a href="#&quot;Always_succeed&quot;_assertion">&quot;Always succeed&quot; assertion</a></td></tr>
+                      <tr class="toc-level-2"><td class="toc-number">1.4</td><td class="toc-text"><a href="#Methods_in_grammars">Methods in grammars</a></td></tr>
+               <tr class="toc-level-2"><td class="toc-number">1.5</td><td class="toc-text"><a href="#Dynamic_variables_in_grammars">Dynamic variables in grammars</a></td></tr>
+                                    <tr class="toc-level-2"><td class="toc-number">1.6</td><td class="toc-text"><a href="#Attributes_in_grammars">Attributes in grammars</a></td></tr>
+                                                                                                                                               <tr class="toc-level-2"><td class="toc-number">1.7</td><td class="toc-text"><a href="#Passing_arguments_into_grammars">Passing arguments into grammars</a></td></tr>
+                                                                                           
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Documentation for syntax <code>Creating grammars</code> assembled from the following types:</p>
+<h1 id="language_documentation_Grammars"><a class="u" href="#___top" title="go to top of document">language documentation Grammars</a></h1>
+<p>From <a href="/Documentable/integration-test/language/grammars#Creating_grammars">Grammars</a></p>
+<h2 id="(Grammars)_Creating_grammars"><a href="/Documentable/integration-test/language/grammars#Creating_grammars">(Grammars)  Creating grammars</a></h2>
+<p><a href="/Documentable/integration-test/type/Grammar">Grammar</a> is the superclass that classes automatically get when they are declared with the <code>grammar</code> keyword instead of <code>class</code>. Grammars should only be used to parse text; if you wish to extract complex data, you can add actions within the grammar or use an <a href="/Documentable/integration-test/language/grammars#Action_objects">action object</a> in conjunction with the grammar.</p>
+<h2 id="Proto_regexes"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-:sym<>-_proto_regex-_declarator_grammar-Proto_regexes"><span class="index-entry">Proto regexes</span></a></a></h2>
+<p><a href="/Documentable/integration-test/type/Grammar">Grammar</a>s are composed of rules, tokens and regexes; these are actually methods, since grammars are classes.</p>
+<p><a href="#fn-1" id="fn-ref-1">[1]</a></p>
+<p>These methods can share a name and functionality in common, and thus can use <a href="/Documentable/integration-test/syntax/proto">proto</a>.</p>
+<p>For instance, if you have a lot of alternations, it may become difficult to produce readable code or subclass your grammar. In the <code>Actions</code> class below, the ternary in <code>method TOP</code> is less than ideal and it becomes even worse the more operations we add:</p>
+<pre class="pod-block-code">grammar Calculator {
+    token TOP { [ &lt;add&gt; | &lt;sub&gt; ] }
+    rule  add { &lt;num&gt; &#39;+&#39; &lt;num&gt; }
+    rule  sub { &lt;num&gt; &#39;-&#39; &lt;num&gt; }
+    token num { \d+ }
+}
+
+class Calculations {
+    method TOP ($/) { make $&lt;add&gt; ?? $&lt;add&gt;.made !! $&lt;sub&gt;.made; }
+    method add ($/) { make [+] $&lt;num&gt;; }
+    method sub ($/) { make [-] $&lt;num&gt;; }
+}
+
+say Calculator.parse(&#39;2 + 3&#39;, actions =&gt; Calculations).made;
+
+# OUTPUT: «5␤»</pre>
+<p>To make things better, we can use proto regexes that look like <code>:sym&lt;...&gt;</code> adverbs on tokens:</p>
+<pre class="pod-block-code">grammar Calculator {
+    token TOP { &lt;calc-op&gt; }
+
+    proto rule calc-op          {*}
+          rule calc-op:sym&lt;add&gt; { &lt;num&gt; &#39;+&#39; &lt;num&gt; }
+          rule calc-op:sym&lt;sub&gt; { &lt;num&gt; &#39;-&#39; &lt;num&gt; }
+
+    token num { \d+ }
+}
+
+class Calculations {
+    method TOP              ($/) { make $&lt;calc-op&gt;.made; }
+    method calc-op:sym&lt;add&gt; ($/) { make [+] $&lt;num&gt;; }
+    method calc-op:sym&lt;sub&gt; ($/) { make [-] $&lt;num&gt;; }
+}
+
+say Calculator.parse(&#39;2 + 3&#39;, actions =&gt; Calculations).made;
+
+# OUTPUT: «5␤»</pre>
+<p>In this grammar the alternation has now been replaced with <code>&lt;calc-op&gt;</code>, which is essentially the name of a group of values we&#39;ll create. We do so by defining a rule prototype with <code>proto rule calc-op</code>. Each of our previous alternations have been replaced by a new <code>rule calc-op</code> definition and the name of the alternation is attached with <code>:sym&lt;&gt;</code> adverb.</p>
+<p>In the class that declares actions, we now got rid of the ternary operator and simply take the <code>.made</code> value from the <code>$&lt;calc-op&gt;</code> match object. And the actions for individual alternations now follow the same naming pattern as in the grammar: <code>method calc-op:sym&lt;add&gt;</code> and <code>method calc-op:sym&lt;sub&gt;</code>.</p>
+<p>The real beauty of this method can be seen when you subclass the grammar and action classes. Let&#39;s say we want to add a multiplication feature to the calculator:</p>
+<pre class="pod-block-code">grammar BetterCalculator is Calculator {
+    rule calc-op:sym&lt;mult&gt; { &lt;num&gt; &#39;*&#39; &lt;num&gt; }
+}
+
+class BetterCalculations is Calculations {
+    method calc-op:sym&lt;mult&gt; ($/) { make [*] $&lt;num&gt; }
+}
+
+say BetterCalculator.parse(&#39;2 * 3&#39;, actions =&gt; BetterCalculations).made;
+
+# OUTPUT: «6␤»
+</pre>
+<p>All we had to add are an additional rule and action to the <code>calc-op</code> group and the thing works—all thanks to proto regexes.</p>
+<h2 id="Special_tokens"><a class="u" href="#___top" title="go to top of document">Special tokens</a></h2>
+<h3 id="TOP"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-TOP-TOP"><span class="index-entry"><code>TOP</code></span></a></a></h3>
+<pre class="pod-block-code">grammar Foo {
+    token TOP { \d+ }
+}</pre>
+<p>The <code>TOP</code> token is the default first token attempted to match when parsing with a grammar. Note that if you&#39;re parsing with the <a href="/Documentable/integration-test/type/Grammar#method_parse"><code>.parse</code></a> method, <code>token TOP</code> is automatically anchored to the start and end of the string. If you don&#39;t want to parse the whole string, look up <a href="/Documentable/integration-test/type/Grammar#method_subparse"><code>.subparse</code></a>.</p>
+<p>Using <code>rule TOP</code> or <code>regex TOP</code> is also acceptable.</p>
+<p>A different token can be chosen to be matched first using the <code>:rule</code> named argument to <code>.parse</code>, <code>.subparse</code>, or <code>.parsefile</code>. These are all <code>Grammar</code> methods.</p>
+<p><a name="Documentable/integration-test/index-entry-ws"></a></p>
+<h3 id="ws"><a class="u" href="#___top" title="go to top of document"><code>ws</code></a></h3>
+<p>The default <code>ws</code> matches zero or more whitespace characters, as long as that point is not within a word (in code form, that&#39;s <code>regex ws { &lt;!ww&gt; \s* }</code>):</p>
+<pre class="pod-block-code"># First &lt;.ws&gt; matches word boundary at the start of the line
+# and second &lt;.ws&gt; matches the whitespace between &#39;b&#39; and &#39;c&#39;
+say &#39;ab   c&#39; ~~ /&lt;.ws&gt; ab &lt;.ws&gt; c /; # OUTPUT: «｢ab   c｣␤»
+
+# Failed match: there is neither any whitespace nor a word
+# boundary between &#39;a&#39; and &#39;b&#39;
+say &#39;ab&#39; ~~ /. &lt;.ws&gt; b/;             # OUTPUT: «Nil␤»
+
+# Successful match: there is a word boundary between &#39;)&#39; and &#39;b&#39;
+say &#39;)b&#39; ~~ /. &lt;.ws&gt; b/;             # OUTPUT: «｢)b｣␤»</pre>
+<p>Please bear in mind that we&#39;re preceding <code>ws</code> with a dot to avoid capturing, which we are not interested in. Since in general whitespace is a separator, this is how it&#39;s mostly found.</p>
+<p>When <code>rule</code> is used instead of <code>token</code>, <code>:sigspace</code> is enabled by default and any whitespace after terms and closing parenthesis/brackets are turned into a non-capturing call to <code>ws</code>, written as <code>&lt;.ws&gt;</code> where <code>.</code> means non-capturing. That is to say:</p>
+<pre class="pod-block-code">rule entry { &lt;key&gt; &#39;=&#39; &lt;value&gt; }</pre>
+<p>Is the same as:</p>
+<pre class="pod-block-code">token entry { &lt;key&gt; &lt;.ws&gt; &#39;=&#39; &lt;.ws&gt; &lt;value&gt; &lt;.ws&gt; }</pre>
+<p>You can also redefine the default <code>ws</code> token:</p>
+<pre class="pod-block-code">grammar Foo {
+    rule TOP { \d \d }
+}.parse: &quot;4   \n\n 5&quot;; # Succeeds
+
+grammar Bar {
+    rule TOP { \d \d }
+    token ws { \h*   }
+}.parse: &quot;4   \n\n 5&quot;; # Fails</pre>
+<p>And even capture it, but you need to use it explicitly. Notice that in the next example we use <code>token</code> instead of <code>rule</code>, as the latter would cause whitespace to be consumed by the implicit non-capturing <code>.ws</code>.</p>
+<pre class="pod-block-code">grammar Foo { token TOP {\d &lt;ws&gt; \d} };
+my $parsed = Foo.parse: &quot;3 3&quot;;
+say $parsed&lt;ws&gt;; # OUTPUT: «｢ ｣␤»
+</pre>
+<h3 id="sym"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-<sym>-sym"><span class="index-entry"><code>sym</code></span></a></a></h3>
+<p>The <code>&lt;sym&gt;</code> token can be used inside proto regexes to match the string value of the <code>:sym</code> adverb for that particular regex:</p>
+<pre class="pod-block-code">grammar Foo {
+    token TOP { &lt;letter&gt;+ }
+    proto token letter {*}
+          token letter:sym&lt;P&gt; { &lt;sym&gt; }
+          token letter:sym&lt;e&gt; { &lt;sym&gt; }
+          token letter:sym&lt;r&gt; { &lt;sym&gt; }
+          token letter:sym&lt;l&gt; { &lt;sym&gt; }
+          token letter:sym&lt;*&gt; {   .   }
+}.parse(&quot;I ♥ Perl&quot;, actions =&gt; class {
+    method TOP($/) { make $&lt;letter&gt;.grep(*.&lt;sym&gt;).join }
+}).made.say; # OUTPUT: «Perl␤»</pre>
+<p>This comes in handy when you&#39;re already differentiating the proto regexes with the strings you&#39;re going to match, as using <code>&lt;sym&gt;</code> token prevents repetition of those strings.</p>
+<p><a name="Documentable/integration-test/index-entry-<?>"></a></p>
+<h3 id="&quot;Always_succeed&quot;_assertion"><a class="u" href="#___top" title="go to top of document">&quot;Always succeed&quot; assertion</a></h3>
+<p>The <code>&lt;?&gt;</code> is the <em>always succeed</em> assertion. When used as a grammar token, it can be used to trigger an Action class method. In the following grammar we look for Arabic digits and define a <code>succ</code> token with the always succeed assertion.</p>
+<p>In the action class, we use calls to the <code>succ</code> method to do set up (in this case, we prepare a new element in <code>@!numbers</code>). In the <code>digit</code> method, we use the Arabic digit as an index into a list of Devanagari digits and add it to the last element of <code>@!numbers</code>. Thanks to <code>succ</code>, the last element will always be the number for the currently parsed <code>digit</code> digits.</p>
+<pre class="pod-block-code">grammar Digifier {
+    rule TOP {
+        [ &lt;.succ&gt; &lt;digit&gt;+ ]+
+    }
+    token succ   { &lt;?&gt; }
+    token digit { &lt;[0..9]&gt; }
+}
+
+class Devanagari {
+    has @!numbers;
+    method digit ($/) { @!numbers.tail ~= &lt;०  १  २  ३  ४  ५  ६  ७  ८  ९&gt;[$/] }
+    method succ  ($)  { @!numbers.push: &#39;&#39;     }
+    method TOP   ($/) { make @!numbers[^(*-1)] }
+}
+
+say Digifier.parse(&#39;255 435 777&#39;, actions =&gt; Devanagari.new).made;
+# OUTPUT: «(२५५ ४३५ ७७७)␤»</pre>
+<h2 id="Methods_in_grammars"><a class="u" href="#___top" title="go to top of document">Methods in grammars</a></h2>
+<p>It&#39;s fine to use methods instead of rules or tokens in a grammar, as long as they return a <a href="/Documentable/integration-test/type/Match">Match</a>:</p>
+<pre class="pod-block-code">grammar DigitMatcher {
+    method TOP (:$full-unicode) {
+        $full-unicode ?? self.num-full !! self.num-basic;
+    }
+    token num-full  { \d+ }
+    token num-basic { &lt;[0..9]&gt;+ }
+}</pre>
+<p>The grammar above will attempt different matches depending on the argument provided to the subparse methods:</p>
+<pre class="pod-block-code">say +DigitMatcher.subparse: &#39;12७१७९०९&#39;, args =&gt; \(:full-unicode);
+# OUTPUT: «12717909␤»
+
+say +DigitMatcher.subparse: &#39;12७१७९०९&#39;, args =&gt; \(:!full-unicode);
+# OUTPUT: «12␤»
+</pre>
+<h2 id="Dynamic_variables_in_grammars"><a class="u" href="#___top" title="go to top of document">Dynamic variables in grammars</a></h2>
+<p>Variables can be defined in tokens by prefixing the lines of code defining them with <code>:</code>. Arbitrary code can be embedded anywhere in a token by surrounding it with curly braces. This is useful for keeping state between tokens, which can be used to alter how the grammar will parse text. Using dynamic variables (variables with <code>$*</code>, <code>@*</code>, <code>&amp;*</code>, <code>%*</code> twigils) in tokens cascades down through <em>all</em> tokens defined thereafter within the one where it&#39;s defined, avoiding having to pass them from token to token as arguments.</p>
+<p>One use for dynamic variables is guards for matches. This example uses guards to explain which regex classes parse whitespace literally:</p>
+<pre class="pod-block-code">grammar GrammarAdvice {
+    rule TOP {
+        :my Int $*USE-WS;
+        &quot;use&quot; &lt;type&gt; &quot;for&quot; &lt;significance&gt; &quot;whitespace by default&quot;
+    }
+    token type {
+        | &quot;rules&quot;   { $*USE-WS = 1 }
+        | &quot;tokens&quot;  { $*USE-WS = 0 }
+        | &quot;regexes&quot; { $*USE-WS = 0 }
+    }
+    token significance {
+        | &lt;?{ $*USE-WS == 1 }&gt; &quot;significant&quot;
+        | &lt;?{ $*USE-WS == 0 }&gt; &quot;insignificant&quot;
+    }
+}</pre>
+<p>Here, text such as &quot;use rules for significant whitespace by default&quot; will only match if the state assigned by whether rules, tokens, or regexes are mentioned matches with the correct guard:</p>
+<pre class="pod-block-code">say GrammarAdvice.subparse(&quot;use rules for significant whitespace by default&quot;);
+# OUTPUT: «use rules for significant whitespace by default»
+
+say GrammarAdvice.subparse(&quot;use tokens for insignificant whitespace by default&quot;);
+# OUTPUT: «use tokens for insignificant whitespace by default»
+
+say GrammarAdvice.subparse(&quot;use regexes for insignificant whitespace by default&quot;);
+# OUTPUT: «use regexes for insignificant whitespace by default»
+
+say GrammarAdvice.subparse(&quot;use regexes for significant whitespace by default&quot;);
+# OUTPUT: #&lt;failed match&gt;
+</pre>
+<h2 id="Attributes_in_grammars"><a class="u" href="#___top" title="go to top of document">Attributes in grammars</a></h2>
+<p>Attributes may be defined in grammars. However, they can only be accessed by methods. Attempting to use them from within a token will throw an exception because tokens are methods of <a href="/Documentable/integration-test/type/Match">Match</a>, not of the grammar itself. Note that mutating an attribute from within a method called in a token will <em>only modify the attribute for that token&#39;s own match object</em>! Grammar attributes can be accessed in the match returned after parsing if made public:</p>
+<pre class="pod-block-code">grammar HTTPRequest {
+    has Bool $.invalid;
+
+    token TOP {
+        &lt;type&gt; &lt;.ns&gt; &lt;path&gt; &lt;.ns&gt; &#39;HTTP/1.1&#39; &lt;.crlf&gt;
+        [ &lt;field&gt; &lt;.crlf&gt; ]+
+        &lt;.crlf&gt;
+        $&lt;body&gt;=.*
+    }
+
+    token type {
+        | [ GET | POST | OPTIONS | HEAD | PUT | DELETE | TRACE | CONNECT ] &lt;.accept&gt;
+        | &lt;-[\/]&gt;+ &lt;.error&gt;
+    }
+
+    token path {
+        | &#39;/&#39; [[\w+]+ % \/] [\.\w+]? &lt;.accept&gt;
+        | &#39;*&#39; &lt;.accept&gt;
+        | \S+ &lt;.error&gt;
+    }
+
+    token field {
+        | $&lt;name&gt;=\w+ &lt;.ns&gt; &#39;:&#39; &lt;.ns&gt; $&lt;value&gt;=&lt;-crlf&gt;* &lt;.accept&gt;
+        | &lt;-crlf&gt;+ &lt;.error&gt;
+    }
+
+    method error(--&gt; ::?CLASS:D) {
+        $!invalid = True;
+        self;
+    }
+
+    method accept(--&gt; ::?CLASS:D) {
+        $!invalid = False;
+        self;
+    }
+
+    token crlf { # network new line (usually seen as &quot;\r\n&quot;)
+        # Several internet protocols (such as HTTP, RF 2616) mandate
+        # the use of ASCII CR+LF (0x0D 0x0A) to terminate lines at
+        # the protocol level (even though, in practice, some applications
+        # tolerate a single LF).
+        # Raku, Raku grammars and strings (Str) adhere to Unicode
+        # conformance. Thus, CR+LF cannot be expressed unambiguously
+        # as \r\n in in Raku grammars or strings (Str), as Unicode
+        # conformance requires \r\n to be interpreted as \n alone.
+        \x[0d] \x[0a]
+    }
+    token ns { # network space
+        # &lt;ws&gt; would consume, e.g., newlines, and \h (and \s) would accept
+        # more codepoints than just ASCII single space and the tab character.
+        [ &#39; &#39; | &lt;[\t]&gt; ]*
+    }
+}
+
+my $crlf = &quot;\x[0d]\x[0a]&quot;;
+my $header = &quot;GOT /index.html HTTP/1.1{$crlf}Host: docs.raku.org{$crlf}{$crlf}body&quot;;
+my $m = HTTPRequest.parse($header);
+say &quot;type(\&quot;$m.&lt;type&gt;\&quot;)={$m.&lt;type&gt;.invalid}&quot;;
+# OUTPUT: type(&quot;GOT &quot;)=True
+say &quot;path(\&quot;$m.&lt;path&gt;\&quot;)={$m.&lt;path&gt;.invalid}&quot;;
+# OUTPUT: path(&quot;/index.html&quot;)=False
+say &quot;field(\&quot;$m.&lt;field&gt;[0]\&quot;)={$m.&lt;field&gt;[0].invalid}&quot;;
+# OUTPUT: field(&quot;Host: docs.raku.org&quot;)=False
+</pre>
+<p>Notes: <code>$crlf</code> and token <code>&lt;.crlf&gt;</code> are required if we want to somehow (within the context of this incomplete example) strictly adhere to HTTP/1.1 (RFC 2616). The reason is that Raku, in contrast to RFC 2616, is Unicode conformant, and \r\n needs to be interpreted as a sole \n, thus preventing the grammar to properly parse a string containing \r\n in the sense expected by the HTTP protocol. Notice how attribute <code>invalid</code> is local to each component (e.g., the value for <code>&lt;type&gt;</code> is <code>True</code>, but for <code>&lt;path&gt;</code> is <code>False</code>). Notice also how we have a method for <code>accept</code>, the reason being that attribute <code>invalid</code> would be uninitialized (even if present) otherwise.</p>
+<h2 id="Passing_arguments_into_grammars"><a class="u" href="#___top" title="go to top of document">Passing arguments into grammars</a></h2>
+<p>To pass arguments into a grammar, you can use the named argument of <code>:args</code> on any of the parsing methods of grammar. The arguments passed should be in a <code>list</code>.</p>
+<pre class="pod-block-code">grammar demonstrate-arguments {
+    rule TOP ($word) {
+    &quot;I like&quot; $word
+    }
+}
+
+# Notice the comma after &quot;sweets&quot; when passed to :args to coerce it to a list
+say demonstrate-arguments.parse(&quot;I like sweets&quot;, :args((&quot;sweets&quot;,)));
+# OUTPUT: «｢I like sweets｣␤»
+</pre>
+<p>Once the arguments are passed in, they can be used in a call to a named regex inside the grammar.</p>
+<pre class="pod-block-code">grammar demonstrate-arguments-again {
+    rule TOP ($word) {
+    &lt;phrase-stem&gt;&lt;added-word($word)&gt;
+    }
+
+    rule phrase-stem {
+       &quot;I like&quot;
+    }
+
+    rule added-word($passed-word) {
+       $passed-word
+    }
+}
+
+say demonstrate-arguments-again.parse(&quot;I like vegetables&quot;, :args((&quot;vegetables&quot;,)));
+# OUTPUT: ｢I like vegetables｣␤»
+# OUTPUT:  «phrase-stem =&gt; ｢I like ｣␤»
+# OUTPUT:  «added-word =&gt; ｢vegetables｣␤»
+</pre>
+<p>Alternatively, you can initialize dynamic variables and use any arguments that way within the grammar.</p>
+<pre class="pod-block-code">grammar demonstrate-arguments-dynamic {
+   rule TOP ($*word, $*extra) {
+      &lt;phrase-stem&gt;&lt;added-words&gt;
+   }
+   rule phrase-stem {
+      &quot;I like&quot;
+   }
+   rule added-words {
+      $*word $*extra
+   }
+}
+
+say demonstrate-arguments-dynamic.parse(&quot;I like everything else&quot;,
+  :args((&quot;everything&quot;, &quot;else&quot;)));
+# OUTPUT: «｢I like everything else｣␤»
+# OUTPUT:  «phrase-stem =&gt; ｢I like ｣␤»
+# OUTPUT:  «added-words =&gt; ｢everything else｣␤»
+</pre>
+<p><a name="Documentable/integration-test/index-entry-Actions"></a></p>
+
+        </div>
+    </div>
+
+    <aside><ol start="1">
+<li><a href="#fn-ref-1" id="fn-1">[↑]</a> They are actually a special kind of class, but for the rest of the section, they behave in the same way as a <em>normal</em> class would </li>
+</ol></aside>
+
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

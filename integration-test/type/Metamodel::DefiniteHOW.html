@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>class Metamodel::DefiniteHOW</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/type.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-basic.html"> Basic </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-composite.html"> Composite </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-domain-specific.html"> Domain-specific </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-exception.html"> Exceptions </a>
+            </div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Type/Metamodel/DefiniteHOW.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">class Metamodel::DefiniteHOW</h1>
+        <p class="subtitle">Metaobject for type definiteness</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+                                                         <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#method_new_type">method new_type</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#method_name">method name</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#method_shortname">method shortname</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.4</td><td class="toc-text"><a href="#method_base_type">method base_type</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">1.5</td><td class="toc-text"><a href="#method_definite">method definite</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">1.6</td><td class="toc-text"><a href="#method_nominalize">method nominalize</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">1.7</td><td class="toc-text"><a href="#method_find_method">method find_method</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.8</td><td class="toc-text"><a href="#method_type_check">method type_check</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">1.9</td><td class="toc-text"><a href="#method_accepts_type">method accepts_type</a></td></tr>
+           <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Type_Graph">Type Graph</a></td></tr>
+  <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Routines_supplied_by_role_Metamodel::Documenting">Routines supplied by role Metamodel::Documenting</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#(Metamodel::Documenting)_method_set_why">(Metamodel::Documenting) method set_why</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">3.2</td><td class="toc-text"><a href="#(Metamodel::Documenting)_method_WHY">(Metamodel::Documenting) method WHY</a></td></tr>
+  
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <pre class="pod-block-code">    class Metamodel::DefiniteHOW
+        does Metamodel::Documenting
+            { }
+</pre>
+<p><em>Warning</em>: this class is part of the Rakudo implementation, and is not a part of the language specification.</p>
+<p>Type objects may be given a <em>type smiley</em>, which is a suffix that denotes their definiteness:</p>
+<pre class="pod-block-code">say Any:D.^name; # OUTPUT: «Any:D␤»
+say Any:U.^name; # OUTPUT: «Any:U␤»
+say Any:_.^name; # OUTPUT: «Any␤»
+</pre>
+<p>Despite sharing a type with <code>Any</code>, <code>Any:U</code> and <code>Any:D</code> in particular have different type-checking behaviors from it:</p>
+<pre class="pod-block-code">say Any ~~ Any:D;     # OUTPUT: «False␤»
+say Any ~~ Any:U;     # OUTPUT: «True␤»
+say Any ~~ Any:_;     # OUTPUT: «True␤»
+say Any.new ~~ Any:D; # OUTPUT: «True␤»
+say Any.new ~~ Any:U; # OUTPUT: «False␤»
+say Any.new ~~ Any:_; # OUTPUT: «True␤»
+</pre>
+<p>This happens because <code>Any:D</code> and <code>Any:U</code> are not created with <a href="/Documentable/integration-test/type/Metamodel::ClassHOW">Metamodel::ClassHOW</a> like you might expect <code>Any</code> type objects to be, but <code>Metamodel::DefiniteHOW</code> instead. This HOW defines the behavior for definite type objects such as these.</p>
+<p>The following type declaration:</p>
+<pre class="pod-block-code">my Any constant Definite = Any:D;
+</pre>
+<p>Is roughly equivalent to this code using the methods of <code>Metamodel::DefiniteHOW</code>:</p>
+<pre class="pod-block-code">my Any constant Definite = Metamodel::DefiniteHOW.new_type: base_type =&gt; Any, definite =&gt; 1;
+</pre>
+<h1 id="Methods"><a class="u" href="#___top" title="go to top of document">Methods</a></h1>
+<h2 id="method_new_type"><a class="u" href="#___top" title="go to top of document">method new_type</a></h2>
+<pre class="pod-block-code">method new_type(:$base_type!, :$definite!)</pre>
+<p>Creates a new definite type given a base type and definiteness. <code>$definite</code> should either be <code>1</code> for <code>:D</code> types or <code>0</code> for <code>:U</code> types.</p>
+<h2 id="method_name"><a class="u" href="#___top" title="go to top of document">method name</a></h2>
+<pre class="pod-block-code">method name($definite_type)</pre>
+<p>Returns the name of a definite type.</p>
+<h2 id="method_shortname"><a class="u" href="#___top" title="go to top of document">method shortname</a></h2>
+<pre class="pod-block-code">method shortname($definite_type)</pre>
+<p>Returns the shortname of a definite type.</p>
+<h2 id="method_base_type"><a class="u" href="#___top" title="go to top of document">method base_type</a></h2>
+<pre class="pod-block-code">method base_type($definite_type)</pre>
+<p>Returns the base type for a definite type:</p>
+<pre class="pod-block-code">say Any:D.^base_type.^name; # OUTPUT: «Any␤»
+</pre>
+<h2 id="method_definite"><a class="u" href="#___top" title="go to top of document">method definite</a></h2>
+<pre class="pod-block-code">method definite($definite_type)</pre>
+<p>Returns <code>1</code> if the definite type given is a <code>:D</code> type or <code>0</code> if it is a <code>:U</code> type.</p>
+<h2 id="method_nominalize"><a class="u" href="#___top" title="go to top of document">method nominalize</a></h2>
+<pre class="pod-block-code">method nominalize($obj)</pre>
+<p>Produces a nominal type object for a definite type. This is its base type, which may also get nominalized if it has the <code>nominalizable</code> archetype.</p>
+<h2 id="method_find_method"><a class="u" href="#___top" title="go to top of document">method find_method</a></h2>
+<pre class="pod-block-code">method find_method($definite_type, $name)</pre>
+<p>Looks up a method on the base type of a definite type.</p>
+<h2 id="method_type_check"><a class="u" href="#___top" title="go to top of document">method type_check</a></h2>
+<pre class="pod-block-code">method type_check($definite_type, $checkee)</pre>
+<p>Performs a type-check of a definite type against <code>$checkee</code>. This will check if <code>$checkee</code> is of its base type, returning <code>True</code> if they match or <code>False</code> otherwise. This metamethod can get called when a definite type is on the left-hand side of a smartmatch, for instance.</p>
+<h2 id="method_accepts_type"><a class="u" href="#___top" title="go to top of document">method accepts_type</a></h2>
+<pre class="pod-block-code">method accepts_type($definite_type, $checkee)</pre>
+<p>Performs a type-check of <code>$checkee</code> against a definite type. This will check if <code>$checkee</code> is of its base type and matches its definiteness, returning <code>True</code> if they match or <code>False</code> otherwise. This metamethod can get called when the definite type is on the right-hand side of a smartmatch, for instance.</p>
+<h1 id="Type_Graph"><a class="u" href="#___top" title="go to top of document">Type Graph</a></h1>
+<figure>
+  <figcaption>Type relations for <code>Metamodel::DefiniteHOW</code></figcaption>
+  <svg width="327pt" height="168pt"
+ viewBox="0.00 0.00 326.93 168.14" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 164.14)">
+<title>perl6&#45;type&#45;graph</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-164.14 322.93,-164.14 322.93,4 -4,4"/>
+<!-- Metamodel::DefiniteHOW -->
+<g id="node1" class="node">
+<title>Metamodel::DefiniteHOW</title>
+<g id="a_node1"><a xlink:href="/type/Metamodel::DefiniteHOW" xlink:title="Metamodel::DefiniteHOW">
+<ellipse fill="none" stroke="#000000" cx="166.44" cy="-88.21" rx="118.08" ry="18"/>
+<text text-anchor="middle" x="166.44" y="-84.51" font-family="FreeSans" font-size="14.00" fill="#000000">Metamodel::DefiniteHOW</text>
+</a>
+</g>
+</g>
+<!-- Any -->
+<g id="node3" class="node">
+<title>Any</title>
+<g id="a_node3"><a xlink:href="/type/Any" xlink:title="Any">
+<ellipse fill="none" stroke="#000000" cx="225.27" cy="-46.07" rx="27" ry="18"/>
+<text text-anchor="middle" x="225.27" y="-42.37" font-family="FreeSans" font-size="14.00" fill="#000000">Any</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::DefiniteHOW&#45;&gt;Any -->
+<g id="edge1" class="edge">
+<title>Metamodel::DefiniteHOW&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M191.05,-70.58C193.53,-68.81 196.06,-67 198.56,-65.21"/>
+<polygon fill="#000000" stroke="#000000" points="200.76,-67.94 206.85,-59.27 196.68,-62.24 200.76,-67.94"/>
+</g>
+<!-- Metamodel::Documenting -->
+<g id="node4" class="node">
+<title>Metamodel::Documenting</title>
+<g id="a_node4"><a xlink:href="/type/Metamodel::Documenting" xlink:title="Metamodel::Documenting">
+<ellipse fill="none" stroke="#6666ff" cx="118.29" cy="-142.14" rx="118.08" ry="18"/>
+<text text-anchor="middle" x="118.29" y="-138.44" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::Documenting</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::DefiniteHOW&#45;&gt;Metamodel::Documenting -->
+<g id="edge3" class="edge">
+<title>Metamodel::DefiniteHOW&#45;&gt;Metamodel::Documenting</title>
+<path fill="none" stroke="#6666ff" d="M150.41,-106.17C147.43,-109.5 144.28,-113.04 141.15,-116.54"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="138.47,-114.29 134.42,-124.08 143.69,-118.95 138.47,-114.29"/>
+</g>
+<!-- Mu -->
+<g id="node2" class="node">
+<title>Mu</title>
+<g id="a_node2"><a xlink:href="/type/Mu" xlink:title="Mu">
+<ellipse fill="none" stroke="#000000" cx="291.93" cy="-18" rx="27" ry="18"/>
+<text text-anchor="middle" x="291.93" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">Mu</text>
+</a>
+</g>
+</g>
+<!-- Any&#45;&gt;Mu -->
+<g id="edge2" class="edge">
+<title>Any&#45;&gt;Mu</title>
+<path fill="none" stroke="#000000" d="M248.21,-36.41C251.84,-34.88 255.64,-33.28 259.44,-31.68"/>
+<polygon fill="#000000" stroke="#000000" points="260.86,-34.88 268.72,-27.77 258.15,-28.43 260.86,-34.88"/>
+</g>
+</g>
+</svg>
+
+  <p class="fallback">
+    <a
+      rel="alternate"
+      href="/images/type-graph-Metamodel%3A%3ADefiniteHOW.svg"
+      type="image/svg+xml"
+      >Expand above chart</a
+    >
+  </p>
+</figure>
+<h1 id="Routines_supplied_by_role_Metamodel::Documenting"><a class="u" href="#___top" title="go to top of document">Routines supplied by role Metamodel::Documenting</a></h1>
+<p>Metamodel::DefiniteHOW does role <a href="/Documentable/integration-test/type/Metamodel::Documenting">Metamodel::Documenting</a>, which provides the following routines:</p>
+<h2 id="(Metamodel::Documenting)_method_set_why"><a href="/Documentable/integration-test/type/Metamodel::Documenting#method_set_why">(Metamodel::Documenting) method set_why</a></h2>
+<pre class="pod-block-code">method set_why($why)</pre>
+<p>Sets the documentation for a type to <code>$why</code>.</p>
+<h2 id="(Metamodel::Documenting)_method_WHY"><a href="/Documentable/integration-test/type/Metamodel::Documenting#method_WHY">(Metamodel::Documenting) method WHY</a></h2>
+<pre class="pod-block-code">method WHY()</pre>
+<p>Returns the documentation for a type.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Type/Metamodel/DefiniteHOW.pod6">https://github.com/Raku/doc/blob/master/doc/Type/Metamodel/DefiniteHOW.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

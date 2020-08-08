@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>syntax Regex adverbs</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">syntax Regex adverbs</h1>
+        <p class="subtitle"></p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#language_documentation_Regexes">language documentation Regexes</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#(Regexes)_regex_Regex_adverbs_Regex_adverbs">(Regexes) regex  Regex adverbs Regex adverbs</a></td></tr>
+                                <tr class="toc-level-3"><td class="toc-number">1.1.1</td><td class="toc-text"><a href="#Ignorecase">Ignorecase</a></td></tr>
+         <tr class="toc-level-3"><td class="toc-number">1.1.2</td><td class="toc-text"><a href="#Ignoremark">Ignoremark</a></td></tr>
+            <tr class="toc-level-3"><td class="toc-number">1.1.3</td><td class="toc-text"><a href="#Ratchet">Ratchet</a></td></tr>
+                                                     <tr class="toc-level-3"><td class="toc-number">1.1.4</td><td class="toc-text"><a href="#Sigspace">Sigspace</a></td></tr>
+                                                                                                                                                                 <tr class="toc-level-3"><td class="toc-number">1.1.5</td><td class="toc-text"><a href="#Perl_compatibility_adverb">Perl compatibility adverb</a></td></tr>
+         
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Documentation for syntax <code>Regex adverbs</code> assembled from the following types:</p>
+<h1 id="language_documentation_Regexes"><a class="u" href="#___top" title="go to top of document">language documentation Regexes</a></h1>
+<p>From <a href="/Documentable/integration-test/language/regexes#Regex_adverbs">Regexes</a></p>
+<h2 id="(Regexes)_regex_Regex_adverbs_Regex_adverbs"><a href="/Documentable/integration-test/language/regexes#Regex_adverbs">(Regexes) regex  Regex adverbs Regex adverbs</a></h2>
+<p>The adverbs that appear at the time of a regex declaration are part of the actual regex and influence how the Raku compiler translates the regex into binary code.</p>
+<p>For example, the <code>:ignorecase</code> (<code>:i</code>) adverb tells the compiler to ignore the distinction between upper case, lower case and title case letters.</p>
+<p>So <code>&#39;a&#39; ~~ /A/</code> is false, but <code>&#39;a&#39; ~~ /:i A/</code> is a successful match.</p>
+<p>Regex adverbs can come before or inside a regex declaration and only affect the part of the regex that comes afterwards, lexically. Note that regex adverbs appearing before the regex must appear after something that introduces the regex to the parser, like &#39;rx&#39; or &#39;m&#39; or a bare &#39;/&#39;. This is NOT valid:</p>
+<pre class="pod-block-code">my $rx1 = :i/a/;      # adverb is before the regex is recognized =&gt; exception
+</pre>
+<p>but these are valid:</p>
+<pre class="pod-block-code">my $rx1 = rx:i/a/;     # before
+my $rx2 = m:i/a/;      # before
+my $rx3 = /:i a/;      # inside</pre>
+<p>These two regexes are equivalent:</p>
+<pre class="pod-block-code">my $rx1 = rx:i/a/;      # before
+my $rx2 = rx/:i a/;     # inside</pre>
+<p>Whereas these two are not:</p>
+<pre class="pod-block-code">my $rx3 = rx/a :i b/;   # matches only the b case insensitively
+my $rx4 = rx/:i a b/;   # matches completely case insensitively</pre>
+<p>Square brackets and parentheses limit the scope of an adverb:</p>
+<pre class="pod-block-code">/ (:i a b) c /;         # matches &#39;ABc&#39; but not &#39;ABC&#39;
+/ [:i a b] c /;         # matches &#39;ABc&#39; but not &#39;ABC&#39;</pre>
+<p>When two adverbs are used together, they keep their colon at the front</p>
+<pre class="pod-block-code">&quot;þor is Þor&quot; ~~ m:g:i/þ/;  # OUTPUT: «(｢þ｣ ｢Þ｣)␤»</pre>
+<p>That implies that when there are two vowels together after a <code>:</code>, they correspond to the same adverb, as in <code>:ov</code> or <code>:P5</code>.</p>
+<h3 id="Ignorecase"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-regex_adverb_:ignorecase-regex_adverb_:i-Ignorecase"><span class="index-entry">Ignorecase</span></a></a></h3>
+<p>The <code>:ignorecase</code> or <code>:i</code> adverb instructs the regex engine to ignore the distinction between upper case, lower case and title case letters.</p>
+<p>See the <a href="/Documentable/integration-test/language/regexes#Regex_adverbs">section Regex adverbs</a> for examples.</p>
+<h3 id="Ignoremark"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-regex_adverb_:ignoremark-regex_adverb_:m-Ignoremark"><span class="index-entry">Ignoremark</span></a></a></h3>
+<p>The <code>:ignoremark</code> or <code>:m</code> adverb instructs the regex engine to only compare base characters, and ignore additional marks such as combining accents:</p>
+<pre class="pod-block-code">say so &#39;a&#39; ~~ rx/ä/;                # OUTPUT: «False»
+say so &#39;a&#39; ~~ rx:ignoremark /ä/;    # OUTPUT: «True»
+say so &#39;ỡ&#39; ~~ rx:ignoremark /o/;    # OUTPUT: «True&gt;
+</pre>
+<h3 id="Ratchet"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-regex_adverb_:ratchet-regex_adverb_:r-Ratchet"><span class="index-entry">Ratchet</span></a></a></h3>
+<p>The <code>:ratchet</code> or <code>:r</code> adverb causes the regex engine to not backtrack (see <a href="/Documentable/integration-test/language/regexes#Backtracking">backtracking</a>). Mnemonic: a <a href="https://en.wikipedia.org/wiki/Ratchet_%28device%29">ratchet</a> only moves in one direction and can&#39;t backtrack.</p>
+<p>Without this adverb, parts of a regex will try different ways to match a string in order to make it possible for other parts of the regex to match. For example, in <code>&#39;abc&#39; ~~ /\w+ ./</code>, the <code>\w+</code> first eats up the whole string, <code>abc</code> but then the <code>.</code> fails. Thus <code>\w+</code> gives up a character, matching only <code>ab</code>, and the <code>.</code> can successfully match the string <code>c</code>. This process of giving up characters (or in the case of alternations, trying a different branch) is known as backtracking.</p>
+<pre class="pod-block-code">say so &#39;abc&#39; ~~ / \w+ . /;        # OUTPUT: «True␤»
+say so &#39;abc&#39; ~~ / :r \w+ . /;     # OUTPUT: «False␤»</pre>
+<p>Ratcheting can be an optimization, because backtracking is costly. But more importantly, it closely corresponds to how humans parse a text. If you have a regex <code>my regex identifier { \w+ }</code> and <code>my regex keyword { if | else | endif }</code>, you intuitively expect the <code>identifier</code> to gobble up a whole word and not have it give up its end to the next rule, if the next rule otherwise fails.</p>
+<p>For example, you don&#39;t expect the word <code>motif</code> to be parsed as the identifier <code>mot</code> followed by the keyword <code>if</code>. Instead, you expect <code>motif</code> to be parsed as one identifier; and if the parser expects an <code>if</code> afterwards, best that it should fail than have it parse the input in a way you don&#39;t expect.</p>
+<p>Since ratcheting behavior is often desirable in parsers, there&#39;s a shortcut to declaring a ratcheting regex:</p>
+<pre class="pod-block-code">my token thing { ... };
+# short for
+my regex thing { :r ... };
+</pre>
+<h3 id="Sigspace"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-regex_adverb_:sigspace-regex_adverb_:s-Sigspace"><span class="index-entry">Sigspace</span></a></a></h3>
+<p>The <strong><code>:sigspace</code></strong> or <strong><code>:s</code></strong> adverb makes whitespace significant in a regex.</p>
+<pre class="pod-block-code">say so &quot;I used Photoshop®&quot;   ~~ m:i/   photo shop /;      # OUTPUT: «True␤»
+say so &quot;I used a photo shop&quot; ~~ m:i<strong>:s</strong>/ photo shop /;   # OUTPUT: «True␤»
+say so &quot;I used Photoshop®&quot;   ~~ m:i<strong>:s</strong>/ photo shop /;   # OUTPUT: «False␤»
+</pre>
+<p><code>m:s/ photo shop /</code> acts the same as <code>m/ photo &lt;.ws&gt; shop &lt;.ws&gt; /</code>. By default, <code>&lt;.ws&gt; </code> makes sure that words are separated, so <code>a b</code> and <code>^&amp;</code> will match <code>&lt;.ws&gt; </code> in the middle, but <code>ab</code> won&#39;t:</p>
+<pre class="pod-block-code">say so &quot;ab&quot; ~~ m:s/a &lt;.ws&gt; b/;     # OUTPUT: «False␤»
+say so &quot;a b&quot; ~~ m:s/a &lt;.ws&gt; b/;    # OUTPUT: «True␤»
+say so &quot;^&amp;&quot; ~~ m:s/&#39;^&#39; &lt;.ws&gt; &#39;&amp;&#39;/; # OUTPUT: «True␤»
+</pre>
+<p>The third line is matched, because <code>^&amp;</code> is not a word. For more clarification on how &lt;.ws&gt; rule works, refer to <a href="/Documentable/integration-test/language/grammars#ws">WS rule description</a>.</p>
+<p>Where whitespace in a regex turns into <code>&lt;.ws&gt;</code> depends on what comes before the whitespace. In the above example, whitespace in the beginning of a regex doesn&#39;t turn into <code>&lt;.ws&gt;</code>, but whitespace after characters does. In general, the rule is that if a term might match something, whitespace after it will turn into <code>&lt;.ws&gt;</code>.</p>
+<p>In addition, if whitespace comes after a term but <em>before</em> a quantifier (<code>+</code>, <code>*</code>, or <code>?</code>), <code>&lt;.ws&gt;</code> will be matched after every match of the term. So, <code>foo +</code> becomes <code>[ foo &lt;.ws&gt; ]+</code>. On the other hand, whitespace <em>after</em> a quantifier acts as normal significant whitespace; e.g., &quot;<code>foo+ </code>&quot; becomes <code>foo+ &lt;.ws&gt;</code>.</p>
+<p>In all, this code:</p>
+<pre class="pod-block-code">rx :s {
+    ^^
+    {
+        say &quot;No sigspace after this&quot;;
+    }
+    &lt;.assertion_and_then_ws&gt;
+    characters_with_ws_after+
+    ws_separated_characters *
+    [
+    | some &quot;stuff&quot; .. .
+    | $$
+    ]
+    :my $foo = &quot;no ws after this&quot;;
+    $foo
+}
+</pre>
+<p>Becomes:</p>
+<pre class="pod-block-code">rx {
+    ^^ <strong>&lt;.ws&gt;</strong>
+    {
+        say &quot;No space after this&quot;;
+    }
+    &lt;.assertion_and_then_ws&gt; <strong>&lt;.ws&gt;</strong>
+    characters_with_ws_after+ <strong>&lt;.ws&gt;</strong>
+    [ws_separated_characters <strong>&lt;.ws&gt;</strong>]* <strong>&lt;.ws&gt;</strong>
+    [
+    | some <strong>&lt;.ws&gt;</strong> &quot;stuff&quot; <strong>&lt;.ws&gt;</strong> .. <strong>&lt;.ws&gt;</strong> . <strong>&lt;.ws&gt;</strong>
+    | $$ <strong>&lt;.ws&gt;</strong>
+    ] <strong>&lt;.ws&gt;</strong>
+    :my $foo = &quot;no ws after this&quot;;
+    $foo <strong>&lt;.ws&gt;</strong>
+}
+</pre>
+<p>If a regex is declared with the <code>rule</code> keyword, both the <code>:sigspace</code> and <code>:ratchet</code> adverbs are implied.</p>
+<p>Grammars provide an easy way to override what <code>&lt;.ws&gt;</code> matches:</p>
+<pre class="pod-block-code">grammar Demo {
+    token ws {
+        &lt;!ww&gt;       # only match when not within a word
+        \h*         # only match horizontal whitespace
+    }
+    rule TOP {      # called by Demo.parse;
+        a b &#39;.&#39;
+    }
+}
+
+# doesn&#39;t parse, whitespace required between a and b
+say so Demo.parse(&quot;ab.&quot;);                 # OUTPUT: «False␤»
+say so Demo.parse(&quot;a b.&quot;);                # OUTPUT: «True␤»
+say so Demo.parse(&quot;a\tb .&quot;);              # OUTPUT: «True␤»
+
+# \n is vertical whitespace, so no match
+say so Demo.parse(&quot;a\tb\n.&quot;);             # OUTPUT: «False␤»</pre>
+<p>When parsing file formats where some whitespace (for example, vertical whitespace) is significant, it&#39;s advisable to override <code>ws</code>.</p>
+<h3 id="Perl_compatibility_adverb"><a class="u" href="#___top" title="go to top of document">Perl compatibility adverb</a></h3>
+<p>The <strong><code>:Perl5</code></strong> or <strong><code>:P5</code></strong> adverb switch the Regex parsing and matching to the way Perl regexes behave:</p>
+<pre class="pod-block-code">so &#39;hello world&#39; ~~ m:Perl5/^hello (world)/;   # OUTPUT: «True␤»
+so &#39;hello world&#39; ~~ m/^hello (world)/;         # OUTPUT: «False␤»
+so &#39;hello world&#39; ~~ m/^ &#39;hello &#39; (&#39;world&#39;)/;   # OUTPUT: «True␤»</pre>
+<p>The regular behavior is recommended and more idiomatic in Raku of course, but the <strong><code>:Perl5</code></strong> adverb can be useful when compatibility with Perl is required.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

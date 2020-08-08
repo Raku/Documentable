@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>routine unique</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/routine.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-sub.html"> Sub </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-method.html"> Method </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-term.html"> Term </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-operator.html"> Operator </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-trait.html"> Trait </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-submethod.html"> Submethod </a>
+            </div></div></div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">routine unique</h1>
+        <p class="subtitle"></p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#class_Any">class Any</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#(Any)_method_unique">(Any) method unique</a></td></tr>
+                    <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#language_documentation_Independent_routines">language documentation Independent routines</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#(Independent_routines)_routine_unique">(Independent routines) routine unique</a></td></tr>
+                                       <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#class_Supply">class Supply</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#(Supply)_method_unique">(Supply) method unique</a></td></tr>
+          
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Documentation for routine <code>unique</code> assembled from the following types:</p>
+<h1 id="class_Any"><a class="u" href="#___top" title="go to top of document">class Any</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Any#method_unique">Any</a></p>
+<h2 id="(Any)_method_unique"><a href="/Documentable/integration-test/type/Any#method_unique">(Any) method unique</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method unique()
+multi method unique( :&amp;as!, :&amp;with! )
+multi method unique( :&amp;as! )
+multi method unique( :&amp;with! )</pre>
+<p>Creates a sequence of unique elements either of the object or of <code>values</code> in the case it&#39;s called as a <code>sub</code>.</p>
+<pre class="pod-block-code">&lt;1 2 2 3 3 3&gt;.unique.say; # OUTPUT: «(1 2 3)␤»
+say unique &lt;1 2 2 3 3 3&gt;; # OUTPUT: «(1 2 3)␤»</pre>
+<p>The <code>:as</code> and <code>:with</code> parameters receive functions that are used for transforming the item before checking equality, and for checking equality, since by default the <a href="/Documentable/integration-test/routine/==="><code>===</code></a> operator is used:</p>
+<pre class="pod-block-code">(&quot;1&quot;, 1, &quot;1 &quot;, 2).unique( as =&gt; Int, with =&gt; &amp;[==] ).say; #OUTPUT: «(1 2)␤»</pre>
+<p>Please see <a href="/Documentable/integration-test/language/independent-routines#routine_unique"><code>unique</code></a> for additional examples that use its sub form.</p>
+<h1 id="language_documentation_Independent_routines"><a class="u" href="#___top" title="go to top of document">language documentation Independent routines</a></h1>
+<p>From <a href="/Documentable/integration-test/language/independent-routines#routine_unique">Independent routines</a></p>
+<h2 id="(Independent_routines)_routine_unique"><a href="/Documentable/integration-test/language/independent-routines#routine_unique">(Independent routines) routine unique</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub unique(+values, |c)</pre>
+<p>Returns a sequence of <strong>unique</strong> values from the invocant/argument list, such that only the first occurrence of each duplicated value remains in the result list. <code>unique</code> uses the semantics of the <a href="/Documentable/integration-test/routine/===">===</a> operator to decide whether two objects are the same, unless the optional <code>:with</code> parameter is specified with another comparator. The order of the original list is preserved even as duplicates are removed.</p>
+<p>Examples:</p>
+<pre class="pod-block-code">say &lt;a a b b b c c&gt;.unique;   # OUTPUT: «(a b c)␤»
+say &lt;a b b c c b a&gt;.unique;   # OUTPUT: «(a b c)␤»</pre>
+<p>(Use <a href="/Documentable/integration-test/routine/squish">squish</a> instead if you know the input is sorted such that identical objects are adjacent.)</p>
+<p>The optional <code>:as</code> parameter allows you to normalize/canonicalize the elements before unique-ing. The values are transformed for the purposes of comparison, but it&#39;s still the original values that make it to the result list; however, only the first occurrence will show up in that list:</p>
+<p>Example:</p>
+<pre class="pod-block-code">say &lt;a A B b c b C&gt;.unique(:as(&amp;lc))      # OUTPUT: «(a B c)␤»</pre>
+<p>One can also specify the comparator with the optional <code>:with</code> parameter. For instance if one wants a list of unique hashes, one could use the <code>eqv</code> comparator.</p>
+<p>Example:</p>
+<pre class="pod-block-code">my @list = %(a =&gt; 42), %(b =&gt; 13), %(a =&gt; 42);
+say @list.unique(:with(&amp;[eqv]))           # OUTPUT: «({a =&gt; 42} {b =&gt; 13})␤»</pre>
+<p><strong>Note:</strong> since <code>:with</code> <a href="/Documentable/integration-test/type/Callable">Callable</a> has to be tried with all the items in the list, this makes <code>unique</code> follow a path with much higher algorithmic complexity. You should try to use the <code>:as</code> argument instead, whenever possible.</p>
+<h1 id="class_Supply"><a class="u" href="#___top" title="go to top of document">class Supply</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Supply#method_unique">Supply</a></p>
+<h2 id="(Supply)_method_unique"><a href="/Documentable/integration-test/type/Supply#method_unique">(Supply) method unique</a></h2>
+<pre class="pod-block-code">method unique(Supply:D: :$as, :$with, :$expires --&gt; Supply:D)</pre>
+<p>Creates a supply that only provides unique values, as defined by the optional <code>:as</code> and <code>:with</code> parameters (same as with <a href="/Documentable/integration-test/language/independent-routines#routine_unique"><code>unique</code></a>). The optional <code>:expires</code> parameter how long to wait (in seconds) before &quot;resetting&quot; and not considering a value to have been seen, even if it&#39;s the same as an old value.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

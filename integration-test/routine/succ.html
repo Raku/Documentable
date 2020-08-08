@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>routine succ</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/routine.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-sub.html"> Sub </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-method.html"> Method </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-term.html"> Term </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-operator.html"> Operator </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-trait.html"> Trait </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-submethod.html"> Submethod </a>
+            </div></div></div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">routine succ</h1>
+        <p class="subtitle"></p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#enum_Bool">enum Bool</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#(Bool)_routine_succ">(Bool) routine succ</a></td></tr>
+                    <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#role_Enumeration">role Enumeration</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#(Enumeration)_method_succ">(Enumeration) method succ</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#class_IO::Path">class IO::Path</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#(IO::Path)_method_succ">(IO::Path) method succ</a></td></tr>
+           <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#class_Str">class Str</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">4.1</td><td class="toc-text"><a href="#(Str)_method_succ">(Str) method succ</a></td></tr>
+        <tr class="toc-level-1"><td class="toc-number">5</td><td class="toc-text"><a href="#class_Date">class Date</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">5.1</td><td class="toc-text"><a href="#(Date)_method_succ">(Date) method succ</a></td></tr>
+       <tr class="toc-level-1"><td class="toc-number">6</td><td class="toc-text"><a href="#class_Numeric">class Numeric</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">6.1</td><td class="toc-text"><a href="#(Numeric)_method_succ">(Numeric) method succ</a></td></tr>
+  
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Documentation for routine <code>succ</code> assembled from the following types:</p>
+<h1 id="enum_Bool"><a class="u" href="#___top" title="go to top of document">enum Bool</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Bool#routine_succ">Bool</a></p>
+<h2 id="(Bool)_routine_succ"><a href="/Documentable/integration-test/type/Bool#routine_succ">(Bool) routine succ</a></h2>
+<pre class="pod-block-code">method succ(--&gt; Bool:D)</pre>
+<p>Returns <code>True</code>.</p>
+<pre class="pod-block-code">say True.succ;                                    # OUTPUT: «True␤»
+say False.succ;                                   # OUTPUT: «True␤»</pre>
+<p><code>succ</code> is short for &quot;successor&quot;; it returns the next enum value. Bool is a special enum with only two values, <code>False</code> and <code>True</code>. When sorted, <code>False</code> comes first, so <code>True</code> is its successor. And since <code>True</code> is the &quot;highest&quot; Bool enum value, its own successor is also <code>True</code>.</p>
+<h1 id="role_Enumeration"><a class="u" href="#___top" title="go to top of document">role Enumeration</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Enumeration#method_succ">Enumeration</a></p>
+<h2 id="(Enumeration)_method_succ"><a href="/Documentable/integration-test/type/Enumeration#method_succ">(Enumeration) method succ</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method succ(::?CLASS:D:)</pre>
+<pre class="pod-block-code">say Oðin.succ;  # OUTPUT: «Freija␤»
+</pre>
+<h1 id="class_IO::Path"><a class="u" href="#___top" title="go to top of document">class IO::Path</a></h1>
+<p>From <a href="/Documentable/integration-test/type/IO::Path#method_succ">IO::Path</a></p>
+<h2 id="(IO::Path)_method_succ"><a href="/Documentable/integration-test/type/IO::Path#method_succ">(IO::Path) method succ</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method succ(IO::Path:D: --&gt; IO::Path:D)</pre>
+<p>Returns a new <a href="/Documentable/integration-test/type/IO::Path">IO::Path</a> constructed from the invocant, with <a href="/Documentable/integration-test/routine/basename"><code>.basename</code></a> changed by calling <a href="/Documentable/integration-test/type/Str#method_succ"><code>Str.succ</code></a> on it.</p>
+<pre class="pod-block-code">&quot;foo/file02.txt&quot;.IO.succ.say; # OUTPUT: «&quot;foo/file03.txt&quot;.IO␤»</pre>
+<h1 id="class_Str"><a class="u" href="#___top" title="go to top of document">class Str</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Str#method_succ">Str</a></p>
+<h2 id="(Str)_method_succ"><a href="/Documentable/integration-test/type/Str#method_succ">(Str) method succ</a></h2>
+<pre class="pod-block-code">method succ(Str:D --&gt; Str:D)</pre>
+<p>Returns the string incremented by one.</p>
+<p>String increment is &quot;magical&quot;. It searches for the last alphanumeric sequence that is not preceded by a dot, and increments it.</p>
+<pre class="pod-block-code">&#39;12.34&#39;.succ;      # OUTPUT: «13.34»
+&#39;img001.png&#39;.succ; # OUTPUT: «img002.png»</pre>
+<p>The actual increment step works by mapping the last alphanumeric character to a character range it belongs to, and choosing the next character in that range, carrying to the previous letter on overflow.</p>
+<pre class="pod-block-code">&#39;aa&#39;.succ;   # OUTPUT: «ab»
+&#39;az&#39;.succ;   # OUTPUT: «ba»
+&#39;109&#39;.succ;  # OUTPUT: «110»
+&#39;α&#39;.succ;    # OUTPUT: «β»
+&#39;a9&#39;.succ;   # OUTPUT: «b0»</pre>
+<p>String increment is Unicode-aware, and generally works for scripts where a character can be uniquely classified as belonging to one range of characters.</p>
+<h1 id="class_Date"><a class="u" href="#___top" title="go to top of document">class Date</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Date#method_succ">Date</a></p>
+<h2 id="(Date)_method_succ"><a href="/Documentable/integration-test/type/Date#method_succ">(Date) method succ</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method succ(Date:D: --&gt; Date:D)</pre>
+<p>Returns a <code>Date</code> of the following day. &quot;succ&quot; is short for &quot;successor&quot;.</p>
+<pre class="pod-block-code">say Date.new(&quot;2016-02-28&quot;).succ;   # OUTPUT: «2016-02-29␤»</pre>
+<h1 id="class_Numeric"><a class="u" href="#___top" title="go to top of document">class Numeric</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Numeric#method_succ">Numeric</a></p>
+<h2 id="(Numeric)_method_succ"><a href="/Documentable/integration-test/type/Numeric#method_succ">(Numeric) method succ</a></h2>
+<pre class="pod-block-code">method succ(Numeric:D:)</pre>
+<p>Returns the number incremented by one (successor).</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

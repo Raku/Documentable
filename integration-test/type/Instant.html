@@ -1,0 +1,1195 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>class Instant</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/type.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-basic.html"> Basic </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-composite.html"> Composite </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-domain-specific.html"> Domain-specific </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-exception.html"> Exceptions </a>
+            </div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Type/Instant.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">class Instant</h1>
+        <p class="subtitle">Specific moment in time</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+                                <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Future_Leap_Seconds">Future Leap Seconds</a></td></tr>
+                     <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#method_from-posix">method from-posix</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">2.2</td><td class="toc-text"><a href="#method_to-posix">method to-posix</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">2.3</td><td class="toc-text"><a href="#method_Date">method Date</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">2.4</td><td class="toc-text"><a href="#method_DateTime">method DateTime</a></td></tr>
+       <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Type_Graph">Type Graph</a></td></tr>
+  <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#Routines_supplied_by_role_Real">Routines supplied by role Real</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">6.1</td><td class="toc-text"><a href="#(Real)_method_Bridge">(Real) method Bridge</a></td></tr>
+                                             <tr class="toc-level-2"><td class="toc-number">6.2</td><td class="toc-text"><a href="#(Real)_method_Complex">(Real) method Complex</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">6.3</td><td class="toc-text"><a href="#(Real)_method_Rat">(Real) method Rat</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">6.4</td><td class="toc-text"><a href="#(Real)_method_Real">(Real) method Real</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">6.5</td><td class="toc-text"><a href="#(Real)_routine_rand">(Real) routine rand</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">6.6</td><td class="toc-text"><a href="#(Real)_method_sign">(Real) method sign</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">6.7</td><td class="toc-text"><a href="#(Real)_method_round">(Real) method round</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">6.8</td><td class="toc-text"><a href="#(Real)_method_floor">(Real) method floor</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">6.9</td><td class="toc-text"><a href="#(Real)_method_ceiling">(Real) method ceiling</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">6.10</td><td class="toc-text"><a href="#(Real)_method_truncate">(Real) method truncate</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">6.11</td><td class="toc-text"><a href="#(Real)_method_polymod">(Real) method polymod</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">6.12</td><td class="toc-text"><a href="#(Real)_method_base">(Real) method base</a></td></tr>
+                                    <tr class="toc-level-1"><td class="toc-number">5</td><td class="toc-text"><a href="#Routines_supplied_by_role_Numeric">Routines supplied by role Numeric</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">6.13</td><td class="toc-text"><a href="#(Numeric)_method_Numeric">(Numeric) method Numeric</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">6.14</td><td class="toc-text"><a href="#(Numeric)_method_Int">(Numeric) method Int</a></td></tr>
+               <tr class="toc-level-2"><td class="toc-number">6.15</td><td class="toc-text"><a href="#(Numeric)_method_Rat">(Numeric) method Rat</a></td></tr>
+               <tr class="toc-level-2"><td class="toc-number">6.16</td><td class="toc-text"><a href="#(Numeric)_method_Num">(Numeric) method Num</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">6.17</td><td class="toc-text"><a href="#(Numeric)_method_narrow">(Numeric) method narrow</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">6.18</td><td class="toc-text"><a href="#(Numeric)_method_ACCEPTS">(Numeric) method ACCEPTS</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">6.19</td><td class="toc-text"><a href="#(Numeric)_routine_log">(Numeric) routine log</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">6.20</td><td class="toc-text"><a href="#(Numeric)_routine_log10">(Numeric) routine log10</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">6.21</td><td class="toc-text"><a href="#(Numeric)_routine_log2">(Numeric) routine log2</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">6.22</td><td class="toc-text"><a href="#(Numeric)_routine_exp">(Numeric) routine exp</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">6.23</td><td class="toc-text"><a href="#(Numeric)_method_roots">(Numeric) method roots</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">6.24</td><td class="toc-text"><a href="#(Numeric)_routine_abs">(Numeric) routine abs</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">6.25</td><td class="toc-text"><a href="#(Numeric)_routine_sqrt">(Numeric) routine sqrt</a></td></tr>
+            <tr class="toc-level-2"><td class="toc-number">6.26</td><td class="toc-text"><a href="#(Numeric)_method_conj">(Numeric) method conj</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">6.27</td><td class="toc-text"><a href="#(Numeric)_method_Bool">(Numeric) method Bool</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">6.28</td><td class="toc-text"><a href="#(Numeric)_method_succ">(Numeric) method succ</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">6.29</td><td class="toc-text"><a href="#(Numeric)_method_pred">(Numeric) method pred</a></td></tr>
+   <tr class="toc-level-1"><td class="toc-number">6</td><td class="toc-text"><a href="#Routines_supplied_by_class_Cool">Routines supplied by class Cool</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">6.30</td><td class="toc-text"><a href="#(Cool)_routine_abs">(Cool) routine abs</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">6.31</td><td class="toc-text"><a href="#(Cool)_method_conj">(Cool) method conj</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">6.32</td><td class="toc-text"><a href="#(Cool)_routine_EVAL">(Cool) routine EVAL</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">6.33</td><td class="toc-text"><a href="#(Cool)_routine_sqrt">(Cool) routine sqrt</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">6.34</td><td class="toc-text"><a href="#(Cool)_method_sign">(Cool) method sign</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">6.35</td><td class="toc-text"><a href="#(Cool)_method_rand">(Cool) method rand</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">6.36</td><td class="toc-text"><a href="#(Cool)_routine_sin">(Cool) routine sin</a></td></tr>
+              <tr class="toc-level-2"><td class="toc-number">6.37</td><td class="toc-text"><a href="#(Cool)_routine_asin">(Cool) routine asin</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">6.38</td><td class="toc-text"><a href="#(Cool)_routine_cos">(Cool) routine cos</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">6.39</td><td class="toc-text"><a href="#(Cool)_routine_acos">(Cool) routine acos</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">6.40</td><td class="toc-text"><a href="#(Cool)_routine_tan">(Cool) routine tan</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">6.41</td><td class="toc-text"><a href="#(Cool)_routine_atan">(Cool) routine atan</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">6.42</td><td class="toc-text"><a href="#(Cool)_routine_atan2">(Cool) routine atan2</a></td></tr>
+              <tr class="toc-level-2"><td class="toc-number">6.43</td><td class="toc-text"><a href="#(Cool)_routine_sec">(Cool) routine sec</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">6.44</td><td class="toc-text"><a href="#(Cool)_routine_asec">(Cool) routine asec</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">6.45</td><td class="toc-text"><a href="#(Cool)_routine_cosec">(Cool) routine cosec</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">6.46</td><td class="toc-text"><a href="#(Cool)_routine_acosec">(Cool) routine acosec</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">6.47</td><td class="toc-text"><a href="#(Cool)_routine_cotan">(Cool) routine cotan</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">6.48</td><td class="toc-text"><a href="#(Cool)_routine_acotan">(Cool) routine acotan</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">6.49</td><td class="toc-text"><a href="#(Cool)_routine_sinh">(Cool) routine sinh</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">6.50</td><td class="toc-text"><a href="#(Cool)_routine_asinh">(Cool) routine asinh</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">6.51</td><td class="toc-text"><a href="#(Cool)_routine_cosh">(Cool) routine cosh</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">6.52</td><td class="toc-text"><a href="#(Cool)_routine_acosh">(Cool) routine acosh</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">6.53</td><td class="toc-text"><a href="#(Cool)_routine_tanh">(Cool) routine tanh</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">6.54</td><td class="toc-text"><a href="#(Cool)_routine_atanh">(Cool) routine atanh</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">6.55</td><td class="toc-text"><a href="#(Cool)_routine_sech">(Cool) routine sech</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">6.56</td><td class="toc-text"><a href="#(Cool)_routine_asech">(Cool) routine asech</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">6.57</td><td class="toc-text"><a href="#(Cool)_routine_cosech">(Cool) routine cosech</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">6.58</td><td class="toc-text"><a href="#(Cool)_routine_acosech">(Cool) routine acosech</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">6.59</td><td class="toc-text"><a href="#(Cool)_routine_cotanh">(Cool) routine cotanh</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">6.60</td><td class="toc-text"><a href="#(Cool)_routine_acotanh">(Cool) routine acotanh</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">6.61</td><td class="toc-text"><a href="#(Cool)_routine_cis">(Cool) routine cis</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">6.62</td><td class="toc-text"><a href="#(Cool)_routine_log">(Cool) routine log</a></td></tr>
+                       <tr class="toc-level-2"><td class="toc-number">6.63</td><td class="toc-text"><a href="#(Cool)_routine_log10">(Cool) routine log10</a></td></tr>
+               <tr class="toc-level-2"><td class="toc-number">6.64</td><td class="toc-text"><a href="#(Cool)_routine_log2">(Cool) routine log2</a></td></tr>
+               <tr class="toc-level-2"><td class="toc-number">6.65</td><td class="toc-text"><a href="#(Cool)_routine_exp">(Cool) routine exp</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">6.66</td><td class="toc-text"><a href="#(Cool)_method_unpolar">(Cool) method unpolar</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">6.67</td><td class="toc-text"><a href="#(Cool)_routine_round">(Cool) routine round</a></td></tr>
+                              <tr class="toc-level-2"><td class="toc-number">6.68</td><td class="toc-text"><a href="#(Cool)_routine_floor">(Cool) routine floor</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">6.69</td><td class="toc-text"><a href="#(Cool)_method_fmt">(Cool) method fmt</a></td></tr>
+                    <tr class="toc-level-2"><td class="toc-number">6.70</td><td class="toc-text"><a href="#(Cool)_routine_ceiling">(Cool) routine ceiling</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">6.71</td><td class="toc-text"><a href="#(Cool)_routine_truncate">(Cool) routine truncate</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">6.72</td><td class="toc-text"><a href="#(Cool)_routine_ord">(Cool) routine ord</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">6.73</td><td class="toc-text"><a href="#(Cool)_method_path">(Cool) method path</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">6.74</td><td class="toc-text"><a href="#(Cool)_routine_chr">(Cool) routine chr</a></td></tr>
+                 <tr class="toc-level-2"><td class="toc-number">6.75</td><td class="toc-text"><a href="#(Cool)_routine_chars">(Cool) routine chars</a></td></tr>
+                                <tr class="toc-level-2"><td class="toc-number">6.76</td><td class="toc-text"><a href="#(Cool)_routine_codes">(Cool) routine codes</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">6.77</td><td class="toc-text"><a href="#(Cool)_routine_flip">(Cool) routine flip</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">6.78</td><td class="toc-text"><a href="#(Cool)_routine_trim">(Cool) routine trim</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">6.79</td><td class="toc-text"><a href="#(Cool)_routine_trim-leading">(Cool) routine trim-leading</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">6.80</td><td class="toc-text"><a href="#(Cool)_routine_trim-trailing">(Cool) routine trim-trailing</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">6.81</td><td class="toc-text"><a href="#(Cool)_routine_lc">(Cool) routine lc</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">6.82</td><td class="toc-text"><a href="#(Cool)_routine_uc">(Cool) routine uc</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">6.83</td><td class="toc-text"><a href="#(Cool)_routine_fc">(Cool) routine fc</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">6.84</td><td class="toc-text"><a href="#(Cool)_routine_tc">(Cool) routine tc</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">6.85</td><td class="toc-text"><a href="#(Cool)_routine_tclc">(Cool) routine tclc</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">6.86</td><td class="toc-text"><a href="#(Cool)_routine_wordcase">(Cool) routine wordcase</a></td></tr>
+               <tr class="toc-level-2"><td class="toc-number">6.87</td><td class="toc-text"><a href="#(Cool)_routine_samecase">(Cool) routine samecase</a></td></tr>
+                        <tr class="toc-level-2"><td class="toc-number">6.88</td><td class="toc-text"><a href="#(Cool)_routine_uniprop">(Cool) routine uniprop</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">6.89</td><td class="toc-text"><a href="#(Cool)_sub_uniprops">(Cool) sub uniprops</a></td></tr>
+            <tr class="toc-level-2"><td class="toc-number">6.90</td><td class="toc-text"><a href="#(Cool)_routine_uniname">(Cool) routine uniname</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">6.91</td><td class="toc-text"><a href="#(Cool)_routine_uninames">(Cool) routine uninames</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">6.92</td><td class="toc-text"><a href="#(Cool)_routine_unimatch">(Cool) routine unimatch</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">6.93</td><td class="toc-text"><a href="#(Cool)_routine_chop">(Cool) routine chop</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">6.94</td><td class="toc-text"><a href="#(Cool)_routine_chomp">(Cool) routine chomp</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">6.95</td><td class="toc-text"><a href="#(Cool)_routine_substr">(Cool) routine substr</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">6.96</td><td class="toc-text"><a href="#(Cool)_routine_substr-rw">(Cool) routine substr-rw</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">6.97</td><td class="toc-text"><a href="#(Cool)_routine_ords">(Cool) routine ords</a></td></tr>
+              <tr class="toc-level-2"><td class="toc-number">6.98</td><td class="toc-text"><a href="#(Cool)_routine_chrs">(Cool) routine chrs</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">6.99</td><td class="toc-text"><a href="#(Cool)_routine_split">(Cool) routine split</a></td></tr>
+                                                           <tr class="toc-level-2"><td class="toc-number">6.100</td><td class="toc-text"><a href="#(Cool)_routine_lines">(Cool) routine lines</a></td></tr>
+                                     <tr class="toc-level-2"><td class="toc-number">6.101</td><td class="toc-text"><a href="#(Cool)_method_words">(Cool) method words</a></td></tr>
+                                 <tr class="toc-level-2"><td class="toc-number">6.102</td><td class="toc-text"><a href="#(Cool)_routine_comb">(Cool) routine comb</a></td></tr>
+                                  <tr class="toc-level-2"><td class="toc-number">6.103</td><td class="toc-text"><a href="#(Cool)_method_contains">(Cool) method contains</a></td></tr>
+                               <tr class="toc-level-2"><td class="toc-number">6.104</td><td class="toc-text"><a href="#(Cool)_routine_index">(Cool) routine index</a></td></tr>
+                   <tr class="toc-level-2"><td class="toc-number">6.105</td><td class="toc-text"><a href="#(Cool)_routine_rindex">(Cool) routine rindex</a></td></tr>
+                     <tr class="toc-level-2"><td class="toc-number">6.106</td><td class="toc-text"><a href="#(Cool)_method_match">(Cool) method match</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">6.107</td><td class="toc-text"><a href="#(Cool)_routine_roots">(Cool) routine roots</a></td></tr>
+                                           <tr class="toc-level-2"><td class="toc-number">6.108</td><td class="toc-text"><a href="#(Cool)_method_match">(Cool) method match</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">6.109</td><td class="toc-text"><a href="#(Cool)_method_subst">(Cool) method subst</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">6.110</td><td class="toc-text"><a href="#(Cool)_method_trans">(Cool) method trans</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">6.111</td><td class="toc-text"><a href="#(Cool)_method_IO">(Cool) method IO</a></td></tr>
+       
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <pre class="pod-block-code">class Instant is Cool does Real { }</pre>
+<p>An <code>Instant</code> is a particular moment in time measured in atomic seconds, with fractions. It is not tied to or aware of any epoch.</p>
+<p>An <code>Instant</code> can be used to create a <a href="/Documentable/integration-test/type/DateTime">DateTime</a> object set to that <code>Instant</code>. The pseudo-constant <code>now</code> returns the current time as an <code>Instant</code>.</p>
+<p>Basic math is defined for <code>Instant</code>s (as well as <a href="/Documentable/integration-test/type/Duration">Duration</a>s). Adding an <code>Instant</code> to a <code>Duration</code> returns another Instant. Subtracting two <code>Instant</code>s will yield a <code>Duration</code>. Adding two <code>Instant</code>s is explicitly disallowed. All other operations with Instants are undefined.</p>
+<h1 id="Future_Leap_Seconds"><a class="u" href="#___top" title="go to top of document">Future Leap Seconds</a></h1>
+<p>The methods that involve knowledge of leap seconds always assume that there will be no further leaps after the last leap second that the implementation knows about, which may not be the last leap second that has actually been scheduled. This means you can get different results, depending on the compiler version you&#39;re using. For example, the December 31, 2016 leap second was announced in July and shipped with Rakudo 2016.07, so 2016.06 and earlier releases won&#39;t know about it:</p>
+<pre class="pod-block-code">$ perl6-2016.06 -e &#39;say Instant.from-posix: 1485726595&#39;
+Instant:1485726631
+
+$ perl6-2016.07 -e &#39;say Instant.from-posix: 1485726595&#39;
+Instant:1485726632
+</pre>
+<p>Since a Rakudo compiler always returns 0 for future leap seconds it doesn&#39;t know about, you can patch your old code when new leap seconds are announced, so it will give correct results, regardless of what version of the compiler it runs on:</p>
+<pre class="pod-block-code">$ perl6-2016.06 -e &#39;say ($*VM.version before v2016.07 ?? 1 !! 0) + Instant.from-posix: 1485726595&#39;
+Instant:1485726632
+
+$ perl6-2016.07 -e &#39;say ($*VM.version before v2016.07 ?? 1 !! 0) + Instant.from-posix: 1485726595&#39;
+Instant:1485726632
+</pre>
+<h1 id="Methods"><a class="u" href="#___top" title="go to top of document">Methods</a></h1>
+<h2 id="method_from-posix"><a class="u" href="#___top" title="go to top of document">method from-posix</a></h2>
+<pre class="pod-block-code">method from-posix($posix, Bool $prefer-leap-second = False)</pre>
+<p>Converts the POSIX timestamp <code>$posix</code> to an Instant. If <code>$prefer-leap-second</code> is <code>True</code>, the return value will be the first of the two possible seconds in the case of a leap second.</p>
+<pre class="pod-block-code">say DateTime.new(Instant.from-posix(915148800, True));  # OUTPUT: «1998-12-31T23:59:60Z␤»
+say DateTime.new(Instant.from-posix(915148800));        # OUTPUT: «1999-01-01T00:00:00Z␤»</pre>
+<h2 id="method_to-posix"><a class="u" href="#___top" title="go to top of document">method to-posix</a></h2>
+<pre class="pod-block-code">method to-posix()</pre>
+<p>Converts the invocant to a POSIX timestamp and returns a two element list containing the POSIX timestamp and a <code>Bool</code>. It is the inverse of <a href="#method_from-posix">method from-posix</a>, except that the second return value is <code>True</code> if *and only if* this Instant is in a leap second.</p>
+<pre class="pod-block-code">say DateTime.new(&quot;1999-01-01T00:00:00Z&quot;).Instant.to-posix; # OUTPUT: «(915148800 False)␤»
+say DateTime.new(&#39;1998-12-31T23:59:60Z&#39;).Instant.to-posix; # OUTPUT: «(915148800 True)␤»</pre>
+<h2 id="method_Date"><a class="u" href="#___top" title="go to top of document">method Date</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method Date(Instant:D: --&gt; Date:D)</pre>
+<p>Coerces the invocant to <a href="/Documentable/integration-test/type/Date">Date</a>.</p>
+<pre class="pod-block-code">my $i = &quot;/etc/passwd&quot;.IO.modified;
+say $i;             # OUTPUT: «Instant:1451489025.878018␤»
+say $i.Date;        # OUTPUT: «2015-12-30␤»</pre>
+<h2 id="method_DateTime"><a class="u" href="#___top" title="go to top of document">method DateTime</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method DateTime(Instant:D: --&gt; DateTime:D)</pre>
+<p>Coerces the invocant to <a href="/Documentable/integration-test/type/DateTime">DateTime</a>.</p>
+<pre class="pod-block-code">say now.DateTime;  # OUTPUT: «2017-05-09T14:02:58.147165Z␤»</pre>
+<h1 id="Type_Graph"><a class="u" href="#___top" title="go to top of document">Type Graph</a></h1>
+<figure>
+  <figcaption>Type relations for <code>Instant</code></figcaption>
+  <svg width="170pt" height="260pt"
+ viewBox="0.00 0.00 169.85 260.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 256)">
+<title>perl6&#45;type&#45;graph</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-256 165.85,-256 165.85,4 -4,4"/>
+<!-- Instant -->
+<g id="node1" class="node">
+<title>Instant</title>
+<g id="a_node1"><a xlink:href="/type/Instant" xlink:title="Instant">
+<ellipse fill="none" stroke="#000000" cx="71" cy="-18" rx="44.69" ry="18"/>
+<text text-anchor="middle" x="71" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">Instant</text>
+</a>
+</g>
+</g>
+<!-- Cool -->
+<g id="node4" class="node">
+<title>Cool</title>
+<g id="a_node4"><a xlink:href="/type/Cool" xlink:title="Cool">
+<ellipse fill="none" stroke="#000000" cx="32" cy="-90" rx="30.59" ry="18"/>
+<text text-anchor="middle" x="32" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Cool</text>
+</a>
+</g>
+</g>
+<!-- Instant&#45;&gt;Cool -->
+<g id="edge1" class="edge">
+<title>Instant&#45;&gt;Cool</title>
+<path fill="none" stroke="#000000" d="M61.56,-35.95C56.89,-44.32 51.17,-54.6 46,-63.87"/>
+<polygon fill="#000000" stroke="#000000" points="42.89,-62.25 41.09,-72.69 49.01,-65.66 42.89,-62.25"/>
+</g>
+<!-- Real -->
+<g id="node6" class="node">
+<title>Real</title>
+<g id="a_node6"><a xlink:href="/type/Real" xlink:title="Real">
+<ellipse fill="none" stroke="#6666ff" cx="114" cy="-90" rx="30.59" ry="18"/>
+<text text-anchor="middle" x="114" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#6666ff">Real</text>
+</a>
+</g>
+</g>
+<!-- Instant&#45;&gt;Real -->
+<g id="edge4" class="edge">
+<title>Instant&#45;&gt;Real</title>
+<path fill="none" stroke="#6666ff" d="M81.19,-35.59C86.38,-44.05 92.81,-54.51 98.59,-63.92"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="95.67,-65.84 103.88,-72.53 101.63,-62.18 95.67,-65.84"/>
+</g>
+<!-- Mu -->
+<g id="node2" class="node">
+<title>Mu</title>
+<g id="a_node2"><a xlink:href="/type/Mu" xlink:title="Mu">
+<ellipse fill="none" stroke="#000000" cx="27" cy="-234" rx="27" ry="18"/>
+<text text-anchor="middle" x="27" y="-230.3" font-family="FreeSans" font-size="14.00" fill="#000000">Mu</text>
+</a>
+</g>
+</g>
+<!-- Any -->
+<g id="node3" class="node">
+<title>Any</title>
+<g id="a_node3"><a xlink:href="/type/Any" xlink:title="Any">
+<ellipse fill="none" stroke="#000000" cx="27" cy="-162" rx="27" ry="18"/>
+<text text-anchor="middle" x="27" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#000000">Any</text>
+</a>
+</g>
+</g>
+<!-- Any&#45;&gt;Mu -->
+<g id="edge2" class="edge">
+<title>Any&#45;&gt;Mu</title>
+<path fill="none" stroke="#000000" d="M27,-180.3C27,-188.02 27,-197.29 27,-205.89"/>
+<polygon fill="#000000" stroke="#000000" points="23.5,-205.9 27,-215.9 30.5,-205.9 23.5,-205.9"/>
+</g>
+<!-- Cool&#45;&gt;Any -->
+<g id="edge3" class="edge">
+<title>Cool&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M30.76,-108.3C30.21,-116.02 29.55,-125.29 28.94,-133.89"/>
+<polygon fill="#000000" stroke="#000000" points="25.44,-133.67 28.22,-143.9 32.43,-134.17 25.44,-133.67"/>
+</g>
+<!-- Numeric -->
+<g id="node5" class="node">
+<title>Numeric</title>
+<g id="a_node5"><a xlink:href="/type/Numeric" xlink:title="Numeric">
+<ellipse fill="none" stroke="#6666ff" cx="117" cy="-162" rx="44.69" ry="18"/>
+<text text-anchor="middle" x="117" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#6666ff">Numeric</text>
+</a>
+</g>
+</g>
+<!-- Real&#45;&gt;Numeric -->
+<g id="edge5" class="edge">
+<title>Real&#45;&gt;Numeric</title>
+<path fill="none" stroke="#6666ff" d="M114.74,-108.3C115.07,-116.02 115.47,-125.29 115.84,-133.89"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="112.34,-134.05 116.27,-143.9 119.34,-133.75 112.34,-134.05"/>
+</g>
+</g>
+</svg>
+
+  <p class="fallback">
+    <a
+      rel="alternate"
+      href="/images/type-graph-Instant.svg"
+      type="image/svg+xml"
+      >Expand above chart</a
+    >
+  </p>
+</figure>
+<h1 id="Routines_supplied_by_role_Real"><a class="u" href="#___top" title="go to top of document">Routines supplied by role Real</a></h1>
+<p>Instant does role <a href="/Documentable/integration-test/type/Real">Real</a>, which provides the following routines:</p>
+<h2 id="(Real)_method_Bridge"><a href="/Documentable/integration-test/type/Real#method_Bridge">(Real) method Bridge</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method Bridge(Real:D:)</pre>
+<p>Default implementation coerces the invocant to <a href="/Documentable/integration-test/type/Num">Num</a> and that&#39;s the behavior of this method in core <a href="/Documentable/integration-test/type/Real">Real</a> types. This method primarily exist to make it easy to implement custom <a href="/Documentable/integration-test/type/Real">Real</a> types by users, with the <code>Bridge</code> method returning <em>one of</em> the core <code>Real</code> types (<em>NOT</em> necessarily a <a href="/Documentable/integration-test/type/Num">Num</a>) that best represent the custom <code>Real</code> type. In turn, this lets all the core operators and methods obtain a usable value they can work with.</p>
+<p>As an example, we can implement a custom <code>Temperature</code> type. It has a unit of measure and the value, which are given during instantiation. We can implement custom operators or conversion methods that work with this type. When it comes to regular mathematical operators, however, we can simply use the <code>.Bridge</code> method to convert the <code>Temperature</code> to Kelvin expressed in one of the core numeric types:</p>
+<pre class="pod-block-code">class Temperature is Real {
+    has Str:D  $.unit  is required where any &lt;K F C&gt;;
+    has Real:D $.value is required;
+    method new ($value, :$unit = &#39;K&#39;) { self.bless :$value :$unit }
+    # Note: implementing .new() that handles $value of type Temperature is left as an exercise
+
+    method Bridge {
+        when $!unit eq &#39;F&#39; { ($!value + 459.67) × 5/9 }
+        when $!unit eq &#39;C&#39; {  $!value + 273.15 }
+        $!value
+    }
+    method gist { self.Str }
+    method Str  { &quot;$!value degrees $!unit&quot; }
+}
+
+sub postfix:&lt;℃&gt; { Temperature.new: $^value, :unit&lt;C&gt; }
+sub postfix:&lt;℉&gt; { Temperature.new: $^value, :unit&lt;F&gt; }
+sub postfix:&lt;K&gt; { Temperature.new: $^value, :unit&lt;K&gt; }
+
+my $human := 36.6℃;
+my $book  := 451℉;
+my $sun   := 5778K;
+say $human;                # OUTPUT: «36.6 degrees C␤»
+say $human + $book + $sun; # OUTPUT: «6593.677777777778␤»
+say 123K + 456K;           # OUTPUT: «579␤»</pre>
+<p>As we can see from the last two lines of the output, the type of the bridged result is not forced to be any <em>particular</em> core type. It is a <a href="/Documentable/integration-test/type/Rat">Rat</a>, when we instantiated <code>Temperature</code> with a <code>Rat</code> or when conversion was involved, and it is an <a href="/Documentable/integration-test/type/Int">Int</a> when we instantiated <code>Temperature</code> with an <a href="/Documentable/integration-test/type/Int">Int</a>.</p>
+<h2 id="(Real)_method_Complex"><a href="/Documentable/integration-test/type/Real#method_Complex">(Real) method Complex</a></h2>
+<pre class="pod-block-code">method Complex(Real:D: --&gt; Complex:D)</pre>
+<p>Converts the number to a <code>Complex</code> with the number converted to a <code>Num</code> as its real part and 0e0 as the imaginary part.</p>
+<h2 id="(Real)_method_Rat"><a href="/Documentable/integration-test/type/Real#method_Rat">(Real) method Rat</a></h2>
+<pre class="pod-block-code">method Rat(Real:D: Real $epsilon = 1e-6)</pre>
+<p>Converts the number to a <code>Rat</code> with the precision <code>$epsilon</code>.</p>
+<h2 id="(Real)_method_Real"><a href="/Documentable/integration-test/type/Real#method_Real">(Real) method Real</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method Real(Real:D: --&gt; Real:D)
+multi method Real(Real:U: --&gt; Real:D)</pre>
+<p>The <code>:D</code> variant simply returns the invocant. The <code>:U</code> variant issues a warning about using an uninitialized value in numeric context and then returns <code>self.new</code>.</p>
+<h2 id="(Real)_routine_rand"><a href="/Documentable/integration-test/type/Real#routine_rand">(Real) routine rand</a></h2>
+<pre class="pod-block-code">sub term:&lt;rand&gt; (--&gt; Num:D)
+method rand(Real:D: --&gt; Real:D)</pre>
+<p>Returns a pseudo-random number between zero (inclusive) and the number (non-inclusive). The <a href="/Documentable/integration-test/routine/Bridge"><code>Bridge</code> method</a> is used to coerce the <code>Real</code> to a numeric that supports <a href="/Documentable/integration-test/routine/rand">rand</a> method.</p>
+<p>The term form returns a pseudo-random <code>Num</code> between 0e0 (inclusive) and 1e0 (non-inclusive.)</p>
+<h2 id="(Real)_method_sign"><a href="/Documentable/integration-test/type/Real#method_sign">(Real) method sign</a></h2>
+<pre class="pod-block-code">method sign(Real:D:)</pre>
+<p>Returns <code>-1</code> if the number is negative, <code>0</code> if it is zero and <code>1</code> otherwise.</p>
+<h2 id="(Real)_method_round"><a href="/Documentable/integration-test/type/Real#method_round">(Real) method round</a></h2>
+<pre class="pod-block-code">method round(Real:D: $scale = 1)</pre>
+<p>Rounds the number to scale <code>$scale</code>. If <code>$scale</code> is 1, rounds to an integer. If scale is <code>0.1</code>, rounds to one digit after the radix point (period or comma), etc.</p>
+<h2 id="(Real)_method_floor"><a href="/Documentable/integration-test/type/Real#method_floor">(Real) method floor</a></h2>
+<pre class="pod-block-code">method floor(Real:D --&gt; Int:D)</pre>
+<p>Return the largest integer not greater than the number.</p>
+<h2 id="(Real)_method_ceiling"><a href="/Documentable/integration-test/type/Real#method_ceiling">(Real) method ceiling</a></h2>
+<pre class="pod-block-code">method ceiling(Real:D --&gt; Int:D)</pre>
+<p>Returns the smallest integer not less than the number.</p>
+<h2 id="(Real)_method_truncate"><a href="/Documentable/integration-test/type/Real#method_truncate">(Real) method truncate</a></h2>
+<pre class="pod-block-code">method truncate(Real:D --&gt; Int:D)</pre>
+<p>Rounds the number towards zero.</p>
+<h2 id="(Real)_method_polymod"><a href="/Documentable/integration-test/type/Real#method_polymod">(Real) method polymod</a></h2>
+<pre class="pod-block-code">method polymod(Real:D: +@mods)</pre>
+<p>Returns the remainders after applying sequentially all divisors in the <code>@mods</code> argument; the last element of the array will be the last remainder.</p>
+<pre class="pod-block-code">say (1e8+1).polymod(10 xx 8);  # OUTPUT: «(1 0 0 0 0 0 0 0 1)␤»</pre>
+<p><code>10 xx 8</code> is simply an array with eight number 10s; the first division by 10 will return <code>1</code> as a remainder, while the rest, up to the last, will return 0. With 8 divisors, as above, the result will have one more elements, in this case for the last remainder.</p>
+<h2 id="(Real)_method_base"><a href="/Documentable/integration-test/type/Real#method_base">(Real) method base</a></h2>
+<pre class="pod-block-code">method base(Real:D: Int:D $base where 2..36, $digits? --&gt; Str:D)</pre>
+<p>Converts the number to a string, using <code>$base</code> as base. For <code>$base</code> larger than ten, capital Latin letters are used.</p>
+<pre class="pod-block-code">255.base(16);            # &#39;FF&#39;</pre>
+<p>The optional <code>$digits</code> argument asks for that many digits of fraction (which may not be negative). If omitted, a reasonable default is chosen based on type. For Int this default is 0. For <a href="/Documentable/integration-test/type/Num">Num</a>, the default is 8. For <a href="/Documentable/integration-test/type/Rational">Rational</a>, the number of places is scaled to the size of the denominator, with a minimum of 6.</p>
+<p>A special value of <a href="/Documentable/integration-test/type/Whatever"><code>Whatever</code></a> (<code>*</code>) can be given as <code>$digits</code>, which functions the same as when <code>$digits</code> is not specified for all <code>Real</code> types except the <code>Rationals</code>. For <code>Rationals</code>, the <code>Whatever</code> indicates that you wish all of the possible digits of the fractional part, but use caution: since there&#39;s no detection of repeating fractional parts (the algorithm will eventually stop after generating 2**63 digits).</p>
+<p>The final digit produced is always rounded.</p>
+<pre class="pod-block-code">say pi.base(10, 3);      # OUTPUT: «3.142␤»
+say (1/128).base(10, *); # OUTPUT: «0.0078125␤»
+say (1/100).base(10, *); # OUTPUT: «0.01␤»
+say (1/3)  .base(10, *); # WRONG: endlessly repeating fractional part</pre>
+<p>For reverse operation, see <a href="/Documentable/integration-test/routine/parse-base"><code>parse-base</code></a></p>
+<h1 id="Routines_supplied_by_role_Numeric"><a class="u" href="#___top" title="go to top of document">Routines supplied by role Numeric</a></h1>
+<p>Instant does role <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, which provides the following routines:</p>
+<h2 id="(Numeric)_method_Numeric"><a href="/Documentable/integration-test/type/Numeric#method_Numeric">(Numeric) method Numeric</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method Numeric(Numeric:D: --&gt; Numeric:D)
+multi method Numeric(Numeric:U: --&gt; Numeric:D)</pre>
+<p>The <code>:D</code> variant simply returns the invocant. The <code>:U</code> variant issues a warning about using an uninitialized value in numeric context and then returns <code>self.new</code>.</p>
+<h2 id="(Numeric)_method_Int"><a href="/Documentable/integration-test/type/Numeric#method_Int">(Numeric) method Int</a></h2>
+<pre class="pod-block-code">method Int(Numeric:D: --&gt; Int:D)</pre>
+<p>If this <code>Numeric</code> is equivalent to a <code>Real</code>, return the equivalent of calling <code>truncate</code> on that <code>Real</code> to get an <code>Int</code>. Fail with <code>X::Numeric::Real</code> otherwise.</p>
+<h2 id="(Numeric)_method_Rat"><a href="/Documentable/integration-test/type/Numeric#method_Rat">(Numeric) method Rat</a></h2>
+<pre class="pod-block-code">method Rat(Numeric:D: Real $epsilon = 1.0e-6 --&gt; Rat:D)</pre>
+<p>If this <code>Numeric</code> is equivalent to a <code>Real</code>, return a <code>Rat</code> which is within <code>$epsilon</code> of that <code>Real</code>&#39;s value. Fail with <code>X::Numeric::Real</code> otherwise.</p>
+<h2 id="(Numeric)_method_Num"><a href="/Documentable/integration-test/type/Numeric#method_Num">(Numeric) method Num</a></h2>
+<pre class="pod-block-code">method Num(Numeric:D: --&gt; Num:D)</pre>
+<p>If this <code>Numeric</code> is equivalent to a <code>Real</code>, return that <code>Real</code> as a <code>Num</code> as accurately as is possible. Fail with <code>X::Numeric::Real</code> otherwise.</p>
+<h2 id="(Numeric)_method_narrow"><a href="/Documentable/integration-test/type/Numeric#method_narrow">(Numeric) method narrow</a></h2>
+<pre class="pod-block-code">method narrow(Numeric:D --&gt; Numeric:D)</pre>
+<p>Returns the number converted to the narrowest type that can hold it without loss of precision.</p>
+<pre class="pod-block-code">say (4.0 + 0i).narrow.raku;     # OUTPUT: «4␤»
+say (4.0 + 0i).narrow.^name;    # OUTPUT: «Int␤»</pre>
+<h2 id="(Numeric)_method_ACCEPTS"><a href="/Documentable/integration-test/type/Numeric#method_ACCEPTS">(Numeric) method ACCEPTS</a></h2>
+<pre class="pod-block-code">multi method ACCEPTS(Numeric:D: $other)</pre>
+<p>Returns <code>True</code> if <code>$other</code> can be coerced to <a href="/Documentable/integration-test/type/Numeric">Numeric</a> and is <a href="/Documentable/integration-test/routine/==">numerically equal</a> to the invocant (or both evaluate to <code>NaN</code>).</p>
+<h2 id="(Numeric)_routine_log"><a href="/Documentable/integration-test/type/Numeric#routine_log">(Numeric) routine log</a></h2>
+<pre class="pod-block-code">multi sub    log(Numeric:D, Numeric $base = e --&gt; Numeric:D)
+multi method log(Numeric:D: Numeric $base = e --&gt; Numeric:D)</pre>
+<p>Calculates the logarithm to base <code>$base</code>. Defaults to the natural logarithm. Returns <code>NaN</code> if <code>$base</code> is negative. Throws an exception if <code>$base</code> is <code>1</code>.</p>
+<h2 id="(Numeric)_routine_log10"><a href="/Documentable/integration-test/type/Numeric#routine_log10">(Numeric) routine log10</a></h2>
+<pre class="pod-block-code">multi sub    log10(Numeric:D  --&gt; Numeric:D)
+multi method log10(Numeric:D: --&gt; Numeric:D)</pre>
+<p>Calculates the logarithm to base 10. Returns <code>NaN</code> for negative arguments and <code>-Inf</code> for <code>0</code>.</p>
+<h2 id="(Numeric)_routine_log2"><a href="/Documentable/integration-test/type/Numeric#routine_log2">(Numeric) routine log2</a></h2>
+<pre class="pod-block-code">multi sub    log2(Numeric:D)
+multi method log2(Numeric:D:)</pre>
+<p>Calculates the logarithm to base 2. Returns <code>NaN</code> for negative arguments and <code>-Inf</code> for <code>0</code>.</p>
+<h2 id="(Numeric)_routine_exp"><a href="/Documentable/integration-test/type/Numeric#routine_exp">(Numeric) routine exp</a></h2>
+<pre class="pod-block-code">multi sub    exp(Numeric:D, Numeric:D $base = e --&gt; Numeric:D)
+multi method exp(Numeric:D: Numeric:D $base = e --&gt; Numeric:D)</pre>
+<p>Returns <code>$base</code> to the power of the number, or <code>e</code> to the power of the number if called without a second argument.</p>
+<h2 id="(Numeric)_method_roots"><a href="/Documentable/integration-test/type/Numeric#method_roots">(Numeric) method roots</a></h2>
+<pre class="pod-block-code">multi method roots(Numeric:D: Int:D $n --&gt; Positional)</pre>
+<p>Returns a list of the <code>$n</code> complex roots, which evaluate to the original number when raised to the <code>$n</code>th power.</p>
+<h2 id="(Numeric)_routine_abs"><a href="/Documentable/integration-test/type/Numeric#routine_abs">(Numeric) routine abs</a></h2>
+<pre class="pod-block-code">multi sub    abs(Numeric:D  --&gt; Real:D)
+multi method abs(Numeric:D: --&gt; Real:D)</pre>
+<p>Returns the absolute value of the number.</p>
+<h2 id="(Numeric)_routine_sqrt"><a href="/Documentable/integration-test/type/Numeric#routine_sqrt">(Numeric) routine sqrt</a></h2>
+<pre class="pod-block-code">multi sub    sqrt(Numeric:D --&gt; Numeric:D)
+multi method sqrt(Numeric:D --&gt; Numeric:D)</pre>
+<p>Returns a square root of the number. For real numbers the positive square root is returned.</p>
+<p>On negative real numbers, <code>sqrt</code> returns <a href="/Documentable/integration-test/type/Num#NaN"><code>NaN</code></a> rather than a complex number, in order to not confuse people who are not familiar with complex arithmetic. If you want to calculate complex square roots, coerce to <code>Complex</code> first, or use the <code>roots</code> method.</p>
+<h2 id="(Numeric)_method_conj"><a href="/Documentable/integration-test/type/Numeric#method_conj">(Numeric) method conj</a></h2>
+<pre class="pod-block-code">multi method conj(Numeric:D --&gt; Numeric:D)</pre>
+<p>Returns the complex conjugate of the number. Returns the number itself for real numbers.</p>
+<h2 id="(Numeric)_method_Bool"><a href="/Documentable/integration-test/type/Numeric#method_Bool">(Numeric) method Bool</a></h2>
+<pre class="pod-block-code">multi method Bool(Numeric:D:)</pre>
+<p>Returns <code>False</code> if the number is equivalent to zero, and <code>True</code> otherwise.</p>
+<h2 id="(Numeric)_method_succ"><a href="/Documentable/integration-test/type/Numeric#method_succ">(Numeric) method succ</a></h2>
+<pre class="pod-block-code">method succ(Numeric:D:)</pre>
+<p>Returns the number incremented by one (successor).</p>
+<h2 id="(Numeric)_method_pred"><a href="/Documentable/integration-test/type/Numeric#method_pred">(Numeric) method pred</a></h2>
+<pre class="pod-block-code">method pred(Numeric:D:)</pre>
+<p>Returns the number decremented by one (predecessor).</p>
+<h1 id="Routines_supplied_by_class_Cool"><a class="u" href="#___top" title="go to top of document">Routines supplied by class Cool</a></h1>
+<p>Instant inherits from class <a href="/Documentable/integration-test/type/Cool">Cool</a>, which provides the following routines:</p>
+<h2 id="(Cool)_routine_abs"><a href="/Documentable/integration-test/type/Cool#routine_abs">(Cool) routine abs</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub abs(Numeric() $x)
+method abs()</pre>
+<p>Coerces the invocant (or in the sub form, the argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a> and returns the absolute value (that is, a non-negative number).</p>
+<pre class="pod-block-code">say (-2).abs;       # OUTPUT: «2␤»
+say abs &quot;6+8i&quot;;     # OUTPUT: «10␤»</pre>
+<h2 id="(Cool)_method_conj"><a href="/Documentable/integration-test/type/Cool#method_conj">(Cool) method conj</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method conj()</pre>
+<p>Coerces the invocant to <a href="/Documentable/integration-test/type/Numeric">Numeric</a> and returns the <a href="/Documentable/integration-test/type/Complex">complex</a> conjugate (that is, the number with the sign of the imaginary part negated).</p>
+<pre class="pod-block-code">say (1+2i).conj;        # OUTPUT: «1-2i␤»</pre>
+<h2 id="(Cool)_routine_EVAL"><a href="/Documentable/integration-test/type/Cool#routine_EVAL">(Cool) routine EVAL</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method EVAL(*%_)
+</pre>
+<p>It calls the <a href="/Documentable/integration-test/language/independent-routines#routine_EVAL">subroutine form</a> with the invocant as the first argument, <code>$code</code>, passing along named args, if any.</p>
+<h2 id="(Cool)_routine_sqrt"><a href="/Documentable/integration-test/type/Cool#routine_sqrt">(Cool) routine sqrt</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub sqrt(Numeric(Cool) $x)
+method sqrt()</pre>
+<p>Coerces the invocant to <a href="/Documentable/integration-test/type/Numeric">Numeric</a> (or in the sub form, the argument) and returns the square root, that is, a non-negative number that, when multiplied with itself, produces the original number.</p>
+<pre class="pod-block-code">say 4.sqrt;             # OUTPUT: «2␤»
+say sqrt(2);            # OUTPUT: «1.4142135623731␤»</pre>
+<h2 id="(Cool)_method_sign"><a href="/Documentable/integration-test/type/Cool#method_sign">(Cool) method sign</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method sign()</pre>
+<p>Coerces the invocant to <a href="/Documentable/integration-test/type/Real">Numeric</a> and returns its sign, that is, 0 if the number is 0, 1 for positive and -1 for negative values.</p>
+<pre class="pod-block-code">say 6.sign;             # OUTPUT: «1␤»
+say (-6).sign;          # OUTPUT: «-1␤»
+say &quot;0&quot;.sign;           # OUTPUT: «0␤»</pre>
+<h2 id="(Cool)_method_rand"><a href="/Documentable/integration-test/type/Cool#method_rand">(Cool) method rand</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method rand()</pre>
+<p>Coerces the invocant to <a href="/Documentable/integration-test/type/Num">Num</a> and returns a pseudo-random value between zero and the number.</p>
+<pre class="pod-block-code">say 1e5.rand;           # OUTPUT: «33128.495184283␤»</pre>
+<h2 id="(Cool)_routine_sin"><a href="/Documentable/integration-test/type/Cool#routine_sin">(Cool) routine sin</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub sin(Numeric(Cool))
+method sin()</pre>
+<p>Coerces the invocant (or in the sub form, the argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, interprets it as radians, returns its <a href="https://en.wikipedia.org/wiki/Sine">sine</a>.</p>
+<pre class="pod-block-code">say sin(0);             # OUTPUT: «0␤»
+say sin(pi/4);          # OUTPUT: «0.707106781186547␤»
+say sin(pi/2);          # OUTPUT: «1␤»</pre>
+<p>Note that Raku is no computer algebra system, so <code>sin(pi)</code> typically does not produce an exact 0, but rather a very small <a href="/Documentable/integration-test/type/Num">floating-point number</a>.</p>
+<h2 id="(Cool)_routine_asin"><a href="/Documentable/integration-test/type/Cool#routine_asin">(Cool) routine asin</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub asin(Numeric(Cool))
+method asin()</pre>
+<p>Coerces the invocant (or in the sub form, the argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns its <a href="https://en.wikipedia.org/wiki/Inverse_trigonometric_functions">arc-sine</a> in radians.</p>
+<pre class="pod-block-code">say 0.1.asin;               # OUTPUT: «0.10016742116156␤»
+say asin(0.1);              # OUTPUT: «0.10016742116156␤»</pre>
+<h2 id="(Cool)_routine_cos"><a href="/Documentable/integration-test/type/Cool#routine_cos">(Cool) routine cos</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub cos(Numeric(Cool))
+method cos()</pre>
+<p>Coerces the invocant (or in sub form, the argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, interprets it as radians, returns its <a href="https://en.wikipedia.org/wiki/Cosine">cosine</a>.</p>
+<pre class="pod-block-code">say 0.cos;                  # OUTPUT: «1␤»
+say pi.cos;                 # OUTPUT: «-1␤»
+say cos(pi/2);              # OUTPUT: «6.12323399573677e-17␤»</pre>
+<h2 id="(Cool)_routine_acos"><a href="/Documentable/integration-test/type/Cool#routine_acos">(Cool) routine acos</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub acos(Numeric(Cool))
+method acos()</pre>
+<p>Coerces the invocant (or in sub form, the argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns its <a href="https://en.wikipedia.org/wiki/Inverse_trigonometric_functions">arc-cosine</a> in radians.</p>
+<pre class="pod-block-code">say 1.acos;                 # OUTPUT: «0␤»
+say acos(-1);               # OUTPUT: «3.14159265358979␤»</pre>
+<h2 id="(Cool)_routine_tan"><a href="/Documentable/integration-test/type/Cool#routine_tan">(Cool) routine tan</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub tan(Numeric(Cool))
+method tan()</pre>
+<p>Coerces the invocant (or in sub form, the argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, interprets it as radians, returns its <a href="https://en.wikipedia.org/wiki/Tangent">tangent</a>.</p>
+<pre class="pod-block-code">say tan(3);                 # OUTPUT: «-0.142546543074278␤»
+say 3.tan;                  # OUTPUT: «-0.142546543074278␤»</pre>
+<h2 id="(Cool)_routine_atan"><a href="/Documentable/integration-test/type/Cool#routine_atan">(Cool) routine atan</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub atan(Numeric(Cool))
+method atan()</pre>
+<p>Coerces the invocant (or in sub form, the argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns its <a href="https://en.wikipedia.org/wiki/Inverse_trigonometric_functions">arc-tangent</a> in radians.</p>
+<pre class="pod-block-code">say atan(3);                # OUTPUT: «1.24904577239825␤»
+say 3.atan;                 # OUTPUT: «1.24904577239825␤»</pre>
+<h2 id="(Cool)_routine_atan2"><a href="/Documentable/integration-test/type/Cool#routine_atan2">(Cool) routine atan2</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub atan2($y, $x = 1e0)
+method atan2($x = 1e0)</pre>
+<p>The sub should usually be written with two arguments for clarity as it is seen in other languages and in mathematical texts, but the single-argument form is available; its result will always match that of <a href="/Documentable/integration-test/routine/atan">atan</a>.</p>
+<pre class="pod-block-code">say atan2 3, 1;             # OUTPUT: «1.2490457723982544␤»
+say atan2 3;                # OUTPUT: «1.2490457723982544␤»
+say atan2 ⅔, ⅓;             # OUTPUT: «1.1071487177940904␤»</pre>
+<p>The method coerces self and its single argument to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, using them to compute the two-argument <a href="https://en.wikipedia.org/wiki/Atan2">arc-tangent</a> in radians.</p>
+<pre class="pod-block-code">say 3.atan2;                # OUTPUT: «1.24904577239825␤»
+say ⅔.atan2(⅓);             # OUTPUT: «1.1071487177940904␤»</pre>
+<p>The $x argument in either the method or the sub defaults to 1 so, in both single-argument cases, the function will return the angle θ in radians between the x-axis and a vector that goes from the origin to the point (3, 1).</p>
+<h2 id="(Cool)_routine_sec"><a href="/Documentable/integration-test/type/Cool#routine_sec">(Cool) routine sec</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub sec(Numeric(Cool))
+method sec()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, interprets it as radians, returns its <a href="https://en.wikipedia.org/wiki/Trigonometric_functions#Reciprocal_functions">secant</a>, that is, the reciprocal of its cosine.</p>
+<pre class="pod-block-code">say 45.sec;                 # OUTPUT: «1.90359440740442␤»
+say sec(45);                # OUTPUT: «1.90359440740442␤»</pre>
+<h2 id="(Cool)_routine_asec"><a href="/Documentable/integration-test/type/Cool#routine_asec">(Cool) routine asec</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub asec(Numeric(Cool))
+method asec()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns its <a href="https://en.wikipedia.org/wiki/Inverse_trigonometric_functions">arc-secant</a> in radians.</p>
+<pre class="pod-block-code">say 1.asec;                 # OUTPUT: «0␤»
+say sqrt(2).asec;           # OUTPUT: «0.785398163397448␤»</pre>
+<h2 id="(Cool)_routine_cosec"><a href="/Documentable/integration-test/type/Cool#routine_cosec">(Cool) routine cosec</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub cosec(Numeric(Cool))
+method cosec()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, interprets it as radians, returns its <a href="https://en.wikipedia.org/wiki/Trigonometric_functions#Reciprocal_functions">cosecant</a>, that is, the reciprocal of its sine.</p>
+<pre class="pod-block-code">say 0.45.cosec;             # OUTPUT: «2.29903273150897␤»
+say cosec(0.45);            # OUTPUT: «2.29903273150897␤»</pre>
+<h2 id="(Cool)_routine_acosec"><a href="/Documentable/integration-test/type/Cool#routine_acosec">(Cool) routine acosec</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub acosec(Numeric(Cool))
+method acosec()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns its <a href="https://en.wikipedia.org/wiki/Inverse_trigonometric_functions">arc-cosecant</a> in radians.</p>
+<pre class="pod-block-code">say 45.acosec;              # OUTPUT: «0.0222240516182672␤»
+say acosec(45)              # OUTPUT: «0.0222240516182672␤»</pre>
+<h2 id="(Cool)_routine_cotan"><a href="/Documentable/integration-test/type/Cool#routine_cotan">(Cool) routine cotan</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub cotan(Numeric(Cool))
+method cotan()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, interprets it as radians, returns its <a href="https://en.wikipedia.org/wiki/Trigonometric_functions#Reciprocal_functions">cotangent</a>, that is, the reciprocal of its tangent.</p>
+<pre class="pod-block-code">say 45.cotan;               # OUTPUT: «0.617369623783555␤»
+say cotan(45);              # OUTPUT: «0.617369623783555␤»</pre>
+<h2 id="(Cool)_routine_acotan"><a href="/Documentable/integration-test/type/Cool#routine_acotan">(Cool) routine acotan</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub acotan(Numeric(Cool))
+method acotan()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns its <a href="https://en.wikipedia.org/wiki/Inverse_trigonometric_functions">arc-cotangent</a> in radians.</p>
+<pre class="pod-block-code">say 45.acotan;              # OUTPUT: «0.0222185653267191␤»
+say acotan(45)              # OUTPUT: «0.0222185653267191␤»</pre>
+<h2 id="(Cool)_routine_sinh"><a href="/Documentable/integration-test/type/Cool#routine_sinh">(Cool) routine sinh</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub sinh(Numeric(Cool))
+method sinh()</pre>
+<p>Coerces the invocant (or in method form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns its <a href="https://en.wikipedia.org/wiki/Hyperbolic_function">Sine hyperbolicus</a>.</p>
+<pre class="pod-block-code">say 1.sinh;                 # OUTPUT: «1.1752011936438␤»
+say sinh(1);                # OUTPUT: «1.1752011936438␤»</pre>
+<h2 id="(Cool)_routine_asinh"><a href="/Documentable/integration-test/type/Cool#routine_asinh">(Cool) routine asinh</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub asinh(Numeric(Cool))
+method asinh()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns its <a href="https://en.wikipedia.org/wiki/Inverse_hyperbolic_function">Inverse Sine hyperbolicus</a>.</p>
+<pre class="pod-block-code">say 1.asinh;                # OUTPUT: «0.881373587019543␤»
+say asinh(1);               # OUTPUT: «0.881373587019543␤»</pre>
+<h2 id="(Cool)_routine_cosh"><a href="/Documentable/integration-test/type/Cool#routine_cosh">(Cool) routine cosh</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub cosh(Numeric(Cool))
+method cosh()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns its <a href="https://en.wikipedia.org/wiki/Hyperbolic_function">Cosine hyperbolicus</a>.</p>
+<pre class="pod-block-code">say cosh(0.5);              # OUTPUT: «1.12762596520638␤»</pre>
+<h2 id="(Cool)_routine_acosh"><a href="/Documentable/integration-test/type/Cool#routine_acosh">(Cool) routine acosh</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub acosh(Numeric(Cool))
+method acosh()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns its <a href="https://en.wikipedia.org/wiki/Inverse_hyperbolic_function">Inverse Cosine hyperbolicus</a>.</p>
+<pre class="pod-block-code">say acosh(45);              # OUTPUT: «4.4996861906715␤»</pre>
+<h2 id="(Cool)_routine_tanh"><a href="/Documentable/integration-test/type/Cool#routine_tanh">(Cool) routine tanh</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub tanh(Numeric(Cool))
+method tanh()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, interprets it as radians and returns its <a href="https://en.wikipedia.org/wiki/Hyperbolic_function">Tangent hyperbolicus</a>.</p>
+<pre class="pod-block-code">say tanh(0.5);              # OUTPUT: «0.46211715726001␤»
+say tanh(atanh(0.5));       # OUTPUT: «0.5␤»</pre>
+<h2 id="(Cool)_routine_atanh"><a href="/Documentable/integration-test/type/Cool#routine_atanh">(Cool) routine atanh</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub atanh(Numeric(Cool))
+method atanh()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns its <a href="https://en.wikipedia.org/wiki/Inverse_hyperbolic_function">Inverse tangent hyperbolicus</a>.</p>
+<pre class="pod-block-code">say atanh(0.5);             # OUTPUT: «0.549306144334055␤»</pre>
+<h2 id="(Cool)_routine_sech"><a href="/Documentable/integration-test/type/Cool#routine_sech">(Cool) routine sech</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub sech(Numeric(Cool))
+method sech()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns its <a href="https://en.wikipedia.org/wiki/Hyperbolic_function">Secant hyperbolicus</a>.</p>
+<pre class="pod-block-code">say 0.sech;                 # OUTPUT: «1␤»</pre>
+<h2 id="(Cool)_routine_asech"><a href="/Documentable/integration-test/type/Cool#routine_asech">(Cool) routine asech</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub asech(Numeric(Cool))
+method asech()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns its <a href="https://en.wikipedia.org/wiki/Hyperbolic_function">Inverse hyperbolic secant</a>.</p>
+<pre class="pod-block-code">say 0.8.asech;              # OUTPUT: «0.693147180559945␤»</pre>
+<h2 id="(Cool)_routine_cosech"><a href="/Documentable/integration-test/type/Cool#routine_cosech">(Cool) routine cosech</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub cosech(Numeric(Cool))
+method cosech()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns its <a href="https://en.wikipedia.org/wiki/Hyperbolic_function">Hyperbolic cosecant</a>.</p>
+<pre class="pod-block-code">say cosech(pi/2);           # OUTPUT: «0.434537208094696␤»</pre>
+<h2 id="(Cool)_routine_acosech"><a href="/Documentable/integration-test/type/Cool#routine_acosech">(Cool) routine acosech</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub acosech(Numeric(Cool))
+method acosech()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns its <a href="https://en.wikipedia.org/wiki/Inverse_hyperbolic_function">Inverse hyperbolic cosecant</a>.</p>
+<pre class="pod-block-code">say acosech(4.5);           # OUTPUT: «0.220432720979802␤»</pre>
+<h2 id="(Cool)_routine_cotanh"><a href="/Documentable/integration-test/type/Cool#routine_cotanh">(Cool) routine cotanh</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub cotanh(Numeric(Cool))
+method cotanh()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns its <a href="https://en.wikipedia.org/wiki/Hyperbolic_function">Hyperbolic cotangent</a>.</p>
+<pre class="pod-block-code">say cotanh(pi);             # OUTPUT: «1.00374187319732␤»</pre>
+<h2 id="(Cool)_routine_acotanh"><a href="/Documentable/integration-test/type/Cool#routine_acotanh">(Cool) routine acotanh</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub acotanh(Numeric(Cool))
+method acotanh()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns its <a href="https://en.wikipedia.org/wiki/Inverse_hyperbolic_function">Inverse hyperbolic cotangent</a>.</p>
+<pre class="pod-block-code">say acotanh(2.5);           # OUTPUT: «0.423648930193602␤»</pre>
+<h2 id="(Cool)_routine_cis"><a href="/Documentable/integration-test/type/Cool#routine_cis">(Cool) routine cis</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub cis(Numeric(Cool))
+method cis()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns <a href="https://en.wikipedia.org/wiki/Cis_%28mathematics%29">cos(argument) + i*sin(argument)</a>.</p>
+<pre class="pod-block-code">say cis(pi/4);              # OUTPUT: «0.707106781186548+0.707106781186547i␤»</pre>
+<h2 id="(Cool)_routine_log"><a href="/Documentable/integration-test/type/Cool#routine_log">(Cool) routine log</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub log(Numeric(Cool) $number, Numeric(Cool) $base?)
+multi method log(Cool:D: Cool:D $base?)</pre>
+<p>Coerces the arguments (including the invocant in the method form) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns its <a href="https://en.wikipedia.org/wiki/Logarithm">Logarithm</a> to base <code>$base</code>, or to base <code>e</code> (Euler&#39;s Number) if no base was supplied (<a href="https://en.wikipedia.org/wiki/Natural_logarithm">Natural logarithm</a>). Returns <code>NaN</code> if <code>$base</code> is negative. Throws an exception if <code>$base</code> is <code>1</code>.</p>
+<pre class="pod-block-code">say (e*e).log;              # OUTPUT: «2␤»</pre>
+<h2 id="(Cool)_routine_log10"><a href="/Documentable/integration-test/type/Cool#routine_log10">(Cool) routine log10</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub log10(Cool(Numeric))
+multi method log10()</pre>
+<p>Coerces the invocant (or in the sub form, the invocant) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns its <a href="https://en.wikipedia.org/wiki/Logarithm">Logarithm</a> to base 10, that is, a number that approximately produces the original number when raised to the power of 10. Returns <code>NaN</code> for negative arguments and <code>-Inf</code> for <code>0</code>.</p>
+<pre class="pod-block-code">say log10(1001);            # OUTPUT: «3.00043407747932␤»</pre>
+<h2 id="(Cool)_routine_log2"><a href="/Documentable/integration-test/type/Cool#routine_log2">(Cool) routine log2</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method log2()</pre>
+<p>Coerces the invocant to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns its <a href="https://en.wikipedia.org/wiki/Logarithm">Logarithm</a> to base 2, that is, a number that approximately produces the original number when raised to the power of 2. Returns <code>NaN</code> for negative arguments and <code>-Inf</code> for <code>0</code>.</p>
+<pre class="pod-block-code">say log2(5);            # OUTPUT: «2.321928094887362␤»
+say &quot;4&quot;.log2;           # OUTPUT: «2␤»</pre>
+<h2 id="(Cool)_routine_exp"><a href="/Documentable/integration-test/type/Cool#routine_exp">(Cool) routine exp</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub exp(Cool:D $pow, Cool:D $base?)
+multi method exp(Cool:D: Cool:D $base?)</pre>
+<p>Coerces the arguments (including the invocant in the method from) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns <code>$base</code> raised to the power of the first number. If no <code>$base</code> is supplied, <code>e</code> (Euler&#39;s Number) is used.</p>
+<pre class="pod-block-code">say 0.exp;      # OUTPUT: «1␤»
+say 1.exp;      # OUTPUT: «2.71828182845905␤»
+say 10.exp;     # OUTPUT: «22026.4657948067␤»</pre>
+<h2 id="(Cool)_method_unpolar"><a href="/Documentable/integration-test/type/Cool#method_unpolar">(Cool) method unpolar</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method unpolar(Numeric(Cool))</pre>
+<p>Coerces the arguments (including the invocant in the method form) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and returns a complex number from the given polar coordinates. The invocant (or the first argument in sub form) is the magnitude while the argument (i.e. the second argument in sub form) is the angle. The angle is assumed to be in radians.</p>
+<pre class="pod-block-code">say sqrt(2).unpolar(pi/4);      # OUTPUT: «1+1i␤»</pre>
+<h2 id="(Cool)_routine_round"><a href="/Documentable/integration-test/type/Cool#routine_round">(Cool) routine round</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub round(Numeric(Cool))
+multi method round(Cool:D: $unit = 1)</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and rounds it to the unit of <code>$unit</code>. If <code>$unit</code> is 1, rounds to the nearest integer.</p>
+<pre class="pod-block-code">say 1.7.round;          # OUTPUT: «2␤»
+say 1.07.round(0.1);    # OUTPUT: «1.1␤»
+say 21.round(10);       # OUTPUT: «20␤»</pre>
+<p>Always rounds <strong>up</strong> if the number is at mid-point:</p>
+<pre class="pod-block-code">say (−.5 ).round;       # OUTPUT: «0␤»
+say ( .5 ).round;       # OUTPUT: «1␤»
+say (−.55).round(.1);   # OUTPUT: «-0.5␤»
+say ( .55).round(.1);   # OUTPUT: «0.6␤»</pre>
+<p><strong>Pay attention</strong> to types when using this method, as ending up with the wrong type may affect the precision you seek to achieve. For <a href="/Documentable/integration-test/type/Real">Real</a> types, the type of the result is the type of the argument (<a href="/Documentable/integration-test/type/Complex">Complex</a> argument gets coerced to <a href="/Documentable/integration-test/type/Real">Real</a>, ending up a <a href="/Documentable/integration-test/type/Num">Num</a>). If rounding a <a href="/Documentable/integration-test/type/Complex">Complex</a>, the result is <a href="/Documentable/integration-test/type/Complex">Complex</a> as well, regardless of the type of the argument.</p>
+<pre class="pod-block-code">9930972392403501.round(1)      .raku.say; # OUTPUT: «9930972392403501␤»
+9930972392403501.round(1e0)    .raku.say; # OUTPUT: «9.9309723924035e+15␤»
+9930972392403501.round(1e0).Int.raku.say; # OUTPUT: «9930972392403500␤»</pre>
+<h2 id="(Cool)_routine_floor"><a href="/Documentable/integration-test/type/Cool#routine_floor">(Cool) routine floor</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub floor(Numeric(Cool))
+multi method floor</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and rounds it downwards to the nearest integer.</p>
+<pre class="pod-block-code">say &quot;1.99&quot;.floor;       # OUTPUT: «1␤»
+say &quot;-1.9&quot;.floor;       # OUTPUT: «-2␤»
+say 0.floor;            # OUTPUT: «0␤»</pre>
+<h2 id="(Cool)_method_fmt"><a href="/Documentable/integration-test/type/Cool#method_fmt">(Cool) method fmt</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method fmt($format = &#39;%s&#39;)</pre>
+<p>Uses <code>$format</code> to return a formatted representation of the invocant; equivalent to calling <a href="/Documentable/integration-test/routine/sprintf">sprintf</a> with <code>$format</code> as format and the invocant as the second argument. The <code>$format</code> will be coerced to <a href="/Documentable/integration-test/type/Stringy">Stringy</a> and defaults to <code>&#39;%s&#39;</code>.</p>
+<p>For more information about formats strings, see <a href="/Documentable/integration-test/routine/sprintf">sprintf</a>.</p>
+<pre class="pod-block-code">say 11.fmt(&#39;This Int equals %03d&#39;);         # OUTPUT: «This Int equals 011␤»
+say &#39;16&#39;.fmt(&#39;Hexadecimal %x&#39;);             # OUTPUT: «Hexadecimal 10␤»</pre>
+<h2 id="(Cool)_routine_ceiling"><a href="/Documentable/integration-test/type/Cool#routine_ceiling">(Cool) routine ceiling</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub ceiling(Numeric(Cool))
+multi method ceiling</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and rounds it upwards to the nearest integer.</p>
+<pre class="pod-block-code">say &quot;1&quot;.ceiling;        # OUTPUT: «1␤»
+say &quot;-0.9&quot;.ceiling;     # OUTPUT: «0␤»
+say &quot;42.1&quot;.ceiling;     # OUTPUT: «43␤»</pre>
+<h2 id="(Cool)_routine_truncate"><a href="/Documentable/integration-test/type/Cool#routine_truncate">(Cool) routine truncate</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub truncate(Numeric(Cool))
+multi method truncate()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, and rounds it towards zero.</p>
+<pre class="pod-block-code">say 1.2.truncate;       # OUTPUT: «1␤»
+say truncate -1.2;      # OUTPUT: «-1␤»</pre>
+<h2 id="(Cool)_routine_ord"><a href="/Documentable/integration-test/type/Cool#routine_ord">(Cool) routine ord</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub ord(Str(Cool))
+method ord()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and returns the <a href="https://en.wikipedia.org/wiki/Code_point">Unicode code point</a> number of the first code point.</p>
+<pre class="pod-block-code">say &#39;a&#39;.ord;            # OUTPUT: «97␤»</pre>
+<p>The inverse operation is <a href="/Documentable/integration-test/routine/chr">chr</a>.</p>
+<p>Mnemonic: returns an ordinal number</p>
+<h2 id="(Cool)_method_path"><a href="/Documentable/integration-test/type/Cool#method_path">(Cool) method path</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method path()</pre>
+<p><strong>DEPRECATED</strong>. <em>It&#39;s been deprecated as of the 6.d version. Will be removed in the next ones.</em></p>
+<p>Stringifies the invocant and converts it to <a href="/Documentable/integration-test/type/IO::Path">IO::Path</a> object. Use the <a href="/Documentable/integration-test/routine/IO"><code>.IO method</code></a> instead.</p>
+<h2 id="(Cool)_routine_chr"><a href="/Documentable/integration-test/type/Cool#routine_chr">(Cool) routine chr</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub chr(Int(Cool))
+method chr()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Int">Int</a>, interprets it as a <a href="https://en.wikipedia.org/wiki/Code_point">Unicode code points</a>, and returns a <a href="/Documentable/integration-test/type/Str">string</a> made of that code point.</p>
+<pre class="pod-block-code">say &#39;65&#39;.chr;       # OUTPUT: «A␤»</pre>
+<p>The inverse operation is <a href="/Documentable/integration-test/routine/ord">ord</a>.</p>
+<p>Mnemonic: turns an integer into a <em>char</em>acter.</p>
+<h2 id="(Cool)_routine_chars"><a href="/Documentable/integration-test/type/Cool#routine_chars">(Cool) routine chars</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub chars(Cool $x)
+multi sub chars(Str:D $x)
+multi sub chars(str $x --&gt; int)
+method chars(--&gt; Int:D)</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and returns the number of characters in the string. Please note that on the JVM, you currently get codepoints instead of graphemes.</p>
+<pre class="pod-block-code">say &#39;møp&#39;.chars;    # OUTPUT: «3␤»
+say &#39;ã̷̠̬̊&#39;.chars;     # OUTPUT: «1␤»
+say &#39;👨‍👩‍👧‍👦🏿&#39;.chars;    # OUTPUT: «1␤»</pre>
+<p>If the string is native, the number of chars will be also returned as a native <code>int</code>.</p>
+<p><a name="Documentable/integration-test/index-entry-Grapheme"></a></p>
+<p>Graphemes are user visible characters. That is, this is what the user thinks of as a “character”.</p>
+<p>Graphemes can contain more than one codepoint. Typically the number of graphemes and codepoints differs when <code>Prepend</code> or <code>Extend</code> characters are involved (also known as <a href="https://en.wikipedia.org/wiki/Combining_character">Combining characters</a>), but there are many other cases when this may happen. Another example is <code>\c[ZWJ]</code> (<a href="https://en.wikipedia.org/wiki/Zero-width_joiner">Zero-width joiner</a>).</p>
+<p>You can check <code>Grapheme_Cluster_Break</code> property of a character in order to see how it is going to behave:</p>
+<pre class="pod-block-code">say ‘ã̷̠̬̊’.uniprops(‘Grapheme_Cluster_Break’); # OUTPUT: «(Other Extend Extend Extend Extend)␤»
+say ‘👨‍👩‍👧‍👦🏿’.uniprops(‘Grapheme_Cluster_Break’); # OUTPUT: «(E_Base_GAZ ZWJ E_Base_GAZ ZWJ E_Base_GAZ ZWJ E_Base_GAZ E_Modifier)␤»</pre>
+<p>You can read more about graphemes in the <a href="https://unicode.org/reports/tr29/#Grapheme_Cluster_Boundaries">Unicode Standard</a>, which Raku tightly follows, using a method called <a href="/Documentable/integration-test/language/glossary#NFG">NFG, normal form graphemes</a> for efficiently representing them.</p>
+<h2 id="(Cool)_routine_codes"><a href="/Documentable/integration-test/type/Cool#routine_codes">(Cool) routine codes</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub codes(Str(Cool))
+method codes()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and returns the number of <a href="https://en.wikipedia.org/wiki/Code_point">Unicode code points</a>.</p>
+<pre class="pod-block-code">say &#39;møp&#39;.codes;    # OUTPUT: «3␤»</pre>
+<p>The same result will be obtained with</p>
+<pre class="pod-block-code">say +&#39;møp&#39;.ords;    # OUTPUT: «3␤»</pre>
+<p><a href="/Documentable/integration-test/routine/ords">ords</a> first obtains the actual codepoints, so there might be a difference in speed.</p>
+<h2 id="(Cool)_routine_flip"><a href="/Documentable/integration-test/type/Cool#routine_flip">(Cool) routine flip</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub flip(Cool $s --&gt; Str:D)
+method flip()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and returns a reversed version.</p>
+<pre class="pod-block-code">say 421.flip;       # OUTPUT: «124␤»</pre>
+<h2 id="(Cool)_routine_trim"><a href="/Documentable/integration-test/type/Cool#routine_trim">(Cool) routine trim</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub trim(Str(Cool))
+method trim()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and returns the string with both leading and trailing whitespace stripped.</p>
+<pre class="pod-block-code">my $stripped = &#39;  abc &#39;.trim;
+say &quot;&lt;$stripped&gt;&quot;;          # OUTPUT: «&lt;abc&gt;␤»</pre>
+<h2 id="(Cool)_routine_trim-leading"><a href="/Documentable/integration-test/type/Cool#routine_trim-leading">(Cool) routine trim-leading</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub trim-leading(Str(Cool))
+method trim-leading()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and returns the string with leading whitespace stripped.</p>
+<pre class="pod-block-code">my $stripped = &#39;  abc &#39;.trim-leading;
+say &quot;&lt;$stripped&gt;&quot;;          # OUTPUT: «&lt;abc &gt;␤»</pre>
+<h2 id="(Cool)_routine_trim-trailing"><a href="/Documentable/integration-test/type/Cool#routine_trim-trailing">(Cool) routine trim-trailing</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub trim-trailing(Str(Cool))
+method trim-trailing()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and returns the string with trailing whitespace stripped.</p>
+<pre class="pod-block-code">my $stripped = &#39;  abc &#39;.trim-trailing;
+say &quot;&lt;$stripped&gt;&quot;;          # OUTPUT: «&lt;  abc&gt;␤»</pre>
+<h2 id="(Cool)_routine_lc"><a href="/Documentable/integration-test/type/Cool#routine_lc">(Cool) routine lc</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub lc(Str(Cool))
+method lc()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and returns it case-folded to lower case.</p>
+<pre class="pod-block-code">say &quot;ABC&quot;.lc;       # OUTPUT: «abc␤»</pre>
+<h2 id="(Cool)_routine_uc"><a href="/Documentable/integration-test/type/Cool#routine_uc">(Cool) routine uc</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub uc(Str(Cool))
+method uc()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and returns it case-folded to upper case (capital letters).</p>
+<pre class="pod-block-code">say &quot;Abc&quot;.uc;       # OUTPUT: «ABC␤»</pre>
+<h2 id="(Cool)_routine_fc"><a href="/Documentable/integration-test/type/Cool#routine_fc">(Cool) routine fc</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub fc(Str(Cool))
+method fc()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and returns the result a Unicode &quot;case fold&quot; operation suitable for doing caseless string comparisons. (In general, the returned string is unlikely to be useful for any purpose other than comparison.)</p>
+<pre class="pod-block-code">say &quot;groß&quot;.fc;       # OUTPUT: «gross␤»</pre>
+<h2 id="(Cool)_routine_tc"><a href="/Documentable/integration-test/type/Cool#routine_tc">(Cool) routine tc</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub tc(Str(Cool))
+method tc()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and returns it with the first letter case-folded to title case (or where not available, upper case).</p>
+<pre class="pod-block-code">say &quot;abC&quot;.tc;       # OUTPUT: «AbC␤»</pre>
+<h2 id="(Cool)_routine_tclc"><a href="/Documentable/integration-test/type/Cool#routine_tclc">(Cool) routine tclc</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub tclc(Str(Cool))
+method tclc()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and returns it with the first letter case-folded to title case (or where not available, upper case), and the rest of the string case-folded to lower case.</p>
+<pre class="pod-block-code">say &#39;abC&#39;.tclc;     # OUTPUT: «Abc␤»</pre>
+<h2 id="(Cool)_routine_wordcase"><a href="/Documentable/integration-test/type/Cool#routine_wordcase">(Cool) routine wordcase</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub wordcase(Str(Cool) $input, :&amp;filter = &amp;tclc, Mu :$where = True)
+method wordcase(:&amp;filter = &amp;tclc, Mu :$where = True)</pre>
+<p>Coerces the invocant (or in sub form, the first argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and filters each word that smartmatches against <code>$where</code> through the <code>&amp;filter</code>. With the default filter (first character to upper case, rest to lower) and matcher (which accepts everything), this title-cases each word:</p>
+<pre class="pod-block-code">say &quot;raku programming&quot;.wordcase;        # OUTPUT: «Raku Programming␤»</pre>
+<p>With a matcher:</p>
+<pre class="pod-block-code">say &quot;have fun working on perl&quot;.wordcase(:where({ .chars &gt; 3 }));
+                                        # Have fun Working on Perl</pre>
+<p>With a customer filter too:</p>
+<pre class="pod-block-code">say &quot;have fun working on perl&quot;.wordcase(:filter(&amp;uc), :where({ .chars &gt; 3 }));
+                                        # HAVE fun WORKING on PERL</pre>
+<h2 id="(Cool)_routine_samecase"><a href="/Documentable/integration-test/type/Cool#routine_samecase">(Cool) routine samecase</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub samecase(Cool $string, Cool $pattern)
+method samecase(Cool:D: Cool $pattern)</pre>
+<p>Coerces the invocant (or in sub form, the first argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and returns a copy of <code>$string</code> with case information for each individual character changed according to <code>$pattern</code>.</p>
+<p><strong>Note</strong>: The pattern string can contain three types of characters, i.e. uppercase, lowercase and caseless. For a given character in <code>$pattern</code> its case information determines the case of the corresponding character in the result.</p>
+<p>If <code>$string</code> is longer than <code>$pattern</code>, the case information from the last character of <code>$pattern</code> is applied to the remaining characters of <code>$string</code>.</p>
+<pre class="pod-block-code">say &quot;raKu&quot;.samecase(&quot;A_a_&quot;); # OUTPUT: «Raku␤»
+say &quot;rAKU&quot;.samecase(&quot;Ab&quot;);   # OUTPUT: «Raku␤»</pre>
+<h2 id="(Cool)_routine_uniprop"><a href="/Documentable/integration-test/type/Cool#routine_uniprop">(Cool) routine uniprop</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub uniprop(Str:D, |c)
+multi sub uniprop(Int:D $code)
+multi sub uniprop(Int:D $code, Stringy:D $propname)
+multi method uniprop(|c)</pre>
+<p>Returns the <a href="http://userguide.icu-project.org/strings/properties">unicode property</a> of the first character. If no property is specified returns the <a href="https://en.wikipedia.org/wiki/Unicode_character_property#General_Category">General Category</a>. Returns a Bool for Boolean properties. A <a href="/Documentable/integration-test/routine/uniprops">uniprops</a> routine can be used to get the property for every character in a string.</p>
+<pre class="pod-block-code">say &#39;a&#39;.uniprop;               # OUTPUT: «Ll␤»
+say &#39;1&#39;.uniprop;               # OUTPUT: «Nd␤»
+say &#39;a&#39;.uniprop(&#39;Alphabetic&#39;); # OUTPUT: «True␤»
+say &#39;1&#39;.uniprop(&#39;Alphabetic&#39;); # OUTPUT: «False␤»</pre>
+<h2 id="(Cool)_sub_uniprops"><a href="/Documentable/integration-test/type/Cool#sub_uniprops">(Cool) sub uniprops</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub uniprops(Str:D $str, Stringy:D $propname = &quot;General_Category&quot;)</pre>
+<p>Interprets the invocant as a <a href="/Documentable/integration-test/type/Str">Str</a>, and returns the <a href="http://userguide.icu-project.org/strings/properties">unicode property</a> for each character as a Seq. If no property is specified returns the <a href="https://en.wikipedia.org/wiki/Unicode_character_property#General_Category">General Category</a>. Returns a Bool for Boolean properties. Similar to <a href="/Documentable/integration-test/routine/uniprop">uniprop</a>, but for each character in the passed string.</p>
+<h2 id="(Cool)_routine_uniname"><a href="/Documentable/integration-test/type/Cool#routine_uniname">(Cool) routine uniname</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub uniname(Str(Cool) --&gt; Str)
+method uniname(--&gt; Str)</pre>
+<p>Interprets the invocant or first argument as a <a href="/Documentable/integration-test/type/Str">Str</a>, and returns the Unicode codepoint name of the first codepoint of the first character. See <a href="/Documentable/integration-test/routine/uninames">uninames</a> for a routine that works with multiple codepoints, and <a href="/Documentable/integration-test/routine/uniparse">uniparse</a> for the opposite direction.</p>
+<pre class="pod-block-code"># Camelia in Unicode
+say ‘»ö«’.uniname;
+# OUTPUT: «&quot;RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK&quot;␤»
+say &quot;Ḍ̇&quot;.uniname; # Note, doesn&#39;t show &quot;COMBINING DOT ABOVE&quot;
+# OUTPUT: «&quot;LATIN CAPITAL LETTER D WITH DOT BELOW&quot;␤»
+
+# Find the char with the longest Unicode name.
+say (0..0x1FFFF).sort(*.uniname.chars)[*-1].chr.uniname;
+# OUTPUT: ««ARABIC LIGATURE UIGHUR KIRGHIZ YEH WITH HAMZA ABOVE WITH ALEF MAKSURA INITIAL FORM␤»␤»</pre>
+<h2 id="(Cool)_routine_uninames"><a href="/Documentable/integration-test/type/Cool#routine_uninames">(Cool) routine uninames</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub uninames(Str:D)
+method uninames()</pre>
+<p>Returns of a Seq of Unicode names for the all the codepoints in the Str provided.</p>
+<pre class="pod-block-code">say ‘»ö«’.uninames.raku;
+# OUTPUT: «(&quot;RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK&quot;, &quot;LATIN SMALL LETTER O WITH DIAERESIS&quot;, &quot;LEFT-POINTING DOUBLE ANGLE QUOTATION MARK&quot;).Seq␤»</pre>
+<p>Note this example, which gets a Seq where each element is a Seq of all the codepoints in that character.</p>
+<pre class="pod-block-code">say &quot;Ḍ̇&#39;oh&quot;.comb&gt;&gt;.uninames.raku;
+# OUTPUT: «((&quot;LATIN CAPITAL LETTER D WITH DOT BELOW&quot;, &quot;COMBINING DOT ABOVE&quot;).Seq, (&quot;APOSTROPHE&quot;,).Seq, (&quot;LATIN SMALL LETTER O&quot;,).Seq, (&quot;LATIN SMALL LETTER H&quot;,).Seq)␤»</pre>
+<p>See <a href="/Documentable/integration-test/routine/uniparse">uniparse</a> for the opposite direction.</p>
+<h2 id="(Cool)_routine_unimatch"><a href="/Documentable/integration-test/type/Cool#routine_unimatch">(Cool) routine unimatch</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub unimatch(Str:D $str, |c)
+multi unimatch(Int:D $code, Stringy:D $pvalname, Stringy:D $propname = $pvalname)</pre>
+<p>Checks if the given integer codepoint or the first letter of the given string has a unicode property equal to the value you give. If you supply the Unicode property to be checked it will only return True if that property matches the given value.</p>
+<pre class="pod-block-code">say unimatch &#39;A&#39;, &#39;Latin&#39;;           # OUTPUT: «True␤»
+say unimatch &#39;A&#39;, &#39;Latin&#39;, &#39;Script&#39;; # OUTPUT: «True␤»
+say unimatch &#39;A&#39;, &#39;Ll&#39;;              # OUTPUT: «False␤»</pre>
+<p>The last property corresponds to &quot;lowercase letter&quot;, which explains why it returns false.</p>
+<h2 id="(Cool)_routine_chop"><a href="/Documentable/integration-test/type/Cool#routine_chop">(Cool) routine chop</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub chop(Str(Cool))
+method chop()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and returns it with the last character removed.</p>
+<pre class="pod-block-code">say &#39;perl&#39;.chop;                        # OUTPUT: «per␤»</pre>
+<h2 id="(Cool)_routine_chomp"><a href="/Documentable/integration-test/type/Cool#routine_chomp">(Cool) routine chomp</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub chomp(Str(Cool))
+method chomp()</pre>
+<p>Coerces the invocant (or in sub form, its argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and returns it with the last character removed, if it is a logical newline.</p>
+<pre class="pod-block-code">say &#39;ab&#39;.chomp.chars;                   # OUTPUT: «2␤»
+say &quot;a\n&quot;.chomp.chars;                  # OUTPUT: «1␤»</pre>
+<h2 id="(Cool)_routine_substr"><a href="/Documentable/integration-test/type/Cool#routine_substr">(Cool) routine substr</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub substr(Str(Cool) $str, |c)
+method substr(|c)</pre>
+<p>Coerces the invocant (or in the sub form, the first argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and calls <a href="/Documentable/integration-test/type/Str#routine_substr">Str.substr</a> with the arguments.</p>
+<h2 id="(Cool)_routine_substr-rw"><a href="/Documentable/integration-test/type/Cool#routine_substr-rw">(Cool) routine substr-rw</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method substr-rw(|) is rw
+multi sub substr-rw(|) is rw</pre>
+<p>Coerces the invocant (or in the sub form, the first argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and calls <a href="/Documentable/integration-test/type/Str#routine_substr-rw">Str.substr-rw</a> with the arguments.</p>
+<h2 id="(Cool)_routine_ords"><a href="/Documentable/integration-test/type/Cool#routine_ords">(Cool) routine ords</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub ords(Str(Cool) $str)
+method ords()</pre>
+<p>Coerces the invocant (or in the sub form, the first argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and returns a list of Unicode codepoints for each character.</p>
+<pre class="pod-block-code">say &quot;Camelia&quot;.ords;              # OUTPUT: «67 97 109 101 108 105 97␤»
+say ords 10;                     # OUTPUT: «49 48␤»</pre>
+<p>This is the list-returning version of <a href="/Documentable/integration-test/routine/ord">ord</a>. The inverse operation in <a href="/Documentable/integration-test/routine/chrs">chrs</a>. If you are only interested in the number of codepoints, <a href="/Documentable/integration-test/routine/codes">codes</a> is a possibly faster option.</p>
+<h2 id="(Cool)_routine_chrs"><a href="/Documentable/integration-test/type/Cool#routine_chrs">(Cool) routine chrs</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub chrs(*@codepoints --&gt; Str:D)
+method chrs()</pre>
+<p>Coerces the invocant (or in the sub form, the argument list) to a list of integers, and returns the string created by interpreting each integer as a Unicode codepoint, and joining the characters.</p>
+<pre class="pod-block-code">say &lt;67 97 109 101 108 105 97&gt;.chrs;   # OUTPUT: «Camelia␤»</pre>
+<p>This is the list-input version of <a href="/Documentable/integration-test/routine/chr">chr</a>. The inverse operation is <a href="/Documentable/integration-test/routine/ords">ords</a>.</p>
+<h2 id="(Cool)_routine_split"><a href="/Documentable/integration-test/type/Cool#routine_split">(Cool) routine split</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub    split(  Str:D $delimiter, Str(Cool) $input, $limit = Inf, :$k, :$v, :$kv, :$p, :$skip-empty)
+multi sub    split(Regex:D $delimiter, Str(Cool) $input, $limit = Inf, :$k, :$v, :$kv, :$p, :$skip-empty)
+multi sub    split(@delimiters, Str(Cool) $input, $limit = Inf, :$k, :$v, :$kv, :$p, :$skip-empty)
+multi method split(  Str:D $delimiter, $limit = Inf, :$k, :$v, :$kv, :$p, :$skip-empty)
+multi method split(Regex:D $delimiter, $limit = Inf, :$k, :$v, :$kv, :$p, :$skip-empty)
+multi method split(@delimiters, $limit = Inf, :$k, :$v, :$kv, :$p, :$skip-empty)</pre>
+<p><a href="#fn-1" id="fn-ref-1">[1]</a></p>
+<p>Coerces the invocant (or in the sub form, the second argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and splits it into pieces based on delimiters found in the string.</p>
+<p>If <code>$delimiter</code> is a string, it is searched for literally and not treated as a regex. You can also provide multiple delimiters by specifying them as a list; mixing Cool and Regex objects is OK.</p>
+<pre class="pod-block-code">say split(&#39;;&#39;, &quot;a;b;c&quot;).raku;               # OUTPUT: «(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;)␤»
+say split(&#39;;&#39;, &quot;a;b;c&quot;, 2).raku;            # OUTPUT: «(&quot;a&quot;, &quot;b;c&quot;).Seq␤»
+
+say split(&#39;;&#39;, &quot;a;b;c,d&quot;).raku;             # OUTPUT: «(&quot;a&quot;, &quot;b&quot;, &quot;c,d&quot;)␤»
+say split(/\;/, &quot;a;b;c,d&quot;).raku;            # OUTPUT: «(&quot;a&quot;, &quot;b&quot;, &quot;c,d&quot;)␤»
+say split(/&lt;[;,]&gt;/, &quot;a;b;c,d&quot;).raku;        # OUTPUT: «(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;)␤»
+
+say split([&#39;a&#39;, /b+/, 4], &#39;1a2bb345&#39;).raku; # OUTPUT: «(&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;5&quot;)␤»</pre>
+<p>By default, split omits the matches, and returns a list of only those parts of the string that did not match. Specifying one of the <code>:k, :v, :kv, :p</code> adverbs changes that. Think of the matches as a list that is interleaved with the non-matching parts.</p>
+<p>The <code>:v</code> interleaves the values of that list, which will be either <a href="/Documentable/integration-test/type/Match">Match</a> objects, if a <a href="/Documentable/integration-test/type/Regex">Regex</a> was used as a matcher in the split, or <a href="/Documentable/integration-test/type/Str">Str</a> objects, if a <a href="/Documentable/integration-test/type/Cool">Cool</a> was used as matcher. If multiple delimiters are specified, <a href="/Documentable/integration-test/type/Match">Match</a> objects will be generated for all of them, unless <strong>all</strong> of the delimiters are <a href="/Documentable/integration-test/type/Cool">Cool</a>.</p>
+<pre class="pod-block-code">say &#39;abc&#39;.split(/b/, :v);               # OUTPUT: «(a ｢b｣ c)␤»
+say &#39;abc&#39;.split(&#39;b&#39;, :v);               # OUTPUT: «(a b c)␤»</pre>
+<p><code>:k</code> interleaves the keys, that is, the indexes:</p>
+<pre class="pod-block-code">say &#39;abc&#39;.split(/b/, :k);               # OUTPUT: «(a 0 c)␤»</pre>
+<p><code>:kv</code> adds both indexes and matches:</p>
+<pre class="pod-block-code">say &#39;abc&#39;.split(/b/, :kv);               # OUTPUT: «(a 0 ｢b｣ c)␤»</pre>
+<p>and <code>:p</code> adds them as <a href="/Documentable/integration-test/type/Pair">Pairs</a>, using the same types for values as <code>:v</code> does:</p>
+<pre class="pod-block-code">say &#39;abc&#39;.split(/b/, :p);               # OUTPUT: «(a 0 =&gt; ｢b｣ c)␤»
+say &#39;abc&#39;.split(&#39;b&#39;, :p);               # OUTPUT: «(a 0 =&gt; b c)␤»</pre>
+<p>You can only use one of the <code>:k, :v, :kv, :p</code> adverbs in a single call to <code>split</code>.</p>
+<p>Note that empty chunks are not removed from the result list. For that behavior, use the <code>:skip-empty</code> named argument:</p>
+<pre class="pod-block-code">say (&quot;f,,b,c,d&quot;.split: /&quot;,&quot;/             ).raku;  # OUTPUT: «(&quot;f&quot;, &quot;&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;)␤»
+say (&quot;f,,b,c,d&quot;.split: /&quot;,&quot;/, :skip-empty).raku;  # OUTPUT: «(&quot;f&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;)␤»</pre>
+<h2 id="(Cool)_routine_lines"><a href="/Documentable/integration-test/type/Cool#routine_lines">(Cool) routine lines</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub lines(Str(Cool))
+method lines()</pre>
+<p>Coerces the invocant (and in sub form, the argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, decomposes it into lines (with the newline characters stripped), and returns the list of lines.</p>
+<pre class="pod-block-code">say lines(&quot;a\nb\n&quot;).join(&#39;|&#39;);          # OUTPUT: «a|b␤»
+say &quot;some\nmore\nlines&quot;.lines.elems;    # OUTPUT: «3␤»</pre>
+<p>This method can be used as part of an <code>IO::Path</code> to process a file line-by-line, since <code>IO::Path</code> objects inherit from <code>Cool</code>, e.g.:</p>
+<pre class="pod-block-code">for &#39;huge-csv&#39;.IO.lines -&gt; $line {
+    # Do something with $line
+}
+
+# or if you&#39;ll be processing later
+my @lines = &#39;huge-csv&#39;.IO.lines;
+</pre>
+<p>Without any arguments, sub <code>lines</code> operates on <code>$*ARGFILES</code>, which defaults to <code>$*IN</code> in the absence of any filenames.</p>
+<p>To modify values in place use <code>is copy</code> to force a writable container.</p>
+<pre class="pod-block-code">for $*IN.lines -&gt; $_ is copy { s/(\w+)/{$0 ~ $0}/; .say }
+</pre>
+<h2 id="(Cool)_method_words"><a href="/Documentable/integration-test/type/Cool#method_words">(Cool) method words</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method words(Cool:D: |c)</pre>
+<p>Coerces the invocant (or first argument, if it is called as a subroutine) to <a href="/Documentable/integration-test/type/Str">Str</a>, and returns a list of words that make up the string. Check <a href="/Documentable/integration-test/type/Str#routine_words"><code>Str.words</code></a> for additional arguments and its meaning.</p>
+<pre class="pod-block-code">say &lt;The quick brown fox&gt;.words.join(&#39;|&#39;);     # OUTPUT: «The|quick|brown|fox␤»
+say &lt;The quick brown fox&gt;.words(2).join(&#39;|&#39;);  # OUTPUT: «The|quick␤»
+</pre>
+<p><code>Cool</code> is the base class for many other classes, and some of them, like <a href="/Documentable/integration-test/type/Match">Match</a>, can be converted to a string. This is what happens in this case:</p>
+<pre class="pod-block-code">say ( &quot;easy come, easy goes&quot; ~~ m:g/(ea\w+)/).words(Inf);
+# OUTPUT: «(easy easy)␤»
+say words( &quot;easy come, easy goes&quot; ~~ m:g/(ea\w+)/ , ∞);
+# OUTPUT: «(easy easy)␤»</pre>
+<p>The example above illustrates two of the ways <code>words</code> can be invoked, with the first argument turned into invocant by its signature. Of course, <code>Inf</code> is the default value of the second argument, so in both cases (and forms) it can be simply omitted.</p>
+<p>Only whitespace (including no-break space) counts as word boundaries</p>
+<pre class="pod-block-code">say &lt;Flying on a Boeing&nbsp;747&gt;.words.join(&#39;|&#39;);  # OUTPUT: «Flying|on|a|Boeing|747␤»</pre>
+<p>In this case, &quot;Boeing&nbsp;747&quot; includes a (visible only in the source) no-break space; <code>words</code> still splits the (resulting) <code>Str</code> on it, even if the original array only had 4 elements:</p>
+<pre class="pod-block-code">say &lt;Flying on a Boeing&nbsp;747&gt;.join(&#39;|&#39;);        # OUTPUT: «Flying|on|a|Boeing&nbsp;747␤»</pre>
+<p>Please see <a href="/Documentable/integration-test/type/Str#routine_words"><code>Str.words</code></a> for more examples and ways to invoke it.</p>
+<h2 id="(Cool)_routine_comb"><a href="/Documentable/integration-test/type/Cool#routine_comb">(Cool) routine comb</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub comb(Regex $matcher, Cool $input, $limit = *)
+multi sub comb(Str $matcher, Cool $input, $limit = *)
+multi sub comb(Int:D $size, Cool $input, $limit = *)
+multi method comb(|c)</pre>
+<p>Returns a <a href="/Documentable/integration-test/type/Seq">Seq</a> of all (or if supplied, at most <code>$limit</code>) matches of the invocant (method form) or the second argument (sub form) against the <a href="/Documentable/integration-test/type/Regex">Regex</a>, string or defined number.</p>
+<pre class="pod-block-code">say &quot;6 or 12&quot;.comb(/\d+/).join(&quot;, &quot;);           # OUTPUT: «6, 12␤»
+say comb(/\d &lt;[1..9]&gt; /,(11..30)).join(&quot;--&quot;);
+# OUTPUT:
+# «11--12--13--14--15--16--17--18--19--21--22--23--24--25--26--27--28--29␤»</pre>
+<p>The second statement exemplifies the first form of <code>comb</code>, with a <code>Regex</code> that excludes multiples of ten, and a <code>Range</code> (which is <code>Cool</code>) as <code>$input</code>. <code>comb</code> stringifies the <code>Range</code> before applying <code>.comb</code> on the resulting string. Check <a href="/Documentable/integration-test/type/Str#routine_comb"><code>Str.comb</code></a> for its effect on different kind of input strings. When the first argument is an integer, it indicates the (maximum) size of the chunks the input is going to be divided in</p>
+<pre class="pod-block-code">say comb(3,[3,33,333,3333]).join(&quot;*&quot;);  # OUTPUT: «3 3*3 3*33 *333*3␤»</pre>
+<p>In this case the input is a list, which after transformation to <code>Str</code> (which includes the spaces) is divided in chunks of size 3.</p>
+<h2 id="(Cool)_method_contains"><a href="/Documentable/integration-test/type/Cool#method_contains">(Cool) method contains</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method contains(Cool:D: |c)</pre>
+<p>Coerces the invocant to a <a href="/Documentable/integration-test/type/Str"><code>Str</code></a>, and calls <a href="/Documentable/integration-test/type/Str#method_contains"><code>Str.contains</code></a> on it. Please refer to that version of the method for arguments and general syntax.</p>
+<pre class="pod-block-code">say 123.contains(&quot;2&quot;)# OUTPUT: «True␤»</pre>
+<p>Since <a href="/Documentable/integration-test/type/Int">Int</a> is a subclass of <code>Cool</code>, <code>123</code> is coerced to a <code>Str</code> and then <code>contains</code> is called on it.</p>
+<pre class="pod-block-code">say (1,1, * + * … * &gt; 250).contains(233)# OUTPUT: «True␤»</pre>
+<p><a href="/Documentable/integration-test/type/Seq">Seq</a>s are also subclasses of <code>Cool</code>, and they are stringified to a comma-separated form. In this case we are also using an <code>Int</code>, which is going to be stringified also; <code>&quot;233&quot;</code> is included in that sequence, so it returns <code>True</code>. Please note that this sequence is not lazy; the stringification of lazy sequences does not include each and every one of their components for obvious reasons.</p>
+<h2 id="(Cool)_routine_index"><a href="/Documentable/integration-test/type/Cool#routine_index">(Cool) routine index</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub index(Cool:D $s, Cool:D $needle, :i(:$ignorecase), :m(:$ignoremark) --&gt; Int:D)
+multi sub index(Cool:D $s, Cool:D $needle, Cool:D $pos, :i(:$ignorecase), :m(:$ignoremark) --&gt; Int:D)
+multi method index(Cool:D: Cool:D $needle --&gt; Int:D)
+multi method index(Cool:D: Cool:D $needle, :m(:$ignoremark)! --&gt; Int:D)
+multi method index(Cool:D: Cool:D $needle, :i(:$ignorecase)!, :m(:$ignoremark) --&gt; Int:D)
+multi method index(Cool:D: Cool:D $needle, Cool:D $pos --&gt; Int:D)
+multi method index(Cool:D: Cool:D $needle, Cool:D $pos, :m(:$ignoremark)!  --&gt; Int:D)
+multi method index(Cool:D: Cool:D $needle, Cool:D $pos, :i(:$ignorecase)!, :m(:$ignoremark) --&gt; Int:D)</pre>
+<p>Coerces the first two arguments (in method form, also counting the invocant) to a <a href="/Documentable/integration-test/type/Str">Str</a>, and searches for <code>$needle</code> in the string <code>$s</code> starting from <code>$pos</code>. It returns the offset into the string where <code>$needle</code> was found, and <code>Nil</code> if it was not found.</p>
+<p>See <a href="/Documentable/integration-test/type/Str#routine_index">the documentation in type Str</a> for examples.</p>
+<h2 id="(Cool)_routine_rindex"><a href="/Documentable/integration-test/type/Cool#routine_rindex">(Cool) routine rindex</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub rindex(Cool:D $s, Cool:D $needle --&gt; Int:D)
+multi sub rindex(Cool:D $s, Cool:D $needle, Cool:D $pos --&gt; Int:D)
+multi method rindex(Cool:D: Cool:D $needle --&gt; Int:D)
+multi method rindex(Cool:D: Cool:D $needle, Cool:D $pos --&gt; Int:D)</pre>
+<p>Coerces the first two arguments (including the invocant in method form) to <a href="/Documentable/integration-test/type/Str">Str</a> and <code>$pos</code> to <a href="/Documentable/integration-test/type/Int">Int</a>, and returns the last position of <code>$needle</code> in the string not after <code>$pos</code>. Returns <code>Nil</code> if <code>$needle</code> wasn&#39;t found.</p>
+<p>See <a href="/Documentable/integration-test/type/Str#routine_rindex">the documentation in type Str</a> for examples.</p>
+<h2 id="(Cool)_method_match"><a href="/Documentable/integration-test/type/Cool#method_match">(Cool) method match</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method match(Cool:D: $target, *%adverbs)</pre>
+<p>Coerces the invocant to <a href="/Documentable/integration-test/type/Str">Str</a> and calls the method <a href="/Documentable/integration-test/type/Str#method_match">match</a> on it.</p>
+<h2 id="(Cool)_routine_roots"><a href="/Documentable/integration-test/type/Cool#routine_roots">(Cool) routine roots</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub roots(Numeric(Cool) $x, Int(Cool) $n)
+multi method roots(Int(Cool) $n)</pre>
+<p>Coerces the first argument (and in method form, the invocant) to <a href="/Documentable/integration-test/type/Numeric">Numeric</a> and the second (<code>$n</code>) to <a href="/Documentable/integration-test/type/Int">Int</a>, and produces a list of <code>$n</code> <a href="/Documentable/integration-test/type/Complex">Complex</a> <code>$n</code>-roots, which means numbers that, raised to the <code>$n</code>th power, approximately produce the original number.</p>
+<p>For example</p>
+<pre class="pod-block-code">my $original = 16;
+my @roots = $original.roots(4);
+say @roots;
+
+for @roots -&gt; $r {
+    say abs($r ** 4 - $original);
+}
+
+# OUTPUT:«2+0i 1.22464679914735e-16+2i -2+2.44929359829471e-16i -3.67394039744206e-16-2i␤»
+# OUTPUT:«1.77635683940025e-15␤»
+# OUTPUT:«4.30267170434156e-15␤»
+# OUTPUT:«8.03651692704705e-15␤»
+# OUTPUT:«1.04441561648202e-14␤»
+</pre>
+<h2 id="(Cool)_method_match"><a href="/Documentable/integration-test/type/Cool#method_match">(Cool) method match</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method match(|)</pre>
+<p>Coerces the invocant to <a href="/Documentable/integration-test/type/Stringy">Stringy</a> and calls <a href="/Documentable/integration-test/type/Str#method_match">Str.match</a>.</p>
+<h2 id="(Cool)_method_subst"><a href="/Documentable/integration-test/type/Cool#method_subst">(Cool) method subst</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method subst(|)</pre>
+<p>Coerces the invocant to <a href="/Documentable/integration-test/type/Stringy">Stringy</a> and calls <a href="/Documentable/integration-test/type/Str#method_subst">Str.subst</a>.</p>
+<h2 id="(Cool)_method_trans"><a href="/Documentable/integration-test/type/Cool#method_trans">(Cool) method trans</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method trans(|)</pre>
+<p>Coerces the invocant to <a href="/Documentable/integration-test/type/Str">Str</a> and calls <a href="/Documentable/integration-test/type/Str#method_trans">Str.trans</a></p>
+<h2 id="(Cool)_method_IO"><a href="/Documentable/integration-test/type/Cool#method_IO">(Cool) method IO</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method IO(--&gt; IO::Path:D)</pre>
+<p>Coerces the invocant to <a href="/Documentable/integration-test/type/IO::Path">IO::Path</a>.</p>
+<pre class="pod-block-code">.say for &#39;.&#39;.IO.dir;        # gives a directory listing
+</pre>
+
+        </div>
+    </div>
+
+    <aside><ol start="1">
+<li><a href="#fn-ref-1" id="fn-1">[↑]</a> <em>the <a href="/Documentable/integration-test/routine/comb">comb</a> routine is a much better choice for many tasks that in other languages are handled by the <code>split</code>.</em> </li>
+</ol></aside>
+
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Type/Instant.pod6">https://github.com/Raku/doc/blob/master/doc/Type/Instant.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

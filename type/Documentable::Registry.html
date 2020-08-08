@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>class Documentable::Registry</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/">
+            <img src="/Documentable/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/language.html"> Language </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/routine.html"> Routines </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/type.html"> All </a>
+                    <a class="menu-item" href="/Documentable/type-basic.html"> Basic </a>
+                    <a class="menu-item" href="/Documentable/type-html-generation.html"> HTML Generation </a>
+                    <a class="menu-item" href="/Documentable/type-exception.html"> Exceptions </a>
+            </div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/Documentable/tree/master/docs/Type/Documentable/Registry.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">class Documentable::Registry</h1>
+        <p class="subtitle">Container of all our knowledge.</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+      <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#method_documentables">method documentables</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#method_definitions">method definitions</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#method_references">method references</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">1.4</td><td class="toc-text"><a href="#method_docs">method docs</a></td></tr>
+              <tr class="toc-level-2"><td class="toc-number">1.5</td><td class="toc-text"><a href="#method_composed">method composed</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">1.6</td><td class="toc-text"><a href="#method_tg">method tg</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">1.7</td><td class="toc-text"><a href="#method_routines-by-type">method routines-by-type</a></td></tr>
+                             <tr class="toc-level-2"><td class="toc-number">1.8</td><td class="toc-text"><a href="#method_pod-cache">method pod-cache</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">1.9</td><td class="toc-text"><a href="#method_topdir">method topdir</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">1.10</td><td class="toc-text"><a href="#submethod_BUILD">submethod BUILD</a></td></tr>
+                                  <tr class="toc-level-2"><td class="toc-number">1.11</td><td class="toc-text"><a href="#method_add-new">method add-new</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">1.12</td><td class="toc-text"><a href="#method_load">method load</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">1.13</td><td class="toc-text"><a href="#method_process-pod-dir">method process-pod-dir</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">1.14</td><td class="toc-text"><a href="#method_compose">method compose</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">1.15</td><td class="toc-text"><a href="#method_lookup">method lookup</a></td></tr>
+                         <tr class="toc-level-2"><td class="toc-number">1.16</td><td class="toc-text"><a href="#method_docs-for">method docs-for</a></td></tr>
+             <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Type_Graph">Type Graph</a></td></tr>
+ 
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <pre class="editor editor-colors"><div class="line"><span class="source perl6fe"><span class="meta class perl6fe"><span class="storage type class perl6fe"><span>class</span></span><span>&nbsp;</span><span class="entity name type class perl6fe"><span>Documentable::Registry</span></span></span><span>&nbsp;</span><span class="meta block perl6fe"><span class="punctuation definition block perl6fe"><span>{</span><span>}</span></span></span></span></div></pre><p>An instance of this object is used to deal with a collection of <a href="/Documentable/type/Documentable">Documentable</a> objects. It gives you an API to access all the processed documentation. We can say this class is our source of information.</p>
+<h1 id="Methods"><a class="u" href="#___top" title="go to top of document">Methods</a></h1>
+<h2 id="method_documentables"><a class="u" href="#___top" title="go to top of document">method documentables</a></h2>
+<p>Defined as</p>
+<pre class="editor editor-colors"><div class="line"><span class="source perl6fe"><span class="storage type declarator type perl6fe"><span>method</span></span><span>&nbsp;</span><span class="entity name function perl6fe"><span>documentables</span></span><span>(</span><span class="keyword operator multi-symbol perl6fe"><span>--&gt;</span></span><span>&nbsp;</span><span class="support type perl6fe"><span>Array</span></span><span>[</span><span class="routine name perl6fe"><span>Documentable</span></span><span>::</span><span class="routine name perl6fe"><span>Primary</span></span><span>])</span></span></div></pre><p>Returns an <code>Array</code> containing all <a href="/Documentable/type/Documentable::Primary">Documentable::Primary</a> objects created.</p>
+<h2 id="method_definitions"><a class="u" href="#___top" title="go to top of document">method definitions</a></h2>
+<p>Defined as</p>
+<pre class="editor editor-colors"><div class="line"><span class="source perl6fe"><span class="storage type declarator type perl6fe"><span>method</span></span><span>&nbsp;</span><span class="entity name function perl6fe"><span>definitions</span></span><span>(</span><span class="keyword operator multi-symbol perl6fe"><span>--&gt;</span></span><span>&nbsp;</span><span class="support type perl6fe"><span>Array</span></span><span>[</span><span class="routine name perl6fe"><span>Documentable</span></span><span>::</span><span class="routine name perl6fe"><span>Secondary</span></span><span>])</span></span></div></pre><p>Returns an <code>Array</code> containing all <a href="/Documentable/type/Documentable::Secondary">Documentable::Secondary</a> objects created.</p>
+<h2 id="method_references"><a class="u" href="#___top" title="go to top of document">method references</a></h2>
+<p>Defined as</p>
+<pre class="editor editor-colors"><div class="line"><span class="source perl6fe"><span class="storage type declarator type perl6fe"><span>method</span></span><span>&nbsp;</span><span class="entity name function perl6fe"><span>references</span></span><span>(</span><span class="keyword operator multi-symbol perl6fe"><span>--&gt;</span></span><span>&nbsp;</span><span class="support type perl6fe"><span>Array</span></span><span>[</span><span class="routine name perl6fe"><span>Documentable</span></span><span>::</span><span class="routine name perl6fe"><span>Index</span></span><span>])</span></span></div></pre><p>Returns an <code>Array</code> containing all <a href="/Documentable/type/Documentable::References">Documentable::References</a> objects created.</p>
+<h2 id="method_docs"><a class="u" href="#___top" title="go to top of document">method docs</a></h2>
+<p>Defined as</p>
+<pre class="editor editor-colors"><div class="line"><span class="source perl6fe"><span class="storage type declarator type perl6fe"><span>method</span></span><span>&nbsp;</span><span class="entity name function perl6fe"><span>docs</span></span><span>(</span><span class="keyword operator multi-symbol perl6fe"><span>--&gt;</span></span><span>&nbsp;</span><span class="support type perl6fe"><span>Array</span></span><span>[</span><span class="routine name perl6fe"><span>Documentable</span></span><span>])</span></span></div></pre><p>Returns an <code>Array</code> containing all <a href="/Documentable/type/Documentable">Documentable</a> objects created. Equivalent to join <code>documentables</code>, <code>definitions</code> and <code>references</code>.</p>
+<h2 id="method_composed"><a class="u" href="#___top" title="go to top of document">method composed</a></h2>
+<p>Defined as</p>
+<pre class="editor editor-colors"><div class="line"><span class="source perl6fe"><span class="storage type declarator type perl6fe"><span>method</span></span><span>&nbsp;</span><span class="entity name function perl6fe"><span>composed</span></span><span>(</span><span class="keyword operator multi-symbol perl6fe"><span>--&gt;</span></span><span>&nbsp;</span><span class="support type perl6fe"><span>Bool</span></span><span>)</span></span></div></pre><p>Returns a <code>Bool</code> indicating is the registry is composed.</p>
+<h2 id="method_tg"><a class="u" href="#___top" title="go to top of document">method tg</a></h2>
+<p>Defined as</p>
+<pre class="editor editor-colors"><div class="line"><span class="source perl6fe"><span class="storage type declarator type perl6fe"><span>method</span></span><span>&nbsp;</span><span class="entity name function perl6fe"><span>tg</span></span><span>(</span><span class="keyword operator multi-symbol perl6fe"><span>--&gt;</span></span><span>&nbsp;</span><span class="routine name perl6fe"><span>TypeGraph</span></span><span>)</span></span></div></pre><p>Returns the instance of <a href="https://github.com/antoniogamiz/Raku-TypeGraph">TypeGraph</a> used to complete the type files.</p>
+<h2 id="method_routines-by-type"><a class="u" href="#___top" title="go to top of document">method routines-by-type</a></h2>
+<p>Defined as</p>
+<pre class="editor editor-colors"><div class="line"><span class="source perl6fe"><span class="storage type declarator type perl6fe"><span>method</span></span><span>&nbsp;&nbsp;</span><span class="entity name function perl6fe"><span>routines-by-type</span></span><span>(</span><span class="keyword operator multi-symbol perl6fe"><span>--&gt;</span></span><span>&nbsp;</span><span class="support type perl6fe"><span>Hash</span></span><span>)</span></span></div></pre><p>Returns a <code>Hash</code> with the following structure:</p>
+<ul><li><p><code>key</code>: name of a type.</p>
+</li>
+<li><p><code>value</code>: all <a href="/Documentable/type/Documentable::Secondary">Documentable::Secondary</a> objects found in that type.</p>
+</li>
+</ul>
+<p>So, if you have a class <code>Any</code>, with two methods, <code>method1</code> and <code>method2</code> then:</p>
+<pre class="editor editor-colors"><div class="line"><span class="source perl6fe"><span class="storage modifier declarator perl6fe"><span>my</span></span><span>&nbsp;</span><span class="meta variable container perl6fe"><span class="variable other identifier sigil perl6fe"><span>$</span></span><span class="variable other identifier perl6fe"><span>registry</span></span></span><span>&nbsp;</span><span class="storage modifier assignment perl6fe"><span>=</span></span><span>&nbsp;(</span><span class="routine name perl6fe"><span>suppose</span></span><span>&nbsp;</span><span class="routine name perl6fe"><span>it</span></span><span>&#39;</span><span class="routine name perl6fe"><span>s</span></span><span>&nbsp;</span><span class="routine name perl6fe"><span>correctly</span></span><span>&nbsp;</span><span class="routine name perl6fe"><span>initialized</span></span><span>);</span></span></div><div class="line"><span class="source perl6fe"><span>&nbsp;</span></span></div><div class="line"><span class="source perl6fe"><span class="comment line number-sign perl6fe"><span class="punctuation definition comment perl6fe"><span>#</span></span><span>&nbsp;This&nbsp;will&nbsp;return&nbsp;two&nbsp;Documentable::Secondary&nbsp;objects&nbsp;containing&nbsp;the</span><span>&nbsp;</span></span></span></div><div class="line"><span class="source perl6fe"><span class="comment line number-sign perl6fe"><span class="punctuation definition comment perl6fe"><span>#</span></span><span>&nbsp;definition&nbsp;of&nbsp;method1&nbsp;and&nbsp;method2.</span><span>&nbsp;</span></span></span></div><div class="line"><span class="source perl6fe"><span class="support function perl6fe"><span>say</span></span><span>&nbsp;</span><span class="meta variable container perl6fe"><span class="variable other identifier sigil perl6fe"><span>$</span></span><span class="variable other identifier perl6fe"><span>registry</span></span></span><span class="keyword operator generic perl6fe"><span>.</span></span><span class="routine name perl6fe"><span>routines-by-type</span></span><span class="span keyword operator array words perl6fe"><span>&lt;</span></span><span class="string array words perl6fe"><span>Any</span></span><span class="span keyword operator array words perl6fe"><span>&gt;</span></span><span>;</span></span></div><div class="line"><span class="source perl6fe"><span>&nbsp;</span></span></div></pre><h2 id="method_pod-cache"><a class="u" href="#___top" title="go to top of document">method pod-cache</a></h2>
+<p>Defined as</p>
+<pre class="editor editor-colors"><div class="line"><span class="source perl6fe"><span class="storage type declarator type perl6fe"><span>method</span></span><span>&nbsp;</span><span class="entity name function perl6fe"><span>pod-cache</span></span><span>(</span><span class="keyword operator multi-symbol perl6fe"><span>--&gt;</span></span><span>&nbsp;</span><span class="support type perl6fe"><span>Pod</span></span><span>::</span><span class="routine name perl6fe"><span>From</span></span><span>::</span><span class="routine name perl6fe"><span>Cache</span></span><span>)</span></span></div></pre><p>Returns the the cache object used.</p>
+<h2 id="method_topdir"><a class="u" href="#___top" title="go to top of document">method topdir</a></h2>
+<p>Defined as</p>
+<pre class="editor editor-colors"><div class="line"><span class="source perl6fe"><span class="storage type declarator type perl6fe"><span>method</span></span><span>&nbsp;</span><span class="entity name function perl6fe"><span>topdir</span></span><span>(</span><span class="keyword operator multi-symbol perl6fe"><span>--&gt;</span></span><span>&nbsp;</span><span class="support type perl6fe"><span>Str</span></span><span>)</span></span></div></pre><p>Returns a <code>Str</code> indicating the directory used as <code>$topdir</code>.</p>
+<h2 id="submethod_BUILD"><a class="u" href="#___top" title="go to top of document">submethod BUILD</a></h2>
+<p>Defined as</p>
+<pre class="editor editor-colors"><div class="line"><span class="source perl6fe"><span class="storage type declarator type perl6fe"><span>submethod</span></span><span>&nbsp;</span><span class="entity name function perl6fe"><span>BUILD</span></span><span>(</span><span class="support type perl6fe"><span>Str</span></span><span>&nbsp;</span><span class="keyword operator generic perl6fe"><span>:</span></span><span class="meta variable container perl6fe"><span class="variable other identifier sigil perl6fe"><span>$</span></span><span class="variable other identifier perl6fe"><span>topdir</span></span></span><span>&nbsp;</span><span class="storage modifier assignment perl6fe"><span>=</span></span><span>&nbsp;</span><span class="string quoted double perl6fe"><span class="punctuation definition string begin perl6fe"><span>&quot;</span></span><span>doc</span><span class="punctuation definition string end perl6fe"><span>&quot;</span></span></span><span>,&nbsp;</span><span class="keyword operator generic perl6fe"><span>:</span></span><span class="meta variable container perl6fe"><span class="variable other identifier sigil perl6fe"><span>@</span></span><span class="variable other identifier perl6fe"><span>dirs</span></span></span><span>&nbsp;</span><span class="storage modifier assignment perl6fe"><span>=</span></span><span>&nbsp;[],&nbsp;</span><span class="support type perl6fe"><span>Bool</span></span><span>&nbsp;</span><span class="keyword operator generic perl6fe"><span>:</span></span><span class="meta variable container perl6fe"><span class="variable other identifier sigil perl6fe"><span>$</span></span><span class="variable other identifier perl6fe"><span>verbose</span></span></span><span>&nbsp;</span><span class="storage modifier assignment perl6fe"><span>=</span></span><span>&nbsp;</span><span class="constant language boolean perl6fe"><span>True</span></span><span>)</span></span></div></pre><p>Creates a new instance of the class.</p>
+<ul><li><p><code>$topdir</code>: directory containing all the pod6 sources.</p>
+</li>
+<li><p><code>@dirs</code>: subdirectories of <code>$topdir</code> containing pod6 sources.</p>
+</li>
+<li><p><code>$verbose</code>: if <code>True</code>, additional information will be printed.</p>
+</li>
+</ul>
+<p>Example:</p>
+<pre class="editor editor-colors"><div class="line"><span class="source perl6fe"><span class="keyword other include perl6fe"><span>use</span></span><span>&nbsp;</span><span class="routine name perl6fe"><span>Documentable</span></span><span>::</span><span class="routine name perl6fe"><span>Registry</span></span><span>;</span></span></div><div class="line"><span class="source perl6fe"><span>&nbsp;</span></span></div><div class="line"><span class="source perl6fe"><span class="storage modifier declarator perl6fe"><span>my</span></span><span>&nbsp;</span><span class="meta variable container perl6fe"><span class="variable other identifier sigil perl6fe"><span>$</span></span><span class="variable other identifier perl6fe"><span>registry</span></span></span><span>&nbsp;</span><span class="storage modifier assignment perl6fe"><span>=</span></span><span>&nbsp;</span><span class="routine name perl6fe"><span>Documentable</span></span><span>::</span><span class="routine name perl6fe"><span>Registry</span></span><span class="keyword operator generic perl6fe"><span>.</span></span><span class="support function perl6fe"><span>new</span></span><span>(</span></span></div><div class="line"><span class="source perl6fe"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="string pair key perl6fe"><span>topdir&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="keyword operator multi-symbol perl6fe"><span>=&gt;</span></span><span>&nbsp;</span><span class="string quoted double perl6fe"><span class="punctuation definition string begin perl6fe"><span>&quot;</span></span><span>doc</span><span class="punctuation definition string end perl6fe"><span>&quot;</span></span></span><span>,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment line number-sign perl6fe"><span class="punctuation definition comment perl6fe"><span>#</span></span><span>&nbsp;doc&nbsp;containing&nbsp;the&nbsp;pod&nbsp;collection</span><span>&nbsp;</span></span></span></div><div class="line"><span class="source perl6fe"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="string pair key perl6fe"><span>dirs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="keyword operator multi-symbol perl6fe"><span>=&gt;</span></span><span>&nbsp;[</span><span class="string quoted double perl6fe"><span class="punctuation definition string begin perl6fe"><span>&quot;</span></span><span>Type</span><span class="punctuation definition string end perl6fe"><span>&quot;</span></span></span><span>,&nbsp;</span><span class="string quoted double perl6fe"><span class="punctuation definition string begin perl6fe"><span>&quot;</span></span><span>Language</span><span class="punctuation definition string end perl6fe"><span>&quot;</span></span></span><span>],&nbsp;</span><span class="comment line number-sign perl6fe"><span class="punctuation definition comment perl6fe"><span>#</span></span><span>&nbsp;dirs&nbsp;to&nbsp;process</span><span>&nbsp;</span></span></span></div><div class="line"><span class="source perl6fe"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="string pair key perl6fe"><span>verbose&nbsp;&nbsp;&nbsp;</span></span><span class="keyword operator multi-symbol perl6fe"><span>=&gt;</span></span><span>&nbsp;</span><span class="constant language boolean perl6fe"><span>True</span></span><span>,</span></span></div><div class="line"><span class="source perl6fe"><span>);</span></span></div><div class="line"><span class="source perl6fe"><span>&nbsp;</span></span></div><div class="line"><span class="source perl6fe"><span class="comment line number-sign perl6fe"><span class="punctuation definition comment perl6fe"><span>#</span></span><span>&nbsp;to&nbsp;complete&nbsp;the&nbsp;processing&nbsp;and&nbsp;initialize&nbsp;some&nbsp;attributes</span><span>&nbsp;</span></span></span></div><div class="line"><span class="source perl6fe"><span class="meta variable container perl6fe"><span class="variable other identifier sigil perl6fe"><span>$</span></span><span class="variable other identifier perl6fe"><span>registry</span></span></span><span class="keyword operator generic perl6fe"><span>.</span></span><span class="routine name perl6fe"><span>compose</span></span><span>;</span></span></div><div class="line"><span class="source perl6fe"><span>&nbsp;</span></span></div></pre><h2 id="method_add-new"><a class="u" href="#___top" title="go to top of document">method add-new</a></h2>
+<p>Defined as</p>
+<pre class="editor editor-colors"><div class="line"><span class="source perl6fe"><span class="storage type declarator type perl6fe"><span>method</span></span><span>&nbsp;</span><span class="entity name function perl6fe"><span>add-new</span></span><span>(</span><span class="keyword operator multi-symbol perl6fe"><span>--&gt;</span></span><span>&nbsp;</span><span class="routine name perl6fe"><span>Documentable</span></span><span>::</span><span class="routine name perl6fe"><span>Primary</span></span><span>)</span></span></div></pre><p>Adds a new <a href="/Documentable/type/Documentable::Primary">Documentable::Primary</a> object to the registry and returns it.</p>
+<p><strong>Warning:</strong> if the registry is composed, you cannot add new objects to it.</p>
+<h2 id="method_load"><a class="u" href="#___top" title="go to top of document">method load</a></h2>
+<p>Defined as</p>
+<pre class="editor editor-colors"><div class="line"><span class="source perl6fe"><span class="storage type declarator type perl6fe"><span>method</span></span><span>&nbsp;</span><span class="entity name function perl6fe"><span>load</span></span><span>(</span><span class="support type perl6fe"><span>Str</span></span><span>&nbsp;</span><span class="keyword operator generic perl6fe"><span>:</span></span><span class="meta variable container perl6fe"><span class="variable other identifier sigil perl6fe"><span>$</span></span><span class="variable other identifier perl6fe"><span>path</span></span></span><span>&nbsp;</span><span class="keyword operator multi-symbol perl6fe"><span>--&gt;</span></span><span>&nbsp;</span><span class="support type perl6fe"><span>Positional</span></span><span>[</span><span class="support type perl6fe"><span>Pod</span></span><span>::</span><span class="routine name perl6fe"><span>Block</span></span><span>::</span><span class="routine name perl6fe"><span>Named</span></span><span>])</span></span></div></pre><p>Loads a new pod6 file from the cache.</p>
+<h2 id="method_process-pod-dir"><a class="u" href="#___top" title="go to top of document">method process-pod-dir</a></h2>
+<p>Defined as</p>
+<pre class="editor editor-colors"><div class="line"><span class="source perl6fe"><span class="storage type declarator type perl6fe"><span>method</span></span><span>&nbsp;</span><span class="entity name function perl6fe"><span>process-pod-dir</span></span><span>(</span><span class="support type perl6fe"><span>Str</span></span><span>&nbsp;</span><span class="keyword operator generic perl6fe"><span>:</span></span><span class="meta variable container perl6fe"><span class="variable other identifier sigil perl6fe"><span>$</span></span><span class="variable other identifier perl6fe"><span>dir</span></span></span><span>&nbsp;</span><span class="keyword operator multi-symbol perl6fe"><span>--&gt;</span></span><span>&nbsp;</span><span class="support type perl6fe"><span>Array</span></span><span>[</span><span class="routine name perl6fe"><span>Documentable</span></span><span>::</span><span class="routine name perl6fe"><span>Primary</span></span><span>])</span></span></div></pre><p>Returns an <code>Array</code> containing all <a href="/Documentable/type/Documentable::Primary">Documentable::Primary</a> objects created after processing the contents of <code>$topdir/$dir</code>.</p>
+<h2 id="method_compose"><a class="u" href="#___top" title="go to top of document">method compose</a></h2>
+<p>Defined as</p>
+<pre class="editor editor-colors"><div class="line"><span class="source perl6fe"><span class="storage type declarator type perl6fe"><span>method</span></span><span>&nbsp;</span><span class="entity name function perl6fe"><span>compose</span></span><span>(</span><span class="keyword operator multi-symbol perl6fe"><span>--&gt;</span></span><span>&nbsp;</span><span class="support type perl6fe"><span>Bool</span></span><span>)</span></span></div></pre><ul><li><p>Compose the registry (initialize <code>@.docs</code> and <code>%.routines-by-type</code>).</p>
+</li>
+<li><p>Returns the new value of <code>$.composed</code>.</p>
+</li>
+</ul>
+<h2 id="method_lookup"><a class="u" href="#___top" title="go to top of document">method lookup</a></h2>
+<p>Defined as</p>
+<pre class="editor editor-colors"><div class="line"><span class="source perl6fe"><span class="storage type declarator type perl6fe"><span>method</span></span><span>&nbsp;</span><span class="entity name function perl6fe"><span>lookup</span></span><span>(</span><span class="support type perl6fe"><span>Str</span></span><span>&nbsp;</span><span class="meta variable container perl6fe"><span class="variable other identifier sigil perl6fe"><span>$</span></span><span class="variable other identifier perl6fe"><span>what</span></span></span><span>,&nbsp;</span><span class="support type perl6fe"><span>Str</span></span><span>&nbsp;</span><span class="meta variable container perl6fe"><span class="variable other identifier sigil perl6fe"><span>$</span></span><span class="variable other identifier perl6fe"><span>by</span></span></span><span>&nbsp;</span><span class="keyword operator multi-symbol perl6fe"><span>--&gt;</span></span><span>&nbsp;</span><span class="support type perl6fe"><span>Hash</span></span><span>)</span></span></div></pre><p>This method will classify all <a href="/Documentable/type/Documentable">Documentable</a> objects in the <code>Documentable::Registry</code> using the attribute <code>$by</code> and will return all of those whose attribute <code>$by</code> is set to <code>$what</code>. These queries are cached the first time they are made, so next calls to this method will be faster.</p>
+<p>Example:</p>
+<pre class="editor editor-colors"><div class="line"><span class="source perl6fe"><span class="storage modifier declarator perl6fe"><span>my</span></span><span>&nbsp;</span><span class="meta variable container perl6fe"><span class="variable other identifier sigil perl6fe"><span>$</span></span><span class="variable other identifier perl6fe"><span>registry</span></span></span><span>&nbsp;</span><span class="storage modifier assignment perl6fe"><span>=</span></span><span>&nbsp;(</span><span class="keyword operator multi-symbol perl6fe"><span>...</span></span><span>&nbsp;</span><span class="routine name perl6fe"><span>initialize</span></span><span>&nbsp;</span><span class="keyword operator multi-symbol perl6fe"><span>...</span></span><span>)</span></span></div><div class="line"><span class="source perl6fe"><span>&nbsp;</span></span></div><div class="line"><span class="source perl6fe"><span class="comment line number-sign perl6fe"><span class="punctuation definition comment perl6fe"><span>#</span></span><span>&nbsp;query&nbsp;all&nbsp;Documentable&nbsp;objects&nbsp;with&nbsp;$.kind</span><span>&nbsp;</span></span></span></div><div class="line"><span class="source perl6fe"><span class="comment line number-sign perl6fe"><span class="punctuation definition comment perl6fe"><span>#</span></span><span>&nbsp;set&nbsp;to&nbsp;Kind::Type</span><span>&nbsp;</span></span></span></div><div class="line"><span class="source perl6fe"><span class="meta variable container perl6fe"><span class="variable other identifier sigil perl6fe"><span>$</span></span><span class="variable other identifier perl6fe"><span>registry</span></span></span><span class="keyword operator generic perl6fe"><span>.</span></span><span class="routine name perl6fe"><span>lookup</span></span><span>(</span><span class="routine name perl6fe"><span>Kind</span></span><span>::</span><span class="routine name perl6fe"><span>Type</span></span><span class="keyword operator generic perl6fe"><span>.</span></span><span class="support type perl6fe"><span>Str</span></span><span>,&nbsp;</span><span class="keyword operator generic perl6fe"><span>:</span></span><span class="routine name perl6fe"><span>by</span></span><span class="span keyword operator array words perl6fe"><span>&lt;</span></span><span class="string array words perl6fe"><span>kind</span></span><span class="span keyword operator array words perl6fe"><span>&gt;</span></span><span>)</span></span></div><div class="line"><span class="source perl6fe"><span>&nbsp;</span></span></div></pre><h2 id="method_docs-for"><a class="u" href="#___top" title="go to top of document">method docs-for</a></h2>
+<p>Defined as</p>
+<pre class="editor editor-colors"><div class="line"><span class="source perl6fe"><span class="storage type declarator type perl6fe"><span>method</span></span><span>&nbsp;</span><span class="entity name function perl6fe"><span>docs-for</span></span><span>(</span><span class="support type perl6fe"><span>Str</span></span><span>&nbsp;</span><span class="meta variable container perl6fe"><span class="variable other identifier sigil perl6fe"><span>$</span></span><span class="variable other identifier perl6fe"><span>name</span></span></span><span>)</span></span></div></pre><p>Returns all <a href="/Documentable/type/Documentable">Documentable</a> objects with <code>$.name</code> set to <code>$name</code>.</p>
+<p>Equivalent to <code>.lookup($name, :by&lt;name&gt;)</code>.</p>
+<h1 id="Type_Graph"><a class="u" href="#___top" title="go to top of document">Type Graph</a></h1>
+<figure>
+  <figcaption>Type relations for <code>Documentable::Registry</code></figcaption>
+  <svg width="245pt" height="116pt"
+ viewBox="0.00 0.00 244.58 116.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 112)">
+<title>perl6&#45;type&#45;graph</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-112 240.58,-112 240.58,4 -4,4"/>
+<!-- Documentable::Registry -->
+<g id="node1" class="node">
+<title>Documentable::Registry</title>
+<g id="a_node1"><a xlink:href="/type/Documentable::Registry" xlink:title="Documentable::Registry">
+<ellipse fill="none" stroke="#000000" cx="118.29" cy="-18" rx="118.08" ry="18"/>
+<text text-anchor="middle" x="118.29" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">Documentable::Registry</text>
+</a>
+</g>
+</g>
+<!-- Any -->
+<g id="node2" class="node">
+<title>Any</title>
+<g id="a_node2"><a xlink:href="/type/Any" xlink:title="Any">
+<ellipse fill="none" stroke="#000000" cx="118.29" cy="-90" rx="27" ry="18"/>
+<text text-anchor="middle" x="118.29" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Any</text>
+</a>
+</g>
+</g>
+<!-- Documentable::Registry&#45;&gt;Any -->
+<g id="edge1" class="edge">
+<title>Documentable::Registry&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M118.29,-36.3C118.29,-44.02 118.29,-53.29 118.29,-61.89"/>
+<polygon fill="#000000" stroke="#000000" points="114.79,-61.9 118.29,-71.9 121.79,-61.9 114.79,-61.9"/>
+</g>
+</g>
+</svg>
+
+  <p class="fallback">
+    <a
+      rel="alternate"
+      href="/images/type-graph-Documentable%3A%3ARegistry.svg"
+      type="image/svg+xml"
+      >Expand above chart</a
+    >
+  </p>
+</figure>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/Documentable/tree/master/docs/Type/Documentable/Registry.pod6">https://github.com/Raku/Documentable/tree/master/docs/Type/Documentable/Registry.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/js/search.js?v=3"></script>
+</body>
+</html>
+

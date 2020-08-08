@@ -1,0 +1,919 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Control flow</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/control.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Control flow</h1>
+        <p class="subtitle">Statements used to control the flow of execution</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+  <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#statements">statements</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Blocks">Blocks</a></td></tr>
+                                                           <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Phasers">Phasers</a></td></tr>
+      <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#do">do</a></td></tr>
+                                <tr class="toc-level-1"><td class="toc-number">5</td><td class="toc-text"><a href="#start">start</a></td></tr>
+                                                    <tr class="toc-level-1"><td class="toc-number">6</td><td class="toc-text"><a href="#if">if</a></td></tr>
+                                           <tr class="toc-level-2"><td class="toc-number">6.1</td><td class="toc-text"><a href="#else/elsif"><code class="pod-code-inline">else/elsif</code></a></td></tr>
+                                                          <tr class="toc-level-1"><td class="toc-number">7</td><td class="toc-text"><a href="#unless"><code class="pod-code-inline">unless</code></a></td></tr>
+                          <tr class="toc-level-1"><td class="toc-number">8</td><td class="toc-text"><a href="#with_orwith_without"><code class="pod-code-inline">with orwith without</code></a></td></tr>
+                                                                                                        <tr class="toc-level-1"><td class="toc-number">9</td><td class="toc-text"><a href="#when">when</a></td></tr>
+                                                                                                                          <tr class="toc-level-1"><td class="toc-number">10</td><td class="toc-text"><a href="#for">for</a></td></tr>
+                                                                                                                                                                                                 <tr class="toc-level-1"><td class="toc-number">11</td><td class="toc-text"><a href="#gather/take">gather/take</a></td></tr>
+                                    <tr class="toc-level-1"><td class="toc-number">12</td><td class="toc-text"><a href="#supply/emit">supply/emit</a></td></tr>
+        <tr class="toc-level-1"><td class="toc-number">13</td><td class="toc-text"><a href="#given">given</a></td></tr>
+                     <tr class="toc-level-2"><td class="toc-number">13.1</td><td class="toc-text"><a href="#default_and_when">default and when</a></td></tr>
+                                                      <tr class="toc-level-2"><td class="toc-number">13.2</td><td class="toc-text"><a href="#proceed_and_succeed">proceed and succeed</a></td></tr>
+                                                                                         <tr class="toc-level-2"><td class="toc-number">13.3</td><td class="toc-text"><a href="#given_as_a_statement">given as a statement</a></td></tr>
+    <tr class="toc-level-1"><td class="toc-number">14</td><td class="toc-text"><a href="#loop">loop</a></td></tr>
+                          <tr class="toc-level-1"><td class="toc-number">15</td><td class="toc-text"><a href="#while,_until">while, until</a></td></tr>
+                            <tr class="toc-level-1"><td class="toc-number">16</td><td class="toc-text"><a href="#repeat/while,_repeat/until">repeat/while, repeat/until</a></td></tr>
+            <tr class="toc-level-1"><td class="toc-number">17</td><td class="toc-text"><a href="#return">return</a></td></tr>
+                               <tr class="toc-level-1"><td class="toc-number">18</td><td class="toc-text"><a href="#return-rw">return-rw</a></td></tr>
+            <tr class="toc-level-1"><td class="toc-number">19</td><td class="toc-text"><a href="#fail">fail</a></td></tr>
+               <tr class="toc-level-1"><td class="toc-number">20</td><td class="toc-text"><a href="#once">once</a></td></tr>
+          <tr class="toc-level-1"><td class="toc-number">21</td><td class="toc-text"><a href="#quietly">quietly</a></td></tr>
+       <tr class="toc-level-1"><td class="toc-number">22</td><td class="toc-text"><a href="#LABELs">LABELs</a></td></tr>
+                                      <tr class="toc-level-1"><td class="toc-number">23</td><td class="toc-text"><a href="#next">next</a></td></tr>
+                                                       <tr class="toc-level-1"><td class="toc-number">24</td><td class="toc-text"><a href="#last">last</a></td></tr>
+                                                   <tr class="toc-level-1"><td class="toc-number">25</td><td class="toc-text"><a href="#redo">redo</a></td></tr>
+             
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <h1 id="statements"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-control_flow__statements-statements"><span class="index-entry">statements</span></a></a></h1>
+<p>Raku programs consist of one or more statements. Simple statements are separated by semicolons. The following program will say &quot;Hello&quot; and then say &quot;World&quot; on the next line.</p>
+<pre class="pod-block-code">say &quot;Hello&quot;;
+say &quot;World&quot;;</pre>
+<p>In most places where spaces appear in a statement, and before the semicolon, it may be split up over many lines. Also, multiple statements may appear on the same line. It would be awkward, but the above example could also be written as:</p>
+<pre class="pod-block-code">say
+&quot;Hello&quot;; say &quot;World&quot;;</pre>
+<h1 id="Blocks"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-control_flow__blocks-Blocks"><span class="index-entry">Blocks</span></a></a></h1>
+<p>Like many other languages, Raku uses <code>blocks</code> enclosed by <code>{</code> and <code>}</code> to turn a sequence of statements into a single one. It is OK to omit the semicolon between the last statement in a block and the closing <code>}</code>.</p>
+<pre class="pod-block-code">{ say &quot;Hello&quot;; say &quot;World&quot; }</pre>
+<p>When a block stands alone as a statement, it will be entered immediately after the previous statement finishes, and the statements inside it will be executed.</p>
+<pre class="pod-block-code">say 1;                    # OUTPUT: «1␤»
+{ say 2; say 3 };         # OUTPUT: «2␤3␤»
+say 4;                    # OUTPUT: «4␤»</pre>
+<p>Unless it stands alone as a statement, a block simply creates a closure. The statements inside are not executed immediately. Closures are another topic and how they are used is explained <a href="/Documentable/integration-test/language/functions#Blocks_and_lambdas">elsewhere</a>. For now it is just important to understand when blocks run and when they do not:</p>
+<pre class="pod-block-code">say &quot;We get here&quot;;
+{ say &quot;then here.&quot; };
+{ say &quot;not here&quot;; 0; } or die;
+</pre>
+<p>In the above example, after running the first statement, the first block stands alone as a second statement, so we run the statement inside it. The second block is a closure, so instead, it makes an object of type <code>Block</code> but does not run it. Object instances are usually considered to be true, so the code does not die, even though that block would evaluate to 0, were it to be executed. The example does not say what to do with the <code>Block</code> object, so it just gets thrown away.</p>
+<p>Most of the flow control constructs covered below are just ways to tell Raku when, how, and how many times, to enter blocks like that second block.</p>
+<p>Before we go into those, an important side-note on syntax: If there is nothing (or nothing but comments) on a line after a closing curly brace where you would normally put semicolon, then you do not need the semicolon:</p>
+<pre class="pod-block-code"># All three of these lines can appear as a group, as is, in a program
+{ 42.say }                # OUTPUT: «42␤»
+{ 43.say }                # OUTPUT: «43␤»
+{ 42.say }; { 43.say }    # OUTPUT: «42␤43␤»</pre>
+<p>...but:</p>
+<pre class="pod-block-code">{ 42.say }  { 43.say }    # Syntax error
+{ 42.say; } { 43.say }    # Also a syntax error, of course
+</pre>
+<p>So, be careful when you backspace in a line-wrapping editor:</p>
+<pre class="pod-block-code">{ &quot;Without semicolons line-wrapping can be a bit treacherous.&quot;.say } \
+{ 43.say } # Syntax error
+</pre>
+<p>You have to watch out for this in most languages anyway to prevent things from getting accidentally commented out. Many of the examples below may have unnecessary semicolons for clarity.</p>
+<p>Class bodies behave like simple blocks for any top level expression; same goes to roles and other packages, like grammars (which are actually classes) or modules.</p>
+<pre class="pod-block-code">class C {
+    say &quot;I live&quot;;
+    die &quot;I will never live!&quot;
+};
+my $c = C.new;                              │
+# OUTPUT: Fails and writes «I live␤I will never live!␤
+</pre>
+<p>This block will first run the first statement, and then <code>die</code> printing the second statement. <code>$c</code> will never get a value.</p>
+<h1 id="Phasers"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-control_flow_Phasers-Phasers"><span class="index-entry">Phasers</span></a></a></h1>
+<p>Blocks may have <em>phasers</em>: special labeled blocks that break their execution into phases that run in particular phases. See the page <a href="/Documentable/integration-test/language/phasers">phasers</a> for the details.</p>
+<h1 id="do"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-control_flow_do-do"><span class="index-entry">do</span></a></a></h1>
+<p>The simplest way to run a block where it cannot be a stand-alone statement is by writing <code>do</code> before it:</p>
+<pre class="pod-block-code"># This dies half of the time
+do { say &quot;Heads I win, tails I die.&quot;; Bool.pick } or die; say &quot;I win.&quot;;
+</pre>
+<p>Note that you need a space between the <code>do</code> and the block.</p>
+<p>The whole <code>do {...}</code> evaluates to the final value of the block. The block will be run when that value is needed in order to evaluate the rest of the expression. So:</p>
+<pre class="pod-block-code">False and do { 42.say };</pre>
+<p>...will not say 42. However, the block is only evaluated once each time the expression it is contained in is evaluated:</p>
+<pre class="pod-block-code"># This says &quot;(..1 ..2 ..3)&quot; not &quot;(..1 ...2 ....3)&quot;
+my $f = &quot;.&quot;; say do { $f ~= &quot;.&quot; } X~ 1, 2, 3;</pre>
+<p>In other words, it follows the same <a href="/Documentable/integration-test/language/glossary#index-entry-Reify">reification</a> rules as everything else.</p>
+<p>Technically, <code>do</code> is a loop which runs exactly one iteration.</p>
+<p>A <code>do</code> may also be used on a bare statement (without curly braces) but this is mainly just useful for avoiding the syntactical need to parenthesize a statement if it is the last thing in an expression:</p>
+<pre class="pod-block-code">3, do if 1 { 2 }  ; # OUTPUT: «(3, 2)␤»
+3,   (if 1 { 2 }) ; # OUTPUT: «(3, 2)␤»
+</pre>
+<pre class="pod-block-code">3,    if 1 { 2 }  ; # Syntax error
+</pre>
+<h1 id="start"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-control_flow_start-start"><span class="index-entry">start</span></a></a></h1>
+<p>The simplest way to run a block <strong>asynchronously</strong> is by writing <code>start</code> before it:</p>
+<pre class="pod-block-code">start { sleep 1; say &quot;done&quot; }
+say &quot;working&quot;;
+# working, done
+</pre>
+<p>Note that you need a space between the <code>start</code> and the block. In the example above, the <code>start</code> block is in sink context, since it&#39;s not assigned to a variable. From version 6.d, these kind of blocks have an exception handler attached:</p>
+<pre class="pod-block-code">start { die &quot;We&#39;re dead&quot;; }
+say &quot;working&quot;;
+sleep 10;
+</pre>
+<p>This code will print <code>Unhandled exception in code scheduled on thread 4 We&#39;re dead</code> in version 6.d, while it will simply get out after waiting for 10 seconds in version 6.c.</p>
+<p>The <code>start {...}</code> immediately returns a <code>Promise</code> that can be safely ignored if you are not interested in the result of the block. If you <strong>are</strong> interested in the final value of the block, you can call the <code>.result</code> method on the returned promise. So:</p>
+<pre class="pod-block-code">my $promise = start { sleep 10; 42 }
+# ... do other stuff
+say &quot;The result is $promise.result()&quot;;</pre>
+<p>If the code inside the block has not finished, the call to <code>.result</code> will wait until it is done.</p>
+<p>A <code>start</code> may also be used on a bare statement (without curly braces). This is mainly useful when calling a subroutine / method on an object is the only thing to do asynchronously.</p>
+<pre class="pod-block-code">sub get42 { 42 }
+my $promise = start get42;
+say $promise.result; # OUTPUT: «42␤»</pre>
+<p>Note that code executed this way does not have access to the special variables <a href="/Documentable/integration-test/syntax/$!"><code>$!</code></a> and <a href="/Documentable/integration-test/syntax/$$SOLIDUS"><code>$/</code></a> of its outer block, but receives new ones, so every asynchronous task has its per-task state.</p>
+<p>Thus, <code>try</code> expressions and regex matches executed in the asynchronous task have their per-task state.</p>
+<pre class="pod-block-code">&#39;a&#39; ~~ /a/; # $/ is set to ｢a｣
+try die;    # $! is defined now with an anonymous AdHoc exception
+# as a code block
+await start { say $! }; # OUTPUT: «Nil␤»
+await start { say $/ }; # OUTPUT: «Nil␤»
+# as a single statement
+await start $!.say;     # OUTPUT: «Nil␤»
+await start $/.say;     # OUTPUT: «Nil␤»</pre>
+<h1 id="if"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-control_flow_if-if"><span class="index-entry">if</span></a></a></h1>
+<p>To conditionally run a block of code, use an <code>if</code> followed by a condition. The condition, an expression, will be evaluated immediately after the statement before the <code>if</code> finishes. The block attached to the condition will only be evaluated if the condition means <code>True</code> when coerced to <code>Bool</code>. Unlike some languages the condition does not have to be parenthesized, instead the <code>{</code> and <code>}</code> around the block are mandatory:</p>
+<pre class="pod-block-code">if 1 { &quot;1 is true&quot;.say }  ; # says &quot;1 is true&quot;
+</pre>
+<pre class="pod-block-code">if 1   &quot;1 is true&quot;.say    ; # syntax error, missing block
+</pre>
+<pre class="pod-block-code">if 0 { &quot;0 is true&quot;.say }  ; # does not say anything, because 0 is false
+</pre>
+<pre class="pod-block-code">if 42.say and 0 { 43.say }; # says &quot;42&quot; but does not say &quot;43&quot;
+</pre>
+<p>There is also a form of <code>if</code> called a &quot;statement modifier&quot; form. In this case, the <code>if</code> and the condition come after the code you want to run conditionally. Do note that the condition is still always evaluated first:</p>
+<pre class="pod-block-code">43.say if 42.say and 0;     # says &quot;42&quot; but does not say &quot;43&quot;
+43.say if 42.say and 1;     # says &quot;42&quot; and then says &quot;43&quot;
+say &quot;It is easier to read code when &#39;if&#39;s are kept on left of screen&quot;
+    if True;                # says the above, because it is true
+{ 43.say } if True;         # says &quot;43&quot; as well</pre>
+<p>The statement modifier form is probably best used sparingly.</p>
+<p>The <code>if</code> statement itself will either <a href="/Documentable/integration-test/type/Slip">slip</a> us an empty list, if it does not run the block, or it will return the value which the block produces:</p>
+<pre class="pod-block-code">my $d = 0; say (1, (if 0 { $d += 42; 2; }), 3, $d); # says &quot;(1 3 0)&quot;
+my $c = 0; say (1, (if 1 { $c += 42; 2; }), 3, $c); # says &quot;(1 2 3 42)&quot;
+say (1, (if 1 { 2, 2 }), 3);         # does not slip, says &quot;(1 (2 2) 3)&quot;</pre>
+<p>For the statement modifier it is the same, except you have the value of the statement instead of a block:</p>
+<pre class="pod-block-code">say (1, (42 if True) , 2); # says &quot;(1 42 2)&quot;
+say (1, (42 if False), 2); # says &quot;(1 2)&quot;
+say (1,  42 if False , 2); # says &quot;(1 42)&quot; because &quot;if False, 2&quot; is true</pre>
+<p>The <code>if</code> does not change the topic (<code>$_</code>) by default. In order to access the value which the conditional expression produced, you have to ask for it more strongly:</p>
+<pre class="pod-block-code">$_ = 1; if 42 { $_.say }                ; # says &quot;1&quot;
+$_ = 1; if 42 -&gt; $_ { $_.say }          ; # says &quot;42&quot;
+$_ = 1; if 42 -&gt; $a { $_.say;  $a.say } ; # says &quot;1&quot; then says &quot;42&quot;
+$_ = 1; if 42       { $_.say; $^a.say } ; # says &quot;1&quot; then says &quot;42&quot;</pre>
+<h2 id="else/elsif"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-testindex-entry-control_flow_else_elsif-else/elsif"><span class="index-entry"><code>else/elsif</code></span></a></a></h2>
+<p>A compound conditional may be produced by following an <code>if</code> conditional with <code>else</code> to provide an alternative block to run when the conditional expression is false:</p>
+<pre class="pod-block-code">if 0 { say &quot;no&quot; } else { say &quot;yes&quot; }   ; # says &quot;yes&quot;
+if 0 { say &quot;no&quot; } else{ say &quot;yes&quot; }    ; # says &quot;yes&quot;, space is not required
+</pre>
+<p>The <code>else</code> cannot be separated from the conditional statement by a semicolon, but as a special case, it is OK to have a newline.</p>
+<pre class="pod-block-code">if 0 { say &quot;no&quot; }; else { say &quot;yes&quot; }  ; # syntax error
+</pre>
+<pre class="pod-block-code">if 0 { say &quot;no&quot; }
+else { say &quot;yes&quot; }                     ; # says &quot;yes&quot;
+</pre>
+<p>Additional conditions may be sandwiched between the <code>if</code> and the <code>else</code> using <code>elsif</code>. An extra condition will only be evaluated if all the conditions before it were false, and only the block next to the first true condition will be run. You can end with an <code>elsif</code> instead of an <code>else</code> if you want.</p>
+<pre class="pod-block-code">if 0 { say &quot;no&quot; } elsif False { say &quot;NO&quot; } else { say &quot;yes&quot; } # says &quot;yes&quot;
+if 0 { say &quot;no&quot; } elsif True { say &quot;YES&quot; } else { say &quot;yes&quot; } # says &quot;YES&quot;
+
+if 0 { say &quot;no&quot; } elsif False { say &quot;NO&quot; } # does not say anything
+
+sub right { &quot;Right!&quot;.say; True }
+sub wrong { &quot;Wrong!&quot;.say; False }
+if wrong() { say &quot;no&quot; } elsif right() { say &quot;yes&quot; } else { say &quot;maybe&quot; }
+# The above says &quot;Wrong!&quot; then says &quot;Right!&quot; then says &quot;yes&quot;</pre>
+<p>You cannot use the statement modifier form with <code>else</code> or <code>elsif</code>:</p>
+<pre class="pod-block-code">42.say if 0 else { 43.say }            # syntax error
+</pre>
+<p>All the same rules for semicolons and newlines apply, consistently</p>
+<pre class="pod-block-code">if 0 { say 0 }; elsif 1 { say 1 }  else { say &quot;how?&quot; } ; # syntax error
+if 0 { say 0 }  elsif 1 { say 1 }; else { say &quot;how?&quot; } ; # syntax error
+</pre>
+<pre class="pod-block-code">if 0 { say 0 }  elsif 1 { say 1 }  else { say &quot;how?&quot; } ; # says &quot;1&quot;
+</pre>
+<pre class="pod-block-code">if 0 { say 0 } elsif 1 { say 1 }
+else { say &quot;how?&quot; }                                    ; # says &quot;1&quot;
+
+if 0 { say 0 }
+elsif 1 { say 1 } else { say &quot;how?&quot; }                  ; # says &quot;1&quot;
+
+if        0 { say &quot;no&quot; }
+elsif False { say &quot;NO&quot; }
+else        { say &quot;yes&quot; }                              ; # says &quot;yes&quot;</pre>
+<p>The whole thing either <a href="/Documentable/integration-test/type/Slip">slips</a> us an empty list (if no blocks were run) or returns the value produced by the block that did run:</p>
+<pre class="pod-block-code">my $d = 0; say (1,
+                (if 0 { $d += 42; &quot;two&quot;; } elsif False { $d += 43; 2; }),
+                3, $d); # says &quot;(1 3 0)&quot;
+my $c = 0; say (1,
+                (if 0 { $c += 42; &quot;two&quot;; } else { $c += 43; 2; }),
+                3, $c); # says &quot;(1 2 3 43)&quot;</pre>
+<p>It&#39;s possible to obtain the value of the previous expression inside an <code>else</code>, which could be from <code>if</code> or the last <code>elsif</code> if any are present:</p>
+<pre class="pod-block-code">$_ = 1; if 0     { } else -&gt; $a { &quot;$_ $a&quot;.say } ; # says &quot;1 0&quot;
+$_ = 1; if False { } else -&gt; $a { &quot;$_ $a&quot;.say } ; # says &quot;1 False&quot;
+
+if False { } elsif 0 { } else -&gt; $a { $a.say }  ; # says &quot;0&quot;</pre>
+<h1 id="unless"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-control_flow__unless-unless"><span class="index-entry"><code>unless</code></span></a></a></h1>
+<p>When you get sick of typing &quot;if not (X)&quot; you may use <code>unless</code> to invert the sense of a conditional statement. You cannot use <code>else</code> or <code>elsif</code> with <code>unless</code> because that ends up getting confusing. Other than those two differences <code>unless</code> works the same as <a href="#if">if</a>:</p>
+<pre class="pod-block-code">unless 1 { &quot;1 is false&quot;.say }  ; # does not say anything, since 1 is true
+</pre>
+<pre class="pod-block-code">unless 1   &quot;1 is false&quot;.say    ; # syntax error, missing block
+</pre>
+<pre class="pod-block-code">unless 0 { &quot;0 is false&quot;.say }  ; # says &quot;0 is false&quot;
+</pre>
+<pre class="pod-block-code">unless 42.say and 1 { 43.say } ; # says &quot;42&quot; but does not say &quot;43&quot;
+43.say unless 42.say and 0;      # says &quot;42&quot; and then says &quot;43&quot;
+43.say unless 42.say and 1;      # says &quot;42&quot; but does not say &quot;43&quot;
+
+$_ = 1; unless 0 { $_.say }           ; # says &quot;1&quot;
+$_ = 1; unless 0 -&gt; $_ { $_.say }     ; # says &quot;0&quot;
+$_ = 1; unless False -&gt; $a { $a.say } ; # says &quot;False&quot;
+
+my $c = 0; say (1, (unless 0 { $c += 42; 2; }), 3, $c); # says &quot;(1 2 3 42)&quot;
+my $d = 0; say (1, (unless 1 { $d += 42; 2; }), 3, $d); # says &quot;(1 3 0)&quot;</pre>
+<p><a name="Documentable/integration-test/index-entry-control_flow_with"></a> <a name="Documentable/integration-test/index-entry-control_flow_orwith"></a> <a name="Documentable/integration-test/index-entry-control_flow_without"></a></p>
+<h1 id="with_orwith_without"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-with_orwith_without-with_orwith_without"><span class="index-entry"><code>with orwith without</code></span></a></a></h1>
+<p>The <code>with</code> statement is like <code>if</code>, but tests for definedness rather than truth, and it topicalizes on the condition, much like <code>given</code>:</p>
+<pre class="pod-block-code">with &quot;abc&quot;.index(&quot;a&quot;) { .say }      # prints 0</pre>
+<p>Similarly to <code>elsif</code>, <code>orwith</code> may be used to chain definedness tests:</p>
+<pre class="pod-block-code"># The below code says &quot;Found a at 0&quot;
+my $s = &quot;abc&quot;;
+with   $s.index(&quot;a&quot;) { say &quot;Found a at $_&quot; }
+orwith $s.index(&quot;b&quot;) { say &quot;Found b at $_&quot; }
+orwith $s.index(&quot;c&quot;) { say &quot;Found c at $_&quot; }
+else                 { say &quot;Didn&#39;t find a, b or c&quot; }</pre>
+<p>You may intermix <code>if</code>-based and <code>with</code>-based clauses.</p>
+<pre class="pod-block-code"># This says &quot;Yes&quot;
+if 0 { say &quot;No&quot; } orwith Nil { say &quot;No&quot; } orwith 0 { say &quot;Yes&quot; };</pre>
+<p>As with <code>unless</code>, you may use <code>without</code> to check for undefinedness, but you may not add an <code>else</code> clause:</p>
+<pre class="pod-block-code">my $answer = Any;
+without $answer { warn &quot;Got: {$_.raku}&quot; }</pre>
+<p>There are also <code>with</code> and <code>without</code> statement modifiers:</p>
+<pre class="pod-block-code">my $answer = (Any, True).roll;
+say 42 with $answer;
+warn &quot;undefined answer&quot; without $answer;</pre>
+<p>As with the other chainable constructs, an <code>else</code> completing a <code>with/if</code>..<code>orwith/elsif</code> chain will itself topicalize to the value of the prior (failed) condition&#39;s topic (either the topic of <code>with</code> or the final <code>orwith</code> or <code>elsif</code>).</p>
+<p>In the case of an <code>else</code> following a <code>with</code> or <code>orwith</code>, topicalizing a value guaranteed to be undefined may seem useless. But it makes for a useful idiom when used in conjunction with operations that may fail, because <a href="/Documentable/integration-test/type/Failure">Failure</a> values are always undefined:</p>
+<pre class="pod-block-code">sub may_fail( --&gt; Numeric:D ) {
+  my $value = (^10).pick || fail &quot;Zero is unacceptable&quot;;
+  fail &quot;Odd is also not okay&quot; if $value % 2;
+  return $value;
+}
+
+with may_fail() -&gt; $value { # defined, so didn&#39;t fail
+  say &quot;I know $value isn&#39;t zero or odd.&quot;
+} else { # undefined, so failed, and the Failure is the topic
+  say &quot;Uh-oh: {.exception.message}.&quot;
+}
+</pre>
+<p>Note that while topicalizing a <a href="/Documentable/integration-test/type/Failure">Failure</a> marks it <a href="/Documentable/integration-test/type/Failure#method_handled"><code>handled</code></a>—so you can use the <code>with</code>/<code>else</code> to proceed safely with execution—it doesn&#39;t make the <em>Failure value itself</em> safe. Even within the <code>else</code> clause, if you try to use the value directly, it will result in your <code>else</code> clause itself failing (or, in Rakudo, &quot;promoting&quot; the Failure into a thrown exception).</p>
+<p>But as seen above, you <em>can</em> use the methods of a handled <code>Failure</code> object the <code>else</code> topicalizes, such as <a href="/Documentable/integration-test/type/Failure#method_exception"><code>exception</code></a>, if you wish to provide diagnostics or interrogate the underlying <a href="/Documentable/integration-test/type/Exception">Exception</a>.</p>
+<h1 id="when"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-control_flow__when-when"><span class="index-entry">when</span></a></a></h1>
+<p>The <code>when</code> block is similar to an <code>if</code> block and either or both can be used in an outer block; they also both have a &quot;statement modifier&quot; form. But there is a difference in how following code in the same, outer block is handled: When the <code>when</code> block is executed, control is passed to the enclosing block and following statements are ignored; but when the <code>if</code> block is executed, following statements are executed. <a href="#fn-1" id="fn-ref-1">[1]</a> The following examples should illustrate the <code>if</code> or <code>when</code> block&#39;s default behavior assuming no special exit or other side effect statements are included in the <code>if</code> or <code>when</code> blocks:</p>
+<pre class="pod-block-code">{
+    if X {...} # if X is true in Boolean context, block is executed
+    # following statements are executed regardless
+}
+{
+    when X {...} # if X is true in Boolean context, block is executed
+                 # and control passes to the outer block
+    # following statements are NOT executed
+}
+</pre>
+<p>Should the <code>if</code> and <code>when</code> blocks above appear at file scope, following statements would be executed in each case.</p>
+<p>There is one other feature <code>when</code> has that <code>if</code> doesn&#39;t: the <code>when</code>&#39;s Boolean context test defaults to <code>$_ ~~</code> while the <code>if</code>&#39;s does not. That has an effect on how one uses the X in the <code>when</code> block without a value for <code>$_</code> (it&#39;s <code>Any</code> in that case and <code>Any</code> smartmatches on <code>True</code>: <code>Any ~~ True</code> yields <code>True</code>). Consider the following:</p>
+<pre class="pod-block-code">{
+    my $a = 1;
+    my $b = True;
+    when $a    { say &#39;a&#39; }; # no output
+    when so $a { say &#39;a&#39; }  # a (in &quot;so $a&quot; &#39;so&#39; coerces $a to Boolean context True
+                            # which matches with Any)
+    when $b    { say &#39;b&#39; }; # no output (this statement won&#39;t be run)
+}
+</pre>
+<p>Finally, <code>when</code>&#39;s statement modifier form does not affect execution of following statements either inside or outside of another block:</p>
+<pre class="pod-block-code">say &quot;foo&quot; when X; # if X is true statement is executed
+                  # following statements are not affected
+</pre>
+<p>Since a successful match will exit the block, the behavior of this piece of code:</p>
+<pre class="pod-block-code">$_ = True;
+my $a;
+{
+    $a = do when .so { &quot;foo&quot; }
+};
+say $a; # OUTPUT: «(Any)␤»
+</pre>
+<p>is explained since the <code>do</code> block is abandoned before any value is stored or processed. However, in this case:</p>
+<pre class="pod-block-code">$_ = False;
+my $a;
+{
+    $a = do when .so { &quot;foo&quot; }
+};
+say $a; # OUTPUT: «False␤»
+</pre>
+<p>the block is not abandoned since the comparison is false, so <code>$a</code> will actually get a value.</p>
+<h1 id="for"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-control_flow__for-for"><span class="index-entry">for</span></a></a></h1>
+<p>The <code>for</code> loop iterates over a list, running the statements inside a <a href="/Documentable/integration-test/type/Block">block</a> once on each iteration. If the block takes parameters, the elements of the list are provided as arguments. By default, the block takes one parameter, <code>$_</code>:</p>
+<pre class="pod-block-code">my @foo = 1..3;
+for @foo { $_.print } # prints each value contained in @foo
+for @foo { .print }   # same thing, because .print implies a $_ argument
+for @foo { 42.print } # prints 42 as many times as @foo has elements</pre>
+<p>Pointy block syntax or a <a href="/Documentable/integration-test/language/variables#The_$CIRCUMFLEX_ACCENT_twigil">placeholder</a> may be used to name the parameter, of course.</p>
+<pre class="pod-block-code">my @foo = 1..3;
+for @foo -&gt; $item { print $item }
+for @foo { print $^item }            # same thing</pre>
+<p>Multiple parameters can be declared, in which case the iterator takes as many elements from the list as needed before running the block.</p>
+<pre class="pod-block-code">my @foo = 1..3;
+for @foo.kv -&gt; $idx, $val { say &quot;$idx: $val&quot; }
+my %hash = &lt;a b c&gt; Z=&gt; 1,2,3;
+for %hash.kv -&gt; $key, $val { say &quot;$key =&gt; $val&quot; }
+for 1, 1.1, 2, 2.1 { say &quot;$^x &lt; $^y&quot; }  # OUTPUT: «1 &lt; 1.1␤2 &lt; 2.1␤»</pre>
+<p>Parameters of a pointy block can have default values, allowing the code to handle lists with missing elements.</p>
+<pre class="pod-block-code">my @list = 1,2,3,4;
+for @list -&gt; $a, $b = &#39;N/A&#39;, $c = &#39;N/A&#39; {
+    say &quot;$a $b $c&quot;
+}
+# OUTPUT: «1 2 3␤4 N/A N/A␤»</pre>
+<p>When no parameters are specified for a <code>for</code> loop&#39;s block, <code>when</code> can be used within it similarly to how it&#39;s used in a <code>given</code> block:</p>
+<pre class="pod-block-code"># A solution for FizzBuzz:
+for 1..100 {
+    when * %% 15 { say &#39;FizzBuzz&#39; }
+    when * %% 3  { say &#39;Fizz&#39; }
+    when * %% 5  { say &#39;Buzz&#39; }
+    default      { say $_ }
+}</pre>
+<p>If the postfix form of <code>for</code> is used, a block is not required and the topic is set for the statement list.</p>
+<pre class="pod-block-code">say „I $_ butterflies!“ for &lt;♥ ♥ ♥&gt;;
+# OUTPUT: «I ♥ butterflies!␤I ♥ butterflies!␤I ♥ butterflies!␤»</pre>
+<p>A <code>for</code> may be used on lazy lists – it will only take elements from the list when they are needed, so to read a file line by line, you could use:</p>
+<pre class="pod-block-code">for $*IN.lines -&gt; $line { .say }
+</pre>
+<p>Iteration variables are always lexical, so you don&#39;t need to use <code>my</code> to give them the appropriate scope. Also, they are read-only aliases. If you need them to be writable, use <code>&lt;-&gt;</code> instead of <code>-&gt;</code>. Alternatively, you can add the <a href="/Documentable/integration-test/type/Signature#index-entry-trait_is_rw"><code>is rw</code></a> trait; this performs a binding operation so assigning to the parameter changes the value of the variable at the caller side. If instead you want to modify copies of the arguments within the block, add <a href="/Documentable/integration-test/type/Signature#index-entry-trait_is_copy"><code>is copy</code></a>.</p>
+<pre class="pod-block-code">my @foo = 1..3;
+for @foo &lt;-&gt; $value {
+    $value = $value %% 2 ?? &quot;Even&quot; !! &quot;Odd&quot;
+}
+
+say @foo; # OUTPUT: «[Odd Even Odd]»
+
+@foo = 1..3;
+for @foo -&gt; $value is rw {
+    $value = $value %% 2 ?? &quot;Even&quot; !! &quot;Odd&quot;
+}
+
+say @foo; # OUTPUT: «[Odd Even Odd]»
+
+@foo = 1..3;
+my @bar;
+for @foo -&gt; $value is copy {
+    $value = $value %% 2 ?? &quot;Even&quot; !! &quot;Odd&quot;;
+    @bar.push: $value
+}
+
+say @foo; # OUTPUT: «[1 2 3]»
+say @bar; # OUTPUT: «[Odd Even Odd]»
+</pre>
+<p>This rule also applies to the topic variable <code>$_</code>, which by default is a read-write alias; it will become read-only if it&#39;s used in a <code>-&gt;</code> loop.</p>
+<pre class="pod-block-code">my @foo = 1..3;
+for @foo -&gt; $_ { $_.say }
+
+# Error: ...require mutable arguments
+for @foo -&gt; $_ { $_++ }</pre>
+<p>A <code>for</code> loop can produce a <code>List</code> of the values produced by each run of the attached block. To capture these values, put the for loop in parenthesis or assign them to an array:</p>
+<pre class="pod-block-code">(for 1, 2, 3 { $_ * 2 }).say;              # OUTPUT: «(2 4 6)␤»
+my @a = do for 1, 2, 3 { $_ * 2 }; @a.say; # OUTPUT: «[2 4 6]␤»
+my @b = (for 1, 2, 3 { $_ * 2 }); @b.say;  # OUTPUT: «[2 4 6]␤»</pre>
+<p>This implies that, if the results of the loop are not assigned, they will be in a <a href="/Documentable/integration-test/language/contexts#index-entry-sink_context">sink context</a>:</p>
+<pre class="pod-block-code">class Sunk {
+    has $.titanic;
+    method sink {
+        say &quot;Sinking $!titanic&quot;;
+    }
+}
+Sunk.new( :titanic($_) ) for ^3;
+for 1 {
+    say &quot;About to sink&quot;;
+    Sunk.new( :titanic($_) );
+}
+# OUTPUT:
+# Sinking 0
+# Sinking 1
+# Sinking 2
+# About to sink
+# Sinking 1
+</pre>
+<p>The first loop creates three elements but they are in a sink context, so its <code>sink</code> method is called. In the second loop, its last statement will be in a sink context, so it will be also sunk (from version 6.d).</p>
+<p>The <code>Empty</code> constant will act as a no-op for a loop:</p>
+<pre class="pod-block-code">say &quot;Not here&quot; for Empty;
+</pre>
+<p>Will not do anything. This constant is <a href="/Documentable/integration-test/syntax/Empty">equivalent to a empty Slip or List</a>.</p>
+<p>Undefined values will behave in the same way:</p>
+<pre class="pod-block-code">my @array := Empty;
+.say for @array;
+say @array; # OUTPUT: «()␤»
+</pre>
+<p>Assigning <code>Empty</code> will effectively undefine an <code>Array</code>, using <code>for</code> over an undefined array will not even enter the loop, as shown, effectively behaving in the same way as above when <code>Empty</code> was used directly.</p>
+<p>With <code>hyper</code> and <code>race</code>, the <code>for</code> loop is potentially iterated in parallel. See also the documentation for <code>hyper</code> and <code>race</code> in class <a href="/Documentable/integration-test/type/Map">Map</a>.</p>
+<pre class="pod-block-code">my $primes_h = hyper for ^10_000 -&gt; $number { $number if $number.is-prime };
+say $primes_h.elems;   # OUTPUT: «1229␤»
+say $primes_h.tail: 5; # OUTPUT: «(9931 9941 9949 9967 9973)␤»
+</pre>
+<p>with <code>hyper</code> the order of elements is preserved.</p>
+<pre class="pod-block-code">my $primes_r = race for ^10_000 -&gt; $number { $number if $number.is-prime };
+say $primes_r.elems; # OUTPUT: «1229␤»
+</pre>
+<p>Unlike <code>hyper</code>, <code>race</code> does not preserve the order of elements.</p>
+<h1 id="gather/take"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-testindex-entry-control_flow_gather_take-gather/take"><span class="index-entry">gather/take</span></a></a></h1>
+<p><a name="Documentable/integration-test/index-entry-lazy_list_gather"></a><a name="Documentable/integration-test/index-entry-lazy_list_take"></a></p>
+<p><code>gather</code> is a statement or block prefix that returns a <a href="/Documentable/integration-test/type/Seq">sequence</a> of values. The values come from calls to <a href="/Documentable/integration-test/type/Mu#routine_take">take</a> in the dynamic scope of the <code>gather</code> block. In the following example, we implement a subroutine to compute the factors of an integer with <code>gather</code> (note that the factors are not generated in a strictly increasing order):</p>
+<pre class="pod-block-code">sub factors( Int:D \n ) {
+    my $k = 1;
+    gather {
+        while $k**2 &lt; n {
+            if n %% $k {
+                take $k;
+                take n div $k;
+            }
+            $k++;
+        }
+        take $k if $k**2 == n;
+    }
+}
+
+say factors(36); # OUTPUT: «1, 36, 2, 18, 3, 12, 4, 9, 6␤»</pre>
+<p>The <code>gather/take</code> combination can generate values lazily, depending on context. If you want to force lazy evaluation use the <a href="/Documentable/integration-test/type/Iterable#method_lazy">lazy</a> subroutine or method. Binding to a scalar or sigilless container will also force laziness. For example:</p>
+<pre class="pod-block-code">my @vals = lazy gather {
+    take 1;
+    say &quot;Produced a value&quot;;
+    take 2;
+}
+say @vals[0];
+say &#39;between consumption of two values&#39;;
+say @vals[1];
+
+# OUTPUT:
+# 1
+# between consumption of two values
+# Produced a value
+# 2</pre>
+<p><code>gather/take</code> is scoped dynamically, so you can call <code>take</code> from subs or methods that are called from within <code>gather</code>:</p>
+<pre class="pod-block-code">sub weird(@elems, :$direction = &#39;forward&#39;) {
+    my %direction = (
+        forward  =&gt; sub { take $_ for @elems },
+        backward =&gt; sub { take $_ for @elems.reverse },
+        random   =&gt; sub { take $_ for @elems.pick(*) },
+    );
+    return gather %direction{$direction}();
+}
+
+say weird(&lt;a b c&gt;, :direction&lt;backward&gt; );          # OUTPUT: «(c b a)␤»</pre>
+<p>If values need to be mutable on the caller side, use <a href="/Documentable/integration-test/type/Mu#routine_take-rw">take-rw</a>.</p>
+<p>Note that <code>gather/take</code> also work for hashes. The return value is still a <code>Seq</code> but the assignment to a hash in the following example makes it a hash.</p>
+<pre class="pod-block-code">my %h = gather { take &quot;foo&quot; =&gt; 1; take &quot;bar&quot; =&gt; 2};
+say %h;                                   # OUTPUT: «{bar =&gt; 2, foo =&gt; 1}␤»</pre>
+<h1 id="supply/emit"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-testindex-entry-control_flow_supply_emit-supply/emit"><span class="index-entry">supply/emit</span></a></a></h1>
+<p>Emits the invocant into the enclosing <a href="/Documentable/integration-test/language/concurrency#index-entry-supply_(on-demand)">supply</a>:</p>
+<pre class="pod-block-code">my $supply = supply {
+    emit $_ for &quot;foo&quot;, 42, .5;
+}
+$supply.tap: {
+    say &quot;received {.^name} ($_)&quot;;
+}
+
+# OUTPUT:
+# received Str (foo)
+# received Int (42)
+# received Rat (0.5)</pre>
+<p><a name="Documentable/integration-test/index-entry-switch_(given)"></a> <a name="Documentable/integration-test/index-entry-case_statements_(given)"></a></p>
+<h1 id="given"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-control_flow__given-given"><span class="index-entry">given</span></a></a></h1>
+<p>The <code>given</code> statement is Raku&#39;s topicalizing keyword in a similar way that <code>switch</code> topicalizes in languages such as C. In other words, <code>given</code> sets <code>$_</code> inside the following block. The keywords for individual cases are <code>when</code> and <code>default</code>. The usual idiom looks like this:</p>
+<pre class="pod-block-code">my $var = (Any, 21, any &lt;answer lie&gt;).pick;
+given $var {
+    when 21 { say $_ * 2 }
+    when &#39;lie&#39; { .say }
+    default { say &#39;default&#39; }
+}</pre>
+<p>The <code>given</code> statement is often used alone:</p>
+<pre class="pod-block-code">given 42 { .say; .Numeric; }</pre>
+<p>This is a lot more understandable than:</p>
+<pre class="pod-block-code">{ .say; .Numeric; }(42)</pre>
+<h2 id="default_and_when"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-control_flow_default_when-default_and_when"><span class="index-entry">default and when</span></a></a></h2>
+<p>A block containing a <code>default</code> statement will be left immediately when the sub-block after the <code>default</code> statement is left. It is as though the rest of the statements in the block were skipped.</p>
+<pre class="pod-block-code">given 42 {
+    &quot;This says&quot;.say;
+    $_ == 42 and ( default { &quot;This says, too&quot;.say; 43; } );
+    &quot;This never says&quot;.say;
+}
+# The above block evaluates to 43</pre>
+<p>A <code>when</code> statement will also do this (but a <code>when</code> statement modifier will <em>not</em>.)</p>
+<p>In addition, <code>when</code> statements <code>smartmatch</code> the topic (<code>$_</code>) against a supplied expression such that it is possible to check against values, regular expressions, and types when specifying a match.</p>
+<pre class="pod-block-code">for 42, 43, &quot;foo&quot;, 44, &quot;bar&quot; {
+    when Int { .say }
+    when /:i ^Bar/ { .say }
+    default  { say &quot;Not an Int or a Bar&quot; }
+}
+# OUTPUT: «42␤43␤Not an Int or a Bar␤44␤Bar␤»</pre>
+<p>In this form, the <code>given</code>/<code>when</code> construct acts much like a set of <code>if</code>/<code>elsif</code>/<code>else</code> statements. Be careful with the order of the <code>when</code> statements. The following code says <code>&quot;Int&quot;</code> not <code>42</code>.</p>
+<pre class="pod-block-code">given 42 {
+    when Int { say &quot;Int&quot; }
+    when 42  { say 42 }
+    default  { say &quot;huh?&quot; }
+}
+# OUTPUT: «Int␤»</pre>
+<p>When a <code>when</code> statement or <code>default</code> statement causes the outer block to return, nesting <code>when</code> or <code>default</code> blocks do not count as the outer block, so you can nest these statements and still be in the same &quot;switch&quot; just so long as you do not open a new block:</p>
+<pre class="pod-block-code">given 42 {
+    when Int {
+      when 42  { say 42 }
+      say &quot;Int&quot;
+    }
+    default  { say &quot;huh?&quot; }
+}
+# OUTPUT: «42»</pre>
+<p><code>when</code> statements can smartmatch against <a href="/Documentable/integration-test/language/syntax#Signature_literals">Signatures</a>.</p>
+<h2 id="proceed_and_succeed"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-control_flow__proceed-proceed"><span class="index-entry">proceed</span></a> and <a name="Documentable/integration-test/index-entry-control_flow__succeed-succeed"><span class="index-entry">succeed</span></a></a></h2>
+<p>Both <code>proceed</code> and <code>succeed</code> are meant to be used only from inside <code>when</code> or <code>default</code> blocks.</p>
+<p>The <code>proceed</code> statement will immediately leave the <code>when</code> or <code>default</code> block, skipping the rest of the statements, and resuming after the block. This prevents the <code>when</code> or <code>default</code> from exiting the outer block.</p>
+<pre class="pod-block-code">given * {
+    default {
+        proceed;
+        &quot;This never says&quot;.say
+    }
+}
+&quot;This says&quot;.say;
+</pre>
+<p>This is most often used to enter multiple <code>when</code> blocks. <code>proceed</code> will resume matching after a successful match, like so:</p>
+<pre class="pod-block-code">given 42 {
+    when Int   { say &quot;Int&quot;; proceed }
+    when 42    { say 42 }
+    when 40..* { say &quot;greater than 40&quot; }
+    default    { say &quot;huh?&quot; }
+}
+# OUTPUT: «Int␤»
+# OUTPUT: «42␤»</pre>
+<p>Note that the <code>when 40..*</code> match didn&#39;t occur. For this to match such cases as well, one would need a <code>proceed</code> in the <code>when 42</code> block.</p>
+<p>This is not like a <code>C</code> <code>switch</code> statement, because the <code>proceed</code> does not merely enter the directly following block, it attempts to match the <code>given</code> value once more, consider this code:</p>
+<pre class="pod-block-code">given 42 {
+    when Int { &quot;Int&quot;.say; proceed }
+    when 43  { 43.say }
+    when 42  { 42.say }
+    default  { &quot;got change for an existential answer?&quot;.say }
+}
+# OUTPUT: «Int␤»
+# OUTPUT: «42␤»</pre>
+<p>...which matches the <code>Int</code>, skips <code>43</code> since the value doesn&#39;t match, matches <code>42</code> since this is the next positive match, but doesn&#39;t enter the <code>default</code> block since the <code>when 42</code> block doesn&#39;t contain a <code>proceed</code>.</p>
+<p>By contrast, the <code>succeed</code> keyword short-circuits execution and exits the entire <code>given</code> block at that point. It may also take an argument to specify a final value for the block.</p>
+<pre class="pod-block-code">given 42 {
+    when Int {
+        say &quot;Int&quot;;
+        succeed &quot;Found&quot;;
+        say &quot;never this!&quot;;
+    }
+    when 42 { say 42 }
+    default { say &quot;dunno?&quot; }
+}
+# OUTPUT: «Int␤»</pre>
+<p>If you are not inside a when or default block, it is an error to try to use <code>proceed</code> or <code>succeed</code>.Also remember, the <code>when</code> statement modifier form does not cause any blocks to be left, and any <code>succeed</code> or <code>proceed</code> in such a statement applies to the surrounding clause, if there is one:</p>
+<pre class="pod-block-code">given 42 {
+    { say &quot;This says&quot; } when Int;
+    &quot;This says too&quot;.say;
+    when * &gt; 41 {
+       { &quot;And this says&quot;.say; proceed } when * &gt; 41;
+       &quot;This never says&quot;.say;
+    }
+    &quot;This also says&quot;.say;
+}
+# OUTPUT: «This says␤This says too␤And this says␤This also says␤»</pre>
+<h2 id="given_as_a_statement"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-control_flow_given_statement-given_as_a_statement"><span class="index-entry">given as a statement</span></a></a></h2>
+<p><code>given</code> can follow a statement to set the topic in the statement it follows.</p>
+<pre class="pod-block-code">.say given &quot;foo&quot;;
+# OUTPUT: «foo␤»
+
+printf &quot;%s %02i.%02i.%i&quot;,
+        &lt;Mo Tu We Th Fr Sa Su&gt;[.day-of-week - 1],
+        .day,
+        .month,
+        .year
+    given DateTime.now;
+# OUTPUT: «Sa 03.06.2016»</pre>
+<h1 id="loop"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-control_flow__loop-loop"><span class="index-entry">loop</span></a></a></h1>
+<p>The <code>loop</code> statement takes three statements in parentheses separated by <code>;</code> that take the roles of initializer, conditional and incrementer, respectively. The initializer is executed once before the conditional is first tested. In case the initializer involves a variable declaration, the variable is declared as a lexical variable in the loop&#39;s <em>outer or containing</em> scope so that it can be used in code following the loop statement. The conditional is executed before each iteration and coerced to <code>Bool</code>; if <code>False</code> the loop is stopped. The incrementer is executed after each iteration, and before the conditional is tested again.</p>
+<pre class="pod-block-code">loop (my $i = 0; $i &lt; 10; $i++) {       # A typical loop
+    say $i;
+}
+
+my @str = &quot;However Long&quot;.comb;          # Our very own .char routine:
+loop (my $l = 0;;) {                    # Declare $l in outer scope
+    last if !@str[$l++]                 # and count chars until we hit an
+}                                       # undefined element (Any)
+say &quot;The string is {--$l} chars long.&quot;;</pre>
+<p>The infinite loop does not require parentheses.</p>
+<pre class="pod-block-code">loop { say &#39;forever&#39; }
+</pre>
+<p>The <code>loop</code> statement may be used to produce values from the result of each run of the attached block if it appears in lists:</p>
+<pre class="pod-block-code">(loop ( my $i = 0; $i++ &lt; 3;) { $i * 2 }).say;               # OUTPUT: «(2 4 6)␤»
+my @a = (loop ( my $j = 0; $j++ &lt; 3;) { $j * 2 }); @a.say;   # OUTPUT: «[2 4 6]␤»
+my @b = do loop ( my $k = 0; $k++ &lt; 3;) { $k * 2 }; @b.say;  # same thing</pre>
+<p>Unlike a <code>for</code> loop, one should not rely on whether returned values are produced lazily. It would probably be best to use <code>eager</code> to guarantee that a loop whose return value may be used actually runs:</p>
+<pre class="pod-block-code">sub heads-in-a-row {
+    (eager loop (; 2.rand &lt; 1;) { &quot;heads&quot;.say })
+}</pre>
+<h1 id="while,_until"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-control_flow_while_until-while,_until"><span class="index-entry">while, until</span></a></a></h1>
+<p>The <code>while</code> statement executes the block as long as its condition is true. So</p>
+<pre class="pod-block-code">my $x = 1;
+while $x &lt; 4 {
+    print $x++;
+}
+print &quot;\n&quot;;
+
+# OUTPUT: «123␤»</pre>
+<p>Similarly, the <code>until</code> statement executes the block as long as the expression is false.</p>
+<pre class="pod-block-code">my $x = 1;
+until $x &gt; 3 {
+    print $x++;
+}
+print &quot;\n&quot;;
+
+# OUTPUT: «123␤»</pre>
+<p>The condition for <code>while</code> or <code>until</code> can be parenthesized, but there must be a space between the keyword and the opening parenthesis of the condition.</p>
+<p>Both <code>while</code> and <code>until</code> can be used as statement modifiers. E. g.</p>
+<pre class="pod-block-code">my $x = 42;
+$x-- while $x &gt; 12</pre>
+<p>Also see <code>repeat/while</code> and <code>repeat/until</code> below.</p>
+<p>All these forms may produce a return value the same way <code>loop</code> does.</p>
+<h1 id="repeat/while,_repeat/until"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-testindex-entry-control_flow_repeat-repeat/while,_repeat/until"><span class="index-entry">repeat/while, repeat/until</span></a></a></h1>
+<p>Executes the block <em>at least once</em> and, if the condition allows, repeats that execution. This differs from <code>while</code>/<code>until</code> in that the condition is evaluated at the end of the loop, even if it appears at the front.</p>
+<pre class="pod-block-code">my $x = -42;
+repeat {
+    $x++;
+} while $x &lt; 5;
+$x.say; # OUTPUT: «5␤»
+
+repeat {
+    $x++;
+} while $x &lt; 5;
+$x.say; # OUTPUT: «6␤»
+
+repeat while $x &lt; 10 {
+    $x++;
+}
+$x.say; # OUTPUT: «10␤»
+
+repeat while $x &lt; 10 {
+    $x++;
+}
+$x.say; # OUTPUT: «11␤»
+
+repeat {
+    $x++;
+} until $x &gt;= 15;
+$x.say; # OUTPUT: «15␤»
+
+repeat {
+    $x++;
+} until $x &gt;= 15;
+$x.say; # OUTPUT: «16␤»
+
+repeat until $x &gt;= 20 {
+    $x++;
+}
+$x.say; # OUTPUT: «20␤»
+
+repeat until $x &gt;= 20 {
+    $x++;
+}
+$x.say; # OUTPUT: «21␤»</pre>
+<p>All these forms may produce a return value the same way <code>loop</code> does.</p>
+<h1 id="return"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-control_flow_return-return"><span class="index-entry">return</span></a></a></h1>
+<p>The sub <code>return</code> will stop execution of a subroutine or method, run all relevant <a href="/Documentable/integration-test/language/phasers#Block_phasers">phasers</a> and provide the given return value to the caller. The default return value is <code>Nil</code>. If a return <a href="/Documentable/integration-test/type/Signature#Constraining_return_types">type constraint</a> is provided it will be checked unless the return value is <code>Nil</code>. If the type check fails the exception <a href="/Documentable/integration-test/type/X::TypeCheck::Return">X::TypeCheck::Return</a> is thrown. If it passes a control exception is raised and can be caught with <a href="/Documentable/integration-test/language/phasers#CONTROL">CONTROL</a>.</p>
+<p>Any <code>return</code> in a block is tied to the first <code>Routine</code> in the outer lexical scope of that block, no matter how deeply nested. Please note that a <code>return</code> in the root of a package will fail at runtime. A <code>return</code> in a block that is evaluated lazily (e.g. inside <code>map</code>) may find the outer lexical routine gone by the time the block is executed. In almost any case <code>last</code> is the better alternative. Please check <a href="/Documentable/integration-test/language/functions#Return_values">the functions documentation</a> for more information on how return values are handled and produced.</p>
+<h1 id="return-rw"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-control_flow__return-rw-return-rw"><span class="index-entry">return-rw</span></a></a></h1>
+<p>The sub <code>return</code> will return values, not containers. Those are immutable and will lead to runtime errors when attempted to be mutated.</p>
+<pre class="pod-block-code">sub s(){ my $a = 41; return $a };
+say ++s();
+CATCH { default { say .^name, &#39;: &#39;, .Str } };
+# OUTPUT: «X::Multi::NoMatch.new(dispatcher …</pre>
+<p>To return a mutable container, use <code>return-rw</code>.</p>
+<pre class="pod-block-code">sub s(){ my $a = 41; return-rw $a };
+say ++s();
+# OUTPUT: «42␤»</pre>
+<p>The same rules as for <code>return</code> regarding phasers and control exceptions apply.</p>
+<h1 id="fail"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-control_flow__fail-fail"><span class="index-entry">fail</span></a></a></h1>
+<p>Leaves the current routine and returns the provided <a href="/Documentable/integration-test/type/Exception">Exception</a> or <code>Str</code> wrapped inside a <a href="/Documentable/integration-test/type/Failure">Failure</a>, after all relevant <a href="/Documentable/integration-test/language/phasers#Block_phasers">phasers</a> are executed. If the caller activated fatal exceptions via the pragma <code>use fatal;</code>, the exception is thrown instead of being returned as a <code>Failure</code>.</p>
+<pre class="pod-block-code">sub f { fail &quot;WELP!&quot; };
+say f;
+CATCH { default { say .^name, &#39;: &#39;, .Str } }
+# OUTPUT: «X::AdHoc: WELP!␤»</pre>
+<h1 id="once"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-control_flow__once-once"><span class="index-entry">once</span></a></a></h1>
+<p>A block prefix with <code>once</code> will be executed exactly once, even if placed inside a loop or a recursive routine.</p>
+<pre class="pod-block-code">my $guard = 3;
+loop {
+    last if $guard-- &lt;= 0;
+    once { put &#39;once&#39; };
+    print &#39;many&#39;
+} # OUTPUT: «once␤manymanymany»</pre>
+<p>This works per &quot;clone&quot; of the containing code object, so:</p>
+<pre class="pod-block-code">({ once 42.say } xx 3).map: {$_(), $_()}; # says 42 thrice</pre>
+<p>Note that this is <strong>not</strong> a thread-safe construct when the same clone of the same block is run by multiple threads. Also remember that methods only have one clone per class, not per object.</p>
+<h1 id="quietly"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-control_flow__quietly-quietly"><span class="index-entry">quietly</span></a></a></h1>
+<p>A <code>quietly</code> block will suppress all warnings generated in it.</p>
+<pre class="pod-block-code">quietly { warn &#39;kaput!&#39; };
+warn &#39;still kaput!&#39;;
+# OUTPUT: «still kaput! [...]␤»</pre>
+<p>Any warning generated from any routine called from within the block will also be suppressed:</p>
+<pre class="pod-block-code">sub told-you { warn &#39;hey...&#39; };
+quietly { told-you; warn &#39;kaput!&#39; };
+warn &#39;Only telling you now!&#39;
+# OUTPUT: «Only telling you now!␤ [...] ␤»</pre>
+<h1 id="LABELs"><a class="u" href="#___top" title="go to top of document">LABELs</a></h1>
+<p><code>while</code>, <code>until</code>, <code>loop</code> and <code>for</code> loops can all take a label, which can be used to identify them for <code>next</code>, <code>last</code>, and <code>redo</code>. Nested loops are supported, for instance:</p>
+<pre class="pod-block-code">OUTAHERE: while True  {
+    for 1,2,3 -&gt; $n {
+        last OUTAHERE if $n == 2;
+    }
+}</pre>
+<p>Labels can be used also within nested loops to name each loop, for instance:</p>
+<pre class="pod-block-code">OUTAHERE:
+loop ( my $i = 1; True; $i++ ) {
+  OUTFOR:
+    for 1,2,3 -&gt; $n {
+      # exits the for loop before its natural end
+      last OUTFOR if $n == 2;
+  }
+
+  # exits the infinite loop
+  last OUTAHERE if $i &gt;= 2;
+}
+</pre>
+<h1 id="next"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-control_flow__next-next"><span class="index-entry">next</span></a></a></h1>
+<p>The <code>next</code> command starts the next iteration of the loop. So the code</p>
+<pre class="pod-block-code">my @x = 1, 2, 3, 4, 5;
+for @x -&gt; $x {
+    next if $x == 3;
+    print $x;
+}
+</pre>
+<p>prints &quot;1245&quot;.</p>
+<p>If the <a href="/Documentable/integration-test/language/phasers#NEXT"><code>NEXT</code> phaser</a> is present, it runs before the next iteration:</p>
+<pre class="pod-block-code">my Int $i = 0;
+while ($i &lt; 10) {
+  if ($i % 2 == 0) {
+    next;
+  }
+
+  say &quot;$i is odd.&quot;;
+
+  NEXT {
+    $i++;
+  }
+}
+# OUTPUT: «1 is odd.␤3 is odd.␤5 is odd.␤7 is odd.␤9 is odd.␤»
+</pre>
+<p>In a <a href="/Documentable/integration-test/language/concurrency#index-entry-whenever-whenever">whenever</a> block, <code>next</code> immediately exits the block for the current value:</p>
+<pre class="pod-block-code">react {
+    whenever Supply.interval(1) {
+        next if .is-prime;
+        say $_;
+        done if $_ == 4;
+    }
+}</pre>
+<p>prints &quot;0&quot;, &quot;1&quot; and &quot;4&quot; - integers from 0 to 4 with primes skipped.</p>
+<p>*Since version 6.d, the <code>next</code> command in a loop that collects its last statement values returns <code>Empty</code> for the iterations they run on.*</p>
+<h1 id="last"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-control_flow__last-last"><span class="index-entry">last</span></a></a></h1>
+<p>The <code>last</code> command immediately exits the loop in question.</p>
+<pre class="pod-block-code">my @x = 1, 2, 3, 4, 5;
+for @x -&gt; $x {
+    last if $x == 3;
+    print $x;
+}
+</pre>
+<p>prints &quot;12&quot;.</p>
+<p>If the <a href="/Documentable/integration-test/language/phasers#LAST"><code>LAST</code> phaser</a> is present, it runs before exiting the loop:</p>
+<pre class="pod-block-code">my Int $i = 1;
+while ($i &lt; 10) {
+  if ($i % 5 == 0) {
+    last;
+  }
+
+  LAST {
+    say &quot;The last number was $i.&quot;;
+  }
+  NEXT {
+    $i++;
+  }
+}
+# OUTPUT: «The last number was 5.␤»
+</pre>
+<p>*Since version 6.d, the <code>last</code> command in a loop that collects its last statement values returns <code>Empty</code> for the iterations they run on.*</p>
+<h1 id="redo"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-control_flow__redo-redo"><span class="index-entry">redo</span></a></a></h1>
+<p>The <code>redo</code> command restarts the loop block without evaluating the conditional again.</p>
+<pre class="pod-block-code">loop {
+    my $x = prompt(&quot;Enter a number&quot;);
+    redo unless $x ~~ /\d+/;
+    last;
+}
+</pre>
+
+        </div>
+    </div>
+
+    <aside><ol start="1">
+<li><a href="#fn-ref-1" id="fn-1">[↑]</a> There are other ways to modify their default behavior; they are discussed in other sections. </li>
+</ol></aside>
+
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/control.pod6">https://github.com/Raku/doc/blob/master/doc/Language/control.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

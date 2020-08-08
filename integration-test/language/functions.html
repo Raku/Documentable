@@ -1,0 +1,914 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Functions</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/functions.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Functions</h1>
+        <p class="subtitle">Functions and functional programming in Raku</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+                    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Defining/Creating/Using_functions">Defining/Creating/Using functions</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#Subroutines">Subroutines</a></td></tr>
+                                                                               <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#Blocks_and_lambdas">Blocks and lambdas</a></td></tr>
+                                   <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#Signatures">Signatures</a></td></tr>
+                 <tr class="toc-level-3"><td class="toc-number">1.3.1</td><td class="toc-text"><a href="#Automatic_signatures">Automatic signatures</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">1.4</td><td class="toc-text"><a href="#Arguments">Arguments </a></td></tr>
+                  <tr class="toc-level-2"><td class="toc-number">1.5</td><td class="toc-text"><a href="#Return_values">Return values</a></td></tr>
+                 <tr class="toc-level-2"><td class="toc-number">1.6</td><td class="toc-text"><a href="#Return_type_constraints">Return type constraints</a></td></tr>
+                              <tr class="toc-level-2"><td class="toc-number">1.7</td><td class="toc-text"><a href="#Multi-dispatch">Multi-dispatch</a></td></tr>
+                                                                                                                     <tr class="toc-level-3"><td class="toc-number">1.7.1</td><td class="toc-text"><a href="#proto">proto</a></td></tr>
+                                                                                                                                                        <tr class="toc-level-2"><td class="toc-number">1.8</td><td class="toc-text"><a href="#only">only</a></td></tr>
+                                         <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Conventions_and_idioms">Conventions and idioms</a></td></tr>
+  <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#Slurpy_conventions">Slurpy conventions</a></td></tr>
+                                                                     <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Functions_are_first-class_objects">Functions are first-class objects</a></td></tr>
+                                <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#Infix_form"> Infix form</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">3.2</td><td class="toc-text"><a href="#Closures">Closures</a></td></tr>
+                            <tr class="toc-level-2"><td class="toc-number">3.3</td><td class="toc-text"><a href="#Routines">Routines</a></td></tr>
+                                  <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#Defining_operators">Defining operators</a></td></tr>
+                                                                   <tr class="toc-level-2"><td class="toc-number">4.1</td><td class="toc-text"><a href="#Precedence">Precedence</a></td></tr>
+                                      <tr class="toc-level-2"><td class="toc-number">4.2</td><td class="toc-text"><a href="#Associativity">Associativity</a></td></tr>
+                                               <tr class="toc-level-1"><td class="toc-number">5</td><td class="toc-text"><a href="#Traits">Traits</a></td></tr>
+                                                                 <tr class="toc-level-1"><td class="toc-number">6</td><td class="toc-text"><a href="#Re-dispatching">Re-dispatching</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">6.1</td><td class="toc-text"><a href="#sub_callsame">sub callsame</a></td></tr>
+                             <tr class="toc-level-2"><td class="toc-number">6.2</td><td class="toc-text"><a href="#sub_callwith">sub callwith</a></td></tr>
+                                                                                                       <tr class="toc-level-2"><td class="toc-number">6.3</td><td class="toc-text"><a href="#sub_nextsame">sub nextsame</a></td></tr>
+                              <tr class="toc-level-2"><td class="toc-number">6.4</td><td class="toc-text"><a href="#sub_nextwith">sub nextwith</a></td></tr>
+                              <tr class="toc-level-2"><td class="toc-number">6.5</td><td class="toc-text"><a href="#sub_samewith">sub samewith</a></td></tr>
+                   <tr class="toc-level-2"><td class="toc-number">6.6</td><td class="toc-text"><a href="#sub_nextcallee">sub nextcallee</a></td></tr>
+                                               <tr class="toc-level-2"><td class="toc-number">6.7</td><td class="toc-text"><a href="#Wrapped_routines">Wrapped routines</a></td></tr>
+                         <tr class="toc-level-2"><td class="toc-number">6.8</td><td class="toc-text"><a href="#Routines_of_parent_class">Routines of parent class</a></td></tr>
+                          <tr class="toc-level-1"><td class="toc-number">7</td><td class="toc-text"><a href="#Coercion_types">Coercion types</a></td></tr>
+                                                                                                   <tr class="toc-level-1"><td class="toc-number">8</td><td class="toc-text"><a href="#sub_MAIN">sub MAIN</a></td></tr>
+     
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Routines are one of the means Raku has to reuse code. They come in several forms, most notably <a href="/Documentable/integration-test/type/Method">methods</a>, which belong in classes and roles and are associated with an object; and functions (also called <em>subroutines</em> or <a href="/Documentable/integration-test/type/Sub">sub</a>s, for short), which can be called independently of objects.</p>
+<p>Subroutines default to lexical (<code>my</code>) scoping, and calls to them are generally resolved at compile time.</p>
+<p>Subroutines can have a <a href="/Documentable/integration-test/type/Signature">signature</a>, also called <em>parameter list</em>, which specifies which, if any, arguments the signature expects. It can specify (or leave open) both the number and types of arguments, and the return value.</p>
+<p>Introspection on subroutines is provided via <a href="/Documentable/integration-test/type/Routine"><code>Routine</code></a>.</p>
+<h1 id="Defining/Creating/Using_functions"><a class="u" href="#___top" title="go to top of document">Defining/Creating/Using functions</a></h1>
+<h2 id="Subroutines"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-declarator_sub-Subroutines"><span class="index-entry">Subroutines</span></a></a></h2>
+<p>The basic way to create a subroutine is to use the <code>sub</code> declarator followed by an optional <a href="/Documentable/integration-test/language/syntax#Identifiers">identifier</a>:</p>
+<pre class="pod-block-code">sub my-func { say &quot;Look ma, no args!&quot; }
+my-func;</pre>
+<p>The sub declarator returns a value of type <a href="/Documentable/integration-test/type/Sub">Sub</a> that can be stored in any container:</p>
+<pre class="pod-block-code">my &amp;c = sub { say &quot;Look ma, no name!&quot; }
+c;     # OUTPUT: «Look ma, no name!␤»
+
+my Any:D $f = sub { say &#39;Still nameless...&#39; }
+$f();  # OUTPUT: «Still nameless...␤»
+
+my Code \a = sub { say ‚raw containers don&#39;t implement postcircumfix:&lt;( )&gt;‘ };
+a.();  # OUTPUT: «raw containers don&#39;t implement postcircumfix:&lt;( )&gt;␤»</pre>
+<p>The declarator <code>sub</code> will declare a new name in the current scope at compile time. As such, any indirection has to be resolved at compile time:</p>
+<pre class="pod-block-code">constant aname = &#39;foo&#39;;
+sub ::(aname) { say &#39;oi‽&#39; };
+foo;</pre>
+<p>This will become more useful once macros are added to Raku.</p>
+<p>To have the subroutine take arguments, a <a href="/Documentable/integration-test/type/Signature">signature</a> goes between the subroutine&#39;s name and its body, in parentheses:</p>
+<pre class="pod-block-code">sub exclaim <strong>($phrase)</strong> {
+    say $phrase ~ &quot;!!!!&quot;
+}
+exclaim &quot;Howdy, World&quot;;
+</pre>
+<p>By default, subroutines are <a href="/Documentable/integration-test/syntax/my">lexically scoped</a>. That is, <code>sub foo {...}</code> is the same as <code>my sub foo {...}</code> and is only defined within the current scope.</p>
+<pre class="pod-block-code">sub escape($str) {
+    # Puts a slash before non-alphanumeric characters
+    S:g[&lt;-alpha -digit&gt;] = &quot;\\$/&quot; given $str
+}
+
+say escape &#39;foo#bar?&#39;; # OUTPUT: «foo\#bar\?␤»
+
+{
+    sub escape($str) {
+        # Writes each non-alphanumeric character in its hexadecimal escape
+        S:g[&lt;-alpha -digit&gt;] = &quot;\\x[{ $/.ord.base(16) }]&quot; given $str
+    }
+
+    say escape &#39;foo#bar?&#39; # OUTPUT: «foo\x[23]bar\x[3F]␤»
+}
+
+# Back to original escape function
+say escape &#39;foo#bar?&#39;; # OUTPUT: «foo\#bar\?␤»
+</pre>
+<p>Subroutines don&#39;t have to be named. If unnamed, they&#39;re called <em>anonymous</em> subroutines.</p>
+<pre class="pod-block-code">say sub ($a, $b) { $a ** 2 + $b ** 2 }(3, 4) # OUTPUT: «25␤»</pre>
+<p>But in this case, it&#39;s often desirable to use the more succinct <a href="/Documentable/integration-test/type/Block">block</a> syntax. Subroutines and blocks can be called in place, as in the example above.</p>
+<pre class="pod-block-code">say -&gt; $a, $b { $a ** 2 + $b ** 2 }(3, 4)    # OUTPUT: «25␤»</pre>
+<p>Or even</p>
+<pre class="pod-block-code">say { $^a ** 2 + $^b ** 2 }(3, 4)            # OUTPUT: «25␤»</pre>
+<p><a name="Documentable/integration-test/index-entry-pointy_blocks"></a></p>
+<h2 id="Blocks_and_lambdas"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-->_syntax-Blocks_and_lambdas"><span class="index-entry">Blocks and lambdas</span></a></a></h2>
+<p>Whenever you see something like <code>{ $_ + 42 }</code>, <code>-&gt; $a, $b { $a ** $b }</code>, or <code>{ $^text.indent($:spaces) }</code>, that&#39;s <a href="/Documentable/integration-test/type/Block">Block</a> syntax; the <code>-&gt;</code> is considered also part of the block. Statements such as <code>if</code>, <code>for</code>, <code>while</code> are followed by these kind of blocks.</p>
+<pre class="pod-block-code">for 1, 2, 3, 4 -&gt; $a, $b {
+    say $a ~ $b;
+}
+# OUTPUT: «12␤34␤»</pre>
+<p>They can also be used on their own as anonymous blocks of code.</p>
+<pre class="pod-block-code">say { $^a ** 2 + $^b ** 2}(3, 4) # OUTPUT: «25␤»</pre>
+<p>Please note that this implies that, despite the fact that statements such as <code>if</code> do not define a topic variable, they actually can:</p>
+<pre class="pod-block-code">my $foo = 33;
+if $foo ** 33 -&gt; $a {
+    say &quot;$a is not null&quot;; #
+} # OUTPUT: «129110040087761027839616029934664535539337183380513 is not null␤»
+</pre>
+<p>For block syntax details, see the documentation for the <a href="/Documentable/integration-test/type/Block">Block</a> type.</p>
+<h2 id="Signatures"><a class="u" href="#___top" title="go to top of document">Signatures</a></h2>
+<p>The parameters that a function accepts are described in its <em>signature</em>.</p>
+<pre class="pod-block-code">sub format<strong>(Str $s)</strong> { ... }
+-&gt; <strong>$a, $b</strong> { ... }
+</pre>
+<p>Details about the syntax and use of signatures can be found in the <a href="/Documentable/integration-test/type/Signature">documentation on the <code>Signature</code> class</a>.</p>
+<h3 id="Automatic_signatures"><a class="u" href="#___top" title="go to top of document">Automatic signatures</a></h3>
+<p><a name="Documentable/integration-test/index-entry-@__"></a><a name="Documentable/integration-test/index-entry-$PERCENT_SIGN__"></a> If no signature is provided but either of the two automatic variables <code>@_</code> or <code>%_</code> are used in the function body, a signature with <code>*@_</code> or <code>*%_</code> will be generated. Both automatic variables can be used at the same time.</p>
+<pre class="pod-block-code">sub s { say @_, %_ };
+say &amp;s.signature # OUTPUT: «(*@_, *%_)␤»</pre>
+<h2 id="Arguments"><a class="u" href="#___top" title="go to top of document">Arguments <a name="Documentable/integration-test/index-entry-Argument"></a></a></h2>
+<p>Arguments are supplied as a comma separated list. To disambiguate nested calls, use parentheses:</p>
+<pre class="pod-block-code">sub f(&amp;c){ c() * 2 }; # call the function reference c with empty parameter list
+sub g($p){ $p - 2 };
+say(g(42), 45);       # pass only 42 to g()</pre>
+<p>When calling a function, positional arguments should be supplied in the same order as the function&#39;s signature. Named arguments may be supplied in any order, but it&#39;s considered good form to place named arguments after positional arguments. Inside the argument list of a function call, some special syntax is supported:</p>
+<pre class="pod-block-code">sub f(|c){};
+f :named(35);     # A named argument (in &quot;adverb&quot; form)
+f named =&gt; 35;    # Also a named argument
+f :35named;       # A named argument using abbreviated adverb form
+f &#39;named&#39; =&gt; 35;  # Not a named argument, a Pair in a positional argument
+f &#39;hi&#39;, :1x, :2y; # Positional and named arguments
+my \c = &lt;a b c&gt;.Capture;
+f |c;             # Merge the contents of Capture $c as if they were supplied</pre>
+<p>Arguments passed to a function are conceptually first collected in a <code>Capture</code> container. Details about the syntax and use of these containers can be found in the <a href="/Documentable/integration-test/type/Capture">documentation on the <code>Capture</code> class</a>.</p>
+<p>When using named arguments, note that normal list &quot;pair-chaining&quot; allows one to skip commas between named arguments.</p>
+<pre class="pod-block-code">sub f(|c){};
+f :dest&lt;/tmp/foo&gt; :src&lt;/tmp/bar&gt; :lines(512);
+f :32x :50y :110z;   # This flavor of &quot;adverb&quot; works, too
+f :a:b:c;            # The spaces are also optional.</pre>
+<p>If positional arguments are also passed, then either they must be passed within parentheses placed <em>immediately</em> after the function&#39;s name or the comma after the last positional argument must be kept when chaining named arguments in abbreviated adverb form. The spaces between chained named arguments and the list of positional arguments is optional.</p>
+<pre class="pod-block-code">sub p($x, $y, :$translate, :$rotate) {};
+p(1, 1, :translate, :rotate); # normal way
+p 1, 1, :translate, :rotate;  # also normal way
+
+p(1, 1) :translate  :rotate;  # parentheses + chained named arguments
+p(1, 1) :translate:rotate;
+p(1, 1):translate:rotate;
+
+p 1, 1, :translate  :rotate;  # dangling comma + chained named arguments
+p 1, 1, :translate:rotate;
+p 1, 1,:translate:rotate;</pre>
+<h2 id="Return_values"><a class="u" href="#___top" title="go to top of document">Return values</a></h2>
+<p>Any <code>Block</code> or <code>Routine</code> will provide the value of its last expression as a return value to the caller. If either <a href="/Documentable/integration-test/language/control#return">return</a> or <a href="/Documentable/integration-test/language/control#return-rw">return-rw</a> is called, then its parameter, if any, will become the return value. The default return value is <a href="/Documentable/integration-test/type/Nil">Nil</a>.</p>
+<pre class="pod-block-code">sub a { 42 };
+sub b { say a };
+sub c { };
+b;     # OUTPUT: «42␤»
+say c; # OUTPUT: «Nil␤»</pre>
+<p>Multiple return values are returned as a list or by creating a <a href="/Documentable/integration-test/type/Capture">Capture</a>. Destructuring can be used to untangle multiple return values.</p>
+<pre class="pod-block-code">sub a { 42, &#39;answer&#39; };
+put a.raku;
+# OUTPUT: «(42, &quot;answer&quot;)␤»
+
+my ($n, $s) = a;
+put [$s, $n];
+# OUTPUT: «answer 42␤»
+
+sub b { &lt;a b c&gt;.Capture };
+put b.raku;
+# OUTPUT: «\(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;)␤»</pre>
+<h2 id="Return_type_constraints"><a class="u" href="#___top" title="go to top of document">Return type constraints</a></h2>
+<p>Raku has many ways to specify a function&#39;s return type:</p>
+<pre class="pod-block-code">sub foo(--&gt; Int)      {}; say &amp;foo.returns; # OUTPUT: «(Int)␤»
+</pre>
+<pre class="pod-block-code">sub foo() returns Int {}; say &amp;foo.returns; # OUTPUT: «(Int)␤»
+</pre>
+<pre class="pod-block-code">sub foo() of Int      {}; say &amp;foo.returns; # OUTPUT: «(Int)␤»
+</pre>
+<pre class="pod-block-code">my Int sub foo()      {}; say &amp;foo.returns; # OUTPUT: «(Int)␤»
+</pre>
+<p>Attempting to return values of another type will cause a compilation error.</p>
+<pre class="pod-block-code">sub foo() returns Int { &quot;a&quot;; }; foo; # Type check fails
+</pre>
+<p><code>returns</code> and <code>of</code> are equivalent, and both take only a Type since they are declaring a trait of the <a href="/Documentable/integration-test/type/Callable">Callable</a>. The last declaration is, in fact, a type declaration, which obviously can take only a type. In the other hand, <code>--&gt;</code> can take either undefined or definite values.</p>
+<p>Note that <code>Nil</code> and <code>Failure</code> are exempt from return type constraints and can be returned from any routine, regardless of its constraint:</p>
+<pre class="pod-block-code">sub foo() returns Int { fail   }; foo; # Failure returned
+sub bar() returns Int { return }; bar; # Nil returned
+</pre>
+<h2 id="Multi-dispatch"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-declarator_multi-Multi-dispatch"><span class="index-entry">Multi-dispatch</span></a></a></h2>
+<p>Raku allows for writing several routines with the same name but different signatures. When the routine is called by name, the runtime environment determines the proper <em>candidate</em> and invokes it.</p>
+<p>Each candidate is declared with the <code>multi</code> keyword. Dispatch happens depending on the number (<a href="/Documentable/integration-test/type/Routine#(Code)_method_arity">arity</a>), type and name of arguments. Consider the following example:</p>
+<pre class="pod-block-code"># version 1
+multi happy-birthday( $name ) {
+    say &quot;Happy Birthday $name !&quot;;
+}
+
+# version 2
+multi happy-birthday( $name, $age ) {
+    say &quot;Happy {$age}th Birthday $name !&quot;;
+}
+
+# version 3
+multi happy-birthday( :$name, :$age, :$title  = &#39;Mr&#39; ) {
+    say &quot;Happy {$age}th Birthday $title $name !&quot;;
+}
+
+
+# calls version 1 (arity)
+happy-birthday &#39;Larry&#39;;                        # OUTPUT: «Happy Birthday Larry !␤»
+# calls version 2 (arity)
+happy-birthday &#39;Luca&#39;, 40;                     # OUTPUT: «Happy 40th Birthday Luca !␤»
+# calls version 3
+# (named arguments win against arity)
+happy-birthday( age =&gt; &#39;50&#39;, name =&gt; &#39;John&#39; ); # OUTPUT: «Happy 50th Birthday Mr John !␤»
+# calls version 2 (arity)
+happy-birthday( &#39;Jack&#39;, 25 );                  # OUTPUT: «Happy 25th Birthday Jack !␤»
+
+</pre>
+<p>The first two versions of the <code>happy-birthday</code> sub differs only in the arity (number of arguments), while the third version uses named arguments and is chosen only when named arguments are used, even if the arity is the same of another <code>multi</code> candidate.</p>
+<p>When two sub have the same arity, the type of the arguments drive the dispatch; when there are named arguments they drive the dispatch even when their type is the same as another candidate:</p>
+<pre class="pod-block-code">multi happy-birthday( Str $name, Int $age ) {
+    say &quot;Happy {$age}th Birthday $name !&quot;;
+}
+
+multi happy-birthday( Str $name, Str $title ) {
+    say &quot;Happy Birthday $title $name !&quot;;
+}
+
+multi happy-birthday( Str :$name, Int :$age ) {
+    say &quot;Happy Birthday $name, you turned $age !&quot;;
+}
+
+happy-birthday &#39;Luca&#39;, 40;                 # OUTPUT: «Happy 40th Birthday Luca !␤»
+happy-birthday &#39;Luca&#39;, &#39;Mr&#39;;               # OUTPUT: «Happy Birthday Mr Luca !␤»
+happy-birthday age =&gt; 40, name =&gt; &#39;Luca&#39;;  # OUTPUT: «Happy Birthday Luca, you turned 40 !␤»
+
+</pre>
+<p>Named parameters participate in the dispatch even if they are not provided in the call. Therefore a multi candidate with named parameters will be given precedence.</p>
+<p>For more information about type constraints see the documentation for the <a href="/Documentable/integration-test/type/Signature#Type_constraints">Signature</a> class.</p>
+<pre class="pod-block-code">multi as-json(Bool $d) { $d ?? &#39;true&#39; !! &#39;false&#39;; }
+multi as-json(Real $d) { ~$d }
+multi as-json(@d)      { sprintf &#39;[%s]&#39;, @d.map(&amp;as-json).join(&#39;, &#39;) }
+
+say as-json( True );                        # OUTPUT: «true␤»
+say as-json( 10.3 );                        # OUTPUT: «10.3␤»
+say as-json( [ True, 10.3, False, 24 ] );   # OUTPUT: «[true, 10.3, false, 24]␤»</pre>
+<p><code>multi</code> without any specific routine type always defaults to a <code>sub</code>, but you can use it on methods as well. The candidates are all the multi methods of the object:</p>
+<pre class="pod-block-code">class Congrats {
+    multi method congratulate($reason, $name) {
+        say &quot;Hooray for your $reason, $name&quot;;
+    }
+}
+
+role BirthdayCongrats {
+    multi method congratulate(&#39;birthday&#39;, $name) {
+        say &quot;Happy birthday, $name&quot;;
+    }
+    multi method congratulate(&#39;birthday&#39;, $name, $age) {
+        say &quot;Happy {$age}th birthday, $name&quot;;
+    }
+}
+
+my $congrats = Congrats.new does BirthdayCongrats;
+
+$congrats.congratulate(&#39;promotion&#39;,&#39;Cindy&#39;); # OUTPUT: «Hooray for your promotion, Cindy␤»
+$congrats.congratulate(&#39;birthday&#39;,&#39;Bob&#39;);    # OUTPUT: «Happy birthday, Bob␤»</pre>
+<p>Unlike <code>sub</code>, if you use named parameters with multi methods, the parameters must be required parameters to behave as expected.</p>
+<p>Please note that a non-multi sub or operator will hide multi candidates of the same name in any parent scope or child scope. The same is true for imported non-multi candidates.</p>
+<p>Multi-dispatch can also work on parameter traits, with routines with <code>is rw</code> parameters having a higher priority than those that do not:</p>
+<pre class="pod-block-code">proto þoo (|) {*}
+multi sub þoo( $ðar is rw ) { $ðar = 42 }
+multi sub þoo( $ðar ) { $ðar + 42 }
+my $bar = 7;
+say þoo($bar); # OUTPUT: «42»
+</pre>
+<h3 id="proto"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-declarator-proto"><span class="index-entry">proto</span></a></a></h3>
+<p><code>proto</code> is a way to formally declare commonalities between <code>multi</code> candidates. It acts as a wrapper that can validate but not modify arguments. Consider this basic example:</p>
+<pre class="pod-block-code">proto congratulate(Str $reason, Str $name, |) {*}
+multi congratulate($reason, $name) {
+   say &quot;Hooray for your $reason, $name&quot;;
+}
+multi congratulate($reason, $name, Int $rank) {
+   say &quot;Hooray for your $reason, $name -- got rank $rank!&quot;;
+}
+
+congratulate(&#39;being a cool number&#39;, &#39;Fred&#39;);     # OK
+congratulate(&#39;being a cool number&#39;, &#39;Fred&#39;, 42); # OK</pre>
+<pre class="pod-block-code">congratulate(&#39;being a cool number&#39;, 42);         # Proto match error
+</pre>
+<p>The proto insists that all <code>multi congratulate</code> subs conform to the basic signature of two strings, optionally followed by further parameters. The <code>|</code> is an un-named <code>Capture</code> parameter, and allows a <code>multi</code> to take additional arguments. The first two calls succeed, but the third fails (at compile time) because <code>42</code> doesn&#39;t match <code>Str</code>.</p>
+<pre class="pod-block-code">say &amp;congratulate.signature # OUTPUT: «(Str $reason, Str $name, | is raw)␤»
+</pre>
+<p>You can give the <code>proto</code> a function body, and place the <code>{*}</code> (note there is no whitespace inside the curly braces) where you want the dispatch to be done. This can be useful when you have a &quot;hole&quot; in your routine that gives it different behavior depending on the arguments given:</p>
+<pre class="pod-block-code"># attempts to notify someone -- False if unsuccessful
+proto notify(Str $user, Str $msg) {
+   my \hour = DateTime.now.hour;
+   if hour &gt; 8 or hour &lt; 22 {
+      return {*};
+   } else {
+      # we can&#39;t notify someone when they might be sleeping
+      return False;
+   }
+}</pre>
+<p>Since <code>proto</code> is a wrapper for <code>multi</code> candidates, the signatures of the routine&#39;s <code>multi</code> candidates do not necessarily have to match that of the <code>proto</code>; arguments of <code>multi</code> candidates may have subtypes of those of the <code>proto</code>, and the return types of the <code>multi</code> candidates may be entirely different from that of the <code>proto</code>. Using differing types like this is especially useful when giving <code>proto</code> a function body:</p>
+<pre class="pod-block-code">enum DebugType &lt;LOG WARNING ERROR&gt;;
+
+#|[ Prints a message to stderr with a color-coded key. ]
+proto debug(DebugType:D $type, Str:D $message --&gt; Bool:_) {
+    note sprintf qb/\e[1;%dm[%s]\e[0m %s/, {*}, $type.key, $message
+}
+multi debug(LOG;; Str:D --&gt; 32)     { }
+multi debug(WARNING;; Str:D --&gt; 33) { }
+multi debug(ERROR;; Str:D --&gt; 31)   { }
+</pre>
+<p><code>{*}</code> always dispatches to candidates with the parameters it&#39;s called with. Parameter defaults and type coercions will work but are not passed on.</p>
+<pre class="pod-block-code">proto mistake-proto(Str() $str, Int $number = 42) {*}
+multi mistake-proto($str, $number) { say $str.^name }
+mistake-proto(7, 42);  # OUTPUT: «Int␤» -- not passed on
+</pre>
+<pre class="pod-block-code">mistake-proto(&#39;test&#39;); # fails -- not passed on
+</pre>
+<p>A longer example using <code>proto</code> for methods shows how to extract common functionality into a proto method.</p>
+<pre class="pod-block-code">class NewClass {
+    has $.debug is rw = False;
+    has $.value is rw = &#39;Initial value&#39;;
+    proto method handle( | ) {
+        note &quot;before value is ｢$.value｣&quot; if $.debug;
+        {*}
+        note &quot;after value is ｢$.value｣&quot; if $.debug;
+    }
+    multi method handle(Str $s) {
+        $.value = $s;
+        say &#39;in string&#39;
+    }
+    multi method handle(Positional $s) {
+        $.value = $s[0];
+        say &#39;in positional&#39;
+    }
+    multi method handle( $a, $b ) {
+        $.value = &quot;$a is looking askance at $b&quot;;
+        say &#39;in string&#39;
+    }
+}
+my NewClass $x .= new;
+$x.handle(&#39;hello world&#39;);
+$x.handle(&lt;hello world&gt;);
+$x.debug = True;
+$x.handle(&#39;hello world&#39;);
+$x.handle(&lt;hello world&gt;);
+$x.handle(&#39;Claire&#39;, &#39;John&#39;);
+# OUTPUT:
+#in string
+#after value is ｢hello world｣
+#before value is ｢hello world｣
+#in positional
+#after value is ｢hello｣
+#before value is ｢hello｣
+#in string
+#after value is ｢Claire is looking askance at John｣
+</pre>
+<h2 id="only"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-declarator-only"><span class="index-entry">only</span></a></a></h2>
+<p>The <code>only</code> keyword preceding <code>sub</code> or <code>method</code> indicates that it will be the only function with that name that inhabits a given namespace.</p>
+<pre class="pod-block-code">only sub you () {&quot;Can make all the world seem right&quot;};</pre>
+<p>This will make other declarations in the same namespace, such as</p>
+<pre class="pod-block-code">sub you ( $can ) { &quot;Make the darkness bright&quot; }</pre>
+<p>fail with an exception of type <code>X::Redeclaration</code>. <code>only</code> is the default value for all subs; in the case above, not declaring the first subroutine as <code>only</code> will yield exactly the same error; however, nothing prevents future developers from declaring a proto and preceding the names with <code>multi</code>. Using <code>only</code> before a routine is a <a href="https://en.wikipedia.org/wiki/Defensive_programming">defensive programming</a> feature that declares the intention of not having routines with the same name declared in the same namespace in the future.</p>
+<pre class="pod-block-code">(exit code 1)
+===SORRY!=== Error while compiling /tmp/only-redeclaration.p6
+Redeclaration of routine &#39;you&#39; (did you mean to declare a multi-sub?)
+at /tmp/only-redeclaration.p6:3
+------&gt; &lt;BOL&gt;⏏&lt;EOL&gt;
+</pre>
+<p>Anonymous sub cannot be declared <code>only</code>. <code>only sub {}</code> will throw an error of type, surprisingly, <code>X::Anon::Multi</code>.</p>
+<h1 id="Conventions_and_idioms"><a class="u" href="#___top" title="go to top of document">Conventions and idioms</a></h1>
+<p>While the dispatch system described above provides a lot of flexibility, there are some conventions that most internal functions, and those in many modules, will follow.</p>
+<h2 id="Slurpy_conventions"><a class="u" href="#___top" title="go to top of document">Slurpy conventions</a></h2>
+<p>Perhaps the most important one of these conventions is the way slurpy list arguments are handled. Most of the time, functions will not automatically flatten slurpy lists. The rare exceptions are those functions that don&#39;t have a reasonable behavior on lists of lists (e.g., <a href="/Documentable/integration-test/routine/chrs">chrs</a>) or where there is a conflict with an established idiom (e.g., <a href="/Documentable/integration-test/routine/pop">pop</a> being the inverse of <a href="/Documentable/integration-test/routine/push">push</a>).</p>
+<p>If you wish to match this look and feel, any <a href="/Documentable/integration-test/type/Iterable">Iterable</a> argument must be broken out element-by-element using a <code>**@</code> slurpy, with two nuances:</p>
+<ul><li><p>An <a href="/Documentable/integration-test/type/Iterable">Iterable</a> inside a <a href="/Documentable/integration-test/language/containers#Scalar_containers">Scalar container</a> doesn&#39;t count.</p>
+</li>
+<li><p><a href="/Documentable/integration-test/type/List">List</a>s created with a <a href="/Documentable/integration-test/routine/,"><code>,</code></a> at the top level only count as one <a href="/Documentable/integration-test/type/Iterable">Iterable</a>.</p>
+</li>
+</ul>
+<p>This can be achieved by using a slurpy with a <code>+</code> or <code>+@</code> instead of <code>**</code>:</p>
+<pre class="pod-block-code">sub grab(+@a) { &quot;grab $_&quot;.say for @a }</pre>
+<p>which is shorthand for something very close to:</p>
+<pre class="pod-block-code">multi sub grab(**@a) { &quot;grab $_&quot;.say for @a }
+multi sub grab(\a) {
+    a ~~ Iterable and a.VAR !~~ Scalar ?? nextwith(|a) !! nextwith(a,)
+}</pre>
+<p>This results in the following behavior, which is known as the <em>&quot;single argument rule&quot;</em> and is important to understand when invoking slurpy functions:</p>
+<pre class="pod-block-code">grab(1, 2);      # OUTPUT: «grab 1␤grab 2␤»
+grab((1, 2));    # OUTPUT: «grab 1␤grab 2␤»
+grab($(1, 2));   # OUTPUT: «grab 1 2␤»
+grab((1, 2), 3); # OUTPUT: «grab 1 2␤grab 3␤»
+</pre>
+<p>This also makes user-requested flattening feel consistent whether there is one sublist, or many:</p>
+<pre class="pod-block-code">grab(flat (1, 2), (3, 4));   # OUTPUT: «grab 1␤grab 2␤grab 3␤grab 4␤»
+grab(flat $(1, 2), $(3, 4)); # OUTPUT: «grab 1 2␤grab 3 4␤»
+grab(flat (1, 2));           # OUTPUT: «grab 1␤grab 2␤»
+grab(flat $(1, 2));          # OUTPUT: «grab 1␤grab 2␤»
+</pre>
+<p>It&#39;s worth noting that mixing binding and sigilless variables in these cases requires a bit of finesse, because there is no <a href="/Documentable/integration-test/type/Scalar">Scalar</a> intermediary used during binding.</p>
+<pre class="pod-block-code">my $a = (1, 2);  # Normal assignment, equivalent to $(1, 2)
+grab($a);        # OUTPUT: «grab 1 2␤»
+my $b := (1, 2); # Binding, $b links directly to a bare (1, 2)
+grab($b);        # OUTPUT: «grab 1␤grab 2␤»
+my \c = (1, 2);  # Sigilless variables always bind, even with &#39;=&#39;
+grab(c);         # OUTPUT: «grab 1␤grab 2␤»
+</pre>
+<h1 id="Functions_are_first-class_objects"><a class="u" href="#___top" title="go to top of document">Functions are first-class objects</a></h1>
+<p>Functions and other code objects can be passed around as values, just like any other object.</p>
+<p>There are several ways to get hold of a code object. You can assign it to a variable at the point of declaration:</p>
+<pre class="pod-block-code">my $square = sub (Numeric $x) { $x * $x }
+# and then use it:
+say $square(6);    # OUTPUT: «36␤»</pre>
+<p><a name="Documentable/integration-test/index-entry-prefix_&"></a> Or you can reference an existing named function by using the <code>&amp;</code>-sigil in front of it.</p>
+<pre class="pod-block-code">sub square($x) { $x * $x };
+
+# get hold of a reference to the function:
+my $func = &amp;square</pre>
+<p>This is very useful for <em>higher order functions</em>, that is, functions that take other functions as input. A simple one is <a href="/Documentable/integration-test/type/List#routine_map">map</a>, which applies a function to each input element:</p>
+<pre class="pod-block-code">sub square($x) { $x * $x };
+my @squared = map &amp;square,  1..5;
+say join &#39;, &#39;, @squared;        # OUTPUT: «1, 4, 9, 16, 25␤»</pre>
+<p>You can use the same for operators, except that in that case the name with which they have been declared, using <code>infix:</code>, must be used:</p>
+<pre class="pod-block-code">my $exp := &amp;infix:&lt;**&gt;; say $exp(7,3); # OUTPUT: «343»</pre>
+<p>This can be done even in cases where operators have been <em>auto-generated</em>, for instance in this case where <code>XX</code> is the metaoperator <code>X</code> applied to the <code>X</code> operator.</p>
+<pre class="pod-block-code">my $XX := &amp;infix:&lt;XX&gt;; say $XX( [1,(2,3)] , [(4,5),6]  );
+# OUTPUT: «(((1 (4 5))) ((1 6)) (((2 3) (4 5))) (((2 3) 6)))»</pre>
+<p>Baseline is that, in case of operators, you don&#39;t really need to worry about the actual way they were defined, just use the <code>&amp;infix&lt; &gt;</code> to grab a pointer to them.</p>
+<h2 id="Infix_form"><a class="u" href="#___top" title="go to top of document">Infix form</a></h2>
+<p>To call a subroutine with 2 arguments like an infix operator, use a subroutine reference surrounded by <code>[</code> and <code>]</code>.</p>
+<pre class="pod-block-code">sub plus { $^a + $^b };
+say 21 [&amp;plus] 21;
+# OUTPUT: «42␤»</pre>
+<p><a name="Documentable/integration-test/index-entry-closures"></a></p>
+<h2 id="Closures"><a class="u" href="#___top" title="go to top of document">Closures</a></h2>
+<p>All code objects in Raku are <em>closures</em>, which means they can reference lexical variables from an outer scope.</p>
+<pre class="pod-block-code">sub generate-sub($x) {
+    my $y = 2 * $x;
+    return sub { say $y };
+    #      ^^^^^^^^^^^^^^  inner sub, uses $y
+}
+my $generated = generate-sub(21);
+$generated(); # OUTPUT: «42␤»</pre>
+<p>Here, <code>$y</code> is a lexical variable inside <code>generate-sub</code>, and the inner subroutine that is returned uses it. By the time that inner sub is called, <code>generate-sub</code> has already exited. Yet the inner sub can still use <code>$y</code>, because it <em>closed</em> over the variable.</p>
+<p>Another closure example is the use of <a href="/Documentable/integration-test/type/List#routine_map">map</a> to multiply a list of numbers:</p>
+<pre class="pod-block-code">my $multiply-by = 5;
+say join &#39;, &#39;, map { $_ * $multiply-by }, 1..5;     # OUTPUT: «5, 10, 15, 20, 25␤»</pre>
+<p>Here, the block passed to <code>map</code> references the variable <code>$multiply-by</code> from the outer scope, making the block a closure.</p>
+<p>Languages without closures cannot easily provide higher-order functions that are as easy to use and powerful as <code>map</code>.</p>
+<h2 id="Routines"><a class="u" href="#___top" title="go to top of document">Routines</a></h2>
+<p>Routines are code objects that conform to <a href="/Documentable/integration-test/type/Routine">type <code>Routine</code></a>, most notably <a href="/Documentable/integration-test/type/Sub"><code>Sub</code></a>, <a href="/Documentable/integration-test/type/Method"><code>Method</code></a>, <a href="/Documentable/integration-test/type/Regex"><code>Regex</code></a> and <a href="/Documentable/integration-test/type/Submethod"><code>Submethod</code></a>.</p>
+<p>They carry extra functionality in addition to what a <a href="/Documentable/integration-test/type/Block"><code>Block</code></a> supplies: they can come as <a href="#Multi-dispatch">multis</a>, you can <a href="/Documentable/integration-test/type/Routine#method_wrap">wrap</a> them, and exit early with <code>return</code>:</p>
+<pre class="pod-block-code">my $keywords = set &lt;if for unless while&gt;;
+
+sub has-keyword(*@words) {
+    for @words -&gt; $word {
+        return True if $word (elem) $keywords;
+    }
+    False;
+}
+
+say has-keyword &#39;not&#39;, &#39;one&#39;, &#39;here&#39;;       # OUTPUT: «False␤»
+say has-keyword &#39;but&#39;, &#39;here&#39;, &#39;for&#39;;       # OUTPUT: «True␤»</pre>
+<p>Here, <code>return</code> doesn&#39;t just leave the block inside which it was called, but the whole routine. In general, blocks are transparent to <code>return</code>, they attach to the outermost routine.</p>
+<p><a name="Documentable/integration-test/index-entry-use_soft_(pragma)"></a> Routines can be inlined and as such provide an obstacle for wrapping. Use the pragma <code>use soft;</code> to prevent inlining to allow wrapping at runtime.</p>
+<pre class="pod-block-code">sub testee(Int $i, Str $s){
+    rand.Rat * $i ~ $s;
+}
+
+sub wrap-to-debug(&amp;c){
+    say &quot;wrapping {&amp;c.name} with arguments {&amp;c.signature.raku}&quot;;
+    &amp;c.wrap: sub (|args){
+        note &quot;calling {&amp;c.name} with {args.gist}&quot;;
+        my \ret-val := callwith(|args);
+        note &quot;returned from {&amp;c.name} with return value {ret-val.raku}&quot;;
+        ret-val
+    }
+}
+
+my $testee-handler = wrap-to-debug(&amp;testee);
+# OUTPUT: «wrapping testee with arguments :(Int $i, Str $s)»
+
+say testee(10, &quot;ten&quot;);
+# OUTPUT: «calling testee with \(10, &quot;ten&quot;)␤returned from testee with return value &quot;6.151190ten&quot;␤6.151190ten»
+&amp;testee.unwrap($testee-handler);
+say testee(10, &quot;ten&quot;);
+# OUTPUT: «6.151190ten␤»</pre>
+<h1 id="Defining_operators"><a class="u" href="#___top" title="go to top of document">Defining operators</a></h1>
+<p>Operators are just subroutines with funny names. The funny names are composed of the category name (<code>infix</code>, <code>prefix</code>, <code>postfix</code>, <code>circumfix</code>, <code>postcircumfix</code>), followed by a colon, and a list of the operator name or names (two components in the case of circumfix and postcircumfix). A expanded explanation of all these operators and what they mean is included <a href="/Documentable/integration-test/language/operators#Operator_classification">in this table</a>.</p>
+<p>This works both for adding multi candidates to existing operators and for defining new ones. In the latter case, the definition of the new subroutine automatically installs the new operator into the grammar, but only in the current lexical scope. Importing an operator via <code>use</code> or <code>import</code> also makes it available.</p>
+<pre class="pod-block-code"># adding a multi candidate to an existing operator:
+multi infix:&lt;+&gt;(Int $x, &quot;same&quot;) { 2 * $x };
+say 21 + &quot;same&quot;;            # OUTPUT: «42␤»
+
+# defining a new operator
+sub postfix:&lt;!&gt;(Int $x where { $x &gt;= 0 }) { [*] 1..$x };
+say 6!;                     # OUTPUT: «720␤»
+</pre>
+<p>The operator declaration becomes available as soon as possible, so you can recurse into a just-defined operator:</p>
+<pre class="pod-block-code">sub postfix:&lt;!&gt;(Int $x where { $x &gt;= 0 }) {
+    $x == 0 ?? 1 !! $x * ($x - 1)!
+}
+say 6!;                     # OUTPUT: «720␤»
+</pre>
+<p>Circumfix and postcircumfix operators are made of two delimiters, one opening and one closing.</p>
+<pre class="pod-block-code">sub circumfix:&lt;START END&gt;(*@elems) {
+    &quot;start&quot;, @elems, &quot;end&quot;
+}
+
+say START &#39;a&#39;, &#39;b&#39;, &#39;c&#39; END;        # OUTPUT: «(start [a b c] end)␤»
+</pre>
+<p>Postcircumfixes also receive the term after which they are parsed as an argument:</p>
+<pre class="pod-block-code">sub postcircumfix:&lt;!! !!&gt;($left, $inside) {
+    &quot;$left -&gt; ( $inside )&quot;
+}
+say 42!! 1 !!;      # OUTPUT: «42 -&gt; ( 1 )␤»
+</pre>
+<p>Blocks can be assigned directly to operator names. Use a variable declarator and prefix the operator name with a <code>&amp;</code>-sigil.</p>
+<pre class="pod-block-code">my &amp;infix:&lt;ieq&gt; = -&gt; |l { [eq] l&gt;&gt;.fc };
+say &quot;abc&quot; ieq &quot;Abc&quot;;
+# OUTPUT: «True␤»</pre>
+<p><a name="Documentable/integration-test/index-entry-is_tighter"></a><a name="Documentable/integration-test/index-entry-is_equiv"></a><a name="Documentable/integration-test/index-entry-is_looser"></a></p>
+<h2 id="Precedence"><a class="u" href="#___top" title="go to top of document">Precedence</a></h2>
+<p>Operator precedence in Raku is specified relative to existing operators. The traits <code>is tighter</code>, <code>is equiv</code> and <code>is looser</code> can be provided with an operator to indicate how the precedence of the new operator is related to other, existing ones. More than one trait can be applied.</p>
+<p>For example, <code>infix:&lt;*&gt;</code> has a tighter precedence than <code>infix:&lt;+&gt;</code>, and squeezing one in between works like this:</p>
+<pre class="pod-block-code">sub infix:&lt;!!&gt;($a, $b) is tighter(&amp;infix:&lt;+&gt;) {
+    2 * ($a + $b)
+}
+
+say 1 + 2 * 3 !! 4;     # OUTPUT: «21␤»
+</pre>
+<p>Here, the <code>1 + 2 * 3 !! 4</code> is parsed as <code>1 + ((2 * 3) !! 4)</code>, because the precedence of the new <code>!!</code> operator is between that of <code>+</code> and <code>*</code>.</p>
+<p>The same effect could have been achieved with:</p>
+<pre class="pod-block-code">sub infix:&lt;!!&gt;($a, $b) is looser(&amp;infix:&lt;*&gt;) { ... }</pre>
+<p>To put a new operator on the same precedence level as an existing operator, use <code>is equiv(&amp;other-operator)</code> instead.</p>
+<h2 id="Associativity"><a class="u" href="#___top" title="go to top of document">Associativity</a></h2>
+<p>When the same operator appears several times in a row, there are multiple possible interpretations. For example:</p>
+<pre class="pod-block-code">1 + 2 + 3</pre>
+<p>could be parsed as</p>
+<pre class="pod-block-code">(1 + 2) + 3         # left associative</pre>
+<p>or as</p>
+<pre class="pod-block-code">1 + (2 + 3)         # right associative</pre>
+<p>For addition of real numbers, the distinction is somewhat moot, because <code>+</code> is <a href="https://en.wikipedia.org/wiki/Associative_property">mathematically associative</a>.</p>
+<p>But for other operators it matters a great deal. For example, for the exponentiation/power operator, <code>infix:&lt;**&gt;</code>:</p>
+<pre class="pod-block-code">say 2 ** (2 ** 3);      # OUTPUT: «256␤»
+say (2 ** 2) ** 3;      # OUTPUT: «64␤»</pre>
+<p>Raku has the following possible associativity configurations:</p>
+<table class="pod-table">
+<thead><tr>
+<th>A</th> <th>Assoc</th> <th>Meaning of $a ! $b ! $c</th>
+</tr></thead>
+<tbody>
+<tr> <td>L</td> <td>left</td> <td>($a ! $b) ! $c</td> </tr> <tr> <td>R</td> <td>right</td> <td>$a ! ($b ! $c)</td> </tr> <tr> <td>N</td> <td>non</td> <td>ILLEGAL</td> </tr> <tr> <td>C</td> <td>chain</td> <td>($a ! $b) and ($b ! $c)</td> </tr> <tr> <td>X</td> <td>list</td> <td>infix:&lt;!&gt;($a; $b; $c)</td> </tr>
+</tbody>
+</table><p><a name="Documentable/integration-test/index-entry-is_assoc_(trait)"></a> You can specify the associativity of an operator with the <code>is assoc</code> trait, where <code>left</code> is the default associativity.</p>
+<pre class="pod-block-code">sub infix:&lt;§&gt;(*@a) is assoc&lt;list&gt; {
+    &#39;(&#39; ~ @a.join(&#39;|&#39;) ~ &#39;)&#39;;
+}
+
+say 1 § 2 § 3;      # OUTPUT: «(1|2|3)␤»
+</pre>
+<h1 id="Traits"><a class="u" href="#___top" title="go to top of document">Traits</a></h1>
+<p><em>Traits</em> are subroutines that run at compile time and modify the behavior of a type, variable, routine, attribute, or other language object.</p>
+<p>Examples of traits are:</p>
+<pre class="pod-block-code">class ChildClass is ParentClass { ... }
+#                ^^ trait, with argument ParentClass
+has $.attrib is rw;
+#            ^^^^^  trait with name &#39;rw&#39;
+class SomeClass does AnotherRole { ... }
+#               ^^^^ trait
+has $!another-attribute handles &lt;close&gt;;
+#                       ^^^^^^^ trait
+</pre>
+<p>... and also <code>is tighter</code>, <code>is looser</code>, <code>is equiv</code> and <code>is assoc</code> from the previous section.</p>
+<p>Traits are subs declared in the form <code>trait_mod&lt;VERB&gt;</code>, where <code>VERB</code> stands for the name like <code>is</code>, <code>does</code> or <code>handles</code>. It receives the modified thing as argument, and the name as a named argument. See <a href="/Documentable/integration-test/type/Sub#Traits">Sub</a> for details.</p>
+<pre class="pod-block-code">multi sub trait_mod:&lt;is&gt;(Routine $r, :$doubles!) {
+    $r.wrap({
+        2 * callsame;
+    });
+}
+
+sub square($x) is doubles {
+    $x * $x;
+}
+
+say square 3;       # OUTPUT: «18␤»
+</pre>
+<p>See <a href="/Documentable/integration-test/type/Routine">type Routine</a> for the documentation of built-in routine traits.</p>
+<h1 id="Re-dispatching"><a class="u" href="#___top" title="go to top of document">Re-dispatching</a></h1>
+<p>There are cases in which a routine might want to call the next method from a chain. This chain could be a list of parent classes in a class hierarchy, or it could be less specific multi candidates from a multi dispatch, or it could be the inner routine from a <code>wrap</code>.</p>
+<p>Fortunately, we have a series of re-dispatching tools that help us to make it easy.</p>
+<h2 id="sub_callsame"><a class="u" href="#___top" title="go to top of document">sub callsame</a></h2>
+<p><a name="Documentable/integration-test/index-entry-dispatch_callsame"></a></p>
+<p><code>callsame</code> calls the next matching candidate with the same arguments that were used for the current candidate and returns that candidate&#39;s return value.</p>
+<pre class="pod-block-code">proto a(|) {*}
+
+multi a(Any $x) {
+    say &quot;Any $x&quot;;
+    return 5;
+}
+
+multi a(Int $x) {
+    say &quot;Int $x&quot;;
+    my $res = callsame;
+    say &quot;Back in Int with $res&quot;;
+}
+
+a 1;        # OUTPUT: «Int 1␤Any 1␤Back in Int with 5␤»
+</pre>
+<h2 id="sub_callwith"><a class="u" href="#___top" title="go to top of document">sub callwith</a></h2>
+<p><a name="Documentable/integration-test/index-entry-dispatch_callwith"></a></p>
+<p><code>callwith</code> calls the next candidate matching the original signature, that is, the next function that could possibly be used with the arguments provided by users and returns that candidate&#39;s return value.</p>
+<pre class="pod-block-code">proto a(|) {*}
+
+multi a(Any $x) {
+    say &quot;Any $x&quot;;
+    return 5;
+}
+multi a(Int $x) {
+    say &quot;Int $x&quot;;
+    my $res = callwith($x + 1);
+    say &quot;Back in Int with $res&quot;;
+}
+
+a 1;        # OUTPUT: «Int 1␤Any 2␤Back in Int with 5␤»
+</pre>
+<p>Here, <code>a 1</code> calls the most specific <code>Int</code> candidate first, and <code>callwith</code> re-dispatches to the less specific <code>Any</code> candidate. Note that although our parameter <code>$x + 1</code> is an <code>Int</code>, still we call the next candidate in the chain.</p>
+<p>In this case, for example:</p>
+<pre class="pod-block-code">proto how-many(|) {*}
+
+multi how-many( Associative $a ) {
+    say &quot;Associative $a &quot;;
+    my $calling = callwith( 1 =&gt; $a );
+    return $calling;
+}
+
+multi how-many( Pair $a ) {
+    say &quot;Pair $a &quot;;
+    return &quot;There is $a &quot;
+
+}
+
+multi how-many( Hash $a ) {
+    say &quot;Hash $a&quot;;
+    return &quot;Hashing $a&quot;;
+}
+
+my $little-piggy = little =&gt; &#39;piggy&#39;;
+say $little-piggy.^name;        # OUTPUT: «Pair␤»
+say &amp;how-many.cando( \( $little-piggy ));
+# OUTPUT: «(sub how-many (Pair $a) { #`(Sub|68970512) ... } sub how-many (Associative $a) { #`(Sub|68970664) ... })␤»
+say how-many( $little-piggy  ); # OUTPUT: «Pair little     piggy␤There is little piggy␤»
+</pre>
+<p>the only candidates that take the <code>Pair</code> argument supplied by the user are the two functions defined first. Although a <code>Pair</code> can be easily coerced to a <code>Hash</code>, here is how signatures match:</p>
+<pre class="pod-block-code">say :( Pair ) ~~ :( Associative ); # OUTPUT: «True␤»
+say :( Pair ) ~~ :( Hash );        # OUTPUT: «False␤»
+</pre>
+<p>The arguments provided by us are a <code>Pair</code>. It does not match a <code>Hash</code>, so the corresponding function is thus not included in the list of candidates, as can be seen by the output of <code>&amp;how-many.cando( \( $little-piggy ));</code>.</p>
+<h2 id="sub_nextsame"><a class="u" href="#___top" title="go to top of document">sub nextsame</a></h2>
+<p><a name="Documentable/integration-test/index-entry-dispatch_nextsame"></a></p>
+<p><code>nextsame</code> calls the next matching candidate with the same arguments that were used for the current candidate and <strong>never</strong> returns.</p>
+<pre class="pod-block-code">proto a(|) {*}
+
+multi a(Any $x) {
+    say &quot;Any $x&quot;;
+    return 5;
+}
+multi a(Int $x) {
+    say &quot;Int $x&quot;;
+    nextsame;
+    say &quot;never executed because nextsame doesn&#39;t return&quot;;
+}
+
+a 1;        # OUTPUT: «Int 1␤Any 1␤»
+</pre>
+<h2 id="sub_nextwith"><a class="u" href="#___top" title="go to top of document">sub nextwith</a></h2>
+<p><a name="Documentable/integration-test/index-entry-dispatch_nextwith"></a></p>
+<p><code>nextwith</code> calls the next matching candidate with arguments provided by users and <strong>never</strong> returns.</p>
+<pre class="pod-block-code">proto a(|) {*}
+
+multi a(Any $x) {
+    say &quot;Any $x&quot;;
+    return 5;
+}
+multi a(Int $x) {
+    say &quot;Int $x&quot;;
+    nextwith($x + 1);
+    say &quot;never executed because nextwith doesn&#39;t return&quot;;
+}
+
+a 1;        # OUTPUT: «Int 1␤Any 2␤»
+</pre>
+<h2 id="sub_samewith"><a class="u" href="#___top" title="go to top of document">sub samewith</a></h2>
+<p><a name="Documentable/integration-test/index-entry-dispatch_samewith"></a></p>
+<p><code>samewith</code> calls current candidate again with arguments provided by users and returns the return value of the new instance of current candidate.</p>
+<pre class="pod-block-code">proto a(|) {*}
+
+multi a(Int $x) {
+  return 1 unless $x &gt; 1;
+  return $x * samewith($x-1);
+}
+
+say (a 10); # OUTPUT: «36288000␤»
+</pre>
+<p><a name="Documentable/integration-test/index-entry-dispatch_nextcallee"></a></p>
+<h2 id="sub_nextcallee"><a class="u" href="#___top" title="go to top of document">sub nextcallee</a></h2>
+<p>Redispatch may be required to call a block that is not the current scope what provides <code>nextsame</code> and friends with the problem to referring to the wrong scope. Use <code>nextcallee</code> to capture the right candidate and call it at the desired time.</p>
+<pre class="pod-block-code">proto pick-winner(|) {*}
+
+multi pick-winner (Int \s) {
+    my &amp;nextone = nextcallee;
+    Promise.in(π²).then: { nextone s }
+}
+multi pick-winner { say &quot;Woot! $^w won&quot; }
+
+with pick-winner ^5 .pick -&gt; \result {
+    say &quot;And the winner is...&quot;;
+    await result;
+}
+
+# OUTPUT:
+# And the winner is...
+# Woot! 3 won
+</pre>
+<p>The <code>Int</code> candidate takes the <code>nextcallee</code> and then fires up a <code>Promise</code> to be executed in parallel, after some timeout, and then returns. We can&#39;t use <code>nextsame</code> here, because it&#39;d be trying to <code>nextsame</code> the Promise&#39;s block instead of our original routine.</p>
+<p><a name="Documentable/integration-test/index-entry-dispatch_wrapped_routines"></a></p>
+<h2 id="Wrapped_routines"><a class="u" href="#___top" title="go to top of document">Wrapped routines</a></h2>
+<p>Besides those already mentioned above, re-dispatch is helpful in many more situations. For instance, for dispatching to wrapped routines:</p>
+<pre class="pod-block-code"># enable wrapping:
+use soft;
+
+# function to be wrapped:
+sub square-root($x) { $x.sqrt }
+
+&amp;square-root.wrap(sub ($num) {
+   nextsame if $num &gt;= 0;
+   1i * callwith(abs($num));
+});
+
+say square-root(4);     # OUTPUT: «2␤»
+say square-root(-4);    # OUTPUT: «0+2i␤»
+</pre>
+<h2 id="Routines_of_parent_class"><a class="u" href="#___top" title="go to top of document">Routines of parent class</a></h2>
+<p>Another use case is to re-dispatch to methods from parent classes.</p>
+<pre class="pod-block-code">say Version.new(&#39;1.0.2&#39;) # OUTPUT: v1.0.2
+</pre>
+<pre class="pod-block-code">class LoggedVersion is Version {
+    method new(|c) {
+        note &quot;New version object created with arguments &quot; ~ c.raku;
+        nextsame;
+    }
+}
+
+say LoggedVersion.new(&#39;1.0.2&#39;);
+
+# OUTPUT:
+# New version object created with arguments \(&quot;1.0.2&quot;)
+# v1.0.2
+</pre>
+<h1 id="Coercion_types"><a class="u" href="#___top" title="go to top of document">Coercion types</a></h1>
+<p>Coercion types force a specific type for routine arguments while allowing the routine itself to accept a wider input. When invoked, the arguments are narrowed automatically to the stricter type, and therefore within the routine the arguments have always the desired type.</p>
+<p>In the case the arguments cannot be converted to the stricter type, a <em>Type Check</em> error is thrown.</p>
+<pre class="pod-block-code">sub double(Int(Cool) $x) {
+    2 * $x
+}
+
+say double &#39;21&#39;;# OUTPUT: «42␤»
+say double  21; # OUTPUT: «42␤»
+say double Any; # Type check failed in binding $x; expected &#39;Cool&#39; but got &#39;Any&#39;
+</pre>
+<p>In the above example, the <a href="/Documentable/integration-test/type/Int">Int</a> is the target type to which the argument <code>$x</code> will be coerced, and <a href="/Documentable/integration-test/type/Cool">Cool</a> is the type that the routine accepts as wider input.</p>
+<p>If the accepted wider input type is <a href="/Documentable/integration-test/type/Any">Any</a>, it is possible to abbreviate the coercion <code>Int(Any)</code> by omitting the <code>Any</code> type, thus resulting in <code>Int()</code>.</p>
+<p>The coercion works by looking for a method with the same name as the target type: if such method is found on the argument, it is invoked to convert the latter to the expected narrow type. From the above, it is clear that it is possible to provide coercion among user types just providing the required methods:</p>
+<pre class="pod-block-code">class Bar {
+   has $.msg;
+}
+
+class Foo {
+   has $.msg = &quot;I&#39;m a foo!&quot;;
+
+   # allows coercion from Foo to Bar
+   method Bar {
+       Bar.new(:msg($.msg ~ &#39; But I am now Bar.&#39;));
+   }
+}
+
+# wants a Bar, but accepts Any
+sub print-bar(Bar() $bar) {
+   say $bar.^name; # OUTPUT: «Bar␤»
+   say $bar.msg;   # OUTPUT: «I&#39;m a foo! But I am now Bar.␤»
+}
+
+print-bar Foo.new;
+</pre>
+<p>In the above code, once a <code>Foo</code> instance is passed as argument to <code>print-bar</code>, the <code>Foo.Bar</code> method is called and the result is placed into <code>$bar</code>.</p>
+<p>Coercion types are supposed to work wherever types work, but Rakudo currently (2018.05) only implements them in signatures, for both parameters and return types.</p>
+<p>Coercion also works with return types:</p>
+<pre class="pod-block-code">sub are-equal (Int $x, Int $y --&gt; Bool(Int) ) { $x - $y };
+
+for (2,4) X (1,2) -&gt; ($a,$b) {
+    say &quot;Are $a and $b equal? &quot;, are-equal($a, $b);
+} #  OUTPUT: «Are 2 and 1 equal? True␤Are 2 and 2 equal? False␤Are 4 and 1 equal? True␤Are 4 and 2 equal? True␤»
+</pre>
+<p>In this case, we are coercing an <code>Int</code> to a <code>Bool</code>, which is then printed (put into a string context) in the <code>for</code> loop that calls the function.</p>
+<h1 id="sub_MAIN"><a class="u" href="#___top" title="go to top of document">sub MAIN</a></h1>
+<p>Declaring a <code>sub MAIN</code> is not compulsory in Raku scripts, but you can provide one to create a <a href="/Documentable/integration-test/language/create-cli">command line interface</a> for your script.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/functions.pod6">https://github.com/Raku/doc/blob/master/doc/Language/functions.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

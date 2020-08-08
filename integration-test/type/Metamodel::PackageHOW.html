@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>class Metamodel::PackageHOW</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/type.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-basic.html"> Basic </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-composite.html"> Composite </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-domain-specific.html"> Domain-specific </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-exception.html"> Exceptions </a>
+            </div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Type/Metamodel/PackageHOW.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">class Metamodel::PackageHOW</h1>
+        <p class="subtitle">Metaobject representing a Raku package.</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+          <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#method_archetypes">method archetypes</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#method_new">method new</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#method_new_type">method new_type</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">1.4</td><td class="toc-text"><a href="#compose">compose</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">1.5</td><td class="toc-text"><a href="#is_composed">is_composed</a></td></tr>
+    <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Type_Graph">Type Graph</a></td></tr>
+  <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Routines_supplied_by_role_Metamodel::Naming">Routines supplied by role Metamodel::Naming</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">5.1</td><td class="toc-text"><a href="#(Metamodel::Naming)_method_name">(Metamodel::Naming) method name</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">5.2</td><td class="toc-text"><a href="#(Metamodel::Naming)_method_set_name">(Metamodel::Naming) method set_name</a></td></tr>
+   <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#Routines_supplied_by_role_Metamodel::Documenting">Routines supplied by role Metamodel::Documenting</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">5.3</td><td class="toc-text"><a href="#(Metamodel::Documenting)_method_set_why">(Metamodel::Documenting) method set_why</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">5.4</td><td class="toc-text"><a href="#(Metamodel::Documenting)_method_WHY">(Metamodel::Documenting) method WHY</a></td></tr>
+   <tr class="toc-level-1"><td class="toc-number">5</td><td class="toc-text"><a href="#Routines_supplied_by_role_Metamodel::Stashing">Routines supplied by role Metamodel::Stashing</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">5.5</td><td class="toc-text"><a href="#(Metamodel::Stashing)_method_add_stash">(Metamodel::Stashing) method add_stash</a></td></tr>
+                                
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <pre class="pod-block-code">class Metamodel::PackageHOW
+  does Metamodel::Naming
+  does Metamodel::Documenting
+  does Metamodel::Stashing
+  does Metamodel::TypePretense
+  does Metamodel::MethodDelegation { }</pre>
+<p><em>Warning</em>: this class is part of the Rakudo implementation, and is not a part of the language specification.</p>
+<p><code>Metamodel::PackageHOW</code> is the metaclass behind the <code>package</code> keyword.</p>
+<pre class="pod-block-code">package P {};
+say P.HOW; # OUTPUT: «Perl6::Metamodel::PackageHOW.new␤»</pre>
+<h1 id="Methods"><a class="u" href="#___top" title="go to top of document">Methods</a></h1>
+<h2 id="method_archetypes"><a class="u" href="#___top" title="go to top of document">method archetypes</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method archetypes()</pre>
+<p>Returns the archetypes for this model, that is, the properties a metatype can implement.</p>
+<h2 id="method_new"><a class="u" href="#___top" title="go to top of document">method new</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method new(*%named)</pre>
+<p>Creates a new <code>PackageHOW</code>.</p>
+<h2 id="method_new_type"><a class="u" href="#___top" title="go to top of document">method new_type</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method new_type(:$name = &#39;&lt;anon&gt;&#39;, :$repr, :$ver, :$auth)</pre>
+<p>Creates a new package, with optional representation, version and auth field.</p>
+<h2 id="compose"><a class="u" href="#___top" title="go to top of document">compose</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method compose($obj, :$compiler_services)</pre>
+<p>Sets the metapackage as composed.</p>
+<h2 id="is_composed"><a class="u" href="#___top" title="go to top of document">is_composed</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method is_composed($obj)</pre>
+<p>Returns the composed status of the metapackage.</p>
+<h1 id="Type_Graph"><a class="u" href="#___top" title="go to top of document">Type Graph</a></h1>
+<figure>
+  <figcaption>Type relations for <code>Metamodel::PackageHOW</code></figcaption>
+  <svg width="1029pt" height="503pt"
+ viewBox="0.00 0.00 1029.37 503.27" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 499.27)">
+<title>perl6&#45;type&#45;graph</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-499.27 1025.37,-499.27 1025.37,4 -4,4"/>
+<!-- Metamodel::PackageHOW -->
+<g id="node1" class="node">
+<title>Metamodel::PackageHOW</title>
+<g id="a_node1"><a xlink:href="/type/Metamodel::PackageHOW" xlink:title="Metamodel::PackageHOW">
+<ellipse fill="none" stroke="#000000" cx="426.55" cy="-235.14" rx="113.18" ry="18"/>
+<text text-anchor="middle" x="426.55" y="-231.44" font-family="FreeSans" font-size="14.00" fill="#000000">Metamodel::PackageHOW</text>
+</a>
+</g>
+</g>
+<!-- Any -->
+<g id="node3" class="node">
+<title>Any</title>
+<g id="a_node3"><a xlink:href="/type/Any" xlink:title="Any">
+<ellipse fill="none" stroke="#000000" cx="491.13" cy="-18" rx="27" ry="18"/>
+<text text-anchor="middle" x="491.13" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">Any</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::PackageHOW&#45;&gt;Any -->
+<g id="edge1" class="edge">
+<title>Metamodel::PackageHOW&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M431.94,-217C443.25,-178.99 469.49,-90.76 482.9,-45.65"/>
+<polygon fill="#000000" stroke="#000000" points="486.3,-46.52 485.79,-35.94 479.59,-44.52 486.3,-46.52"/>
+</g>
+<!-- Metamodel::Naming -->
+<g id="node4" class="node">
+<title>Metamodel::Naming</title>
+<g id="a_node4"><a xlink:href="/type/Metamodel::Naming" xlink:title="Metamodel::Naming">
+<ellipse fill="none" stroke="#6666ff" cx="93.59" cy="-408.38" rx="93.68" ry="18"/>
+<text text-anchor="middle" x="93.59" y="-404.68" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::Naming</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::PackageHOW&#45;&gt;Metamodel::Naming -->
+<g id="edge3" class="edge">
+<title>Metamodel::PackageHOW&#45;&gt;Metamodel::Naming</title>
+<path fill="none" stroke="#6666ff" d="M393.41,-252.38C332.3,-284.18 202.01,-351.97 135.11,-386.78"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="133.36,-383.74 126.11,-391.46 136.6,-389.95 133.36,-383.74"/>
+</g>
+<!-- Metamodel::Documenting -->
+<g id="node5" class="node">
+<title>Metamodel::Documenting</title>
+<g id="a_node5"><a xlink:href="/type/Metamodel::Documenting" xlink:title="Metamodel::Documenting">
+<ellipse fill="none" stroke="#6666ff" cx="622.38" cy="-427.17" rx="118.08" ry="18"/>
+<text text-anchor="middle" x="622.38" y="-423.47" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::Documenting</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::PackageHOW&#45;&gt;Metamodel::Documenting -->
+<g id="edge4" class="edge">
+<title>Metamodel::PackageHOW&#45;&gt;Metamodel::Documenting</title>
+<path fill="none" stroke="#6666ff" d="M444.97,-253.21C480.05,-287.61 556.51,-362.58 596.63,-401.92"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="594.56,-404.79 604.15,-409.3 599.46,-399.8 594.56,-404.79"/>
+</g>
+<!-- Metamodel::Stashing -->
+<g id="node6" class="node">
+<title>Metamodel::Stashing</title>
+<g id="a_node6"><a xlink:href="/type/Metamodel::Stashing" xlink:title="Metamodel::Stashing">
+<ellipse fill="none" stroke="#6666ff" cx="370.05" cy="-477.27" rx="103.18" ry="18"/>
+<text text-anchor="middle" x="370.05" y="-473.57" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::Stashing</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::PackageHOW&#45;&gt;Metamodel::Stashing -->
+<g id="edge5" class="edge">
+<title>Metamodel::PackageHOW&#45;&gt;Metamodel::Stashing</title>
+<path fill="none" stroke="#6666ff" d="M422.3,-253.34C412.5,-295.33 388.26,-399.24 376.56,-449.35"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="373.13,-448.65 374.27,-459.19 379.95,-450.24 373.13,-448.65"/>
+</g>
+<!-- Metamodel::TypePretense -->
+<g id="node7" class="node">
+<title>Metamodel::TypePretense</title>
+<g id="a_node7"><a xlink:href="/type/Metamodel::TypePretense" xlink:title="Metamodel::TypePretense">
+<ellipse fill="none" stroke="#6666ff" cx="125.65" cy="-62.16" rx="122.68" ry="18"/>
+<text text-anchor="middle" x="125.65" y="-58.46" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::TypePretense</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::PackageHOW&#45;&gt;Metamodel::TypePretense -->
+<g id="edge6" class="edge">
+<title>Metamodel::PackageHOW&#45;&gt;Metamodel::TypePretense</title>
+<path fill="none" stroke="#6666ff" d="M396.32,-217.76C341.6,-186.31 226.17,-119.95 165.24,-84.92"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="166.72,-81.73 156.31,-79.78 163.23,-87.8 166.72,-81.73"/>
+</g>
+<!-- Metamodel::MethodDelegation -->
+<g id="node8" class="node">
+<title>Metamodel::MethodDelegation</title>
+<g id="a_node8"><a xlink:href="/type/Metamodel::MethodDelegation" xlink:title="Metamodel::MethodDelegation">
+<ellipse fill="none" stroke="#6666ff" cx="879.03" cy="-409.65" rx="142.17" ry="18"/>
+<text text-anchor="middle" x="879.03" y="-405.95" font-family="FreeSans" font-size="14.00" fill="#6666ff">Metamodel::MethodDelegation</text>
+</a>
+</g>
+</g>
+<!-- Metamodel::PackageHOW&#45;&gt;Metamodel::MethodDelegation -->
+<g id="edge7" class="edge">
+<title>Metamodel::PackageHOW&#45;&gt;Metamodel::MethodDelegation</title>
+<path fill="none" stroke="#6666ff" d="M469.93,-251.87C552.96,-283.89 734.09,-353.75 824.89,-388.77"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="823.85,-392.12 834.44,-392.45 826.37,-385.59 823.85,-392.12"/>
+</g>
+<!-- Mu -->
+<g id="node2" class="node">
+<title>Mu</title>
+<g id="a_node2"><a xlink:href="/type/Mu" xlink:title="Mu">
+<ellipse fill="none" stroke="#000000" cx="830.28" cy="-67.44" rx="27" ry="18"/>
+<text text-anchor="middle" x="830.28" y="-63.74" font-family="FreeSans" font-size="14.00" fill="#000000">Mu</text>
+</a>
+</g>
+</g>
+<!-- Any&#45;&gt;Mu -->
+<g id="edge2" class="edge">
+<title>Any&#45;&gt;Mu</title>
+<path fill="none" stroke="#000000" d="M517.74,-21.88C578.04,-30.67 725.18,-52.12 793.86,-62.13"/>
+<polygon fill="#000000" stroke="#000000" points="793.39,-65.6 803.79,-63.58 794.4,-58.67 793.39,-65.6"/>
+</g>
+</g>
+</svg>
+
+  <p class="fallback">
+    <a
+      rel="alternate"
+      href="/images/type-graph-Metamodel%3A%3APackageHOW.svg"
+      type="image/svg+xml"
+      >Expand above chart</a
+    >
+  </p>
+</figure>
+<h1 id="Routines_supplied_by_role_Metamodel::Naming"><a class="u" href="#___top" title="go to top of document">Routines supplied by role Metamodel::Naming</a></h1>
+<p>Metamodel::PackageHOW does role <a href="/Documentable/integration-test/type/Metamodel::Naming">Metamodel::Naming</a>, which provides the following routines:</p>
+<h2 id="(Metamodel::Naming)_method_name"><a href="/Documentable/integration-test/type/Metamodel::Naming#method_name">(Metamodel::Naming) method name</a></h2>
+<pre class="pod-block-code">method name($type)</pre>
+<p>Returns the name of the metaobject, if any.</p>
+<pre class="pod-block-code">say 42.^name;       # OUTPUT: «Int␤»</pre>
+<h2 id="(Metamodel::Naming)_method_set_name"><a href="/Documentable/integration-test/type/Metamodel::Naming#method_set_name">(Metamodel::Naming) method set_name</a></h2>
+<pre class="pod-block-code">method set_name($type, $new_name)</pre>
+<p>Sets the new name of the metaobject.</p>
+<h1 id="Routines_supplied_by_role_Metamodel::Documenting"><a class="u" href="#___top" title="go to top of document">Routines supplied by role Metamodel::Documenting</a></h1>
+<p>Metamodel::PackageHOW does role <a href="/Documentable/integration-test/type/Metamodel::Documenting">Metamodel::Documenting</a>, which provides the following routines:</p>
+<h2 id="(Metamodel::Documenting)_method_set_why"><a href="/Documentable/integration-test/type/Metamodel::Documenting#method_set_why">(Metamodel::Documenting) method set_why</a></h2>
+<pre class="pod-block-code">method set_why($why)</pre>
+<p>Sets the documentation for a type to <code>$why</code>.</p>
+<h2 id="(Metamodel::Documenting)_method_WHY"><a href="/Documentable/integration-test/type/Metamodel::Documenting#method_WHY">(Metamodel::Documenting) method WHY</a></h2>
+<pre class="pod-block-code">method WHY()</pre>
+<p>Returns the documentation for a type.</p>
+<h1 id="Routines_supplied_by_role_Metamodel::Stashing"><a class="u" href="#___top" title="go to top of document">Routines supplied by role Metamodel::Stashing</a></h1>
+<p>Metamodel::PackageHOW does role <a href="/Documentable/integration-test/type/Metamodel::Stashing">Metamodel::Stashing</a>, which provides the following routines:</p>
+<h2 id="(Metamodel::Stashing)_method_add_stash"><a href="/Documentable/integration-test/type/Metamodel::Stashing#method_add_stash">(Metamodel::Stashing) method add_stash</a></h2>
+<pre class="pod-block-code">method add_stash($type_obj)</pre>
+<p>Creates and sets a stash for a type, returning <code>$type_obj</code>.</p>
+<p>This method is typically called as the last step of creating a new type. For example, this is how it would be used in a minimal HOW that only supports naming and stashing:</p>
+<pre class="pod-block-code">class WithStashHOW
+    does Metamodel::Naming
+    does Metamodel::Stashing
+{
+    method new_type(WithStashHOW:_: Str:D :$name! --&gt; Mu) {
+        my WithStashHOW:D $meta := self.new;
+        my Mu             $type := Metamodel::Primitives.create_type: $meta, &#39;Uninstantiable&#39;;
+        $meta.set_name: $type, $name;
+        self.add_stash: $type
+    }
+}
+
+my Mu constant WithStash = WithStashHOW.new_type: :name&lt;WithStash&gt;;
+say WithStash.WHO; # OUTPUT: «WithStash␤»
+</pre>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Type/Metamodel/PackageHOW.pod6">https://github.com/Raku/doc/blob/master/doc/Type/Metamodel/PackageHOW.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

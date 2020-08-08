@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Raku by example 101</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/101-basics.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Raku by example 101</h1>
+        <p class="subtitle">A basic introductory example of a Raku program</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+                                                                                                     <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Pragma_v6">Pragma <code class="pod-code-inline">v6</code></a></td></tr>
+      <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Statements">Statements</a></td></tr>
+             <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Lexical_scope_and_block">Lexical scope and block</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#Sigils_and_identifiers">Sigils and identifiers</a></td></tr>
+                          <tr class="toc-level-2"><td class="toc-number">3.2</td><td class="toc-text"><a href="#Scalar">Scalar</a></td></tr>
+                  <tr class="toc-level-2"><td class="toc-number">3.3</td><td class="toc-text"><a href="#Filehandle_and_assignment">Filehandle and assignment</a></td></tr>
+                <tr class="toc-level-2"><td class="toc-number">3.4</td><td class="toc-text"><a href="#String_literals">String literals</a></td></tr>
+       <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#Arrays,_methods_and_invocants">Arrays , methods and invocants</a></td></tr>
+                                             <tr class="toc-level-1"><td class="toc-number">5</td><td class="toc-text"><a href="#Hashes">Hashes</a></td></tr>
+                           <tr class="toc-level-1"><td class="toc-number">6</td><td class="toc-text"><a href="#for_and_blocks"><code class="pod-code-inline">for</code> and blocks</a></td></tr>
+                                                                                                             <tr class="toc-level-2"><td class="toc-number">6.1</td><td class="toc-text"><a href="#Any_and_+="><code class="pod-code-inline">Any</code> and <code class="pod-code-inline">+=</code></a></td></tr>
+                       <tr class="toc-level-2"><td class="toc-number">6.2</td><td class="toc-text"><a href="#Fat_arrow,_pairs_and_autovivification">Fat arrow , pairs and autovivification</a></td></tr>
+              <tr class="toc-level-2"><td class="toc-number">6.3</td><td class="toc-text"><a href="#Postincrement_and_preincrement">Postincrement and preincrement</a></td></tr>
+                                        <tr class="toc-level-1"><td class="toc-number">7</td><td class="toc-text"><a href="#Topic_variable">Topic variable</a></td></tr>
+                <tr class="toc-level-2"><td class="toc-number">7.1</td><td class="toc-text"><a href="#Blocks">Blocks</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">7.2</td><td class="toc-text"><a href="#Stable_sort">Stable sort</a></td></tr>
+                 <tr class="toc-level-1"><td class="toc-number">8</td><td class="toc-text"><a href="#Standard_output">Standard output</a></td></tr>
+                                                    <tr class="toc-level-2"><td class="toc-number">8.1</td><td class="toc-text"><a href="#Variable_interpolation">Variable interpolation</a></td></tr>
+                  <tr class="toc-level-2"><td class="toc-number">8.2</td><td class="toc-text"><a href="#Double-quoted_strings_and_single-quoted_strings">Double-quoted strings and single-quoted strings</a></td></tr>
+                                                   <tr class="toc-level-1"><td class="toc-number">9</td><td class="toc-text"><a href="#Zen_slices">Zen slices</a></td></tr>
+                        <tr class="toc-level-1"><td class="toc-number">10</td><td class="toc-text"><a href="#Exercises">Exercises</a></td></tr>
+                                                                      
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Suppose that you host a table tennis tournament. The referees tell you the results of each game in the format <code>Player1 Player2 | 3:2</code>, which means that <code>Player1</code> won against <code>Player2</code> by 3 to 2 sets. You need a script that sums up how many matches and sets each player has won to determine the overall winner.</p>
+<p>The input data (stored in a file called <code>scores.txt</code>) looks like this:</p>
+<pre class="pod-block-code">Beth Ana Charlie Dave
+Ana Dave | 3:0
+Charlie Beth | 3:1
+Ana Beth | 2:3
+Dave Charlie | 3:0
+Ana Charlie | 3:1
+Beth Dave | 0:3
+</pre>
+<p>The first line is the list of players. Every subsequent line records a result of a match.</p>
+<p>Here&#39;s one way to solve that problem in Raku:</p>
+<pre class="pod-block-code">use v6;
+
+# start by printing out the header.
+say &quot;Tournament Results:\n&quot;;
+
+my $file  = open &#39;scores.txt&#39;; # get filehandle and...
+my @names = $file.get.words;   # ... get players.
+
+my %matches;
+my %sets;
+
+for $file.lines -&gt; $line {
+    next unless $line; # ignore any empty lines
+
+    my ($pairing, $result) = $line.split(&#39; | &#39;);
+    my ($p1, $p2)          = $pairing.words;
+    my ($r1, $r2)          = $result.split(&#39;:&#39;);
+
+    %sets{$p1} += $r1;
+    %sets{$p2} += $r2;
+
+    if $r1 &gt; $r2 {
+        %matches{$p1}++;
+    } else {
+        %matches{$p2}++;
+    }
+}
+
+my @sorted = @names.sort({ %sets{$_} }).sort({ %matches{$_} }).reverse;
+
+for @sorted -&gt; $n {
+    my $match-noun = %matches{$n} == 1 ?? &#39;match&#39; !! &#39;matches&#39;;
+    my $set-noun   = %sets{$n} == 1 ?? &#39;set&#39; !! &#39;sets&#39;;
+    say &quot;$n has won %matches{$n} $match-noun and %sets{$n} $set-noun&quot;;
+}
+</pre>
+<p>This produces the output:</p>
+<pre class="pod-block-code">Tournament Results:
+
+Ana has won 2 matches and 8 sets
+Dave has won 2 matches and 6 sets
+Charlie has won 1 match and 4 sets
+Beth has won 1 match and 4 sets
+</pre>
+<h1 id="Pragma_v6"><a class="u" href="#___top" title="go to top of document">Pragma <a name="Documentable/integration-test/index-entry-v6_(Basics)-v6"><span class="index-entry"><code>v6</code></span></a></a></h1>
+<pre class="pod-block-code">use v6;
+</pre>
+<p>Every Raku program should begin with a line similar to <code>use v6;</code>. This line tells the compiler which version of Raku the program expects. For instance, 6.c is an example of a Raku version. Should you accidentally run the file with Perl, you&#39;ll get a helpful error message.</p>
+<h1 id="Statements"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-statement_(Basics)-Statements"><span class="index-entry">Statements</span></a></a></h1>
+<pre class="pod-block-code"># start by printing out the header.
+say &quot;Tournament Results:\n&quot;;
+</pre>
+<p>A Raku program consists of zero or more statements. A <em>statement</em> ends with a semicolon or a curly brace at the end of a line.</p>
+<p>In Raku, single line comments start with a single hash character <code>#</code> and extend until the end of the line. Raku also supports <a href="/Documentable/integration-test/language/syntax#Multi-line_/_embedded_comments">multi-line/embedded comments</a>. The compiler doesn&#39;t evaluate comments as program text and they&#39;re only intended for human readers.</p>
+<h1 id="Lexical_scope_and_block"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-my_(Basics)-Lexical_scope"><span class="index-entry">Lexical scope</span></a> and <a name="Documentable/integration-test/index-entry-block"><span class="index-entry">block</span></a></a></h1>
+<pre class="pod-block-code">my $file = open &#39;scores.txt&#39;;
+</pre>
+<p><code>my</code> declares a lexical variable, which are visible only in the current block from the point of declaration to the end of the block. If there&#39;s no enclosing block, it&#39;s visible throughout the remainder of the file (which would effectively be the enclosing block). A block is any part of the code enclosed between curly braces <code>{ }</code>.</p>
+<h2 id="Sigils_and_identifiers"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-sigils_(Basics)-Sigils"><span class="index-entry">Sigils</span></a> and <a name="Documentable/integration-test/index-entry-identifiers_(Basics)-identifiers"><span class="index-entry">identifiers</span></a></a></h2>
+<p>A variable name begins with a <em>sigil</em>, which is a non-alpha-numeric symbol such as <code>$</code>, <code>@</code>, <code>%</code>, or <code>&amp;</code> &mdash; or occasionally the double colon <code>::</code>. Sigils indicate the structural interface for the variable, such as whether it should be treated as a single value, a compound value, a subroutine, etc. After the sigil comes an <em>identifier</em>, which may consist of letters, digits and the underscore. Between letters you can also use a dash <code>-</code> or an apostrophe <code>&#39;</code>, so <code>isn&#39;t</code> and <code>double-click</code> are valid identifiers.</p>
+<h2 id="Scalar"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-scalar_(Basics)-Scalar"><span class="index-entry">Scalar</span></a></a></h2>
+<p>Sigils indicate the default access method for a variable. Variables with the <code>@</code> sigil are accessed positionally; variables with the <code>%</code> sigil are accessed by string key. The <code>$</code> sigil, however, indicates a general scalar container that can hold any single value and be accessed in any manner. A scalar can even contain a compound object like an <code>Array</code> or a <code>Hash</code>; the <code>$</code> sigil signifies that it should be treated as a single value, even in a context that expects multiple values (as with an <code>Array</code> or <code>Hash</code>).</p>
+<h2 id="Filehandle_and_assignment"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-filehandle_(Basics)-Filehandle"><span class="index-entry">Filehandle</span></a> and <a name="Documentable/integration-test/index-entry-assignment_(Basics)-assignment"><span class="index-entry">assignment</span></a></a></h2>
+<p>The built-in function <code>open</code> opens a file, here named <code>scores.txt</code>, and returns a <em>filehandle</em> &mdash; an object representing that file. The assignment operator <code>=</code> <em>assigns</em> that filehandle to the variable on the left, which means that <code>$file</code> now stores the filehandle.</p>
+<h2 id="String_literals"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-string_literal_(Basics)-String_literals"><span class="index-entry">String literals</span></a></a></h2>
+<p><code>&#39;scores.txt&#39;</code> is a <em>string literal</em>. A string is a piece of text, and a string literal is a string which appears directly in the program. In this line, it&#39;s the argument provided to <code>open</code>.</p>
+<h1 id="Arrays,_methods_and_invocants"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-array_(Basics)-Arrays"><span class="index-entry">Arrays</span></a>, <a name="Documentable/integration-test/index-entry-method_(Basics)-methods"><span class="index-entry">methods</span></a> and <a name="Documentable/integration-test/index-entry-invocant_(Basics)-invocants"><span class="index-entry">invocants</span></a></a></h1>
+<pre class="pod-block-code">my @names = $file.get.words;
+</pre>
+<p>The right-hand side calls a <em>method</em> &mdash; a named group of behavior &mdash; named <code>get</code> on the filehandle stored in <code>$file</code>. The <code>get</code> method reads and returns one line from the file, removing the line ending. If you print the contents of <code>$file</code> after calling <code>get</code>, you will see that the first line is no longer in there. <code>words</code> is also a method, called on the string returned from <code>get</code>. <code>words</code> decomposes its <em>invocant</em> &mdash; the string on which it operates &mdash; into a list of words, which here means strings separated by whitespace. It turns the single string <code>&#39;Beth Ana Charlie Dave&#39;</code> into the list of strings <code>&#39;Beth&#39;, &#39;Ana&#39;, &#39;Charlie&#39;, &#39;Dave&#39;</code>.</p>
+<p>Finally, this list gets stored in the <a href="/Documentable/integration-test/type/Array">Array</a> <code>@names</code>. The <code>@</code> sigil marks the declared variable as an <code>Array</code>. Arrays store ordered lists.</p>
+<h1 id="Hashes"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-hash_(Basics)-Hashes"><span class="index-entry">Hashes</span></a></a></h1>
+<pre class="pod-block-code">my %matches;
+my %sets;
+</pre>
+<p>These two lines of code declare two hashes. The <code>%</code> sigil marks each variable as a <code>Hash</code>. A <code>Hash</code> is an unordered collection of key-value pairs. Other programming languages call that a <em>hash table</em>, <em>dictionary</em>, or <em>map</em>. You can query a hash table for the value that corresponds to a certain <code>$key</code> with <code>%hash{$key}</code>.</p>
+<p>In the score counting program, <code>%matches</code> stores the number of matches each player has won. <code>%sets</code> stores the number of sets each player has won. Both of these hashes are indexed by the player&#39;s name.</p>
+<h1 id="for_and_blocks"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-for_(Basics)-for"><span class="index-entry"><code>for</code></span></a> and <a name="Documentable/integration-test/index-entry-block_(Basics)-blocks"><span class="index-entry">blocks</span></a></a></h1>
+<pre class="pod-block-code">for $file.lines -&gt; $line {
+    ...
+}
+</pre>
+<p><code>for</code> produces a loop that runs the <em>block</em> delimited by curly braces once for each item of the list, setting the variable <code>$line</code> to the current value of each iteration. <code>$file.lines</code> produces a list of the lines read from the file <code>scores.txt</code>, starting with the second line of the file since we already called <code>$file.get</code> once, and going all the way to the end of the file.</p>
+<p>During the first iteration, <code>$line</code> will contain the string <code>Ana Dave | 3:0</code>; during the second, <code>Charlie Beth | 3:1</code>, and so on.</p>
+<pre class="pod-block-code">my ($pairing, $result) = $line.split(&#39; | &#39;);
+</pre>
+<p><code>my</code> can declare multiple variables simultaneously. The right-hand side of the assignment is a call to a method named <code>split</code>, passing along the string <code>&#39; | &#39;</code> as an argument.</p>
+<p><code>split</code> decomposes its invocant into a list of strings, so that joining the list items with the separator <code>&#39; | &#39;</code> produces the original string.</p>
+<p><code>$pairing</code> gets the first item of the returned list, and <code>$result</code> the second.</p>
+<p>After processing the first line, <code>$pairing</code> will hold the string <code>Ana Dave</code> and <code>$result</code> will hold <code>3:0</code>.</p>
+<p>The next two lines follow the same pattern:</p>
+<pre class="pod-block-code">my ($p1, $p2) = $pairing.words;
+my ($r1, $r2) = $result.split(&#39;:&#39;);
+</pre>
+<p>The first extracts and stores the names of the two players in the variables <code>$p1</code> and <code>$p2</code>. The second extracts the results for each player and stores them in <code>$r1</code> and <code>$r2</code>.</p>
+<p>After processing the first line of the file, the variables contain the values:</p>
+<table class="pod-table">
+<tbody>
+<tr> <td>Variable</td> <td>Contents</td> </tr> <tr> <td>$line</td> <td>&#39;Ana Dave | 3:0&#39;</td> </tr> <tr> <td>$pairing</td> <td>&#39;Ana Dave&#39;</td> </tr> <tr> <td>$result</td> <td>&#39;3:0&#39;</td> </tr> <tr> <td>$p1</td> <td>&#39;Ana&#39;</td> </tr> <tr> <td>$p2</td> <td>&#39;Dave&#39;</td> </tr> <tr> <td>$r1</td> <td>&#39;3&#39;</td> </tr> <tr> <td>$r2</td> <td>&#39;0&#39;</td> </tr>
+</tbody>
+</table><p>The program then counts the number of sets each player has won:</p>
+<pre class="pod-block-code">%sets{$p1} += $r1;
+%sets{$p2} += $r2;
+</pre>
+<p>The above two statements involve the <code>+=</code> compound assignment operator. They are a variant of the following two statements that use the simple assignment operator <code>=</code> and that may be easier to understand at first sight:</p>
+<pre class="pod-block-code">%sets{$p1} = %sets{$p1} + $r1;
+%sets{$p2} = %sets{$p2} + $r2;
+</pre>
+<p>For your program, the shorthand version using the <code>+=</code> compound assignment operator is preferred over the longhand version using the simple assignment operator <code>=</code>. This is not only because the shorter version requires less typing, but also because the <code>+=</code> operator silently initializes undefined values of the hash&#39;s key-value pairs to zero. In other words: by using <code>+=</code>, there is no need to include a separate statement like <code>%sets{$p1} = 0</code> before you can meaningfully add <code>$r1</code> to it. We&#39;ll look at this is behavior in a bit more detail below.</p>
+<h2 id="Any_and_+="><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-Any_(Basics)-Any"><span class="index-entry"><code>Any</code></span></a> and <a name="Documentable/integration-test/index-entry-+=_(Basics)-+="><span class="index-entry"><code>+=</code></span></a></a></h2>
+<pre class="pod-block-code">%sets{$p1} += $r1;
+%sets{$p2} += $r2;
+</pre>
+<p><code>%sets{$p1} += $r1</code> means <em>increase the value in the variable on the left by $r1</em>. In the first iteration <code>%sets{$p1}</code> is not yet defined, so it defaults to a special value called <code>Any</code>. The <code>+=</code> operator conveniently treats the undefined value <code>Any</code> as a number with the value <code>0</code>, allowing it to sensibly add some other value to it. To perform the addition, the strings <code>$r1</code>, <code>$r2</code>, etc. are automatically converted to numbers, as addition is a numeric operation.</p>
+<h2 id="Fat_arrow,_pairs_and_autovivification"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-fat_arrow_(Basics)-Fat_arrow"><span class="index-entry">Fat arrow</span></a>, <a name="Documentable/integration-test/index-entry-pair_(Basics)-pairs"><span class="index-entry">pairs</span></a> and <a name="Documentable/integration-test/index-entry-autovivification_(Basics)-autovivification"><span class="index-entry">autovivification</span></a></a></h2>
+<p>Before these two lines execute, <code>%sets</code> is empty. Adding to an entry that is not in the hash yet will cause that entry to spring into existence just-in-time, with a value starting at zero. This behavior is known as <em>autovivification</em>. After these two lines have run for the first time, <code>%sets</code> contains <code>&#39;Ana&#39; =&gt; 3, &#39;Dave&#39; =&gt; 0</code>. (The fat arrow <code>=&gt;</code> separates the key and the value in a <code>Pair</code>.)</p>
+<h2 id="Postincrement_and_preincrement"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-postincrement_(Basics)-Postincrement"><span class="index-entry">Postincrement</span></a> and <a name="Documentable/integration-test/index-entry-preincrement_(Basics)-preincrement"><span class="index-entry">preincrement</span></a></a></h2>
+<pre class="pod-block-code">if $r1 &gt; $r2 {
+    %matches{$p1}++;
+} else {
+    %matches{$p2}++;
+}
+</pre>
+<p>If <code>$r1</code> is numerically larger than <code>$r2</code>, <code>%matches{$p1}</code> increments by one. If <code>$r1</code> is not larger than <code>$r2</code>, <code>%matches{$p2}</code> increments. Just as in the case of <code>+=</code>, if either hash value did not exist previously, it is autovivified by the increment operation.</p>
+<p><code>$thing++</code> is a variant of <code>$thing += 1</code>; it differs from the latter in that the return value of the expression is <code>$thing</code> <em>before</em> the increment, and not the incremented value. As in many other programming languages, you can use <code>++</code> as a prefix. Then it returns the incremented value: <code>my $x = 1; say ++$x</code> prints <code>2</code>.</p>
+<h1 id="Topic_variable"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-topic_variable_(Basics)-Topic_variable"><span class="index-entry">Topic variable</span></a></a></h1>
+<pre class="pod-block-code">my @sorted = @names.sort({ %sets{$_} }).sort({ %matches{$_} }).reverse;
+</pre>
+<p>This line consists of three individually simple steps. An array&#39;s <code>sort</code> method returns a sorted version of the array&#39;s contents. However, the default sort on an array sorts by its contents. To print player names in winner-first order, the code must sort the array by the <em>scores</em> of the players, not their names. The <code>sort</code> method&#39;s argument is a <em>block</em> used to transform the array elements (the names of players) to the data by which to sort. The array items are passed in through the <em>topic variable</em> <code>$_</code>.</p>
+<h2 id="Blocks"><a class="u" href="#___top" title="go to top of document">Blocks</a></h2>
+<p>You have seen blocks before: both the <code>for</code> loop <code>-&gt; $line { ... } </code> and the <code>if</code> statement worked on blocks. A block is a self-contained piece of Raku code with an optional signature (the <code>-&gt; $line </code> part).</p>
+<p>The simplest way to sort the players by score would be <code>@names.sort({ %matches{$_} })</code>, which sorts by number of matches won. However Ana and Dave have both won two matches. That simple sort doesn&#39;t account for the number of sets won, which is the secondary criterion to decide who has won the tournament.</p>
+<h2 id="Stable_sort"><a class="u" href="#___top" title="go to top of document">Stable sort</a></h2>
+<p>When two array items have the same value, <code>sort</code> leaves them in the same order as it found them. Computer scientists call this a <em>stable sort</em>. The program takes advantage of this property of Raku&#39;s <code>sort</code> to achieve the goal by sorting twice: first by the number of sets won (the primary criterion), then by the number of matches won (the secondary criterion).</p>
+<p>After the first sorting step, the names are in the order <code>Beth Charlie Dave Ana</code>. After the second sorting step, it&#39;s still the same, because no one has won fewer matches but more sets than someone else. Such a situation is entirely possible, especially at larger tournaments.</p>
+<p><code>sort</code> sorts in ascending order, from smallest to largest. This is the opposite of the desired order. Therefore, the code calls the <code>.reverse</code> method on the result of the second sort, and stores the final list in <code>@sorted</code>.</p>
+<h1 id="Standard_output"><a class="u" href="#___top" title="go to top of document">Standard output</a></h1>
+<pre class="pod-block-code">for @sorted -&gt; $n {
+    my $match-noun = %matches{$n} == 1 ?? &#39;match&#39; !! &#39;matches&#39;;
+    my $set-noun   = %sets{$n} == 1 ?? &#39;set&#39; !! &#39;sets&#39;;
+    say &quot;$n has won %matches{$n} $match-noun and %sets{$n} $set-noun&quot;;
+}
+</pre>
+<p>To print out the players and their scores, the code loops over <code>@sorted</code>, setting <code>$n</code> to the name of each player in turn. Read this code as &quot;For each element of sorted, set <code>$n</code> to the element, then execute the contents of the following block.&quot; The variable <code>$match-noun</code> will store either the string <em>match</em> if the player has won a single match or <em>matches</em> if the player has won zero or more matches. In order to do this, the <em>ternary</em> operator (<code>?? !!</code>) is used. If <code>%matches{$n} == 1</code> evaluates to <code>True</code>, then <em>match</em> is returned. Otherwise, <em>matches</em> is returned. Either way, the returned value is stored in <code>$match-noun</code>. The same approach applies to <code>$set-noun</code>.</p>
+<p>The statement <code>say</code> prints its arguments to the standard output (the screen, normally), followed by a newline. (Use <code>print</code> if you don&#39;t want the newline at the end.)</p>
+<p>Note that <code>say</code> will truncate certain data structures by calling the <code>.gist</code> method so <code>put</code> is safer if you want exact output.</p>
+<h2 id="Variable_interpolation"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-variable_interpolation_(Basics)-Variable_interpolation"><span class="index-entry">Variable interpolation</span></a></a></h2>
+<p>When you run the program, you&#39;ll see that <code>say</code> doesn&#39;t print the contents of that string verbatim. In place of <code>$n</code> it prints the contents of the variable <code>$n</code> &mdash; a player&#39;s name stored in <code>$n</code>. This automatic substitution of code with its contents is called <em>interpolation</em>. This interpolation happens only in strings delimited by double quotes <code>&quot;...&quot;</code>. Single quoted strings <code>&#39;...&#39;</code> do not interpolate:</p>
+<h2 id="Double-quoted_strings_and_single-quoted_strings"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-double-quoted_strings_(Basics)-Double-quoted_strings"><span class="index-entry">Double-quoted strings</span></a> and <a name="Documentable/integration-test/index-entry-single-quoted_strings_(Basics)-single-quoted_strings"><span class="index-entry">single-quoted strings</span></a></a></h2>
+<pre class="pod-block-code">my $names = &#39;things&#39;;
+say &#39;Do not call me $names&#39;; # OUTPUT: «Do not call me $names␤»
+say &quot;Do not call me $names&quot;; # OUTPUT: «Do not call me things␤»
+</pre>
+<p>Double quoted strings in Raku can interpolate variables with the <code>$</code> sigil as well as blocks of code in curly braces. Since any arbitrary Raku code can appear within curly braces, <code>Array</code>s and <code>Hash</code>es may be interpolated by placing them within curly braces.</p>
+<p>Arrays within curly braces are interpolated with a single space character between each item. Hashes within curly braces are interpolated as a series of lines. Each line will contain a key, followed by a tab character, then the value associated with that key, and finally a newline.</p>
+<p>Let&#39;s see an example of this now.</p>
+<p>In this example, you will see some special syntax that makes it easier to make a list of strings. This is the <code>&lt;...&gt;</code> <a href="/Documentable/integration-test/language/operators#index-entry-qw-quote-words-quote-words">quote-words</a> construct. When you put words in between the &lt; and &gt; they are all assumed to be strings, so you do not need to wrap them each in double quotes <code>&quot;...&quot;</code>.</p>
+<pre class="pod-block-code">say &quot;Math: { 1 + 2 }&quot;;
+# OUTPUT: «Math: 3␤»
+
+my @people = &lt;Luke Matthew Mark&gt;;
+say &quot;The synoptics are: {@people}&quot;;
+# OUTPUT: «The synoptics are: Luke Matthew Mark␤»
+
+say &quot;{%sets}␤&quot;;
+# OUTPUT (From the table tennis tournament):
+
+# Charlie 4
+# Dave    6
+# Ana     8
+# Beth    4
+</pre>
+<p>When array and hash variables appear directly in a double-quoted string (and not inside curly braces), they are only interpolated if their name is followed by a postcircumfix &mdash; a bracketing pair that follows a statement. It&#39;s also ok to have a method call between the variable name and the postcircumfix.</p>
+<h1 id="Zen_slices"><a class="u" href="#___top" title="go to top of document">Zen slices</a></h1>
+<pre class="pod-block-code">my @flavors = &lt;vanilla peach&gt;;
+
+say &quot;we have @flavors&quot;;           # OUTPUT: «we have @flavors␤»
+say &quot;we have @flavors[0]&quot;;        # OUTPUT: «we have vanilla␤»
+# so-called &quot;Zen slice&quot;
+say &quot;we have @flavors[]&quot;;         # OUTPUT: «we have vanilla peach␤»
+
+# method calls ending in postcircumfix
+say &quot;we have @flavors.sort()&quot;;    # OUTPUT: «we have peach vanilla␤»
+
+# chained method calls:
+say &quot;we have @flavors.sort.join(&#39;, &#39;)&quot;;
+                                  # OUTPUT: «we have peach, vanilla␤»
+</pre>
+<h1 id="Exercises"><a class="u" href="#___top" title="go to top of document">Exercises</a></h1>
+<p><strong>1.</strong> The input format of the example program is redundant: the first line containing the name of all players is not necessary, because you can find out which players participated in the tournament by looking at their names in the subsequent rows.</p>
+<p>How can you make the program run if you do not use the <code>@names</code> variable? Hint: <code>%hash.keys</code> returns a list of all keys stored in <code>%hash</code>.</p>
+<p><strong>Answer:</strong> Remove the line <code>my @names = $file.get.words;</code>, and change:</p>
+<pre class="pod-block-code">my @sorted = @names.sort({ %sets{$_} }).sort({ %matches{$_} }).reverse;
+</pre>
+<p>... into:</p>
+<pre class="pod-block-code">my @sorted = %sets.keys.sort({ %sets{$_} }).sort({ %matches{$_} }).reverse;
+</pre>
+<p><strong>2.</strong> Instead of deleting the redundant <code>@names</code> variable, you can also use it to warn if a player appears that wasn&#39;t mentioned in the first line, for example due to a typo. How would you modify your program to achieve that?</p>
+<p>Hint: Try using <a href="/Documentable/integration-test/language/operators#infix_(elem),_infix_∈">membership operators</a>.</p>
+<p><strong>Answer:</strong> Change <code>@names</code> to <code>@valid-players</code>. When looping through the lines of the file, check to see that <code>$p1</code> and <code>$p2</code> are in <code>@valid-players</code>. Note that for membership operators you can also use <code>(elem)</code> and <code>!(elem)</code>.</p>
+<pre class="pod-block-code">...;
+my @valid-players = $file.get.words;
+...;
+
+for $file.lines -&gt; $line {
+    my ($pairing, $result) = $line.split(&#39; | &#39;);
+    my ($p1, $p2)          = $pairing.split(&#39; &#39;);
+    if $p1 ∉ @valid-players {
+        say &quot;Warning: &#39;$p1&#39; is not on our list!&quot;;
+    }
+    if $p2 ∉ @valid-players {
+        say &quot;Warning: &#39;$p2&#39; is not on our list!&quot;;
+    }
+    ...
+}
+</pre>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/101-basics.pod6">https://github.com/Raku/doc/blob/master/doc/Language/101-basics.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

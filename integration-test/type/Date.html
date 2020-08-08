@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>class Date</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/type.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-basic.html"> Basic </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-composite.html"> Composite </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-domain-specific.html"> Domain-specific </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-exception.html"> Exceptions </a>
+            </div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Type/Date.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">class Date</h1>
+        <p class="subtitle">Calendar date</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+                       <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#method_new">method new</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#method_new-from-daycount">method new-from-daycount</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#method_last-date-in-month">method last-date-in-month</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">1.4</td><td class="toc-text"><a href="#method_first-date-in-month">method first-date-in-month</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.5</td><td class="toc-text"><a href="#method_clone">method clone</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.6</td><td class="toc-text"><a href="#method_today">method today</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.7</td><td class="toc-text"><a href="#method_later">method later</a></td></tr>
+                                <tr class="toc-level-2"><td class="toc-number">1.8</td><td class="toc-text"><a href="#method_earlier">method earlier</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.9</td><td class="toc-text"><a href="#method_truncated-to">method truncated-to</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.10</td><td class="toc-text"><a href="#method_succ">method succ</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.11</td><td class="toc-text"><a href="#method_pred">method pred</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.12</td><td class="toc-text"><a href="#method_Str">method Str</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.13</td><td class="toc-text"><a href="#method_gist">method gist</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.14</td><td class="toc-text"><a href="#method_Date">method Date</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">1.15</td><td class="toc-text"><a href="#method_DateTime">method DateTime</a></td></tr>
+      <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Functions">Functions</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#sub_sleep">sub sleep</a></td></tr>
+                               <tr class="toc-level-2"><td class="toc-number">2.2</td><td class="toc-text"><a href="#sub_sleep-timer">sub sleep-timer</a></td></tr>
+                       <tr class="toc-level-2"><td class="toc-number">2.3</td><td class="toc-text"><a href="#sub_sleep-until">sub sleep-until</a></td></tr>
+                                                                             <tr class="toc-level-2"><td class="toc-number">2.4</td><td class="toc-text"><a href="#sub_infix:&lt;-&gt;">sub infix:&lt;-&gt;</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">2.5</td><td class="toc-text"><a href="#sub_infix:&lt;+&gt;">sub infix:&lt;+&gt;</a></td></tr>
+        <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Type_Graph">Type Graph</a></td></tr>
+  <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#Routines_supplied_by_role_Dateish">Routines supplied by role Dateish</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">4.1</td><td class="toc-text"><a href="#(Dateish)_method_year">(Dateish) method year</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">4.2</td><td class="toc-text"><a href="#(Dateish)_method_month">(Dateish) method month</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">4.3</td><td class="toc-text"><a href="#(Dateish)_method_day">(Dateish) method day</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">4.4</td><td class="toc-text"><a href="#(Dateish)_method_formatter">(Dateish) method formatter</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">4.5</td><td class="toc-text"><a href="#(Dateish)_method_is-leap-year">(Dateish) method is-leap-year</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">4.6</td><td class="toc-text"><a href="#(Dateish)_method_day-of-month">(Dateish) method day-of-month</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">4.7</td><td class="toc-text"><a href="#(Dateish)_method_day-of-week">(Dateish) method day-of-week</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">4.8</td><td class="toc-text"><a href="#(Dateish)_method_day-of-year">(Dateish) method day-of-year</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">4.9</td><td class="toc-text"><a href="#(Dateish)_method_days-in-month">(Dateish) method days-in-month</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">4.10</td><td class="toc-text"><a href="#(Dateish)_method_week">(Dateish) method week</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">4.11</td><td class="toc-text"><a href="#(Dateish)_method_week-number">(Dateish) method week-number</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">4.12</td><td class="toc-text"><a href="#(Dateish)_method_week-year">(Dateish) method week-year</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">4.13</td><td class="toc-text"><a href="#(Dateish)_method_weekday-of-month">(Dateish) method weekday-of-month</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">4.14</td><td class="toc-text"><a href="#(Dateish)_method_yyyy-mm-dd">(Dateish) method yyyy-mm-dd</a></td></tr>
+                   <tr class="toc-level-2"><td class="toc-number">4.15</td><td class="toc-text"><a href="#(Dateish)_method_mm-dd-yyyy">(Dateish) method mm-dd-yyyy</a></td></tr>
+                   <tr class="toc-level-2"><td class="toc-number">4.16</td><td class="toc-text"><a href="#(Dateish)_method_dd-mm-yyyy">(Dateish) method dd-mm-yyyy</a></td></tr>
+                   <tr class="toc-level-2"><td class="toc-number">4.17</td><td class="toc-text"><a href="#(Dateish)_method_daycount">(Dateish) method daycount</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">4.18</td><td class="toc-text"><a href="#(Dateish)_method_IO">(Dateish) method IO</a></td></tr>
+              
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <pre class="pod-block-code">class Date { }</pre>
+<p>A <code>Date</code> is an immutable object identifying a day in the Gregorian calendar.</p>
+<p><code>Date</code> objects support addition and subtraction of integers, where an integer is interpreted as the number of days. You can compare <code>Date</code> objects with the numeric comparison operators <code>==, &lt;, &lt;=, &gt;, &gt;=, != </code>. Their stringification in <code>YYYY-MM-DD</code> format means that comparing them with the string operators <code>eq, lt, le</code> etc. also gives the right result.</p>
+<p><code>Date.today</code> creates an object the current day according to the system clock.</p>
+<pre class="pod-block-code">my $d = Date.new(2015, 12, 24); # Christmas Eve!
+say $d;                         # OUTPUT: «2015-12-24␤»
+say $d.year;                    # OUTPUT: «2015␤»
+say $d.month;                   # OUTPUT: «12␤»
+say $d.day;                     # OUTPUT: «24␤»
+say $d.day-of-week;             # OUTPUT: «4␤» (Thursday)
+say $d.later(days =&gt; 20);       # OUTPUT: «2016-01-13␤»
+my $n = Date.new(&#39;2015-12-31&#39;); # New Year&#39;s Eve
+say $n - $d;                    # OUTPUT: «7␤», 7 days between New Years/Christmas Eve
+say $n + 1;                     # OUTPUT: «2016-01-01␤»</pre>
+<p><strong>Note</strong> since version 6.d, .perl can be called on <code>Date</code>. It will also reject synthetic numerics such as 7̈ .</p>
+<h1 id="Methods"><a class="u" href="#___top" title="go to top of document">Methods</a></h1>
+<h2 id="method_new"><a class="u" href="#___top" title="go to top of document">method new</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method new($year, $month, $day, :&amp;formatter --&gt; Date:D)
+multi method new(:$year!, :$month = 1, :$day = 1  --&gt; Date:D)
+multi method new(Str $date                        --&gt; Date:D)
+multi method new(Instant:D $dt                    --&gt; Date:D)
+multi method new(DateTime:D $dt                   --&gt; Date:D)</pre>
+<p>Creates a new <code>Date</code> object, either from a triple of (year, month, day) that can be coerced to integers, or from a string of the form <code>YYYY-MM-DD</code> (<a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>), or from an Instant or DateTime object. Optionally accepts a formatter as a named parameter.</p>
+<pre class="pod-block-code">my $date = Date.new(2042, 1, 1);
+$date = Date.new(year =&gt; 2042, month =&gt; 1, day =&gt; 1);
+$date = Date.new(&quot;2042-01-01&quot;);
+$date = Date.new(Instant.from-posix: 1482155532);
+$date = Date.new(DateTime.now);</pre>
+<h2 id="method_new-from-daycount"><a class="u" href="#___top" title="go to top of document">method new-from-daycount</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method new-from-daycount($daycount,:&amp;formatter --&gt; Date:D)</pre>
+<p>Creates a new <code>Date</code> object given <code>$daycount</code> which is the number of days from epoch Nov. 17, 1858, i.e. the <a href="https://en.wikipedia.org/wiki/Julian_day">Modified Julian Day</a>. Optionally accepts a formatter as a named parameter.</p>
+<pre class="pod-block-code">say Date.new-from-daycount(49987);          # OUTPUT: «1995-09-27␤»</pre>
+<h2 id="method_last-date-in-month"><a class="u" href="#___top" title="go to top of document">method last-date-in-month</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method last-date-in-month(Date:D: --&gt; Date:D)</pre>
+<p>Returns the last date in the month of the <code>Date</code> object. Otherwise, returns the invocant if the day value is already the last day of the month.</p>
+<pre class="pod-block-code">say Date.new(&#39;2015-11-24&#39;).last-date-in-month; # OUTPUT: «2015-11-30␤»</pre>
+<p>This should allow for much easier ranges like</p>
+<pre class="pod-block-code">    $date .. $date.last-date-in-month
+</pre>
+<p>for all remaining dates in the month.</p>
+<h2 id="method_first-date-in-month"><a class="u" href="#___top" title="go to top of document">method first-date-in-month</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method first-date-in-month(Date:D: --&gt; Date:D)</pre>
+<p>Returns the first date in the month of the <code>Date</code> object. Otherwise, returns the invocant if the day value is already the first day of the month.</p>
+<pre class="pod-block-code">say Date.new(&#39;2015-11-24&#39;).first-date-in-month; # OUTPUT: «2015-11-01␤»</pre>
+<h2 id="method_clone"><a class="u" href="#___top" title="go to top of document">method clone</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method clone(:$year, :$month, :$day, :&amp;formatter)</pre>
+<p>Creates a new <code>Date</code> object based on the invocant, but with the given arguments overriding the values from the invocant.</p>
+<pre class="pod-block-code">say Date.new(&#39;2015-11-24&#39;).clone(month =&gt; 12);    # OUTPUT: «2015-12-24␤»</pre>
+<h2 id="method_today"><a class="u" href="#___top" title="go to top of document">method today</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method today(:&amp;formatter --&gt; Date:D)</pre>
+<p>Returns a <code>Date</code> object for the current day. Optionally accepts a formatter named parameter.</p>
+<pre class="pod-block-code">say Date.today;</pre>
+<h2 id="method_later"><a class="u" href="#___top" title="go to top of document">method later</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method later(Date:D: *%unit)</pre>
+<p>Returns a <code>Date</code> object based on the current one, but with a date delta applied. The date delta can be passed as a named argument where the argument name is the unit.</p>
+<p>Allowed units are <code>day</code>, <code>days</code>, <code>week</code>, <code>weeks</code>, <code>month</code>, <code>months</code>, <code>year</code>, <code>years</code>. Please note that the plural forms can only be used with the <code>later</code> method.</p>
+<p>Please note that the special &quot;:2nd&quot; named parameter syntax can be a compact and self-documenting way of specifying the delta</p>
+<pre class="pod-block-code">say Date.new(&#39;2015-12-24&#39;).later(:2years);  # OUTPUT: «2017-12-24␤»</pre>
+<p>Since addition of several different time units is not commutative, only one unit may be passed.</p>
+<pre class="pod-block-code">my $d = Date.new(&#39;2015-02-27&#39;);
+say $d.later(month =&gt; 1).later(:2days);  # OUTPUT: «2015-03-29␤»
+say $d.later(days =&gt; 2).later(:1month);  # OUTPUT: «2015-04-01␤»
+say $d.later(days =&gt; 2).later(:month);   # same, as +True === 1</pre>
+<p>Negative offsets are allowed, though <a href="#method_earlier">method earlier</a> is more idiomatic for that.</p>
+<h2 id="method_earlier"><a class="u" href="#___top" title="go to top of document">method earlier</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method earlier(Date:D: *%unit)</pre>
+<p>Returns a <code>Date</code> object based on the current one, but with a date delta towards the past applied. See <a href="#method_later">method later</a> for usage.</p>
+<pre class="pod-block-code">my $d = Date.new(&#39;2015-02-27&#39;);
+say $d.earlier(month =&gt; 5).earlier(:2days);  # OUTPUT: «2014-09-25␤»</pre>
+<h2 id="method_truncated-to"><a class="u" href="#___top" title="go to top of document">method truncated-to</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method truncated-to(Date:D: Cool $unit)</pre>
+<p>Returns a <code>Date</code> truncated to the first day of its year, month or week. For example</p>
+<pre class="pod-block-code">my $c = Date.new(&#39;2012-12-24&#39;);
+say $c.truncated-to(&#39;year&#39;);     # OUTPUT: «2012-01-01␤»
+say $c.truncated-to(&#39;month&#39;);    # OUTPUT: «2012-12-01␤»
+say $c.truncated-to(&#39;week&#39;);     # OUTPUT: «2012-12-24␤», because it&#39;s Monday already</pre>
+<h2 id="method_succ"><a class="u" href="#___top" title="go to top of document">method succ</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method succ(Date:D: --&gt; Date:D)</pre>
+<p>Returns a <code>Date</code> of the following day. &quot;succ&quot; is short for &quot;successor&quot;.</p>
+<pre class="pod-block-code">say Date.new(&quot;2016-02-28&quot;).succ;   # OUTPUT: «2016-02-29␤»</pre>
+<h2 id="method_pred"><a class="u" href="#___top" title="go to top of document">method pred</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method pred(Date:D: --&gt; Date:D)</pre>
+<p>Returns a <code>Date</code> of the previous day. &quot;pred&quot; is short for &quot;predecessor&quot;.</p>
+<pre class="pod-block-code">say Date.new(&quot;2016-01-01&quot;).pred;   # OUTPUT: «2015-12-31␤»</pre>
+<h2 id="method_Str"><a class="u" href="#___top" title="go to top of document">method Str</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method Str(Date:D: --&gt; Str:D)</pre>
+<p>Returns a string representation of the invocant, as specified by <a href="/Documentable/integration-test/type/Dateish#method_formatter">the formatter</a>. If no formatter was specified, an (<a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>) date will be returned.</p>
+<pre class="pod-block-code">say Date.new(&#39;2015-12-24&#39;).Str;                     # OUTPUT: «2015-12-24␤»
+
+my $fmt = { sprintf &quot;%02d/%02d/%04d&quot;, .month, .day, .year };
+say Date.new(&#39;2015-12-24&#39;, formatter =&gt; $fmt).Str;  # OUTPUT: «12/24/2015␤»</pre>
+<h2 id="method_gist"><a class="u" href="#___top" title="go to top of document">method gist</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method gist(Date:D: --&gt; Str:D)</pre>
+<p>Returns the date in <code>YYYY-MM-DD</code> format (<a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>)</p>
+<pre class="pod-block-code">say Date.new(&#39;2015-12-24&#39;).gist;                    # OUTPUT: «2015-12-24␤»</pre>
+<h2 id="method_Date"><a class="u" href="#___top" title="go to top of document">method Date</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method Date(--&gt; Date)</pre>
+<p>Returns the invocant.</p>
+<pre class="pod-block-code">say Date.new(&#39;2015-12-24&#39;).Date;  # OUTPUT: «2015-12-24␤»
+say Date.Date;                    # OUTPUT: «(Date)␤»</pre>
+<h2 id="method_DateTime"><a class="u" href="#___top" title="go to top of document">method DateTime</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method DateTime(Date:U --&gt; DateTime:U)
+multi method DateTime(Date:D --&gt; DateTime:D)</pre>
+<p>Converts the invocant to <a href="/Documentable/integration-test/type/DateTime"><code>DateTime</code></a></p>
+<pre class="pod-block-code">say Date.new(&#39;2015-12-24&#39;).DateTime; # OUTPUT: «2015-12-24T00:00:00Z␤»
+say Date.DateTime;                   # OUTPUT: «(DateTime)␤»</pre>
+<h1 id="Functions"><a class="u" href="#___top" title="go to top of document">Functions</a></h1>
+<h2 id="sub_sleep"><a class="u" href="#___top" title="go to top of document">sub sleep</a></h2>
+<pre class="pod-block-code">sub sleep($seconds = Inf --&gt; Nil)</pre>
+<p>Attempt to sleep for the given number of <code>$seconds</code>. Returns <code>Nil</code> on completion. Accepts <code>Int</code>, <code>Num</code>, <code>Rat</code>, or <code>Duration</code> types as an argument since all of these also do <code>Real</code>.</p>
+<pre class="pod-block-code">sleep 5;                # Int
+sleep 5.2;              # Num
+sleep (5/2);            # Rat
+sleep (now - now + 5);  # Duration
+</pre>
+<p>It is thus possible to sleep for a non-integer amount of time. For instance, the following code shows that <code>sleep (5/2)</code> sleeps for 2.5 seconds and <code>sleep 5.2</code> sleeps for 5.2 seconds:</p>
+<pre class="pod-block-code">my $before = now;
+sleep (5/2);
+my $after = now;
+say $after-$before;  # OUTPUT: «2.502411561␤»
+
+$before = now;
+sleep 5.2;
+$after = now;
+say $after-$before;  # OUTPUT: «5.20156987␤»</pre>
+<h2 id="sub_sleep-timer"><a class="u" href="#___top" title="go to top of document">sub sleep-timer</a></h2>
+<pre class="pod-block-code">sub sleep-timer(Real() $seconds = Inf --&gt; Duration:D)</pre>
+<p>This function is implemented like <code>sleep</code>, but unlike the former it does return a <a href="/Documentable/integration-test/type/Duration">Duration</a> instance with the number of seconds the system did not sleep.</p>
+<p>In particular, the returned <code>Duration</code> will handle the number of seconds remaining when the process has been awakened by some external event (e.g., Virtual Machine or Operating System events). Under normal condition, when sleep is not interrupted, the returned <code>Duration</code> has a value of <code>0</code>, meaning no extra seconds remained to sleep. Therefore, in normal situations:</p>
+<pre class="pod-block-code">say sleep-timer 3.14;  # OUTPUT: «0␤»</pre>
+<p>The same result applies to edge cases, when a negative or zero time to sleep is passed as argument:</p>
+<pre class="pod-block-code">say sleep-timer -2; # OUTPUT: 0
+say sleep-timer 0;  # OUTPUT: 0
+</pre>
+<p>See also <a href="/Documentable/integration-test/routine/sleep-until">sleep-until</a>.</p>
+<h2 id="sub_sleep-until"><a class="u" href="#___top" title="go to top of document">sub sleep-until</a></h2>
+<pre class="pod-block-code">sub sleep-until(Instant $until --&gt; Bool)</pre>
+<p>Works similar to <code>sleep</code> but checks the current time and keeps sleeping until the required instant in the future has been reached. It uses internally the <code>sleep-timer</code> method in a loop to ensure that, if accidentally woken up early, it will wait again for the specified amount of time remaining to reach the specified instant. goes back to sleep</p>
+<p>Returns <code>True</code> if the <code>Instant</code> in the future has been achieved (either by mean of sleeping or because it is right now), <code>False</code> in the case an <code>Instant</code> in the past has been specified.</p>
+<p>To sleep until 10 seconds into the future, one could write something like this:</p>
+<pre class="pod-block-code">say sleep-until now+10;   # OUTPUT: «True␤»</pre>
+<p>Trying to sleep until a time in the past doesn&#39;t work:</p>
+<pre class="pod-block-code">my $instant = now - 5;
+say sleep-until $instant; # OUTPUT: «False␤»</pre>
+<p>However if we put the instant sufficiently far in the future, the sleep should run:</p>
+<pre class="pod-block-code">my $instant = now + 30;
+# assuming the two commands are run within 30 seconds of one another...
+say sleep-until $instant; # OUTPUT: «True␤»
+</pre>
+<p>To specify an exact instant in the future, first create a <code>DateTime</code> at the appropriate point in time, and cast to an <code>Instant</code>.</p>
+<pre class="pod-block-code">my $instant = DateTime.new(
+    year =&gt; 2020,
+    month =&gt; 9,
+    day =&gt; 1,
+    hour =&gt; 22,
+    minute =&gt; 5);
+say sleep-until $instant.Instant; # True (eventually...)
+</pre>
+<p>This could be used as a primitive kind of alarm clock. For instance, say you need to get up at 7am on the 4th of September 2015, but for some reason your usual alarm clock is broken and you only have your laptop. You can specify the time to get up (being careful about time zones, since <code>DateTime.new</code> uses UTC by default) as an <code>Instant</code> and pass this to <code>sleep-until</code>, after which you can play an mp3 file to wake you up instead of your normal alarm clock. This scenario looks roughly like this:</p>
+<pre class="pod-block-code"># DateTime.new uses UTC by default, so get time zone from current time
+my $timezone = DateTime.now.timezone;
+my $instant = DateTime.new(
+    year =&gt; 2015,
+    month =&gt; 9,
+    day =&gt; 4,
+    hour =&gt; 7,
+    minute =&gt; 0,
+    timezone =&gt; $timezone
+).Instant;
+sleep-until $instant;
+qqx{mplayer wake-me-up.mp3};
+</pre>
+<h2 id="sub_infix:<->"><a class="u" href="#___top" title="go to top of document">sub infix:&lt;-&gt;</a></h2>
+<pre class="pod-block-code">multi sub infix:&lt;-&gt; (Date:D, Int:D --&gt; Date:D)
+multi sub infix:&lt;-&gt; (Date:D, Date:D --&gt; Int:D)</pre>
+<p>Takes a date to subtract from and either an <a href="/Documentable/integration-test/type/Int"><code>Int</code></a>, representing the number of days to subtract, or another <a href="/Documentable/integration-test/type/Date"><code>Date</code></a> object. Returns a new <a href="/Documentable/integration-test/type/Date"><code>Date</code></a> object or the number of days between the two dates, respectively.</p>
+<pre class="pod-block-code">say Date.new(&#39;2016-12-25&#39;) - Date.new(&#39;2016-12-24&#39;); # OUTPUT: «1␤»
+say Date.new(&#39;2015-12-25&#39;) - Date.new(&#39;2016-11-21&#39;); # OUTPUT: «-332␤»
+say Date.new(&#39;2016-11-21&#39;) - 332;                    # OUTPUT: «2015-12-25␤»</pre>
+<h2 id="sub_infix:<+>"><a class="u" href="#___top" title="go to top of document">sub infix:&lt;+&gt;</a></h2>
+<pre class="pod-block-code">multi sub infix:&lt;+&gt; (Date:D, Int:D --&gt; Date:D)
+multi sub infix:&lt;+&gt; (Int:D, Date:D --&gt; Date:D)</pre>
+<p>Takes an <a href="/Documentable/integration-test/type/Int"><code>Int</code></a> and adds that many days to the given <a href="/Documentable/integration-test/type/Date"><code>Date</code></a> object.</p>
+<pre class="pod-block-code">say Date.new(&#39;2015-12-25&#39;) + 332; # OUTPUT: «2016-11-21␤»
+say 1 + Date.new(&#39;2015-12-25&#39;);   # OUTPUT: «2015-12-26␤»</pre>
+<h1 id="Type_Graph"><a class="u" href="#___top" title="go to top of document">Type Graph</a></h1>
+<figure>
+  <figcaption>Type relations for <code>Date</code></figcaption>
+  <svg width="170pt" height="188pt"
+ viewBox="0.00 0.00 169.85 188.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 184)">
+<title>perl6&#45;type&#45;graph</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-184 165.85,-184 165.85,4 -4,4"/>
+<!-- Date -->
+<g id="node1" class="node">
+<title>Date</title>
+<g id="a_node1"><a xlink:href="/type/Date" xlink:title="Date">
+<ellipse fill="none" stroke="#000000" cx="72" cy="-18" rx="30.59" ry="18"/>
+<text text-anchor="middle" x="72" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">Date</text>
+</a>
+</g>
+</g>
+<!-- Any -->
+<g id="node3" class="node">
+<title>Any</title>
+<g id="a_node3"><a xlink:href="/type/Any" xlink:title="Any">
+<ellipse fill="none" stroke="#000000" cx="27" cy="-90" rx="27" ry="18"/>
+<text text-anchor="middle" x="27" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Any</text>
+</a>
+</g>
+</g>
+<!-- Date&#45;&gt;Any -->
+<g id="edge1" class="edge">
+<title>Date&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M61.56,-35.24C56,-43.89 49.03,-54.73 42.82,-64.4"/>
+<polygon fill="#000000" stroke="#000000" points="39.84,-62.55 37.38,-72.85 45.73,-66.33 39.84,-62.55"/>
+</g>
+<!-- Dateish -->
+<g id="node4" class="node">
+<title>Dateish</title>
+<g id="a_node4"><a xlink:href="/type/Dateish" xlink:title="Dateish">
+<ellipse fill="none" stroke="#6666ff" cx="117" cy="-90" rx="44.69" ry="18"/>
+<text text-anchor="middle" x="117" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#6666ff">Dateish</text>
+</a>
+</g>
+</g>
+<!-- Date&#45;&gt;Dateish -->
+<g id="edge3" class="edge">
+<title>Date&#45;&gt;Dateish</title>
+<path fill="none" stroke="#6666ff" d="M82.44,-35.24C87.87,-43.68 94.63,-54.2 100.73,-63.69"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="97.96,-65.85 106.31,-72.37 103.84,-62.06 97.96,-65.85"/>
+</g>
+<!-- Mu -->
+<g id="node2" class="node">
+<title>Mu</title>
+<g id="a_node2"><a xlink:href="/type/Mu" xlink:title="Mu">
+<ellipse fill="none" stroke="#000000" cx="27" cy="-162" rx="27" ry="18"/>
+<text text-anchor="middle" x="27" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#000000">Mu</text>
+</a>
+</g>
+</g>
+<!-- Any&#45;&gt;Mu -->
+<g id="edge2" class="edge">
+<title>Any&#45;&gt;Mu</title>
+<path fill="none" stroke="#000000" d="M27,-108.3C27,-116.02 27,-125.29 27,-133.89"/>
+<polygon fill="#000000" stroke="#000000" points="23.5,-133.9 27,-143.9 30.5,-133.9 23.5,-133.9"/>
+</g>
+</g>
+</svg>
+
+  <p class="fallback">
+    <a
+      rel="alternate"
+      href="/images/type-graph-Date.svg"
+      type="image/svg+xml"
+      >Expand above chart</a
+    >
+  </p>
+</figure>
+<h1 id="Routines_supplied_by_role_Dateish"><a class="u" href="#___top" title="go to top of document">Routines supplied by role Dateish</a></h1>
+<p>Date does role <a href="/Documentable/integration-test/type/Dateish">Dateish</a>, which provides the following routines:</p>
+<h2 id="(Dateish)_method_year"><a href="/Documentable/integration-test/type/Dateish#method_year">(Dateish) method year</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method year(Date:D: --&gt; Int:D)</pre>
+<p>Returns the year of the date.</p>
+<pre class="pod-block-code">say Date.new(&#39;2015-12-31&#39;).year;                                  # OUTPUT: «2015␤»
+say DateTime.new(date =&gt; Date.new(&#39;2015-12-24&#39;), hour =&gt; 1).year; # OUTPUT: «2015␤»</pre>
+<h2 id="(Dateish)_method_month"><a href="/Documentable/integration-test/type/Dateish#method_month">(Dateish) method month</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method month(Date:D: --&gt; Int:D)</pre>
+<p>Returns the month of the date (1..12).</p>
+<pre class="pod-block-code">say Date.new(&#39;2015-12-31&#39;).month;                                  # OUTPUT: «12␤»
+say DateTime.new(date =&gt; Date.new(&#39;2015-12-24&#39;), hour =&gt; 1).month; # OUTPUT: «12␤»</pre>
+<h2 id="(Dateish)_method_day"><a href="/Documentable/integration-test/type/Dateish#method_day">(Dateish) method day</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method day(Date:D: --&gt; Int:D)</pre>
+<p>Returns the day of the month of the date (1..31).</p>
+<pre class="pod-block-code">say Date.new(&#39;2015-12-31&#39;).day;                                  # OUTPUT: «31␤»
+say DateTime.new(date =&gt; Date.new(&#39;2015-12-24&#39;), hour =&gt; 1).day; # OUTPUT: «24␤»</pre>
+<h2 id="(Dateish)_method_formatter"><a href="/Documentable/integration-test/type/Dateish#method_formatter">(Dateish) method formatter</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method formatter(Dateish:D:)</pre>
+<p>Returns the formatting function which is used for conversion to <a href="/Documentable/integration-test/type/Str">Str</a>. If none was provided at object construction, a default formatter is used. In that case the method will return a Callable type object.</p>
+<p>The formatting function is called by <a href="/Documentable/integration-test/type/DateTime#method_Str">DateTime method Str</a> with the invocant as its only argument.</p>
+<pre class="pod-block-code">my $dt = Date.new(&#39;2015-12-31&#39;);  # (no formatter specified)
+say $dt.formatter.^name;          # OUTPUT: «Callable␤»
+my $us-format = sub ($self) { sprintf &quot;%02d/%02d/%04d&quot;, .month, .day, .year given $self; };
+$dt = Date.new(&#39;2015-12-31&#39;, formatter =&gt; $us-format);
+say $dt.formatter.^name;           # OUTPUT: «Sub␤»
+say $dt;                          # OUTPUT: «12/31/2015␤»</pre>
+<h2 id="(Dateish)_method_is-leap-year"><a href="/Documentable/integration-test/type/Dateish#method_is-leap-year">(Dateish) method is-leap-year</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method is-leap-year(--&gt; Bool:D)</pre>
+<p>Returns <code>True</code> if the year of the Dateish object is a leap year.</p>
+<pre class="pod-block-code">say DateTime.new(:year&lt;2016&gt;).is-leap-year; # OUTPUT: «True␤»
+say Date.new(&quot;1900-01-01&quot;).is-leap-year;    # OUTPUT: «False␤»</pre>
+<h2 id="(Dateish)_method_day-of-month"><a href="/Documentable/integration-test/type/Dateish#method_day-of-month">(Dateish) method day-of-month</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method day-of-month(Date:D: --&gt; Int:D)</pre>
+<p>Returns the day of the month of the date (1..31). Synonymous to the <code>day</code> method.</p>
+<pre class="pod-block-code">say Date.new(&#39;2015-12-31&#39;).day-of-month;                                  # OUTPUT: «31␤»
+say DateTime.new(date =&gt; Date.new(&#39;2015-12-24&#39;), hour =&gt; 1).day-of-month; # OUTPUT: «24␤»</pre>
+<h2 id="(Dateish)_method_day-of-week"><a href="/Documentable/integration-test/type/Dateish#method_day-of-week">(Dateish) method day-of-week</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method day-of-week(Date:D: --&gt; Int:D)</pre>
+<p>Returns the day of the week, where 1 is Monday, 2 is Tuesday and Sunday is 7.</p>
+<pre class="pod-block-code">say Date.new(&#39;2015-12-31&#39;).day-of-week;                                  # OUTPUT: «4␤»
+say DateTime.new(date =&gt; Date.new(&#39;2015-12-24&#39;), hour =&gt; 1).day-of-week; # OUTPUT: «4␤»</pre>
+<h2 id="(Dateish)_method_day-of-year"><a href="/Documentable/integration-test/type/Dateish#method_day-of-year">(Dateish) method day-of-year</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method day-of-year(Date:D: --&gt; Int:D)</pre>
+<p>Returns the day of the year (1..366).</p>
+<pre class="pod-block-code">say Date.new(&#39;2015-12-31&#39;).day-of-year;                                  # OUTPUT: «365␤»
+say DateTime.new(date =&gt; Date.new(&#39;2015-03-24&#39;), hour =&gt; 1).day-of-year; # OUTPUT: «83␤»</pre>
+<h2 id="(Dateish)_method_days-in-month"><a href="/Documentable/integration-test/type/Dateish#method_days-in-month">(Dateish) method days-in-month</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method days-in-month(Dateish:D: --&gt; Int:D)</pre>
+<p>Returns the number of days in the month represented by the Dateish object:</p>
+<pre class="pod-block-code">say Date.new(&quot;2016-01-02&quot;).days-in-month;                # OUTPUT: «31␤»
+say DateTime.new(:year&lt;10000&gt;, :month&lt;2&gt;).days-in-month; # OUTPUT: «29␤»</pre>
+<h2 id="(Dateish)_method_week"><a href="/Documentable/integration-test/type/Dateish#method_week">(Dateish) method week</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method week()</pre>
+<p>Returns a list of two integers: the year, and the week number. This is because at the start or end of a year, the week may actually belong to the other year.</p>
+<pre class="pod-block-code">my ($year, $week) = Date.new(&quot;2014-12-31&quot;).week;
+say $year;                       # OUTPUT: «2015␤»
+say $week;                       # OUTPUT: «1␤»
+say Date.new(&#39;2015-01-31&#39;).week; # OUTPUT: «(2015 5)␤»</pre>
+<h2 id="(Dateish)_method_week-number"><a href="/Documentable/integration-test/type/Dateish#method_week-number">(Dateish) method week-number</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method week-number(Date:D: --&gt; Int:D)</pre>
+<p>Returns the week number (1..53) of the date specified by the invocant. The first week of the year is defined by ISO as the one which contains the fourth day of January. Thus, dates early in January often end up in the last week of the prior year, and similarly, the final few days of December may be placed in the first week of the next year.</p>
+<pre class="pod-block-code">say Date.new(&quot;2014-12-31&quot;).week-number;   # 1  (first week of 2015)
+say Date.new(&quot;2016-01-02&quot;).week-number;   # 53 (last week of 2015)</pre>
+<h2 id="(Dateish)_method_week-year"><a href="/Documentable/integration-test/type/Dateish#method_week-year">(Dateish) method week-year</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method week-year(Date:D: --&gt; Int:D)</pre>
+<p>Returns the week year of the date specified by the invocant. Normally <code>week-year</code> is equal to <code>Date.year</code>. Note however that dates early in January often end up in the last week of the prior year, and similarly, the final few days of December may be placed in the first week of the next year.</p>
+<pre class="pod-block-code">say Date.new(&quot;2015-11-15&quot;).week-year;   # 2015
+say Date.new(&quot;2014-12-31&quot;).week-year;   # 2015 (date belongs to the first week of 2015)
+say Date.new(&quot;2016-01-02&quot;).week-year;   # 2015 (date belongs to the last week of 2015)</pre>
+<h2 id="(Dateish)_method_weekday-of-month"><a href="/Documentable/integration-test/type/Dateish#method_weekday-of-month">(Dateish) method weekday-of-month</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method weekday-of-month(Date:D: --&gt; Int:D)</pre>
+<p>Returns a number (1..5) indicating the number of times a particular day-of-week has occurred so far during that month, the day itself included.</p>
+<pre class="pod-block-code">say Date.new(&quot;2003-06-09&quot;).weekday-of-month;  # 2  (second Monday of the month)</pre>
+<h2 id="(Dateish)_method_yyyy-mm-dd"><a href="/Documentable/integration-test/type/Dateish#method_yyyy-mm-dd">(Dateish) method yyyy-mm-dd</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method yyyy-mm-dd(str $sep = &quot;-&quot; --&gt; Str:D)
+</pre>
+<p>Returns the date in <code>YYYY-MM-DD</code> format (<a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>). The optional positional argument <code>$sep</code>, which defaults to <code>-</code>, is a one-character separator placed between the different parts of the date.</p>
+<pre class="pod-block-code">say Date.new(&quot;2015-11-15&quot;).yyyy-mm-dd;   # OUTPUT: «2015-11-15␤»
+say DateTime.new(1470853583).yyyy-mm-dd; # OUTPUT: «2016-08-10␤»
+say Date.today.yyyy-mm-dd(&quot;/&quot;);          # OUTPUT: «2020/03/14␤»
+</pre>
+<h2 id="(Dateish)_method_mm-dd-yyyy"><a href="/Documentable/integration-test/type/Dateish#method_mm-dd-yyyy">(Dateish) method mm-dd-yyyy</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method mm-dd-yyyy(str $sep = &quot;-&quot; --&gt; Str:D)
+</pre>
+<p>Returns the date in <code>MM-DD-YYYY</code> format (<a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>). The optional positional argument <code>$sep</code>, which defaults to <code>-</code>, is a one-character separator placed between the different parts of the date.</p>
+<pre class="pod-block-code">say Date.new(&quot;2015-11-15&quot;).mm-dd-yyyy;   # OUTPUT: «11-15-2015␤»
+say DateTime.new(1470853583).mm-dd-yyyy; # OUTPUT: «08-10-2016␤»
+say Date.today.mm-dd-yyyy(&quot;/&quot;);          # OUTPUT: «03/14/2020␤»
+</pre>
+<h2 id="(Dateish)_method_dd-mm-yyyy"><a href="/Documentable/integration-test/type/Dateish#method_dd-mm-yyyy">(Dateish) method dd-mm-yyyy</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method dd-mm-yyyy(str $sep = &quot;-&quot; --&gt; Str:D)
+</pre>
+<p>Returns the date in <code>DD-MM-YYYY</code> format (<a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>). The optional positional argument <code>$sep</code>, which defaults to <code>-</code>, is a one-character separator placed between the different parts of the date.</p>
+<pre class="pod-block-code">say Date.new(&quot;2015-11-15&quot;).dd-mm-yyyy;    # OUTPUT: «15-11-2015␤»
+say DateTime.new(1470853583).dd-mm-yyyy;  # OUTPUT: «10-08-2016␤»
+say Date.today.dd-mm-yyyy(&quot;/&quot;);           # OUTPUT: «14/03/2020␤»
+</pre>
+<h2 id="(Dateish)_method_daycount"><a href="/Documentable/integration-test/type/Dateish#method_daycount">(Dateish) method daycount</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method daycount(Dateish:D: --&gt; Int:D)</pre>
+<p>Returns the number of days from the epoch Nov. 17, 1858 to the day of the invocant. The daycount returned by this method is the MJD, i.e. the <a href="https://en.wikipedia.org/wiki/Julian_day">Modified Julian Day</a>, which is used routinely by e.g. astronomers, geodesists, scientists and others. The MJD convention is designed to facilitate simplified chronological calculations.</p>
+<pre class="pod-block-code">say Date.new(&#39;1995-09-27&#39;).daycount;    # OUTPUT: «49987␤»</pre>
+<h2 id="(Dateish)_method_IO"><a href="/Documentable/integration-test/type/Dateish#method_IO">(Dateish) method IO</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method IO(Dateish:D: --&gt; IO::Path:D)</pre>
+<p>Returns an <a href="/Documentable/integration-test/type/IO::Path">IO::Path</a> object representing the stringified value of the Dateish object:</p>
+<pre class="pod-block-code">Date.today.IO.say;   # OUTPUT: «&quot;2016-10-03&quot;.IO␤»
+DateTime.now.IO.say; # OUTPUT: «&quot;2016-10-03T11:14:47.977994-04:00&quot;.IO␤»</pre>
+<p><strong>PORTABILITY NOTE:</strong> some operating systems (e.g. Windows) do not permit colons (<code>:</code>) in filenames, which would be present in <code>IO::Path</code> created from a <a href="/Documentable/integration-test/type/DateTime">DateTime</a> object.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Type/Date.pod6">https://github.com/Raku/doc/blob/master/doc/Type/Date.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

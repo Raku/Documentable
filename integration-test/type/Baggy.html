@@ -1,0 +1,643 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>role Baggy</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/type.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-basic.html"> Basic </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-composite.html"> Composite </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-domain-specific.html"> Domain-specific </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-exception.html"> Exceptions </a>
+            </div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Type/Baggy.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">role Baggy</h1>
+        <p class="subtitle">Collection of distinct weighted objects</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+          <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#method_new-from-pairs">method new-from-pairs</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#method_grab">method grab</a></td></tr>
+                                <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#method_grabpairs">method grabpairs</a></td></tr>
+                                    <tr class="toc-level-2"><td class="toc-number">1.4</td><td class="toc-text"><a href="#method_pick">method pick</a></td></tr>
+                        <tr class="toc-level-2"><td class="toc-number">1.5</td><td class="toc-text"><a href="#method_pickpairs">method pickpairs</a></td></tr>
+                            <tr class="toc-level-2"><td class="toc-number">1.6</td><td class="toc-text"><a href="#method_roll">method roll</a></td></tr>
+                  <tr class="toc-level-2"><td class="toc-number">1.7</td><td class="toc-text"><a href="#method_pairs">method pairs</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.8</td><td class="toc-text"><a href="#method_antipairs">method antipairs</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">1.9</td><td class="toc-text"><a href="#method_invert">method invert</a></td></tr>
+               <tr class="toc-level-2"><td class="toc-number">1.10</td><td class="toc-text"><a href="#method_classify-list">method classify-list</a></td></tr>
+                                                       <tr class="toc-level-2"><td class="toc-number">1.11</td><td class="toc-text"><a href="#method_categorize-list">method categorize-list</a></td></tr>
+                                                     <tr class="toc-level-2"><td class="toc-number">1.12</td><td class="toc-text"><a href="#method_keys">method keys</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">1.13</td><td class="toc-text"><a href="#method_values">method values</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.14</td><td class="toc-text"><a href="#method_kv">method kv</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.15</td><td class="toc-text"><a href="#method_kxxv">method kxxv</a></td></tr>
+               <tr class="toc-level-2"><td class="toc-number">1.16</td><td class="toc-text"><a href="#method_elems">method elems</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.17</td><td class="toc-text"><a href="#method_total">method total</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.18</td><td class="toc-text"><a href="#method_default">method default</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">1.19</td><td class="toc-text"><a href="#method_hash">method hash</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.20</td><td class="toc-text"><a href="#method_Bool">method Bool</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.21</td><td class="toc-text"><a href="#method_Set">method Set</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.22</td><td class="toc-text"><a href="#method_SetHash">method SetHash</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.23</td><td class="toc-text"><a href="#method_ACCEPTS">method ACCEPTS</a></td></tr>
+                           <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#See_Also">See Also</a></td></tr>
+  <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Type_Graph">Type Graph</a></td></tr>
+  <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#Routines_supplied_by_role_QuantHash">Routines supplied by role QuantHash</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">5.1</td><td class="toc-text"><a href="#(QuantHash)_method_hash">(QuantHash) method hash</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">5.2</td><td class="toc-text"><a href="#(QuantHash)_method_Hash">(QuantHash) method Hash</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">5.3</td><td class="toc-text"><a href="#(QuantHash)_method_of">(QuantHash) method of</a></td></tr>
+                 <tr class="toc-level-2"><td class="toc-number">5.4</td><td class="toc-text"><a href="#(QuantHash)_method_keyof">(QuantHash) method keyof</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">5.5</td><td class="toc-text"><a href="#(QuantHash)_method_Setty">(QuantHash) method Setty</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">5.6</td><td class="toc-text"><a href="#(QuantHash)_method_Baggy">(QuantHash) method Baggy</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">5.7</td><td class="toc-text"><a href="#(QuantHash)_method_Mixy">(QuantHash) method Mixy</a></td></tr>
+        <tr class="toc-level-1"><td class="toc-number">5</td><td class="toc-text"><a href="#Routines_supplied_by_role_Associative">Routines supplied by role Associative</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">5.8</td><td class="toc-text"><a href="#(Associative)_method_of">(Associative) method of</a></td></tr>
+                <tr class="toc-level-2"><td class="toc-number">5.9</td><td class="toc-text"><a href="#(Associative)_method_keyof">(Associative) method keyof</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">5.10</td><td class="toc-text"><a href="#(Associative)_method_AT-KEY">(Associative) method AT-KEY</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">5.11</td><td class="toc-text"><a href="#(Associative)_method_EXISTS-KEY">(Associative) method EXISTS-KEY</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">5.12</td><td class="toc-text"><a href="#(Associative)_method_STORE">(Associative) method STORE</a></td></tr>
+            
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <pre class="pod-block-code">role Baggy does QuantHash { }</pre>
+<p>A role for collections of weighted objects. See <a href="/Documentable/integration-test/type/Bag">Bag</a>, <a href="/Documentable/integration-test/type/BagHash">BagHash</a>, and <a href="/Documentable/integration-test/type/Mixy">Mixy</a>.</p>
+<h1 id="Methods"><a class="u" href="#___top" title="go to top of document">Methods</a></h1>
+<h2 id="method_new-from-pairs"><a class="u" href="#___top" title="go to top of document">method new-from-pairs</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method new-from-pairs(*@pairs --&gt; Baggy:D)</pre>
+<p>Constructs a Baggy objects from a list of <a href="/Documentable/integration-test/type/Pair"><code>Pair</code> objects</a> given as positional arguments:</p>
+<pre class="pod-block-code">say Mix.new-from-pairs: &#39;butter&#39; =&gt; 0.22, &#39;sugar&#39; =&gt; 0.1, &#39;sugar&#39; =&gt; 0.02;
+# OUTPUT: «mix(butter(0.22), sugar(0.12))␤»</pre>
+<p><strong>Note:</strong> be sure you aren&#39;t accidentally passing the Pairs as positional arguments; the quotes around the keys in the above example are significant.</p>
+<h2 id="method_grab"><a class="u" href="#___top" title="go to top of document">method grab</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method grab(Baggy:D: --&gt; Any)
+multi method grab(Baggy:D: $count --&gt; Seq:D)</pre>
+<p>Like <a href="#method_pick">pick</a>, a <code>grab</code> returns a random selection of elements, weighted by the values corresponding to each key. Unlike <code>pick</code>, it works only on mutable structures, e.g. <a href="/Documentable/integration-test/type/BagHash">BagHash</a>. Use of <code>grab</code> on an immutable structure results in an <code>X::Immutable</code> exception. If <code>*</code> is passed as <code>$count</code>, or <code>$count</code> is greater than or equal to the <a href="#method_total">total</a> of the invocant, then <code>total</code> elements from the invocant are returned in a random sequence; i.e. they are returned shuffled.</p>
+<p>Grabbing decrements the grabbed key&#39;s weight by one (deleting the key when it reaches 0). By definition, the <code>total</code> of the invocant also decreases by one, so the probabilities stay consistent through subsequent <code>grab</code> operations.</p>
+<pre class="pod-block-code">my $cars = (&#39;Ford&#39; =&gt; 2, &#39;Rover&#39; =&gt; 3).BagHash;
+say $cars.grab;                                   # OUTPUT: «Ford␤»
+say $cars.grab(2);                                # OUTPUT: «(Rover Rover)␤»
+say $cars.grab(*);                                # OUTPUT: «(Rover Ford)␤»
+
+my $breakfast = (&#39;eggs&#39; =&gt; 2, &#39;bacon&#39; =&gt; 3).Bag;
+say $breakfast.grab;
+CATCH { default { put .^name, &#39;: &#39;, .Str } };
+# OUTPUT: «X::Immutable: Cannot call &#39;grab&#39; on an immutable &#39;Bag&#39;␤»</pre>
+<h2 id="method_grabpairs"><a class="u" href="#___top" title="go to top of document">method grabpairs</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method grabpairs(Baggy:D: --&gt; Any)
+multi method grabpairs(Baggy:D: $count --&gt; Seq:D)</pre>
+<p>Returns a <code>Pair</code> or a <code>Seq</code> of <code>Pair</code>s depending on the version of the method being invoked. Each <code>Pair</code> returned has an element of the invocant as its key and the element&#39;s weight as its value. Unlike <a href="/Documentable/integration-test/routine/pickpairs">pickpairs</a>, it works only on mutable structures, e.g. <a href="/Documentable/integration-test/type/BagHash">BagHash</a>. Use of <code>grabpairs</code> on &#39;an immutable structure results in an <code>X::Immutable</code> exception. If <code>*</code> is passed as <code>$count</code>, or <code>$count</code> is greater than or equal to the number of <a href="#method_elems">elements</a> of the invocant, then all element/weight <code>Pair</code>s from the invocant are returned in a random sequence.</p>
+<p>What makes <code>grabpairs</code> different from <a href="#method_pickpairs">pickpairs</a> is that the &#39;grabbed&#39; elements are in fact removed from the invocant.</p>
+<pre class="pod-block-code">my $breakfast = (eggs =&gt; 2, bacon =&gt; 3).BagHash;
+say $breakfast.grabpairs;                         # OUTPUT: «bacon =&gt; 3␤»
+say $breakfast;                                   # OUTPUT: «BagHash.new(eggs(2))␤»
+say $breakfast.grabpairs(1);                      # OUTPUT: «(eggs =&gt; 2)␤»
+say $breakfast.grabpairs(*);                      # OUTPUT: «()␤»
+
+my $diet = (&#39;eggs&#39; =&gt; 2, &#39;bacon&#39; =&gt; 3).Bag;
+say $diet.grabpairs;
+CATCH { default { put .^name, &#39;: &#39;, .Str } };
+# OUTPUT: «X::Immutable: Cannot call &#39;grabpairs&#39; on an immutable &#39;Bag&#39;␤»</pre>
+<h2 id="method_pick"><a class="u" href="#___top" title="go to top of document">method pick</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method pick(Baggy:D: --&gt; Any)
+multi method pick(Baggy:D: $count --&gt; Seq:D)</pre>
+<p>Like an ordinary list <a href="/Documentable/integration-test/type/List#routine_pick">pick</a>, but returns keys of the invocant weighted by their values, as if the keys were replicated the number of times indicated by the corresponding value and then list pick used. The underlying metaphor for picking is that you&#39;re pulling colored marbles out a bag. (For &quot;picking with replacement&quot; see <a href="#method_roll">roll</a> instead). If <code>*</code> is passed as <code>$count</code>, or <code>$count</code> is greater than or equal to the <a href="#method_total">total</a> of the invocant, then <code>total</code> elements from the invocant are returned in a random sequence.</p>
+<p>Note that each <code>pick</code> invocation maintains its own private state and has no effect on subsequent <code>pick</code> invocations.</p>
+<pre class="pod-block-code">my $breakfast = bag &lt;eggs bacon bacon bacon&gt;;
+say $breakfast.pick;                              # OUTPUT: «eggs␤»
+say $breakfast.pick(2);                           # OUTPUT: «(eggs bacon)␤»
+
+say $breakfast.total;                             # OUTPUT: «4␤»
+say $breakfast.pick(*);                           # OUTPUT: «(bacon bacon bacon eggs)␤»</pre>
+<h2 id="method_pickpairs"><a class="u" href="#___top" title="go to top of document">method pickpairs</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method pickpairs(Baggy:D: --&gt; Pair:D)
+multi method pickpairs(Baggy:D: $count --&gt; Seq:D)</pre>
+<p>Returns a <code>Pair</code> or a <code>Seq</code> of <code>Pair</code>s depending on the version of the method being invoked. Each <code>Pair</code> returned has an element of the invocant as its key and the element&#39;s weight as its value. The elements are &#39;picked&#39; without replacement. If <code>*</code> is passed as <code>$count</code>, or <code>$count</code> is greater than or equal to the number of <a href="#method_elems">elements</a> of the invocant, then all element/weight <code>Pair</code>s from the invocant are returned in a random sequence.</p>
+<p>Note that each <code>pickpairs</code> invocation maintains its own private state and has no effect on subsequent <code>pickpairs</code> invocations.</p>
+<pre class="pod-block-code">my $breakfast = bag &lt;eggs bacon bacon bacon&gt;;
+say $breakfast.pickpairs;                         # OUTPUT: «eggs =&gt; 1␤»
+say $breakfast.pickpairs(1);                      # OUTPUT: «(bacon =&gt; 3)␤»
+say $breakfast.pickpairs(*);                      # OUTPUT: «(eggs =&gt; 1 bacon =&gt; 3)␤»</pre>
+<h2 id="method_roll"><a class="u" href="#___top" title="go to top of document">method roll</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method roll(Baggy:D: --&gt; Any:D)
+multi method roll(Baggy:D: $count --&gt; Seq:D)</pre>
+<p>Like an ordinary list <a href="/Documentable/integration-test/type/List#routine_roll">roll</a>, but returns keys of the invocant weighted by their values, as if the keys were replicated the number of times indicated by the corresponding value and then list roll used. The underlying metaphor for rolling is that you&#39;re throwing <code>$count</code> dice that are independent of each other, which (in bag terms) is equivalent to picking a colored marble out your bag and then putting it back, and doing this <code>$count</code> times. In dice terms, the number of marbles corresponds to the number of sides, and the number of marbles of the same color corresponds to the number of sides with the same color. (For &quot;picking without replacement&quot; see <a href="#method_pick">pick</a> instead).</p>
+<p>If <code>*</code> is passed to <code>$count</code>, returns a lazy, infinite sequence of randomly chosen elements from the invocant.</p>
+<pre class="pod-block-code">my $breakfast = bag &lt;eggs bacon bacon bacon&gt;;
+say $breakfast.roll;                                  # OUTPUT: «bacon␤»
+say $breakfast.roll(3);                               # OUTPUT: «(bacon eggs bacon)␤»
+
+my $random_dishes := $breakfast.roll(*);
+say $random_dishes[^5];                               # OUTPUT: «(bacon eggs bacon bacon bacon)␤»</pre>
+<h2 id="method_pairs"><a class="u" href="#___top" title="go to top of document">method pairs</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method pairs(Baggy:D: --&gt; Seq:D)</pre>
+<p>Returns all elements and their respective weights as a <a href="/Documentable/integration-test/type/Seq">Seq</a> of <code>Pair</code>s where the key is the element itself and the value is the weight of that element.</p>
+<pre class="pod-block-code">my $breakfast = bag &lt;bacon eggs bacon&gt;;
+my $seq = $breakfast.pairs;
+say $seq.sort;                                    # OUTPUT: «(bacon =&gt; 2 eggs =&gt; 1)␤»</pre>
+<h2 id="method_antipairs"><a class="u" href="#___top" title="go to top of document">method antipairs</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method antipairs(Baggy:D: --&gt; Seq:D)</pre>
+<p>Returns all elements and their respective weights as a <a href="/Documentable/integration-test/type/Seq">Seq</a> of <a href="/Documentable/integration-test/type/Pair">Pairs</a>, where the element itself is the value and the weight of that element is the key, i.e. the opposite of method <a href="#method_pairs">pairs</a>.</p>
+<pre class="pod-block-code">my $breakfast = bag &lt;bacon eggs bacon&gt;;
+my $seq = $breakfast.antipairs;
+say $seq.sort;                                    # OUTPUT: «(1 =&gt; eggs 2 =&gt; bacon)␤»</pre>
+<h2 id="method_invert"><a class="u" href="#___top" title="go to top of document">method invert</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method invert(Baggy:D: --&gt; Seq:D)</pre>
+<p>Returns all elements and their respective weights as a <a href="/Documentable/integration-test/type/Seq">Seq</a> of <a href="/Documentable/integration-test/type/Pair">Pairs</a>, where the element itself is the value and the weight of that element is the key, i.e. the opposite of method <a href="#method_pairs">pairs</a>. Except for some esoteric cases, <code>invert</code> on a Baggy type returns the same result as <a href="#method_antipairs">antipairs</a>.</p>
+<pre class="pod-block-code">my $breakfast = bag &lt;bacon eggs bacon&gt;;
+my $seq = $breakfast.invert;
+say $seq.sort;                                    # OUTPUT: «(1 =&gt; eggs 2 =&gt; bacon)␤»</pre>
+<h2 id="method_classify-list"><a class="u" href="#___top" title="go to top of document">method classify-list</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method classify-list(&amp;mapper, *@list --&gt; Baggy:D)
+multi method classify-list(%mapper, *@list --&gt; Baggy:D)
+multi method classify-list(@mapper, *@list --&gt; Baggy:D)</pre>
+<p>Populates a <em>mutable</em> <a href="/Documentable/integration-test/type/Baggy"><code>Baggy</code></a> by classifying the possibly-empty <code>@list</code> of values using the given <code>mapper</code>. The <code>@list</code> cannot be lazy.</p>
+<pre class="pod-block-code">say BagHash.new.classify-list: { $_ %% 2 ?? &#39;even&#39; !! &#39;odd&#39; }, ^10;
+# OUTPUT: BagHash.new(even(5), odd(5))
+
+my @mapper = &lt;zero one two three four five&gt;;
+say MixHash.new.classify-list: @mapper, 1, 2, 3, 4, 4, 6;
+# OUTPUT: MixHash.new((Any), two, three, four(2), one)</pre>
+<p>The mapper can be a <a href="/Documentable/integration-test/type/Callable"><code>Callable</code></a> that takes a single argument, an <a href="/Documentable/integration-test/type/Associative"><code>Associative</code></a>, or an <a href="/Documentable/integration-test/type/Iterable"><code>Iterable</code></a>. With <a href="/Documentable/integration-test/type/Associative"><code>Associative</code></a> and an <a href="/Documentable/integration-test/type/Iterable"><code>Iterable</code></a> mappers, the values in the <code>@list</code> represent the key and index of the mapper&#39;s value respectively. A <a href="/Documentable/integration-test/type/Callable"><code>Callable</code></a> mapper will be executed once per each item in the <code>@list</code>, with that item as the argument and its return value will be used as the mapper&#39;s value.</p>
+<p>The mapper&#39;s value is used as the key of the <a href="/Documentable/integration-test/type/Baggy"><code>Baggy</code></a> that will be incremented by <code>1</code>. See <a href="/Documentable/integration-test/routine/categorize-list"><code>.categorize-list</code></a> if you wish to classify an item into multiple categories at once.</p>
+<p><strong>Note:</strong> unlike the <a href="/Documentable/integration-test/type/Hash"><code>Hash</code></a>&#39;s <code>.classify-list</code>, returning an <a href="/Documentable/integration-test/type/Iterable"><code>Iterable</code></a> mapper&#39;s value will throw, as <a href="/Documentable/integration-test/type/Baggy"><code>Baggy</code></a> types do not support nested classification. For the same reason, <a href="/Documentable/integration-test/type/Baggy"><code>Baggy</code></a>&#39;s <code>.classify-list</code> does not accept <code>:&amp;as</code> parameter.</p>
+<h2 id="method_categorize-list"><a class="u" href="#___top" title="go to top of document">method categorize-list</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method categorize-list(&amp;mapper, *@list --&gt; Baggy:D)
+multi method categorize-list(%mapper, *@list --&gt; Baggy:D)
+multi method categorize-list(@mapper, *@list --&gt; Baggy:D)</pre>
+<p>Populates a <em>mutable</em> <a href="/Documentable/integration-test/type/Baggy"><code>Baggy</code></a> by categorizing the possibly-empty <code>@list</code> of values using the given <code>mapper</code>. The <code>@list</code> cannot be lazy.</p>
+<pre class="pod-block-code">say BagHash.new.categorize-list: {
+    gather {
+        take &#39;largish&#39; if $_ &gt; 5;
+        take .is-prime ?? &#39;prime&#39; !! &#39;non-prime&#39;;
+        take $_ %% 2   ?? &#39;even&#39;  !! &#39;odd&#39;;
+    }
+}, ^10;
+# OUTPUT: BagHash.new(largish(4), even(5), non-prime(6), prime(4), odd(5))
+
+my %mapper = :sugar&lt;sweet white&gt;, :lemon&lt;sour&gt;, :cake(&#39;sweet&#39;, &#39;is a lie&#39;);
+say MixHash.new.categorize-list: %mapper, &lt;sugar lemon cake&gt;;
+# OUTPUT: MixHash.new(is a lie, sour, white, sweet(2))</pre>
+<p>The mapper can be a <a href="/Documentable/integration-test/type/Callable"><code>Callable</code></a> that takes a single argument, an <a href="/Documentable/integration-test/type/Associative"><code>Associative</code></a>, or an <a href="/Documentable/integration-test/type/Iterable"><code>Iterable</code></a>. With <a href="/Documentable/integration-test/type/Associative"><code>Associative</code></a> and an <a href="/Documentable/integration-test/type/Iterable"><code>Iterable</code></a> mappers, the values in the <code>@list</code> represent the key and index of the mapper&#39;s value respectively. A <a href="/Documentable/integration-test/type/Callable"><code>Callable</code></a> mapper will be executed once per each item in the <code>@list</code>, with that item as the argument and its return value will be used as the mapper&#39;s value.</p>
+<p>The mapper&#39;s value is used as a possibly-empty list of keys of the <a href="/Documentable/integration-test/type/Baggy"><code>Baggy</code></a> that will be incremented by <code>1</code>.</p>
+<p><strong>Note:</strong> unlike the <a href="/Documentable/integration-test/type/Hash"><code>Hash</code></a>&#39;s <code>.categorize-list</code>, returning a list of <a href="/Documentable/integration-test/type/Iterable"><code>Iterables</code></a> as mapper&#39;s value will throw, as <a href="/Documentable/integration-test/type/Baggy"><code>Baggy</code></a> types do not support nested categorization. For the same reason, <a href="/Documentable/integration-test/type/Baggy"><code>Baggy</code></a>&#39;s <code>.categorize-list</code> does not accept <code>:&amp;as</code> parameter.</p>
+<h2 id="method_keys"><a class="u" href="#___top" title="go to top of document">method keys</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method keys(Baggy:D: --&gt; Seq:D)</pre>
+<p>Returns a <code>Seq</code> of all keys in the <code>Baggy</code> object without taking their individual weights into account as opposed to <a href="#method_kxxv">kxxv</a>.</p>
+<pre class="pod-block-code">my $breakfast = bag &lt;eggs spam spam spam&gt;;
+say $breakfast.keys.sort;                        # OUTPUT: «(eggs spam)␤»
+
+my $n = (&quot;a&quot; =&gt; 5, &quot;b&quot; =&gt; 2).BagHash;
+say $n.keys.sort;                                # OUTPUT: «(a b)␤»</pre>
+<h2 id="method_values"><a class="u" href="#___top" title="go to top of document">method values</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method values(Baggy:D: --&gt; Seq:D)</pre>
+<p>Returns a <code>Seq</code> of all values, i.e. weights, in the <code>Baggy</code> object.</p>
+<pre class="pod-block-code">my $breakfast = bag &lt;eggs spam spam spam&gt;;
+say $breakfast.values.sort;                      # OUTPUT: «(1 3)␤»
+
+my $n = (&quot;a&quot; =&gt; 5, &quot;b&quot; =&gt; 2, &quot;a&quot; =&gt; 1).BagHash;
+say $n.values.sort;                              # OUTPUT: «(2 6)␤»</pre>
+<h2 id="method_kv"><a class="u" href="#___top" title="go to top of document">method kv</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method kv(Baggy:D: --&gt; Seq:D)</pre>
+<p>Returns a <code>Seq</code> of keys and values interleaved.</p>
+<pre class="pod-block-code">my $breakfast = bag &lt;eggs spam spam spam&gt;;
+say $breakfast.kv;                                # OUTPUT: «(spam 3 eggs 1)␤»
+
+my $n = (&quot;a&quot; =&gt; 5, &quot;b&quot; =&gt; 2, &quot;a&quot; =&gt; 1).BagHash;
+say $n.kv;                                        # OUTPUT: «(a 6 b 2)␤»</pre>
+<h2 id="method_kxxv"><a class="u" href="#___top" title="go to top of document">method kxxv</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method kxxv(Baggy:D: --&gt; Seq:D)</pre>
+<p>Returns a <code>Seq</code> of the keys of the invocant, with each key multiplied by its weight. Note that <code>kxxv</code> only works for <code>Baggy</code> types which have integer weights, i.e. <a href="/Documentable/integration-test/type/Bag">Bag</a> and <a href="/Documentable/integration-test/type/BagHash">BagHash</a>.</p>
+<pre class="pod-block-code">my $breakfast = bag &lt;spam eggs spam spam bacon&gt;;
+say $breakfast.kxxv.sort;                         # OUTPUT: «(bacon eggs spam spam spam)␤»
+
+my $n = (&quot;a&quot; =&gt; 0, &quot;b&quot; =&gt; 1, &quot;b&quot; =&gt; 2).BagHash;
+say $n.kxxv;                                      # OUTPUT: «(b b b)␤»</pre>
+<h2 id="method_elems"><a class="u" href="#___top" title="go to top of document">method elems</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method elems(Baggy:D: --&gt; Int:D)</pre>
+<p>Returns the number of elements in the <code>Baggy</code> object without taking the individual elements&#39; weight into account.</p>
+<pre class="pod-block-code">my $breakfast = bag &lt;eggs spam spam spam&gt;;
+say $breakfast.elems;                             # OUTPUT: «2␤»
+
+my $n = (&quot;b&quot; =&gt; 9.4, &quot;b&quot; =&gt; 2).MixHash;
+say $n.elems;                                     # OUTPUT: «1␤»</pre>
+<h2 id="method_total"><a class="u" href="#___top" title="go to top of document">method total</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method total(Baggy:D:)</pre>
+<p>Returns the sum of weights for all elements in the <code>Baggy</code> object.</p>
+<pre class="pod-block-code">my $breakfast = bag &lt;eggs spam spam bacon&gt;;
+say $breakfast.total;                             # OUTPUT: «4␤»
+
+my $n = (&quot;a&quot; =&gt; 5, &quot;b&quot; =&gt; 1, &quot;b&quot; =&gt; 2).BagHash;
+say $n.total;                                     # OUTPUT: «8␤»</pre>
+<h2 id="method_default"><a class="u" href="#___top" title="go to top of document">method default</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method default(Baggy:D: --&gt; Int:D)</pre>
+<p>Returns zero.</p>
+<pre class="pod-block-code">my $breakfast = bag &lt;eggs bacon&gt;;
+say $breakfast.default;                           # OUTPUT: «0␤»</pre>
+<h2 id="method_hash"><a class="u" href="#___top" title="go to top of document">method hash</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method hash(Baggy:D: --&gt; Hash:D)</pre>
+<p>Returns a <a href="/Documentable/integration-test/type/Hash">Hash</a> where the elements of the invocant are the keys and their respective weights the values.</p>
+<pre class="pod-block-code">my $breakfast = bag &lt;eggs bacon bacon&gt;;
+my $h = $breakfast.hash;
+say $h.^name;                    # OUTPUT: «Hash[Any,Any]␤»
+say $h;                          # OUTPUT: «{bacon =&gt; 2, eggs =&gt; 1}␤»</pre>
+<h2 id="method_Bool"><a class="u" href="#___top" title="go to top of document">method Bool</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method Bool(Baggy:D: --&gt; Bool:D)</pre>
+<p>Returns <code>True</code> if the invocant contains at least one element.</p>
+<pre class="pod-block-code">my $breakfast = (&#39;eggs&#39; =&gt; 1).BagHash;
+say $breakfast.Bool;                              # OUTPUT: «True   (since we have one element)␤»
+$breakfast&lt;eggs&gt; = 0;                             # weight == 0 will lead to element removal
+say $breakfast.Bool;                              # OUTPUT: «False␤»</pre>
+<h2 id="method_Set"><a class="u" href="#___top" title="go to top of document">method Set</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method Set(--&gt; Set:D)</pre>
+<p>Returns a <a href="/Documentable/integration-test/type/Set">Set</a> whose elements are the <a href="#method_keys">keys</a> of the invocant.</p>
+<pre class="pod-block-code">my $breakfast = (eggs =&gt; 2, bacon =&gt; 3).BagHash;
+say $breakfast.Set;                               # OUTPUT: «set(bacon, eggs)␤»</pre>
+<h2 id="method_SetHash"><a class="u" href="#___top" title="go to top of document">method SetHash</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method SetHash(--&gt; SetHash:D)</pre>
+<p>Returns a <a href="/Documentable/integration-test/type/SetHash">SetHash</a> whose elements are the <a href="#method_keys">keys</a> of the invocant.</p>
+<pre class="pod-block-code">my $breakfast = (eggs =&gt; 2, bacon =&gt; 3).BagHash;
+my $sh = $breakfast.SetHash;
+say $sh.^name;                            # OUTPUT: «SetHash␤»
+say $sh.elems;                            # OUTPUT: «2␤»</pre>
+<h2 id="method_ACCEPTS"><a class="u" href="#___top" title="go to top of document">method ACCEPTS</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method ACCEPTS($other --&gt; Bool:D)</pre>
+<p>Used in smartmatching if the right-hand side is a <code>Baggy</code>.</p>
+<p>If the right-hand side is the type object, i.e. <code>Baggy</code>, the method returns <code>True</code> if <code>$other</code> <a href="/Documentable/integration-test/routine/does#class_Mu">does</a> <code>Baggy</code> otherwise <code>False</code> is returned.</p>
+<p>If the right-hand side is a <code>Baggy</code> object, <code>True</code> is returned only if <code>$other</code> has the same elements, with the same weights, as the invocant.</p>
+<pre class="pod-block-code">my $breakfast = bag &lt;eggs bacon&gt;;
+say $breakfast ~~ Baggy;                            # OUTPUT: «True␤»
+say $breakfast.does(Baggy);                         # OUTPUT: «True␤»
+
+my $second-breakfast = (eggs =&gt; 1, bacon =&gt; 1).Mix;
+say $breakfast ~~ $second-breakfast;                # OUTPUT: «True␤»
+
+my $third-breakfast = (eggs =&gt; 1, bacon =&gt; 2).Bag;
+say $second-breakfast ~~ $third-breakfast;          # OUTPUT: «False␤»</pre>
+<h1 id="See_Also"><a class="u" href="#___top" title="go to top of document">See Also</a></h1>
+<p><a href="/Documentable/integration-test/language/setbagmix">Sets, Bags, and Mixes</a></p>
+<h1 id="Type_Graph"><a class="u" href="#___top" title="go to top of document">Type Graph</a></h1>
+<figure>
+  <figcaption>Type relations for <code>Baggy</code></figcaption>
+  <svg width="350pt" height="332pt"
+ viewBox="0.00 0.00 350.00 332.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 328)">
+<title>perl6&#45;type&#45;graph</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-328 346,-328 346,4 -4,4"/>
+<!-- Baggy -->
+<g id="node1" class="node">
+<title>Baggy</title>
+<g id="a_node1"><a xlink:href="/type/Baggy" xlink:title="Baggy">
+<ellipse fill="none" stroke="#6666ff" cx="93" cy="-162" rx="35.19" ry="18"/>
+<text text-anchor="middle" x="93" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#6666ff">Baggy</text>
+</a>
+</g>
+</g>
+<!-- QuantHash -->
+<g id="node3" class="node">
+<title>QuantHash</title>
+<g id="a_node3"><a xlink:href="/type/QuantHash" xlink:title="QuantHash">
+<ellipse fill="none" stroke="#6666ff" cx="93" cy="-234" rx="54.69" ry="18"/>
+<text text-anchor="middle" x="93" y="-230.3" font-family="FreeSans" font-size="14.00" fill="#6666ff">QuantHash</text>
+</a>
+</g>
+</g>
+<!-- Baggy&#45;&gt;QuantHash -->
+<g id="edge6" class="edge">
+<title>Baggy&#45;&gt;QuantHash</title>
+<path fill="none" stroke="#6666ff" d="M93,-180.3C93,-188.02 93,-197.29 93,-205.89"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="89.5,-205.9 93,-215.9 96.5,-205.9 89.5,-205.9"/>
+</g>
+<!-- Associative -->
+<g id="node2" class="node">
+<title>Associative</title>
+<g id="a_node2"><a xlink:href="/type/Associative" xlink:title="Associative">
+<ellipse fill="none" stroke="#6666ff" cx="93" cy="-306" rx="64.19" ry="18"/>
+<text text-anchor="middle" x="93" y="-302.3" font-family="FreeSans" font-size="14.00" fill="#6666ff">Associative</text>
+</a>
+</g>
+</g>
+<!-- QuantHash&#45;&gt;Associative -->
+<g id="edge7" class="edge">
+<title>QuantHash&#45;&gt;Associative</title>
+<path fill="none" stroke="#6666ff" d="M93,-252.3C93,-260.02 93,-269.29 93,-277.89"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="89.5,-277.9 93,-287.9 96.5,-277.9 89.5,-277.9"/>
+</g>
+<!-- Mu -->
+<g id="node4" class="node">
+<title>Mu</title>
+<g id="a_node4"><a xlink:href="/type/Mu" xlink:title="Mu">
+<ellipse fill="none" stroke="#000000" cx="173" cy="-162" rx="27" ry="18"/>
+<text text-anchor="middle" x="173" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#000000">Mu</text>
+</a>
+</g>
+</g>
+<!-- Any -->
+<g id="node5" class="node">
+<title>Any</title>
+<g id="a_node5"><a xlink:href="/type/Any" xlink:title="Any">
+<ellipse fill="none" stroke="#000000" cx="164" cy="-90" rx="27" ry="18"/>
+<text text-anchor="middle" x="164" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Any</text>
+</a>
+</g>
+</g>
+<!-- Any&#45;&gt;Mu -->
+<g id="edge1" class="edge">
+<title>Any&#45;&gt;Mu</title>
+<path fill="none" stroke="#000000" d="M166.18,-107.95C167.17,-115.65 168.37,-124.97 169.48,-133.64"/>
+<polygon fill="#000000" stroke="#000000" points="166.03,-134.25 170.78,-143.72 172.98,-133.36 166.03,-134.25"/>
+</g>
+<!-- BagHash -->
+<g id="node6" class="node">
+<title>BagHash</title>
+<g id="a_node6"><a xlink:href="/type/BagHash" xlink:title="BagHash">
+<ellipse fill="none" stroke="#000000" cx="117" cy="-18" rx="44.69" ry="18"/>
+<text text-anchor="middle" x="117" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">BagHash</text>
+</a>
+</g>
+</g>
+<!-- BagHash&#45;&gt;Baggy -->
+<g id="edge8" class="edge">
+<title>BagHash&#45;&gt;Baggy</title>
+<path fill="none" stroke="#6666ff" d="M114.11,-36.13C110.01,-60.33 102.5,-104.79 97.63,-133.61"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="94.12,-133.37 95.91,-143.81 101.02,-134.53 94.12,-133.37"/>
+</g>
+<!-- BagHash&#45;&gt;Any -->
+<g id="edge2" class="edge">
+<title>BagHash&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M128.14,-35.59C133.96,-44.26 141.19,-55.03 147.63,-64.62"/>
+<polygon fill="#000000" stroke="#000000" points="144.78,-66.66 153.27,-73.01 150.6,-62.76 144.78,-66.66"/>
+</g>
+<!-- Bag -->
+<g id="node7" class="node">
+<title>Bag</title>
+<g id="a_node7"><a xlink:href="/type/Bag" xlink:title="Bag">
+<ellipse fill="none" stroke="#000000" cx="27" cy="-18" rx="27" ry="18"/>
+<text text-anchor="middle" x="27" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">Bag</text>
+</a>
+</g>
+</g>
+<!-- Bag&#45;&gt;Baggy -->
+<g id="edge9" class="edge">
+<title>Bag&#45;&gt;Baggy</title>
+<path fill="none" stroke="#6666ff" d="M34.57,-35.29C45.89,-59.64 67.33,-105.76 80.85,-134.86"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="77.72,-136.43 85.11,-144.02 84.07,-133.48 77.72,-136.43"/>
+</g>
+<!-- Bag&#45;&gt;Any -->
+<g id="edge3" class="edge">
+<title>Bag&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M47.81,-29.63C70.74,-41.35 107.83,-60.3 133.93,-73.63"/>
+<polygon fill="#000000" stroke="#000000" points="132.5,-76.84 143,-78.27 135.68,-70.6 132.5,-76.84"/>
+</g>
+<!-- Mixy -->
+<g id="node8" class="node">
+<title>Mixy</title>
+<g id="a_node8"><a xlink:href="/type/Mixy" xlink:title="Mixy">
+<ellipse fill="none" stroke="#6666ff" cx="240" cy="-90" rx="30.59" ry="18"/>
+<text text-anchor="middle" x="240" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#6666ff">Mixy</text>
+</a>
+</g>
+</g>
+<!-- Mixy&#45;&gt;Baggy -->
+<g id="edge10" class="edge">
+<title>Mixy&#45;&gt;Baggy</title>
+<path fill="none" stroke="#6666ff" d="M217.03,-101.94C192.91,-113.43 154.7,-131.62 127.06,-144.78"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="125.29,-141.75 117.77,-149.2 128.3,-148.07 125.29,-141.75"/>
+</g>
+<!-- Mix -->
+<g id="node9" class="node">
+<title>Mix</title>
+<g id="a_node9"><a xlink:href="/type/Mix" xlink:title="Mix">
+<ellipse fill="none" stroke="#000000" cx="315" cy="-18" rx="27" ry="18"/>
+<text text-anchor="middle" x="315" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">Mix</text>
+</a>
+</g>
+</g>
+<!-- Mix&#45;&gt;Any -->
+<g id="edge4" class="edge">
+<title>Mix&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M293.64,-29.09C285.89,-32.75 279,-36 279,-36 279,-36 200,-72 200,-72 200,-72 197.82,-73.03 194.53,-74.58"/>
+<polygon fill="#000000" stroke="#000000" points="192.91,-71.48 185.36,-78.91 195.89,-77.81 192.91,-71.48"/>
+</g>
+<!-- Mix&#45;&gt;Mixy -->
+<g id="edge11" class="edge">
+<title>Mix&#45;&gt;Mixy</title>
+<path fill="none" stroke="#6666ff" d="M299.82,-33.17C289.29,-43 275.06,-56.28 263.12,-67.42"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="260.59,-64.99 255.67,-74.37 265.37,-70.11 260.59,-64.99"/>
+</g>
+<!-- MixHash -->
+<g id="node10" class="node">
+<title>MixHash</title>
+<g id="a_node10"><a xlink:href="/type/MixHash" xlink:title="MixHash">
+<ellipse fill="none" stroke="#000000" cx="225" cy="-18" rx="44.69" ry="18"/>
+<text text-anchor="middle" x="225" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">MixHash</text>
+</a>
+</g>
+</g>
+<!-- MixHash&#45;&gt;Any -->
+<g id="edge5" class="edge">
+<title>MixHash&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M210.85,-35.24C202.85,-44.41 192.73,-56.04 183.93,-66.12"/>
+<polygon fill="#000000" stroke="#000000" points="181.17,-63.97 177.24,-73.81 186.44,-68.57 181.17,-63.97"/>
+</g>
+<!-- MixHash&#45;&gt;Mixy -->
+<g id="edge12" class="edge">
+<title>MixHash&#45;&gt;Mixy</title>
+<path fill="none" stroke="#6666ff" d="M228.63,-35.95C230.3,-43.74 232.32,-53.18 234.2,-61.92"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="230.78,-62.68 236.3,-71.72 237.63,-61.21 230.78,-62.68"/>
+</g>
+</g>
+</svg>
+
+  <p class="fallback">
+    <a
+      rel="alternate"
+      href="/images/type-graph-Baggy.svg"
+      type="image/svg+xml"
+      >Expand above chart</a
+    >
+  </p>
+</figure>
+<h1 id="Routines_supplied_by_role_QuantHash"><a class="u" href="#___top" title="go to top of document">Routines supplied by role QuantHash</a></h1>
+<p>Baggy does role <a href="/Documentable/integration-test/type/QuantHash">QuantHash</a>, which provides the following routines:</p>
+<h2 id="(QuantHash)_method_hash"><a href="/Documentable/integration-test/type/QuantHash#method_hash">(QuantHash) method hash</a></h2>
+<pre class="pod-block-code">method hash()</pre>
+<p>Coerces the <code>QuantHash</code> object to a <a href="/Documentable/integration-test/type/Hash">Hash</a> (by stringifying the objects for the keys) with the values of the hash limited to the same limitation as <code>QuantHash</code>, and returns that.</p>
+<h2 id="(QuantHash)_method_Hash"><a href="/Documentable/integration-test/type/QuantHash#method_Hash">(QuantHash) method Hash</a></h2>
+<pre class="pod-block-code">method Hash()</pre>
+<p>Coerces the <code>QuantHash</code> object to a <a href="/Documentable/integration-test/type/Hash">Hash</a> (by stringifying the objects for the keys) without any limitations on the values, and returns that.</p>
+<h2 id="(QuantHash)_method_of"><a href="/Documentable/integration-test/type/QuantHash#method_of">(QuantHash) method of</a></h2>
+<pre class="pod-block-code">method of()</pre>
+<p>Returns the type of value a value of this <code>QuantHash</code> may have. This is typically <a href="/Documentable/integration-test/type/Bool">Bool</a> for <a href="/Documentable/integration-test/type/Setty">Setty</a>, <a href="/Documentable/integration-test/type/UInt">UInt</a> for <a href="/Documentable/integration-test/type/Baggy">Baggy</a> or <a href="/Documentable/integration-test/type/Real">Real</a> for <a href="/Documentable/integration-test/type/Mixy">Mixy</a> roles.</p>
+<h2 id="(QuantHash)_method_keyof"><a href="/Documentable/integration-test/type/QuantHash#method_keyof">(QuantHash) method keyof</a></h2>
+<pre class="pod-block-code">method keyof()</pre>
+<p>Returns the type of value a key of this subclass of <code>QuantHash</code> may have. This is typically <a href="/Documentable/integration-test/type/Mu">Mu</a>, which is also the default for punned QuantHashes.</p>
+<h2 id="(QuantHash)_method_Setty"><a href="/Documentable/integration-test/type/QuantHash#method_Setty">(QuantHash) method Setty</a></h2>
+<pre class="pod-block-code">method Setty(--&gt; Setty:D)</pre>
+<p>Coerce the <code>QuantHash</code> object to the equivalent object that uses the <a href="/Documentable/integration-test/type/Setty">Setty</a> role. Note that for <a href="/Documentable/integration-test/type/Mixy">Mixy</a> type coercion items with negative values will be skipped.</p>
+<pre class="pod-block-code">my %b is Bag = one =&gt; 1, two =&gt; 2;
+say %b.Setty; # OUTPUT: «set(one two)␤»
+my %m is Mix = one =&gt; 1, minus =&gt; -1;
+say %m.Setty; # OUTPUT: «set(one)␤»</pre>
+<h2 id="(QuantHash)_method_Baggy"><a href="/Documentable/integration-test/type/QuantHash#method_Baggy">(QuantHash) method Baggy</a></h2>
+<pre class="pod-block-code">method Baggy(--&gt; Baggy:D)</pre>
+<p>Coerce the <code>QuantHash</code> object to the equivalent object that uses the <a href="/Documentable/integration-test/type/Baggy">Baggy</a> role. Note that for <a href="/Documentable/integration-test/type/Mixy">Mixy</a> type coercion items with negative values will be skipped.</p>
+<pre class="pod-block-code">my %s is Set = &lt;one two&gt;;
+say %s.Baggy; # OUTPUT: «Bag(one, two)␤»
+my %m is Mix = one =&gt; 1, minus =&gt; -1;
+say %m.Baggy; # OUTPUT: «Bag(one)␤»</pre>
+<h2 id="(QuantHash)_method_Mixy"><a href="/Documentable/integration-test/type/QuantHash#method_Mixy">(QuantHash) method Mixy</a></h2>
+<pre class="pod-block-code">method Mixy(--&gt; Mixy:D)</pre>
+<p>Coerce the <code>QuantHash</code> object to the equivalent object that uses the <a href="/Documentable/integration-test/type/Mixy">Mixy</a> role.</p>
+<pre class="pod-block-code">my %s is Set = &lt;one two&gt;;
+say %s.Mixy; # OUTPUT: «Mix(one, two)␤»
+my %b is Bag = one =&gt; 1, two =&gt; 2;
+say %b.Mixy; # OUTPUT: «Mix(one, two)␤»</pre>
+<h1 id="Routines_supplied_by_role_Associative"><a class="u" href="#___top" title="go to top of document">Routines supplied by role Associative</a></h1>
+<p>Baggy does role <a href="/Documentable/integration-test/type/Associative">Associative</a>, which provides the following routines:</p>
+<h2 id="(Associative)_method_of"><a href="/Documentable/integration-test/type/Associative#method_of">(Associative) method of</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method of()</pre>
+<p><code>Associative</code> is actually a <a href="/Documentable/integration-test/language/objects#Parameterized_roles">parameterized role</a> which can use different classes for keys and values. As seen at the top of the document, by default it coerces to <code>Str</code> for the key and uses a very generic <code>Mu</code> for value.</p>
+<pre class="pod-block-code">my %any-hash;
+say %any-hash.of;#  OUTPUT: «(Mu)␤»</pre>
+<p>The value is the first parameter you use when instantiating <code>Associative</code> with particular classes:</p>
+<pre class="pod-block-code">class DateHash is Hash does Associative[Cool,DateTime] {};
+my %date-hash := DateHash.new;
+say %date-hash.of; # OUTPUT: «(Cool)␤»</pre>
+<h2 id="(Associative)_method_keyof"><a href="/Documentable/integration-test/type/Associative#method_keyof">(Associative) method keyof</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method keyof()</pre>
+<p>Returns the parameterized key used for the Associative role, which is <code>Any</code> coerced to <code>Str</code> by default. This is the class used as second parameter when you use the parameterized version of Associative.</p>
+<pre class="pod-block-code">my %any-hash;
+%any-hash.keyof; #OUTPUT: «(Str(Any))␤»</pre>
+<h2 id="(Associative)_method_AT-KEY"><a href="/Documentable/integration-test/type/Associative#method_AT-KEY">(Associative) method AT-KEY</a></h2>
+<pre class="pod-block-code">method AT-KEY(\key)</pre>
+<p>Should return the value / container at the given key.</p>
+<h2 id="(Associative)_method_EXISTS-KEY"><a href="/Documentable/integration-test/type/Associative#method_EXISTS-KEY">(Associative) method EXISTS-KEY</a></h2>
+<pre class="pod-block-code">method EXISTS-KEY(\key)</pre>
+<p>Should return a <code>Bool</code> indicating whether the given key actually has a value.</p>
+<h2 id="(Associative)_method_STORE"><a href="/Documentable/integration-test/type/Associative#method_STORE">(Associative) method STORE</a></h2>
+<pre class="pod-block-code">method STORE(\values, :$initialize)</pre>
+<p>This method should only be supplied if you want to support the:</p>
+<pre class="pod-block-code">my %h is Foo = a =&gt; 42, b =&gt; 666;
+</pre>
+<p>syntax for binding your implementation of the <code>Associative</code> role.</p>
+<p>Should accept the values to (re-)initialize the object with, which either could consist of <code>Pair</code>s, or separate key/value pairs. The optional named parameter will contain a <code>True</code> value when the method is called on the object for the first time. Should return the invocant.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Type/Baggy.pod6">https://github.com/Raku/doc/blob/master/doc/Type/Baggy.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

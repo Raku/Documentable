@@ -1,0 +1,699 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>class Supply</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/type.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-basic.html"> Basic </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-composite.html"> Composite </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-domain-specific.html"> Domain-specific </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-exception.html"> Exceptions </a>
+            </div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Type/Supply.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">class Supply</h1>
+        <p class="subtitle">Asynchronous data stream with multiple subscribers</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+                                                           <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Methods_that_return_Taps">Methods that return Taps</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#method_tap">method tap</a></td></tr>
+                                                                                <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#method_act">method act</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Utility_methods">Utility methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#method_Capture">method Capture</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">2.2</td><td class="toc-text"><a href="#method_Channel">method Channel</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">2.3</td><td class="toc-text"><a href="#method_Promise">method Promise</a></td></tr>
+                           <tr class="toc-level-2"><td class="toc-number">2.4</td><td class="toc-text"><a href="#method_live">method live</a></td></tr>
+              <tr class="toc-level-2"><td class="toc-number">2.5</td><td class="toc-text"><a href="#method_schedule-on">method schedule-on</a></td></tr>
+    <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Methods_that_wait_until_the_supply_is_done">Methods that wait until the supply is done</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#method_wait">method wait</a></td></tr>
+                <tr class="toc-level-2"><td class="toc-number">3.2</td><td class="toc-text"><a href="#method_list">method list</a></td></tr>
+               <tr class="toc-level-2"><td class="toc-number">3.3</td><td class="toc-text"><a href="#method_Seq">method Seq</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">3.4</td><td class="toc-text"><a href="#method_grab">method grab</a></td></tr>
+                  <tr class="toc-level-2"><td class="toc-number">3.5</td><td class="toc-text"><a href="#method_reverse">method reverse</a></td></tr>
+                  <tr class="toc-level-2"><td class="toc-number">3.6</td><td class="toc-text"><a href="#method_sort">method sort</a></td></tr>
+                    <tr class="toc-level-2"><td class="toc-number">3.7</td><td class="toc-text"><a href="#method_collate">method collate</a></td></tr>
+              <tr class="toc-level-2"><td class="toc-number">3.8</td><td class="toc-text"><a href="#method_reduce">method reduce</a></td></tr>
+       <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#Methods_that_return_another_Supply">Methods that return another Supply</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">4.1</td><td class="toc-text"><a href="#method_from-list">method from-list</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">4.2</td><td class="toc-text"><a href="#method_share">method share</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">4.3</td><td class="toc-text"><a href="#method_flat">method flat</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">4.4</td><td class="toc-text"><a href="#method_do">method do</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">4.5</td><td class="toc-text"><a href="#method_on-close">method on-close</a></td></tr>
+                      <tr class="toc-level-2"><td class="toc-number">4.6</td><td class="toc-text"><a href="#method_interval">method interval</a></td></tr>
+              <tr class="toc-level-2"><td class="toc-number">4.7</td><td class="toc-text"><a href="#method_grep">method grep</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">4.8</td><td class="toc-text"><a href="#method_map">method map</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">4.9</td><td class="toc-text"><a href="#method_batch">method batch</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">4.10</td><td class="toc-text"><a href="#method_elems">method elems</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">4.11</td><td class="toc-text"><a href="#method_head">method head</a></td></tr>
+            <tr class="toc-level-2"><td class="toc-number">4.12</td><td class="toc-text"><a href="#method_tail">method tail</a></td></tr>
+                 <tr class="toc-level-2"><td class="toc-number">4.13</td><td class="toc-text"><a href="#method_first">method first</a></td></tr>
+              <tr class="toc-level-2"><td class="toc-number">4.14</td><td class="toc-text"><a href="#method_rotor">method rotor</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">4.15</td><td class="toc-text"><a href="#method_delayed">method delayed</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">4.16</td><td class="toc-text"><a href="#method_throttle">method throttle</a></td></tr>
+                                                                                                         <tr class="toc-level-3"><td class="toc-number">4.16.1</td><td class="toc-text"><a href="#control_messages">control messages</a></td></tr>
+                <tr class="toc-level-3"><td class="toc-number">4.16.2</td><td class="toc-text"><a href="#status_message">status message</a></td></tr>
+                    <tr class="toc-level-3"><td class="toc-number">4.16.3</td><td class="toc-text"><a href="#Examples">Examples</a></td></tr>
+                            <tr class="toc-level-2"><td class="toc-number">4.17</td><td class="toc-text"><a href="#method_stable">method stable</a></td></tr>
+                                                   <tr class="toc-level-2"><td class="toc-number">4.18</td><td class="toc-text"><a href="#method_produce">method produce</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">4.19</td><td class="toc-text"><a href="#method_lines">method lines</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">4.20</td><td class="toc-text"><a href="#method_words">method words</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">4.21</td><td class="toc-text"><a href="#method_unique">method unique</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">4.22</td><td class="toc-text"><a href="#method_repeated">method repeated</a></td></tr>
+                 <tr class="toc-level-2"><td class="toc-number">4.23</td><td class="toc-text"><a href="#method_squish">method squish</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">4.24</td><td class="toc-text"><a href="#method_max">method max</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">4.25</td><td class="toc-text"><a href="#method_min">method min</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">4.26</td><td class="toc-text"><a href="#method_minmax">method minmax</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">4.27</td><td class="toc-text"><a href="#method_skip">method skip</a></td></tr>
+                   <tr class="toc-level-2"><td class="toc-number">4.28</td><td class="toc-text"><a href="#method_start">method start</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">4.29</td><td class="toc-text"><a href="#method_migrate">method migrate</a></td></tr>
+                                                                     <tr class="toc-level-1"><td class="toc-number">5</td><td class="toc-text"><a href="#Methods_that_combine_supplies">Methods that combine supplies</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">5.1</td><td class="toc-text"><a href="#method_merge">method merge</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">5.2</td><td class="toc-text"><a href="#method_zip">method zip</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">5.3</td><td class="toc-text"><a href="#method_zip-latest">method zip-latest</a></td></tr>
+            <tr class="toc-level-1"><td class="toc-number">6</td><td class="toc-text"><a href="#I/O_features_exposed_as_supplies">I/O features exposed as supplies</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">6.1</td><td class="toc-text"><a href="#sub_signal">sub signal</a></td></tr>
+                              <tr class="toc-level-2"><td class="toc-number">6.2</td><td class="toc-text"><a href="#method_IO::Notification.watch-path">method IO::Notification.watch-path</a></td></tr>
+          <tr class="toc-level-1"><td class="toc-number">7</td><td class="toc-text"><a href="#Type_Graph">Type Graph</a></td></tr>
+ 
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <pre class="pod-block-code">    class Supply does Awaitable {}
+</pre>
+<p>A supply is a thread-safe, asynchronous data stream like a <a href="/Documentable/integration-test/type/Channel">Channel</a>, but it can have multiple subscribers (<em>taps</em>) that all get the same values flowing through the supply.</p>
+<p>It is a thread-safe implementation of the <a href="https://en.wikipedia.org/wiki/Observer_pattern">Observer Pattern</a>, and central to supporting reactive programming in Raku.</p>
+<p>There are two types of Supplies: <code>live</code> and <code>on demand</code>. When tapping into a <code>live</code> supply, the tap will only see values that are flowing through the supply <strong>after</strong> the tap has been created. Such supplies are normally infinite in nature, such as mouse movements. Closing such a tap does not stop mouse events from occurring, it just means that the values will go by unseen. All tappers see the same flow of values.</p>
+<p>A tap on an <code>on demand</code> supply will initiate the production of values, and tapping the supply again may result in a new set of values. For example, <code>Supply.interval</code> produces a fresh timer with the appropriate interval each time it is tapped. If the tap is closed, the timer simply stops emitting values to that tap.</p>
+<p>A <code>live</code> <code>Supply</code> is obtained from the <a href="/Documentable/integration-test/type/Supplier">Supplier</a> factory method <code>Supply</code>. New values are emitted by calling <code>emit</code> on the <code>Supplier</code> object.</p>
+<pre class="pod-block-code">my $supplier = Supplier.new;
+my $supply = $supplier.Supply;
+$supply.tap(-&gt; $v { say &quot;$v&quot; });
+$supplier.emit(42); # Will cause the tap to output &quot;42&quot;</pre>
+<p>The <a href="#method_live">live method</a> returns <code>True</code> on live supplies. Factory methods such as <a href="#method_interval">interval</a>, <a href="#method_from-list">from-list</a> will return <em>on demand</em> supplies.</p>
+<p>A live <code>Supply</code> that keeps values until tapped the first time can be created with <a href="/Documentable/integration-test/type/Supplier::Preserving">Supplier::Preserving</a>.</p>
+<p>Further examples can be found in the <a href="/Documentable/integration-test/language/concurrency#Supplies">concurrency page</a>.</p>
+<h1 id="Methods_that_return_Taps"><a class="u" href="#___top" title="go to top of document">Methods that return Taps</a></h1>
+<h2 id="method_tap"><a class="u" href="#___top" title="go to top of document">method tap</a></h2>
+<pre class="pod-block-code">method tap(Supply:D: &amp;emit = -&gt; $ { },
+        :&amp;done = -&gt; {},
+        :&amp;quit = -&gt; $ex { $ex.throw },
+        :&amp;tap = -&gt; $ {} )
+</pre>
+<p>Creates a new tap (a kind of subscription if you will), in addition to all existing taps. The first positional argument is a piece of code that will be called when a new value becomes available through the <code>emit</code> call.</p>
+<p>The <code>&amp;done</code> callback can be called in a number of cases: if a supply block is being tapped, when a <code>done</code> routine is reached; if a supply block is being tapped, it will be automatically triggered if the supply block reaches the end; if the <code>done</code> method is called on the parent <code>Supplier</code> (in the case of a supply block, if there are multiple Suppliers referenced by <code>whenever</code>, they must all have their <code>done</code> method invoked for this to trigger the <code>&amp;done</code> callback of the tap as the block will then reach its end).</p>
+<p>The <code>&amp;quit</code> callback is called if the tap is on a supply block which exits with an error. It is also called if the <code>quit</code> method is invoked on the parent <code>Supplier</code> (in the case of a supply block any one <code>Supplier</code> quitting with an uncaught exception will call the <code>&amp;quit</code> callback as the block will exit with an error). The error is passed as a parameter to the callback.</p>
+<p>The <code>&amp;tap</code> callback is called once the <a href="/Documentable/integration-test/type/Tap">Tap</a> object is created, which is passed as a parameter to the callback. The callback is called ahead of <code>emit</code>/<code>done</code>/<code>quit</code>, providing a reliable way to get the <code>Tap</code> object. One case where this is useful is when the <code>Supply</code> begins emitting values synchronously, since the call to <code>.tap</code> won&#39;t return the <code>Tap</code> object until it is done emitting, preventing it from being stopped if needed.</p>
+<p>Method <code>tap</code> returns an object of type <a href="/Documentable/integration-test/type/Tap">Tap</a>, on which you can call the <code>close</code> method to cancel the subscription.</p>
+<pre class="pod-block-code">my $s = Supply.from-list(0 .. 5);
+my $t = $s.tap(-&gt; $v { say $v }, done =&gt; { say &quot;no more ticks&quot; });</pre>
+<p>Produces:</p>
+<pre class="pod-block-code">0
+1
+2
+3
+4
+5
+no more ticks
+</pre>
+<h2 id="method_act"><a class="u" href="#___top" title="go to top of document">method act</a></h2>
+<pre class="pod-block-code">method act(Supply:D: &amp;actor, *%others)</pre>
+<p>Creates a tap on the given supply with the given code. Differently from <code>tap</code>, the given code is guaranteed to be executed by only one thread at a time.</p>
+<h1 id="Utility_methods"><a class="u" href="#___top" title="go to top of document">Utility methods</a></h1>
+<h2 id="method_Capture"><a class="u" href="#___top" title="go to top of document">method Capture</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method Capture(Supply:D: --&gt; Capture:D)</pre>
+<p>Equivalent to calling <a href="/Documentable/integration-test/type/List#method_Capture"><code>.List.Capture</code></a> on the invocant.</p>
+<h2 id="method_Channel"><a class="u" href="#___top" title="go to top of document">method Channel</a></h2>
+<pre class="pod-block-code">method Channel(Supply:D: --&gt; Channel:D)</pre>
+<p>Returns a <a href="/Documentable/integration-test/type/Channel">Channel</a> object that will receive all future values from the supply, and will be <code>close</code>d when the Supply is done, and quit (shut down with error) when the supply is quit.</p>
+<h2 id="method_Promise"><a class="u" href="#___top" title="go to top of document">method Promise</a></h2>
+<pre class="pod-block-code">method Promise(Supply:D: --&gt; Promise:D)</pre>
+<p>Returns a <a href="/Documentable/integration-test/type/Promise">Promise</a> that will be kept when the <code>Supply</code> is <code>done</code>. If the <code>Supply</code> also emits any values, then the <code>Promise</code> will be kept with the final value. Otherwise, it will be kept with <code>Nil</code>. If the <code>Supply</code> ends with a <code>quit</code> instead of a <code>done</code>, then the <code>Promise</code> will be broken with that exception.</p>
+<pre class="pod-block-code">my $supplier = Supplier.new;
+my $s = $supplier.Supply;
+my $p = $s.Promise;
+$p.then(-&gt; $v { say &quot;got $v.result()&quot; });
+$supplier.emit(&#39;cha&#39;);         # not output yet
+$supplier.done();              # got cha</pre>
+<p>The <code>Promise</code> method is most useful when dealing with supplies that will tend to produce just one value, when only the final value is of interest, or when only completion (successful or not) is relevant.</p>
+<h2 id="method_live"><a class="u" href="#___top" title="go to top of document">method live</a></h2>
+<pre class="pod-block-code">method live(Supply:D: --&gt; Bool:D)</pre>
+<p>Returns <code>True</code> if the supply is &quot;live&quot;, that is, values are emitted to taps as soon as they arrive. Always returns <code>True</code> in the default <code>Supply</code> (but for example on the supply returned from <code>Supply.from-list</code> it&#39;s <code>False</code>).</p>
+<pre class="pod-block-code">say Supplier.new.Supply.live;    # OUTPUT: «True␤»</pre>
+<h2 id="method_schedule-on"><a class="u" href="#___top" title="go to top of document">method schedule-on</a></h2>
+<pre class="pod-block-code">method schedule-on(Supply:D: Scheduler $scheduler)</pre>
+<p>Runs the emit, done and quit callbacks on the specified scheduler.</p>
+<p>This is useful for GUI toolkits that require certain actions to be run from the GUI thread.</p>
+<h1 id="Methods_that_wait_until_the_supply_is_done"><a class="u" href="#___top" title="go to top of document">Methods that wait until the supply is done</a></h1>
+<h2 id="method_wait"><a class="u" href="#___top" title="go to top of document">method wait</a></h2>
+<pre class="pod-block-code">method wait(Supply:D:)</pre>
+<p>Taps the <code>Supply</code> it is called on, and blocks execution until the either the supply is <code>done</code> (in which case it evaluates to the final value that was emitted on the <code>Supply</code>, or <code>Nil</code> if not value was emitted) or <code>quit</code> (in which case it will throw the exception that was passed to <code>quit</code>).</p>
+<pre class="pod-block-code">my $s = Supplier.new;
+start {
+  sleep 1;
+  say &quot;One second: running.&quot;;
+  sleep 1;
+  $s.emit(42);
+  $s.done;
+}
+$s.Supply.wait;
+say &quot;Two seconds: done&quot;;</pre>
+<h2 id="method_list"><a class="u" href="#___top" title="go to top of document">method list</a></h2>
+<pre class="pod-block-code">method list(Supply:D: --&gt; List:D)</pre>
+<p>Taps the <code>Supply</code> it is called on, and returns a lazy list that will be reified as the <code>Supply</code> emits values. The list will be terminated once the <code>Supply</code> is <code>done</code>. If the <code>Supply</code> <code>quit</code>s, then an exception will be thrown once that point in the lazy list is reached.</p>
+<h2 id="method_Seq"><a class="u" href="#___top" title="go to top of document">method Seq</a></h2>
+<pre class="pod-block-code">method Seq(Supply:D:)</pre>
+<p>Returns a <code>Seq</code> with an iterator containing the values that the <code>Supply</code> contains.</p>
+<h2 id="method_grab"><a class="u" href="#___top" title="go to top of document">method grab</a></h2>
+<pre class="pod-block-code">method grab(Supply:D: &amp;when-done --&gt; Supply:D)</pre>
+<p>Taps the <code>Supply</code> it is called on. When it is <code>done</code>, calls <code>&amp;when-done</code> and then emits the list of values that it returns on the result <code>Supply</code>. If the original <code>Supply</code> <code>quit</code>s, then the exception is immediately conveyed on the return <code>Supply</code>.</p>
+<pre class="pod-block-code">my $s = Supply.from-list(4, 10, 3, 2);
+my $t = $s.grab(&amp;sum);
+$t.tap(&amp;say);           # OUTPUT: «19␤»</pre>
+<h2 id="method_reverse"><a class="u" href="#___top" title="go to top of document">method reverse</a></h2>
+<pre class="pod-block-code">method reverse(Supply:D: --&gt; Supply:D)</pre>
+<p>Taps the <code>Supply</code> it is called on. Once that <code>Supply</code> emits <code>done</code>, all of the values it emitted will be emitted on the returned <code>Supply</code> in reverse order. If the original <code>Supply</code> <code>quit</code>s, then the exception is immediately conveyed on the return <code>Supply</code>.</p>
+<pre class="pod-block-code">my $s = Supply.from-list(1, 2, 3);
+my $t = $s.reverse;
+$t.tap(&amp;say);           # OUTPUT: «3␤2␤1␤»</pre>
+<h2 id="method_sort"><a class="u" href="#___top" title="go to top of document">method sort</a></h2>
+<pre class="pod-block-code">method sort(Supply:D: &amp;custom-routine-to-use? --&gt; Supply:D)</pre>
+<p>Taps the <code>Supply</code> it is called on. Once that <code>Supply</code> emits <code>done</code>, all of the values that it emitted will be sorted, and the results emitted on the returned <code>Supply</code> in the sorted order. Optionally accepts a comparator <a href="/Documentable/integration-test/type/Block">Block</a>. If the original <code>Supply</code> <code>quit</code>s, then the exception is immediately conveyed on the return <code>Supply</code>.</p>
+<pre class="pod-block-code">my $s = Supply.from-list(4, 10, 3, 2);
+my $t = $s.sort();
+$t.tap(&amp;say);           # OUTPUT: «2␤3␤4␤10␤»</pre>
+<h2 id="method_collate"><a class="u" href="#___top" title="go to top of document">method collate</a></h2>
+<pre class="pod-block-code">method collate(Supply:D:)</pre>
+<p>Taps the <code>Supply</code> it is called on. Once that <code>Supply</code> emits <code>done</code>, all of the values that it emitted will be sorted taking into account Unicode grapheme characteristics. A new <code>Supply</code> is returned with the sorted values emitted. See <a href="/Documentable/integration-test/type/Any#method_collate">Any.collate</a> for more details on the collated sort.</p>
+<pre class="pod-block-code">my $s = Supply.from-list(&lt;ä a o ö&gt;);
+my $t = $s.collate();
+$t.tap(&amp;say);           # OUTPUT: «a␤ä␤o␤ö␤»</pre>
+<h2 id="method_reduce"><a class="u" href="#___top" title="go to top of document">method reduce</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method reduce(Supply:D: &amp;with --&gt; Supply:D)</pre>
+<p>Creates a &quot;reducing&quot; supply, which will emit a single value with the same semantics as <a href="/Documentable/integration-test/type/List#routine_reduce">List.reduce</a>.</p>
+<pre class="pod-block-code">my $supply = Supply.from-list(1..5).reduce({$^a + $^b});
+$supply.tap(-&gt; $v { say &quot;$v&quot; }); # OUTPUT: «15␤»</pre>
+<h1 id="Methods_that_return_another_Supply"><a class="u" href="#___top" title="go to top of document">Methods that return another Supply</a></h1>
+<h2 id="method_from-list"><a class="u" href="#___top" title="go to top of document">method from-list</a></h2>
+<pre class="pod-block-code">method from-list(Supply:U: +@values --&gt; Supply:D)</pre>
+<p>Creates an on-demand supply from the values passed to this method.</p>
+<pre class="pod-block-code">my $s = Supply.from-list(1, 2, 3);
+$s.tap(&amp;say);           # OUTPUT: «1␤2␤3␤»</pre>
+<h2 id="method_share"><a class="u" href="#___top" title="go to top of document">method share</a></h2>
+<pre class="pod-block-code">method share(Supply:D: --&gt; Supply:D)</pre>
+<p>Creates a live supply from an on-demand supply, thus making it possible to share the values of the on-demand supply on multiple taps, instead of each tap seeing its own copy of all values from the on-demand supply.</p>
+<pre class="pod-block-code"># this says in turn: &quot;first 1&quot; &quot;first 2&quot; &quot;second 2&quot; &quot;first 3&quot; &quot;second 3&quot;
+my $s = Supply.interval(1).share;
+$s.tap: { &quot;first $_&quot;.say };
+sleep 1.1;
+$s.tap: { &quot;second $_&quot;.say };
+sleep 2</pre>
+<h2 id="method_flat"><a class="u" href="#___top" title="go to top of document">method flat</a></h2>
+<pre class="pod-block-code">method flat(Supply:D: --&gt; Supply:D)</pre>
+<p>Creates a supply on which all of the values seen in the given supply are flattened before being emitted again.</p>
+<h2 id="method_do"><a class="u" href="#___top" title="go to top of document">method do</a></h2>
+<pre class="pod-block-code">method do(Supply:D: &amp;do --&gt; Supply:D)</pre>
+<p>Creates a supply to which all values seen in the given supply, are emitted again. The given code, executed for its side-effects only, is guaranteed to be only executed by one thread at a time.</p>
+<h2 id="method_on-close"><a class="u" href="#___top" title="go to top of document">method on-close</a></h2>
+<pre class="pod-block-code">method on-close(Supply:D: &amp;on-close --&gt; Supply:D)</pre>
+<p>Returns a new <code>Supply</code> which will run <code>&amp;on-close</code> whenever a <a href="/Documentable/integration-test/type/Tap">Tap</a> of that <code>Supply</code> is closed. This includes if further operations are chained on to the <code>Supply</code>. (for example, <code>$supply.on-close(&amp;on-close).map(*.uc)</code>). When using a <code>react</code> or <code>supply</code> block, using the <a href="/Documentable/integration-test/language/phasers#CLOSE">CLOSE</a> phaser is usually a better choice.</p>
+<pre class="pod-block-code">my $s = Supplier.new;
+my $tap = $s.Supply.on-close({ say &quot;Tap closed&quot; }).tap(
+    -&gt; $v { say &quot;the value is $v&quot; },
+    done    =&gt; { say &quot;Supply is done&quot; },
+    quit    =&gt; -&gt; $ex { say &quot;Supply finished with error $ex&quot; },
+);
+
+$s.emit(&#39;Raku&#39;);
+$tap.close;        # OUTPUT: «Tap closed␤»</pre>
+<h2 id="method_interval"><a class="u" href="#___top" title="go to top of document">method interval</a></h2>
+<pre class="pod-block-code">method interval(Supply:U: $interval, $delay = 0, :$scheduler = $*SCHEDULER --&gt; Supply:D)</pre>
+<p>Creates a supply that emits a value every <code>$interval</code> seconds, starting <code>$delay</code> seconds from the call. The emitted value is an integer, starting from 0, and is incremented by one for each value emitted.</p>
+<p>Implementations may treat too-small and negative values as lowest resolution they support, possibly warning in such situations; e.g. treating <code>0.0001</code> as <code>0.001</code>. For 6.d language version, the minimal value specified is <code>0.001</code>.</p>
+<h2 id="method_grep"><a class="u" href="#___top" title="go to top of document">method grep</a></h2>
+<pre class="pod-block-code">method grep(Supply:D: Mu $test --&gt; Supply:D)</pre>
+<p>Creates a new supply that only emits those values from the original supply that smartmatch against <code>$test</code>.</p>
+<pre class="pod-block-code">my $supplier = Supplier.new;
+my $all      = $supplier.Supply;
+my $ints     = $all.grep(Int);
+$ints.tap(&amp;say);
+$supplier.emit($_) for 1, &#39;a string&#39;, 3.14159;   # prints only 1</pre>
+<h2 id="method_map"><a class="u" href="#___top" title="go to top of document">method map</a></h2>
+<pre class="pod-block-code">method map(Supply:D: &amp;mapper --&gt; Supply:D)</pre>
+<p>Returns a new supply that maps each value of the given supply through <code>&amp;mapper</code> and emits it to the new supply.</p>
+<pre class="pod-block-code">my $supplier = Supplier.new;
+my $all      = $supplier.Supply;
+my $double   = $all.map(-&gt; $value { $value * 2 });
+$double.tap(&amp;say);
+$supplier.emit(4);           # OUTPUT: «8»</pre>
+<h2 id="method_batch"><a class="u" href="#___top" title="go to top of document">method batch</a></h2>
+<pre class="pod-block-code">method batch(Supply:D: :$elems, :$seconds --&gt; Supply:D)</pre>
+<p>Creates a new supply that batches the values of the given supply by either the number of elements in the batch (using <code>:elems</code>) or the maximum number of seconds (using the <code>:seconds</code>) or both. Any remaining values are emitted in a final batch when the supply is done.</p>
+<h2 id="method_elems"><a class="u" href="#___top" title="go to top of document">method elems</a></h2>
+<pre class="pod-block-code">method elems(Supply:D: $seconds? --&gt; Supply:D)</pre>
+<p>Creates a new supply in which changes to the number of values seen are emitted. It optionally also takes an interval (in seconds) if you only want to be updated every so many seconds.</p>
+<h2 id="method_head"><a class="u" href="#___top" title="go to top of document">method head</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method head(Supply:D:)
+multi method head(Supply:D: Callable:D $limit)
+multi method head(Supply:D: \limit)</pre>
+<p>Creates a &quot;head&quot; supply with the same semantics as <a href="/Documentable/integration-test/type/List#method_head">List.head</a>.</p>
+<pre class="pod-block-code">my $s = Supply.from-list(4, 10, 3, 2);
+my $hs = $s.head(2);
+$hs.tap(&amp;say);           # OUTPUT: «4␤10␤»</pre>
+<p>Since release 2020.07, A <code>WhateverCode</code> can be used also, again with the same semantics as <code>List.head</code></p>
+<pre class="pod-block-code">my $s = Supply.from-list(4, 10, 3, 2, 1);
+my $hs = $s.head( * - 2);
+$hs.tap(&amp;say);           # OUTPUT: «4␤10␤3␤»</pre>
+<h2 id="method_tail"><a class="u" href="#___top" title="go to top of document">method tail</a></h2>
+<pre class="pod-block-code">multi method tail(Supply:D:)
+multi method tail(Supply:D: Callable:D $limit)
+multi method tail(Supply:D: \limit)</pre>
+<p>Creates a &quot;tail&quot; supply with the same semantics as <a href="/Documentable/integration-test/type/List#method_tail">List.tail</a>.</p>
+<pre class="pod-block-code">my $s = Supply.from-list(4, 10, 3, 2);
+my $ts = $s.tail(2);
+$ts.tap(&amp;say);           # OUTPUT: «3␤2␤»</pre>
+<p>You can call <code>.tail</code> with <code>Whatever</code> or <code>Inf</code>; which will return a new supply equivalent to the initial one. Calling it with a <code>WhateverCode</code> will be equivalent to skipping until that number.</p>
+<pre class="pod-block-code">my $s = Supply.from-list(4, 10, 3, 2);
+my $ts = $s.tail( * - 2 );
+$ts.tap(&amp;say);           # OUTPUT: «3␤2␤»</pre>
+<p>This feature is only available from the 2020.07 release of Raku.</p>
+<h2 id="method_first"><a class="u" href="#___top" title="go to top of document">method first</a></h2>
+<pre class="pod-block-code">method first(Supply:D: :$end, |c)</pre>
+<p>This method creates a supply of the first element, or the last element if the optional named parameter <code>:end</code> is truthy, from a supply created by calling the <code>grep</code> method on the invocant, with any remaining arguments as parameters. If there is no remaining argument, this method is equivalent to calling on the invocant, without parameter, the <code>head</code> or the <code>tail</code> method, according to named parameter <code>:end</code>.</p>
+<pre class="pod-block-code">my $rand = supply { emit (rand × 100).floor for ^∞ };
+my $first-prime = $rand.first: &amp;is-prime;
+# output the first prime from the endless random number supply $rand,
+# then the $first-prime supply reaches its end
+$first-prime.tap: &amp;say;</pre>
+<h2 id="method_rotor"><a class="u" href="#___top" title="go to top of document">method rotor</a></h2>
+<pre class="pod-block-code">method rotor(Supply:D: @cycle --&gt; Supply:D)</pre>
+<p>Creates a &quot;rotoring&quot; supply with the same semantics as <a href="/Documentable/integration-test/type/List#method_rotor">List.rotor</a>.</p>
+<h2 id="method_delayed"><a class="u" href="#___top" title="go to top of document">method delayed</a></h2>
+<pre class="pod-block-code">method delayed(Supply:D: $seconds, :$scheduler = $*SCHEDULER --&gt; Supply:D)</pre>
+<p>Creates a new supply in which all values flowing through the given supply are emitted, but with the given delay in seconds.</p>
+<h2 id="method_throttle"><a class="u" href="#___top" title="go to top of document">method throttle</a></h2>
+<p>Defined as</p>
+<pre class="pod-block-code">multi method throttle(Supply:D:
+      Int()  $elems,
+      Real() $seconds,
+      Real() $delay  = 0,
+      :$scheduler    = $*SCHEDULER,
+      :$control,
+      :$status,
+      :$bleed,
+      :$vent-at,
+    )
+</pre>
+<pre class="pod-block-code">multi method throttle(Supply:D:
+      Int()  $elems,
+      Callable:D $process,
+      Real() $delay = 0,
+      :$scheduler   = $*SCHEDULER,
+      :$control,
+      :$status,
+      :$bleed,
+      :$vent-at,
+    )
+</pre>
+<p>Arguments to <code>.throttle</code> are defined as follows:</p>
+<table class="pod-table">
+<thead><tr>
+<th>Argument</th> <th>Meaning</th>
+</tr></thead>
+<tbody>
+<tr> <td>$limit,</td> <td>values / time or simultaneous processing</td> </tr> <tr> <td>$seconds or $process</td> <td>time-unit / code to process simultaneously</td> </tr> <tr> <td>$delay = 0,</td> <td>initial delay before starting, in seconds</td> </tr> <tr> <td>:$control,</td> <td>supply to emit control messages on (optional)</td> </tr> <tr> <td>:$status,</td> <td>supply to tap status messages from (optional)</td> </tr> <tr> <td>:$bleed,</td> <td>supply to bleed messages to (optional)</td> </tr> <tr> <td>:$vent-at,</td> <td>bleed when so many buffered (optional)</td> </tr> <tr> <td>:$scheduler,</td> <td>scheduler to use, default $*SCHEDULER</td> </tr>
+</tbody>
+</table><p>This method produces a <code>Supply</code> from a given one, but makes sure the number of messages passed through is limited.</p>
+<p>It has two modes of operation: per time-unit or by maximum number of executions of a block of code: this is determined by the type of the second positional parameter.</p>
+<p>The first positional parameter specifies the limit that should be applied.</p>
+<p>If the second positional parameter is a <code>Callable</code>, then the limit indicates the maximum number of parallel processes executing the Callable, which is given the value that was received. The emitted values in this case will be the <code>Promise</code>s that were obtained from <code>start</code>ing the Callable.</p>
+<p>If the second positional parameter is a real number, it is interpreted as the time-unit (in seconds). If you specify <strong>.1</strong> as the value, then it makes sure you don&#39;t exceed the limit for every tenth of a second.</p>
+<p>If the limit is exceeded, then incoming messages are buffered until there is room to pass on / execute the Callable again.</p>
+<p>The third positional parameter is optional: it indicates the number of seconds the throttle will wait before passing on any values.</p>
+<p>The <code>:control</code> named parameter optionally specifies a Supply that you can use to control the throttle while it is in operation. Messages that can be sent, are strings in the form of &quot;key:value&quot;. Please see below for the types of messages that you can send to control the throttle.</p>
+<p>The <code>:status</code> named parameter optionally specifies a Supply that will receive any status messages. If specified, it will at least send one status message after the original Supply is exhausted. See <a href="#status_message">status message</a> below.</p>
+<p>The <code>:bleed</code> named parameter optionally specifies a Supply that will receive any values that were either explicitly bled (with the <strong>bleed</strong> control message), or automatically bled (if there&#39;s a <strong>vent-at</strong> active).</p>
+<p>The <code>:vent-at</code> named parameter indicates the number of values that may be buffered before any additional value will be routed to the <code>:bleed</code> Supply. Defaults to 0 if not specified (causing no automatic bleeding to happen). Only makes sense if a <code>:bleed</code> Supply has also been specified.</p>
+<p>The <code>:scheduler</code> named parameter indicates the scheduler to be used. Defaults to <code>$*SCHEDULER</code>.</p>
+<h3 id="control_messages"><a class="u" href="#___top" title="go to top of document">control messages</a></h3>
+<p>These messages can be sent to the <code>:control</code> Supply. A control message consists of a string of the form &quot;key: value&quot;, e.g. &quot;limit: 4&quot;.</p>
+<ul><li><p>limit</p>
+</li>
+</ul>
+<p>Change the number of messages (as initially given in the first positional) to the value given.</p>
+<ul><li><p>bleed</p>
+</li>
+</ul>
+<p>Route the given number of buffered messages to the <code>:bleed</code> Supply.</p>
+<ul><li><p>vent-at</p>
+</li>
+</ul>
+<p>Change the maximum number of buffered values before automatic bleeding takes place. If the value is lower than before, will cause immediate rerouting of buffered values to match the new maximum.</p>
+<ul><li><p>status</p>
+</li>
+</ul>
+<p>Send a status message to the <code>:status</code> Supply with the given id.</p>
+<h3 id="status_message"><a class="u" href="#___top" title="go to top of document">status message</a></h3>
+<p>The status return message is a hash with the following keys:</p>
+<ul><li><p>allowed</p>
+</li>
+</ul>
+<p>The current number of messages / callables that is still allowed to be passed / executed.</p>
+<ul><li><p>bled</p>
+</li>
+</ul>
+<p>The number of messages routed to the <code>:bleed</code> Supply.</p>
+<ul><li><p>buffered</p>
+</li>
+</ul>
+<p>The number of messages currently buffered because of overflow.</p>
+<ul><li><p>emitted</p>
+</li>
+</ul>
+<p>The number of messages emitted (passed through).</p>
+<ul><li><p>id</p>
+</li>
+</ul>
+<p>The id of this status message (a monotonically increasing number). Handy if you want to log status messages.</p>
+<ul><li><p>limit</p>
+</li>
+</ul>
+<p>The current limit that is being applied.</p>
+<ul><li><p>vent-at</p>
+</li>
+</ul>
+<p>The maximum number of messages that may be buffered before they&#39;re automatically re-routed to the <code>:bleed</code> Supply.</p>
+<h3 id="Examples"><a class="u" href="#___top" title="go to top of document">Examples</a></h3>
+<p>Have a simple piece of code announce when it starts running asynchronously, wait a random amount of time, then announce when it is done. Do this 6 times, but don&#39;t let more than 3 of them run simultaneously.</p>
+<pre class="pod-block-code">my $s = Supply.from-list(^6);  # set up supply
+my $t = $s.throttle: 3,        # only allow 3 at a time
+{                              # code block to run
+    say &quot;running $_&quot;;          # announce we&#39;ve started
+    sleep rand;                # wait some random time
+    say &quot;done $_&quot;              # announce we&#39;re done
+}                              # don&#39;t need ; because } at end of line
+$t.wait;                       # wait for the supply to be done</pre>
+<p>and the result of one run will be:</p>
+<pre class="pod-block-code">running 0
+running 1
+running 2
+done 2
+running 3
+done 1
+running 4
+done 4
+running 5
+done 0
+done 3
+done 5
+</pre>
+<h2 id="method_stable"><a class="u" href="#___top" title="go to top of document">method stable</a></h2>
+<pre class="pod-block-code">method stable(Supply:D: $time, :$scheduler = $*SCHEDULER --&gt; Supply:D)</pre>
+<p>Creates a new supply that only passes on a value flowing through the given supply if it wasn&#39;t superseded by another value in the given <code>$time</code> (in seconds). Optionally uses another scheduler than the default scheduler, using the <code>:scheduler</code> parameter.</p>
+<p>To clarify the above, if, during the timeout <code>$time</code>, additional values are emitted to the <code>Supplier</code> all but the last one will be thrown away. Each time an additional value is emitted to the <code>Supplier</code>, during the timeout, <code>$time</code> is reset.</p>
+<p>This method can be quite useful when handling UI input, where it is not desired to perform an operation until the user has stopped typing for a while rather than on every keystroke.</p>
+<pre class="pod-block-code">my $supplier = Supplier.new;
+my $supply1 = $supplier.Supply;
+$supply1.tap(-&gt; $v { say &quot;Supply1 got: $v&quot; });
+$supplier.emit(42);
+
+my Supply $supply2 = $supply1.stable(5);
+$supply2.tap(-&gt; $v { say &quot;Supply2 got: $v&quot; });
+sleep(3);
+$supplier.emit(43);  # will not be seen by $supply2 but will reset $time
+$supplier.emit(44);
+sleep(10);
+# OUTPUT: «Supply1 got: 42␤Supply1 got: 43␤Supply1 got: 44␤Supply2 got: 44␤»
+</pre>
+<p>As can be seen above, <code>$supply1</code> received all values emitted to the <code>Supplier</code> while <code>$supply2</code> only received one value. The 43 was thrown away because it was followed by another &#39;last&#39; value 44 which was retained and sent to <code>$supply2</code> after approximately eight seconds, this due to the fact that the timeout <code>$time</code> was reset after three seconds.</p>
+<h2 id="method_produce"><a class="u" href="#___top" title="go to top of document">method produce</a></h2>
+<pre class="pod-block-code">method produce(Supply:D: &amp;with --&gt; Supply:D)</pre>
+<p>Creates a &quot;producing&quot; supply with the same semantics as <a href="/Documentable/integration-test/type/List#routine_produce">List.produce</a>.</p>
+<pre class="pod-block-code">my $supply = Supply.from-list(1..5).produce({$^a + $^b});
+$supply.tap(-&gt; $v { say &quot;$v&quot; }); # OUTPUT: «1␤3␤6␤10␤15␤»</pre>
+<h2 id="method_lines"><a class="u" href="#___top" title="go to top of document">method lines</a></h2>
+<pre class="pod-block-code">method lines(Supply:D: :$chomp = True --&gt; Supply:D)</pre>
+<p>Creates a supply that will emit the characters coming in line by line from a supply that&#39;s usually created by some asynchronous I/O operation. The optional <code>:chomp</code> parameter indicates whether to remove line separators: the default is <code>True</code>.</p>
+<h2 id="method_words"><a class="u" href="#___top" title="go to top of document">method words</a></h2>
+<pre class="pod-block-code">method words(Supply:D: --&gt; Supply:D)</pre>
+<p>Creates a supply that will emit the characters coming in word for word from a supply that&#39;s usually created by some asynchronous I/O operation.</p>
+<pre class="pod-block-code">my $s = Supply.from-list(&quot;Hello Word!&quot;.comb);
+my $ws = $s.words;
+$ws.tap(&amp;say);           # OUTPUT: «Hello␤Word!␤»</pre>
+<h2 id="method_unique"><a class="u" href="#___top" title="go to top of document">method unique</a></h2>
+<pre class="pod-block-code">method unique(Supply:D: :$as, :$with, :$expires --&gt; Supply:D)</pre>
+<p>Creates a supply that only provides unique values, as defined by the optional <code>:as</code> and <code>:with</code> parameters (same as with <a href="/Documentable/integration-test/language/independent-routines#routine_unique"><code>unique</code></a>). The optional <code>:expires</code> parameter how long to wait (in seconds) before &quot;resetting&quot; and not considering a value to have been seen, even if it&#39;s the same as an old value.</p>
+<h2 id="method_repeated"><a class="u" href="#___top" title="go to top of document">method repeated</a></h2>
+<pre class="pod-block-code">method repeated(Supply:D: :&amp;as, :&amp;with)</pre>
+<p>Creates a supply that only provides repeated values, as defined by the optional <code>:as</code> and <code>:with</code> parameters (same as with <a href="/Documentable/integration-test/language/independent-routines#routine_unique"><code>unique</code></a>).</p>
+<pre class="pod-block-code">my $supply = Supply.from-list(&lt;a A B b c b C&gt;).repeated(:as(&amp;lc));
+$supply.tap(&amp;say);           # OUTPUT: «A␤b␤b␤C␤»</pre>
+<p>See <a href="/Documentable/integration-test/language/independent-routines#routine_repeated"><code>repeated</code></a> for more examples that use its sub form.</p>
+<p><strong>Note</strong>: Available since version 6.e (<a href="/Documentable/integration-test/language/glossary#Rakudo">Rakudo</a> 2020.01 and later).</p>
+<h2 id="method_squish"><a class="u" href="#___top" title="go to top of document">method squish</a></h2>
+<pre class="pod-block-code">method squish(Supply:D: :$as, :$with --&gt; Supply:D)</pre>
+<p>Creates a supply that only provides unique values, as defined by the optional <code>:as</code> and <code>:with</code> parameters (same as with <a href="/Documentable/integration-test/language/independent-routines#routine_squish"><code>squish</code></a>).</p>
+<h2 id="method_max"><a class="u" href="#___top" title="go to top of document">method max</a></h2>
+<pre class="pod-block-code">method max(Supply:D: &amp;custom-routine-to-use = &amp;infix:&lt;cmp&gt; --&gt; Supply:D)</pre>
+<p>Creates a supply that only emits values from the given supply if they are larger than any value seen before. In other words, from a continuously ascending supply it will emit all the values. From a continuously descending supply it will only emit the first value. The optional parameter specifies the comparator, just as with <a href="/Documentable/integration-test/type/Any#method_max">Any.max</a>.</p>
+<h2 id="method_min"><a class="u" href="#___top" title="go to top of document">method min</a></h2>
+<pre class="pod-block-code">method min(Supply:D: &amp;custom-routine-to-use = &amp;infix:&lt;cmp&gt; --&gt; Supply:D)</pre>
+<p>Creates a supply that only emits values from the given supply if they are smaller than any value seen before. In other words, from a continuously descending supply it will emit all the values. From a continuously ascending supply it will only emit the first value. The optional parameter specifies the comparator, just as with <a href="/Documentable/integration-test/type/Any#method_min">Any.min</a>.</p>
+<h2 id="method_minmax"><a class="u" href="#___top" title="go to top of document">method minmax</a></h2>
+<pre class="pod-block-code">method minmax(Supply:D: &amp;custom-routine-to-use = &amp;infix:&lt;cmp&gt; --&gt; Supply:D)</pre>
+<p>Creates a supply that emits a Range every time a new minimum or maximum values is seen from the given supply. The optional parameter specifies the comparator, just as with <a href="/Documentable/integration-test/type/Any#method_minmax">Any.minmax</a>.</p>
+<h2 id="method_skip"><a class="u" href="#___top" title="go to top of document">method skip</a></h2>
+<pre class="pod-block-code">method skip(Supply:D: Int(Cool) $number = 1 --&gt; Supply:D)</pre>
+<p>Returns a new <code>Supply</code> which will emit all values from the given <code>Supply</code> except for the first <code>$number</code> values, which will be thrown away.</p>
+<pre class="pod-block-code">my $supplier = Supplier.new;
+my $supply = $supplier.Supply;
+$supply = $supply.skip(3);
+$supply.tap({ say $_ });
+$supplier.emit($_) for 1..10; # OUTPUT: «4␤5␤6␤7␤8␤9␤10␤»
+</pre>
+<h2 id="method_start"><a class="u" href="#___top" title="go to top of document">method start</a></h2>
+<pre class="pod-block-code">method start(Supply:D: &amp;startee --&gt; Supply:D)</pre>
+<p>Creates a supply of supplies. For each value in the original supply, the code object is scheduled on another thread, and returns a supply either of a single value (if the code succeeds), or one that quits without a value (if the code fails).</p>
+<p>This is useful for asynchronously starting work that you don&#39;t block on.</p>
+<p>Use <code>migrate</code> to join the values into a single supply again.</p>
+<h2 id="method_migrate"><a class="u" href="#___top" title="go to top of document">method migrate</a></h2>
+<pre class="pod-block-code">method migrate(Supply:D: --&gt; Supply:D)</pre>
+<p>Takes a <code>Supply</code> which itself has values that are of type <code>Supply</code> as input. Each time the outer <code>Supply</code> emits a new <code>Supply</code>, this will be tapped and its values emitted. Any previously tapped <code>Supply</code> will be closed. This is useful for migrating between different data sources, and only paying attention to the latest one.</p>
+<p>For example, imagine an application where the user can switch between different stocks. When they switch to a new one, a connection is established to a web socket to get the latest values, and any previous connection should be closed. Each stream of values coming over the web socket would be represented as a Supply, which themselves are emitted into a Supply of latest data sources to watch. The <code>migrate</code> method could be used to flatten this supply of supplies into a single Supply of the current values that the user cares about.</p>
+<p>Here is a simple simulation of such a program:</p>
+<pre class="pod-block-code">my Supplier $stock-sources .= new;
+
+sub watch-stock($symbol) {
+    $stock-sources.emit: supply {
+        say &quot;Starting to watch $symbol&quot;;
+        whenever Supply.interval(1) {
+            emit &quot;$symbol: 111.&quot; ~ 99.rand.Int;
+        }
+        CLOSE say &quot;Lost interest in $symbol&quot;;
+    }
+}
+
+$stock-sources.Supply.migrate.tap: *.say;
+
+watch-stock(&#39;GOOG&#39;);
+sleep 3;
+watch-stock(&#39;AAPL&#39;);
+sleep 3;
+</pre>
+<p>Which produces output like:</p>
+<pre class="pod-block-code">Starting to watch GOOG
+GOOG: 111.67
+GOOG: 111.20
+GOOG: 111.37
+Lost interest in GOOG
+Starting to watch AAPL
+AAPL: 111.55
+AAPL: 111.6
+AAPL: 111.6
+</pre>
+<h1 id="Methods_that_combine_supplies"><a class="u" href="#___top" title="go to top of document">Methods that combine supplies</a></h1>
+<h2 id="method_merge"><a class="u" href="#___top" title="go to top of document">method merge</a></h2>
+<pre class="pod-block-code">method merge(Supply @*supplies --&gt; Supply:D)</pre>
+<p>Creates a supply to which any value seen from the given supplies, is emitted. The resulting supply is done Only when all given supplies are done. Can also be called as a class method.</p>
+<h2 id="method_zip"><a class="u" href="#___top" title="go to top of document">method zip</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method zip(**@s, :&amp;with)</pre>
+<p>Creates a supply that emits combined values as soon as there is a new value seen on <strong>all</strong> of the supplies. By default, <a href="/Documentable/integration-test/type/List"><code>Lists</code></a> are created, but this can be changed by specifying your own combiner with the <code>:with</code> parameter. The resulting supply is done as soon as <strong>any</strong> of the given supplies are done. Can also be called as a class method.</p>
+<p>This can also be used as a class method; in case it&#39;s used as an object method the corresponding supply will be one of the supplies combined (with no special treatment).</p>
+<h2 id="method_zip-latest"><a class="u" href="#___top" title="go to top of document">method zip-latest</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method zip-latest(**@s, :&amp;with, :$initial )</pre>
+<p>Creates a supply that emits combined values as soon as there is a new value seen on <strong>any</strong> of the supplies. By default, <a href="/Documentable/integration-test/type/List">Lists</a> are created, but this can be changed by specifying your own combiner with the <code>:with</code> parameter. The optional :initial parameter can be used to indicate the initial state of the combined values. By default, all supplies have to have at least one value emitted on them before the first combined values is emitted on the resulting supply. The resulting supply is done as soon as <strong>any</strong> of the given supplies are done. Can also be called as a class method.</p>
+<h1 id="I/O_features_exposed_as_supplies"><a class="u" href="#___top" title="go to top of document">I/O features exposed as supplies</a></h1>
+<h2 id="sub_signal"><a class="u" href="#___top" title="go to top of document">sub signal</a></h2>
+<pre class="pod-block-code">sub signal(*@signals, :$scheduler = $*SCHEDULER)</pre>
+<p>Creates a supply for the Signal enums (such as SIGINT) specified, and an optional <code>:scheduler</code> parameter. Any signals received, will be emitted on the supply. For example:</p>
+<pre class="pod-block-code">signal(SIGINT).tap( { say &quot;Thank you for your attention&quot;; exit 0 } );</pre>
+<p>would catch Control-C, thank you, and then exit.</p>
+<p>To go from a signal number to a <a name="Documentable/integration-test/index-entry-Signal"><span class="index-entry">Signal</span></a>, you can do something like this:</p>
+<pre class="pod-block-code">signal(Signal(2)).tap( -&gt; $sig { say &quot;Received signal: $sig&quot; } );</pre>
+<p>The list of supported signals can be found by checking <code>Signal::.keys</code> (as you would any enum). For more details on how enums work see <a href="/Documentable/integration-test/language/typesystem#enum">enum</a>.</p>
+<p><strong>Note:</strong> <a href="/Documentable/integration-test/language/glossary#Rakudo">Rakudo</a> versions up to 2018.05 had a bug due to which numeric values of signals were incorrect on some systems. For example, <code>Signal(10)</code> was returning <code>SIGBUS</code> even if it was actually <code>SIGUSR1</code> on a particular system. That being said, using <code>signal(SIGUSR1)</code> was working as expected on all Rakudo versions except 2018.04, 2018.04.1 and 2018.05, where the intended behavior can be achieved by using <code>signal(SIGBUS)</code> instead. These issues are resolved in Rakudo releases after 2018.05.</p>
+<h2 id="method_IO::Notification.watch-path"><a class="u" href="#___top" title="go to top of document">method IO::Notification.watch-path</a></h2>
+<pre class="pod-block-code">method watch-path($path --&gt; Supply:D)
+</pre>
+<p>Creates a supply to which the OS will emit values to indicate changes on the filesystem for the given path. Also has a shortcut with the <code>watch</code> method on an IO object, like this:</p>
+<pre class="pod-block-code">IO::Notification.watch-path(&quot;.&quot;).act( { say &quot;$^file changed&quot; } );
+&quot;.&quot;.IO.watch.act(                     { say &quot;$^file changed&quot; } );   # same
+</pre>
+<h1 id="Type_Graph"><a class="u" href="#___top" title="go to top of document">Type Graph</a></h1>
+<figure>
+  <figcaption>Type relations for <code>Supply</code></figcaption>
+  <svg width="89pt" height="188pt"
+ viewBox="0.00 0.00 88.59 188.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 184)">
+<title>perl6&#45;type&#45;graph</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-184 84.59,-184 84.59,4 -4,4"/>
+<!-- Supply -->
+<g id="node1" class="node">
+<title>Supply</title>
+<g id="a_node1"><a xlink:href="/type/Supply" xlink:title="Supply">
+<ellipse fill="none" stroke="#000000" cx="40.3" cy="-18" rx="40.09" ry="18"/>
+<text text-anchor="middle" x="40.3" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">Supply</text>
+</a>
+</g>
+</g>
+<!-- Any -->
+<g id="node3" class="node">
+<title>Any</title>
+<g id="a_node3"><a xlink:href="/type/Any" xlink:title="Any">
+<ellipse fill="none" stroke="#000000" cx="40.3" cy="-90" rx="27" ry="18"/>
+<text text-anchor="middle" x="40.3" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Any</text>
+</a>
+</g>
+</g>
+<!-- Supply&#45;&gt;Any -->
+<g id="edge1" class="edge">
+<title>Supply&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M40.3,-36.3C40.3,-44.02 40.3,-53.29 40.3,-61.89"/>
+<polygon fill="#000000" stroke="#000000" points="36.8,-61.9 40.3,-71.9 43.8,-61.9 36.8,-61.9"/>
+</g>
+<!-- Mu -->
+<g id="node2" class="node">
+<title>Mu</title>
+<g id="a_node2"><a xlink:href="/type/Mu" xlink:title="Mu">
+<ellipse fill="none" stroke="#000000" cx="40.3" cy="-162" rx="27" ry="18"/>
+<text text-anchor="middle" x="40.3" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#000000">Mu</text>
+</a>
+</g>
+</g>
+<!-- Any&#45;&gt;Mu -->
+<g id="edge2" class="edge">
+<title>Any&#45;&gt;Mu</title>
+<path fill="none" stroke="#000000" d="M40.3,-108.3C40.3,-116.02 40.3,-125.29 40.3,-133.89"/>
+<polygon fill="#000000" stroke="#000000" points="36.8,-133.9 40.3,-143.9 43.8,-133.9 36.8,-133.9"/>
+</g>
+</g>
+</svg>
+
+  <p class="fallback">
+    <a
+      rel="alternate"
+      href="/images/type-graph-Supply.svg"
+      type="image/svg+xml"
+      >Expand above chart</a
+    >
+  </p>
+</figure>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Type/Supply.pod6">https://github.com/Raku/doc/blob/master/doc/Type/Supply.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

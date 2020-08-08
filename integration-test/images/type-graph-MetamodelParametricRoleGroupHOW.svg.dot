@@ -1,0 +1,25 @@
+digraph "perl6-type-graph" {
+    rankdir=BT;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "Metamodel::ParametricRoleGroupHOW" [color="#000000", fontcolor="#000000", href="/type/Metamodel::ParametricRoleGroupHOW", fontname="FreeSans"];
+    "Mu" [color="#000000", fontcolor="#000000", href="/type/Mu", fontname="FreeSans"];
+    "Any" [color="#000000", fontcolor="#000000", href="/type/Any", fontname="FreeSans"];
+    "Metamodel::Naming" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::Naming", fontname="FreeSans"];
+    "Metamodel::Stashing" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::Stashing", fontname="FreeSans"];
+    "Metamodel::TypePretense" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::TypePretense", fontname="FreeSans"];
+    "Metamodel::RolePunning" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::RolePunning", fontname="FreeSans"];
+    "Metamodel::BoolificationProtocol" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::BoolificationProtocol", fontname="FreeSans"];
+
+    // Superclasses
+    "Metamodel::ParametricRoleGroupHOW" -> "Any" [color="#000000"];
+    "Any" -> "Mu" [color="#000000"];
+
+    // Roles
+    "Metamodel::ParametricRoleGroupHOW" -> "Metamodel::Naming" [color="#6666FF"];
+    "Metamodel::ParametricRoleGroupHOW" -> "Metamodel::Stashing" [color="#6666FF"];
+    "Metamodel::ParametricRoleGroupHOW" -> "Metamodel::TypePretense" [color="#6666FF"];
+    "Metamodel::ParametricRoleGroupHOW" -> "Metamodel::RolePunning" [color="#6666FF"];
+    "Metamodel::ParametricRoleGroupHOW" -> "Metamodel::BoolificationProtocol" [color="#6666FF"];
+}

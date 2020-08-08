@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>method contains</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/routine.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-sub.html"> Sub </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-method.html"> Method </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-term.html"> Term </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-operator.html"> Operator </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-trait.html"> Trait </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-submethod.html"> Submethod </a>
+            </div></div></div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">method contains</h1>
+        <p class="subtitle"></p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#class_Str">class Str</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#(Str)_method_contains">(Str) method contains</a></td></tr>
+                                                                             <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#class_Cool">class Cool</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#(Cool)_method_contains">(Cool) method contains</a></td></tr>
+                              
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Documentation for method <code>contains</code> assembled from the following types:</p>
+<h1 id="class_Str"><a class="u" href="#___top" title="go to top of document">class Str</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Str#method_contains">Str</a></p>
+<h2 id="(Str)_method_contains"><a href="/Documentable/integration-test/type/Str#method_contains">(Str) method contains</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method contains(Str:D: Cool:D $needle, :i(:$ignorecase), :m(:$ignoremark) --&gt; Bool:D)
+multi method contains(Str:D: Str:D $needle, :i(:$ignorecase), :m(:$ignoremark) --&gt; Bool:D)
+multi method contains(Str:D: Regex:D $needle --&gt; Bool:D)
+multi method contains(Str:D: Cool:D $needle, Int(Cool:D) $pos, :i(:$ignorecase), :m(:$ignoremark) --&gt; Bool:D)
+multi method contains(Str:D: Str:D $needle, Int:D $pos, :i(:$ignorecase), :m(:$ignoremark) --&gt; Bool:D)
+multi method contains(Str:D: Regex:D $needle, Int:D $pos --&gt; Bool:D)
+multi method contains(Str:D: Regex:D $needle, Cool:D $pos --&gt; Bool:D)</pre>
+<p>Given a <code>Str</code> invocant (known as the <em>haystack</em>) and a first argument (known as the <code>$needle</code>), it searches for the <code>$needle</code> in the <em>haystack</em> from the beginning of the string and returns <code>True</code> if <code>$needle</code> is found. If the optional parameter <code>$pos</code> is provided, then <code>contains</code> will search the <em>haystack</em> starting from <code>$pos</code> characters into the string.</p>
+<pre class="pod-block-code">say &quot;Hello, World&quot;.contains(&#39;Hello&#39;);      # OUTPUT: «True␤»
+say &quot;Hello, World&quot;.contains(&#39;hello&#39;);      # OUTPUT: «False␤»
+say &quot;Hello, World&quot;.contains(&#39;Hello&#39;, 1);   # OUTPUT: «False␤»
+say &quot;Hello, World&quot;.contains(&#39;,&#39;);          # OUTPUT: «True␤»
+say &quot;Hello, World&quot;.contains(&#39;,&#39;, 3);       # OUTPUT: «True␤»
+say &quot;Hello, World&quot;.contains(&#39;,&#39;, 10);      # OUTPUT: «False␤»</pre>
+<p>In the first case, <code>contains</code> searches for the <code>&#39;Hello&#39;</code> string on the invocant right from the start of the invocant string and returns <code>True</code>. In the third case, the <code>&#39;Hello&#39;</code> string is not found since we have started looking from the second position (index 1) in <code>&#39;Hello, World&#39;</code>.</p>
+<p>Since Rakudo version 2020.02, the <code>$needle</code> can also be a <a href="/Documentable/integration-test/type/Regex"><code>Regex</code></a> in which case the <code>contains</code> method quickly returns whether the regex matches the string at least once. No <a href="/Documentable/integration-test/type/Match"><code>Match</code></a> objects are created, so this is relatively fast.</p>
+<pre class="pod-block-code">say &#39;Hello, World&#39;.contains(/\w &lt;?before &#39;,&#39;&gt;/);    # OUTPUT: «True␤»
+say &#39;Hello, World&#39;.contains(/\w &lt;?before &#39;,&#39;&gt;/, 5); # OUTPUT: «False␤»</pre>
+<p>Since Rakudo version 2020.02, if the optional named parameter <code>:ignorecase</code>, or <code>:i</code>, is specified, the search for <code>$needle</code> ignores the distinction between upper case, lower case and title case letters.</p>
+<pre class="pod-block-code">say &quot;Hello, World&quot;.contains(&quot;world&quot;);              # OUTPUT: «False␤»
+say &quot;Hello, World&quot;.contains(&quot;world&quot;, :ignorecase); # OUTPUT: «True␤»</pre>
+<p>Since Rakudo version 2020.02, if the optional named parameter <code>:ignoremark</code>, or <code>:m</code>, is specified, the search for <code>$needle</code> only considers base characters, and ignores additional marks such as combining accents.</p>
+<pre class="pod-block-code">say &quot;abc&quot;.contains(&quot;ä&quot;);               # OUTPUT: «False␤»
+say &quot;abc&quot;.contains(&quot;ä&quot;, :ignoremark);  # OUTPUT: «True␤»</pre>
+<p>Note that because of how a <a href="/Documentable/integration-test/type/List">List</a> or <a href="/Documentable/integration-test/type/Array">Array</a> is <a href="/Documentable/integration-test/type/List#method_Str">coerced</a> into a <a href="/Documentable/integration-test/type/Str">Str</a>, the results may sometimes be surprising.</p>
+<pre class="pod-block-code">say &lt;Hello, World&gt;.contains(&#39;Hello&#39;);    # OUTPUT: «True␤»
+say &lt;Hello, World&gt;.contains(&#39;Hello&#39;, 0); # OUTPUT: «True␤»
+say &lt;Hello, World&gt;.contains(&#39;Hello&#39;, 1); # OUTPUT: «False␤»</pre>
+<p>See <a href="/Documentable/integration-test/language/traps#Lists_become_strings,_so_beware_.contains()">traps</a>.</p>
+<h1 id="class_Cool"><a class="u" href="#___top" title="go to top of document">class Cool</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Cool#method_contains">Cool</a></p>
+<h2 id="(Cool)_method_contains"><a href="/Documentable/integration-test/type/Cool#method_contains">(Cool) method contains</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method contains(Cool:D: |c)</pre>
+<p>Coerces the invocant to a <a href="/Documentable/integration-test/type/Str"><code>Str</code></a>, and calls <a href="/Documentable/integration-test/type/Str#method_contains"><code>Str.contains</code></a> on it. Please refer to that version of the method for arguments and general syntax.</p>
+<pre class="pod-block-code">say 123.contains(&quot;2&quot;)# OUTPUT: «True␤»</pre>
+<p>Since <a href="/Documentable/integration-test/type/Int">Int</a> is a subclass of <code>Cool</code>, <code>123</code> is coerced to a <code>Str</code> and then <code>contains</code> is called on it.</p>
+<pre class="pod-block-code">say (1,1, * + * … * &gt; 250).contains(233)# OUTPUT: «True␤»</pre>
+<p><a href="/Documentable/integration-test/type/Seq">Seq</a>s are also subclasses of <code>Cool</code>, and they are stringified to a comma-separated form. In this case we are also using an <code>Int</code>, which is going to be stringified also; <code>&quot;233&quot;</code> is included in that sequence, so it returns <code>True</code>. Please note that this sequence is not lazy; the stringification of lazy sequences does not include each and every one of their components for obvious reasons.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

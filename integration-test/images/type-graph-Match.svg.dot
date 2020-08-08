@@ -1,0 +1,22 @@
+digraph "perl6-type-graph" {
+    rankdir=BT;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "Match" [color="#000000", fontcolor="#000000", href="/type/Match", fontname="FreeSans"];
+    "Mu" [color="#000000", fontcolor="#000000", href="/type/Mu", fontname="FreeSans"];
+    "Any" [color="#000000", fontcolor="#000000", href="/type/Any", fontname="FreeSans"];
+    "Capture" [color="#000000", fontcolor="#000000", href="/type/Capture", fontname="FreeSans"];
+    "Cool" [color="#000000", fontcolor="#000000", href="/type/Cool", fontname="FreeSans"];
+    "Grammar" [color="#000000", fontcolor="#000000", href="/type/Grammar", fontname="FreeSans"];
+
+    // Superclasses
+    "Match" -> "Capture" [color="#000000"];
+    "Match" -> "Cool" [color="#000000"];
+    "Any" -> "Mu" [color="#000000"];
+    "Capture" -> "Any" [color="#000000"];
+    "Cool" -> "Any" [color="#000000"];
+    "Grammar" -> "Match" [color="#000000"];
+
+    // Roles
+}

@@ -1,0 +1,676 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>JavaScript (Node.js) to Raku - nutshell</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/js-nutshell.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">JavaScript (Node.js) to Raku - nutshell</h1>
+        <p class="subtitle">Learning Raku from Node.js, in a nutshell</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Basic_syntax">Basic syntax</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#&quot;Hello,_world!&quot;">&quot;Hello, world!&quot;</a></td></tr>
+                                    <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#Variables">Variables</a></td></tr>
+                                                                                   <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#Operators">Operators</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-number">1.3.1</td><td class="toc-text"><a href="#Assignment">Assignment</a></td></tr>
+                              <tr class="toc-level-3"><td class="toc-number">1.3.2</td><td class="toc-text"><a href="#Equality">Equality</a></td></tr>
+                                                                                                        <tr class="toc-level-3"><td class="toc-number">1.3.3</td><td class="toc-text"><a href="#Smartmatching">Smartmatching</a></td></tr>
+                               <tr class="toc-level-3"><td class="toc-number">1.3.4</td><td class="toc-text"><a href="#Numeric">Numeric</a></td></tr>
+                                            <tr class="toc-level-3"><td class="toc-number">1.3.5</td><td class="toc-text"><a href="#Bitwise">Bitwise</a></td></tr>
+                                                       <tr class="toc-level-3"><td class="toc-number">1.3.6</td><td class="toc-text"><a href="#Custom_operators_and_operator_overloading">Custom operators and operator overloading</a></td></tr>
+                                            <tr class="toc-level-2"><td class="toc-number">1.4</td><td class="toc-text"><a href="#Control_flow">Control flow</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-number">1.4.1</td><td class="toc-text"><a href="#if/else">if/else</a></td></tr>
+                                                                                            <tr class="toc-level-3"><td class="toc-number">1.4.2</td><td class="toc-text"><a href="#switch">switch</a></td></tr>
+                                                                                                                         <tr class="toc-level-3"><td class="toc-number">1.4.3</td><td class="toc-text"><a href="#for,_while,_and_do/while">for, while, and do/while</a></td></tr>
+                                                                                                                                                                          <tr class="toc-level-3"><td class="toc-number">1.4.4</td><td class="toc-text"><a href="#do">do</a></td></tr>
+                   <tr class="toc-level-2"><td class="toc-number">1.5</td><td class="toc-text"><a href="#Types">Types</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-number">1.5.1</td><td class="toc-text"><a href="#Creating_types">Creating types</a></td></tr>
+                                                     <tr class="toc-level-3"><td class="toc-number">1.5.2</td><td class="toc-text"><a href="#Using_types">Using types</a></td></tr>
+                                                                         <tr class="toc-level-3"><td class="toc-number">1.5.3</td><td class="toc-text"><a href="#Comparing_JavaScript_and_Raku_types">Comparing JavaScript and Raku types</a></td></tr>
+                                                                                                   <tr class="toc-level-2"><td class="toc-number">1.6</td><td class="toc-text"><a href="#Functions">Functions</a></td></tr>
+   <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Object-oriented_programming">Object-oriented programming</a></td></tr>
+   <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Asynchronous_programming">Asynchronous programming</a></td></tr>
+   <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#The_networking_API">The networking API</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">4.1</td><td class="toc-text"><a href="#Net">Net</a></td></tr>
+                                                                                                                          <tr class="toc-level-2"><td class="toc-number">4.2</td><td class="toc-text"><a href="#HTTP/HTTPS">HTTP/HTTPS</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">4.3</td><td class="toc-text"><a href="#DNS">DNS</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">4.4</td><td class="toc-text"><a href="#Punycode">Punycode</a></td></tr>
+        <tr class="toc-level-1"><td class="toc-number">5</td><td class="toc-text"><a href="#The_filesystem_API">The filesystem API</a></td></tr>
+   <tr class="toc-level-1"><td class="toc-number">6</td><td class="toc-text"><a href="#Modules_and_packages">Modules and packages</a></td></tr>
+  
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>This page attempts to provide a way for users experienced in Node.js to learn Raku. Features shared between the two languages will be explained here, as well as major differences in syntax and features.</p>
+<p>This is not a tutorial for learning Raku; this is a reference for users who are already at an intermediate to advanced skill level with Node.js.</p>
+<h1 id="Basic_syntax"><a class="u" href="#___top" title="go to top of document">Basic syntax</a></h1>
+<h2 id="&quot;Hello,_world!&quot;"><a class="u" href="#___top" title="go to top of document">&quot;Hello, world!&quot;</a></h2>
+<p>Let&#39;s start with the typical first program when learning new languages. In Node.js, a hello world program would be written like this:</p>
+<pre class="pod-block-code">console.log(&#39;Hello, world!&#39;);
+</pre>
+<p>Here are a couple ways to write this in the same way in Raku:</p>
+<pre class="pod-block-code">say(&#39;Hello, world!&#39;);
+say &#39;Hello, world!&#39;;
+</pre>
+<p>Parentheses are optional for function calls in Raku. While semicolons are, for the most part, optional in Node.js, they are mandatory for expressions in Raku.</p>
+<p>Now that we&#39;ve greeted the world, let&#39;s greet our good friend, Joe. We&#39;ll start with Node.js again:</p>
+<pre class="pod-block-code">let name = &#39;Joe&#39;;
+console.log(&#39;What\&#39;s up,&#39; + name + &#39;?&#39;);
+console.log(`What&#39;s up, ${name}?`);
+console.log(&quot;What&#39;s up, &quot;, name, &quot;?&quot;);
+</pre>
+<p>Since he didn&#39;t hear us, let&#39;s greet him again, this time in Raku:</p>
+<pre class="pod-block-code">my $name = &#39;Joe&#39;;
+say &#39;What\&#39;s up, &#39; ~ $name ~ &#39;?&#39;;
+say &quot;What&#39;s up, $name?&quot;;
+say &quot;What&#39;s up, &quot;, $name, &quot;?&quot;;
+</pre>
+<p>Here, there are only a couple differences: most variables in Raku have what are called sigils, which are what the <code>$</code> in front of its name is, and string concatenation uses the <code>~</code> operator instead of <code>+</code>. What the two languages share in common here is support for string interpolation.</p>
+<p>Now that the basic examples are out of the way, let&#39;s explain the similarities between the two languages in greater detail.</p>
+<h2 id="Variables"><a class="u" href="#___top" title="go to top of document">Variables</a></h2>
+<p>Variables in Node.js can be defined like this;</p>
+<pre class="pod-block-code">var   foo = 1;  // Lexically scoped with functions and modules
+let   foo = 1;  // Lexically scoped with blocks
+const foo = 1;  // Lexically scoped with blocks; constant
+
+// No equivalent to Raku dynamic variables exists.
+
+global.foo = 1; // Globally scoped
+foo = 1;        // Ditto, but implicit; forbidden in strict mode
+</pre>
+<p>In Raku there is no equivalent to <code>var</code>. An important note to make is that there is no variable hoisting in Raku; variables are defined and assigned at the line they&#39;re on, not defined at the top of its scope and later assigned at that line.</p>
+<p>In addition to regular variables, in Raku there are what is known as dynamic variables. Dynamic variables are looked up using the caller&#39;s scope, rather than the outer scope. This is what the equivalent variable declarations look like in Raku:</p>
+<pre class="pod-block-code">my           $foo = 1; # Lexically scoped
+our          $foo = 1; # Package scoped
+</pre>
+<pre class="pod-block-code">my  constant  foo = 1; # Lexically scoped; constant
+</pre>
+<pre class="pod-block-code">    constant  foo = 1; # Package scoped; constant
+</pre>
+<pre class="pod-block-code">my  $*foo = 1; # Dynamic variable; lexically scoped
+our $*foo = 1; # Dynamic variable; package scoped
+</pre>
+<p>GLOBAL::&lt;$foo&gt; := 1; # Globally scoped</p>
+<p>Use <code>my</code> where you&#39;d use <code>let</code>, <code>our</code> for variables you&#39;d define in the outermost scope needed, and <code>constant</code> where you&#39;d uses <code>const</code>.</p>
+<p>You may have noticed the <code>$</code> and <code>$*</code> symbols placed before variable names. These are known as sigils and twigils respectively, and define what container the variable has. Refer to the documentation on <a href="/Documentable/integration-test/language/variables">variables</a> for more information on sigils, twigils, and containers.</p>
+<p>Variables in Node.js can override others from outer scopes with the same name (though linters will usually complain about it depending on how they&#39;re configured):</p>
+<pre class="pod-block-code">let foo = 1;
+function logDupe() {
+    let foo = 2;
+    console.log(foo);
+}
+
+logDupe(2);       // OUTPUT: 2
+console.log(foo); // OUTPUT: 1
+</pre>
+<p>Raku also allows this:</p>
+<pre class="pod-block-code">my $foo = 1;
+sub log-dupe {
+    my $foo = 2;
+    say $foo;
+}
+
+log-dupe; # OUTPUT: 2
+say $foo; # OUTPUT: 1
+</pre>
+<h2 id="Operators"><a class="u" href="#___top" title="go to top of document">Operators</a></h2>
+<h3 id="Assignment"><a class="u" href="#___top" title="go to top of document">Assignment</a></h3>
+<p>The <code>=</code> operator works the same across both languages.</p>
+<p>The <code>:=</code> operator in Raku binds a value to a variable. Binding a variable to another variable gives them the same value and container, meaning mutating attributes of one will mutate the other&#39;s as well. Bound variables cannot be reassigned with <code>=</code> or mutated with <code>++</code>, <code>--</code>, etc. but they can be bound to another value again:</p>
+<pre class="pod-block-code">my %map;            # This is a hash, roughly equivalent to a JS object or map
+my %unbound = %map;
+my %bound := %map;
+%map&lt;foo&gt; = &#39;bar&#39;;
+say %unbound;       # OUTPUT: {}
+say %bound;         # OUTPUT: {foo =&gt; bar}
+
+%bound := %unbound;
+say %bound;         # OUTPUT: {}
+</pre>
+<h3 id="Equality"><a class="u" href="#___top" title="go to top of document">Equality</a></h3>
+<p>Node.js has two equality operators: <code>==</code> and <code>===</code>.</p>
+<p><code>==</code> is the loose equality operator. When comparing operands with the same type, it will return true if both operands are equal. However, if the operands are different types, they are both cast to their primitives before being compared, meaning these will return true:</p>
+<pre class="pod-block-code">console.log(1 == 1);   // OUTPUT: true
+console.log(&#39;1&#39; == 1); // OUTPUT: true
+console.log([] == 0);  // OUTPUT: true
+</pre>
+<p>Similarly, in Raku, both operands are cast to Numeric before comparison if they don&#39;t share the same type:</p>
+<pre class="pod-block-code">say 1 == 1;       # OUTPUT: True
+say &#39;1&#39; == 1;     # OUTPUT: True
+say [1,2,3] == 3; # OUTPUT: True, since the array has three elements
+</pre>
+<p>The inverse of <code>==</code> is <code>!=</code>.</p>
+<p>Raku has another operator similar to <code>==</code>: <code>eq</code>. Instead of casting operands to Numeric if they&#39;re different types, <code>eq</code> will cast them to strings:</p>
+<pre class="pod-block-code">say &#39;1&#39; eq &#39;1&#39;; # OUTPUT: True
+say 1 eq &#39;1&#39;;   # OUTPUT: True
+</pre>
+<p>The inverse of <code>eq</code> is <code>ne</code> or <code>!eq</code>.</p>
+<p><code>===</code> is the strict equality operator. This returns true if both operands are the same value. When comparing objects, this will <em>only</em> return true if they are the exact same object:</p>
+<pre class="pod-block-code">console.log(1 === 1);   // OUTPUT: true
+console.log(&#39;1&#39; === 1); // OUTPUT: false
+console.log({} === {}); // OUTPUT: false
+
+let obj = {};
+let obj2 = obj;
+console.log(obj === obj2); // OUTPUT: true;
+</pre>
+<p>In Raku, the operator behaves the same, with one exception: two objects that have the same value, but different containers, will return false:</p>
+<pre class="pod-block-code">say 1 === 1;                    # OUTPUT: «True␤»
+say &#39;1&#39; === 1;                  # OUTPUT: «False␤»
+say &#39;ayy lmao&#39; === &#39;ayy lmao&#39;;  # OUTPUT: «True␤»
+say {} === {};                  # OUTPUT: «False␤»
+
+my \hash = {};
+my %hash = hash;
+say hash === %hash; # OUTPUT: False
+</pre>
+<p>In the last case it&#39;s the same object, but containers are different, which is why it returns False.</p>
+<p>The inverse of <code>===</code> is <code>!==</code>.</p>
+<p>This is where Raku&#39;s other equality operators are useful. If the values have different containers, the <code>eqv</code> operator can be used. This operator can be also be used to check for deep equality, which you would normally need to use a library for in Node.js:</p>
+<pre class="pod-block-code">say {a =&gt; 1} eqv {a =&gt; 1}; # OUTPUT: True
+
+my \hash = {};
+my %hash := hash;
+say hash eqv %hash; # OUTPUT: True
+</pre>
+<p>In the case you need to check if two variables have the same container and value, use the <code>=:=</code> operator.</p>
+<pre class="pod-block-code">my @arr = [1,2,3];
+my @arr2 := @arr;   # Bound variables keep the container of the other variable
+say @arr =:= @arr2; # OUTPUT: True
+</pre>
+<h3 id="Smartmatching"><a class="u" href="#___top" title="go to top of document">Smartmatching</a></h3>
+<p>Raku has one last operator for comparing values, but it is not exactly an equality operator. This is <code>~~</code>, the smartmatch operator. This has several uses: it can be used like <code>instanceof</code> in Node.js, to match a regex, and to check if a value is a key in a hash, bag, set, or map:</p>
+<pre class="pod-block-code">say &#39;ayy lmao&#39; ~~ Str; # OUTPUT: True
+
+my %hash = a =&gt; 1;
+say &#39;a&#39; ~~ %hash; # OUTPUT: True
+
+my $str = &#39;abc&#39;;
+$str ~~ s/abc/def/; # Mutates $str, like foo.replace(&#39;abc&#39;, &#39;def&#39;)
+say $str;           # OUTPUT: def
+</pre>
+<p>While we are talking about <code>instanceof</code>, the equivalent to the <code>constructor</code> property on Node.js objects in Raku is the <code>WHAT</code> attribute:</p>
+<pre class="pod-block-code">console.log(&#39;foo&#39;.constructor); // OUTPUT: String
+</pre>
+<pre class="pod-block-code">say &#39;foo&#39;.WHAT; # OUTPUT: Str
+</pre>
+<h3 id="Numeric"><a class="u" href="#___top" title="go to top of document">Numeric</a></h3>
+<p>Node.js has <code>+</code>, <code>-</code>, <code>/</code>, <code>*</code>, <code>%</code>, and (in ES6) <code>**</code> as numeric operators. When the operands are different types, similarly to the equality operators, are cast to their primitives before following through with the operation, making this possible:</p>
+<pre class="pod-block-code">console.log(1 + 2);   // OUTPUT: 3
+console.log([] + {}); // OUTPUT: [object Object]
+console.log({} + []); // OUTPUT: 0
+</pre>
+<p>In Raku, again, they are converted to a Numeric type, as before:</p>
+<pre class="pod-block-code">say 1 + 2;        # OUTPUT: 3
+say [] + {};      # OUTPUT: 0
+say {} + [1,2,3]; # OUTPUT: 3
+</pre>
+<p>In addition, Raku has <code>div</code> and <code>%%</code>. <code>div</code> behaves like <code>int</code> division in C, while <code>%%</code> checks if one number is cleanly divisible by another or not:</p>
+<pre class="pod-block-code">say 4 div 3; # OUTPUT: 1
+say 4 %% 3;  # OUTPUT: False
+say 6 %% 3;  # OUTPUT: True
+</pre>
+<h3 id="Bitwise"><a class="u" href="#___top" title="go to top of document">Bitwise</a></h3>
+<p>Node.js has <code>&amp;</code>, <code>|</code>, <code>^</code>, <code>~</code>, <code>&lt;&lt;</code>, <code>&gt;&gt;</code>, <code>&gt;&gt;&gt;</code>, and <code>~</code> for bitwise operators:</p>
+<pre class="pod-block-code">console.log(1 &lt;&lt; 1);  // OUTPUT: 2
+console.log(1 &gt;&gt; 1);  // OUTPUT: 0
+console.log(1 &gt;&gt;&gt; 1); // OUTPUT: 0
+console.log(1 &amp; 1);   // OUTPUT: 1
+console.log(0 | 1);   // OUTPUT: 1
+console.log(1 ^ 1);   // OUTPUT: 0
+console.log(~1);      // OUTPUT: -2
+</pre>
+<p>In Raku, there is no equivalent to <code>&gt;&gt;&gt;</code>. All bitwise operators are prefixed with <code>+</code>, however bitwise negation uses <code>+^</code> instead of <code>~</code>:</p>
+<pre class="pod-block-code">say 1 +&lt; 1; # OUTPUT: 2
+say 1 +&gt; 1; # OUTPUT: 0
+            # No equivalent for &gt;&gt;&gt;
+say 1 +&amp; 1; # OUTPUT: 1
+say 0 +| 1; # OUTPUT: 1
+say 1 +^ 1; # OUTPUT: 0
+say +^1;    # OUTPUT: -2
+</pre>
+<h3 id="Custom_operators_and_operator_overloading"><a class="u" href="#___top" title="go to top of document">Custom operators and operator overloading</a></h3>
+<p>Node.js does not allow operator overloading without having to use a Makefile or build Node.js with a custom version of V8. Raku allows custom operators and operator overloading natively! Since all operators are subroutines, you can define your own like so:</p>
+<pre class="pod-block-code">multi sub infix:&lt;||=&gt;($a, $b) is equiv(&amp;infix:&lt;+=&gt;) { $a || $b }
+
+my $foo = 0;
+$foo ||= 1;
+say $foo; # OUTPUT: 1
+</pre>
+<p>Operators can be defined as <code>prefix</code>, <code>infix</code>, or <code>postfix</code>. The <code>is tighter</code>, <code>is equiv</code>, and <code>is looser</code> traits optionally define the operator&#39;s precedence. In this case, <code>||=</code> has the same precedence as <code>+=</code>.</p>
+<p>Note how <code>multi</code> is used when declaring the operator subroutines. This allows multiple subroutines with the same name to be declared while also having different signatures. This will be explained in greater detail in the <a href="#Functions">Functions</a> section. For now, all we need to know is that it allows us to override any native operator we want:</p>
+<pre class="pod-block-code"># Using the `is default` trait here forces this subroutine to be chosen first,
+# so long as the signature of the subroutine matches.
+multi sub prefix:&lt;++&gt;($a) is default { $a - 1 }
+
+my $foo = 1;
+say ++$foo; # OUTPUT: 0
+</pre>
+<h2 id="Control_flow"><a class="u" href="#___top" title="go to top of document">Control flow</a></h2>
+<h3 id="if/else"><a class="u" href="#___top" title="go to top of document">if/else</a></h3>
+<p>You should be familiar with how <code>if</code>/<code>else</code> looks in JavaScript:</p>
+<pre class="pod-block-code">let diceRoll = Math.ceil(Math.random() * 6) + Math.ceil(Math.random() * 6);
+if (diceRoll === 2) {
+    console.log(&#39;Snake eyes!&#39;);
+} else if (diceRoll === 16) {
+    console.log(&#39;Boxcars!&#39;);
+} else {
+    console.log(`Rolled ${diceRoll}.`);
+}
+</pre>
+<p>In Raku, <code>if</code>/<code>else</code> works largely the same, with a few key differences. One, parentheses are not required. Two, <code>else if</code> is written as <code>elsif</code>. Three, the if clause may be written <em>after</em> a statement:</p>
+<pre class="pod-block-code">my Int $dice-roll = ceiling rand * 12 + ceiling rand * 12;
+if $dice-roll == 2 {
+    say &#39;Snake eyes!&#39;;
+} elsif $dice-roll == 16 {
+    say &#39;Boxcars!&#39;;
+} else {
+    say &quot;Rolled $dice-roll.&quot;;
+}
+</pre>
+<p>Alternatively, though less efficient, this could be written to use <code>if</code> after statements:</p>
+<pre class="pod-block-code">my Int $dice-roll = ceiling rand * 12 + ceiling rand * 12;
+say &#39;Snake eyes!&#39;        if $dice-roll == 2;
+say &#39;Boxcars!&#39;           if $dice-roll == 16;
+say &quot;Rolled $dice-roll.&quot; if $dice-roll != 2 &amp;&amp; $dice-roll != 16;
+</pre>
+<p>Raku also has <code>when</code>, which is like <code>if</code>, but if the condition given is true, no code past the <code>when</code> block within the block it&#39;s in is executed:</p>
+<pre class="pod-block-code">{
+    when True {
+        say &#39;In when block!&#39;; # OUTPUT: In when block!
+    }
+    say &#39;This will never be output!&#39;;
+}
+</pre>
+<p>Additionally, Raku has <code>with</code>, <code>orwith</code>, and <code>without</code>, which are like <code>if</code>, <code>else if</code>, and <code>else</code> respectively, but instead of checking whether their condition is true, they check if it&#39;s defined.</p>
+<h3 id="switch"><a class="u" href="#___top" title="go to top of document">switch</a></h3>
+<p>Switch statements are a way of checking for equality between a given value and a list of values and run some code if one matches. <code>case</code> statements define each value to compare to. <code>default</code>, if included, acts as a fallback for when the given value matches no cases. After matching a case, <code>break</code> is typically used to prevent the code from the cases that follow the one matched from being executed, though rarely this is intentionally omitted.</p>
+<pre class="pod-block-code">const ranklist = [2, 3, 4, 5, 6, 7, 8, 9, &#39;Jack&#39;, &#39;Queen&#39;, &#39;King&#39;, &#39;Ace&#39;];
+const ranks    = Array.from(Array(3), () =&gt; ranklist[Math.floor(Math.random() * ranks.length)]);
+let   score    = 0;
+
+for (let rank of ranks) {
+    switch (rank) {
+        case &#39;Jack&#39;:
+        case &#39;Queen&#39;:
+        case &#39;King&#39;:
+            score += 10;
+            break;
+        case &#39;Ace&#39;;
+            score += (score &lt;= 11) ? 10 : 1;
+            break;
+        default:
+            score += rank;
+            break;
+    }
+}
+</pre>
+<p>In Raku, <code>given</code> can be used like switch statements. There is no equivalent to <code>break</code> since <code>when</code> blocks are most commonly used like <code>case</code> statements. One major difference between <code>switch</code> and <code>given</code> is that a value passed to a <code>switch</code> statement will only match cases that are exactly equal to the value; <code>given</code> values are smartmatched (<code>~~</code>) against the <code>when</code> values.</p>
+<pre class="pod-block-code">my     @ranklist = [2, 3, 4, 5, 6, 7, 8, 9, &#39;Jack&#39;, &#39;Queen&#39;, &#39;King&#39;, &#39;Ace&#39;];
+my     @ranks    = @ranklist.pick: 3;
+my Int $score    = 0;
+
+for @ranks -&gt; $rank {
+    # The when blocks implicitly return the last statement they contain.
+    $score += do given $rank {
+        when &#39;Jack&#39; | &#39;Queen&#39; | &#39;King&#39; { 10                      }
+        when &#39;Ace&#39;                     { $score &lt;= 11 ?? 10 !! 1 }
+        default                        { $_                      }
+    };
+}
+</pre>
+<p>If there are multiple <code>when</code> blocks that match the value passed to <code>given</code> and you wish to run more than one of them, use <code>proceed</code>. <code>succeed</code> may be used to exit both the <code>when</code> block it&#39;s in and the given block, preventing any following statements from being executed:</p>
+<pre class="pod-block-code">given Int {
+    when Int     { say &#39;Int is Int&#39;;     proceed }
+    when Numeric { say &#39;Int is Numeric&#39;; proceed }
+    when Any     { say &#39;Int is Any&#39;;     succeed }
+    when Mu      { say &#39;Int is Mu&#39;               } # Won&#39;t output
+}
+
+# OUTPUT:
+# Int is Int
+# Int is Numeric
+# Int is Any
+</pre>
+<h3 id="for,_while,_and_do/while"><a class="u" href="#___top" title="go to top of document">for, while, and do/while</a></h3>
+<p>There are three different types of for loops in JavaScript:</p>
+<pre class="pod-block-code">// C-style for loops
+const letters = {};
+for (let ord = 0x61; ord &lt;= 0x7A; ord++) {
+    let letter = String.fromCharCode(ord);
+    letters[letter] = letter.toUpperCase();
+}
+
+// for..in loops (typically used on objects)
+for (let letter in letters) {
+    console.log(letters[letter]);
+}
+# OUTPUT:
+# A
+# B
+# C
+# etc.
+
+// for..of loops (typically used on arrays, maps, and sets)
+for (let letter of Object.values(letters)) {
+    console.log(letter);
+}
+# OUTPUT:
+# A
+# B
+# C
+# etc.
+</pre>
+<p>Raku <code>for</code> loops most closely resemble <code>for..of</code> loops, since they work on anything as long as it&#39;s iterable. C-style loops are possible to write using <code>loop</code>, but this is discouraged since they&#39;re better written as <code>for</code> loops using ranges. Like <code>if</code> statements, <code>for</code> may follow a statement, with the current iteration being accessible using the <code>$_</code> variable (known as &quot;it&quot;). Methods on <code>$_</code> may be called without specifying the variable:</p>
+<pre class="pod-block-code">my Str %letters{Str};
+%letters{$_} = .uc for &#39;a&#39;..&#39;z&#39;;
+.say for %letters.values;
+# OUTPUT:
+# A
+# B
+# C
+# etc.
+</pre>
+<p><code>while</code> loops work identically between JavaScript and Raku. Raku also has <code>until</code> loops, where instead of iterating until the given condition is false, they iterate until the condition is true.</p>
+<p><code>do/while</code> loops are known as <code>repeat/while</code> loops in Raku. Likewise with <code>while</code>, <code>repeat/until</code> loops also exist and loop until the given condition is false.</p>
+<p>To write infinite loops in Raku, use <code>loop</code> rather than <code>for</code> or <code>while</code>.</p>
+<p>In JavaScript, <code>continue</code> is used to skip to the next iteration in a loop, and <code>break</code> is used to exit a loop early:</p>
+<pre class="pod-block-code">let primes = new Set();
+let i      = 2;
+
+do {
+    let isPrime = true;
+    for (let prime of primes) {
+        if (i % prime == 0) {
+            isPrime = false;
+            break;
+        }
+    }
+    if (!isPrime) continue;
+    primes.add(i);
+} while (++i &lt; 20);
+
+console.log(primes); # OUTPUT: Set { 2, 3, 5, 7, 11, 13, 17, 19 }
+</pre>
+<p>In Raku, these are known as <code>next</code> and <code>last</code> respectively. There is also <code>redo</code>, which repeats the current iteration without evaluating the loop&#39;s condition again.</p>
+<p><code>next</code>/<code>redo</code>/<code>last</code> statements may be followed by a label defined before an outer loop to make the statement work on the loop the label refers to, rather than the loop the statement is in:</p>
+<pre class="pod-block-code">my %primes is SetHash;
+my Int $i = 2;
+
+OUTSIDE:
+repeat {
+    next OUTSIDE if $i %% $_ for %primes.keys;
+    %primes{$i}++;
+} while ++$i &lt; 20;
+
+say %primes; # OUTPUT: SetHash(11 13 17 19 2 3 5 7)
+</pre>
+<h3 id="do"><a class="u" href="#___top" title="go to top of document">do</a></h3>
+<p><code>do</code> is not currently a feature in JavaScript, however a proposal has been made to <a href="https://github.com/tc39/proposal-do-expressions">add it to ECMAScript</a>. <code>do</code> expressions evaluate a block and return the result:</p>
+<pre class="pod-block-code">constant VERSION        = v2.0.0;
+constant VERSION_NUMBER = do {
+    my @digits = VERSION.Str.comb(/\d+/);
+    :16(sprintf &quot;%02x%02x%04x&quot;, |@digits)
+};
+say VERSION_NUMBER; # OUTPUT: 33554432
+</pre>
+<h2 id="Types"><a class="u" href="#___top" title="go to top of document">Types</a></h2>
+<h3 id="Creating_types"><a class="u" href="#___top" title="go to top of document">Creating types</a></h3>
+<p>In JavaScript, types are created by making a class (or a constructor in ES5 and earlier). If you&#39;ve used TypeScript, you can define a type as a subset of other types like so:</p>
+<pre class="pod-block-code">type ID = string | number;
+</pre>
+<p>In Raku, classes, roles, subsets, and enums are considered types. Creating classes and roles will be discussed in <a href="#Object-oriented_programming">the OOP section of this article</a>. Creating an ID subset can be done like so:</p>
+<pre class="pod-block-code">subset ID where Str | Int;
+</pre>
+<p>See the documentation on <a href="/Documentable/integration-test/language/typesystem#subset">subset</a> and <a href="/Documentable/integration-test/type/Junction">Junction</a> for more information.</p>
+<p>TypeScript enums may have numbers or strings as their values. Defining the values is optional; by default, the value of the first key is 0, the next key, 1, the next, 2, etc. For example, here is an enum that defines directions for extended ASCII arrow symbols (perhaps for a TUI game):</p>
+<pre class="pod-block-code">enum Direction (
+    UP    = &#39;↑&#39;,
+    DOWN  = &#39;↓&#39;,
+    LEFT  = &#39;←&#39;,
+    RIGHT = &#39;→&#39;
+);
+</pre>
+<p>Enums in Raku may have any type as their keys&#39; values. Enum keys (and optionally, values) can be defined by writing <code>enum</code>, followed by the name of the enum, then the list of keys (and optionally, values), which can be done using <a href="/Documentable/integration-test/language/quoting#Word_quoting:_<_>">&lt; &gt;</a>, <a href="/Documentable/integration-test/language/quoting#Word_quoting_with_interpolation_and_quote_protection:_«_»">« »</a>, or <a href="/Documentable/integration-test/language/operators#term_(_)">( )</a>. <code>( )</code> must be used if you want to define values for the enum&#39;s keys. Here is the Direction enum as written in Raku:</p>
+<pre class="pod-block-code">enum Direction (
+    UP    =&gt; &#39;↑&#39;,
+    DOWN  =&gt; &#39;↓&#39;,
+    LEFT  =&gt; &#39;←&#39;,
+    RIGHT =&gt; &#39;→&#39;
+);
+</pre>
+<p>See the documentation on <a href="/Documentable/integration-test/language/typesystem#enum">enum</a> for more information.</p>
+<h3 id="Using_types"><a class="u" href="#___top" title="go to top of document">Using types</a></h3>
+<p>In TypeScript, you can define the type of variables. Attempting to assign a value that doesn&#39;t match the type of the variable will make the transpiler error out. This is done like so:</p>
+<pre class="pod-block-code">enum Name (Phoebe, Daniel, Joe);
+let name: string = &#39;Phoebe&#39;;
+name = Phoebe; # Causes tsc to error out
+
+let hobbies: [string] = [&#39;origami&#39;, &#39;playing instruments&#39;, &#39;programming&#39;];
+
+let todo: Map&lt;string, boolean&gt; = new Map([
+    [&#39;clean the bathroom&#39;, false],
+    [&#39;walk the dog&#39;, true],
+    [&#39;wash the dishes&#39;, true]
+]);
+
+let doJob: (job: string) =&gt; boolean = function (job: string): boolean {
+    todo.set(job, true);
+    return true;
+};
+</pre>
+<p>In Raku, variables can be typed by placing the type between the declarator (<code>my</code>, <code>our</code>, etc.) and the variable name. Assigning a value that doesn&#39;t match the variable&#39;s type will throw either a compile-time or runtime error, depending on how the value is evaluated:</p>
+<pre class="pod-block-code">enum Name &lt;Phoebe Daniel Joe&gt;;
+my Str $name = &#39;Phoebe&#39;;
+$name = Phoebe; # Throws a compile-time error
+
+# The type here defines the type of the elements of the array.
+my Str @hobbies = [&#39;origami&#39;, &#39;playing instruments&#39;, &#39;programming&#39;];
+
+# The type between the declarator and variable defines the type of the values
+# of the hash.
+# The type in the curly braces defines the type of the keys of the hash.
+my Bool %todo{Str} = (
+    &#39;clean the bathroom&#39; =&gt; False,
+    &#39;walk the dog&#39;       =&gt; True,
+    &#39;wash the dishes&#39;    =&gt; True
+);
+
+# The type here defines the return value of the routine.
+my Bool &amp;do-job = sub (Str $job --&gt; Bool) {
+    %todo{$job} = True;
+};
+</pre>
+<h3 id="Comparing_JavaScript_and_Raku_types"><a class="u" href="#___top" title="go to top of document">Comparing JavaScript and Raku types</a></h3>
+<p>Here is a table of some JavaScript types and their equivalents in Raku:</p>
+<table class="pod-table">
+<thead><tr>
+<th>JavaScript</th> <th>Raku</th>
+</tr></thead>
+<tbody>
+<tr> <td>Object</td> <td>Mu, Any, Hash</td> </tr> <tr> <td>Array</td> <td>List, Array, Seq</td> </tr> <tr> <td>String</td> <td>Str</td> </tr> <tr> <td>Number</td> <td>Int, Num, Rat</td> </tr> <tr> <td>Boolean</td> <td>Bool</td> </tr> <tr> <td>Map</td> <td>Map, Hash</td> </tr> <tr> <td>Set</td> <td>Set, SetHash</td> </tr>
+</tbody>
+</table><p><code>Object</code> is both a superclass of all types in JavaScript and a way to create a hash. In Raku, <a href="/Documentable/integration-test/type/Mu">Mu</a> is a superclass of all types, though usually you want to use <a href="/Documentable/integration-test/type/Any">Any</a> instead, which is a subclass of <code>Mu</code> but also a superclass of nearly every type, with <a href="/Documentable/integration-test/type/Junction">Junction</a> being an exception. When using <code>Object</code> as a hash, <a href="/Documentable/integration-test/type/Hash">Hash</a> is what you want to use. One key difference between <code>Object</code> and <code>Hash</code> is that <code>Object</code> preserves the order of its keys; <code>Hash</code> does not by default.</p>
+<p>There are three types equivalent to <code>Array</code>. <a href="/Documentable/integration-test/type/Array">Array</a> is most similar to <code>Array</code>, since it acts as a mutable array. <a href="/Documentable/integration-test/type/List">List</a> is similar to <code>Array</code>, but is immutable. <a href="/Documentable/integration-test/type/Seq">Seq</a> is used to create lazy arrays.</p>
+<p><code>String</code> and <a href="/Documentable/integration-test/type/Str">Str</a> are for the most part used identically.</p>
+<p>There are several different types in Raku equivalent to <code>Number</code>, but the three you&#39;ll most commonly see are <a href="/Documentable/integration-test/type/Int">Int</a>, <a href="/Documentable/integration-test/type/Num">Num</a>, and <a href="/Documentable/integration-test/type/Rat">Rat</a>. <code>Int</code> represents an integer. <code>Num</code> represents a floating-point number, making it the most similar to <code>Number</code>. <code>Rat</code> represents a fraction of two numbers, and is used when <code>Num</code> cannot provide precise enough values.</p>
+<p><code>Boolean</code> and <a href="/Documentable/integration-test/type/Bool">Bool</a> are for the most part used identically.</p>
+<p><code>Map</code> has both a mutable and an immutable equivalent in Raku. <a href="/Documentable/integration-test/type/Map">Map</a> is the immutable one, and <a href="/Documentable/integration-test/type/Hash">Hash</a> is the mutable one. Don&#39;t get them mixed up! Like <code>Map</code> in JavaScript, <code>Map</code> and <code>Hash</code> can have any type of key or value, not just strings for keys.</p>
+<p>Like <code>Map</code>, <code>Set</code> also has both a mutable and an immutable equivalent in Raku. <a href="/Documentable/integration-test/type/Set">Set</a> is the immutable one, and <a href="/Documentable/integration-test/type/SetHash">SetHash</a> is the mutable one.</p>
+<h2 id="Functions"><a class="u" href="#___top" title="go to top of document">Functions</a></h2>
+<p># TBD</p>
+<h1 id="Object-oriented_programming"><a class="u" href="#___top" title="go to top of document">Object-oriented programming</a></h1>
+<p># TBD</p>
+<h1 id="Asynchronous_programming"><a class="u" href="#___top" title="go to top of document">Asynchronous programming</a></h1>
+<p># TBD</p>
+<h1 id="The_networking_API"><a class="u" href="#___top" title="go to top of document">The networking API</a></h1>
+<h2 id="Net"><a class="u" href="#___top" title="go to top of document">Net</a></h2>
+<p>In Raku, there are two APIs for dealing with networking: <code>IO::Socket::INET</code> (for synchronous networking), and <code>IO::Socket::Async</code> (for asynchronous networking).</p>
+<p><code>IO::Socket::INET</code> currently only supports TCP connections. Its API resembles that of C&#39;s socket API. If you&#39;re familiar with that, then it won&#39;t take long to understand how to use it. For example, here&#39;s an echo server that closes the connection after receiving its first message:</p>
+<pre class="pod-block-code">my IO::Socket::INET $server .= new:
+    :localhost&lt;localhost&gt;,
+    :localport&lt;8000&gt;,
+    :listen;
+
+my IO::Socket::INET $client .= new: :host&lt;localhost&gt;, :port&lt;8000&gt;;
+$client.print: &#39;Hello, world!&#39;;
+
+my IO::Socket::INET $conn = $server.accept;
+my Str $msg               = $conn.recv;
+say $msg; # OUTPUT: Hello, world!
+$conn.print($msg);
+
+say $client.recv; # OUTPUT: Hello, world!
+$conn.close;
+$client.close;
+$server.close;
+</pre>
+<p>By default, <code>IO::Socket::INET</code> connections are IPv4 only. To use IPv6 instead, pass <code>:family(PF_INET6)</code> when constructing a server or a client.</p>
+<p>In contrast, <code>IO::Socket::Async</code> supports both IPv4 and IPv6 without the need to specify which family you wish to use. It also supports UDP sockets. Here&#39;s how you would write the same echo server as above asynchronously (note that <code>Supply.tap</code> is multithreaded; if this is undesirable, use <code>Supply.act</code> instead:</p>
+<pre class="pod-block-code">my $supply = IO::Socket::Async.listen(&#39;localhost&#39;, 8000);
+my $server = $supply.tap(-&gt; $conn {
+    $conn.Supply.tap(-&gt; $data {
+        say $data; # OUTPUT: Hello, world!
+        await $conn.print: $data;
+        $conn.close;
+    })
+});
+
+my $client = await IO::Socket::Async.connect(&#39;localhost&#39;, 8000);
+$client.Supply.tap(-&gt; $data {
+    say $data; # OUTPUT: Hello, world!
+    $client.close;
+    $server.close;
+});
+
+await $client.print: &#39;Hello, world!&#39;;
+</pre>
+<p>The equivalent code in Node.js looks like this:</p>
+<pre class="pod-block-code">const net = require(&#39;net&#39;);
+
+const server = net.createServer(conn =&gt; {
+    conn.setEncoding(&#39;utf8&#39;);
+    conn.on(&#39;data&#39;, data =&gt; {
+        console.log(data); # OUTPUT: Hello, world!
+        conn.write(data);
+        conn.end();
+    });
+}).listen(8000, &#39;localhost&#39;);
+
+const client = net.createConnection(8000, &#39;localhost&#39;, () =&gt; {
+    client.setEncoding(&#39;utf8&#39;);
+    client.on(&#39;data&#39;, data =&gt; {
+        console.log(data); # OUTPUT: Hello, world!
+        client.end();
+        server.close();
+    });
+    client.write(&quot;Hello, world!&quot;);
+});
+</pre>
+<h2 id="HTTP/HTTPS"><a class="u" href="#___top" title="go to top of document">HTTP/HTTPS</a></h2>
+<p>Raku doesn&#39;t natively support HTTP/HTTPS. However, CPAN packages such as <a href="https://cro.services/">Cro</a> help fill the gap.</p>
+<h2 id="DNS"><a class="u" href="#___top" title="go to top of document">DNS</a></h2>
+<p>Raku does not currently support the majority of the features that Node.js&#39;s DNS module implements. <code>IO::Socket::INET</code> and <code>IO::Socket::Async</code> can resolve hostnames, but features like resolving DNS records and reverse IP lookups are not implemented yet. There are some modules that are a work in progress, such as <a href="https://github.com/tbrowder/Net-DNS-BIND-Manage-Perl6/">Net::DNS::BIND::Manage</a>, that aim to improve DNS support.</p>
+<h2 id="Punycode"><a class="u" href="#___top" title="go to top of document">Punycode</a></h2>
+<p>Punycode support is available through the <a href="https://github.com/Kaiepi/p6-Net-LibIDN">Net::LibIDN</a>, <a href="https://github.com/Kaiepi/p6-Net-LibIDN2">Net::LibIDN2</a>, and <a href="https://github.com/FROGGS/p6-IDNA-Punycode">IDNA::Punycode</a> modules on CPAN.</p>
+<h1 id="The_filesystem_API"><a class="u" href="#___top" title="go to top of document">The filesystem API</a></h1>
+<p># TBD</p>
+<h1 id="Modules_and_packages"><a class="u" href="#___top" title="go to top of document">Modules and packages</a></h1>
+<p># TBD</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/js-nutshell.pod6">https://github.com/Raku/doc/blob/master/doc/Language/js-nutshell.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

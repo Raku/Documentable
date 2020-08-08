@@ -1,0 +1,23 @@
+digraph "perl6-type-graph" {
+    rankdir=BT;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "X::Comp::NYI" [color="#000000", fontcolor="#000000", href="/type/X::Comp::NYI", fontname="FreeSans"];
+    "Mu" [color="#000000", fontcolor="#000000", href="/type/Mu", fontname="FreeSans"];
+    "Any" [color="#000000", fontcolor="#000000", href="/type/Any", fontname="FreeSans"];
+    "Exception" [color="#000000", fontcolor="#000000", href="/type/Exception", fontname="FreeSans"];
+    "X::NYI" [color="#000000", fontcolor="#000000", href="/type/X::NYI", fontname="FreeSans"];
+    "X::Comp" [color="#6666FF", fontcolor="#6666FF", href="/type/X::Comp", fontname="FreeSans"];
+
+    // Superclasses
+    "X::Comp::NYI" -> "X::NYI" [color="#000000"];
+    "X::Comp::NYI" -> "Exception" [color="#000000"];
+    "Any" -> "Mu" [color="#000000"];
+    "Exception" -> "Any" [color="#000000"];
+    "X::NYI" -> "Exception" [color="#000000"];
+    "X::Comp" -> "Exception" [color="#000000"];
+
+    // Roles
+    "X::Comp::NYI" -> "X::Comp" [color="#6666FF"];
+}

@@ -1,0 +1,31 @@
+digraph "perl6-type-graph" {
+    rankdir=BT;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "PositionalBindFailover" [color="#6666FF", fontcolor="#6666FF", href="/type/PositionalBindFailover", fontname="FreeSans"];
+    "Sequence" [color="#6666FF", fontcolor="#6666FF", href="/type/Sequence", fontname="FreeSans"];
+    "Mu" [color="#000000", fontcolor="#000000", href="/type/Mu", fontname="FreeSans"];
+    "Any" [color="#000000", fontcolor="#000000", href="/type/Any", fontname="FreeSans"];
+    "Iterable" [color="#6666FF", fontcolor="#6666FF", href="/type/Iterable", fontname="FreeSans"];
+    "HyperSeq" [color="#000000", fontcolor="#000000", href="/type/HyperSeq", fontname="FreeSans"];
+    "RaceSeq" [color="#000000", fontcolor="#000000", href="/type/RaceSeq", fontname="FreeSans"];
+    "Cool" [color="#000000", fontcolor="#000000", href="/type/Cool", fontname="FreeSans"];
+    "Seq" [color="#000000", fontcolor="#000000", href="/type/Seq", fontname="FreeSans"];
+
+    // Superclasses
+    "Any" -> "Mu" [color="#000000"];
+    "HyperSeq" -> "Any" [color="#000000"];
+    "RaceSeq" -> "Any" [color="#000000"];
+    "Cool" -> "Any" [color="#000000"];
+    "Seq" -> "Cool" [color="#000000"];
+
+    // Roles
+    "Sequence" -> "PositionalBindFailover" [color="#6666FF"];
+    "HyperSeq" -> "Iterable" [color="#6666FF"];
+    "HyperSeq" -> "Sequence" [color="#6666FF"];
+    "RaceSeq" -> "Iterable" [color="#6666FF"];
+    "RaceSeq" -> "Sequence" [color="#6666FF"];
+    "Seq" -> "Iterable" [color="#6666FF"];
+    "Seq" -> "Sequence" [color="#6666FF"];
+}

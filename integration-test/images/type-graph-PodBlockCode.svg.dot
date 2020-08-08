@@ -1,0 +1,17 @@
+digraph "perl6-type-graph" {
+    rankdir=BT;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "Pod::Block::Code" [color="#000000", fontcolor="#000000", href="/type/Pod::Block::Code", fontname="FreeSans"];
+    "Mu" [color="#000000", fontcolor="#000000", href="/type/Mu", fontname="FreeSans"];
+    "Any" [color="#000000", fontcolor="#000000", href="/type/Any", fontname="FreeSans"];
+    "Pod::Block" [color="#000000", fontcolor="#000000", href="/type/Pod::Block", fontname="FreeSans"];
+
+    // Superclasses
+    "Pod::Block::Code" -> "Pod::Block" [color="#000000"];
+    "Any" -> "Mu" [color="#000000"];
+    "Pod::Block" -> "Any" [color="#000000"];
+
+    // Roles
+}

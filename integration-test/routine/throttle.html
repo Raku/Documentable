@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>method throttle</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/routine.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-sub.html"> Sub </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-method.html"> Method </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-term.html"> Term </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-operator.html"> Operator </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-trait.html"> Trait </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-submethod.html"> Submethod </a>
+            </div></div></div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">method throttle</h1>
+        <p class="subtitle"></p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#class_Supply">class Supply</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#(Supply)_method_throttle">(Supply) method throttle</a></td></tr>
+                                                                                                         <tr class="toc-level-3"><td class="toc-number">1.1.1</td><td class="toc-text"><a href="#control_messages">control messages</a></td></tr>
+                <tr class="toc-level-3"><td class="toc-number">1.1.2</td><td class="toc-text"><a href="#status_message">status message</a></td></tr>
+                    <tr class="toc-level-3"><td class="toc-number">1.1.3</td><td class="toc-text"><a href="#Examples">Examples</a></td></tr>
+                           
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Documentation for method <code>throttle</code> assembled from the following types:</p>
+<h1 id="class_Supply"><a class="u" href="#___top" title="go to top of document">class Supply</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Supply#method_throttle">Supply</a></p>
+<h2 id="(Supply)_method_throttle"><a href="/Documentable/integration-test/type/Supply#method_throttle">(Supply) method throttle</a></h2>
+<p>Defined as</p>
+<pre class="pod-block-code">multi method throttle(Supply:D:
+      Int()  $elems,
+      Real() $seconds,
+      Real() $delay  = 0,
+      :$scheduler    = $*SCHEDULER,
+      :$control,
+      :$status,
+      :$bleed,
+      :$vent-at,
+    )
+</pre>
+<pre class="pod-block-code">multi method throttle(Supply:D:
+      Int()  $elems,
+      Callable:D $process,
+      Real() $delay = 0,
+      :$scheduler   = $*SCHEDULER,
+      :$control,
+      :$status,
+      :$bleed,
+      :$vent-at,
+    )
+</pre>
+<p>Arguments to <code>.throttle</code> are defined as follows:</p>
+<table class="pod-table">
+<thead><tr>
+<th>Argument</th> <th>Meaning</th>
+</tr></thead>
+<tbody>
+<tr> <td>$limit,</td> <td>values / time or simultaneous processing</td> </tr> <tr> <td>$seconds or $process</td> <td>time-unit / code to process simultaneously</td> </tr> <tr> <td>$delay = 0,</td> <td>initial delay before starting, in seconds</td> </tr> <tr> <td>:$control,</td> <td>supply to emit control messages on (optional)</td> </tr> <tr> <td>:$status,</td> <td>supply to tap status messages from (optional)</td> </tr> <tr> <td>:$bleed,</td> <td>supply to bleed messages to (optional)</td> </tr> <tr> <td>:$vent-at,</td> <td>bleed when so many buffered (optional)</td> </tr> <tr> <td>:$scheduler,</td> <td>scheduler to use, default $*SCHEDULER</td> </tr>
+</tbody>
+</table><p>This method produces a <code>Supply</code> from a given one, but makes sure the number of messages passed through is limited.</p>
+<p>It has two modes of operation: per time-unit or by maximum number of executions of a block of code: this is determined by the type of the second positional parameter.</p>
+<p>The first positional parameter specifies the limit that should be applied.</p>
+<p>If the second positional parameter is a <code>Callable</code>, then the limit indicates the maximum number of parallel processes executing the Callable, which is given the value that was received. The emitted values in this case will be the <code>Promise</code>s that were obtained from <code>start</code>ing the Callable.</p>
+<p>If the second positional parameter is a real number, it is interpreted as the time-unit (in seconds). If you specify <strong>.1</strong> as the value, then it makes sure you don&#39;t exceed the limit for every tenth of a second.</p>
+<p>If the limit is exceeded, then incoming messages are buffered until there is room to pass on / execute the Callable again.</p>
+<p>The third positional parameter is optional: it indicates the number of seconds the throttle will wait before passing on any values.</p>
+<p>The <code>:control</code> named parameter optionally specifies a Supply that you can use to control the throttle while it is in operation. Messages that can be sent, are strings in the form of &quot;key:value&quot;. Please see below for the types of messages that you can send to control the throttle.</p>
+<p>The <code>:status</code> named parameter optionally specifies a Supply that will receive any status messages. If specified, it will at least send one status message after the original Supply is exhausted. See <a href="#status_message">status message</a> below.</p>
+<p>The <code>:bleed</code> named parameter optionally specifies a Supply that will receive any values that were either explicitly bled (with the <strong>bleed</strong> control message), or automatically bled (if there&#39;s a <strong>vent-at</strong> active).</p>
+<p>The <code>:vent-at</code> named parameter indicates the number of values that may be buffered before any additional value will be routed to the <code>:bleed</code> Supply. Defaults to 0 if not specified (causing no automatic bleeding to happen). Only makes sense if a <code>:bleed</code> Supply has also been specified.</p>
+<p>The <code>:scheduler</code> named parameter indicates the scheduler to be used. Defaults to <code>$*SCHEDULER</code>.</p>
+<h3 id="control_messages"><a class="u" href="#___top" title="go to top of document">control messages</a></h3>
+<p>These messages can be sent to the <code>:control</code> Supply. A control message consists of a string of the form &quot;key: value&quot;, e.g. &quot;limit: 4&quot;.</p>
+<ul><li><p>limit</p>
+</li>
+</ul>
+<p>Change the number of messages (as initially given in the first positional) to the value given.</p>
+<ul><li><p>bleed</p>
+</li>
+</ul>
+<p>Route the given number of buffered messages to the <code>:bleed</code> Supply.</p>
+<ul><li><p>vent-at</p>
+</li>
+</ul>
+<p>Change the maximum number of buffered values before automatic bleeding takes place. If the value is lower than before, will cause immediate rerouting of buffered values to match the new maximum.</p>
+<ul><li><p>status</p>
+</li>
+</ul>
+<p>Send a status message to the <code>:status</code> Supply with the given id.</p>
+<h3 id="status_message"><a class="u" href="#___top" title="go to top of document">status message</a></h3>
+<p>The status return message is a hash with the following keys:</p>
+<ul><li><p>allowed</p>
+</li>
+</ul>
+<p>The current number of messages / callables that is still allowed to be passed / executed.</p>
+<ul><li><p>bled</p>
+</li>
+</ul>
+<p>The number of messages routed to the <code>:bleed</code> Supply.</p>
+<ul><li><p>buffered</p>
+</li>
+</ul>
+<p>The number of messages currently buffered because of overflow.</p>
+<ul><li><p>emitted</p>
+</li>
+</ul>
+<p>The number of messages emitted (passed through).</p>
+<ul><li><p>id</p>
+</li>
+</ul>
+<p>The id of this status message (a monotonically increasing number). Handy if you want to log status messages.</p>
+<ul><li><p>limit</p>
+</li>
+</ul>
+<p>The current limit that is being applied.</p>
+<ul><li><p>vent-at</p>
+</li>
+</ul>
+<p>The maximum number of messages that may be buffered before they&#39;re automatically re-routed to the <code>:bleed</code> Supply.</p>
+<h3 id="Examples"><a class="u" href="#___top" title="go to top of document">Examples</a></h3>
+<p>Have a simple piece of code announce when it starts running asynchronously, wait a random amount of time, then announce when it is done. Do this 6 times, but don&#39;t let more than 3 of them run simultaneously.</p>
+<pre class="pod-block-code">my $s = Supply.from-list(^6);  # set up supply
+my $t = $s.throttle: 3,        # only allow 3 at a time
+{                              # code block to run
+    say &quot;running $_&quot;;          # announce we&#39;ve started
+    sleep rand;                # wait some random time
+    say &quot;done $_&quot;              # announce we&#39;re done
+}                              # don&#39;t need ; because } at end of line
+$t.wait;                       # wait for the supply to be done</pre>
+<p>and the result of one run will be:</p>
+<pre class="pod-block-code">running 0
+running 1
+running 2
+done 2
+running 3
+done 1
+running 4
+done 4
+running 5
+done 0
+done 3
+done 5
+</pre>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

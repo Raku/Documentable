@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Doing math with Raku</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/math.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Doing math with Raku</h1>
+        <p class="subtitle">Different mathematical paradigms and how they are implemented in this language</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+  <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Sets">Sets</a></td></tr>
+                                                                                                                <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Arithmetic">Arithmetic</a></td></tr>
+                                                                          <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Sequences">Sequences</a></td></tr>
+                                          <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#Mathematical_constants">Mathematical constants</a></td></tr>
+                <tr class="toc-level-1"><td class="toc-number">5</td><td class="toc-text"><a href="#Numerical_integration_of_ordinary_differential_equations">Numerical integration of ordinary differential equations</a></td></tr>
+  <tr class="toc-level-2"><td class="toc-number">5.1</td><td class="toc-text"><a href="#Requirements">Requirements</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">5.2</td><td class="toc-text"><a href="#Malthus_model">Malthus model</a></td></tr>
+                                               <tr class="toc-level-3"><td class="toc-number">5.2.1</td><td class="toc-text"><a href="#Step_by_step_explanation">Step by step explanation</a></td></tr>
+                                                    <tr class="toc-level-2"><td class="toc-number">5.3</td><td class="toc-text"><a href="#Logistic_model">Logistic model</a></td></tr>
+                                              <tr class="toc-level-2"><td class="toc-number">5.4</td><td class="toc-text"><a href="#Strong_Allee_Effect">Strong Allee Effect</a></td></tr>
+                                                 <tr class="toc-level-2"><td class="toc-number">5.5</td><td class="toc-text"><a href="#Weak_Allee_Effect">Weak Allee Effect</a></td></tr>
+                                             <tr class="toc-level-2"><td class="toc-number">5.6</td><td class="toc-text"><a href="#Extra_info">Extra info</a></td></tr>
+   
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <h1 id="Sets"><a class="u" href="#___top" title="go to top of document">Sets</a></h1>
+<p>Raku includes the <a href="/Documentable/integration-test/type/Set">Set</a> data type, as well as support for <a href="/Documentable/integration-test/language/setbagmix#Set/Bag_operators">most set operations</a>. <a href="https://en.wikipedia.org/wiki/Algebra_of_sets">Union and intersection</a> are not only native operations, they use their <em>natural</em> symbols, ∩ and ∪. For instance, this code would check the fundamental laws of the arithmetic of sets for a limited number of sets:</p>
+<pre class="pod-block-code">my @arbitrary-numbers = ^100;
+my \U = @arbitrary-numbers.Set;
+
+my @sets;
+
+@sets.push: Set.new( @arbitrary-numbers.pick( @arbitrary-numbers.elems.rand)) for @arbitrary-numbers;
+
+my (@union, @intersection);
+
+for @sets -&gt; $set {
+    @union.push: $set ∩ $set === $set;
+    @intersection.push: $set ∪ $set === $set;
+}
+
+say &quot;Idempotent union is &quot;, so @union.all;
+# OUTPUT: «Idempotent union is True»
+say &quot;Idempotent intersection is &quot;, so @intersection.all;
+# OUTPUT: «Idempotent intersection is True»
+my (@universe, @empty-set, @id-universe, @id-empty);
+
+for @sets -&gt; \A {
+    @universe.push: A ∪ U === U;
+    @id-universe.push: A ∩ U === A;
+    @empty-set.push: A ∩ ∅ === ∅;
+    @id-empty.push: A ∪ ∅ === A;
+}
+
+say &quot;Universe dominates &quot;, so @universe.all;    # OUTPUT: «Universe dominates True»
+say &quot;Empty set dominates &quot;, so @empty-set.all;  # OUTPUT: «Empty set dominates True»
+
+say &quot;Identity with U &quot;, so @id-universe.all;    # OUTPUT: «Identity with U True»
+say &quot;Identity with ∅ &quot;, so @id-empty.all;       # OUTPUT: «Identity with ∅ True»
+</pre>
+<p>In this code, which uses the <a href="/Documentable/integration-test/language/setbagmix#term_%E2%88%85">empty set</a> which is already defined by Raku, not only do we check if the equalities in the algebra of sets hold, we also use, via <a href="/Documentable/integration-test/language/variables#index-entry-\_(sigilless_variables)">sigilless variables</a> and the Unicode form of the set operators, expressions that are as close as possible to the original form; <code>A ∪ U === U</code>, for example, except for the use of the <a href="/Documentable/integration-test/routine/===">value identity operator <code>===</code></a> is very close to the actual mathematical expression in the <a href="https://en.wikipedia.org/wiki/Algebra_of_sets">Wikipedia entry</a>.</p>
+<p>We can even test De Morgan&#39;s law, as in the code below:</p>
+<pre class="pod-block-code">my @alphabet = &#39;a&#39;..&#39;z&#39;;
+my \U = @alphabet.Set;
+sub postfix:&lt;⁻&gt;(Set $a) { U ⊖ $a }
+my @sets;
+@sets.push: Set.new( @alphabet.pick( @alphabet.elems.rand)) for @alphabet;
+my ($de-Morgan1,$de-Morgan2) = (True,True);
+for @sets X @sets -&gt; (\A, \B){
+    $de-Morgan1 &amp;&amp;= (A ∪ B)⁻  === A⁻ ∩ B⁻;
+    $de-Morgan2 &amp;&amp;= (A ∩ B)⁻  === A⁻ ∪ B⁻;
+}
+say &quot;1st De Morgan is &quot;, $de-Morgan1;
+say &quot;2nd De Morgan is &quot;, $de-Morgan2;
+</pre>
+<p>We declare <code>⁻</code> as the <em>complement</em> operation, which computes the symmetrical difference ⊖ between the Universal set <code>U</code> and our set. Once that is declared, it is relatively easy to express operations such as the complementary of the union of A and B, <code>(A ∪ B)⁻</code>, with a notation that is very close to the original mathematical notation.</p>
+<h1 id="Arithmetic"><a class="u" href="#___top" title="go to top of document">Arithmetic</a></h1>
+<p>Raku can do arithmetic using different data types. <a href="/Documentable/integration-test/type/Num">Num</a>, <a href="/Documentable/integration-test/type/Rat">Rat</a> and <a href="/Documentable/integration-test/type/Complex">Complex</a> can all operate as a <a href="https://en.wikipedia.org/wiki/Field_(mathematics)">field under the operations of addition, subtraction, multiplication and division</a> (technically, it should be noted that data types dealing with floating point number representations are not a field in the mathematical sense due to the inherent imprecisions of their arithmetic. However, they constitute an approximate enough, computer friendly version of such mathematical objects for most of the cases). The equivalent mathematical fields are:</p>
+<table class="pod-table">
+<thead><tr>
+<th>Raku class</th> <th>Field</th>
+</tr></thead>
+<tbody>
+<tr> <td>Rat</td> <td>ℚ</td> </tr> <tr> <td>Num</td> <td>ℝ</td> </tr> <tr> <td>Complex</td> <td>ℂ</td> </tr>
+</tbody>
+</table><p>The <code>Int</code>s or ℤ, as they&#39;re usually called in mathematics, are not a mathematical field but rather a ring, since they are not closed under multiplicative inverses. However, if the integer division <code>div</code> is used, their operations will always yield other integers; if <code>/</code> is used, on the other hand, in general the result will be a <a href="/Documentable/integration-test/type/Rat">Rat</a>.</p>
+<p>Besides, <code>Int</code> can do infinite-precision arithmetic (or at least infinite as memory allows; <code>Numeric overflow</code> can still occur), without falling back to <a href="/Documentable/integration-test/type/Num">Num</a> if the number is too big:</p>
+<pre class="pod-block-code">my @powers = 2, 2 ** * ... Inf; say @powers[4].chars; # OUTPUT: «19729␤»</pre>
+<p>Also strictly speaking, the Rational class that behaves like a mathematical field is <a href="/Documentable/integration-test/type/FatRat">FatRat</a>. For efficiency reasons, operating with <code>Rat</code>s will fall back to <code>Num</code> when the numbers are big enough or when there is a big difference between numerator and denominator. <code>FatRat</code> can work with arbitrary precision, the same as the default <code>Int</code> class.</p>
+<p>Some modules in the ecosystem can work with additional data types mathematically:</p>
+<ul><li><p><a href="https://github.com/colomon/Math-Vector"><code>Math::Vector</code></a> basic operations for <a href="https://en.wikipedia.org/wiki/Coordinate_vector">vectors</a>.</p>
+</li>
+<li><p><a href="https://github.com/pierre-vigier/Perl6-Math-Matrix"><code>Math::Matrix</code></a> operates on <a href="https://en.wikipedia.org/wiki/Matrix_(mathematics)">matrices rings over numeric rings</a>.</p>
+</li>
+<li><p><a href="https://github.com/Util/Perl6-Math-Quaternion"><code>Math::Quaternion</code></a> operates on the <a href="https://en.wikipedia.org/wiki/Quaternion">quaternion algebra, ℍ</a>, which are a generalization of complex numbers.</p>
+</li>
+<li><p><a href="https://github.com/colomon/Math-Polynomial"><code>Math::Polynomial</code></a> works with polynomials, and is able to do simple arithmetic with them.</p>
+</li>
+<li><p><a href="https://github.com/raydiak/Math-Symbolic"><code>Math::Symbolic</code></a>, for symbolic math.</p>
+</li>
+</ul>
+<p>Numbers are duck-typed automatically to the numeric class they actually represent:</p>
+<pre class="pod-block-code">.^name.say for (4, ⅗, 1e-9, 3+.1i); # OUTPUT: «Int␤Rat␤Num␤Complex␤»</pre>
+<p>Arithmetic operations are performed by taking into account the type of operands:</p>
+<pre class="pod-block-code">say .33-.22-.11 == 0; # OUTPUT: «True␤»</pre>
+<p>In this case, all numbers are interpreted as <code>Rat</code>s, which makes the operation exact. In general, most other languages would interpret them as floating point numbers, which can also be achieved in Raku if needed:</p>
+<pre class="pod-block-code">say .33.Num -.22.Num - .11.Num; # OUTPUT: «1.3877787807814457e-17␤»</pre>
+<p>For cases such as this, Raku also includes an <code>approximately equal</code> operator, <a href="/Documentable/integration-test/language/operators#infix_=~=">≅</a></p>
+<pre class="pod-block-code">say .33.Num -.22.Num - .11.Num ≅ 0; # OUTPUT: «True␤»</pre>
+<h1 id="Sequences"><a class="u" href="#___top" title="go to top of document">Sequences</a></h1>
+<p>A <a href="https://en.wikipedia.org/wiki/Sequence">sequence</a> is an <em>enumerated</em> collection of objects in which repetitions are allowed, and also a first-class data type in Raku called <a href="/Documentable/integration-test/type/Seq">Seq</a>. <code>Seq</code> is able to represent infinite sequences, like the natural numbers:</p>
+<pre class="pod-block-code">my \𝕟 = 1,2 … ∞;
+say 𝕟[3];         # OUTPUT: «4␤»</pre>
+<p>Infinite sequences use ∞, <code>Inf</code> or <code>*</code> (Whatever) as terminator. <a href="/Documentable/integration-test/language/operators#infix_....html">…</a> is the list generator, which in fact can understand arithmetic and geometric progression sequences as long as you insert the first numbers:</p>
+<pre class="pod-block-code">say 1,5,9 … * &gt; 100;
+# OUTPUT: «(1 5 9 13 17 21 25 29 33 37 41 45 49 53 57 61 65 69 73 77 81 85 89 93 97 101)␤»
+say 1,3,9 … * &gt; 337; # OUTPUT: «(1 3 9 27 81 243 729)␤»</pre>
+<p>The first sequence will be terminated when the generated number is bigger than 100; the second sequence, which is a geometric progression, when it is bigger than 337.</p>
+<p>The fact that an arbitrary generator can be used makes easy to generate sequences such as <a href="https://en.wikipedia.org/wiki/Fibonacci_number">Fibonacci numbers</a>:</p>
+<pre class="pod-block-code">say 1,1, * + * … * &gt; 50;#  OUTPUT: «(1 1 2 3 5 8 13 21 34 55)␤»</pre>
+<p>We can, in fact, compute the approximation to the <a href="https://en.wikipedia.org/wiki/Golden_ratio">golden ratio</a> this way:</p>
+<pre class="pod-block-code">my @phis = (2.FatRat, 1 + 1 / * ... *);
+my @otherphi = (1 - @phis[200], 1 + 1 / * ... *);
+say @otherphi[^10, |(20, 30 ... 100)];  # OUTPUT:
+# «((-0.61803398874989484820458683436563811772030918
+# -0.61803398874989484820458683436563811772030918
+# -0.61803398874989484820458683436563811772030918
+# -0.61803398874989484820458683436563811772030918
+# -0.61803398874989484820458683436563811772030918
+# -0.618033…»</pre>
+<p>The <a href="https://github.com/ajs/perl6-Math-Sequences">Math::Sequences</a> module includes many mathematical sequences, already defined for you. It has many <a href="https://oeis.org/">sequences from the encyclopedia</a>, some of them with their original name, such as ℤ.</p>
+<p>Some set operators also operate on sequences, and they can be used to find out if an object is part of it:</p>
+<pre class="pod-block-code">say 876 ∈ (7,14 … * &gt; 1000) ; # OUTPUT: «False␤»</pre>
+<p>In this particular case, we can find out if <code>876</code> is a multiple of 7 straight away, but the same principle holds for other sequences using complicated generators. And we can use set inclusion operators too:</p>
+<pre class="pod-block-code">say (55,89).Set ⊂ (1,1, * + * … * &gt; 200); # OUTPUT: «True␤»</pre>
+<p>That said, it does not take into account if it is effectively a subsequence, just the presence of the two elements here. Sets have no order, and even if you don&#39;t explicitly cast the subsequence into a Set or explicitly cast it into a <code>Seq</code> it will be coerced into such for the application of the inclusion operator.</p>
+<h1 id="Mathematical_constants"><a class="u" href="#___top" title="go to top of document">Mathematical constants</a></h1>
+<p>Raku includes a set of mathematical constants:</p>
+<pre class="pod-block-code">say π; # OUTPUT: «3.141592653589793»
+say τ; # Equivalent to 2π; OUTPUT: «6.283185307179586»
+say 𝑒; # OUTPUT: «2.718281828459045␤»</pre>
+<p>These constants are also available through <a href="/Documentable/integration-test/language/unicode_ascii">ASCII equivalents</a>: <code>e</code>, <code>pi</code> and <code>tau</code>.</p>
+<p>The <a href="https://github.com/JJ/p6-math-constants">Math::Constants</a> module includes an additional series of physical and mathematical constants such as the previously mentioned golden ratio φ or the Planck&#39;s constant ℎ.</p>
+<p>Since Raku allows for definition of variables that use Unicode graphemes, and also variable and constant names without any kind of sigil, it is considered a good practice to use the actual mathematical name of concepts to denominate them wherever possible.</p>
+<h1 id="Numerical_integration_of_ordinary_differential_equations"><a class="u" href="#___top" title="go to top of document">Numerical integration of ordinary differential equations</a></h1>
+<p>Raku is an amazing programming language, and of course, you can do a lot of cool math with it. A great amount of work during an applied mathematician&#39;s work is to simulate the models they create. For this reason, in every coding language, a numerical integrator is a must-have. Learning how to do this in Raku can be very useful.</p>
+<h2 id="Requirements"><a class="u" href="#___top" title="go to top of document">Requirements</a></h2>
+<p>In Raku there are some modules in the ecosystem that can make it easier:</p>
+<ul><li><p><a href="https://github.com/moritz/Math-Model"><code>Math::Model</code></a> which lets you write mathematical and physical models in an easy and natural way.</p>
+</li>
+<li><p><a href="https://github.com/moritz/Math-RungeKutta"><code>Math::RungeKutta</code></a> Runge-Kutta integration for systems of ordinary, linear differential equations.</p>
+</li>
+</ul>
+<p>For this example we are going to use <a href="https://github.com/moritz/Math-Model"><code>Math::Model</code></a> for its useful syntax, but remember that this module requires <a href="https://github.com/moritz/Math-RungeKutta"><code>Math::RungeKutta</code></a> as well. Simply install them with <em>zef</em> before using these examples.</p>
+<h2 id="Malthus_model"><a class="u" href="#___top" title="go to top of document">Malthus model</a></h2>
+<p>Let&#39;s start with the <em>&#39;Hello World&#39;</em> of mathematical Ecology: <a href="https://en.wikipedia.org/wiki/Malthusian_growth_model">Malthusian growth model</a>. A Malthusian growth model, sometimes called a simple exponential growth model, is essentially exponential growth based on the idea of the function being proportional to the speed to which the function grows. The equation, then, looks like this:</p>
+<p><em>dx/dt = g*x</em></p>
+<p><em>x(0) = x_0</em></p>
+<p>Where <em>g</em> is the population growth rate, sometimes called Malthusian parameter.</p>
+<p>How can we translate that into Raku? Well Math::Model brings some help with a very understandable way to do that:</p>
+<pre class="pod-block-code">use Math::Model;
+
+my $m = Math::Model.new(
+    derivatives =&gt; {
+        velocity =&gt; &#39;x&#39;,
+    },
+    variables   =&gt; {
+        velocity           =&gt; { $:growth_constant * $:x },
+        growth_constant    =&gt; { 1 }, # basal growth rate
+    },
+    initials    =&gt; {
+        x       =&gt; 3,
+    },
+    captures    =&gt; (&#39;x&#39;),
+);
+
+$m.integrate(:from(0), :to(8), :min-resolution(0.5));
+$m.render-svg(&#39;population growth malthus.svg&#39;, :title(&#39;population growth&#39;));
+</pre>
+<p>To fully understand what is going on, let&#39;s go through it step by step.</p>
+<h3 id="Step_by_step_explanation"><a class="u" href="#___top" title="go to top of document">Step by step explanation</a></h3>
+<ul><li><p>First we load the module that make the calculations: <a href="https://github.com/moritz/Math-Model"><code>Math::Model</code></a>.</p>
+<pre class="pod-block-code">use Math::Model;
+</pre>
+</li>
+<li><p>We create the model to add all the information in it.</p>
+<pre class="pod-block-code">my $m = Math::Model.new(
+</pre>
+</li>
+<li><p>We declare the derivatives that are in our model. In this case, if you remember our equation, we have our variable <em>x</em> and its derivative <em>x&#39;</em> (usually know as the velocity).</p>
+<pre class="pod-block-code">derivatives =&gt; {
+    velocity =&gt; &#39;x&#39;,
+},
+</pre>
+</li>
+<li><p>After that, we declare how our models evolve. We just need formulas for the derivatives that are not also integration variables (in this case, only <em>x</em>), and for other variables we use in the formulas (the growth rate).</p>
+<pre class="pod-block-code">variables   =&gt; {
+    velocity           =&gt; { $:growth_constant * $:x},
+    growth_constant    =&gt; { 1 }, # basal growth rate
+},
+</pre>
+</li>
+<li><p>Finally we declare our initial conditions and use <em>captures</em> to tell <a href="https://github.com/moritz/Math-Model"><code>Math::Model</code></a> which variable or variables to record while the simulation is running.</p>
+<pre class="pod-block-code">initials    =&gt; {
+    x       =&gt; 3,
+},
+captures    =&gt; (&#39;x&#39;),
+</pre>
+</li>
+</ul>
+<p>At this point our model is set. We need to run the simulation and render a cool plot about our results:</p>
+<pre class="pod-block-code">$m.integrate(:from(0), :to(8), :min-resolution(0.5));
+$m.render-svg(&#39;population growth malthus.svg&#39;, :title(&#39;population growth&#39;));
+</pre>
+<p>There, we select our time limits and the resolution. Next, we generate a plot. All understood? Well, let&#39;s see our result!</p>
+<p><a href="https://rawgit.com/thebooort/perl-6-math-model-tutorial/master/population%20growth%20malthus.svg">link to the image</a></p>
+<p>Looks great! But to be honest, it is quite unrepresentative. Let&#39;s explore other examples from more complex situations!</p>
+<h2 id="Logistic_model"><a class="u" href="#___top" title="go to top of document">Logistic model</a></h2>
+<p>Resources aren&#39;t infinite and our population is not going to grow forever. P-F Verhulst thought the same thing, so he presented the <a href="https://en.wikipedia.org/wiki/Logistic_function">logistic model</a>. This model is a common model of population growth, where the rate of reproduction is proportional to both the existing population and the amount of available resources, all else being equal. It looks like this:</p>
+<p><em>dx/dt = g*x*(1-x/k)</em></p>
+<p><em>x(0)=x_0</em></p>
+<p>where the constant g defines the growth rate and k is the carrying capacity. Modifying the above code we can simulate its behavior in time:</p>
+<pre class="pod-block-code">use Math::Model;
+
+my $m = Math::Model.new(
+    derivatives =&gt; {
+        velocity =&gt; &#39;x&#39;,
+    },
+    variables   =&gt; {
+        velocity           =&gt; { $:growth_constant * $:x - $:growth_constant * $:x * $:x / $:k },
+        growth_constant    =&gt; { 1 },   # basal growth rate
+        k                  =&gt; { 100 }, # carrying capacity
+    },
+    initials    =&gt; {
+        x       =&gt; 3,
+    },
+    captures    =&gt; (&#39;x&#39;),
+);
+
+$m.integrate(:from(0), :to(8), :min-resolution(0.5));
+$m.render-svg(&#39;population growth logistic.svg&#39;, :title(&#39;population growth&#39;));
+</pre>
+<p>Let&#39;s look at our cool plot: <a href="https://rawgit.com/thebooort/perl-6-math-model-tutorial/master/population%20growth%20logistic.svg">link to the image</a></p>
+<p>As you can see population growths till a maximum.</p>
+<h2 id="Strong_Allee_Effect"><a class="u" href="#___top" title="go to top of document">Strong Allee Effect</a></h2>
+<p>Interesting, isn&#39;t it? Even if these equations seem basic they are linked to a lot of behaviors in our world, like tumor growth. But, before end, let me show you a curious case. Logistic model could be accurate but... What happens when, from a certain threshold, the population size is so small that the survival rate and / or the reproductive rate drops due to the individual&#39;s inability to find other ones?</p>
+<p>Well, this is an interesting phenomenon described by W.C.Allee, usually known as <a href="https://en.wikipedia.org/wiki/Allee_effect">Allee effect</a>. A simple way to obtain different behaviors associated with this effect is to use the logistic model as a departure, add some terms, and get a cubic growth model like this one:</p>
+<p><em>dx/dt=r*x*(x/a-1)*(1-x/k)</em></p>
+<p>where all the constants are the same as before and A is called <em>critical point</em>.</p>
+<p>Our code would be:</p>
+<pre class="pod-block-code">use Math::Model;
+
+my $m = Math::Model.new(
+    derivatives =&gt; {
+        velocity_x    =&gt; &#39;x&#39;,
+    },
+    variables   =&gt; {
+        velocity_x           =&gt; { $:growth_constant * $:x *($:x/$:a -1)*(1- $:x/$:k) },
+        growth_constant    =&gt; { 0.7 },   # basal growth rate
+        k                  =&gt; { 100 }, # carrying capacity
+        a                  =&gt; { 15 },  # critical point
+    },
+    initials    =&gt; {
+        x       =&gt; 15,
+    },
+    captures    =&gt; (&#39;x&#39;),
+);
+
+$m.integrate(:from(0), :to(100), :min-resolution(0.5));
+$m.render-svg(&#39;population growth allee.svg&#39;, :title(&#39;population growth&#39;));
+</pre>
+<p>Try to execute this one yourself to see the different behaviors that arise when you change the initial condition around the critical point!</p>
+<h2 id="Weak_Allee_Effect"><a class="u" href="#___top" title="go to top of document">Weak Allee Effect</a></h2>
+<p>Whilst the strong Allee effect is a demographic Allee effect with a critical population size or density, the weak Allee effect is a demographic Allee effect without a critical population size or density, i.e., a population exhibiting a weak Allee effect will possess a reduced per capita growth rate at lower population density or size. However, even at this low population size or density, the population will always exhibit a positive per capita growth rate. This model differs lightly from the strong one, getting a new formula:</p>
+<p><em>dx/dt=r*x*(1-x/k)*(x/a)**n</em>, with n&gt;0</p>
+<p>Our code would be:</p>
+<pre class="pod-block-code">use Math::Model;
+
+my $m = Math::Model.new(
+    derivatives =&gt; {
+        velocity_x =&gt; &#39;x&#39;,
+    },
+    variables   =&gt; {
+        velocity_x           =&gt; { $:growth_constant * $:x *(1- $:x/$:k)*($:x/$:a)**$:n },
+        growth_constant    =&gt; { 0.7 },   # basal growth rate
+        k                  =&gt; { 100 }, # carrying capacity
+        a                  =&gt; { 15 },  # critical point
+        n                  =&gt; { 4  }
+    },
+    initials    =&gt; {
+        x       =&gt; 15,
+    },
+    captures    =&gt; (&#39;x&#39;),
+);
+
+$m.integrate(:from(0), :to(100), :min-resolution(0.5));
+$m.render-svg(&#39;population growth allee.svg&#39;, :title(&#39;population growth&#39;));
+</pre>
+<h2 id="Extra_info"><a class="u" href="#___top" title="go to top of document">Extra info</a></h2>
+<p>Do you like physics? Check the original post by the creator of the modules that have been used, Moritz Lenz: <a href="https://perlgeek.de/blog-en/perl-6/physical-modelling.html">https://perlgeek.de/blog-en/perl-6/physical-modelling.html</a>.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/math.pod6">https://github.com/Raku/doc/blob/master/doc/Language/math.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

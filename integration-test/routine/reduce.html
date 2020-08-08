@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>routine reduce</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/routine.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-sub.html"> Sub </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-method.html"> Method </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-term.html"> Term </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-operator.html"> Operator </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-trait.html"> Trait </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-submethod.html"> Submethod </a>
+            </div></div></div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">routine reduce</h1>
+        <p class="subtitle"></p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#class_Any">class Any</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#(Any)_routine_reduce">(Any) routine reduce</a></td></tr>
+                  <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#class_List">class List</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#(List)_routine_reduce">(List) routine reduce</a></td></tr>
+                                                                                                            <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#class_Supply">class Supply</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#(Supply)_method_reduce">(Supply) method reduce</a></td></tr>
+      
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Documentation for routine <code>reduce</code> assembled from the following types:</p>
+<h1 id="class_Any"><a class="u" href="#___top" title="go to top of document">class Any</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Any#routine_reduce">Any</a></p>
+<h2 id="(Any)_routine_reduce"><a href="/Documentable/integration-test/type/Any#routine_reduce">(Any) routine reduce</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method reduce(Any:U: &amp; --&gt; Nil)
+multi method reduce(Any:D: &amp;with)
+multi sub reduce (&amp;with, +list)</pre>
+<p>This routine combines the elements in a list-y object, and produces a single result, by applying a binary subroutine. It applies its argument (or first argument for the sub form) as an operator to all the elements in the object (or second argument for the sub form), producing a single result. The subroutine must be either an <a href="https://docs.raku.org/language/operators#index-entry-infix_operator">infix operator</a> or take two positional arguments. When using an infix operator, we must provide the code object of its subroutine version, i.e., the operator category, followed by a colon, then a list quote construct with the symbol(s) that make up the operator (e.g., <code>infix:&lt;+&gt;</code>). See <a href="/Documentable/integration-test/language/operators">Operators</a>.</p>
+<pre class="pod-block-code">say (1..4).reduce(&amp;infix:&lt;+&gt;);   # OUTPUT: «10␤»
+say reduce &amp;infix:&lt;+&gt;, 1..4;     # OUTPUT: «10␤»
+say reduce &amp;min, 1..4;           # OUTPUT: «1␤»
+
+sub hyphenate(Str \a, Str \b) { a ~ &#39;-&#39; ~ b }
+say reduce &amp;hyphenate, &#39;a&#39;..&#39;c&#39;; # OUTPUT: «a-b-c␤»</pre>
+<p>Applied to a class, the routine will always return <code>Nil</code>.</p>
+<pre class="pod-block-code">say Range.reduce(&amp;infix:&lt;+&gt;);    # OUTPUT: «Nil␤»
+say Str.reduce(&amp;infix:&lt;~&gt;);      # OUTPUT: «Nil␤»</pre>
+<p>See <a href="/Documentable/integration-test/type/List#routine_reduce">List.reduce</a> for a more thorough discussion.</p>
+<h1 id="class_List"><a class="u" href="#___top" title="go to top of document">class List</a></h1>
+<p>From <a href="/Documentable/integration-test/type/List#routine_reduce">List</a></p>
+<h2 id="(List)_routine_reduce"><a href="/Documentable/integration-test/type/List#routine_reduce">(List) routine reduce</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method reduce(Any:D: &amp;with)
+multi sub reduce (&amp;with, +list)</pre>
+<p>Returns a single &quot;combined&quot; value from a list of arbitrarily many values, by iteratively applying a routine which knows how to combine <em>two</em> values. In addition to the subroutine and the list, an initial value can be provided to initialize the reduction, which ends up being the return value if the list is empty. Thus <code>reduce f, init, list</code> combines the elements of the list from left to right, as is shown in the following pseudocode:</p>
+<pre class="pod-block-code">result0 = init
+result1 = f(result0, list[0])
+result2 = f(result1, list[1])
+...
+resultn = f(resultn-1, list[n-1])
+</pre>
+<p><code>resultn</code> is the final result for an n-element list.</p>
+<pre class="pod-block-code">say reduce &amp;infix:&lt;+&gt;, (1, 2, 3); # OUTPUT: «6␤»
+say (1, 2, 3).reduce: &amp;infix:&lt;+&gt;; # OUTPUT: «6␤»
+say reduce &amp;max, (5, 9, 12, 1);   # OUTPUT: «12␤»</pre>
+<p>If <code>list</code> contains just a single element, the operator is applied to that single element if possible; if not, it returns the element itself.</p>
+<pre class="pod-block-code">say reduce &amp;infix:&lt;-&gt;, (10,);     # OUTPUT: «10␤»</pre>
+<p>When the list contains no elements, an exception is thrown, unless <code>&amp;with</code> is an <em>operator</em> with a known identity value (e.g., the identity value of <code>infix:&lt;+&gt;</code> is 0). For this reason, you&#39;re advised to prefix the input list with an initial value (or explicit identity value):</p>
+<pre class="pod-block-code">my \strings = &quot;One good string!&quot;, &quot;And one another good string!&quot;;
+say reduce { $^a ~ $^b }, &#39;&#39;, |strings;               # like strings.join
+
+my \numbers = 1, 2, 3, 4, 5;
+say reduce { $^a &gt; $^b ?? $^a !! $^b }, 0, |numbers; # like numbers.max
+
+sub count-and-sum-evens( (Int \count, Int \sum), Int \x ) {
+    x %% 2 ?? (count+1, sum+x) !! (count, sum)
+}
+
+say reduce &amp;count-and-sum-evens, (0, 0), |numbers;    # OUTPUT: «(2 6)␤»</pre>
+<p>In the last example, since <code>reduce</code> only supports one initial value we use a <code>List</code> with two values, which is by itself a single value. The <code>count-and-sum-evens</code> subroutine takes two positional values: a <code>List</code> of two <code>Int</code>s and an <code>Int</code>, and return a <code>List</code> storing the count and sum of the even integers accumulated.</p>
+<p>If <code>&amp;with</code> is the code object of an <em>operator</em>, its inherent identity value and associativity is respected - in other words, <code>(VAL1, VAL2, VAL3).reduce(&amp;infix:&lt;OP&gt;)</code> is the same as <code>VAL1 OP VAL2 OP VAL3</code> even for operators which aren&#39;t left-associative:</p>
+<pre class="pod-block-code"># Raise 2 to the 81st power, because 3 to the 4th power is 81
+(2,3,4).reduce(&amp;infix:&lt;**&gt;).lsb.say;  # OUTPUT: «81␤»
+(2**(3**4)).lsb.say;                  # OUTPUT: «81␤»
+(2**3**4).lsb.say;                    # OUTPUT: «81␤»
+
+# Subtract 4 from -1, because 2 minus 3 is -1
+(2,3,4).reduce(&amp;infix:&lt;-&gt;).say;       # OUTPUT: «-5␤»
+((2-3)-4).say;                        # OUTPUT: «-5␤»
+(2-3-4).say;                          # OUTPUT: «-5␤»</pre>
+<p>Since reducing with an infix operator is a common thing to do, the <a href="/Documentable/integration-test/language/operators#Reduction_metaoperators">reduction metaoperator</a> <code>[ ]</code> provides a syntactic shortcut. Thus, instead of passing the operator&#39;s code object to <code>reduce</code>, just pass the operator directly to <code>[ ]</code>. To use a user-defined subroutine instead, provide an additional layer of square brackets around the subroutine&#39;s code object:</p>
+<pre class="pod-block-code">say [*] (1, 2, 3, 4);       # OUTPUT: «24␤»
+say [min] (4, 2, 1, 3);     # OUTPUT: «1␤»
+
+sub mult { $^a * $^b };
+say [[&amp;mult]] (1, 2, 3, 4); # OUTPUT: «24␤»</pre>
+<p>Semantically, all the following do the same thing:</p>
+<pre class="pod-block-code">my \numbers = 1, 2, 3, 4, 5;
+say reduce { $^a + $^b }, 0, |numbers;
+say reduce * + *, 0, |numbers;
+say reduce &amp;[+], numbers; # operator does not need explicit identity value
+say [+] numbers;</pre>
+<p>Since <code>reduce</code> is an implicit loop that iterates over with its <em>reducing</em> subroutine, it responds to <code>next</code>, <code>last</code> and <code>redo</code> statements inside <code>&amp;with</code>:</p>
+<pre class="pod-block-code">sub last-after-seven { last if $^a &gt; 7; $^a + $^b };
+say (2, 3, 4, 5).reduce: &amp;last-after-seven; # OUTPUT: «9␤»</pre>
+<p>Whether <code>reduce</code> accumulates the elements starting from the left or from the right depends on the operator. In the functional programming world, this operation is generally called a <a href="https://en.wikipedia.org/wiki/Fold_%28higher-order_function%29#Folds_on_lists">fold</a>. With a right-associative operator it is a <em>right fold</em>, otherwise (and usually) it is a <em>left fold</em>. In Raku, you can specify the associativity of an operator with the <a href="/Documentable/integration-test/language/functions#index-entry-is_assoc_(trait)"><code>is assoc</code></a>.</p>
+<pre class="pod-block-code">sub infix:&lt;foo&gt;($a, $b) is assoc&lt;right&gt; { &quot;($a, $b)&quot; }
+say [foo] 1, 2, 3, 4; # OUTPUT: «(1, (2, (3, 4)))␤»
+
+sub infix:&lt;bar&gt;($a, $b) is assoc&lt;left&gt; { &quot;($a, $b)&quot; }
+say [bar] 1, 2, 3, 4; # OUTPUT: «(((1, 2), 3), 4)␤»</pre>
+<p><strong>Practical example 1:</strong> In this example, we generate a random-ish math formula (e.g., &quot;(4 + ((3 * x) + 11) / 6))&quot;) using <code>reduce</code>.</p>
+<pre class="pod-block-code">my @ops = [Z] (&lt;+ - * /&gt;, 1..20)».roll(4);
+
+say (&#39;x&#39;, |@ops).reduce: -&gt; $formula, [$op, $number] {
+    Bool.pick ?? &quot;($formula $op $number)&quot;
+              !! &quot;($number $op $formula)&quot;
+}</pre>
+<p><strong>Practical example 2:</strong> Suppose we have a polynomial represented as a list of integer coefficients, c[n-1], c[n-2], ..., c[0], where c[i] is the coefficient of xi. We can evaluate it using <code>map</code> and <code>reduce</code> as follows:</p>
+<pre class="pod-block-code">sub evaluate(List:D \c where c.all ~~ Int, Rat:D \x --&gt; Rat:D) {
+    my \xi = (c.elems ^... 0).map: -&gt; \i { x ** i }; # [x^(n-1), ..., x^0]
+    my \axi = [+] c Z* xi;                           # [c[n-1]*x^(n-1), ..., c[*]x^0]
+    [+] axi;                                         # sum of axi
+}
+
+my \c = 2, 3, 1;       # 2x² + 3x + 1
+say evaluate c, 3.0;   # OUTPUT: «28␤»
+say evaluate c, 10.0;  # OUTPUT: «231␤»</pre>
+<h1 id="class_Supply"><a class="u" href="#___top" title="go to top of document">class Supply</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Supply#method_reduce">Supply</a></p>
+<h2 id="(Supply)_method_reduce"><a href="/Documentable/integration-test/type/Supply#method_reduce">(Supply) method reduce</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method reduce(Supply:D: &amp;with --&gt; Supply:D)</pre>
+<p>Creates a &quot;reducing&quot; supply, which will emit a single value with the same semantics as <a href="/Documentable/integration-test/type/List#routine_reduce">List.reduce</a>.</p>
+<pre class="pod-block-code">my $supply = Supply.from-list(1..5).reduce({$^a + $^b});
+$supply.tap(-&gt; $v { say &quot;$v&quot; }); # OUTPUT: «15␤»</pre>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

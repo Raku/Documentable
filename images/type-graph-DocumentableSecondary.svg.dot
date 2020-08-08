@@ -1,0 +1,15 @@
+digraph "perl6-type-graph" {
+    rankdir=BT;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "Documentable::Secondary" [color="#000000", fontcolor="#000000", href="/type/Documentable::Secondary", fontname="FreeSans"];
+    "Any" [color="#000000", fontcolor="#000000", href="/type/Any", fontname="FreeSans"];
+    "Documentable" [color="#000000", fontcolor="#000000", href="/type/Documentable", fontname="FreeSans"];
+
+    // Superclasses
+    "Documentable::Secondary" -> "Documentable" [color="#000000"];
+    "Documentable" -> "Any" [color="#000000"];
+
+    // Roles
+}

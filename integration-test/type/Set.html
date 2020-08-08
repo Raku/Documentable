@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>class Set</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/type.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-basic.html"> Basic </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-composite.html"> Composite </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-domain-specific.html"> Domain-specific </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-exception.html"> Exceptions </a>
+            </div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Type/Set.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">class Set</h1>
+        <p class="subtitle">Immutable collection of distinct objects</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+                               <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Creating_Set_objects">Creating <code class="pod-code-inline">Set</code> objects</a></td></tr>
+                                          <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Operators">Operators</a></td></tr>
+                           <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Subroutines">Subroutines</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#sub_set">sub set</a></td></tr>
+      <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#See_Also">See Also</a></td></tr>
+  <tr class="toc-level-1"><td class="toc-number">5</td><td class="toc-text"><a href="#Type_Graph">Type Graph</a></td></tr>
+  <tr class="toc-level-1"><td class="toc-number">6</td><td class="toc-text"><a href="#Routines_supplied_by_role_Setty">Routines supplied by role Setty</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">8.1</td><td class="toc-text"><a href="#(Setty)_method_new-from-pairs">(Setty) method new-from-pairs</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">8.2</td><td class="toc-text"><a href="#(Setty)_method_grab">(Setty) method grab</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">8.3</td><td class="toc-text"><a href="#(Setty)_method_grabpairs">(Setty) method grabpairs</a></td></tr>
+                   <tr class="toc-level-2"><td class="toc-number">8.4</td><td class="toc-text"><a href="#(Setty)_method_pick">(Setty) method pick</a></td></tr>
+            <tr class="toc-level-2"><td class="toc-number">8.5</td><td class="toc-text"><a href="#(Setty)_method_pickpairs">(Setty) method pickpairs</a></td></tr>
+                                   <tr class="toc-level-2"><td class="toc-number">8.6</td><td class="toc-text"><a href="#(Setty)_method_roll">(Setty) method roll</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">8.7</td><td class="toc-text"><a href="#(Setty)_method_antipairs">(Setty) method antipairs</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">8.8</td><td class="toc-text"><a href="#(Setty)_method_keys">(Setty) method keys</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">8.9</td><td class="toc-text"><a href="#(Setty)_method_values">(Setty) method values</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">8.10</td><td class="toc-text"><a href="#(Setty)_method_kv">(Setty) method kv</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">8.11</td><td class="toc-text"><a href="#(Setty)_method_elems">(Setty) method elems</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">8.12</td><td class="toc-text"><a href="#(Setty)_method_total">(Setty) method total</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">8.13</td><td class="toc-text"><a href="#(Setty)_method_minpairs">(Setty) method minpairs</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">8.14</td><td class="toc-text"><a href="#(Setty)_method_maxpairs">(Setty) method maxpairs</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">8.15</td><td class="toc-text"><a href="#(Setty)_method_default">(Setty) method default</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">8.16</td><td class="toc-text"><a href="#(Setty)_method_ACCEPTS">(Setty) method ACCEPTS</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">8.17</td><td class="toc-text"><a href="#(Setty)_method_Bag">(Setty) method Bag</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">8.18</td><td class="toc-text"><a href="#(Setty)_method_BagHash">(Setty) method BagHash</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">8.19</td><td class="toc-text"><a href="#(Setty)_method_Bool">(Setty) method Bool</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">8.20</td><td class="toc-text"><a href="#(Setty)_method_Mix">(Setty) method Mix</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">8.21</td><td class="toc-text"><a href="#(Setty)_method_MixHash">(Setty) method MixHash</a></td></tr>
+       <tr class="toc-level-1"><td class="toc-number">7</td><td class="toc-text"><a href="#Routines_supplied_by_role_QuantHash">Routines supplied by role QuantHash</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">8.22</td><td class="toc-text"><a href="#(QuantHash)_method_hash">(QuantHash) method hash</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">8.23</td><td class="toc-text"><a href="#(QuantHash)_method_Hash">(QuantHash) method Hash</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">8.24</td><td class="toc-text"><a href="#(QuantHash)_method_of">(QuantHash) method of</a></td></tr>
+                 <tr class="toc-level-2"><td class="toc-number">8.25</td><td class="toc-text"><a href="#(QuantHash)_method_keyof">(QuantHash) method keyof</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">8.26</td><td class="toc-text"><a href="#(QuantHash)_method_Setty">(QuantHash) method Setty</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">8.27</td><td class="toc-text"><a href="#(QuantHash)_method_Baggy">(QuantHash) method Baggy</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">8.28</td><td class="toc-text"><a href="#(QuantHash)_method_Mixy">(QuantHash) method Mixy</a></td></tr>
+        <tr class="toc-level-1"><td class="toc-number">8</td><td class="toc-text"><a href="#Routines_supplied_by_role_Associative">Routines supplied by role Associative</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">8.29</td><td class="toc-text"><a href="#(Associative)_method_of">(Associative) method of</a></td></tr>
+                <tr class="toc-level-2"><td class="toc-number">8.30</td><td class="toc-text"><a href="#(Associative)_method_keyof">(Associative) method keyof</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">8.31</td><td class="toc-text"><a href="#(Associative)_method_AT-KEY">(Associative) method AT-KEY</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">8.32</td><td class="toc-text"><a href="#(Associative)_method_EXISTS-KEY">(Associative) method EXISTS-KEY</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">8.33</td><td class="toc-text"><a href="#(Associative)_method_STORE">(Associative) method STORE</a></td></tr>
+            
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <pre class="pod-block-code">class Set does Setty { }</pre>
+<p>A <code>Set</code> is an immutable set, meaning a collection of distinct elements in no particular order. (For <em>mutable</em> sets, see <a href="/Documentable/integration-test/type/SetHash">SetHash</a> instead.)</p>
+<p>Objects/values of any type are allowed as set elements. Within a <code>Set</code>, every element is guaranteed to be unique (in the sense that no two elements would compare positively with the <a href="/Documentable/integration-test/routine/===">===</a> operator):</p>
+<pre class="pod-block-code">my $fruits = set &lt;peach apple orange apple apple&gt;;
+
+say $fruits.elems;      # OUTPUT: «3␤»
+say $fruits.keys.sort;  # OUTPUT: «apple orange peach␤»
+</pre>
+<p><code>Set</code>s can be treated as object hashes using the <code>{ }</code> postcircumfix operator, which returns the value <code>True</code> for keys that are elements of the set, and <code>False</code> for keys that aren&#39;t:</p>
+<pre class="pod-block-code">my $fruits = set &lt;peach apple orange apple apple&gt;;
+say $fruits&lt;apple&gt;;  # OUTPUT: «True␤»
+say $fruits&lt;kiwi&gt;;   # OUTPUT: «False␤»</pre>
+<h1 id="Creating_Set_objects"><a class="u" href="#___top" title="go to top of document">Creating <code>Set</code> objects</a></h1>
+<p><code>Set</code>s can be composed using the <a href="#sub_set">set</a> subroutine (or <code>Set.new</code>, for which it is a shorthand). Any positional parameters, regardless of their type, become elements of the set:</p>
+<pre class="pod-block-code">my $n = set &quot;zero&quot; =&gt; 0, &quot;one&quot; =&gt; 1, &quot;two&quot; =&gt; 2;
+say $n.keys.raku;        # OUTPUT: «(:two(2), :zero(0), :one(1)).Seq␤»
+say $n.keys.map(&amp;WHAT);  # OUTPUT: «((Pair) (Pair) (Pair))␤»</pre>
+<p>Alternatively, the <code>.Set</code> coercer (or its functional form, <code>Set()</code>) can be called on an existing object to coerce it to a <code>Set</code>. Its semantics depend on the type and contents of the object. In general it evaluates the object in list context and creates a set with the resulting items as elements, although for Hash-like objects or Pair items, only the keys become elements of the set - and keys mapped to values which boolify to <code>False</code> are skipped:</p>
+<pre class="pod-block-code">my $n = (&quot;zero&quot; =&gt; 0, &quot;one&quot; =&gt; 1, &quot;two&quot; =&gt; 2).Set;
+say $n.keys.raku;        # OUTPUT: «(&quot;one&quot;, &quot;two&quot;).Seq␤»
+say $n.keys.map(&amp;WHAT);  # OUTPUT: «((Str) (Str))␤»</pre>
+<p>Furthermore, you can get a <code>Set</code> by using set operators (see next section) on objects of other types such as <a href="/Documentable/integration-test/type/List">List</a>, which will act like they internally call <code>.Set</code> on them before performing the operation. Be aware of the tight precedence of those operators though, which may require you to use parentheses around arguments:</p>
+<pre class="pod-block-code">say (1..5) (^) 4;  # OUTPUT: «set(1, 2, 3, 5)␤»</pre>
+<p>Of course, you can also create a <code>Set</code> with the <code>.new</code> method.</p>
+<pre class="pod-block-code">my $fruits = Set.new( &lt;peach apple orange apple apple&gt; );</pre>
+<p>Since 6.d (2019.03 and later) you can also use this syntax for parameterization of the <code>Set</code>, to specify which type of values are acceptable:</p>
+<pre class="pod-block-code"># only allow strings (Str) in the Set
+my $fruits = Set[Str].new( &lt;peach apple orange apple apple&gt; );
+
+# only allow whole numbers (Int) in the Set
+my $fruits = Set[Int].new( &lt;peach apple orange apple apple&gt; );
+# Type check failed in binding; expected Int but got Str (&quot;peach&quot;)</pre>
+<p>Finally, you can create Set masquerading as a hash by using the <code>is</code> trait:</p>
+<pre class="pod-block-code">my %s is Set = &lt;a b c&gt;;
+say %s&lt;a&gt;;  # True
+say %s&lt;d&gt;;  # False</pre>
+<p>Since 6.d (2019.03 and later), this syntax also allows you to specify the type of values you would like to allow:</p>
+<pre class="pod-block-code"># limit to strings
+my %s is Set[Str] = &lt;a b c&gt;;
+say %s&lt;a&gt;;  # True
+say %s&lt;d&gt;;  # False
+
+# limit to whole numbers
+my %s is Set[Int] = &lt;a b c&gt;;
+# Type check failed in binding; expected Int but got Str (&quot;a&quot;)</pre>
+<h1 id="Operators"><a class="u" href="#___top" title="go to top of document">Operators</a></h1>
+<p>Raku provides common set operators, which can take <code>Set</code>s (or any other collections) as input, and return result sets as new <code>Set</code> objects. For example:</p>
+<pre class="pod-block-code">my ($a, $b) = set(1, 2, 3), set(2, 4);
+
+say $a (&lt;) $b;  # OUTPUT: «False␤»
+say $a (&amp;) $b;  # OUTPUT: «set(2)␤»
+say $a (^) $b;  # OUTPUT: «set(1, 3, 4)␤»
+
+# Unicode versions:
+say $a ⊂ $b;  # OUTPUT: «False␤»
+say $a ∩ $b;  # OUTPUT: «set(2)␤»
+say $a ⊖ $b;  # OUTPUT: «set(1, 3, 4)␤»
+</pre>
+<p>See <a href="/Documentable/integration-test/language/setbagmix#Set/Bag_operators">Set/Bag Operators</a> for a complete list of set operators with detailed explanations.</p>
+<h1 id="Subroutines"><a class="u" href="#___top" title="go to top of document">Subroutines</a></h1>
+<h2 id="sub_set"><a class="u" href="#___top" title="go to top of document">sub set</a></h2>
+<pre class="pod-block-code">sub set(*@args --&gt; Set)</pre>
+<p>Creates a <code>Set</code> from the given <code>@args</code></p>
+<h1 id="See_Also"><a class="u" href="#___top" title="go to top of document">See Also</a></h1>
+<p><a href="/Documentable/integration-test/language/setbagmix">Sets, Bags, and Mixes</a></p>
+<h1 id="Type_Graph"><a class="u" href="#___top" title="go to top of document">Type Graph</a></h1>
+<figure>
+  <figcaption>Type relations for <code>Set</code></figcaption>
+  <svg width="199pt" height="260pt"
+ viewBox="0.00 0.00 199.34 260.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 256)">
+<title>perl6&#45;type&#45;graph</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-256 195.34,-256 195.34,4 -4,4"/>
+<!-- Set -->
+<g id="node1" class="node">
+<title>Set</title>
+<g id="a_node1"><a xlink:href="/type/Set" xlink:title="Set">
+<ellipse fill="none" stroke="#000000" cx="77" cy="-18" rx="27" ry="18"/>
+<text text-anchor="middle" x="77" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">Set</text>
+</a>
+</g>
+</g>
+<!-- Any -->
+<g id="node3" class="node">
+<title>Any</title>
+<g id="a_node3"><a xlink:href="/type/Any" xlink:title="Any">
+<ellipse fill="none" stroke="#000000" cx="37" cy="-90" rx="27" ry="18"/>
+<text text-anchor="middle" x="37" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Any</text>
+</a>
+</g>
+</g>
+<!-- Set&#45;&gt;Any -->
+<g id="edge1" class="edge">
+<title>Set&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M67.72,-35.24C62.83,-43.81 56.71,-54.51 51.23,-64.1"/>
+<polygon fill="#000000" stroke="#000000" points="48.15,-62.43 46.23,-72.85 54.23,-65.91 48.15,-62.43"/>
+</g>
+<!-- Setty -->
+<g id="node6" class="node">
+<title>Setty</title>
+<g id="a_node6"><a xlink:href="/type/Setty" xlink:title="Setty">
+<ellipse fill="none" stroke="#6666ff" cx="122" cy="-90" rx="35.19" ry="18"/>
+<text text-anchor="middle" x="122" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#6666ff">Setty</text>
+</a>
+</g>
+</g>
+<!-- Set&#45;&gt;Setty -->
+<g id="edge3" class="edge">
+<title>Set&#45;&gt;Setty</title>
+<path fill="none" stroke="#6666ff" d="M87.21,-34.88C92.77,-43.53 99.77,-54.42 106.04,-64.17"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="103.17,-66.17 111.52,-72.69 109.05,-62.39 103.17,-66.17"/>
+</g>
+<!-- Mu -->
+<g id="node2" class="node">
+<title>Mu</title>
+<g id="a_node2"><a xlink:href="/type/Mu" xlink:title="Mu">
+<ellipse fill="none" stroke="#000000" cx="27" cy="-162" rx="27" ry="18"/>
+<text text-anchor="middle" x="27" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#000000">Mu</text>
+</a>
+</g>
+</g>
+<!-- Any&#45;&gt;Mu -->
+<g id="edge2" class="edge">
+<title>Any&#45;&gt;Mu</title>
+<path fill="none" stroke="#000000" d="M34.58,-107.95C33.48,-115.65 32.15,-124.97 30.91,-133.64"/>
+<polygon fill="#000000" stroke="#000000" points="27.42,-133.33 29.47,-143.72 34.35,-134.32 27.42,-133.33"/>
+</g>
+<!-- Associative -->
+<g id="node4" class="node">
+<title>Associative</title>
+<g id="a_node4"><a xlink:href="/type/Associative" xlink:title="Associative">
+<ellipse fill="none" stroke="#6666ff" cx="127" cy="-234" rx="64.19" ry="18"/>
+<text text-anchor="middle" x="127" y="-230.3" font-family="FreeSans" font-size="14.00" fill="#6666ff">Associative</text>
+</a>
+</g>
+</g>
+<!-- QuantHash -->
+<g id="node5" class="node">
+<title>QuantHash</title>
+<g id="a_node5"><a xlink:href="/type/QuantHash" xlink:title="QuantHash">
+<ellipse fill="none" stroke="#6666ff" cx="127" cy="-162" rx="54.69" ry="18"/>
+<text text-anchor="middle" x="127" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#6666ff">QuantHash</text>
+</a>
+</g>
+</g>
+<!-- QuantHash&#45;&gt;Associative -->
+<g id="edge4" class="edge">
+<title>QuantHash&#45;&gt;Associative</title>
+<path fill="none" stroke="#6666ff" d="M127,-180.3C127,-188.02 127,-197.29 127,-205.89"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="123.5,-205.9 127,-215.9 130.5,-205.9 123.5,-205.9"/>
+</g>
+<!-- Setty&#45;&gt;QuantHash -->
+<g id="edge5" class="edge">
+<title>Setty&#45;&gt;QuantHash</title>
+<path fill="none" stroke="#6666ff" d="M123.24,-108.3C123.79,-116.02 124.45,-125.29 125.06,-133.89"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="121.57,-134.17 125.78,-143.9 128.56,-133.67 121.57,-134.17"/>
+</g>
+</g>
+</svg>
+
+  <p class="fallback">
+    <a
+      rel="alternate"
+      href="/images/type-graph-Set.svg"
+      type="image/svg+xml"
+      >Expand above chart</a
+    >
+  </p>
+</figure>
+<h1 id="Routines_supplied_by_role_Setty"><a class="u" href="#___top" title="go to top of document">Routines supplied by role Setty</a></h1>
+<p>Set does role <a href="/Documentable/integration-test/type/Setty">Setty</a>, which provides the following routines:</p>
+<h2 id="(Setty)_method_new-from-pairs"><a href="/Documentable/integration-test/type/Setty#method_new-from-pairs">(Setty) method new-from-pairs</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method new-from-pairs(*@pairs --&gt; Setty:D)</pre>
+<p>Constructs a Setty object from a list of <a href="/Documentable/integration-test/type/Pair"><code>Pair</code> objects</a> given as positional arguments:</p>
+<pre class="pod-block-code">say Set.new-from-pairs: &#39;butter&#39; =&gt; 0.22, &#39;salt&#39; =&gt; 0, &#39;sugar&#39; =&gt; 0.02;
+# OUTPUT: «set(butter, sugar)␤»</pre>
+<p><strong>Note:</strong> be sure you aren&#39;t accidentally passing the Pairs as positional arguments; the quotes around the keys in the above example are significant.</p>
+<h2 id="(Setty)_method_grab"><a href="/Documentable/integration-test/type/Setty#method_grab">(Setty) method grab</a></h2>
+<pre class="pod-block-code">method grab($count = 1)</pre>
+<p>Removes and returns <code>$count</code> elements chosen at random (without repetition) from the set.</p>
+<p>If <code>*</code> is passed as <code>$count</code>, or <code>$count</code> is greater than or equal to the size of the set, then all its elements are removed and returned in random order.</p>
+<p>Only works on mutable sets; When used on an immutable set, it results in an exception.</p>
+<h2 id="(Setty)_method_grabpairs"><a href="/Documentable/integration-test/type/Setty#method_grabpairs">(Setty) method grabpairs</a></h2>
+<pre class="pod-block-code">method grabpairs($count = 1)</pre>
+<p>Removes <code>$count</code> elements chosen at random (without repetition) from the set, and returns a list of <code>Pair</code> objects whose keys are the grabbed elements and whose values are <code>True</code>.</p>
+<p>If <code>*</code> is passed as <code>$count</code>, or <code>$count</code> is greater than or equal to the size of the set, then all its elements are removed and returned as <code>Pair</code>s in the aforementioned way in random order.</p>
+<p>Only works on mutable sets; When used on an immutable set, it results in an exception.</p>
+<h2 id="(Setty)_method_pick"><a href="/Documentable/integration-test/type/Setty#method_pick">(Setty) method pick</a></h2>
+<pre class="pod-block-code">multi method pick($count = 1)</pre>
+<p>Returns <code>$count</code> elements chosen at random (without repetition) from the set.</p>
+<p>If <code>*</code> is passed as <code>$count</code>, or <code>$count</code> is greater than or equal to the size of the set, then all its elements are returned in random order (shuffled).</p>
+<h2 id="(Setty)_method_pickpairs"><a href="/Documentable/integration-test/type/Setty#method_pickpairs">(Setty) method pickpairs</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method pickpairs(Setty:D: --&gt; Pair:D)
+multi method pickpairs(Setty:D: $count --&gt; Seq:D)</pre>
+<p>Returns a <code>Pair</code> or a <code>Seq</code> of <code>Pair</code>s depending on the candidate of the method being invoked. Each <code>Pair</code> returned has an element of the invocant as its key and <code>True</code> as its value. In contrast to <a href="#method_grabpairs">grabpairs</a>, the elements are &#39;picked&#39; without replacement.</p>
+<p>If <code>*</code> is passed as <code>$count</code>, or <code>$count</code> is greater than or equal to the number of <a href="#method_elems">elements</a> of the invocant, then all element/<code>True</code> <code>Pair</code>s from the invocant are returned in a random sequence; i.e. they are returned shuffled;</p>
+<p>Note that each <code>pickpairs</code> invocation maintains its own private state and has no effect on subsequent <code>pickpairs</code> invocations.</p>
+<pre class="pod-block-code">my $numbers = set (4, 2, 3);
+say $numbers.pickpairs;                           # OUTPUT: «4 =&gt; True␤»
+say $numbers.pickpairs(1);                        # OUTPUT: «(3 =&gt; True)␤»
+say $numbers.pickpairs(*);                        # OUTPUT: «(2 =&gt; True 4 =&gt; True 3 =&gt; True)␤»</pre>
+<h2 id="(Setty)_method_roll"><a href="/Documentable/integration-test/type/Setty#method_roll">(Setty) method roll</a></h2>
+<pre class="pod-block-code">multi method roll($count = 1)</pre>
+<p>Returns a lazy list of <code>$count</code> elements, each randomly selected from the set. Each random choice is made independently, like a separate die roll where each die face is a set element.</p>
+<p>If <code>*</code> is passed as <code>$count</code>, the list is infinite.</p>
+<h2 id="(Setty)_method_antipairs"><a href="/Documentable/integration-test/type/Setty#method_antipairs">(Setty) method antipairs</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method antipairs(Setty:D: --&gt; Seq:D)</pre>
+<p>Returns all elements in the set and <code>True</code> as a <a href="/Documentable/integration-test/type/Seq">Seq</a> of <a href="/Documentable/integration-test/type/Pair">Pairs</a>, where the element itself is the value, i.e. the opposite of method <code>pairs</code>.</p>
+<pre class="pod-block-code">my $s = Set.new(1, 2, 3, 1);
+say $s.antipairs.sort;                            # OUTPUT: «(True =&gt; 1 True =&gt; 2 True =&gt; 3)␤»</pre>
+<h2 id="(Setty)_method_keys"><a href="/Documentable/integration-test/type/Setty#method_keys">(Setty) method keys</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method keys(Setty:D: --&gt; Seq:D)</pre>
+<p>Returns a <a href="/Documentable/integration-test/type/Seq">Seq</a> of all elements of the set.</p>
+<pre class="pod-block-code">my $s = Set.new(1, 2, 3);
+say $s.keys;                                      # OUTPUT: «(3 1 2)␤»</pre>
+<h2 id="(Setty)_method_values"><a href="/Documentable/integration-test/type/Setty#method_values">(Setty) method values</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method values(Setty:D: --&gt; Seq:D)</pre>
+<p>Returns a <a href="/Documentable/integration-test/type/Seq">Seq</a> containing as many <code>True</code> values as the set has elements.</p>
+<pre class="pod-block-code">my $s = Set.new(1, 2, 3);
+say $s.values;                                    # OUTPUT: «(True True True)␤»</pre>
+<h2 id="(Setty)_method_kv"><a href="/Documentable/integration-test/type/Setty#method_kv">(Setty) method kv</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method kv(Setty:D: --&gt; Seq:D)</pre>
+<p>Returns a <a href="/Documentable/integration-test/type/Seq">Seq</a> of the set&#39;s elements and <code>True</code> values interleaved.</p>
+<pre class="pod-block-code">my $s = Set.new(1, 2, 3);
+say $s.kv;                                        # OUTPUT: «(3 True 1 True 2 True)␤»</pre>
+<h2 id="(Setty)_method_elems"><a href="/Documentable/integration-test/type/Setty#method_elems">(Setty) method elems</a></h2>
+<pre class="pod-block-code">method elems(--&gt; Int)</pre>
+<p>The number of elements of the set.</p>
+<h2 id="(Setty)_method_total"><a href="/Documentable/integration-test/type/Setty#method_total">(Setty) method total</a></h2>
+<pre class="pod-block-code">method total(--&gt; Int)</pre>
+<p>The total of all the values of the <code>QuantHash</code> object. For a <code>Setty</code> object, this is just the number of elements.</p>
+<h2 id="(Setty)_method_minpairs"><a href="/Documentable/integration-test/type/Setty#method_minpairs">(Setty) method minpairs</a></h2>
+<p>Defined As:</p>
+<pre class="pod-block-code">multi method minpairs(Setty:D: --&gt; Seq:D)</pre>
+<p>Returns the value of <a href="/Documentable/integration-test/routine/pairs"><code>self.pairs</code></a> (as all Pairs have minimum values). See also <a href="/Documentable/integration-test/routine/minpairs"><code>Any.minpairs</code></a></p>
+<h2 id="(Setty)_method_maxpairs"><a href="/Documentable/integration-test/type/Setty#method_maxpairs">(Setty) method maxpairs</a></h2>
+<p>Defined As:</p>
+<pre class="pod-block-code">multi method maxpairs(Setty:D: --&gt; Seq:D)</pre>
+<p>Returns the value of <a href="/Documentable/integration-test/routine/pairs"><code>self.pairs</code></a> (as all Pairs have maximum values). See also <a href="/Documentable/integration-test/routine/maxpairs"><code>Any.maxpairs</code></a></p>
+<h2 id="(Setty)_method_default"><a href="/Documentable/integration-test/type/Setty#method_default">(Setty) method default</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method default(--&gt; False)</pre>
+<p>Returns the default value of the invocant, i.e. the value which is returned when trying to access an element in the <code>Setty</code> object which has not been previously initialized or when accessing an element which has explicitly been set to <code>Nil</code> or <code>False</code>.</p>
+<pre class="pod-block-code">my $s1 = SetHash.new(1, 2, 3);
+say $s1{2};                                           # OUTPUT: «True␤»
+$s1{2} = Nil;
+say $s1{2};                                           # OUTPUT: «False␤»
+# access non initialized element
+say $s1{4};                                           # OUTPUT: «False␤»</pre>
+<h2 id="(Setty)_method_ACCEPTS"><a href="/Documentable/integration-test/type/Setty#method_ACCEPTS">(Setty) method ACCEPTS</a></h2>
+<pre class="pod-block-code">method ACCEPTS($other)</pre>
+<p>Returns <code>True</code> if <code>$other</code> and <code>self</code> contain all the same elements, and no others.</p>
+<h2 id="(Setty)_method_Bag"><a href="/Documentable/integration-test/type/Setty#method_Bag">(Setty) method Bag</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method Bag(Setty:D: --&gt; Bag:D)</pre>
+<p>Returns a <a href="/Documentable/integration-test/type/Bag">Bag</a> containing the elements of the invocant.</p>
+<pre class="pod-block-code">my Bag $b = Set.new(1, 2, 3).Bag;
+say $b;                                           # OUTPUT: «bag(3, 1, 2)␤»</pre>
+<p>The quantity of the elements in this created bag will be set to one:</p>
+<pre class="pod-block-code">say (1,2,3).Bag{1};                              # OUTPUT: «1␤»</pre>
+<h2 id="(Setty)_method_BagHash"><a href="/Documentable/integration-test/type/Setty#method_BagHash">(Setty) method BagHash</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method BagHash(Setty:D: --&gt; BagHash:D)</pre>
+<p>Returns a <a href="/Documentable/integration-test/type/BagHash">BagHash</a> containing the elements of the invocant.</p>
+<pre class="pod-block-code">my BagHash $b = Set.new(1, 2, 3).BagHash;
+say $b;                                           # OUTPUT: «BagHash.new(3, 1, 2)␤»</pre>
+<h2 id="(Setty)_method_Bool"><a href="/Documentable/integration-test/type/Setty#method_Bool">(Setty) method Bool</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method Bool(Setty:D: --&gt; Bool:D)</pre>
+<p>Returns <code>True</code> if the invocant contains at least one element.</p>
+<pre class="pod-block-code">my $s1 = Set.new(1, 2, 3);
+say $s1.Bool;                                     # OUTPUT: «True␤»
+
+my $s2 = $s1 ∩ Set.new(4, 5);                     # set intersection operator
+say $s2.Bool;                                     # OUTPUT: «False␤»</pre>
+<h2 id="(Setty)_method_Mix"><a href="/Documentable/integration-test/type/Setty#method_Mix">(Setty) method Mix</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method Mix(Setty:D: --&gt; Mix:D)</pre>
+<p>Returns a <a href="/Documentable/integration-test/type/Mix">Mix</a> containing the elements of the invocant.</p>
+<pre class="pod-block-code">my Mix $b = Set.new(1, 2, 3).Mix;
+say $b;                                           # OUTPUT: «mix(3, 1, 2)␤»</pre>
+<p>The elements of the returned <code>Mix</code> will have weights equal to 1:</p>
+<pre class="pod-block-code">say (1,2,3).Mix{3};                               # OUTPUT: «1␤»</pre>
+<h2 id="(Setty)_method_MixHash"><a href="/Documentable/integration-test/type/Setty#method_MixHash">(Setty) method MixHash</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method MixHash(Setty:D: --&gt; MixHash:D)</pre>
+<p>Returns a <a href="/Documentable/integration-test/type/MixHash">MixHash</a> containing the elements of the invocant.</p>
+<pre class="pod-block-code">my MixHash $b = Set.new(1, 2, 3).MixHash;
+say $b;                                           # OUTPUT: «MixHash.new(3, 1, 2)␤»</pre>
+<h1 id="Routines_supplied_by_role_QuantHash"><a class="u" href="#___top" title="go to top of document">Routines supplied by role QuantHash</a></h1>
+<p>Set does role <a href="/Documentable/integration-test/type/QuantHash">QuantHash</a>, which provides the following routines:</p>
+<h2 id="(QuantHash)_method_hash"><a href="/Documentable/integration-test/type/QuantHash#method_hash">(QuantHash) method hash</a></h2>
+<pre class="pod-block-code">method hash()</pre>
+<p>Coerces the <code>QuantHash</code> object to a <a href="/Documentable/integration-test/type/Hash">Hash</a> (by stringifying the objects for the keys) with the values of the hash limited to the same limitation as <code>QuantHash</code>, and returns that.</p>
+<h2 id="(QuantHash)_method_Hash"><a href="/Documentable/integration-test/type/QuantHash#method_Hash">(QuantHash) method Hash</a></h2>
+<pre class="pod-block-code">method Hash()</pre>
+<p>Coerces the <code>QuantHash</code> object to a <a href="/Documentable/integration-test/type/Hash">Hash</a> (by stringifying the objects for the keys) without any limitations on the values, and returns that.</p>
+<h2 id="(QuantHash)_method_of"><a href="/Documentable/integration-test/type/QuantHash#method_of">(QuantHash) method of</a></h2>
+<pre class="pod-block-code">method of()</pre>
+<p>Returns the type of value a value of this <code>QuantHash</code> may have. This is typically <a href="/Documentable/integration-test/type/Bool">Bool</a> for <a href="/Documentable/integration-test/type/Setty">Setty</a>, <a href="/Documentable/integration-test/type/UInt">UInt</a> for <a href="/Documentable/integration-test/type/Baggy">Baggy</a> or <a href="/Documentable/integration-test/type/Real">Real</a> for <a href="/Documentable/integration-test/type/Mixy">Mixy</a> roles.</p>
+<h2 id="(QuantHash)_method_keyof"><a href="/Documentable/integration-test/type/QuantHash#method_keyof">(QuantHash) method keyof</a></h2>
+<pre class="pod-block-code">method keyof()</pre>
+<p>Returns the type of value a key of this subclass of <code>QuantHash</code> may have. This is typically <a href="/Documentable/integration-test/type/Mu">Mu</a>, which is also the default for punned QuantHashes.</p>
+<h2 id="(QuantHash)_method_Setty"><a href="/Documentable/integration-test/type/QuantHash#method_Setty">(QuantHash) method Setty</a></h2>
+<pre class="pod-block-code">method Setty(--&gt; Setty:D)</pre>
+<p>Coerce the <code>QuantHash</code> object to the equivalent object that uses the <a href="/Documentable/integration-test/type/Setty">Setty</a> role. Note that for <a href="/Documentable/integration-test/type/Mixy">Mixy</a> type coercion items with negative values will be skipped.</p>
+<pre class="pod-block-code">my %b is Bag = one =&gt; 1, two =&gt; 2;
+say %b.Setty; # OUTPUT: «set(one two)␤»
+my %m is Mix = one =&gt; 1, minus =&gt; -1;
+say %m.Setty; # OUTPUT: «set(one)␤»</pre>
+<h2 id="(QuantHash)_method_Baggy"><a href="/Documentable/integration-test/type/QuantHash#method_Baggy">(QuantHash) method Baggy</a></h2>
+<pre class="pod-block-code">method Baggy(--&gt; Baggy:D)</pre>
+<p>Coerce the <code>QuantHash</code> object to the equivalent object that uses the <a href="/Documentable/integration-test/type/Baggy">Baggy</a> role. Note that for <a href="/Documentable/integration-test/type/Mixy">Mixy</a> type coercion items with negative values will be skipped.</p>
+<pre class="pod-block-code">my %s is Set = &lt;one two&gt;;
+say %s.Baggy; # OUTPUT: «Bag(one, two)␤»
+my %m is Mix = one =&gt; 1, minus =&gt; -1;
+say %m.Baggy; # OUTPUT: «Bag(one)␤»</pre>
+<h2 id="(QuantHash)_method_Mixy"><a href="/Documentable/integration-test/type/QuantHash#method_Mixy">(QuantHash) method Mixy</a></h2>
+<pre class="pod-block-code">method Mixy(--&gt; Mixy:D)</pre>
+<p>Coerce the <code>QuantHash</code> object to the equivalent object that uses the <a href="/Documentable/integration-test/type/Mixy">Mixy</a> role.</p>
+<pre class="pod-block-code">my %s is Set = &lt;one two&gt;;
+say %s.Mixy; # OUTPUT: «Mix(one, two)␤»
+my %b is Bag = one =&gt; 1, two =&gt; 2;
+say %b.Mixy; # OUTPUT: «Mix(one, two)␤»</pre>
+<h1 id="Routines_supplied_by_role_Associative"><a class="u" href="#___top" title="go to top of document">Routines supplied by role Associative</a></h1>
+<p>Set does role <a href="/Documentable/integration-test/type/Associative">Associative</a>, which provides the following routines:</p>
+<h2 id="(Associative)_method_of"><a href="/Documentable/integration-test/type/Associative#method_of">(Associative) method of</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method of()</pre>
+<p><code>Associative</code> is actually a <a href="/Documentable/integration-test/language/objects#Parameterized_roles">parameterized role</a> which can use different classes for keys and values. As seen at the top of the document, by default it coerces to <code>Str</code> for the key and uses a very generic <code>Mu</code> for value.</p>
+<pre class="pod-block-code">my %any-hash;
+say %any-hash.of;#  OUTPUT: «(Mu)␤»</pre>
+<p>The value is the first parameter you use when instantiating <code>Associative</code> with particular classes:</p>
+<pre class="pod-block-code">class DateHash is Hash does Associative[Cool,DateTime] {};
+my %date-hash := DateHash.new;
+say %date-hash.of; # OUTPUT: «(Cool)␤»</pre>
+<h2 id="(Associative)_method_keyof"><a href="/Documentable/integration-test/type/Associative#method_keyof">(Associative) method keyof</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method keyof()</pre>
+<p>Returns the parameterized key used for the Associative role, which is <code>Any</code> coerced to <code>Str</code> by default. This is the class used as second parameter when you use the parameterized version of Associative.</p>
+<pre class="pod-block-code">my %any-hash;
+%any-hash.keyof; #OUTPUT: «(Str(Any))␤»</pre>
+<h2 id="(Associative)_method_AT-KEY"><a href="/Documentable/integration-test/type/Associative#method_AT-KEY">(Associative) method AT-KEY</a></h2>
+<pre class="pod-block-code">method AT-KEY(\key)</pre>
+<p>Should return the value / container at the given key.</p>
+<h2 id="(Associative)_method_EXISTS-KEY"><a href="/Documentable/integration-test/type/Associative#method_EXISTS-KEY">(Associative) method EXISTS-KEY</a></h2>
+<pre class="pod-block-code">method EXISTS-KEY(\key)</pre>
+<p>Should return a <code>Bool</code> indicating whether the given key actually has a value.</p>
+<h2 id="(Associative)_method_STORE"><a href="/Documentable/integration-test/type/Associative#method_STORE">(Associative) method STORE</a></h2>
+<pre class="pod-block-code">method STORE(\values, :$initialize)</pre>
+<p>This method should only be supplied if you want to support the:</p>
+<pre class="pod-block-code">my %h is Foo = a =&gt; 42, b =&gt; 666;
+</pre>
+<p>syntax for binding your implementation of the <code>Associative</code> role.</p>
+<p>Should accept the values to (re-)initialize the object with, which either could consist of <code>Pair</code>s, or separate key/value pairs. The optional named parameter will contain a <code>True</code> value when the method is called on the object for the first time. Should return the invocant.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Type/Set.pod6">https://github.com/Raku/doc/blob/master/doc/Type/Set.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

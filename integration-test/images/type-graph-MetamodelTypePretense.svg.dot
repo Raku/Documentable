@@ -1,0 +1,67 @@
+digraph "perl6-type-graph" {
+    rankdir=BT;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "Metamodel::TypePretense" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::TypePretense", fontname="FreeSans"];
+    "Mu" [color="#000000", fontcolor="#000000", href="/type/Mu", fontname="FreeSans"];
+    "Any" [color="#000000", fontcolor="#000000", href="/type/Any", fontname="FreeSans"];
+    "Metamodel::Naming" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::Naming", fontname="FreeSans"];
+    "Metamodel::Stashing" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::Stashing", fontname="FreeSans"];
+    "Metamodel::RolePunning" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::RolePunning", fontname="FreeSans"];
+    "Metamodel::BoolificationProtocol" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::BoolificationProtocol", fontname="FreeSans"];
+    "Metamodel::ParametricRoleGroupHOW" [color="#000000", fontcolor="#000000", href="/type/Metamodel::ParametricRoleGroupHOW", fontname="FreeSans"];
+    "Metamodel::Documenting" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::Documenting", fontname="FreeSans"];
+    "Metamodel::MethodDelegation" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::MethodDelegation", fontname="FreeSans"];
+    "Metamodel::PackageHOW" [color="#000000", fontcolor="#000000", href="/type/Metamodel::PackageHOW", fontname="FreeSans"];
+    "Metamodel::Versioning" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::Versioning", fontname="FreeSans"];
+    "Metamodel::MethodContainer" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::MethodContainer", fontname="FreeSans"];
+    "Metamodel::PrivateMethodContainer" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::PrivateMethodContainer", fontname="FreeSans"];
+    "Metamodel::MultiMethodContainer" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::MultiMethodContainer", fontname="FreeSans"];
+    "Metamodel::AttributeContainer" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::AttributeContainer", fontname="FreeSans"];
+    "Metamodel::RoleContainer" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::RoleContainer", fontname="FreeSans"];
+    "Metamodel::MultipleInheritance" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::MultipleInheritance", fontname="FreeSans"];
+    "Metamodel::ParametricRoleHOW" [color="#000000", fontcolor="#000000", href="/type/Metamodel::ParametricRoleHOW", fontname="FreeSans"];
+    "Metamodel::ModuleHOW" [color="#000000", fontcolor="#000000", href="/type/Metamodel::ModuleHOW", fontname="FreeSans"];
+    "Metamodel::CurriedRoleHOW" [color="#000000", fontcolor="#000000", href="/type/Metamodel::CurriedRoleHOW", fontname="FreeSans"];
+
+    // Superclasses
+    "Any" -> "Mu" [color="#000000"];
+    "Metamodel::ParametricRoleGroupHOW" -> "Any" [color="#000000"];
+    "Metamodel::PackageHOW" -> "Any" [color="#000000"];
+    "Metamodel::ParametricRoleHOW" -> "Any" [color="#000000"];
+    "Metamodel::ModuleHOW" -> "Any" [color="#000000"];
+    "Metamodel::CurriedRoleHOW" -> "Any" [color="#000000"];
+
+    // Roles
+    "Metamodel::ParametricRoleGroupHOW" -> "Metamodel::Naming" [color="#6666FF"];
+    "Metamodel::ParametricRoleGroupHOW" -> "Metamodel::Stashing" [color="#6666FF"];
+    "Metamodel::ParametricRoleGroupHOW" -> "Metamodel::TypePretense" [color="#6666FF"];
+    "Metamodel::ParametricRoleGroupHOW" -> "Metamodel::RolePunning" [color="#6666FF"];
+    "Metamodel::ParametricRoleGroupHOW" -> "Metamodel::BoolificationProtocol" [color="#6666FF"];
+    "Metamodel::PackageHOW" -> "Metamodel::Naming" [color="#6666FF"];
+    "Metamodel::PackageHOW" -> "Metamodel::Documenting" [color="#6666FF"];
+    "Metamodel::PackageHOW" -> "Metamodel::Stashing" [color="#6666FF"];
+    "Metamodel::PackageHOW" -> "Metamodel::TypePretense" [color="#6666FF"];
+    "Metamodel::PackageHOW" -> "Metamodel::MethodDelegation" [color="#6666FF"];
+    "Metamodel::ParametricRoleHOW" -> "Metamodel::Naming" [color="#6666FF"];
+    "Metamodel::ParametricRoleHOW" -> "Metamodel::Documenting" [color="#6666FF"];
+    "Metamodel::ParametricRoleHOW" -> "Metamodel::Versioning" [color="#6666FF"];
+    "Metamodel::ParametricRoleHOW" -> "Metamodel::MethodContainer" [color="#6666FF"];
+    "Metamodel::ParametricRoleHOW" -> "Metamodel::PrivateMethodContainer" [color="#6666FF"];
+    "Metamodel::ParametricRoleHOW" -> "Metamodel::MultiMethodContainer" [color="#6666FF"];
+    "Metamodel::ParametricRoleHOW" -> "Metamodel::AttributeContainer" [color="#6666FF"];
+    "Metamodel::ParametricRoleHOW" -> "Metamodel::RoleContainer" [color="#6666FF"];
+    "Metamodel::ParametricRoleHOW" -> "Metamodel::MultipleInheritance" [color="#6666FF"];
+    "Metamodel::ParametricRoleHOW" -> "Metamodel::Stashing" [color="#6666FF"];
+    "Metamodel::ParametricRoleHOW" -> "Metamodel::TypePretense" [color="#6666FF"];
+    "Metamodel::ParametricRoleHOW" -> "Metamodel::RolePunning" [color="#6666FF"];
+    "Metamodel::ModuleHOW" -> "Metamodel::Naming" [color="#6666FF"];
+    "Metamodel::ModuleHOW" -> "Metamodel::Documenting" [color="#6666FF"];
+    "Metamodel::ModuleHOW" -> "Metamodel::Versioning" [color="#6666FF"];
+    "Metamodel::ModuleHOW" -> "Metamodel::Stashing" [color="#6666FF"];
+    "Metamodel::ModuleHOW" -> "Metamodel::TypePretense" [color="#6666FF"];
+    "Metamodel::ModuleHOW" -> "Metamodel::MethodDelegation" [color="#6666FF"];
+    "Metamodel::CurriedRoleHOW" -> "Metamodel::RolePunning" [color="#6666FF"];
+    "Metamodel::CurriedRoleHOW" -> "Metamodel::TypePretense" [color="#6666FF"];
+}

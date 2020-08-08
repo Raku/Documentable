@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>class ForeignCode</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/type.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-basic.html"> Basic </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-composite.html"> Composite </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-domain-specific.html"> Domain-specific </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-exception.html"> Exceptions </a>
+            </div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Type/ForeignCode.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">class ForeignCode</h1>
+        <p class="subtitle">Rakudo-specific class that wraps around code in other languages (generally NQP)</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+                      <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#method_arity">method arity</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#method_count">method count</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#method_signature">method signature</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.4</td><td class="toc-text"><a href="#method_name">method name</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">1.5</td><td class="toc-text"><a href="#method_gist">method gist</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">1.6</td><td class="toc-text"><a href="#method_Str">method Str</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Type_Graph">Type Graph</a></td></tr>
+  <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Routines_supplied_by_role_Callable">Routines supplied by role Callable</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#(Callable)_method_CALL-ME">(Callable) method CALL-ME</a></td></tr>
+            <tr class="toc-level-2"><td class="toc-number">3.2</td><td class="toc-text"><a href="#(Callable)_method_Capture">(Callable) method Capture</a></td></tr>
+     
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <pre class="pod-block-code">class ForeignCode does Callable {}</pre>
+<p><a href="#fn-1" id="fn-ref-1">[1]</a></p>
+<p><code>ForeignCode</code> is a Raku wrapper around code that is not written originally in that language; its intention is to use these blocks of code in <code>Callable</code> contexts easily. For instance, subs have some anonymous functions that are actually <code>ForeignCode</code>.</p>
+<pre class="pod-block-code">sub does-nothing(){};
+say $_.name ~ &#39; → &#39; ~ $_.^name for &amp;does-nothing.^methods;
+# OUTPUT: «&lt;anon&gt; → ForeignCode␤&lt;anon&gt; → ForeignCode␤soft → Method␤…»
+</pre>
+<p>This script will map method names to their class, and it shows that routines, in particular, have several methods that are actually <code>ForeignCode</code> instead of <a href="/Documentable/integration-test/type/Method"><code>Method</code>s</a>.</p>
+<h1 id="Methods"><a class="u" href="#___top" title="go to top of document">Methods</a></h1>
+<h2 id="method_arity"><a class="u" href="#___top" title="go to top of document">method arity</a></h2>
+<pre class="pod-block-code">method arity()</pre>
+<p>Returns the arity of the enclosed code.</p>
+<h2 id="method_count"><a class="u" href="#___top" title="go to top of document">method count</a></h2>
+<pre class="pod-block-code">method count()</pre>
+<p>Returns the number of arguments the enclosed code needs.</p>
+<h2 id="method_signature"><a class="u" href="#___top" title="go to top of document">method signature</a></h2>
+<pre class="pod-block-code">method signature( ForeignCode:D: )</pre>
+<p>Returns the signature of the enclosed code.</p>
+<h2 id="method_name"><a class="u" href="#___top" title="go to top of document">method name</a></h2>
+<pre class="pod-block-code">method name()</pre>
+<p>Returns the name of the enclosed code, or <code>&lt;anon&gt;</code> if it has not received any.</p>
+<h2 id="method_gist"><a class="u" href="#___top" title="go to top of document">method gist</a></h2>
+<pre class="pod-block-code">method gist( ForeignCode:D: )</pre>
+<p>Returns the name of the code by calling <code>name</code>.</p>
+<h2 id="method_Str"><a class="u" href="#___top" title="go to top of document">method Str</a></h2>
+<pre class="pod-block-code">method Str( ForeignCode:D: )</pre>
+<p>Returns the name of the code by calling <code>name</code>.</p>
+<h1 id="Type_Graph"><a class="u" href="#___top" title="go to top of document">Type Graph</a></h1>
+<figure>
+  <figcaption>Type relations for <code>ForeignCode</code></figcaption>
+  <svg width="180pt" height="188pt"
+ viewBox="0.00 0.00 180.05 188.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 184)">
+<title>perl6&#45;type&#45;graph</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-184 176.05,-184 176.05,4 -4,4"/>
+<!-- ForeignCode -->
+<g id="node1" class="node">
+<title>ForeignCode</title>
+<g id="a_node1"><a xlink:href="/type/ForeignCode" xlink:title="ForeignCode">
+<ellipse fill="none" stroke="#000000" cx="74" cy="-18" rx="64.19" ry="18"/>
+<text text-anchor="middle" x="74" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">ForeignCode</text>
+</a>
+</g>
+</g>
+<!-- Any -->
+<g id="node3" class="node">
+<title>Any</title>
+<g id="a_node3"><a xlink:href="/type/Any" xlink:title="Any">
+<ellipse fill="none" stroke="#000000" cx="27" cy="-90" rx="27" ry="18"/>
+<text text-anchor="middle" x="27" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Any</text>
+</a>
+</g>
+</g>
+<!-- ForeignCode&#45;&gt;Any -->
+<g id="edge1" class="edge">
+<title>ForeignCode&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M62.62,-35.95C56.8,-44.62 49.61,-55.33 43.21,-64.85"/>
+<polygon fill="#000000" stroke="#000000" points="40.3,-62.92 37.63,-73.17 46.11,-66.82 40.3,-62.92"/>
+</g>
+<!-- Callable -->
+<g id="node4" class="node">
+<title>Callable</title>
+<g id="a_node4"><a xlink:href="/type/Callable" xlink:title="Callable">
+<ellipse fill="none" stroke="#6666ff" cx="122" cy="-90" rx="50.09" ry="18"/>
+<text text-anchor="middle" x="122" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#6666ff">Callable</text>
+</a>
+</g>
+</g>
+<!-- ForeignCode&#45;&gt;Callable -->
+<g id="edge3" class="edge">
+<title>ForeignCode&#45;&gt;Callable</title>
+<path fill="none" stroke="#6666ff" d="M85.62,-35.95C91.34,-44.29 98.35,-54.51 104.68,-63.75"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="101.95,-65.94 110.49,-72.21 107.72,-61.98 101.95,-65.94"/>
+</g>
+<!-- Mu -->
+<g id="node2" class="node">
+<title>Mu</title>
+<g id="a_node2"><a xlink:href="/type/Mu" xlink:title="Mu">
+<ellipse fill="none" stroke="#000000" cx="27" cy="-162" rx="27" ry="18"/>
+<text text-anchor="middle" x="27" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#000000">Mu</text>
+</a>
+</g>
+</g>
+<!-- Any&#45;&gt;Mu -->
+<g id="edge2" class="edge">
+<title>Any&#45;&gt;Mu</title>
+<path fill="none" stroke="#000000" d="M27,-108.3C27,-116.02 27,-125.29 27,-133.89"/>
+<polygon fill="#000000" stroke="#000000" points="23.5,-133.9 27,-143.9 30.5,-133.9 23.5,-133.9"/>
+</g>
+</g>
+</svg>
+
+  <p class="fallback">
+    <a
+      rel="alternate"
+      href="/images/type-graph-ForeignCode.svg"
+      type="image/svg+xml"
+      >Expand above chart</a
+    >
+  </p>
+</figure>
+<h1 id="Routines_supplied_by_role_Callable"><a class="u" href="#___top" title="go to top of document">Routines supplied by role Callable</a></h1>
+<p>ForeignCode does role <a href="/Documentable/integration-test/type/Callable">Callable</a>, which provides the following routines:</p>
+<h2 id="(Callable)_method_CALL-ME"><a href="/Documentable/integration-test/type/Callable#method_CALL-ME">(Callable) method CALL-ME</a></h2>
+<pre class="pod-block-code">method CALL-ME(Callable:D $self: |arguments)</pre>
+<p>This method is required for postfix:«( )» and postfix:«.( )». It&#39;s what makes an object actually call-able and needs to be overloaded to let a given object act like a routine. If the object needs to be stored in a <code>&amp;</code>-sigiled container, is has to implement Callable.</p>
+<pre class="pod-block-code">class A does Callable {
+    submethod CALL-ME(|c){ &#39;called&#39; }
+}
+my &amp;a = A;
+say a(); # OUTPUT: «called␤»</pre>
+<p>Applying the <code>Callable</code> role is not a requirement to make an object callable; if a class simply wants to add subroutine-like semantics in a regular scalar container, the submethod <code>CALL-ME</code> can be used for that.</p>
+<pre class="pod-block-code">class A {
+    has @.values;
+    submethod CALL-ME(Int $x where 0 &lt;= * &lt; @!values.elems) {
+        @!values[$x]
+    }
+}
+my $a = A.new: values =&gt; [4,5,6,7];
+say $a(2); # OUTPUT: «6␤»</pre>
+<h2 id="(Callable)_method_Capture"><a href="/Documentable/integration-test/type/Callable#method_Capture">(Callable) method Capture</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method Capture()</pre>
+<p>Throws <code>X::Cannot::Capture</code>.</p>
+
+        </div>
+    </div>
+
+    <aside><ol start="1">
+<li><a href="#fn-ref-1" id="fn-1">[↑]</a> This is a Rakudo specific class, and as such it is advisable not to use it in your own code, since its interface might change or even disappear in the future. This is provided here only as a reference </li>
+</ol></aside>
+
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Type/ForeignCode.pod6">https://github.com/Raku/doc/blob/master/doc/Type/ForeignCode.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

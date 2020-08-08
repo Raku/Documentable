@@ -1,0 +1,19 @@
+digraph "perl6-type-graph" {
+    rankdir=BT;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "Distribution::Path" [color="#000000", fontcolor="#000000", href="/type/Distribution::Path", fontname="FreeSans"];
+    "Mu" [color="#000000", fontcolor="#000000", href="/type/Mu", fontname="FreeSans"];
+    "Any" [color="#000000", fontcolor="#000000", href="/type/Any", fontname="FreeSans"];
+    "Distribution" [color="#6666FF", fontcolor="#6666FF", href="/type/Distribution", fontname="FreeSans"];
+    "Distribution::Locally" [color="#6666FF", fontcolor="#6666FF", href="/type/Distribution::Locally", fontname="FreeSans"];
+
+    // Superclasses
+    "Distribution::Path" -> "Any" [color="#000000"];
+    "Any" -> "Mu" [color="#000000"];
+
+    // Roles
+    "Distribution::Path" -> "Distribution::Locally" [color="#6666FF"];
+    "Distribution::Locally" -> "Distribution" [color="#6666FF"];
+}

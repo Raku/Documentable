@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Module packages</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/module-packages.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Module packages</h1>
+        <p class="subtitle">Creating module packages for code reuse</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+      <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#What_are_modules?">What are modules?</a></td></tr>
+                       <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#When_to_use_modules">When to use modules</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#Working_with_modules">Working with modules</a></td></tr>
+                          <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Modules_on_disk">Modules on disk</a></td></tr>
+                              <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#File_and_module_naming">File and module naming</a></td></tr>
+                                          <tr class="toc-level-3"><td class="toc-number">2.1.1</td><td class="toc-text"><a href="#The_unit_keyword">The <code class="pod-code-inline">unit</code> keyword</a></td></tr>
+                               <tr class="toc-level-2"><td class="toc-number">2.2</td><td class="toc-text"><a href="#What_happens_if_I_omit_module?">What happens if I omit <code class="pod-code-inline">module</code> ?</a></td></tr>
+                                                           <tr class="toc-level-3"><td class="toc-number">2.2.1</td><td class="toc-text"><a href="#Lexical_aliasing_and_safety">Lexical aliasing and safety</a></td></tr>
+                   
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p><em>N.B.</em> &quot;Module&quot; is an overloaded term in Raku; this document focuses on use of the <code>module</code> declarator.</p>
+<h1 id="What_are_modules?"><a class="u" href="#___top" title="go to top of document">What are modules?</a></h1>
+<p>Modules, like classes and grammars, are a kind of <a href="/Documentable/integration-test/language/packages">package</a>. Module objects are instances of the <code>ModuleHOW</code> metaclass; this provides certain capabilities useful for creating namespaces, versioning, delegation and data encapsulation (see also <a href="/Documentable/integration-test/syntax/class">class</a> and <a href="/Documentable/integration-test/syntax/role">role</a>).</p>
+<p>To create a module, use the <code>module</code> declarator:</p>
+<pre class="pod-block-code">module M {}
+say M.HOW;   # OUTPUT: «Perl6::Metamodel::ModuleHOW.new␤»</pre>
+<p>Here we define a new module named <code>M</code>; introspection with <code>HOW</code> confirms that the metaclass underlying <code>M</code> is <code>Perl6::Metamodel::ModuleHOW</code>.</p>
+<h2 id="When_to_use_modules"><a class="u" href="#___top" title="go to top of document">When to use modules</a></h2>
+<p>Modules are primarily useful for encapsulating code and data that do not belong inside a class or role definition. Module contents (classes, subroutines, variables, etc.) can be exported from a module with the <code>is export</code> trait; these are available in the caller&#39;s namespace once the module has been imported with <code>import</code> or <code>use</code>. A module can also selectively expose symbols within its namespace for qualified reference via <code>our</code>.</p>
+<p><a name="Documentable/integration-test/index-entry-import"></a></p>
+<h2 id="Working_with_modules"><a class="u" href="#___top" title="go to top of document">Working with modules</a></h2>
+<p>To illustrate module scoping and export rules, let&#39;s begin by defining a simple module <code>M</code>:</p>
+<pre class="pod-block-code">module M {
+  sub greeting ($name = &#39;Camelia&#39;) { &quot;Greetings, $name!&quot; }
+  our sub loud-greeting (--&gt; Str)  { greeting().uc       }
+  sub friendly-greeting is export  { greeting(&#39;friend&#39;)  }
+}</pre>
+<p>Recall that subroutines are lexically scoped unless otherwise specified (declarator <a href="/Documentable/integration-test/syntax/sub"><code>sub</code></a> is equivalent to <code>my sub</code>), so <code>greeting</code> in the above example is lexically scoped to the module and inaccessible outside of it. We&#39;ve also defined <code>loud-greeting</code> with the <code>our</code> declarator, which means that in addition to being lexically scoped it is aliased in the module&#39;s symbol table. Finally, <code>friendly-greeting</code> is marked for export; it will be registered in the <em>caller&#39;s</em> symbol table when the module is imported:</p>
+<pre class="pod-block-code">import M;               # import the module
+say M::loud-greeting;   # OUTPUT: «GREETINGS, CAMELIA!␤»
+say friendly-greeting;  # OUTPUT: «Greetings, friend!␤»
+</pre>
+<h1 id="Modules_on_disk"><a class="u" href="#___top" title="go to top of document">Modules on disk</a></h1>
+<p>While <code>.raku</code> and <code>.rakumod</code> files are sometimes referred to as &quot;modules&quot;, they are really just normal files that are loaded and compiled when you write <code>need</code>, <code>use</code> or <code>require</code>.</p>
+<p>For a <code>.rakumod</code> file to provide a module in the sense that we&#39;ve been using, it needs to declare one with <code>module</code> as documented above. For example, by placing module <code>M</code> inside <code>Foo.rakumod</code>, we can load and use the module as follows:</p>
+<pre class="pod-block-code">use Foo;                # find Foo.rakumod, run need followed by import
+say M::loud-greeting;   # OUTPUT: «GREETINGS, CAMELIA!␤»
+say friendly-greeting;  # OUTPUT: «Greetings, friend!␤»
+</pre>
+<p>Note the decoupling between file and module names—a <code>.rakumod</code> file can declare zero or more modules with arbitrary identifiers.</p>
+<h2 id="File_and_module_naming"><a class="u" href="#___top" title="go to top of document">File and module naming</a></h2>
+<p>Often we want a <code>.rakumod</code> file to provide a <em>single</em> module and nothing more. Here a common convention is for the file basename to match the module name. Returning to <code>Foo.rakumod</code>, it is apparent that it only provides a single module, <code>M</code>; in this case, we might want to rename <code>M</code> to <code>Foo</code>. The amended file would then read:</p>
+<pre class="pod-block-code">module Foo {
+  sub greeting ($name = &#39;Camelia&#39;) { &quot;Greetings, $name!&quot; }
+  our sub loud-greeting (--&gt; Str)  { greeting().uc       }
+  sub friendly-greeting is export  { greeting(&#39;friend&#39;)  }
+}
+</pre>
+<p>which can be used more consistently by the caller (note the relationship between the <code>use Foo</code> and <code>Foo::</code>):</p>
+<pre class="pod-block-code">use Foo;
+say Foo::loud-greeting;  # OUTPUT: «GREETINGS, CAMELIA!␤»
+say friendly-greeting;   # OUTPUT: «Greetings, friend!␤»
+</pre>
+<p>If <code>Foo.rakumod</code> is placed deeper within the source tree, e.g. at <code>lib/Utils/Foo.rakumod</code>, we can elect to name the module <code>Utils::Foo</code> to maintain consistency.</p>
+<h3 id="The_unit_keyword"><a class="u" href="#___top" title="go to top of document">The <code>unit</code> keyword</a></h3>
+<p>Files that only provide a single module can be written more concisely with the <code>unit</code> keyword; <code>unit module</code> specifies that the rest of the compilation unit is part of the declared module. Here&#39;s <code>Foo.rakumod</code> rewritten with <code>unit</code>:</p>
+<pre class="pod-block-code">unit module Foo;
+
+sub greeting ($name = &#39;Camelia&#39;) { &quot;Greetings, $name!&quot; }
+our sub loud-greeting (--&gt; Str)  { greeting().uc       }
+sub friendly-greeting is export  { greeting(&#39;friend&#39;)  }
+</pre>
+<p>Everything following the unit declaration is part of the <code>Foo</code> module specification.</p>
+<p>(Note that <code>unit</code> can also be used with <code>class</code>, <code>grammar</code> and <code>role</code>.)</p>
+<h2 id="What_happens_if_I_omit_module?"><a class="u" href="#___top" title="go to top of document">What happens if I omit <code>module</code>?</a></h2>
+<p>To better understand what the <code>module</code> declarator is doing in <code>Foo.rakumod</code>, let&#39;s contrast it with a variant file, <code>Bar.rakumod</code>, that omits the declaration. The subroutine definitions below are almost identical (the only difference is in the body of <code>greeting</code>, modified for clarity):</p>
+<pre class="pod-block-code">sub greeting ($name = &#39;Camelia&#39;) { &quot;Greetings from Bar, $name!&quot; }
+our sub loud-greeting (--&gt; Str)  { greeting().uc                }
+sub friendly-greeting is export  { greeting(&#39;friend&#39;)           }
+</pre>
+<p>As a reminder, here&#39;s how we used <code>Foo.rakumod</code> before,</p>
+<pre class="pod-block-code">use Foo;
+say Foo::loud-greeting;  # OUTPUT: «GREETINGS, CAMELIA!␤»
+say friendly-greeting;   # OUTPUT: «Greetings, friend!␤»
+</pre>
+<p>and here&#39;s how we use <code>Bar.rakumod</code>,</p>
+<pre class="pod-block-code">use Bar;
+say loud-greeting;       # OUTPUT: «GREETINGS FROM BAR, CAMELIA!␤»
+say friendly-greeting;   # OUTPUT: «Greetings from Bar, friend!␤»
+</pre>
+<p>Note the use of <code>loud-greeting</code> rather than <code>Bar::loud-greeting</code> as <code>Bar</code> is not a known symbol (we didn&#39;t create a <code>module</code> of that name in <code>Bar.rakumod</code>). But why is <code>loud-greeting</code> callable even though we didn&#39;t mark it for export? The answer is simply that <code>Bar.rakumod</code> doesn&#39;t create a new package namespace—<code>$?PACKAGE</code> is still set to <code>GLOBAL</code>—so when we declare <code>loud-greeting</code> as <code>our</code>, it is registered in the <code>GLOBAL</code> symbol table.</p>
+<h3 id="Lexical_aliasing_and_safety"><a class="u" href="#___top" title="go to top of document">Lexical aliasing and safety</a></h3>
+<p>Thankfully, Raku protects us from accidentally clobbering call site definitions (e.g. builtins). Consider the following addition to <code>Bar.rakumod</code>:</p>
+<pre class="pod-block-code">our sub say ($ignored) { print &quot;oh dear\n&quot; }</pre>
+<p>This creates a lexical alias, hiding the <code>say</code> builtin <em>inside</em> <code>Bar.rakumod</code> but leaving the caller&#39;s <code>say</code> unchanged. Consequently, the following call to <code>say</code> still works as expected:</p>
+<pre class="pod-block-code">use Bar;
+say &#39;Carry on, carry on...&#39;;  # OUTPUT: «Carry on, carry on...␤»
+</pre>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/module-packages.pod6">https://github.com/Raku/doc/blob/master/doc/Language/module-packages.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

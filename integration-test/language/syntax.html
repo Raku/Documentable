@@ -1,0 +1,684 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Syntax</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/syntax.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Syntax</h1>
+        <p class="subtitle">General rules of Raku syntax</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+     <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Lexical_conventions">Lexical conventions</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#Free_form">Free form</a></td></tr>
+                       <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#Unspace">Unspace  </a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#Separating_statements_with_semicolons">Separating statements with semicolons</a></td></tr>
+                     <tr class="toc-level-2"><td class="toc-number">1.4</td><td class="toc-text"><a href="#Implied_separator_rule_(for_statements_ending_in_blocks)">Implied separator rule (for statements ending in blocks)</a></td></tr>
+                                             <tr class="toc-level-2"><td class="toc-number">1.5</td><td class="toc-text"><a href="#Comments">Comments</a></td></tr>
+       <tr class="toc-level-3"><td class="toc-number">1.5.1</td><td class="toc-text"><a href="#Single-line_comments">Single-line comments</a></td></tr>
+            <tr class="toc-level-3"><td class="toc-number">1.5.2</td><td class="toc-text"><a href="#Multi-line_/_embedded_comments">Multi-line / embedded comments</a></td></tr>
+                        <tr class="toc-level-3"><td class="toc-number">1.5.3</td><td class="toc-text"><a href="#Pod_comments">Pod comments</a></td></tr>
+                    <tr class="toc-level-2"><td class="toc-number">1.6</td><td class="toc-text"><a href="#Identifiers">Identifiers</a></td></tr>
+          <tr class="toc-level-3"><td class="toc-number">1.6.1</td><td class="toc-text"><a href="#Ordinary_identifiers">Ordinary identifiers</a></td></tr>
+                                       <tr class="toc-level-3"><td class="toc-number">1.6.2</td><td class="toc-text"><a href="#Extended_identifiers">Extended identifiers</a></td></tr>
+                                                                                                                                                  <tr class="toc-level-3"><td class="toc-number">1.6.3</td><td class="toc-text"><a href="#Compound_identifiers">Compound identifiers</a></td></tr>
+                                           <tr class="toc-level-2"><td class="toc-number">1.7</td><td class="toc-text"><a href="#term_term:&lt;&gt;">term term:&lt;&gt;</a></td></tr>
+                   <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Statements_and_expressions">Statements and expressions</a></td></tr>
+                    <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Terms">Terms</a></td></tr>
+                       <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#Variables">Variables</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">3.2</td><td class="toc-text"><a href="#Barewords_(constants,_type_names)">Barewords (constants, type names)</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">3.3</td><td class="toc-text"><a href="#Packages_and_qualified_names">Packages and qualified names</a></td></tr>
+               <tr class="toc-level-2"><td class="toc-number">3.4</td><td class="toc-text"><a href="#Literals">Literals</a></td></tr>
+         <tr class="toc-level-3"><td class="toc-number">3.4.1</td><td class="toc-text"><a href="#String_literals">String literals</a></td></tr>
+                       <tr class="toc-level-3"><td class="toc-number">3.4.2</td><td class="toc-text"><a href="#Number_literals">Number literals</a></td></tr>
+                             <tr class="toc-level-4"><td class="toc-number">3.4.2.1</td><td class="toc-text"><a href="#Int_literals"><code class="pod-code-inline">Int</code> literals</a></td></tr>
+                <tr class="toc-level-4"><td class="toc-number">3.4.2.2</td><td class="toc-text"><a href="#Rat_literals"><code class="pod-code-inline">Rat</code> literals</a></td></tr>
+                   <tr class="toc-level-4"><td class="toc-number">3.4.2.3</td><td class="toc-text"><a href="#Num_literals"><code class="pod-code-inline">Num</code> literals</a></td></tr>
+                  <tr class="toc-level-4"><td class="toc-number">3.4.2.4</td><td class="toc-text"><a href="#Complex_literals"><code class="pod-code-inline">Complex</code> literals</a></td></tr>
+              <tr class="toc-level-3"><td class="toc-number">3.4.3</td><td class="toc-text"><a href="#Pair_literals">Pair literals</a></td></tr>
+       <tr class="toc-level-4"><td class="toc-number">3.4.3.1</td><td class="toc-text"><a href="#Arrow_pairs">Arrow pairs</a></td></tr>
+        <tr class="toc-level-4"><td class="toc-number">3.4.3.2</td><td class="toc-text"><a href="#Adverbial_pairs_(colon_pairs)">Adverbial pairs (colon pairs)</a></td></tr>
+                               <tr class="toc-level-3"><td class="toc-number">3.4.4</td><td class="toc-text"><a href="#Boolean_literals">Boolean literals</a></td></tr>
+     <tr class="toc-level-3"><td class="toc-number">3.4.5</td><td class="toc-text"><a href="#Array_literals">Array literals</a></td></tr>
+                            <tr class="toc-level-3"><td class="toc-number">3.4.6</td><td class="toc-text"><a href="#Hash_literals">Hash literals</a></td></tr>
+                                               <tr class="toc-level-3"><td class="toc-number">3.4.7</td><td class="toc-text"><a href="#Regex_literals">Regex literals</a></td></tr>
+                   <tr class="toc-level-3"><td class="toc-number">3.4.8</td><td class="toc-text"><a href="#Signature_literals">Signature literals</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">3.5</td><td class="toc-text"><a href="#Declarations">Declarations</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-number">3.5.1</td><td class="toc-text"><a href="#Variable_declaration">Variable declaration</a></td></tr>
+         <tr class="toc-level-3"><td class="toc-number">3.5.2</td><td class="toc-text"><a href="#Subroutine_declaration">Subroutine declaration</a></td></tr>
+    <tr class="toc-level-3"><td class="toc-number">3.5.3</td><td class="toc-text"><a href="#Package,_Module,_Class,_Role,_and_Grammar_declaration"><code class="pod-code-inline">Package</code> , <code class="pod-code-inline">Module</code> , <code class="pod-code-inline">Class</code> , <code class="pod-code-inline">Role</code> , and <code class="pod-code-inline">Grammar</code> declaration</a></td></tr>
+            <tr class="toc-level-3"><td class="toc-number">3.5.4</td><td class="toc-text"><a href="#Multi-dispatch_declaration">Multi-dispatch declaration</a></td></tr>
+        <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#Subroutine_calls">Subroutine calls</a></td></tr>
+                                    <tr class="toc-level-2"><td class="toc-number">4.1</td><td class="toc-text"><a href="#Precedence_drop">Precedence drop</a></td></tr>
+                 <tr class="toc-level-1"><td class="toc-number">5</td><td class="toc-text"><a href="#Operators">Operators</a></td></tr>
+                <tr class="toc-level-2"><td class="toc-number">5.1</td><td class="toc-text"><a href="#Metaoperators">Metaoperators</a></td></tr>
+                            
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Raku borrows many concepts from human language. Which is not surprising, considering it was designed by a linguist.</p>
+<p>It reuses common elements in different contexts, has the notion of nouns (terms) and verbs (operators), is context-sensitive (in the every day sense, not necessarily in the Computer Science interpretation), so a symbol can have a different meaning depending on whether a noun or a verb is expected.</p>
+<p>It is also self-clocking, so that the parser can detect most of the common errors and give good error messages.</p>
+<h1 id="Lexical_conventions"><a class="u" href="#___top" title="go to top of document">Lexical conventions</a></h1>
+<p>Raku code is Unicode text. Current implementations support UTF-8 as the input encoding.</p>
+<p>See also <a href="/Documentable/integration-test/language/unicode_ascii">Unicode versus ASCII symbols</a>.</p>
+<h2 id="Free_form"><a class="u" href="#___top" title="go to top of document">Free form</a></h2>
+<p>Raku code is also free-form, in the sense that you are mostly free to chose the amount of whitespace you use, though in some cases, the presence or absence of whitespace carries meaning.</p>
+<p>So you can write</p>
+<pre class="pod-block-code">if True {
+    say &quot;Hello&quot;;
+}
+</pre>
+<p>or</p>
+<pre class="pod-block-code">    if True {
+say &quot;Hello&quot;; # Bad indentation intended
+        }
+</pre>
+<p>or</p>
+<pre class="pod-block-code">if True { say &quot;Hello&quot; }
+</pre>
+<p>or even</p>
+<pre class="pod-block-code">if True {say &quot;Hello&quot;}
+</pre>
+<p>though you can&#39;t leave out any of the remaining whitespace.</p>
+<h2 id="Unspace"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-syntax_\-Unspace"><span class="index-entry">Unspace</span></a> <a name="Documentable/integration-test/index-entry-syntax_Unspace"></a></a></h2>
+<p>In many places where the compiler would not allow a space you can use any amount of whitespace, as long as it is quoted with a backslash. Unspaces in tokens are not supported. Newlines that are unspaced still count when the compiler produces line numbers. Use cases for unspace are separation of postfix operators and routine argument lists.</p>
+<pre class="pod-block-code">sub alignment(+@l) { +@l };
+sub long-name-alignment(+@l) { +@l };
+alignment\         (1,2,3,4).say;
+long-name-alignment(3,5)\   .say;
+say Inf+Inf\i;</pre>
+<p>In this case, our intention was to make the <code>.</code> of both statements, as well as the parentheses, align, so we precede the whitespace used for padding with a <code>\</code>.</p>
+<h2 id="Separating_statements_with_semicolons"><a class="u" href="#___top" title="go to top of document">Separating statements with semicolons</a></h2>
+<p>A Raku program is a list of statements, separated by semicolons <code>;</code>.</p>
+<pre class="pod-block-code">say &quot;Hello&quot;;
+say &quot;world&quot;;
+</pre>
+<p>A semicolon after the final statement (or after the final statement inside a block) is optional.</p>
+<pre class="pod-block-code">say &quot;Hello&quot;;
+say &quot;world&quot;
+</pre>
+<pre class="pod-block-code">if True {
+    say &quot;Hello&quot;
+}
+say &quot;world&quot;
+</pre>
+<h2 id="Implied_separator_rule_(for_statements_ending_in_blocks)"><a class="u" href="#___top" title="go to top of document">Implied separator rule (for statements ending in blocks)</a></h2>
+<p>Complete statements ending in bare blocks can omit the trailing semicolon, if no additional statements on the same line follow the block&#39;s closing curly brace <code>}</code>. This is called the &quot;implied separator rule.&quot; For example, you don&#39;t need to write a semicolon after an <code>if</code> statement block as seen above, and below.</p>
+<pre class="pod-block-code">if True { say &quot;Hello&quot; }
+say &quot;world&quot;;
+</pre>
+<p>However, semicolons are required to separate a block from trailing statements in the same line.</p>
+<pre class="pod-block-code">if True { say &quot;Hello&quot; }; say &quot;world&quot;;
+#                     ^^^ this ; is required
+</pre>
+<p>This implied statement separator rule applies in other ways, besides control statements, that could end with a bare block. For example, in combination with the colon <code>:</code> syntax for method calls.</p>
+<pre class="pod-block-code">my @names = &lt;Foo Bar Baz&gt;;
+my @upper-case-names = @names.map: { .uc }    # OUTPUT: [FOO BAR BAZ]
+</pre>
+<p>For a series of blocks that are part of the same <code>if</code>/<code>elsif</code>/<code>else</code> (or similar) construct, the implied separator rule only applies at the end of the last block of that series. These three are equivalent:</p>
+<pre class="pod-block-code">if True { say &quot;Hello&quot; } else { say &quot;Goodbye&quot; }; say &quot;world&quot;;
+#                                            ^^^ this ; is required
+</pre>
+<pre class="pod-block-code">if True { say &quot;Hello&quot; } else { say &quot;Goodbye&quot; } # &lt;- implied statement separator
+say &quot;world&quot;;
+</pre>
+<pre class="pod-block-code">if True { say &quot;Hello&quot; }   # still in the middle of an if/else statement
+else    { say &quot;Goodbye&quot; } # &lt;- no semicolon required because it ends in a block
+                          #    without trailing statements in the same line
+say &quot;world&quot;;
+</pre>
+<h2 id="Comments"><a class="u" href="#___top" title="go to top of document">Comments</a></h2>
+<p>Comments are parts of the program text which are only intended for human readers; the Raku compilers do not evaluate them as program text. They are part of the <em>non-ambient</em> code that includes <em>Pod6</em> text.</p>
+<p>Comments count as whitespace in places where the absence or presence of whitespace disambiguates possible parses.</p>
+<h3 id="Single-line_comments"><a class="u" href="#___top" title="go to top of document">Single-line comments</a></h3>
+<p>The most common form of comments in Raku starts with a single hash character <code>#</code> and goes until the end of the line.</p>
+<pre class="pod-block-code">if $age &gt; 250 {     # catch obvious outliers
+    # this is another comment!
+    die &quot;That doesn&#39;t look right&quot;
+}
+</pre>
+<h3 id="Multi-line_/_embedded_comments"><a class="u" href="#___top" title="go to top of document">Multi-line / embedded comments</a></h3>
+<p>Multi-line and embedded comments start with a hash character, followed by a backtick, and then some opening bracketing character, and end with the matching closing bracketing character. Only the paired characters (), {}, [], and &lt;&gt; are valid for bounding comment blocks. (Unlike matches and substitutions, where pairs such as !!, || or @ may be used.) The content can not only span multiple lines, but can also be embedded inline.</p>
+<pre class="pod-block-code">if #`( why would I ever write an inline comment here? ) True {
+    say &quot;something stupid&quot;;
+}
+</pre>
+<p>These comments can extend multiple lines</p>
+<pre class="pod-block-code">#`[
+And this is how a multi would work.
+That says why we do what we do below.
+]
+say &quot;No more&quot;;
+</pre>
+<p>Curly braces inside the comment can be nested, so in <code>#`{ a { b } c }</code>, the comment goes until the very end of the string. You may also use multiple curly braces, such as <code>#`{{ double-curly-brace }}</code>, which might help disambiguate from nested delimiters. You can embed these comments in expressions, as long as you don&#39;t insert them in the middle of keywords or identifiers.</p>
+<h3 id="Pod_comments"><a class="u" href="#___top" title="go to top of document">Pod comments</a></h3>
+<p>Pod syntax can be used for multi-line comments</p>
+<pre class="pod-block-code">say &quot;this is code&quot;;
+
+=begin comment
+
+Here are several
+lines
+of comment
+
+=end comment
+
+say &#39;code again&#39;;
+</pre>
+<h2 id="Identifiers"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-identifier_identifiers-Identifiers"><span class="index-entry">Identifiers</span></a></a></h2>
+<p>Identifiers are grammatical building blocks that may be used to give a name to entities/objects such as constants, variables (e.g. <code>Scalar</code>s) and routines (e.g. <code>Sub</code>s and Methods). In a <a href="/Documentable/integration-test/language/variables">variable name</a>, any sigil (and twigil) precedes the identifier and does not form a part thereof.</p>
+<pre class="pod-block-code">constant c = 299792458;     # identifier &quot;c&quot; names an Int
+my $a = 123;                # identifier &quot;a&quot; in the name &quot;$a&quot; of a Scalar
+sub hello { say &quot;Hello!&quot; }; # identifier &quot;hello&quot; names a Sub</pre>
+<p>Identifiers come in different forms: ordinary, extended, and compound identifiers.</p>
+<h3 id="Ordinary_identifiers"><a class="u" href="#___top" title="go to top of document">Ordinary identifiers</a></h3>
+<p>An ordinary identifier is composed of a leading alphabetic character which may be followed by one or more alphanumeric characters. It may also contain isolated, embedded apostrophes <code>&#39;</code> and/or hyphens <code>-</code>, provided that the next character is each time alphabetic.</p>
+<p>The definitions of &quot;alphabetic&quot; and &quot;alphanumeric&quot; include appropriate Unicode characters. Which characters are &quot;appropriate&quot; depends on the implementation. In the Rakudo/MoarVM Raku implementation alphabetic characters include characters with the Unicode General Category value <em>Letter</em> (L), and the underscore <code>_</code>. Alphanumeric characters additionally include characters with the Unicode General Category value <em>Number, Decimal Digit</em> (Nd).</p>
+<pre class="pod-block-code"># valid ordinary identifiers:
+x
+_snake_oil
+something-longer
+with-numbers1234
+don&#39;t-do-that
+piece_of_π
+駱駝道              # &quot;Rakuda-dō&quot;, Japanese for &quot;Way of the camel&quot;
+</pre>
+<pre class="pod-block-code"># invalid ordinary identifiers:
+42                 # identifier does not start with alphabetic character
+with-numbers1234-5 # embedded hyphen not followed by alphabetic character
+is-prime?          # question mark is not alphanumeric
+x²                 # superscript 2 is not alphanumeric (explained above)
+</pre>
+<h3 id="Extended_identifiers"><a class="u" href="#___top" title="go to top of document">Extended identifiers</a></h3>
+<p>It is often convenient to have names that contain characters that are not allowed in ordinary identifiers. Use cases include situations where a set of entities shares a common &quot;short&quot; name, but still needs for each of its elements to be identifiable individually. For example, you might use a module whose short name is <code>Dog</code>, while its long name includes its naming authority and version:</p>
+<pre class="pod-block-code">Dog:auth&lt;Somebody&gt;:ver&lt;1.0&gt;  # long module names including author and version
+Dog:auth&lt;Somebody&gt;:ver&lt;2.0&gt;
+
+use Dog:auth&lt;Somebody&gt;:ver&lt;2.0&gt;;
+# Selection of second module causes its full name to be aliased to the
+# short name for the rest of # the lexical scope, allowing a declaration
+# like this.
+my Dog $spot .= new(&quot;woof&quot;);
+</pre>
+<p>Similarly, sets of operators work together in various syntactic categories with names like <code>prefix</code>, <code>infix</code> and <code>postfix</code>. The official names of these operators often contain characters that are excluded from ordinary identifiers. The long name is what constitutes the extended identifier, and includes this syntactic category; the short name will be included in quotes in the definition:</p>
+<pre class="pod-block-code">infix:&lt;+&gt;                 # the official name of the operator in $a + $b
+infix:&lt;*&gt;                 # the official name of the operator in $a * $b
+infix:«&lt;=»                # the official name of the operator in $a &lt;= $b
+</pre>
+<p>For all such uses, you can append one or more colon-separated strings to an ordinary identifier to create a so-called <em>extended identifier</em>. When appended to an identifier (that is, in postfix position), this colon-separated string generates unique variants of that identifier.</p>
+<p>These strings have the form <code>:key&lt;value&gt;</code>, wherein <code>key</code> <em>or</em> <code>value</code> are optional; that is, after the colon that separates it from a regular identifier, there will be a <code>key</code> and/or a quoting bracketing construct such as <code>&lt; &gt;</code>, <code>« »</code> or <code>[&#39; &#39;]</code> which quotes one or more arbitrary characters <code>value</code>.<a href="#fn-1" id="fn-ref-1">[1]</a></p>
+<pre class="pod-block-code"># exemplary valid extended identifiers:
+postfix:&lt;²&gt;               # the official long name of the operator in $x²
+WOW:That&#39;sAwesome
+WOW:That&#39;s&lt;&lt;🆒&gt;&gt;
+party:sweet&lt;16&gt;
+
+# exemplary invalid extended identifiers:
+party:16&lt;sweet&gt;           # 16 is not an ordinary identifier
+party:16sweet
+party:!a                  # ...and neither is !a
+party:$a                  # ...nor $a
+</pre>
+<p>In an extended identifier, the postfix string is considered an integral part of the name, so <code>infix:&lt;+&gt;</code> and <code>infix:&lt;-&gt;</code> are two different operators. The bracketing characters used, however, do not count as part of it; only the quoted data matters. So these are all the same name:</p>
+<pre class="pod-block-code">infix:&lt;+&gt;
+infix:&lt;&lt;+&gt;&gt;
+infix:«+»
+infix:[&#39;+&#39;]
+infix:(&#39;+&#39;)
+</pre>
+<p>Similarly, all of this works:</p>
+<pre class="pod-block-code">my $foo:bar&lt;baz&gt; = &#39;quux&#39;;
+say $foo:bar«baz»;                               # OUTPUT: «quux␤»
+my $take-me:&lt;home&gt; = &#39;Where the glory has no end&#39;;
+say $take-me:[&#39;home&#39;];                           # OUTPUT: «Where [...]␤»
+my $foo:bar&lt;2&gt; = 5;
+say $foo:bar(1+1);                               # OUTPUT: «5␤»
+</pre>
+<p>Where an extended identifier comprises two or more colon pairs, their order is generally significant:</p>
+<pre class="pod-block-code">my $a:b&lt;c&gt;:d&lt;e&gt; = 100;
+my $a:d&lt;e&gt;:b&lt;c&gt; = 200;
+say $a:b&lt;c&gt;:d&lt;e&gt;;               # OUTPUT: «100␤», NOT: «200␤»
+</pre>
+<p>An exception to this rule is <em>module versioning</em>; so these identifiers effectively name the same module:</p>
+<pre class="pod-block-code">use ThatModule:auth&lt;Somebody&gt;:ver&lt;2.7.18.28.18&gt;
+use ThatModule:ver&lt;2.7.18.28.18&gt;:auth&lt;Somebody&gt;
+</pre>
+<p>Furthermore, extended identifiers support compile-time interpolation; this requires the use of <a href="/Documentable/integration-test/language/terms#Constants">constants</a> for the interpolation values:</p>
+<pre class="pod-block-code">constant $c = 42;  # Constant binds to Int; $-sigil enables interpolation
+my $a:foo&lt;42&gt; = &quot;answer&quot;;
+say $a:foo«$c»;    # OUTPUT: «answer␤»
+</pre>
+<p>Although quoting bracketing constructs are generally interchangeable in the context of identifiers, they are not identical. In particular, angle brackets <code>&lt; &gt;</code> (which mimic single quote interpolation characteristics) cannot be used for the interpolation of constant names.</p>
+<pre class="pod-block-code">constant $what = &#39;are&#39;;
+my @we:&lt;are&gt;= &lt;the champions&gt;;
+say @we:«$what»;     # OUTPUT: «[the champions]␤»
+say @we:&lt;$what&gt;;
+# Compilation error: Variable &#39;@we:&lt;$what&gt;&#39; is not declared
+</pre>
+<h3 id="Compound_identifiers"><a class="u" href="#___top" title="go to top of document">Compound identifiers</a></h3>
+<p>A compound identifier is an identifier that is composed of two or more ordinary and/or extended identifiers that are separated from one another by a double colon <code>::</code>.</p>
+<p>The double colon <code>::</code> is known as the <em>namespace separator</em> or the <em>package delimiter</em>, which clarifies its semantic function in a name: to force the preceding portion of the name to be considered a <a href="/Documentable/integration-test/language/packages">package</a>/namespace through which the subsequent portion of the name is to be located:</p>
+<pre class="pod-block-code">module MyModule {               # declare a module package
+    our $var = &quot;Hello&quot;;         # declare package-scoped variable
+}
+say $MyModule::var              # OUTPUT: «Hello␤»</pre>
+<p>In the example above, <code>MyModule::var</code> is a compound identifier, composed of the package name identifier <code>MyModule</code> and the identifier part of the variable name <code>var</code>. Altogether <code>$MyModule::var</code> is often referred to as a <a href="/Documentable/integration-test/language/packages#Package-qualified_names">package-qualified name</a>.</p>
+<p>Separating identifiers with double colons causes the rightmost name to be inserted into existing (see above example) <em>or automatically created</em> packages:</p>
+<pre class="pod-block-code">my $foo::bar = 1;
+say OUR::.keys;           # OUTPUT: «(foo)␤»
+say OUR::foo.HOW          # OUTPUT: «Perl6::Metamodel::PackageHOW.new␤»
+</pre>
+<p>The last lines shows how the <code>foo</code> package was created automatically, as a deposit for variables in that namespace.</p>
+<p>The double colon syntax enables runtime <a href="/Documentable/integration-test/language/packages#Interpolating_into_names">interpolation</a> of a string into a package or variable name using <code>::($expr)</code> where you&#39;d ordinarily put a package or variable name:</p>
+<pre class="pod-block-code">my $buz = &quot;quux&quot;;
+my $bur::quux = 7;
+say $bur::($buz);               # OUTPUT: «7␤»</pre>
+<h2 id="term_term:<>"><a class="u" href="#___top" title="go to top of document">term term:&lt;&gt;</a></h2>
+<p>You can use <code>term:&lt;&gt;</code> to introduce new terms, which is handy for introducing constants that defy the rules of normal identifiers:</p>
+<pre class="pod-block-code">use Test; plan 1; constant &amp;term:&lt;👍&gt; = &amp;ok.assuming(True);
+👍
+# OUTPUT: «1..1␤ok 1 - ␤»</pre>
+<p>But terms don&#39;t have to be constant: you can also use them for functions that don&#39;t take any arguments, and force the parser to expect an operator after them. For instance:</p>
+<pre class="pod-block-code">sub term:&lt;dice&gt; { (1..6).pick };
+say dice + dice;</pre>
+<p>can print any number between 2 and 12.</p>
+<p>If instead we had declared <code>dice</code> as a regular</p>
+<pre class="pod-block-code">sub dice() {(1...6).pick }</pre>
+<p>, the expression <code>dice + dice</code> would be parsed as <code>dice(+(dice()))</code>, resulting in an error since <code>sub dice</code> expects zero arguments.</p>
+<h1 id="Statements_and_expressions"><a class="u" href="#___top" title="go to top of document">Statements and expressions</a></h1>
+<p>Raku programs are made of lists of statements. A special case of a statement is an <em>expression</em>, which returns a value. For example <code>if True { say 42 }</code> is syntactically a statement, but not an expression, whereas <code>1 + 2</code> is an expression (and thus also a statement).</p>
+<p>The <code>do</code> prefix turns statements into expressions. So while</p>
+<pre class="pod-block-code">my $x = if True { 42 };     # Syntax error!
+</pre>
+<p>is an error,</p>
+<pre class="pod-block-code">my $x = do if True { 42 };</pre>
+<p>assigns the return value of the if statement (here <code>42</code>) to the variable <code>$x</code>.</p>
+<h1 id="Terms"><a class="u" href="#___top" title="go to top of document">Terms</a></h1>
+<p>Terms are the basic nouns that, optionally together with operators, can form expressions. Examples for terms are variables (<code>$x</code>), barewords such as type names (<code>Int</code>), literals (<code>42</code>), declarations (<code>sub f() { }</code>) and calls (<code>f()</code>).</p>
+<p>For example, in the expression <code>2 * $salary</code>, <code>2</code> and <code>$salary</code> are two terms (an <a href="/Documentable/integration-test/type/Int">integer</a> literal and a <a href="/Documentable/integration-test/language/variables">variable</a>).</p>
+<h2 id="Variables"><a class="u" href="#___top" title="go to top of document">Variables</a></h2>
+<p>Variables typically start with a special character called the <em>sigil</em>, and are followed by an identifier. Variables must be declared before you can use them.</p>
+<pre class="pod-block-code"># declaration:
+my $number = 21;
+# usage:
+say $number * 2;</pre>
+<p>See the <a href="/Documentable/integration-test/language/variables">documentation on variables</a> for more details.</p>
+<h2 id="Barewords_(constants,_type_names)"><a class="u" href="#___top" title="go to top of document">Barewords (constants, type names)</a></h2>
+<p>Pre-declared identifiers can be terms on their own. Those are typically type names or constants, but also the term <code>self</code> which refers to an object that a method was called on (see <a href="/Documentable/integration-test/language/objects">objects</a>), and sigilless variables:</p>
+<pre class="pod-block-code">say Int;                # OUTPUT: «(Int)␤»
+#   ^^^ type name (built in)
+
+constant answer = 42;
+say answer;
+#   ^^^^^^ constant
+
+class Foo {
+    method type-name {
+        self.^name;
+      # ^^^^ built-in term &#39;self&#39;
+    }
+}
+say Foo.type-name;     # OUTPUT: «Foo␤»
+#   ^^^ type name</pre>
+<h2 id="Packages_and_qualified_names"><a class="u" href="#___top" title="go to top of document">Packages and qualified names</a></h2>
+<p>Named entities, such as variables, constants, classes, modules or subs, are part of a namespace. Nested parts of a name use <code>::</code> to separate the hierarchy. Some examples:</p>
+<pre class="pod-block-code">$foo                # simple identifiers
+$Foo::Bar::baz      # compound identifiers separated by ::
+$Foo::($bar)::baz   # compound identifiers that perform interpolations
+Foo::Bar::bob(23)   # function invocation given qualified name
+</pre>
+<p>See the <a href="/Documentable/integration-test/language/packages">documentation on packages</a> for more details.</p>
+<h2 id="Literals"><a class="u" href="#___top" title="go to top of document">Literals</a></h2>
+<p>A <a href="https://en.wikipedia.org/wiki/Literal_%28computer_programming%29">literal</a> is a representation of a constant value in source code. Raku has literals for several built-in types, like <a href="/Documentable/integration-test/type/Str">strings</a>, several numeric types, <a href="/Documentable/integration-test/type/Pair">pairs</a> and more.</p>
+<p><a name="Documentable/integration-test/index-entry-String_(literals)"></a></p>
+<h3 id="String_literals"><a class="u" href="#___top" title="go to top of document">String literals</a></h3>
+<p>String literals are surrounded by quotes:</p>
+<pre class="pod-block-code">say &#39;a string literal&#39;;
+say &quot;a string literal\nthat interprets escape sequences&quot;;</pre>
+<p>See <a href="/Documentable/integration-test/language/quoting">quoting</a> for many more options, including <a href="/Documentable/integration-test/language/quoting#Escaping:_q">the escaping quoting <code>q</code></a>. Raku uses the standard escape characters in literals: <code>\a \b \t \n \f \r \e</code>, with the same meaning as the ASCII escape codes, specified in <a href="https://design.raku.org/S02.html#Backslash_sequences">the design document</a>.</p>
+<pre class="pod-block-code">say &quot;🔔\a&quot;;  # OUTPUT: «🔔␇␤»</pre>
+<p><a name="Documentable/integration-test/index-entry-0b_(radix_form)"></a> <a name="Documentable/integration-test/index-entry-0d_(radix_form)"></a> <a name="Documentable/integration-test/index-entry-0o_(radix_form)"></a> <a name="Documentable/integration-test/index-entry-0x_(radix_form)"></a> <a name="Documentable/integration-test/index-entry-Number_(literals)"></a></p>
+<h3 id="Number_literals"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-Number_literals"><span class="index-entry">Number literals</span></a></a></h3>
+<p>Number literals are generally specified in base ten (which can be specified literally, if needed, via the prefix <code>0d</code>), unless a prefix like <code>0x</code> (he<strong>x</strong>adecimal, base 16), <code>0o</code> (<strong>o</strong>ctal, base 8) or <code>0b</code> (<strong>b</strong>inary, base 2) or an explicit base in adverbial notation like <code>:16&lt;A0&gt; </code> specifies it otherwise. Unlike other programming languages, leading zeros do <em>not</em> indicate base 8; instead a compile-time warning is issued.</p>
+<p>In all literal formats, you can use underscores to group digits, although they don&#39;t carry any semantic information; the following literals all evaluate to the same number:</p>
+<pre class="pod-block-code">1000000
+1_000_000
+10_00000
+100_00_00
+</pre>
+<h4 id="Int_literals"><a class="u" href="#___top" title="go to top of document"><code>Int</code> literals</a></h4>
+<p>Integers default to signed base-10, but you can use other bases. For details, see <a href="/Documentable/integration-test/type/Int">Int</a>.</p>
+<pre class="pod-block-code"># not a single literal, but unary - operator applied to numeric literal 2
+-2
+12345
+0xBEEF      # base 16
+0o755       # base 8
+:3&lt;1201&gt;    # arbitrary base, here base 3
+</pre>
+<h4 id="Rat_literals"><a class="u" href="#___top" title="go to top of document"><code>Rat</code> literals</a></h4>
+<p><a href="/Documentable/integration-test/type/Rat">Rat</a> literals (rationals) are very common, and take the place of decimals or floats in many other languages. Integer division also results in a <code>Rat</code>.</p>
+<pre class="pod-block-code">1.          # Error: A number must have at least one digit after the radix point
+1.0
+3.14159
+-2.5        # Not actually a literal, but still a Rat
+:3&lt;21.0012&gt; # Base 3 rational
+⅔
+2/3         # Not actually a literal, but still a Rat
+</pre>
+<h4 id="Num_literals"><a class="u" href="#___top" title="go to top of document"><code>Num</code> literals</a></h4>
+<p>Scientific notation with an integer exponent to base ten after an <code>e</code> produces <a href="/Documentable/integration-test/type/Num">floating point number</a>:</p>
+<pre class="pod-block-code">1.e0        # error: A number must have at least one digit after the radix point
+1e0
+6.022e23
+1e-9
+-2e48
+2e2.5       # error
+</pre>
+<h4 id="Complex_literals"><a class="u" href="#___top" title="go to top of document"><code>Complex</code> literals</a></h4>
+<p><a href="/Documentable/integration-test/type/Complex">Complex</a> numbers are written either as an imaginary number (which is just a rational number with postfix <code>i</code> appended), or as a sum of a real and an imaginary number:</p>
+<pre class="pod-block-code">1.+2i       # error: A number must have at least one digit after the radix point
+1+2.i       # error: A number must have at least one digit after the radix point
+1+2i
+6.123e5i    # note that this is 6.123e5 * i, not 6.123 * 10 ** (5i)
+</pre>
+<p><a name="Documentable/integration-test/index-entry-Pairs_(literals)"></a></p>
+<h3 id="Pair_literals"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-Pair_literals"><span class="index-entry">Pair literals</span></a></a></h3>
+<p><a href="/Documentable/integration-test/type/Pair">Pairs</a> are made of a key and a value, and there are two basic forms for constructing them: <code>key =&gt; &#39;value&#39; </code> and <code>:key(&#39;value&#39;)</code>.</p>
+<h4 id="Arrow_pairs"><a class="u" href="#___top" title="go to top of document">Arrow pairs</a></h4>
+<p>Arrow pairs can have an expression, a string literal or a &quot;bare identifier&quot;, which is a string with ordinary-identifier syntax that does not need quotes on the left-hand side:</p>
+<pre class="pod-block-code">like-an-identifier-ain&#39;t-it =&gt; 42
+&quot;key&quot; =&gt; 42
+(&#39;a&#39; ~ &#39;b&#39;) =&gt; 1
+</pre>
+<h4 id="Adverbial_pairs_(colon_pairs)"><a class="u" href="#___top" title="go to top of document">Adverbial pairs (colon pairs)</a></h4>
+<p>Short forms without explicit values:</p>
+<pre class="pod-block-code">my $thing = 42;
+:$thing                 # same as  thing =&gt; $thing
+:thing                  # same as  thing =&gt; True
+:!thing                 # same as  thing =&gt; False
+</pre>
+<p>The variable form also works with other sigils, like <code>:&amp;callback</code> or <code>:@elements</code>. If the value is a number literal, it can also be expressed in this short form:</p>
+<pre class="pod-block-code">:42thing            # same as  thing =&gt; 42
+:٤٢thing            # same as  thing =&gt; 42</pre>
+<p>This order is inverted if you use another alphabet</p>
+<pre class="pod-block-code">:٤٢ث              # same as   ث =&gt; ٤٢</pre>
+<p>the <em>thaa</em> letter precedes the number.</p>
+<p>Long forms with explicit values:</p>
+<pre class="pod-block-code">:thing($value)              # same as  thing =&gt; $value
+:thing&lt;quoted list&gt;         # same as  thing =&gt; &lt;quoted list&gt;
+:thing[&#39;some&#39;, &#39;values&#39;]    # same as  thing =&gt; [&#39;some&#39;, &#39;values&#39;]
+:thing{a =&gt; &#39;b&#39;}            # same as  thing =&gt; { a =&gt; &#39;b&#39; }
+</pre>
+<p><a name="Documentable/integration-test/index-entry-Boolean_(literals)"></a></p>
+<h3 id="Boolean_literals"><a class="u" href="#___top" title="go to top of document">Boolean literals</a></h3>
+<p><code>True</code> and <code>False</code> are Boolean literals; they will always have initial capital letter.</p>
+<h3 id="Array_literals"><a class="u" href="#___top" title="go to top of document">Array literals</a></h3>
+<p>A pair of square brackets can surround an expression to form an itemized <a href="/Documentable/integration-test/type/Array">Array</a> literal; typically there is a comma-delimited list inside:</p>
+<pre class="pod-block-code">say [&#39;a&#39;, &#39;b&#39;, 42].join(&#39; &#39;);   # OUTPUT: «a b 42␤»
+#   ^^^^^^^^^^^^^^ Array constructor</pre>
+<p>If the constructor is given a single <a href="/Documentable/integration-test/type/Iterable">Iterable</a>, it&#39;ll clone and flatten it. If you want an <code>Array</code> with just 1 element that is an <code>Iterable</code>, ensure to use a comma after it:</p>
+<pre class="pod-block-code">my @a = 1, 2;
+say [@a].raku;  # OUTPUT: «[1, 2]␤»
+say [@a,].raku; # OUTPUT: «[[1, 2],]␤»</pre>
+<p>The <code>Array</code> constructor does not flatten other types of contents. Use the <a href="/Documentable/integration-test/type/Slip">Slip</a> prefix operator (<code>|</code>) to flatten the needed items:</p>
+<pre class="pod-block-code">my @a = 1, 2;
+say [@a, 3, 4].raku;  # OUTPUT: «[[1, 2], 3, 4]␤»
+say [|@a, 3, 4].raku; # OUTPUT: «[1, 2, 3, 4]␤»</pre>
+<p><a href="/Documentable/integration-test/type/List">List</a> type can be explicitly created from an array literal declaration without a coercion from Array, using <strong>is</strong> <a href="/Documentable/integration-test/language/traits">trait</a> on declaration.</p>
+<pre class="pod-block-code">my @a is List = 1, 2; # a List, not an Array
+# wrong: creates an Array of Lists
+my List @a;</pre>
+<h3 id="Hash_literals"><a class="u" href="#___top" title="go to top of document">Hash literals</a></h3>
+<p>A leading associative sigil and pair of parenthesis <code>%( )</code> can surround a <code>List</code> of <code>Pairs</code> to form a <a href="/Documentable/integration-test/type/Hash">Hash</a> literal; typically there is a comma-delimited <code>List</code> of <code>Pairs</code> inside. If a non-pair is used, it is assumed to be a key and the next element is the value. Most often this is used with simple arrow pairs.</p>
+<pre class="pod-block-code">say %( a =&gt; 3, b =&gt; 23, :foo, :dog&lt;cat&gt;, &quot;french&quot;, &quot;fries&quot; );
+# OUTPUT: «a =&gt; 3, b =&gt; 23, dog =&gt; cat, foo =&gt; True, french =&gt; fries␤»
+
+say %(a =&gt; 73, foo =&gt; &quot;fish&quot;).keys.join(&quot; &quot;);   # OUTPUT: «a foo␤»
+#   ^^^^^^^^^^^^^^^^^^^^^^^^^ Hash constructor</pre>
+<p>When assigning to a <code>%</code>-sigiled variable on the left-hand side, the sigil and parenthesis surrounding the right-hand side <code>Pairs</code> are optional.</p>
+<pre class="pod-block-code">my %ages = fred =&gt; 23, jean =&gt; 87, ann =&gt; 4;</pre>
+<p>By default, keys in <code>%( )</code> are forced to strings. To compose a hash with non-string keys, use curly brace delimiters with a colon prefix <code>:{ }</code> :</p>
+<pre class="pod-block-code">my $when = :{ (now) =&gt; &quot;Instant&quot;, (DateTime.now) =&gt; &quot;DateTime&quot; };</pre>
+<p>Note that with objects as keys, you cannot access non-string keys as strings:</p>
+<pre class="pod-block-code">say :{ -1 =&gt; 41, 0 =&gt; 42, 1 =&gt; 43 }&lt;0&gt;;  # OUTPUT: «(Any)␤»
+say :{ -1 =&gt; 41, 0 =&gt; 42, 1 =&gt; 43 }{0};  # OUTPUT: «42␤»</pre>
+<p>Particular types that implement <a href="/Documentable/integration-test/type/Associative">Associative</a> role, <a href="/Documentable/integration-test/type/Map">Map</a> (including <a href="/Documentable/integration-test/type/Hash">Hash</a> and <a href="/Documentable/integration-test/type/Stash">Stash</a> subclasses) and <a href="/Documentable/integration-test/type/QuantHash">QuantHash</a> (and its subclasses), can be explicitly created from a hash literal without a coercion, using <strong>is</strong> <a href="/Documentable/integration-test/language/traits">trait</a> on declaration:</p>
+<pre class="pod-block-code">my %hash;                    # Hash
+my %hash is Hash;            # explicit Hash
+my %map is Map;              # Map
+my %stash is Stash;          # Stash
+
+my %quant-hash is QuantHash; # QuantHash
+
+my %setty is Setty;          # Setty
+my %set is Set;              # Set
+my %set-hash is SetHash;     # SetHash
+
+my %baggy is Baggy;          # Baggy
+my %bag is Bag;              # Bag
+my %bag-hash is BagHash;     # BagHash
+
+my %mixy is Mixy;            # Mixy
+my %mix is Mix;              # Mix
+my %mix-hash is MixHash;     # MixHash</pre>
+<p>Note that using a usual type declaration with a hash sigil creates a typed Hash, not a particular type:</p>
+<pre class="pod-block-code"># This is wrong: creates a Hash of Mixes, not Mix:
+my Mix %mix;
+# Works with $ sigil:
+my Mix $mix;
+# Can be typed:
+my Mix[Int] $mix-of-ints;</pre>
+<h3 id="Regex_literals"><a class="u" href="#___top" title="go to top of document">Regex literals</a></h3>
+<p>A <a href="/Documentable/integration-test/type/Regex">Regex</a> is declared with slashes like <code>/foo/</code>. Note that this <code>//</code> syntax is shorthand for the full <code>rx//</code> syntax.</p>
+<pre class="pod-block-code">/foo/          # Short version
+rx/foo/        # Longer version
+Q :regex /foo/ # Even longer version
+
+my $r = /foo/; # Regexes can be assigned to variables
+</pre>
+<h3 id="Signature_literals"><a class="u" href="#___top" title="go to top of document">Signature literals</a></h3>
+<p>Signatures can be used standalone for pattern matching, in addition to the typical usage in sub and block declarations. A standalone signature is declared starting with a colon:</p>
+<pre class="pod-block-code">say &quot;match!&quot; if 5, &quot;fish&quot; ~~ :(Int, Str); # OUTPUT: «match!␤»
+
+my $sig = :(Int $a, Str);
+say &quot;match!&quot; if (5, &quot;fish&quot;) ~~ $sig; # OUTPUT: «match!␤»
+
+given &quot;foo&quot;, 42 {
+  when :(Str, Str) { &quot;This won&#39;t match&quot; }
+  when :(Str, Int $n where $n &gt; 20) { &quot;This will!&quot; }
+}</pre>
+<p>See the <a href="/Documentable/integration-test/type/Signature">Signatures</a> documentation for more about signatures.</p>
+<h2 id="Declarations"><a class="u" href="#___top" title="go to top of document">Declarations</a></h2>
+<h3 id="Variable_declaration"><a class="u" href="#___top" title="go to top of document">Variable declaration</a></h3>
+<pre class="pod-block-code">my $x;                          # simple lexical variable
+my $x = 7;                      # initialize the variable
+my Int $x = 7;                  # declare the type
+my Int:D $x = 7;                # specify that the value must be defined (not undef)
+my Int $x where { $_ &gt; 3 } = 7; # constrain the value based on a function
+my Int $x where * &gt; 3 = 7;      # same constraint, but using Whatever shorthand</pre>
+<p>See <a href="/Documentable/integration-test/language/variables#Variable_declarators_and_scope">Variable Declarators and Scope</a> for more details on other scopes (<code>our</code>, <code>has</code>).</p>
+<h3 id="Subroutine_declaration"><a class="u" href="#___top" title="go to top of document">Subroutine declaration</a></h3>
+<pre class="pod-block-code"># The signature is optional
+sub foo { say &quot;Hello!&quot; }
+
+sub say-hello($to-whom) { say &quot;Hello $to-whom!&quot; }</pre>
+<p>You can also assign subroutines to variables.</p>
+<pre class="pod-block-code">my &amp;f = sub { say &quot;Hello!&quot; } # Un-named sub
+my &amp;f = -&gt; { say &quot;Hello!&quot; }  # Lambda style syntax. The &amp; sigil indicates the variable holds a function
+my $f = -&gt; { say &quot;Hello!&quot; }  # Functions can also be put into scalars</pre>
+<h3 id="Package,_Module,_Class,_Role,_and_Grammar_declaration"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-declarator_unit-declarator_module-declarator_package-Package,_Module,_Class,_Role,_and_Grammar_declaration"><span class="index-entry"><code>Package</code>, <code>Module</code>, <code>Class</code>, <code>Role</code>, and <code>Grammar</code> declaration</span></a></a></h3>
+<p>There are several types of package, each declared with a keyword, a name, some optional traits, and a body of subroutines, methods, or rules.</p>
+<pre class="pod-block-code">package P { }
+
+module M { }
+
+class C { }
+
+role R { }
+
+grammar G { }</pre>
+<p>Several packages may be declared in a single file. However, you can declare a <code>unit</code> package at the start of the file (preceded only by comments or <code>use</code> statements), and the rest of the file will be taken as being the body of the package. In this case, the curly braces are not required.</p>
+<pre class="pod-block-code">unit module M;
+# ... stuff goes here instead of in {}&#39;s
+</pre>
+<h3 id="Multi-dispatch_declaration"><a class="u" href="#___top" title="go to top of document">Multi-dispatch declaration</a></h3>
+<p>See also <a href="/Documentable/integration-test/language/functions#Multi-dispatch">Multi-dispatch</a>.</p>
+<p>Subroutines can be declared with multiple signatures.</p>
+<pre class="pod-block-code">multi sub foo() { say &quot;Hello!&quot; }
+multi sub foo($name) { say &quot;Hello $name!&quot; }</pre>
+<p>Inside of a class, you can also declare multi-dispatch methods.</p>
+<pre class="pod-block-code">multi method greet { }
+multi method greet(Str $name) { }</pre>
+<h1 id="Subroutine_calls"><a class="u" href="#___top" title="go to top of document">Subroutine calls</a></h1>
+<p>Subroutines are created with the keyword <code>sub</code> followed by an optional name, an optional signature and a code block. Subroutines are lexically scoped, so if a name is specified at the declaration time, the same name can be used in the lexical scope to invoke the subroutine. A subroutine is an instance of type <a href="/Documentable/integration-test/type/Sub">Sub</a> and can be assigned to any container.</p>
+<pre class="pod-block-code">foo;   # Invoke the function foo with no arguments
+foo(); # Invoke the function foo with no arguments
+&amp;f();  # Invoke &amp;f, which contains a function
+&amp;f.(); # Same as above, needed to make the following work
+my @functions = ({say 1}, {say 2}, {say 3});
+@functions&gt;&gt;.(); # hyper method call operator
+</pre>
+<p>When declared within a class, a subroutine is named &quot;method&quot;: methods are subroutines invoked against an object (i.e., a class instance). Within a method the special variable <code>self</code> contains the object instance (see <a href="/Documentable/integration-test/language/classtut#Methods">Methods</a>).</p>
+<pre class="pod-block-code"># Method invocation. Object (instance) is $person, method is set-name-age
+$person.set-name-age(&#39;jane&#39;, 98);   # Most common way
+$person.set-name-age: &#39;jane&#39;, 98;   # Precedence drop
+set-name-age($person: &#39;jane&#39;, 98);  # Invocant marker
+set-name-age $person: &#39;jane&#39;, 98;   # Indirect invocation
+</pre>
+<p>For more information, see <a href="/Documentable/integration-test/language/functions">functions</a>.</p>
+<h2 id="Precedence_drop"><a class="u" href="#___top" title="go to top of document">Precedence drop</a></h2>
+<p>In the case of method invocation (i.e., when invoking a subroutine against a class instance) it is possible to apply the <code>precedence drop</code>, identified by a colon <code>:</code> just after the method name and before the argument list. The argument list takes precedence over the method call, that on the other hand &quot;drops&quot; its precedence. In order to better understand consider the following simple example (extra spaces have been added just to align method calls):</p>
+<pre class="pod-block-code">my $band = &#39;Foo Fighters&#39;;
+say $band.substr( 0, 3 ) .substr( 0, 1 ); # F
+say $band.substr: 0, 3   .substr( 0, 1 ); # Foo
+</pre>
+<p>In the second method call the rightmost <code>substr</code> is applied to &quot;3&quot; and not to the result of the leftmost <code>substr</code>, which on the other hand yields precedence to the rightmost one.</p>
+<h1 id="Operators"><a class="u" href="#___top" title="go to top of document">Operators</a></h1>
+<p>See <a href="/Documentable/integration-test/language/operators">Operators</a> for lots of details.</p>
+<p>Operators are functions with a more symbol heavy and composable syntax. Like other functions, operators can be multi-dispatch to allow for context-specific usage.</p>
+<p>There are five types (arrangements) for operators, each taking either one or two arguments.</p>
+<pre class="pod-block-code">++$x           # prefix, operator comes before single input
+5 + 3          # infix, operator is between two inputs
+$x++           # postfix, operator is after single input
+&lt;the blue sky&gt; # circumfix, operator surrounds single input
+%foo&lt;bar&gt;      # postcircumfix, operator comes after first input and surrounds second
+</pre>
+<h2 id="Metaoperators"><a class="u" href="#___top" title="go to top of document">Metaoperators</a></h2>
+<p>Operators can be composed. A common example of this is combining an infix (binary) operator with assignment. You can combine assignment with any binary operator.</p>
+<pre class="pod-block-code">$x += 5     # Adds 5 to $x, same as $x = $x + 5
+$x min= 3   # Sets $x to the smaller of $x and 3, same as $x = $x min 3
+$x .= child # Equivalent to $x = $x.child
+</pre>
+<p>Wrap an infix operator in <code>[ ]</code> to create a new reduction operator that works on a single list of inputs, resulting in a single value.</p>
+<pre class="pod-block-code">say [+] &lt;1 2 3 4 5&gt;;    # OUTPUT: «15␤»
+(((1 + 2) + 3) + 4) + 5 # equivalent expanded version</pre>
+<p>Wrap an infix operator in <code>« »</code> (or the ASCII equivalent <code></code>) to create a new hyper operator that works pairwise on two lists.</p>
+<pre class="pod-block-code">say &lt;1 2 3&gt; «+» &lt;4 5 6&gt; # OUTPUT: «(5 7 9)␤»</pre>
+<p>The direction of the arrows indicates what to do when the lists are not the same size.</p>
+<pre class="pod-block-code">@a «+« @b # Result is the size of @b, elements from @a will be re-used
+@a »+» @b # Result is the size of @a, elements from @b will be re-used
+@a «+» @b # Result is the size of the biggest input, the smaller one is re-used
+@a »+« @b # Exception if @a and @b are different sizes
+</pre>
+<p>You can also wrap a unary operator with a hyper operator.</p>
+<pre class="pod-block-code">say -« &lt;1 2 3&gt; # OUTPUT: «(-1 -2 -3)␤»</pre>
+
+        </div>
+    </div>
+
+    <aside><ol start="1">
+<li><a href="#fn-ref-1" id="fn-1">[↑]</a> Starting with Raku language version 6.d, colon pairs with <code>sym</code> as the <code>key</code> (e.g. <code>:sym&lt;foo&gt;</code>) are reserved for possible future use. </li>
+</ol></aside>
+
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/syntax.pod6">https://github.com/Raku/doc/blob/master/doc/Language/syntax.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

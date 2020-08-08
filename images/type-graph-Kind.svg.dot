@@ -1,0 +1,13 @@
+digraph "perl6-type-graph" {
+    rankdir=BT;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "Kind" [color="#33BB33", fontcolor="#33BB33", href="/type/Kind", fontname="FreeSans"];
+    "Any" [color="#000000", fontcolor="#000000", href="/type/Any", fontname="FreeSans"];
+
+    // Superclasses
+    "Kind" -> "Any" [color="#000000"];
+
+    // Roles
+}

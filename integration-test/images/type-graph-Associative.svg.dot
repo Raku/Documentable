@@ -1,0 +1,55 @@
+digraph "perl6-type-graph" {
+    rankdir=BT;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "Associative" [color="#6666FF", fontcolor="#6666FF", href="/type/Associative", fontname="FreeSans"];
+    "Mu" [color="#000000", fontcolor="#000000", href="/type/Mu", fontname="FreeSans"];
+    "Any" [color="#000000", fontcolor="#000000", href="/type/Any", fontname="FreeSans"];
+    "Pair" [color="#000000", fontcolor="#000000", href="/type/Pair", fontname="FreeSans"];
+    "Telemetry" [color="#000000", fontcolor="#000000", href="/type/Telemetry", fontname="FreeSans"];
+    "Telemetry::Period" [color="#000000", fontcolor="#000000", href="/type/Telemetry::Period", fontname="FreeSans"];
+    "QuantHash" [color="#6666FF", fontcolor="#6666FF", href="/type/QuantHash", fontname="FreeSans"];
+    "Cool" [color="#000000", fontcolor="#000000", href="/type/Cool", fontname="FreeSans"];
+    "Iterable" [color="#6666FF", fontcolor="#6666FF", href="/type/Iterable", fontname="FreeSans"];
+    "Map" [color="#000000", fontcolor="#000000", href="/type/Map", fontname="FreeSans"];
+    "Hash" [color="#000000", fontcolor="#000000", href="/type/Hash", fontname="FreeSans"];
+    "PseudoStash" [color="#000000", fontcolor="#000000", href="/type/PseudoStash", fontname="FreeSans"];
+    "Baggy" [color="#6666FF", fontcolor="#6666FF", href="/type/Baggy", fontname="FreeSans"];
+    "Setty" [color="#6666FF", fontcolor="#6666FF", href="/type/Setty", fontname="FreeSans"];
+    "Stash" [color="#000000", fontcolor="#000000", href="/type/Stash", fontname="FreeSans"];
+    "BagHash" [color="#000000", fontcolor="#000000", href="/type/BagHash", fontname="FreeSans"];
+    "Bag" [color="#000000", fontcolor="#000000", href="/type/Bag", fontname="FreeSans"];
+    "Mixy" [color="#6666FF", fontcolor="#6666FF", href="/type/Mixy", fontname="FreeSans"];
+    "SetHash" [color="#000000", fontcolor="#000000", href="/type/SetHash", fontname="FreeSans"];
+    "Set" [color="#000000", fontcolor="#000000", href="/type/Set", fontname="FreeSans"];
+
+    // Superclasses
+    "Any" -> "Mu" [color="#000000"];
+    "Pair" -> "Any" [color="#000000"];
+    "Telemetry" -> "Any" [color="#000000"];
+    "Telemetry::Period" -> "Telemetry" [color="#000000"];
+    "Cool" -> "Any" [color="#000000"];
+    "Map" -> "Cool" [color="#000000"];
+    "Hash" -> "Map" [color="#000000"];
+    "PseudoStash" -> "Map" [color="#000000"];
+    "Stash" -> "Hash" [color="#000000"];
+    "BagHash" -> "Any" [color="#000000"];
+    "Bag" -> "Any" [color="#000000"];
+    "SetHash" -> "Any" [color="#000000"];
+    "Set" -> "Any" [color="#000000"];
+
+    // Roles
+    "Pair" -> "Associative" [color="#6666FF"];
+    "Telemetry::Period" -> "Associative" [color="#6666FF"];
+    "QuantHash" -> "Associative" [color="#6666FF"];
+    "Map" -> "Iterable" [color="#6666FF"];
+    "Map" -> "Associative" [color="#6666FF"];
+    "Baggy" -> "QuantHash" [color="#6666FF"];
+    "Setty" -> "QuantHash" [color="#6666FF"];
+    "BagHash" -> "Baggy" [color="#6666FF"];
+    "Bag" -> "Baggy" [color="#6666FF"];
+    "Mixy" -> "Baggy" [color="#6666FF"];
+    "SetHash" -> "Setty" [color="#6666FF"];
+    "Set" -> "Setty" [color="#6666FF"];
+}

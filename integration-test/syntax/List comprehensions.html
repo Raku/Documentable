@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Python List comprehensions</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Python List comprehensions</h1>
+        <p class="subtitle"></p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#language_documentation_Python_to_Raku_-_nutshell">language documentation Python to Raku - nutshell</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#(Python_to_Raku_-_nutshell)_Python_List_comprehensions">(Python to Raku - nutshell) Python List comprehensions</a></td></tr>
+                             
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Documentation for Python <code>List comprehensions</code> assembled from the following types:</p>
+<h1 id="language_documentation_Python_to_Raku_-_nutshell"><a class="u" href="#___top" title="go to top of document">language documentation Python to Raku - nutshell</a></h1>
+<p>From <a href="/Documentable/integration-test/language/py-nutshell#List_comprehensions">Python to Raku - nutshell</a></p>
+<h2 id="(Python_to_Raku_-_nutshell)_Python_List_comprehensions"><a href="/Documentable/integration-test/language/py-nutshell#List_comprehensions">(Python to Raku - nutshell) Python List comprehensions</a></h2>
+<p>Postfix statement modifiers and blocks can be combined to easily create list comprehensions in Raku.</p>
+<p>Python</p>
+<pre class="pod-block-code">print [ i * 2 for i in 3, 9 ]                      # OUTPUT: «[6, 18]␤»
+</pre>
+<p>Raku</p>
+<pre class="pod-block-code">say ( $_ * 2 for 3, 9 );                           # OUTPUT: «(6 18)␤»
+say ( { $^i * 2 } for 3, 9 );                      # OUTPUT: «(6 18)␤»
+say ( -&gt; \i { i * 2 } for 3, 9 );                  # OUTPUT: «(6 18)␤»</pre>
+<p>Conditionals can be applied, but the <code>if</code> keyword comes first, unlike in Python where the if comes second.</p>
+<pre class="pod-block-code">print [ x * 2 for x in 1, 2, 3 if x &gt; 1 ]          # OUTPUT: «[4, 6]␤»
+</pre>
+<p>vs</p>
+<pre class="pod-block-code">say ( $_ * 2 if $_ &gt; 1 for 1, 2, 3 );              # OUTPUT: «(4 6)␤»</pre>
+<p>For nested loops, the cross product operator <code>X</code> will help:</p>
+<pre class="pod-block-code">print [ i + j for i in 3,9 for j in 2,10 ]         # OUTPUT: «[5, 13, 11, 19]␤»
+</pre>
+<p>becomes either of these:</p>
+<pre class="pod-block-code">say ( { $_[0] + $_[1] } for (3,9) X (2,10) );      # OUTPUT: «(5 13 11 19)␤»
+say ( -&gt; (\i, \j) { i + j } for (3,9) X (2,10) );  # OUTPUT: «(5 13 11 19)␤»
+say ( -&gt; ($i, $j) { $i + $j } for (3,9) X (2,10) );# OUTPUT: «(5 13 11 19)␤»
+say ( { $^a[0] + $^a[1] } for (3,9) X (2,10) );    # OUTPUT: «(5 13 11 19)␤»</pre>
+<p>Using <code>map</code> (which is just like Python&#39;s <code>map</code>) and <code>grep</code> (which is like Python&#39;s <code>filter</code>) is an alternative.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

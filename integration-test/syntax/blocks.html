@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>syntax blocks</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">syntax blocks</h1>
+        <p class="subtitle"></p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#language_documentation_Control_flow">language documentation Control flow</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#(Control_flow)_control_flow_blocks_blocks">(Control flow) control flow  blocks blocks</a></td></tr>
+                                                          
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Documentation for syntax <code>blocks</code> assembled from the following types:</p>
+<h1 id="language_documentation_Control_flow"><a class="u" href="#___top" title="go to top of document">language documentation Control flow</a></h1>
+<p>From <a href="/Documentable/integration-test/language/control#Blocks">Control flow</a></p>
+<h2 id="(Control_flow)_control_flow_blocks_blocks"><a href="/Documentable/integration-test/language/control#Blocks">(Control flow) control flow  blocks blocks</a></h2>
+<p>Like many other languages, Raku uses <code>blocks</code> enclosed by <code>{</code> and <code>}</code> to turn a sequence of statements into a single one. It is OK to omit the semicolon between the last statement in a block and the closing <code>}</code>.</p>
+<pre class="pod-block-code">{ say &quot;Hello&quot;; say &quot;World&quot; }</pre>
+<p>When a block stands alone as a statement, it will be entered immediately after the previous statement finishes, and the statements inside it will be executed.</p>
+<pre class="pod-block-code">say 1;                    # OUTPUT: «1␤»
+{ say 2; say 3 };         # OUTPUT: «2␤3␤»
+say 4;                    # OUTPUT: «4␤»</pre>
+<p>Unless it stands alone as a statement, a block simply creates a closure. The statements inside are not executed immediately. Closures are another topic and how they are used is explained <a href="/Documentable/integration-test/language/functions#Blocks_and_lambdas">elsewhere</a>. For now it is just important to understand when blocks run and when they do not:</p>
+<pre class="pod-block-code">say &quot;We get here&quot;;
+{ say &quot;then here.&quot; };
+{ say &quot;not here&quot;; 0; } or die;
+</pre>
+<p>In the above example, after running the first statement, the first block stands alone as a second statement, so we run the statement inside it. The second block is a closure, so instead, it makes an object of type <code>Block</code> but does not run it. Object instances are usually considered to be true, so the code does not die, even though that block would evaluate to 0, were it to be executed. The example does not say what to do with the <code>Block</code> object, so it just gets thrown away.</p>
+<p>Most of the flow control constructs covered below are just ways to tell Raku when, how, and how many times, to enter blocks like that second block.</p>
+<p>Before we go into those, an important side-note on syntax: If there is nothing (or nothing but comments) on a line after a closing curly brace where you would normally put semicolon, then you do not need the semicolon:</p>
+<pre class="pod-block-code"># All three of these lines can appear as a group, as is, in a program
+{ 42.say }                # OUTPUT: «42␤»
+{ 43.say }                # OUTPUT: «43␤»
+{ 42.say }; { 43.say }    # OUTPUT: «42␤43␤»</pre>
+<p>...but:</p>
+<pre class="pod-block-code">{ 42.say }  { 43.say }    # Syntax error
+{ 42.say; } { 43.say }    # Also a syntax error, of course
+</pre>
+<p>So, be careful when you backspace in a line-wrapping editor:</p>
+<pre class="pod-block-code">{ &quot;Without semicolons line-wrapping can be a bit treacherous.&quot;.say } \
+{ 43.say } # Syntax error
+</pre>
+<p>You have to watch out for this in most languages anyway to prevent things from getting accidentally commented out. Many of the examples below may have unnecessary semicolons for clarity.</p>
+<p>Class bodies behave like simple blocks for any top level expression; same goes to roles and other packages, like grammars (which are actually classes) or modules.</p>
+<pre class="pod-block-code">class C {
+    say &quot;I live&quot;;
+    die &quot;I will never live!&quot;
+};
+my $c = C.new;                              │
+# OUTPUT: Fails and writes «I live␤I will never live!␤
+</pre>
+<p>This block will first run the first statement, and then <code>die</code> printing the second statement. <code>$c</code> will never get a value.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

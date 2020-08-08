@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Opener graphemes</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/opener-chars.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Opener graphemes</h1>
+        <p class="subtitle">Valid opening paired delimiters</p>
+
+        
+        <div class="pod-body  no-toc">
+            <p>The following table shows all of the valid graphemes usable as opening paired delimiters in such constructs as <em>Pod6 declarator blocks</em>. Note they are shown between pipe symbols so the extra bounding space for any wide characters can be seen.</p>
+<p>The source for the table is the <em>token opener</em> defined in the <em>role STD</em> in the <em>Rakudo grammar</em>.</p>
+<table class="pod-table">
+<caption>Opener Graphemes</caption>
+<thead><tr>
+<th>Char</th> <th>Hex</th> <th>Char</th> <th>Hex</th> <th>Char</th> <th>Hex</th> <th>Char</th> <th>Hex</th>
+</tr></thead>
+<tbody>
+<tr> <td>|«|</td> <td>0x00AB</td> <td>|༺|</td> <td>0x0F3A</td> <td>|༼|</td> <td>0x0F3C</td> <td>|᚛|</td> <td>0x169B</td> </tr> <tr> <td>|‘|</td> <td>0x2018</td> <td>|‚|</td> <td>0x201A</td> <td>|‛|</td> <td>0x201B</td> <td>|“|</td> <td>0x201C</td> </tr> <tr> <td>|„|</td> <td>0x201E</td> <td>|‟|</td> <td>0x201F</td> <td>|‹|</td> <td>0x2039</td> <td>|⁅|</td> <td>0x2045</td> </tr> <tr> <td>|⁽|</td> <td>0x207D</td> <td>|₍|</td> <td>0x208D</td> <td>|∈|</td> <td>0x2208</td> <td>|∉|</td> <td>0x2209</td> </tr> <tr> <td>|∊|</td> <td>0x220A</td> <td>|∕|</td> <td>0x2215</td> <td>|∼|</td> <td>0x223C</td> <td>|≃|</td> <td>0x2243</td> </tr> <tr> <td>|≒|</td> <td>0x2252</td> <td>|≔|</td> <td>0x2254</td> <td>|≤|</td> <td>0x2264</td> <td>|≦|</td> <td>0x2266</td> </tr> <tr> <td>|≨|</td> <td>0x2268</td> <td>|≪|</td> <td>0x226A</td> <td>|≮|</td> <td>0x226E</td> <td>|≰|</td> <td>0x2270</td> </tr> <tr> <td>|≲|</td> <td>0x2272</td> <td>|≴|</td> <td>0x2274</td> <td>|≶|</td> <td>0x2276</td> <td>|≸|</td> <td>0x2278</td> </tr> <tr> <td>|≺|</td> <td>0x227A</td> <td>|≼|</td> <td>0x227C</td> <td>|≾|</td> <td>0x227E</td> <td>|⊀|</td> <td>0x2280</td> </tr> <tr> <td>|⊂|</td> <td>0x2282</td> <td>|⊄|</td> <td>0x2284</td> <td>|⊆|</td> <td>0x2286</td> <td>|⊈|</td> <td>0x2288</td> </tr> <tr> <td>|⊊|</td> <td>0x228A</td> <td>|⊏|</td> <td>0x228F</td> <td>|⊑|</td> <td>0x2291</td> <td>|⊘|</td> <td>0x2298</td> </tr> <tr> <td>|⊢|</td> <td>0x22A2</td> <td>|⊦|</td> <td>0x22A6</td> <td>|⊨|</td> <td>0x22A8</td> <td>|⊩|</td> <td>0x22A9</td> </tr> <tr> <td>|⊫|</td> <td>0x22AB</td> <td>|⊰|</td> <td>0x22B0</td> <td>|⊲|</td> <td>0x22B2</td> <td>|⊴|</td> <td>0x22B4</td> </tr> <tr> <td>|⊶|</td> <td>0x22B6</td> <td>|⋉|</td> <td>0x22C9</td> <td>|⋋|</td> <td>0x22CB</td> <td>|⋐|</td> <td>0x22D0</td> </tr> <tr> <td>|⋖|</td> <td>0x22D6</td> <td>|⋘|</td> <td>0x22D8</td> <td>|⋚|</td> <td>0x22DA</td> <td>|⋜|</td> <td>0x22DC</td> </tr> <tr> <td>|⋞|</td> <td>0x22DE</td> <td>|⋠|</td> <td>0x22E0</td> <td>|⋢|</td> <td>0x22E2</td> <td>|⋤|</td> <td>0x22E4</td> </tr> <tr> <td>|⋦|</td> <td>0x22E6</td> <td>|⋨|</td> <td>0x22E8</td> <td>|⋪|</td> <td>0x22EA</td> <td>|⋬|</td> <td>0x22EC</td> </tr> <tr> <td>|⋰|</td> <td>0x22F0</td> <td>|⋲|</td> <td>0x22F2</td> <td>|⋳|</td> <td>0x22F3</td> <td>|⋴|</td> <td>0x22F4</td> </tr> <tr> <td>|⋶|</td> <td>0x22F6</td> <td>|⋷|</td> <td>0x22F7</td> <td>|⌈|</td> <td>0x2308</td> <td>|⌊|</td> <td>0x230A</td> </tr> <tr> <td>|〈|</td> <td>0x2329</td> <td>|⎴|</td> <td>0x23B4</td> <td>|❨|</td> <td>0x2768</td> <td>|❪|</td> <td>0x276A</td> </tr> <tr> <td>|❬|</td> <td>0x276C</td> <td>|❮|</td> <td>0x276E</td> <td>|❰|</td> <td>0x2770</td> <td>|❲|</td> <td>0x2772</td> </tr> <tr> <td>|❴|</td> <td>0x2774</td> <td>|⟃|</td> <td>0x27C3</td> <td>|⟅|</td> <td>0x27C5</td> <td>|⟕|</td> <td>0x27D5</td> </tr> <tr> <td>|⟝|</td> <td>0x27DD</td> <td>|⟢|</td> <td>0x27E2</td> <td>|⟤|</td> <td>0x27E4</td> <td>|⟦|</td> <td>0x27E6</td> </tr> <tr> <td>|⟨|</td> <td>0x27E8</td> <td>|⟪|</td> <td>0x27EA</td> <td>|⦃|</td> <td>0x2983</td> <td>|⦅|</td> <td>0x2985</td> </tr> <tr> <td>|⦇|</td> <td>0x2987</td> <td>|⦉|</td> <td>0x2989</td> <td>|⦋|</td> <td>0x298B</td> <td>|⦍|</td> <td>0x298D</td> </tr> <tr> <td>|⦏|</td> <td>0x298F</td> <td>|⦑|</td> <td>0x2991</td> <td>|⦓|</td> <td>0x2993</td> <td>|⦕|</td> <td>0x2995</td> </tr> <tr> <td>|⦗|</td> <td>0x2997</td> <td>|⧀|</td> <td>0x29C0</td> <td>|⧄|</td> <td>0x29C4</td> <td>|⧏|</td> <td>0x29CF</td> </tr> <tr> <td>|⧑|</td> <td>0x29D1</td> <td>|⧔|</td> <td>0x29D4</td> <td>|⧘|</td> <td>0x29D8</td> <td>|⧚|</td> <td>0x29DA</td> </tr> <tr> <td>|⧸|</td> <td>0x29F8</td> <td>|⧼|</td> <td>0x29FC</td> <td>|⨫|</td> <td>0x2A2B</td> <td>|⨭|</td> <td>0x2A2D</td> </tr> <tr> <td>|⨴|</td> <td>0x2A34</td> <td>|⨼|</td> <td>0x2A3C</td> <td>|⩤|</td> <td>0x2A64</td> <td>|⩹|</td> <td>0x2A79</td> </tr> <tr> <td>|⩽|</td> <td>0x2A7D</td> <td>|⩿|</td> <td>0x2A7F</td> <td>|⪁|</td> <td>0x2A81</td> <td>|⪃|</td> <td>0x2A83</td> </tr> <tr> <td>|⪋|</td> <td>0x2A8B</td> <td>|⪑|</td> <td>0x2A91</td> <td>|⪓|</td> <td>0x2A93</td> <td>|⪕|</td> <td>0x2A95</td> </tr> <tr> <td>|⪗|</td> <td>0x2A97</td> <td>|⪙|</td> <td>0x2A99</td> <td>|⪛|</td> <td>0x2A9B</td> <td>|⪡|</td> <td>0x2AA1</td> </tr> <tr> <td>|⪦|</td> <td>0x2AA6</td> <td>|⪨|</td> <td>0x2AA8</td> <td>|⪪|</td> <td>0x2AAA</td> <td>|⪬|</td> <td>0x2AAC</td> </tr> <tr> <td>|⪯|</td> <td>0x2AAF</td> <td>|⪳|</td> <td>0x2AB3</td> <td>|⪻|</td> <td>0x2ABB</td> <td>|⪽|</td> <td>0x2ABD</td> </tr> <tr> <td>|⪿|</td> <td>0x2ABF</td> <td>|⫁|</td> <td>0x2AC1</td> <td>|⫃|</td> <td>0x2AC3</td> <td>|⫅|</td> <td>0x2AC5</td> </tr> <tr> <td>|⫍|</td> <td>0x2ACD</td> <td>|⫏|</td> <td>0x2ACF</td> <td>|⫑|</td> <td>0x2AD1</td> <td>|⫓|</td> <td>0x2AD3</td> </tr> <tr> <td>|⫕|</td> <td>0x2AD5</td> <td>|⫬|</td> <td>0x2AEC</td> <td>|⫷|</td> <td>0x2AF7</td> <td>|⫹|</td> <td>0x2AF9</td> </tr> <tr> <td>|⸂|</td> <td>0x2E02</td> <td>|⸄|</td> <td>0x2E04</td> <td>|⸉|</td> <td>0x2E09</td> <td>|⸌|</td> <td>0x2E0C</td> </tr> <tr> <td>|⸜|</td> <td>0x2E1C</td> <td>|⸠|</td> <td>0x2E20</td> <td>|⸨|</td> <td>0x2E28</td> <td>|〈|</td> <td>0x3008</td> </tr> <tr> <td>|《|</td> <td>0x300A</td> <td>|「|</td> <td>0x300C</td> <td>|『|</td> <td>0x300E</td> <td>|【|</td> <td>0x3010</td> </tr> <tr> <td>|〔|</td> <td>0x3014</td> <td>|〖|</td> <td>0x3016</td> <td>|〘|</td> <td>0x3018</td> <td>|〚|</td> <td>0x301A</td> </tr> <tr> <td>|〝|</td> <td>0x301D</td> <td>|﴾|</td> <td>0xFD3E</td> <td>|︗|</td> <td>0xFE17</td> <td>|︵|</td> <td>0xFE35</td> </tr> <tr> <td>|︷|</td> <td>0xFE37</td> <td>|︹|</td> <td>0xFE39</td> <td>|︻|</td> <td>0xFE3B</td> <td>|︽|</td> <td>0xFE3D</td> </tr> <tr> <td>|︿|</td> <td>0xFE3F</td> <td>|﹁|</td> <td>0xFE41</td> <td>|﹃|</td> <td>0xFE43</td> <td>|﹇|</td> <td>0xFE47</td> </tr> <tr> <td>|﹙|</td> <td>0xFE59</td> <td>|﹛|</td> <td>0xFE5B</td> <td>|﹝|</td> <td>0xFE5D</td> <td>|（|</td> <td>0xFF08</td> </tr> <tr> <td>|＜|</td> <td>0xFF1C</td> <td>|［|</td> <td>0xFF3B</td> <td>|｛|</td> <td>0xFF5B</td> <td>|｟|</td> <td>0xFF5F</td> </tr> <tr> <td>|｢|</td> <td>0xFF62</td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+</tbody>
+</table>
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/opener-chars.pod6">https://github.com/Raku/doc/blob/master/doc/Language/opener-chars.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

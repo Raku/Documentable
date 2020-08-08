@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>method name</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/routine.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-sub.html"> Sub </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-method.html"> Method </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-term.html"> Term </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-operator.html"> Operator </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-trait.html"> Trait </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-submethod.html"> Submethod </a>
+            </div></div></div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">method name</h1>
+        <p class="subtitle"></p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#class_Scalar">class Scalar</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#(Scalar)_method_name">(Scalar) method name</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#class_X::Attribute::NoPackage">class X::Attribute::NoPackage</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#(X::Attribute::NoPackage)_method_name">(X::Attribute::NoPackage) method name</a></td></tr>
+   <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#class_X::Attribute::Package">class X::Attribute::Package</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#(X::Attribute::Package)_method_name">(X::Attribute::Package) method name</a></td></tr>
+   <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#class_X::Attribute::Required">class X::Attribute::Required</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">4.1</td><td class="toc-text"><a href="#(X::Attribute::Required)_method_name">(X::Attribute::Required) method name</a></td></tr>
+   <tr class="toc-level-1"><td class="toc-number">5</td><td class="toc-text"><a href="#class_X::Bind::NativeType">class X::Bind::NativeType</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">5.1</td><td class="toc-text"><a href="#(X::Bind::NativeType)_method_name">(X::Bind::NativeType) method name</a></td></tr>
+   <tr class="toc-level-1"><td class="toc-number">6</td><td class="toc-text"><a href="#class_X::Dynamic::NotFound">class X::Dynamic::NotFound</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">6.1</td><td class="toc-text"><a href="#(X::Dynamic::NotFound)_method_name">(X::Dynamic::NotFound) method name</a></td></tr>
+   <tr class="toc-level-1"><td class="toc-number">7</td><td class="toc-text"><a href="#class_X::IO::Link">class X::IO::Link</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">7.1</td><td class="toc-text"><a href="#(X::IO::Link)_method_name">(X::IO::Link) method name</a></td></tr>
+  <tr class="toc-level-1"><td class="toc-number">8</td><td class="toc-text"><a href="#class_X::IO::Symlink">class X::IO::Symlink</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">8.1</td><td class="toc-text"><a href="#(X::IO::Symlink)_method_name">(X::IO::Symlink) method name</a></td></tr>
+    <tr class="toc-level-1"><td class="toc-number">9</td><td class="toc-text"><a href="#class_X::Signature::NameClash">class X::Signature::NameClash</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">9.1</td><td class="toc-text"><a href="#(X::Signature::NameClash)_method_name">(X::Signature::NameClash) method name</a></td></tr>
+   <tr class="toc-level-1"><td class="toc-number">10</td><td class="toc-text"><a href="#class_ForeignCode">class ForeignCode</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">10.1</td><td class="toc-text"><a href="#(ForeignCode)_method_name">(ForeignCode) method name</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">11</td><td class="toc-text"><a href="#class_Encoding::Registry">class Encoding::Registry</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">11.1</td><td class="toc-text"><a href="#(Encoding::Registry)_method_name">(Encoding::Registry) method name</a></td></tr>
+        <tr class="toc-level-1"><td class="toc-number">12</td><td class="toc-text"><a href="#class_Variable">class Variable</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">12.1</td><td class="toc-text"><a href="#(Variable)_method_name">(Variable) method name</a></td></tr>
+   <tr class="toc-level-1"><td class="toc-number">13</td><td class="toc-text"><a href="#class_Label">class Label</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">13.1</td><td class="toc-text"><a href="#(Label)_method_name">(Label) method name</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">14</td><td class="toc-text"><a href="#class_Pod::Block::Named">class Pod::Block::Named</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">14.1</td><td class="toc-text"><a href="#(Pod::Block::Named)_method_name">(Pod::Block::Named) method name</a></td></tr>
+   <tr class="toc-level-1"><td class="toc-number">15</td><td class="toc-text"><a href="#role_Systemic">role Systemic</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">15.1</td><td class="toc-text"><a href="#(Systemic)_method_name">(Systemic) method name</a></td></tr>
+  <tr class="toc-level-1"><td class="toc-number">16</td><td class="toc-text"><a href="#class_Routine">class Routine</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">16.1</td><td class="toc-text"><a href="#(Routine)_method_name">(Routine) method name</a></td></tr>
+   <tr class="toc-level-1"><td class="toc-number">17</td><td class="toc-text"><a href="#class_Metamodel::DefiniteHOW">class Metamodel::DefiniteHOW</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">17.1</td><td class="toc-text"><a href="#(Metamodel::DefiniteHOW)_method_name">(Metamodel::DefiniteHOW) method name</a></td></tr>
+   <tr class="toc-level-1"><td class="toc-number">18</td><td class="toc-text"><a href="#role_Metamodel::Naming">role Metamodel::Naming</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">18.1</td><td class="toc-text"><a href="#(Metamodel::Naming)_method_name">(Metamodel::Naming) method name</a></td></tr>
+    <tr class="toc-level-1"><td class="toc-number">19</td><td class="toc-text"><a href="#class_Thread">class Thread</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">19.1</td><td class="toc-text"><a href="#(Thread)_method_name">(Thread) method name</a></td></tr>
+      <tr class="toc-level-1"><td class="toc-number">20</td><td class="toc-text"><a href="#role_Encoding">role Encoding</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">20.1</td><td class="toc-text"><a href="#(Encoding)_method_name">(Encoding) method name</a></td></tr>
+   <tr class="toc-level-1"><td class="toc-number">21</td><td class="toc-text"><a href="#class_Parameter">class Parameter</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">21.1</td><td class="toc-text"><a href="#(Parameter)_method_name">(Parameter) method name</a></td></tr>
+       <tr class="toc-level-1"><td class="toc-number">22</td><td class="toc-text"><a href="#class_Attribute">class Attribute</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">22.1</td><td class="toc-text"><a href="#(Attribute)_method_name">(Attribute) method name</a></td></tr>
+        
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Documentation for method <code>name</code> assembled from the following types:</p>
+<h1 id="class_Scalar"><a class="u" href="#___top" title="go to top of document">class Scalar</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Scalar#method_name">Scalar</a></p>
+<h2 id="(Scalar)_method_name"><a href="/Documentable/integration-test/type/Scalar#method_name">(Scalar) method name</a></h2>
+<pre class="pod-block-code">method name(Scalar:D: --&gt; Str)</pre>
+<p>Returns the name associated with the container.</p>
+<p>Example:</p>
+<pre class="pod-block-code">my $x = 42;
+say $x.VAR.name;                # OUTPUT: «$x»</pre>
+<h1 id="class_X::Attribute::NoPackage"><a class="u" href="#___top" title="go to top of document">class X::Attribute::NoPackage</a></h1>
+<p>From <a href="/Documentable/integration-test/type/X::Attribute::NoPackage#method_name">X::Attribute::NoPackage</a></p>
+<h2 id="(X::Attribute::NoPackage)_method_name"><a href="/Documentable/integration-test/type/X::Attribute::NoPackage#method_name">(X::Attribute::NoPackage) method name</a></h2>
+<pre class="pod-block-code">method name(--&gt; Str:D)</pre>
+<p>Returns the name of the attribute</p>
+<h1 id="class_X::Attribute::Package"><a class="u" href="#___top" title="go to top of document">class X::Attribute::Package</a></h1>
+<p>From <a href="/Documentable/integration-test/type/X::Attribute::Package#method_name">X::Attribute::Package</a></p>
+<h2 id="(X::Attribute::Package)_method_name"><a href="/Documentable/integration-test/type/X::Attribute::Package#method_name">(X::Attribute::Package) method name</a></h2>
+<pre class="pod-block-code">method name(--&gt; Str:D)</pre>
+<p>Returns the name of the attribute that triggered this error.</p>
+<h1 id="class_X::Attribute::Required"><a class="u" href="#___top" title="go to top of document">class X::Attribute::Required</a></h1>
+<p>From <a href="/Documentable/integration-test/type/X::Attribute::Required#method_name">X::Attribute::Required</a></p>
+<h2 id="(X::Attribute::Required)_method_name"><a href="/Documentable/integration-test/type/X::Attribute::Required#method_name">(X::Attribute::Required) method name</a></h2>
+<pre class="pod-block-code">method name(--&gt; Str:D)</pre>
+<p>Returns the name of the attribute.</p>
+<h1 id="class_X::Bind::NativeType"><a class="u" href="#___top" title="go to top of document">class X::Bind::NativeType</a></h1>
+<p>From <a href="/Documentable/integration-test/type/X::Bind::NativeType#method_name">X::Bind::NativeType</a></p>
+<h2 id="(X::Bind::NativeType)_method_name"><a href="/Documentable/integration-test/type/X::Bind::NativeType#method_name">(X::Bind::NativeType) method name</a></h2>
+<pre class="pod-block-code">method name(--&gt; Str:D)</pre>
+<p>Returns the name of the variable.</p>
+<h1 id="class_X::Dynamic::NotFound"><a class="u" href="#___top" title="go to top of document">class X::Dynamic::NotFound</a></h1>
+<p>From <a href="/Documentable/integration-test/type/X::Dynamic::NotFound#method_name">X::Dynamic::NotFound</a></p>
+<h2 id="(X::Dynamic::NotFound)_method_name"><a href="/Documentable/integration-test/type/X::Dynamic::NotFound#method_name">(X::Dynamic::NotFound) method name</a></h2>
+<pre class="pod-block-code">method name(--&gt; Str:D)</pre>
+<p>Returns the name of the variable that has not been found.</p>
+<h1 id="class_X::IO::Link"><a class="u" href="#___top" title="go to top of document">class X::IO::Link</a></h1>
+<p>From <a href="/Documentable/integration-test/type/X::IO::Link#method_name">X::IO::Link</a></p>
+<h2 id="(X::IO::Link)_method_name"><a href="/Documentable/integration-test/type/X::IO::Link#method_name">(X::IO::Link) method name</a></h2>
+<p>Returns the name of the link that could not be created.</p>
+<h1 id="class_X::IO::Symlink"><a class="u" href="#___top" title="go to top of document">class X::IO::Symlink</a></h1>
+<p>From <a href="/Documentable/integration-test/type/X::IO::Symlink#method_name">X::IO::Symlink</a></p>
+<h2 id="(X::IO::Symlink)_method_name"><a href="/Documentable/integration-test/type/X::IO::Symlink#method_name">(X::IO::Symlink) method name</a></h2>
+<p>Returns the path that <a href="/Documentable/integration-test/routine/symlink">symlink</a> failed to create.</p>
+<h1 id="class_X::Signature::NameClash"><a class="u" href="#___top" title="go to top of document">class X::Signature::NameClash</a></h1>
+<p>From <a href="/Documentable/integration-test/type/X::Signature::NameClash#method_name">X::Signature::NameClash</a></p>
+<h2 id="(X::Signature::NameClash)_method_name"><a href="/Documentable/integration-test/type/X::Signature::NameClash#method_name">(X::Signature::NameClash) method name</a></h2>
+<pre class="pod-block-code">method name(--&gt; Str:D)</pre>
+<p>Returns the name that was used for more than one parameter.</p>
+<h1 id="class_ForeignCode"><a class="u" href="#___top" title="go to top of document">class ForeignCode</a></h1>
+<p>From <a href="/Documentable/integration-test/type/ForeignCode#method_name">ForeignCode</a></p>
+<h2 id="(ForeignCode)_method_name"><a href="/Documentable/integration-test/type/ForeignCode#method_name">(ForeignCode) method name</a></h2>
+<pre class="pod-block-code">method name()</pre>
+<p>Returns the name of the enclosed code, or <code>&lt;anon&gt;</code> if it has not received any.</p>
+<h1 id="class_Encoding::Registry"><a class="u" href="#___top" title="go to top of document">class Encoding::Registry</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Encoding::Registry#method_name">Encoding::Registry</a></p>
+<h2 id="(Encoding::Registry)_method_name"><a href="/Documentable/integration-test/type/Encoding::Registry#method_name">(Encoding::Registry) method name</a></h2>
+<pre class="pod-block-code">method register(Encoding $enc --&gt; Nil)</pre>
+<p>Register a new <a href="/Documentable/integration-test/type/Encoding">Encoding</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-Encoding::Encoder"></a> <a name="Documentable/integration-test/index-entry-Encoding::Decoder"></a></p>
+<h1 id="class_Variable"><a class="u" href="#___top" title="go to top of document">class Variable</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Variable#method_name">Variable</a></p>
+<h2 id="(Variable)_method_name"><a href="/Documentable/integration-test/type/Variable#method_name">(Variable) method name</a></h2>
+<pre class="pod-block-code">method name(Variable:D: str)</pre>
+<p>Returns the name of the variable, including the sigil.</p>
+<h1 id="class_Label"><a class="u" href="#___top" title="go to top of document">class Label</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Label#method_name">Label</a></p>
+<h2 id="(Label)_method_name"><a href="/Documentable/integration-test/type/Label#method_name">(Label) method name</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method name()</pre>
+<p>Not terribly useful, returns the name of the defined label:</p>
+<pre class="pod-block-code">A: while True {
+  say A.name; # OUTPUT: «A»
+  last A;
+}</pre>
+<h1 id="class_Pod::Block::Named"><a class="u" href="#___top" title="go to top of document">class Pod::Block::Named</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Pod::Block::Named#method_name">Pod::Block::Named</a></p>
+<h2 id="(Pod::Block::Named)_method_name"><a href="/Documentable/integration-test/type/Pod::Block::Named#method_name">(Pod::Block::Named) method name</a></h2>
+<pre class="pod-block-code">method name(--&gt; Str:D)</pre>
+<p>Returns the name of the block.</p>
+<h1 id="role_Systemic"><a class="u" href="#___top" title="go to top of document">role Systemic</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Systemic#method_name">Systemic</a></p>
+<h2 id="(Systemic)_method_name"><a href="/Documentable/integration-test/type/Systemic#method_name">(Systemic) method name</a></h2>
+<p>Instance method returning the name of the object.</p>
+<h1 id="class_Routine"><a class="u" href="#___top" title="go to top of document">class Routine</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Routine#method_name">Routine</a></p>
+<h2 id="(Routine)_method_name"><a href="/Documentable/integration-test/type/Routine#method_name">(Routine) method name</a></h2>
+<pre class="pod-block-code">method name(Routine:D: --&gt; Str:D)</pre>
+<p>Returns the name of the sub or method.</p>
+<h1 id="class_Metamodel::DefiniteHOW"><a class="u" href="#___top" title="go to top of document">class Metamodel::DefiniteHOW</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Metamodel::DefiniteHOW#method_name">Metamodel::DefiniteHOW</a></p>
+<h2 id="(Metamodel::DefiniteHOW)_method_name"><a href="/Documentable/integration-test/type/Metamodel::DefiniteHOW#method_name">(Metamodel::DefiniteHOW) method name</a></h2>
+<pre class="pod-block-code">method name($definite_type)</pre>
+<p>Returns the name of a definite type.</p>
+<h1 id="role_Metamodel::Naming"><a class="u" href="#___top" title="go to top of document">role Metamodel::Naming</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Metamodel::Naming#method_name">Metamodel::Naming</a></p>
+<h2 id="(Metamodel::Naming)_method_name"><a href="/Documentable/integration-test/type/Metamodel::Naming#method_name">(Metamodel::Naming) method name</a></h2>
+<pre class="pod-block-code">method name($type)</pre>
+<p>Returns the name of the metaobject, if any.</p>
+<pre class="pod-block-code">say 42.^name;       # OUTPUT: «Int␤»</pre>
+<h1 id="class_Thread"><a class="u" href="#___top" title="go to top of document">class Thread</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Thread#method_name">Thread</a></p>
+<h2 id="(Thread)_method_name"><a href="/Documentable/integration-test/type/Thread#method_name">(Thread) method name</a></h2>
+<pre class="pod-block-code">method name(Thread:D: --&gt; Str:D)</pre>
+<p>Returns the user defined string, which can optionally be set during object creation in order to identify the <code>Thread</code>, or &#39;&lt;anon&gt;&#39; if no such string was specified.</p>
+<pre class="pod-block-code">my $t1 = Thread.new(code =&gt; { for 1..5 -&gt; $v { say $v }});
+my $t2 = Thread.new(code =&gt; { for 1..5 -&gt; $v { say $v }}, name =&gt; &#39;my thread&#39;);
+
+say $t1.name;                 # OUTPUT: «&lt;anon&gt;␤»
+say $t2.name;                 # OUTPUT: «my thread␤»</pre>
+<h1 id="role_Encoding"><a class="u" href="#___top" title="go to top of document">role Encoding</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Encoding#method_name">Encoding</a></p>
+<h2 id="(Encoding)_method_name"><a href="/Documentable/integration-test/type/Encoding#method_name">(Encoding) method name</a></h2>
+<pre class="pod-block-code">method name(--&gt; Str)</pre>
+<p>Abstract method that would return the primary name of the encoding.</p>
+<h1 id="class_Parameter"><a class="u" href="#___top" title="go to top of document">class Parameter</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Parameter#method_name">Parameter</a></p>
+<h2 id="(Parameter)_method_name"><a href="/Documentable/integration-test/type/Parameter#method_name">(Parameter) method name</a></h2>
+<p>Returns the variable name, which includes all sigils and twigils. This name is used internally when applied to code, or in a declaration to determine the declared the name. This name is not necessarily usable by a caller – if it is, it will also appear as an <a href="#method_named_names">alias</a>. Often, the name will be chosen descriptively as a form of self-documentation.</p>
+<p>If the parameter is anonymous, <code>Nil</code> will be returned.</p>
+<h1 id="class_Attribute"><a class="u" href="#___top" title="go to top of document">class Attribute</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Attribute#method_name">Attribute</a></p>
+<h2 id="(Attribute)_method_name"><a href="/Documentable/integration-test/type/Attribute#method_name">(Attribute) method name</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method name(Attribute:D: --&gt; Str:D)</pre>
+<p>Returns the name of the attribute. Note that this is always the private name, so if an attribute is declared as <code>has $.a</code>, the name returned is <code>$!a</code>.</p>
+<pre class="pod-block-code">class Foo {
+    has @!bar;
+}
+my $a = Foo.^attributes(:local)[0];
+say $a.name;            # OUTPUT: «@!bar␤»</pre>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

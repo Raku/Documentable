@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>syntax identifiers</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">syntax identifiers</h1>
+        <p class="subtitle"></p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#language_documentation_Syntax">language documentation Syntax</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#(Syntax)_identifier_identifiers_identifiers">(Syntax) identifier identifiers identifiers</a></td></tr>
+          <tr class="toc-level-3"><td class="toc-number">1.1.1</td><td class="toc-text"><a href="#Ordinary_identifiers">Ordinary identifiers</a></td></tr>
+                                       <tr class="toc-level-3"><td class="toc-number">1.1.2</td><td class="toc-text"><a href="#Extended_identifiers">Extended identifiers</a></td></tr>
+                                                                                                                                                  <tr class="toc-level-3"><td class="toc-number">1.1.3</td><td class="toc-text"><a href="#Compound_identifiers">Compound identifiers</a></td></tr>
+                                          
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Documentation for syntax <code>identifiers</code> assembled from the following types:</p>
+<h1 id="language_documentation_Syntax"><a class="u" href="#___top" title="go to top of document">language documentation Syntax</a></h1>
+<p>From <a href="/Documentable/integration-test/language/syntax#Identifiers">Syntax</a></p>
+<h2 id="(Syntax)_identifier_identifiers_identifiers"><a href="/Documentable/integration-test/language/syntax#Identifiers">(Syntax) identifier identifiers identifiers</a></h2>
+<p>Identifiers are grammatical building blocks that may be used to give a name to entities/objects such as constants, variables (e.g. <code>Scalar</code>s) and routines (e.g. <code>Sub</code>s and Methods). In a <a href="/Documentable/integration-test/language/variables">variable name</a>, any sigil (and twigil) precedes the identifier and does not form a part thereof.</p>
+<pre class="pod-block-code">constant c = 299792458;     # identifier &quot;c&quot; names an Int
+my $a = 123;                # identifier &quot;a&quot; in the name &quot;$a&quot; of a Scalar
+sub hello { say &quot;Hello!&quot; }; # identifier &quot;hello&quot; names a Sub</pre>
+<p>Identifiers come in different forms: ordinary, extended, and compound identifiers.</p>
+<h3 id="Ordinary_identifiers"><a class="u" href="#___top" title="go to top of document">Ordinary identifiers</a></h3>
+<p>An ordinary identifier is composed of a leading alphabetic character which may be followed by one or more alphanumeric characters. It may also contain isolated, embedded apostrophes <code>&#39;</code> and/or hyphens <code>-</code>, provided that the next character is each time alphabetic.</p>
+<p>The definitions of &quot;alphabetic&quot; and &quot;alphanumeric&quot; include appropriate Unicode characters. Which characters are &quot;appropriate&quot; depends on the implementation. In the Rakudo/MoarVM Raku implementation alphabetic characters include characters with the Unicode General Category value <em>Letter</em> (L), and the underscore <code>_</code>. Alphanumeric characters additionally include characters with the Unicode General Category value <em>Number, Decimal Digit</em> (Nd).</p>
+<pre class="pod-block-code"># valid ordinary identifiers:
+x
+_snake_oil
+something-longer
+with-numbers1234
+don&#39;t-do-that
+piece_of_π
+駱駝道              # &quot;Rakuda-dō&quot;, Japanese for &quot;Way of the camel&quot;
+</pre>
+<pre class="pod-block-code"># invalid ordinary identifiers:
+42                 # identifier does not start with alphabetic character
+with-numbers1234-5 # embedded hyphen not followed by alphabetic character
+is-prime?          # question mark is not alphanumeric
+x²                 # superscript 2 is not alphanumeric (explained above)
+</pre>
+<h3 id="Extended_identifiers"><a class="u" href="#___top" title="go to top of document">Extended identifiers</a></h3>
+<p>It is often convenient to have names that contain characters that are not allowed in ordinary identifiers. Use cases include situations where a set of entities shares a common &quot;short&quot; name, but still needs for each of its elements to be identifiable individually. For example, you might use a module whose short name is <code>Dog</code>, while its long name includes its naming authority and version:</p>
+<pre class="pod-block-code">Dog:auth&lt;Somebody&gt;:ver&lt;1.0&gt;  # long module names including author and version
+Dog:auth&lt;Somebody&gt;:ver&lt;2.0&gt;
+
+use Dog:auth&lt;Somebody&gt;:ver&lt;2.0&gt;;
+# Selection of second module causes its full name to be aliased to the
+# short name for the rest of # the lexical scope, allowing a declaration
+# like this.
+my Dog $spot .= new(&quot;woof&quot;);
+</pre>
+<p>Similarly, sets of operators work together in various syntactic categories with names like <code>prefix</code>, <code>infix</code> and <code>postfix</code>. The official names of these operators often contain characters that are excluded from ordinary identifiers. The long name is what constitutes the extended identifier, and includes this syntactic category; the short name will be included in quotes in the definition:</p>
+<pre class="pod-block-code">infix:&lt;+&gt;                 # the official name of the operator in $a + $b
+infix:&lt;*&gt;                 # the official name of the operator in $a * $b
+infix:«&lt;=»                # the official name of the operator in $a &lt;= $b
+</pre>
+<p>For all such uses, you can append one or more colon-separated strings to an ordinary identifier to create a so-called <em>extended identifier</em>. When appended to an identifier (that is, in postfix position), this colon-separated string generates unique variants of that identifier.</p>
+<p>These strings have the form <code>:key&lt;value&gt;</code>, wherein <code>key</code> <em>or</em> <code>value</code> are optional; that is, after the colon that separates it from a regular identifier, there will be a <code>key</code> and/or a quoting bracketing construct such as <code>&lt; &gt;</code>, <code>« »</code> or <code>[&#39; &#39;]</code> which quotes one or more arbitrary characters <code>value</code>.<a href="#fn-1" id="fn-ref-1">[1]</a></p>
+<pre class="pod-block-code"># exemplary valid extended identifiers:
+postfix:&lt;²&gt;               # the official long name of the operator in $x²
+WOW:That&#39;sAwesome
+WOW:That&#39;s&lt;&lt;🆒&gt;&gt;
+party:sweet&lt;16&gt;
+
+# exemplary invalid extended identifiers:
+party:16&lt;sweet&gt;           # 16 is not an ordinary identifier
+party:16sweet
+party:!a                  # ...and neither is !a
+party:$a                  # ...nor $a
+</pre>
+<p>In an extended identifier, the postfix string is considered an integral part of the name, so <code>infix:&lt;+&gt;</code> and <code>infix:&lt;-&gt;</code> are two different operators. The bracketing characters used, however, do not count as part of it; only the quoted data matters. So these are all the same name:</p>
+<pre class="pod-block-code">infix:&lt;+&gt;
+infix:&lt;&lt;+&gt;&gt;
+infix:«+»
+infix:[&#39;+&#39;]
+infix:(&#39;+&#39;)
+</pre>
+<p>Similarly, all of this works:</p>
+<pre class="pod-block-code">my $foo:bar&lt;baz&gt; = &#39;quux&#39;;
+say $foo:bar«baz»;                               # OUTPUT: «quux␤»
+my $take-me:&lt;home&gt; = &#39;Where the glory has no end&#39;;
+say $take-me:[&#39;home&#39;];                           # OUTPUT: «Where [...]␤»
+my $foo:bar&lt;2&gt; = 5;
+say $foo:bar(1+1);                               # OUTPUT: «5␤»
+</pre>
+<p>Where an extended identifier comprises two or more colon pairs, their order is generally significant:</p>
+<pre class="pod-block-code">my $a:b&lt;c&gt;:d&lt;e&gt; = 100;
+my $a:d&lt;e&gt;:b&lt;c&gt; = 200;
+say $a:b&lt;c&gt;:d&lt;e&gt;;               # OUTPUT: «100␤», NOT: «200␤»
+</pre>
+<p>An exception to this rule is <em>module versioning</em>; so these identifiers effectively name the same module:</p>
+<pre class="pod-block-code">use ThatModule:auth&lt;Somebody&gt;:ver&lt;2.7.18.28.18&gt;
+use ThatModule:ver&lt;2.7.18.28.18&gt;:auth&lt;Somebody&gt;
+</pre>
+<p>Furthermore, extended identifiers support compile-time interpolation; this requires the use of <a href="/Documentable/integration-test/language/terms#Constants">constants</a> for the interpolation values:</p>
+<pre class="pod-block-code">constant $c = 42;  # Constant binds to Int; $-sigil enables interpolation
+my $a:foo&lt;42&gt; = &quot;answer&quot;;
+say $a:foo«$c»;    # OUTPUT: «answer␤»
+</pre>
+<p>Although quoting bracketing constructs are generally interchangeable in the context of identifiers, they are not identical. In particular, angle brackets <code>&lt; &gt;</code> (which mimic single quote interpolation characteristics) cannot be used for the interpolation of constant names.</p>
+<pre class="pod-block-code">constant $what = &#39;are&#39;;
+my @we:&lt;are&gt;= &lt;the champions&gt;;
+say @we:«$what»;     # OUTPUT: «[the champions]␤»
+say @we:&lt;$what&gt;;
+# Compilation error: Variable &#39;@we:&lt;$what&gt;&#39; is not declared
+</pre>
+<h3 id="Compound_identifiers"><a class="u" href="#___top" title="go to top of document">Compound identifiers</a></h3>
+<p>A compound identifier is an identifier that is composed of two or more ordinary and/or extended identifiers that are separated from one another by a double colon <code>::</code>.</p>
+<p>The double colon <code>::</code> is known as the <em>namespace separator</em> or the <em>package delimiter</em>, which clarifies its semantic function in a name: to force the preceding portion of the name to be considered a <a href="/Documentable/integration-test/language/packages">package</a>/namespace through which the subsequent portion of the name is to be located:</p>
+<pre class="pod-block-code">module MyModule {               # declare a module package
+    our $var = &quot;Hello&quot;;         # declare package-scoped variable
+}
+say $MyModule::var              # OUTPUT: «Hello␤»</pre>
+<p>In the example above, <code>MyModule::var</code> is a compound identifier, composed of the package name identifier <code>MyModule</code> and the identifier part of the variable name <code>var</code>. Altogether <code>$MyModule::var</code> is often referred to as a <a href="/Documentable/integration-test/language/packages#Package-qualified_names">package-qualified name</a>.</p>
+<p>Separating identifiers with double colons causes the rightmost name to be inserted into existing (see above example) <em>or automatically created</em> packages:</p>
+<pre class="pod-block-code">my $foo::bar = 1;
+say OUR::.keys;           # OUTPUT: «(foo)␤»
+say OUR::foo.HOW          # OUTPUT: «Perl6::Metamodel::PackageHOW.new␤»
+</pre>
+<p>The last lines shows how the <code>foo</code> package was created automatically, as a deposit for variables in that namespace.</p>
+<p>The double colon syntax enables runtime <a href="/Documentable/integration-test/language/packages#Interpolating_into_names">interpolation</a> of a string into a package or variable name using <code>::($expr)</code> where you&#39;d ordinarily put a package or variable name:</p>
+<pre class="pod-block-code">my $buz = &quot;quux&quot;;
+my $bur::quux = 7;
+say $bur::($buz);               # OUTPUT: «7␤»</pre>
+
+        </div>
+    </div>
+
+    <aside><ol start="1">
+<li><a href="#fn-ref-1" id="fn-1">[↑]</a> Starting with Raku language version 6.d, colon pairs with <code>sym</code> as the <code>key</code> (e.g. <code>:sym&lt;foo&gt;</code>) are reserved for possible future use. </li>
+</ol></aside>
+
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

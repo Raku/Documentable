@@ -1,0 +1,728 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>FAQ</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/faq.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">FAQ</h1>
+        <p class="subtitle">Frequently asked questions about Raku</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+  <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#General">General</a></td></tr>
+  <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#What's_the_difference_between_Raku,_Rakudo_and_Perl_6?">What&#39;s the difference between Raku, Rakudo and Perl&nbsp;6?</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#When_was_Raku_released?">When was Raku released?</a></td></tr>
+  <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#Is_there_a_Raku_version_6.0.0?">Is there a Raku version 6.0.0?</a></td></tr>
+            <tr class="toc-level-2"><td class="toc-number">1.4</td><td class="toc-text"><a href="#When_was_v6.d_released?">When was v6.d released?</a></td></tr>
+                  <tr class="toc-level-2"><td class="toc-number">1.5</td><td class="toc-text"><a href="#As_a_Raku_user,_what_should_I_install?">As a Raku user, what should I install?</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">1.6</td><td class="toc-text"><a href="#As_an_advanced_user_I_want_to_track_Rakudo_development.">As an advanced user I want to track Rakudo development.</a></td></tr>
+                       <tr class="toc-level-2"><td class="toc-number">1.7</td><td class="toc-text"><a href="#Where_can_I_find_good_documentation_on_Raku?">Where can I find good documentation on Raku?</a></td></tr>
+                   <tr class="toc-level-2"><td class="toc-number">1.8</td><td class="toc-text"><a href="#Can_I_get_some_books_about_Raku?">Can I get some books about Raku?</a></td></tr>
+                      <tr class="toc-level-2"><td class="toc-number">1.9</td><td class="toc-text"><a href="#What_is_the_Raku_specification?">What is the Raku specification?</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">1.10</td><td class="toc-text"><a href="#Is_there_a_glossary_of_Raku_related_terms?">Is there a glossary of Raku related terms?</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">1.11</td><td class="toc-text"><a href="#I'm_a_Perl_programmer._Where_is_a_list_of_differences_between_Perl_and_Raku?">I&#39;m a Perl programmer. Where is a list of differences between Perl and Raku?</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.12</td><td class="toc-text"><a href="#I'm_a_Ruby_programmer_looking_for_quickstart_type_docs?">I&#39;m a Ruby programmer looking for quickstart type docs?</a></td></tr>
+    <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Modules">Modules</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#Is_there_a_CPAN_(repository_of_third_party_library_modules)_for_Raku?">Is there a CPAN (repository of third party library modules) for Raku?</a></td></tr>
+                     <tr class="toc-level-2"><td class="toc-number">2.2</td><td class="toc-text"><a href="#Is_there_a_perldoc_(command_line_documentation_viewer)_for_Raku?">Is there a perldoc (command line documentation viewer) for Raku?</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">2.3</td><td class="toc-text"><a href="#Can_I_use_Perl_modules_from_Raku?">Can I use Perl modules from Raku?</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">2.4</td><td class="toc-text"><a href="#Can_I_use_C_and_C++_from_Raku?">Can I use C and C++ from Raku?</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">2.5</td><td class="toc-text"><a href="#Nativecall_can't_find_libfoo.so_and_I_only_have_libfoo.so.1.2!">Nativecall can&#39;t find <code class="pod-code-inline">libfoo.so</code> and I only have <code class="pod-code-inline">libfoo.so.1.2</code> !</a></td></tr>
+                                  <tr class="toc-level-2"><td class="toc-number">2.6</td><td class="toc-text"><a href="#Where_have_all_the_traditional_UNIX_library_functions_gone?">Where have all the traditional UNIX library functions gone?</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">2.7</td><td class="toc-text"><a href="#Does_Rakudo_have_a_core_standard_library?">Does Rakudo have a core standard library?</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">2.8</td><td class="toc-text"><a href="#Is_there_something_like_B::Deparse/How_can_I_get_hold_of_the_AST?">Is there something like <code class="pod-code-inline">B::Deparse</code> /How can I get hold of the AST?</a></td></tr>
+            <tr class="toc-level-2"><td class="toc-number">2.9</td><td class="toc-text"><a href="#What_is_precompilation?">What is precompilation?</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">2.10</td><td class="toc-text"><a href="#Can_I_have_circular_dependencies_between_modules?">Can I have circular dependencies between modules?</a></td></tr>
+                             <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Common_operations">Common operations</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#String:_How_can_I_parse_and_get_a_number_from_a_string">String: How can I parse and get a number from a string</a></td></tr>
+                   <tr class="toc-level-2"><td class="toc-number">3.2</td><td class="toc-text"><a href="#String:_How_can_I_check_if_a_string_contains_a_substring_and_if_so,_how_can_I_get_indices_of_matches">String: How can I check if a string contains a substring and if so, how can I get indices of matches</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">3.3</td><td class="toc-text"><a href="#String:_How_can_I_get_the_hexadecimal_representation_of_a_string">String: How can I get the hexadecimal representation of a string</a></td></tr>
+                 <tr class="toc-level-2"><td class="toc-number">3.4</td><td class="toc-text"><a href="#String:_How_can_I_remove_from_a_string_some_characters_by_index">String: How can I remove from a string some characters by index</a></td></tr>
+                                <tr class="toc-level-2"><td class="toc-number">3.5</td><td class="toc-text"><a href="#String:_How_can_I_split_a_string_in_equal_parts">String: How can I split a string in equal parts</a></td></tr>
+       <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#Language_features">Language features</a></td></tr>
+  <tr class="toc-level-2"><td class="toc-number">4.1</td><td class="toc-text"><a href="#How_can_I_dump_Raku_data_structures_(like_Perl_Data::Dumper_and_similar)?">How can I dump Raku data structures (like Perl Data::Dumper and similar)?</a></td></tr>
+                                    <tr class="toc-level-2"><td class="toc-number">4.2</td><td class="toc-text"><a href="#How_can_I_get_command_line_history_in_the_Raku_prompt_(REPL)?">How can I get command line history in the Raku prompt (REPL)?</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">4.3</td><td class="toc-text"><a href="#Why_is_the_Rakudo_compiler_so_apologetic?">Why is the Rakudo compiler so apologetic?</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">4.4</td><td class="toc-text"><a href="#What_is_(Any)?">What is <code class="pod-code-inline">(Any)</code> ?</a></td></tr>
+                                                 <tr class="toc-level-2"><td class="toc-number">4.5</td><td class="toc-text"><a href="#What_is_so?">What is <code class="pod-code-inline">so</code> ?</a></td></tr>
+                  <tr class="toc-level-2"><td class="toc-number">4.6</td><td class="toc-text"><a href="#What_are_those_:D_and_:U_things_in_signatures?">What are those <code class="pod-code-inline">:D</code> and <code class="pod-code-inline">:U</code> things in signatures?</a></td></tr>
+                              <tr class="toc-level-2"><td class="toc-number">4.7</td><td class="toc-text"><a href="#What_is_the_--&gt;_thing_in_the_signature?">What is the <code class="pod-code-inline">--&gt;</code> thing in the signature?</a></td></tr>
+                        <tr class="toc-level-2"><td class="toc-number">4.8</td><td class="toc-text"><a href="#How_can_I_extract_the_values_from_a_Junction?">How can I extract the values from a Junction?</a></td></tr>
+                       <tr class="toc-level-2"><td class="toc-number">4.9</td><td class="toc-text"><a href="#If_Str_is_immutable,_how_does_s///_work?_If_Int_is_immutable,_how_does_$i++_work?">If Str is immutable, how does <code class="pod-code-inline">s///</code> work? If Int is immutable, how does <code class="pod-code-inline">$i++</code> work?</a></td></tr>
+                                        <tr class="toc-level-2"><td class="toc-number">4.10</td><td class="toc-text"><a href="#What's_up_with_array_references_and_automatic_dereferencing?_Do_I_need_the_@_sigil?">What&#39;s up with array references and automatic dereferencing? Do I need the <code class="pod-code-inline">@</code> sigil?</a></td></tr>
+                                                <tr class="toc-level-2"><td class="toc-number">4.11</td><td class="toc-text"><a href="#Why_sigils?_Couldn't_you_do_without_them?">Why sigils? Couldn&#39;t you do without them?</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">4.12</td><td class="toc-text"><a href="#&quot;Type_Str_does_not_support_associative_indexing.&quot;">&quot;Type Str does not support associative indexing.&quot;</a></td></tr>
+                <tr class="toc-level-2"><td class="toc-number">4.13</td><td class="toc-text"><a href="#Does_Raku_have_coroutines?_What_about_yield?">Does Raku have coroutines? What about <code class="pod-code-inline">yield</code> ?</a></td></tr>
+                       <tr class="toc-level-2"><td class="toc-number">4.14</td><td class="toc-text"><a href="#Why_can't_I_initialize_private_attributes_from_the_new_method,_and_how_can_I_fix_this?">Why can&#39;t I initialize private attributes from the new method, and how can I fix this?</a></td></tr>
+                                                           <tr class="toc-level-2"><td class="toc-number">4.15</td><td class="toc-text"><a href="#How_and_why_do_say,_put_and_print_differ?">How and why do <code class="pod-code-inline">say</code> , <code class="pod-code-inline">put</code> and <code class="pod-code-inline">print</code> differ?</a></td></tr>
+                                                                           <tr class="toc-level-2"><td class="toc-number">4.16</td><td class="toc-text"><a href="#What's_the_difference_between_token_and_rule_?">What&#39;s the difference between <code class="pod-code-inline">token</code> and <code class="pod-code-inline">rule</code> ?</a></td></tr>
+                         <tr class="toc-level-2"><td class="toc-number">4.17</td><td class="toc-text"><a href="#What's_the_difference_between_die_and_fail?">What&#39;s the difference between <code class="pod-code-inline">die</code> and <code class="pod-code-inline">fail</code> ?</a></td></tr>
+                         <tr class="toc-level-2"><td class="toc-number">4.18</td><td class="toc-text"><a href="#What's_the_difference_between_Pointer_and_OpaquePointer?">What&#39;s the difference between <code class="pod-code-inline">Pointer</code> and <code class="pod-code-inline">OpaquePointer</code> ?</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">4.19</td><td class="toc-text"><a href="#You_can_have_colonpairs_in_identifiers._What's_the_justification?">You can have colonpairs in identifiers. What&#39;s the justification?</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">4.20</td><td class="toc-text"><a href="#How_do_most_people_enter_unicode_characters?">How do most people enter unicode characters?</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">5</td><td class="toc-text"><a href="#Raku_implementation">Raku implementation</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">5.1</td><td class="toc-text"><a href="#What_Raku_implementations_are_available?">What Raku implementations are available?</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">5.2</td><td class="toc-text"><a href="#What_language_is_Rakudo_written_in?">What language is Rakudo written in?</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">5.3</td><td class="toc-text"><a href="#What_language_is_NQP_written_in?">What language is NQP written in?</a></td></tr>
+  <tr class="toc-level-2"><td class="toc-number">5.4</td><td class="toc-text"><a href="#Is_Raku_Lisp?">Is Raku Lisp?</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">5.5</td><td class="toc-text"><a href="#Can_I_compile_my_script_to_a_standalone_executable?">Can I compile my script to a standalone executable?</a></td></tr>
+            <tr class="toc-level-1"><td class="toc-number">6</td><td class="toc-text"><a href="#Raku_distribution">Raku distribution</a></td></tr>
+  <tr class="toc-level-2"><td class="toc-number">6.1</td><td class="toc-text"><a href="#When_will_the_next_version_of_Rakudo_Star_be_released?">When will the next version of Rakudo Star be released?</a></td></tr>
+    <tr class="toc-level-1"><td class="toc-number">7</td><td class="toc-text"><a href="#Metaquestions_and_advocacy">Metaquestions and advocacy</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">7.1</td><td class="toc-text"><a href="#Why_was_Raku_originally_called_Perl_6?">Why was Raku originally called Perl&nbsp;6?</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">7.2</td><td class="toc-text"><a href="#When_will_Raku_be_ready?_Is_it_ready_now?">When will Raku be ready? Is it ready now?</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">7.3</td><td class="toc-text"><a href="#Why_should_I_learn_Raku?_What's_so_great_about_it?">Why should I learn Raku? What&#39;s so great about it?</a></td></tr>
+                                                                            <tr class="toc-level-2"><td class="toc-number">7.4</td><td class="toc-text"><a href="#Is_Raku_fast_enough_for_me?">Is Raku fast enough for me?</a></td></tr>
+                                                                                    
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <h1 id="General"><a class="u" href="#___top" title="go to top of document">General</a></h1>
+<p><a name="Documentable/integration-test/index-entry-Rakudo__Raku_and_Perl 6_(FAQ)"></a></p>
+<h2 id="What's_the_difference_between_Raku,_Rakudo_and_Perl_6?"><a class="u" href="#___top" title="go to top of document">What&#39;s the difference between Raku, Rakudo and Perl&nbsp;6?</a></h2>
+<p>Properly speaking, <a href="https://rakudo.org/">Rakudo</a> is an implementation of Raku. It&#39;s currently the one that&#39;s being developed, but there have been other implementations in the past and there will likely be others in the future. Raku is the definition of the language. When talking about the current interpreter, Rakudo and Raku can be used interchangeably. &quot;Perl&nbsp;6&quot; is the name that was used for &quot;Raku&quot; before October 2019.</p>
+<h2 id="When_was_Raku_released?"><a class="u" href="#___top" title="go to top of document">When was Raku released?</a></h2>
+<p>The Rakudo 2015.12 implementation version was released on December 25th 2015.</p>
+<h2 id="Is_there_a_Raku_version_6.0.0?"><a class="u" href="#___top" title="go to top of document">Is there a Raku version 6.0.0?</a></h2>
+<p>No. The first stable language specification version is v6.c (&quot;Christmas&quot;). Future versions of the spec may have point releases (e.g., v6.d.2) or major releases (e.g., v6.e).</p>
+<p>Running <code>raku -v</code> will display the language version your compiler implements:</p>
+<pre class="pod-block-code">$ raku -v
+This is Rakudo version 2017.07 built on MoarVM version 2017.07
+implementing Raku.c.
+</pre>
+<p><a name="Documentable/integration-test/index-entry-v6.d_(FAQ)"></a></p>
+<h2 id="When_was_v6.d_released?"><a class="u" href="#___top" title="go to top of document">When was v6.d released?</a></h2>
+<p>The v6.d Specification was released on <a href="https://en.wikipedia.org/wiki/Diwali">Diwali 2018</a>, which was November 6–7 2018, in a convenient time zone. 6.d was enabled by default in the Rakudo compiler release of 2018.11.</p>
+<p>The vast majority of 6.d features were already implemented and available in the Rakudo compiler without requiring any special pragmas, as they did not conflict with the 6.c specification. A smaller set of features and behaviors is available automatically if you have the <code>use v6.d</code> pragma at the top of the file. The rest of about 3100 new commits to the language specification simply clarify previously undefined behavior.</p>
+<p><a name="Documentable/integration-test/index-entry-Rakudo_Star_DMG_binary_installer_(FAQ)"></a> <a name="Documentable/integration-test/index-entry-Rakudo_Star_MSI_binary_installer_(FAQ)"></a> <a name="Documentable/integration-test/index-entry-Rakudo_Star_docker_image_(FAQ)"></a> <a name="Documentable/integration-test/index-entry-Rakudo_Star_for_Linux_(FAQ)"></a> <a name="Documentable/integration-test/index-entry-Rakudo_Star_for_Windows_(FAQ)"></a> <a name="Documentable/integration-test/index-entry-Rakudo_Star_for_Mac_(FAQ)"></a></p>
+<h2 id="As_a_Raku_user,_what_should_I_install?"><a class="u" href="#___top" title="go to top of document">As a Raku user, what should I install?</a></h2>
+<p>Mac users can use the latest Rakudo Star DMG binary installer at <a href="https://rakudo.org/downloads/star">https://rakudo.org/downloads/star</a></p>
+<p>Windows users can use the Rakudo Star MSI binary installer. You will need Windows Git and Strawberry Perl to use zef to install library modules.</p>
+<p>Linux users probably want to download Rakudo Star and follow the compilation instructions at <a href="https://www.raku.org/downloads/">https://www.raku.org/downloads/</a>.</p>
+<p>There should be Linux and Mac binaries available from vendors and third parties, although vendor versions may be outdated. Versions before Rakudo release of 2015.12 should be avoided.</p>
+<p>There&#39;s an official Rakudo Star docker image at <a href="https://hub.docker.com/_/rakudo-star/">https://hub.docker.com/_/rakudo-star/</a></p>
+<p><a name="Documentable/integration-test/index-entry-rakudobrew_(FAQ)"></a></p>
+<h2 id="As_an_advanced_user_I_want_to_track_Rakudo_development."><a class="u" href="#___top" title="go to top of document">As an advanced user I want to track Rakudo development.</a></h2>
+<p>An option is to clone <a href="https://github.com/rakudo/rakudo">the repository</a> and build it. This will install work in progress which is minimally-tested and may contain severe bugs. If you&#39;re interested in contributing to the Rakudo Raku compiler, you may find the <a href="https://github.com/zoffixznet/z">Z-Script helper tool</a> useful.</p>
+<p>To install the last official monthly release, check out the tag visible at <a href="https://raw.githubusercontent.com/rakudo/rakudo/master/VERSION">https://raw.githubusercontent.com/rakudo/rakudo/master/VERSION</a> or set up <a href="https://github.com/zoffixznet/r#table-of-contents">a helper command</a>.</p>
+<p>Some users choose to use <a href="https://github.com/tadzik/rakudobrew">rakudobrew</a>, which allows installation of multiple versions of rakudo. Be sure to <a href="https://github.com/tadzik/rakudobrew#making-new-scripts-available">read its documentation</a>.</p>
+<p>In either case you will probably need to also install <a href="https://modules.raku.org/dist/zef:github"><code>zef</code></a> and <a href="https://modules.raku.org/dist/p6doc:github"><code>p6doc</code></a> from the <a href="https://modules.raku.org/">ecosystem</a>.</p>
+<h2 id="Where_can_I_find_good_documentation_on_Raku?"><a class="u" href="#___top" title="go to top of document">Where can I find good documentation on Raku?</a></h2>
+<p>See <a href="/Documentable/integration-test/">the official documentation website</a> (especially its <a href="/Documentable/integration-test/language.html">&quot;Language&quot; section</a>) as well as the <a href="https://raku.org/resources/">Resources page</a>. You can also consult this <a href="https://htmlpreview.github.io/?https://github.com/perl6/mu/blob/master/docs/Perl6/Cheatsheet/cheatsheet.html">great cheatsheet</a>.</p>
+<p><a href="https://perl6book.com/">perl6book.com</a> contains a list of dead tree and electronic books.</p>
+<p>Be mindful of publication dates when reading third-party articles. Anything published before December, 2015 likely describes a pre-release version of Raku.</p>
+<p>You can always <a href="https://webchat.freenode.net/?channels=#raku">get help from a live human in our help chat</a> or <a href="https://colabti.org/irclogger/irclogger_log_search/raku">search the chat logs</a> to find previous conversations and discussions.</p>
+<p><a name="Documentable/integration-test/index-entry-Books"></a></p>
+<h2 id="Can_I_get_some_books_about_Raku?"><a class="u" href="#___top" title="go to top of document">Can I get some books about Raku?</a></h2>
+<p>Here are some available books, in alphabetical order:</p>
+<ul><li><p><a href="https://www.learningperl6.com/">Learning Raku</a>, by brian d foy</p>
+</li>
+<li><p><a href="https://www.amazon.com/gp/product/B07221XCVL">Learning to program with Raku: First Steps</a>, by JJ Merelo</p>
+</li>
+<li><p><a href="https://www.gitbook.com/book/kyclark/metagenomics/details">Metagenomics</a>, by Ken Youens-Clark</p>
+</li>
+<li><p><a href="https://smile.amazon.com/dp/1484232275/">Parsing with Perl&nbsp;6 Regexes and Grammars</a>, by Moritz Lenz</p>
+</li>
+<li><p><a href="https://deeptext.media/perl6-at-a-glance/">Perl&nbsp;6 at a Glance</a>, by Andrew Shitov</p>
+</li>
+<li><p><a href="https://www.apress.com/us/book/9781484228982">Perl&nbsp;6 Fundamentals</a>, by Moritz Lenz</p>
+</li>
+<li><p><a href="https://www.packtpub.com/application-development/perl-6-deep-dive">Perl&nbsp;6 Deep Dive</a>, by Andrew Shitov</p>
+</li>
+<li><p><a href="https://greenteapress.com/wp/think-perl-6/">Think Perl&nbsp;6: How to Think Like a Computer Scientist</a>, by Laurent Rosenfeld.</p>
+</li>
+</ul>
+<p>A list of books published or in progress is maintained in <a href="https://raku.org/resources/"><code>raku.org</code></a>.</p>
+<p><a name="Documentable/integration-test/index-entry-Specification_(FAQ)"></a></p>
+<h2 id="What_is_the_Raku_specification?"><a class="u" href="#___top" title="go to top of document">What is the Raku specification?</a></h2>
+<p>The specification refers to the official test suite for Raku. It&#39;s called <a href="https://github.com/Raku/roast"><code>roast</code></a> and is hosted on github. Any compiler that passes the tests is deemed to implement that version of the Raku specification.</p>
+<p>Roast&#39;s <code>master</code> branch corresponds to the latest development that isn&#39;t necessarily part of any specification yet. Other branches correspond to specific versions; for example, &quot;6.c-errata&quot;.</p>
+<p>So <code>6.c-errata</code> is a released language version we don&#39;t change other than to fix errors in tests (the &quot;errata&quot;) whereas master is the unreleased work-in-progress that may become the next language version. Its current state is not necessarily prescriptive of the next language version&#39;s behavior since new additions will be reviewed for inclusion into the release.</p>
+<h2 id="Is_there_a_glossary_of_Raku_related_terms?"><a class="u" href="#___top" title="go to top of document">Is there a glossary of Raku related terms?</a></h2>
+<p>Yes, see <a href="/Documentable/integration-test/language/glossary">glossary</a>.</p>
+<h2 id="I'm_a_Perl_programmer._Where_is_a_list_of_differences_between_Perl_and_Raku?"><a class="u" href="#___top" title="go to top of document">I&#39;m a Perl programmer. Where is a list of differences between Perl and Raku?</a></h2>
+<p>There are several <em>Perl to Raku</em> guides in the <a href="/Documentable/integration-test/language.html">Language section of the documentation</a>, most notable of which is the <a href="/Documentable/integration-test/language/5to6-nutshell">Overview</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-Ruby_Quickstart_(FAQ)"></a></p>
+<h2 id="I'm_a_Ruby_programmer_looking_for_quickstart_type_docs?"><a class="u" href="#___top" title="go to top of document">I&#39;m a Ruby programmer looking for quickstart type docs?</a></h2>
+<p>See the <a href="/Documentable/integration-test/language/rb-nutshell">rb-nutshell</a> guide.</p>
+<h1 id="Modules"><a class="u" href="#___top" title="go to top of document">Modules</a></h1>
+<p><a name="Documentable/integration-test/index-entry-CPAN_(FAQ)"></a><a name="Documentable/integration-test/index-entry-ecosystem"></a></p>
+<h2 id="Is_there_a_CPAN_(repository_of_third_party_library_modules)_for_Raku?"><a class="u" href="#___top" title="go to top of document">Is there a CPAN (repository of third party library modules) for Raku?</a></h2>
+<p>Yes, it&#39;s the same <a href="https://cpan.org/">CPAN</a> as for Perl! The only difference is when using <a href="https://pause.perl.org/">PAUSE</a> to upload the module, the uploaded modules shows up on <a href="https://modules.raku.org/">modules.raku.org</a> instead of <a href="https://metacpan.org/">MetaCPAN</a>. The <a href="https://modules.raku.org/l/App::Mi6"><code>App::Mi6</code> tool</a> can simplify the uploading process. The <a href="https://github.com/ugexe/zef"><code>zef</code> module installer</a> automatically check for latest versions of a module on CPAN as well as our <a href="https://github.com/Raku/ecosystem/">GitHub-based ecosystem</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-p6doc_(FAQ)"></a> <a name="Documentable/integration-test/index-entry-perldoc_(FAQ)"></a></p>
+<h2 id="Is_there_a_perldoc_(command_line_documentation_viewer)_for_Raku?"><a class="u" href="#___top" title="go to top of document">Is there a perldoc (command line documentation viewer) for Raku?</a></h2>
+<p>Yes, it&#39;s called <code>p6doc</code> and is present in the ecosystem under that name. It comes bundled in with Rakudo Star but needs to be manually installed with <code>zef</code> if you are using a Rakudo monthly release.</p>
+<p><a name="Documentable/integration-test/index-entry-Perl_modules_(FAQ)"></a></p>
+<h2 id="Can_I_use_Perl_modules_from_Raku?"><a class="u" href="#___top" title="go to top of document">Can I use Perl modules from Raku?</a></h2>
+<p>Yes, with <a href="https://github.com/niner/Inline-Perl5/">Inline::Perl5</a>, which works well with most Perl modules. It can even run Perl Catalyst and DBI.</p>
+<p><a name="Documentable/integration-test/index-entry-C_and_C++_(FAQ)"></a></p>
+<h2 id="Can_I_use_C_and_C++_from_Raku?"><a class="u" href="#___top" title="go to top of document">Can I use C and C++ from Raku?</a></h2>
+<p><a href="/Documentable/integration-test/language/nativecall">Nativecall</a> makes this particularly easy.</p>
+<h2 id="Nativecall_can't_find_libfoo.so_and_I_only_have_libfoo.so.1.2!"><a class="u" href="#___top" title="go to top of document">Nativecall can&#39;t find <code>libfoo.so</code> and I only have <code>libfoo.so.1.2</code>!</a></h2>
+<p>In most Linux systems, shared libraries will be installed in such a way that, for a specific <code>libfoo</code>, there will be a <code>libfoo.so.x.y.z</code> real file, and then a set of symlinks <code>libfoo.so</code> and <code>libfoo.so.x</code>. for instance, <code>ls /usr/local/lib/libxxhash.so*</code> returns:</p>
+<pre class="pod-block-code">/usr/local/lib/libxxhash.so -&gt; libxxhash.so.0.6.5
+/usr/local/lib/libxxhash.so.0 -&gt; libxxhash.so.0.6.5
+/usr/local/lib/libxxhash.so.0.6.5
+</pre>
+<p>In general, installing a <code>libfoo-dev</code> or <code>libfoo-devel</code> (depending on the distro) in Linux will install the shared library <em>and</em> set up those symlinks for you. But in some cases, you will only have, as in the question, <code>libfoo.so.1.2</code>.</p>
+<p>In that case, just use the version of <code>is native</code> that explicitly sets the ABI/API version, as indicated in <a href="/Documentable/integration-test/language/nativecall#ABI/API_version">the manual</a>:</p>
+<pre class="pod-block-code">sub call-foo() is native(&#39;foo&#39;,v1.2);
+</pre>
+<h2 id="Where_have_all_the_traditional_UNIX_library_functions_gone?"><a class="u" href="#___top" title="go to top of document">Where have all the traditional UNIX library functions gone?</a></h2>
+<p>It&#39;s fairly easy to use <a href="/Documentable/integration-test/language/nativecall">NativeCall</a> to access them.</p>
+<p>An ecosystem module <a href="https://github.com/cspencer/perl6-posix">POSIX</a> is also available.</p>
+<p><a name="Documentable/integration-test/index-entry-Core_standard_library_(FAQ)"></a> <a name="Documentable/integration-test/index-entry-Rakudo_Star_distribution_and_compiler-only_release_(FAQ)"></a></p>
+<h2 id="Does_Rakudo_have_a_core_standard_library?"><a class="u" href="#___top" title="go to top of document">Does Rakudo have a core standard library?</a></h2>
+<p><a href="https://rakudo.raku.org/downloads/">Rakudo Star distribution</a> does come with <a href="https://github.com/rakudo/star/tree/master/modules">many useful modules</a>.</p>
+<p>Rakudo compiler-only release includes <a href="/Documentable/integration-test/language/modules-core">only a couple of the most basic modules</a>.</p>
+<p>Many more modules can be found in the <a href="https://modules.raku.org/">ecosystem</a>.</p>
+<h2 id="Is_there_something_like_B::Deparse/How_can_I_get_hold_of_the_AST?"><a class="u" href="#___top" title="go to top of document">Is there something like <code>B::Deparse</code>/How can I get hold of the AST?</a></h2>
+<p>Use <code>--target=optimize</code> command line option to view the AST of your program, e.g., <code>raku --target=optimize -e &#39;say &quot;hi&quot;&#39;</code></p>
+<p>The target <code>optimize</code> gives the AST after the static optimizer does its job, while target <code>ast</code> gives the AST before that step. To get the full list of available targets, run <code>raku --stagestats -e &quot;&quot;</code></p>
+<p><a name="Documentable/integration-test/index-entry-Precompile_(FAQ)"></a></p>
+<h2 id="What_is_precompilation?"><a class="u" href="#___top" title="go to top of document">What is precompilation?</a></h2>
+<p>When you load a module for the first time, Rakudo compiles it into bytecode. Then, Rakudo both stores the compiled bytecode on disk and uses it, because that tends to be significantly faster.</p>
+<p><a name="Documentable/integration-test/index-entry-Circular_dependencies_(FAQ)"></a></p>
+<h2 id="Can_I_have_circular_dependencies_between_modules?"><a class="u" href="#___top" title="go to top of document">Can I have circular dependencies between modules?</a></h2>
+<p>No, you can&#39;t have circular dependencies, and you should get a <code>Circular module loading detected</code> error if you have them between your modules.</p>
+<p>Very likely you can accomplish what you are trying to do using <a href="/Documentable/integration-test/language/objects#Roles">roles</a>. Instead of <code>A.rakumod</code> depending on <code>B.rakumod</code> and <code>B.rakumod</code> depending on <code>A.rakumod</code>, you can have <code>A-Role.rakumod</code> and <code>B-Role.rakumod</code> and classes in <code>A.rakumod</code> and <code>B.rakumod</code> implementing these roles respectively. Then you can depend on <code>A-Role.rakumod</code> and <code>B-Role.rakumod</code> without the need for the circular dependency.</p>
+<p>One of the reasons why circular dependencies do not work in Raku is one pass parsing. We have to know what A means when we parse B, and we have to know what B means when we parse A, which is clearly an infinite loop.</p>
+<p>Note that Raku has no “1 file = 1 class” limitation, and circular dependencies within a single compilation unit (e.g., file) are possible through stubbing. Therefore another possible solution is to move classes into the same compilation unit.</p>
+<h1 id="Common_operations"><a class="u" href="#___top" title="go to top of document">Common operations</a></h1>
+<h2 id="String:_How_can_I_parse_and_get_a_number_from_a_string">String: How can I parse and get a <a href="/Documentable/integration-test/language/numerics">number</a> from a <a href="/Documentable/integration-test/language/type/Str">string</a></h2>
+<p>Use the <a href="/Documentable/integration-test/language/operators#prefix_+">+ prefix</a>:</p>
+<pre class="pod-block-code">say &quot;42.123456789123456789&quot;;  # OUTPUT: «42.123456789123456789␤»
+say +&quot;42.4e-2&quot;;               # OUTPUT: «0.424␤»
+</pre>
+<p>This example of <a href="/Documentable/integration-test/language/contexts">contextualization</a> can numify any string you could enter as a <a href="/Documentable/integration-test/language/syntax#Number_literals">literal number</a>. <a href="/Documentable/integration-test/routine/val">val</a> routine converts it to <a href="/Documentable/integration-test/language/glossary#Allomorph">allomorph</a>. <a href="/Documentable/integration-test/routine/unival">unival</a> routine converts one unicode codepoint.</p>
+<h2 id="String:_How_can_I_check_if_a_string_contains_a_substring_and_if_so,_how_can_I_get_indices_of_matches"><a class="u" href="#___top" title="go to top of document">String: How can I check if a string contains a substring and if so, how can I get indices of matches</a></h2>
+<p>Use <a href="/Documentable/integration-test/type/Str#method_contains">.contains</a> or <a href="/Documentable/integration-test/type/Str#method_indices">.indices</a>:</p>
+<pre class="pod-block-code">&quot;az and az and az again&quot;.contains(&quot;az&quot;); # OUTPUT: «True␤»
+&quot;az and az and az again&quot;.indices(&quot;az&quot;);  # OUTPUT: «(0 7 14)␤»
+</pre>
+<h2 id="String:_How_can_I_get_the_hexadecimal_representation_of_a_string"><a class="u" href="#___top" title="go to top of document">String: How can I get the hexadecimal representation of a string</a></h2>
+<p>To get an hexadecimal list of each byte of a string (i.e. hex encoder), first convert the string to a <a href="/Documentable/integration-test/type/Blob">Blob</a> with <a href="/Documentable/integration-test/routine/encode">.encode</a>.</p>
+<pre class="pod-block-code">say &quot;I ❤ 🦋&quot;.encode&gt;&gt;.base(16);  OUTPUT: «(49 20 E2 9D A4 20 F0 9F A6 8B)␤»
+</pre>
+<p>Note that <a href="/Documentable/integration-test/routine/gist">.gist</a> or <a href="/Documentable/integration-test/routine/raku">.raku</a> methods can be useful for variable introspection:</p>
+<pre class="pod-block-code">say &quot;I ❤ 🦋&quot;.encode.raku;  # OUTPUT: «utf8.new(73,32,226,157,164,32,240,159,166,139)␤»
+say &quot;I ❤ 🦋&quot;.encode.gist;  # OUTPUT: «utf8:0x&lt;49 20 E2 9D A4 20 F0 9F A6 8B&gt;␤»
+</pre>
+<h2 id="String:_How_can_I_remove_from_a_string_some_characters_by_index"><a class="u" href="#___top" title="go to top of document">String: How can I remove from a string some characters by index</a></h2>
+<p>Use <a href="/Documentable/integration-test/routine/comb">.comb</a> to transform it to a <a href="/Documentable/integration-test/type/Seq">Seq</a>, then the <a href="/Documentable/integration-test/language/operators#infix_(-),_infix_\\">(-) infix</a> to remove the unwanted indices:</p>
+<pre class="pod-block-code">say &#39;0123456789&#39;.comb[(^* (-) (1..3, 8).flat).keys.sort].join;  # OUTPUT: «045679␤»
+</pre>
+<p>If the string is large, <a href="/Documentable/integration-test/routine/comb">.comb</a> can take time. In which case, <a href="/Documentable/integration-test/routine/substr-rw">.substr-rw</a> is faster:</p>
+<pre class="pod-block-code">multi postcircumfix:&lt;[- ]&gt; (Str:D $str is copy, +@indices) {
+    for @indices.reverse {
+        when Int   { $str.substr-rw($_,1) = &#39;&#39; }
+        when Range { $str.substr-rw($_  ) = &#39;&#39; }
+    }
+    return $str;
+}
+
+say &#39;0123456789&#39;[- 1..3, 8 ];  # OUTPUT: «045679␤»
+</pre>
+<h2 id="String:_How_can_I_split_a_string_in_equal_parts"><a class="u" href="#___top" title="go to top of document">String: How can I split a string in equal parts</a></h2>
+<p><a href="/Documentable/integration-test/routine/comb">.comb</a> is accepting an optional <a href="/Documentable/integration-test/type/Int">Int</a>:</p>
+<pre class="pod-block-code">.say for &#39;abcdefghijklmnopqrstuvwxyz&#39;.comb: 8;  # OUTPUT: «abcdefgh␤ijklmnop␤qrstuvwx␤yz»
+</pre>
+<h1 id="Language_features"><a class="u" href="#___top" title="go to top of document">Language features</a></h1>
+<p><a name="Documentable/integration-test/index-entry-Data::Dumper_(FAQ)"></a></p>
+<h2 id="How_can_I_dump_Raku_data_structures_(like_Perl_Data::Dumper_and_similar)?"><a class="u" href="#___top" title="go to top of document">How can I dump Raku data structures (like Perl Data::Dumper and similar)?</a></h2>
+<p>Typical options are to use the <a href="/Documentable/integration-test/routine/say">say</a> routine that uses the <a href="/Documentable/integration-test/routine/gist">gist</a> method which gives the &quot;gist&quot; of the object being dumped. More detailed output can be obtained by calling the <a href="/Documentable/integration-test/routine/perl">perl</a> method (soon to be deprecated in favor of <code>$obj.raku</code>, available since the Rakudo 2019.11 release) that typically returns an object&#39;s representation in <a href="/Documentable/integration-test/routine/EVAL">EVAL</a>-able code.</p>
+<p>If you&#39;re using the <a href="https://rakudo.org">rakudo</a> implementation, you can use the <a href="/Documentable/integration-test/programs/01-debugging#Dumper_function_dd">rakudo-specific <code>dd</code> routine</a> for dumping, whose output is similar to <a href="/Documentable/integration-test/routine/raku">raku</a>, but with more information.</p>
+<p>Examples:</p>
+<pre class="pod-block-code">my $foo = %( foo =&gt; &#39;bar&#39; );
+say $foo.raku;   # OUTPUT: «${:foo(&quot;bar&quot;)}␤»
+say $foo;        # OUTPUT: «{foo =&gt; bar}␤»
+
+# non-standard routine available in rakudo implementation:
+dd $foo;         # OUTPUT: «Hash $foo = ${:foo(&quot;bar&quot;)}␤»
+</pre>
+<p>There are also <a href="https://modules.raku.org/s/dump">several ecosystem modules</a> that provide more control over how data structures are dumped, including support for colored output.</p>
+<h2 id="How_can_I_get_command_line_history_in_the_Raku_prompt_(REPL)?"><a class="u" href="#___top" title="go to top of document">How can I get command line history in the Raku prompt (REPL)?</a></h2>
+<p>Install <a href="https://github.com/hoelzro/p6-linenoise/">Linenoise</a> from the ecosystem.</p>
+<p>An alternative for UNIX-like systems is to install <code>rlwrap</code>. This can be done on Debian-ish systems by running:</p>
+<pre class="pod-block-code">sudo apt-get install rlwrap
+</pre>
+<h2 id="Why_is_the_Rakudo_compiler_so_apologetic?"><a class="u" href="#___top" title="go to top of document">Why is the Rakudo compiler so apologetic?</a></h2>
+<p>If SORRY! is present in the output, the error is a compile time error. Otherwise, it&#39;s a runtime error.</p>
+<p>Example:</p>
+<pre class="pod-block-code">sub foo( Int $a, Int $b ) {...}
+foo(1)     # ===SORRY!=== Error while compiling ...
+</pre>
+<pre class="pod-block-code">say 1/0;   # Attempt to divide 1 by zero using div
+</pre>
+<h2 id="What_is_(Any)?"><a class="u" href="#___top" title="go to top of document">What is <code>(Any)</code>?</a></h2>
+<p><a href="/Documentable/integration-test/type/Any"><code>Any</code></a> is a top level class most objects inherit from. The <code>Any</code> type object is <a href="/Documentable/integration-test/type/Attribute#Trait_is_default">the default value</a> on variables and parameters without an explicit type constraint, which means you&#39;ll likely see <code>(Any)</code> printed when you output a <a href="/Documentable/integration-test/routine/gist">gist</a> of a variable without any value by using, for instance, the <a href="/Documentable/integration-test/routine/say"><code>say</code> routine</a>:</p>
+<pre class="pod-block-code">my $foo;
+say $foo; # OUTPUT: «(Any)␤»
+
+my Int $baz;
+say $baz; # OUTPUT: «(Int)␤»
+
+my $bar = 70;
+say $bar; # OUTPUT: «70␤»
+</pre>
+<p>To test whether a variable has any defined values, see <a href="/Documentable/integration-test/language/classtut#index-entry-.DEFINITE">DEFINITE</a> and <a href="/Documentable/integration-test/routine/defined">defined</a> routines. Several other constructs exist that test for definiteness, such as <a href="/Documentable/integration-test/syntax/with orwith without"><code>with</code>, <code>orwith</code>, and <code>without</code></a> statements, <a href="/Documentable/integration-test/routine/$SOLIDUS$SOLIDUS"><code>//</code></a>, <a href="/Documentable/integration-test/routine/andthen">andthen</a>, <a href="/Documentable/integration-test/routine/notandthen">notandthen</a>, and <a href="/Documentable/integration-test/routine/orelse">orelse</a> operators, as well as <a href="/Documentable/integration-test/type/Signature#Constraining_defined_and_undefined_values">type constraint smileys</a>.</p>
+<h2 id="What_is_so?"><a class="u" href="#___top" title="go to top of document">What is <code>so</code>?</a></h2>
+<p><code>so</code> is a loose precedence operator that coerces to <a href="/Documentable/integration-test/type/Bool">Bool</a>.</p>
+<p>It has the same semantics as the <code>?</code> prefix operator, just like <code>and</code> is the low-precedence version of <code>&amp;&amp;</code>.</p>
+<p>Example:</p>
+<pre class="pod-block-code">say so 1|2 == 2;    # OUTPUT: «True␤»
+</pre>
+<p>In this example, the result of the comparison (which is a <a href="/Documentable/integration-test/type/Junction">Junction</a>), is converted to Bool before being printed.</p>
+<h2 id="What_are_those_:D_and_:U_things_in_signatures?"><a class="u" href="#___top" title="go to top of document">What are those <code>:D</code> and <code>:U</code> things in signatures?</a></h2>
+<p>In Raku, classes and other types are objects and pass type checks of their own type.</p>
+<p>For example, if you declare a variable</p>
+<pre class="pod-block-code">my Int $x = 42;
+</pre>
+<p>then not only can you assign integers (that is, instances of class Int) to it, but the <code>Int</code> type object itself:</p>
+<pre class="pod-block-code">$x = Int
+</pre>
+<p>If you want to exclude type objects, you can append the <code>:D</code> type smiley, which stands for &quot;definite&quot;:</p>
+<pre class="pod-block-code">my Int:D $x = 42;
+$x = Int;
+
+# dies with:
+# Type check failed in assignment to $x;
+# expected Int:D but got Int
+</pre>
+<p>Likewise, <code>:U</code> constrains to undefined values, that is, type objects.</p>
+<p>To explicitly allow either type objects or instances, you can use <code>:_</code>.</p>
+<h2 id="What_is_the_-->_thing_in_the_signature?"><a class="u" href="#___top" title="go to top of document">What is the <code>--&gt;</code> thing in the signature?</a></h2>
+<p><a href="/Documentable/integration-test/type/Signature#Constraining_return_types">--&gt;</a> is a return constraint, either a type or a definite value.</p>
+<p>Example of a type constraint:</p>
+<pre class="pod-block-code">sub divide-to-int( Int $a, Int $b --&gt; Int ) {
+        return ($a / $b).narrow;
+}
+
+divide-to-int(3, 2)
+# Type check failed for return value; expected Int but got Rat
+</pre>
+<p>Example of a definite return value:</p>
+<pre class="pod-block-code">sub discard-random-number( --&gt; 42 ) { rand }
+say discard-random-number;
+# OUTPUT: «42␤»
+</pre>
+<p>In this case, the final value is thrown away because the return value is already specified in the signature.</p>
+<p><a name="Documentable/integration-test/index-entry-Junction_(FAQ)"></a></p>
+<h2 id="How_can_I_extract_the_values_from_a_Junction?"><a class="u" href="#___top" title="go to top of document">How can I extract the values from a Junction?</a></h2>
+<p>If you want to extract the values (eigenstates) from a <a href="/Documentable/integration-test/type/Junction">Junction</a>, you are probably doing something wrong and should be using a <a href="/Documentable/integration-test/type/Set">Set</a> instead.</p>
+<p>Junctions are meant as matchers, not for doing algebra with them.</p>
+<p>If you want to do it anyway, you can abuse autothreading for that:</p>
+<pre class="pod-block-code">sub eigenstates(Mu $j) {
+    my @states;
+    -&gt; Any $s { @states.push: $s }.($j);
+    @states;
+}
+
+say eigenstates(1|2|3).join(&#39;, &#39;);
+# prints 1, 2, 3 or a permutation thereof
+</pre>
+<h2 id="If_Str_is_immutable,_how_does_s///_work?_If_Int_is_immutable,_how_does_$i++_work?"><a class="u" href="#___top" title="go to top of document">If Str is immutable, how does <code>s///</code> work? If Int is immutable, how does <code>$i++</code> work?</a></h2>
+<p>In Raku, values of many basic types are immutable, but the variables holding them are not. The <code>s///</code> operator works on a variable, into which it puts a newly created string object. Likewise, <code>$i++</code> works on the <code>$i</code> variable, not just on the value in it.</p>
+<p>Knowing this, you would not try to change a literal string (e.g. like <code>&#39;hello&#39; ~~ s/h/H/;</code>), but you might accidentally do something equivalent using <code>map</code> as follows.</p>
+<pre class="pod-block-code">my @foo = &lt;hello world&gt;.map: { s/h/H/ };
+
+# dies with
+# Cannot modify an immutable Str (hello)
+
+my @bar = &lt;hello world&gt;».subst-mutate: &#39;h&#39;, &#39;H&#39;;
+
+# dies with
+# Cannot resolve caller subst-mutate(Str: Str, Str);
+# the following candidates match the type but require
+# mutable arguments: ...
+</pre>
+<p>Instead of modifying the original value in place, use a routine or operator that returns a new value:</p>
+<pre class="pod-block-code">my @foo = &lt;hello world&gt;.map: { S/h/H/ };  # [&#39;Hello&#39;,&#39;world&#39;]
+my @bar = &lt;hello world&gt;».subst: &#39;h&#39;, &#39;H&#39;; # [&#39;Hello&#39;,&#39;world&#39;]
+</pre>
+<p>See the documentation on <a href="/Documentable/integration-test/language/containers">containers</a> for more information.</p>
+<h2 id="What's_up_with_array_references_and_automatic_dereferencing?_Do_I_need_the_@_sigil?"><a class="u" href="#___top" title="go to top of document">What&#39;s up with array references and automatic dereferencing? Do I need the <code>@</code> sigil?</a></h2>
+<p>In Raku, nearly everything is a reference, so talking about taking references doesn&#39;t make much sense. Scalar variables can also contain arrays directly:</p>
+<pre class="pod-block-code">my @a = 1, 2, 3;
+say @a;                 # OUTPUT: «[1 2 3]␤»
+say @a.^name;           # OUTPUT: «Array␤»
+
+my $scalar = @a;
+say $scalar;            # OUTPUT: «[1 2 3]␤»
+say $scalar.^name;      # OUTPUT: «Array␤»
+</pre>
+<p>The big difference is that arrays inside a scalar act as one value in list context, whereas arrays will be happily iterated over.</p>
+<pre class="pod-block-code">my @a = 1, 2, 3;
+my $s = @a;
+
+for @a { ... }          # loop body executed 3 times
+for $s { ... }          # loop body executed only once
+
+my @flat = flat @a, @a;
+say @flat.elems;            # OUTPUT: «6␤»
+
+my @nested = flat $s, $s;
+say @nested.elems;          # OUTPUT: «2␤»
+</pre>
+<p>You can force list context with <code>@( ... )</code> or by calling the <code>.list</code> method on an expression, and item context with <code>$( ... )</code> or by calling the <code>.item</code> method on an expression.</p>
+<p>See the <a href="https://perl6advent.wordpress.com/2017/12/02/"><em>Perl&nbsp;6: Sigils, Variables, and Containers</em></a> article to learn more.</p>
+<p><a name="Documentable/integration-test/index-entry-Sigils_(FAQ)"></a></p>
+<h2 id="Why_sigils?_Couldn't_you_do_without_them?"><a class="u" href="#___top" title="go to top of document">Why sigils? Couldn&#39;t you do without them?</a></h2>
+<p>There are several reasons:</p>
+<ul><li><p>they make it easy to interpolate variables into strings</p>
+</li>
+<li><p>they form micro-namespaces for different variables and twigils, thus avoiding name clashes</p>
+</li>
+<li><p>they allow easy single/plural distinction</p>
+</li>
+<li><p>they work like natural languages that use mandatory noun markers, so our brains are built to handle it</p>
+</li>
+<li><p>they aren&#39;t mandatory, since you can declare sigilless names (if you don&#39;t mind the ambiguity)</p>
+</li>
+</ul>
+<h2 id="&quot;Type_Str_does_not_support_associative_indexing.&quot;"><a class="u" href="#___top" title="go to top of document">&quot;Type Str does not support associative indexing.&quot;</a></h2>
+<p>You likely tried to mix string interpolation and key characters, like HTML tags:</p>
+<pre class="pod-block-code">my $foo = &quot;abc&quot;;
+say &quot;$foo&lt;html-tag&gt;&quot;;
+</pre>
+<p>Raku thinks <code>$foo</code> is a Hash and <code>&lt;html-tag&gt;</code> is a string literal hash key. Use a closure to help it to understand you.</p>
+<pre class="pod-block-code">my $foo = &quot;abc&quot;;
+say &quot;{$foo}&lt;html-tag&gt;&quot;;
+</pre>
+<p><a name="Documentable/integration-test/index-entry-Coroutine_(FAQ)"></a></p>
+<h2 id="Does_Raku_have_coroutines?_What_about_yield?"><a class="u" href="#___top" title="go to top of document">Does Raku have coroutines? What about <code>yield</code>?</a></h2>
+<p>Raku has no <code>yield</code> statement like Python does, but it does offer similar functionality through lazy lists. There are two popular ways to write routines that return lazy lists:</p>
+<pre class="pod-block-code"># first method, gather/take
+my @values = gather while have_data() {
+    # do some computations
+    take some_data();
+    # do more computations
+}
+
+# second method, use .map or similar method
+# on a lazy list
+my @squares = (1..*).map(-&gt; \x { x² });
+</pre>
+<h2 id="Why_can't_I_initialize_private_attributes_from_the_new_method,_and_how_can_I_fix_this?"><a class="u" href="#___top" title="go to top of document">Why can&#39;t I initialize private attributes from the new method, and how can I fix this?</a></h2>
+<p>The <code>say</code> statement in the following code sample</p>
+<pre class="pod-block-code">class A {
+    has $!x;
+    method show-x {
+        return $!x;
+    }
+}
+say A.new(x =&gt; 5).show-x;
+</pre>
+<p>does not print 5. Private attributes are <em>private</em>, which means invisible to the outside world. If the default constructor could initialize them, they would leak into the public API. Thus, in this particular code sample the attribute <code>$!x</code> isn&#39;t initialized during object construction by the default constructor.</p>
+<p>If you still want to initialize private attributes with the default constructor, you can add a <code>submethod BUILD</code> to achieve such task:</p>
+<pre class="pod-block-code">class B {
+    has $!x;
+    submethod BUILD(:$!x) { }
+    method show-x {
+        return $!x;
+    }
+}
+say B.new(x =&gt; 5).show-x;
+</pre>
+<p><code>BUILD</code> is called by the default constructor (indirectly, see <a href="/Documentable/integration-test/language/objects#Object_construction">Object Construction</a> for more details) with all the named arguments that the user passes to the constructor. <code>:$!x</code> is a named parameter with name <code>x</code>, and when called with a named argument of name <code>x</code>, its value is bound to the attribute <code>$!x</code>.</p>
+<p>However, you shouldn&#39;t do that. If the attribute is declared as private, then it shouldn&#39;t be exposed to the environment outside the class (e.g., during object construction). On the other hand, if the attribute is public, there is no downside to declaring it that way with <code>$.x</code> since the external view is read-only by default, and you can still access it internally with <code>$!x</code>.</p>
+<h2 id="How_and_why_do_say,_put_and_print_differ?"><a class="u" href="#___top" title="go to top of document">How and why do <code>say</code>, <code>put</code> and <code>print</code> differ?</a></h2>
+<p>The most obvious difference is that <code>say</code> and <code>put</code> append a newline at the end of the output, and <code>print</code> does not.</p>
+<p>But there&#39;s another difference: <code>print</code> and <code>put</code> convert their arguments to a string by calling the <code>Str</code> method on each item passed to them while <code>say</code> uses the <code>gist</code> method. The <code>gist</code> method, which you can also create for your own classes, is intended to create a <code>Str</code> for human interpretation. So it is free to leave out information about the object deemed unimportant to understanding the essence of the object.</p>
+<p>Or phrased differently, <code>$obj.Str</code> gives a string representation, <code>$obj.gist</code> provides a short summary of that object suitable for fast recognition by a human, and <code>$obj.perl</code> (<code>$obj.raku</code>) gives a Raku-ish representation from which the object could be re-created.</p>
+<p>For example, when the <code>Str</code> method is invoked on a type object, also known as an &quot;undefined value&quot;, the type is stringified to an empty string and a <code>warn</code>ing is thrown. On the other hand, the <code>gist</code> method returns the name of the type between parentheses (to indicate there&#39;s nothing in that value except the type).</p>
+<pre class="pod-block-code">my Date $x;     # $x now contains the Date type object
+print $x;       # empty string plus warning
+say $x;         # OUTPUT: «(Date)␤»
+</pre>
+<p>If you&#39;d like to show a debugging version of an object, it is probably better to use the <a href="/Documentable/integration-test/programs/01-debugging#Dumper_function_dd">rakudo-specific <code>dd</code> routine</a>. It essentially does a <code>$obj.perl</code> (<code>$obj.raku</code>) and shows that on STDERR rather than STDOUT, so it won&#39;t interfere with any &quot;normal&quot; output of your program.</p>
+<p>In short, <code>say</code> is optimized for casual human interpretation, <code>dd</code> is optimized for casual debugging output and <code>print</code> and <code>put</code> are more generally suitable for producing output.</p>
+<p><code>put</code> is thus a hybrid of <code>print</code> and <code>say</code>; like <code>print</code>, it calls the <code>Str</code> method on the object. And like <code>say</code>, it adds a newline at the end of the output.</p>
+<h2 id="What's_the_difference_between_token_and_rule_?"><a class="u" href="#___top" title="go to top of document">What&#39;s the difference between <code>token</code> and <code>rule</code> ?</a></h2>
+<p><code>regex</code>, <code>token</code> and <code>rule</code> introduce regexes, but with slightly different semantics.</p>
+<p><code>token</code> implies the <code>:ratchet</code> or <code>:r</code> modifier, which prevents the rule from backtracking.</p>
+<p><code>rule</code> implies both the <code>:ratchet</code> and <code>:sigspace</code> (short <code>:s</code>) modifier, which means a rule doesn&#39;t backtrace, and it treats whitespace in the text of the regex as <code>&lt;.ws&gt;</code> calls (i.e., matches whitespace, which is optional except between two word characters). Whitespace at the start of the regex and at the start of each branch of an alternation is ignored.</p>
+<p><code>regex</code> declares a plain regex without any implied modifiers.</p>
+<h2 id="What's_the_difference_between_die_and_fail?"><a class="u" href="#___top" title="go to top of document">What&#39;s the difference between <code>die</code> and <code>fail</code>?</a></h2>
+<p><code>die</code> throws an exception.</p>
+<p><code>fail</code> returns a <code>Failure</code> object. (If the caller has declared <code>use fatal;</code> in the calling lexical scope, <code>fail</code> throws an exception instead of returning it.)</p>
+<p>A <code>Failure</code> is an &quot;unthrown&quot; or &quot;lazy&quot; exception. It&#39;s an object that contains the exception, and throws the exception if you try to use the <code>Failure</code> as an ordinary object or ignore it in sink context.</p>
+<p>A <code>Failure</code> returns <code>False</code> from a <code>defined</code> check, and you can extract the exception with the <code>exception</code> method.</p>
+<h2 id="What's_the_difference_between_Pointer_and_OpaquePointer?"><a class="u" href="#___top" title="go to top of document">What&#39;s the difference between <code>Pointer</code> and <code>OpaquePointer</code>?</a></h2>
+<p><code>OpaquePointer</code> is deprecated and has been replaced with <code>Pointer</code>.</p>
+<h2 id="You_can_have_colonpairs_in_identifiers._What's_the_justification?"><a class="u" href="#___top" title="go to top of document">You can have colonpairs in identifiers. What&#39;s the justification?</a></h2>
+<p><a href="/Documentable/integration-test/language/syntax#Identifiers">Identifiers can include colon pairs, which become part of their name</a>. According to <a href="https://github.com/Raku/doc/issues/1753#issuecomment-362875676">Larry Wall&#39;s answer to the issue</a>, <em>We already had the colon pair mechanism available, so it was a no-brainer to use that to extend any name that needs to be able to quote uniquefying but non-standard characters (or other information with a unique stringification to such characters)</em>.</p>
+<h2 id="How_do_most_people_enter_unicode_characters?"><a class="u" href="#___top" title="go to top of document">How do most people enter unicode characters?</a></h2>
+<p>It depends on the operating system, windowing environment and/or editors. <a href="/Documentable/integration-test/language/unicode_entry">This page on entering Unicode characters</a> specifies how it is done in the most popular operating systems and editors.</p>
+<p><a name="Documentable/integration-test/index-entry-Raku_Implementation_(FAQ)"></a></p>
+<h1 id="Raku_implementation"><a class="u" href="#___top" title="go to top of document">Raku implementation</a></h1>
+<h2 id="What_Raku_implementations_are_available?"><a class="u" href="#___top" title="go to top of document">What Raku implementations are available?</a></h2>
+<p>Currently the best developed is Rakudo (using multiple Virtual Machine backends). Historic implementations include Niecza (.NET) and Pugs (Haskell). Others are listed at <a href="https://www.raku.org/compilers/">Raku Compilers</a></p>
+<h2 id="What_language_is_Rakudo_written_in?"><a class="u" href="#___top" title="go to top of document">What language is Rakudo written in?</a></h2>
+<p>A short answer is that Rakudo is written almost entirely in Raku. A more detailed answer is that Rakudo is written in a mixture of Raku and NQP (&quot;Not Quite Perl&quot;). NQP is a lightweight Raku-like environment for virtual machines; it&#39;s designed to be a high-level way to create compilers and libraries for virtual machines (such as MoarVM and JVM) using Raku syntax.</p>
+<p><a name="Documentable/integration-test/index-entry-NQP_(FAQ)"></a></p>
+<h2 id="What_language_is_NQP_written_in?"><a class="u" href="#___top" title="go to top of document">What language is NQP written in?</a></h2>
+<p>NQP is a mixture of (1) NQP code, (2) whatever language the underlying virtual machine is using, (3) some third-party C and Java libraries, and (4) some bootstrapping files created by earlier runs of the build process.</p>
+<h2 id="Is_Raku_Lisp?"><a class="u" href="#___top" title="go to top of document">Is Raku Lisp?</a></h2>
+<pre class="pod-block-code">(not (not Nil))
+</pre>
+<h2 id="Can_I_compile_my_script_to_a_standalone_executable?"><a class="u" href="#___top" title="go to top of document">Can I compile my script to a standalone executable?</a></h2>
+<p>Tools like <a href="https://modules.raku.org/dist/App::InstallerMaker::WiX"><code>App::InstallerMaker::WiX</code></a> allow you to create an installer that will package the compiler and your script. However, the currently available compilers do not support creating a standalone executable yet.</p>
+<p>If you wish to help out, the <em>Rakudo</em> compiler on <em>MoarVM</em> backend has <a href="https://github.com/MoarVM/MoarVM/issues/875">https://github.com/MoarVM/MoarVM/issues/875</a> issue opened as a place to discuss this problem.</p>
+<p><a name="Documentable/integration-test/index-entry-Raku_Distribution_(FAQ)"></a></p>
+<h1 id="Raku_distribution"><a class="u" href="#___top" title="go to top of document">Raku distribution</a></h1>
+<p><a name="Documentable/integration-test/index-entry-Rakudo_Star_release_cycle_(FAQ)"></a></p>
+<h2 id="When_will_the_next_version_of_Rakudo_Star_be_released?"><a class="u" href="#___top" title="go to top of document">When will the next version of Rakudo Star be released?</a></h2>
+<p>A Rakudo Star release is typically produced quarterly, with release announcements <a href="https://rakudo.org/posts">posted on rakudo.org</a>.</p>
+<h1 id="Metaquestions_and_advocacy"><a class="u" href="#___top" title="go to top of document">Metaquestions and advocacy</a></h1>
+<h2 id="Why_was_Raku_originally_called_Perl_6?"><a class="u" href="#___top" title="go to top of document">Why was Raku originally called Perl&nbsp;6?</a></h2>
+<p>… As opposed to some other name that didn&#39;t imply all the things that the higher number might indicate on other languages.</p>
+<p>The short answer is that it was Larry&#39;s choice under <a href="https://perldoc.perl.org/5.12.4/perlhack.html#DESCRIPTION">Rule 1</a>.</p>
+<p>The community considers Perl and Raku sister languages - they have a lot in common, address many of the same problem spaces, but Raku is not intended to replace Perl. In fact, both languages interoperate with each other.</p>
+<h2 id="When_will_Raku_be_ready?_Is_it_ready_now?"><a class="u" href="#___top" title="go to top of document">When will Raku be ready? Is it ready now?</a></h2>
+<p>Readiness of programming languages and their compilers is not a binary decision. As the language and the implementations evolve, they grow steadily more usable. Depending on your needs, Raku and its compilers may or may not be ready for you.</p>
+<p>That said, version 6.c (Christmas 2015) is the first official release of Raku as a language, along with a validation suite and a compiler that passes it.</p>
+<h2 id="Why_should_I_learn_Raku?_What's_so_great_about_it?"><a class="u" href="#___top" title="go to top of document">Why should I learn Raku? What&#39;s so great about it?</a></h2>
+<p>Raku unifies many great ideas that aren&#39;t usually found in other programming languages. While several other languages offer some of these features, none of them offer all of them.</p>
+<ul><li><p>Raku offers procedural, object-oriented AND functional programming methodologies.</p>
+</li>
+<li><p>Easy to use consistent syntax, using invariable sigils for data-structures.</p>
+</li>
+<li><p>Full grapheme based Unicode support, including Annex #29.</p>
+</li>
+<li><p>Clean, more readable regular expressions; taken to the next level of usability, with a lot more functionality. Named regular expressions improve ease of use.</p>
+</li>
+<li><p>Junctions allowing easy checking of multiple possibilities; e.g., <code>$a == 1|3|42</code> (Is <code>$a</code> equal to 1 or 3 or 42?).</p>
+</li>
+<li><p>Dynamic variables provide a lexically scoped alternative to global variables.</p>
+</li>
+<li><p>Emphasis on composability and lexical scoping to prevent “action at a distance”; e.g., imports are always lexically scoped.</p>
+</li>
+<li><p>Easy to understand consistent scoping rules and closures.</p>
+</li>
+<li><p>Powerful object orientation, with classes and roles (everything can be seen as an object). Inheritance. Subtyping. Code-reuse.</p>
+</li>
+<li><p>Introspection into objects and metaobjects (turtles all the way down).</p>
+</li>
+<li><p>MetaObject Protocol allowing for metaprogramming without needing to generate / parse code.</p>
+</li>
+<li><p>Subroutine and method signatures for easy unpacking of positional and named parameters.</p>
+</li>
+<li><p>Multi dispatch for identically named subroutines/methods with different signatures, based on arity, types and optional additional code.</p>
+</li>
+<li><p>Compile time error reporting on unknown subroutines / impossible dispatch.</p>
+</li>
+<li><p>Optional gradual type-checking at no additional runtime cost. With optional type annotations.</p>
+</li>
+<li><p>Advanced error reporting based on introspection of the compiler/runtime state. This means more useful, more precise error messages.</p>
+</li>
+<li><p>Phasers (like <code>BEGIN</code> / <code>END</code>) allow code to be executed at scope entry / exit, loop first / last / next and many more special contexts.</p>
+</li>
+<li><p>High level concurrency model, both for implicit as well as explicit multi-processing, which goes way beyond primitive threads and locks. Raku&#39;s concurrency offers a rich set of (composable) tools.</p>
+</li>
+<li><p>Multiple-core computers are getting used more and more, and with Raku these can be used thanks to parallelism, both implicit (e.g., with the <code>&gt;&gt;</code>. method) and explicit ( <code>start { code }</code> ). This is important, because Moore&#39;s Law is ending.</p>
+</li>
+<li><p>Structured language support is provided to enable programming for asynchronous execution of code.</p>
+</li>
+<li><p>Supplies allow code to be executed when something happens (like a timer, or a signal, or a filesystem event).</p>
+</li>
+<li><p><code>react</code> / <code>whenever</code> / <code>supply</code> keywords allows easy construction of interactive, event driven applications.</p>
+</li>
+<li><p>Lazy evaluation when possible, eager evaluation when wanted or necessary. This means, for example, lazy lists, and even infinite lazy lists, like the Fibonacci sequence, or all prime numbers.</p>
+</li>
+<li><p>Native data types for faster, closer to the metal, processing.</p>
+</li>
+<li><p>Interfacing to external libraries in C / C++ is fairly easy with <a href="/Documentable/integration-test/language/nativecall">NativeCall</a>.</p>
+</li>
+<li><p>Interfacing with Perl (CPAN) / Python modules is fairly easy with <a href="https://modules.raku.org/dist/Inline::Perl5:cpan:NINE">Inline::Perl5</a> and <a href="https://modules.raku.org/dist/Inline::Python">Inline::Python</a></p>
+</li>
+<li><p>Can have multiple versions of a module installed and loaded simultaneously.</p>
+</li>
+<li><p>System administration simplified due to simpler update/upgrade policies.</p>
+</li>
+<li><p>Simple numeric computation without precision loss because of <a href="https://docs.raku.org/type/Rat">Rat</a>s (rational numbers).</p>
+</li>
+<li><p>Extensible grammars for parsing data or code (which Raku uses to parse itself).</p>
+</li>
+<li><p>Raku is a very mutable language (define your own functions, operators, traits and data-types, which modify the parser for you).</p>
+</li>
+<li><p>Large selection of data-types, plus the possibility to create your own types.</p>
+</li>
+<li><p>Multi-dimensional shaped and/or native arrays with proper bounds checking.</p>
+</li>
+<li><p>Execute code at any time during parsing of a grammar, or when a certain match occurred.</p>
+</li>
+<li><p>Adding a custom operator or adding a trait is as simple as writing a subroutine.</p>
+</li>
+<li><p>Automatic generation of hyper-operators on any operator (system or custom added).</p>
+</li>
+<li><p>Runs on a variety of back-ends. Currently MoarVM &amp; JVM, JavaScript in development, more may follow.</p>
+</li>
+<li><p>Runtime optimization of hot code paths during execution (JIT).</p>
+</li>
+<li><p>Runs on small (e.g., Raspberry Pi) and large multi-processor hardware.</p>
+</li>
+<li><p>Garbage collection based: no timely destruction, so no ref-counting necessary. Use phasers for timely actions.</p>
+</li>
+<li><p>Methods can be mixed into any instantiated object at runtime; e.g., to allow adding out-of-band data.</p>
+</li>
+<li><p>Easy command-line interface accessible by <code>MAIN</code> subroutine with multiple dispatch and automated usage message generation.</p>
+</li>
+<li><p>Fewer lines of code allow for more compact program creation. Huffman-coding of names allows for better readability.</p>
+</li>
+<li><p>Lazy lists defined with a simple iterator interface, which any class can supply by minimally supplying a single method.</p>
+</li>
+<li><p>Ability to use hyphens and other non-alphanumeric ASCII characters as well as certain Unicode characters in identifiers. (Using hyphens instead of underscores in test is commonly called &quot;kebab case&quot; among its users. See also &quot;camel case&quot; and &quot;snake case&quot;: <a href="https://en.wikipedia.org/wiki/Letter_case#Special_case_styles">https://en.wikipedia.org/wiki/Letter_case#Special_case_styles</a>.)</p>
+</li>
+<li><p>Raku&#39;s mottos remain the same as they have been for Perl all along: “Perl is different. In a nutshell, Perl is designed to make the easy jobs easy, without making the hard jobs impossible.” and “There Is More Than One Way To Do It”. Now with even more -Ofun added.</p>
+</li>
+</ul>
+<h2 id="Is_Raku_fast_enough_for_me?"><a class="u" href="#___top" title="go to top of document">Is Raku fast enough for me?</a></h2>
+<p>That depends on what you are doing. Rakudo has been developed with the philosophy of &quot;make it work right then make it work fast.&quot; It&#39;s fast for some things already but needs work for others. Since Raku provides lots of clues to the JIT that other dynamic languages don&#39;t, we think we&#39;ll have a lot of headroom for performance improvements.</p>
+<p>The following crude benchmarks, with all the usual caveats about such things, show that Raku can be faster than Perl for similar tasks if the big weaponry is included, that is, if Raku features are used to its full extent; at the same time, Perl can be faster if only the bare bones are included. Similar situation can be observed when comparing Raku to other languages.</p>
+<p>Try it on your system. You may be pleasantly surprised!</p>
+<p>Examples:</p>
+<pre class="pod-block-code"># Raku version
+use v6.c;
+
+class Foo { has $.i is rw };
+
+for 1..1_000_000 -&gt; $i {
+    my $obj = Foo.new;
+    $obj.i = $i;
+}
+</pre>
+<pre class="pod-block-code"># Perl version
+package Foo;
+use Moose;
+
+has i =&gt; (is =&gt; &#39;rw&#39;);
+
+__PACKAGE__-&gt;meta-&gt;make_immutable;
+
+for my $i (1..1_000_000) {
+    my $obj = Foo-&gt;new;
+    $obj-&gt;i($i);
+}
+
+1;
+
+# Another Perl version that offers bare-bones set of features
+# compared to Moose/Raku&#39;s version but those are not needed in this
+# specific, simple program anyway.
+package Foo;
+use Mojo::Base -base;
+
+has &#39;i&#39;;
+
+for my $i (1..1_000_000) {
+    my $obj = Foo-&gt;new;
+    $obj-&gt;i($i);
+}
+
+1;
+</pre>
+<p>You might want to use this program for comparing performance, too. It works under both languages, as long as <code>perl -Mbigint</code> is used for invocation for Perl.</p>
+<pre class="pod-block-code">my ($prev, $current) = (1, 0);
+
+for (0..100_000) {
+    ($prev, $current) = ($current, $prev + $current);
+}
+print $current;
+</pre>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/faq.pod6">https://github.com/Raku/doc/blob/master/doc/Language/faq.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

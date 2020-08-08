@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>routine split</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/routine.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-sub.html"> Sub </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-method.html"> Method </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-term.html"> Term </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-operator.html"> Operator </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-trait.html"> Trait </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-submethod.html"> Submethod </a>
+            </div></div></div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">routine split</h1>
+        <p class="subtitle"></p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#class_IO::CatHandle">class IO::CatHandle</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#(IO::CatHandle)_method_split">(IO::CatHandle) method split</a></td></tr>
+                <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#class_IO::Handle">class IO::Handle</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#(IO::Handle)_method_split">(IO::Handle) method split</a></td></tr>
+                      <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#class_IO::Path">class IO::Path</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#(IO::Path)_method_split">(IO::Path) method split</a></td></tr>
+      <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#class_IO::Spec::Cygwin">class IO::Spec::Cygwin</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">4.1</td><td class="toc-text"><a href="#(IO::Spec::Cygwin)_method_split">(IO::Spec::Cygwin) method split</a></td></tr>
+      <tr class="toc-level-1"><td class="toc-number">5</td><td class="toc-text"><a href="#class_IO::Spec::Unix">class IO::Spec::Unix</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">5.1</td><td class="toc-text"><a href="#(IO::Spec::Unix)_method_split">(IO::Spec::Unix) method split</a></td></tr>
+                                         <tr class="toc-level-1"><td class="toc-number">6</td><td class="toc-text"><a href="#class_IO::Spec::Win32">class IO::Spec::Win32</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">6.1</td><td class="toc-text"><a href="#(IO::Spec::Win32)_method_split">(IO::Spec::Win32) method split</a></td></tr>
+                                         <tr class="toc-level-1"><td class="toc-number">7</td><td class="toc-text"><a href="#class_Str">class Str</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">7.1</td><td class="toc-text"><a href="#(Str)_routine_split">(Str) routine split</a></td></tr>
+                                                                           <tr class="toc-level-1"><td class="toc-number">8</td><td class="toc-text"><a href="#class_Cool">class Cool</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">8.1</td><td class="toc-text"><a href="#(Cool)_routine_split">(Cool) routine split</a></td></tr>
+                                                          
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Documentation for routine <code>split</code> assembled from the following types:</p>
+<h1 id="class_IO::CatHandle"><a class="u" href="#___top" title="go to top of document">class IO::CatHandle</a></h1>
+<p>From <a href="/Documentable/integration-test/type/IO::CatHandle#method_split">IO::CatHandle</a></p>
+<h2 id="(IO::CatHandle)_method_split"><a href="/Documentable/integration-test/type/IO::CatHandle#method_split">(IO::CatHandle) method split</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method split(IO::CatHandle:D: |args --&gt; Seq:D)</pre>
+<p>Read the handle and processes its contents the same way <a href="/Documentable/integration-test/type/Str#routine_split"><code>Str.split</code></a> does, taking the same arguments. <strong>Implementations may slurp the contents of all the source handles</strong> in their entirety when this method is called.</p>
+<pre class="pod-block-code">(my $f1 = &#39;foo&#39;.IO).spurt: &#39;foo&#39;;
+(my $f2 = &#39;bar&#39;.IO).spurt: &#39;bar&#39;;
+IO::CatHandle.new($f1, $f2).split(/o+/).raku.say;
+# OUTPUT: «(&quot;f&quot;, &quot;bar&quot;).Seq␤»
+</pre>
+<h1 id="class_IO::Handle"><a class="u" href="#___top" title="go to top of document">class IO::Handle</a></h1>
+<p>From <a href="/Documentable/integration-test/type/IO::Handle#method_split">IO::Handle</a></p>
+<h2 id="(IO::Handle)_method_split"><a href="/Documentable/integration-test/type/IO::Handle#method_split">(IO::Handle) method split</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method split(IO::Handle:D: :$close, |c)</pre>
+<p><a href="/Documentable/integration-test/routine/slurp">Slurps</a> the handle&#39;s content and calls <a href="/Documentable/integration-test/type/Str#routine_split"><code>Str.split</code></a> on it, forwarding any of the given arguments. If <code>:$close</code> named parameter is set to <code>True</code>, will <a href="/Documentable/integration-test/routine/close">close</a> the invocant after slurping.</p>
+<p>Attempting to call this method when the handle is <a href="/Documentable/integration-test/type/IO::Handle#method_encoding">in binary mode</a> will result in <code>X::IO::BinaryMode</code> exception being thrown.</p>
+<pre class="pod-block-code">my $fh = &#39;path/to/file&#39;.IO.open;
+$fh.split: &#39;♥&#39;, :close; # Returns file content split on ♥
+</pre>
+<h1 id="class_IO::Path"><a class="u" href="#___top" title="go to top of document">class IO::Path</a></h1>
+<p>From <a href="/Documentable/integration-test/type/IO::Path#method_split">IO::Path</a></p>
+<h2 id="(IO::Path)_method_split"><a href="/Documentable/integration-test/type/IO::Path#method_split">(IO::Path) method split</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method split(IO::Path:D: |args --&gt; Seq:D)</pre>
+<p>Opens the file and processes its contents the same way <a href="/Documentable/integration-test/type/Str#routine_split"><code>Str.split</code></a> does, taking the same arguments. Implementations may slurp the file in its entirety when this method is called.</p>
+<h1 id="class_IO::Spec::Cygwin"><a class="u" href="#___top" title="go to top of document">class IO::Spec::Cygwin</a></h1>
+<p>From <a href="/Documentable/integration-test/type/IO::Spec::Cygwin#method_split">IO::Spec::Cygwin</a></p>
+<h2 id="(IO::Spec::Cygwin)_method_split"><a href="/Documentable/integration-test/type/IO::Spec::Cygwin#method_split">(IO::Spec::Cygwin) method split</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method split(|c --&gt; List:D)</pre>
+<p>Same as <a href="/Documentable/integration-test/type/IO::Spec::Win32#method_split"><code>IO::Spec::Win32.split</code></a>, except replaces backslashes with slashes in all the values of the final result.</p>
+<h1 id="class_IO::Spec::Unix"><a class="u" href="#___top" title="go to top of document">class IO::Spec::Unix</a></h1>
+<p>From <a href="/Documentable/integration-test/type/IO::Spec::Unix#method_split">IO::Spec::Unix</a></p>
+<h2 id="(IO::Spec::Unix)_method_split"><a href="/Documentable/integration-test/type/IO::Spec::Unix#method_split">(IO::Spec::Unix) method split</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method split(Cool:D $path --&gt; List:D)</pre>
+<p>Splits the given <code>$path</code> into &quot;volume&quot;, &quot;dirname&quot;, and &quot;basename&quot; and returns the result as a <a href="/Documentable/integration-test/type/List">List</a> of three <a href="/Documentable/integration-test/type/Pair">Pairs</a>, in that order. The &quot;volume&quot; is always an empty string and exists for consistency with other <a href="/Documentable/integration-test/type/IO::Spec">IO::Spec</a> classes.</p>
+<pre class="pod-block-code">IO::Spec::Unix.split(&#39;C:/foo/bar.txt&#39;).raku.say;
+# OUTPUT: «(:volume(&quot;&quot;), :dirname(&quot;C:/foo&quot;), :basename(&quot;bar.txt&quot;))␤»
+
+IO::Spec::Unix.split(&#39;/foo/&#39;).raku.say;
+# OUTPUT: «(:volume(&quot;&quot;), :dirname(&quot;/&quot;), :basename(&quot;foo&quot;))␤»
+
+IO::Spec::Unix.split(&#39;///&#39;).raku.say;
+# OUTPUT: «(:volume(&quot;&quot;), :dirname(&quot;/&quot;), :basename(&quot;/&quot;))␤»
+
+IO::Spec::Unix.split(&#39;./&#39;).raku.say;
+# OUTPUT: «(:volume(&quot;&quot;), :dirname(&quot;.&quot;), :basename(&quot;.&quot;))␤»
+
+IO::Spec::Unix.split(&#39;.&#39;).raku.say;
+# OUTPUT: «(:volume(&quot;&quot;), :dirname(&quot;.&quot;), :basename(&quot;.&quot;))␤»
+
+IO::Spec::Unix.split(&#39;&#39;).raku.say;
+# OUTPUT: «(:volume(&quot;&quot;), :dirname(&quot;&quot;), :basename(&quot;&quot;))␤»
+</pre>
+<h1 id="class_IO::Spec::Win32"><a class="u" href="#___top" title="go to top of document">class IO::Spec::Win32</a></h1>
+<p>From <a href="/Documentable/integration-test/type/IO::Spec::Win32#method_split">IO::Spec::Win32</a></p>
+<h2 id="(IO::Spec::Win32)_method_split"><a href="/Documentable/integration-test/type/IO::Spec::Win32#method_split">(IO::Spec::Win32) method split</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method split(Cool:D $path --&gt; List:D)</pre>
+<p>Splits the given <code>$path</code> into &quot;volume&quot;, &quot;dirname&quot;, and &quot;basename&quot; and returns the result as a <a href="/Documentable/integration-test/type/List">List</a> of three <a href="/Documentable/integration-test/type/Pair">Pairs</a>, in that order. The &quot;volume&quot; is always an empty string and exists for consistency with other <a href="/Documentable/integration-test/type/IO::Spec">IO::Spec</a> classes.</p>
+<pre class="pod-block-code">IO::Spec::Win32.split(&#39;C:/foo/bar.txt&#39;).raku.say;
+# OUTPUT: «(:volume(&quot;C:&quot;), :dirname(&quot;/foo&quot;), :basename(&quot;bar.txt&quot;))␤»
+
+IO::Spec::Win32.split(&#39;/foo/&#39;).raku.say;
+# OUTPUT: «(:volume(&quot;&quot;), :dirname(&quot;/&quot;), :basename(&quot;foo&quot;))␤»
+
+IO::Spec::Win32.split(&#39;///&#39;).raku.say;
+# OUTPUT: «(:volume(&quot;&quot;), :dirname(&quot;/&quot;), :basename(&quot;\\&quot;))␤»
+
+IO::Spec::Win32.split(&#39;./&#39;).raku.say;
+# OUTPUT: «(:volume(&quot;&quot;), :dirname(&quot;.&quot;), :basename(&quot;.&quot;))␤»
+
+IO::Spec::Win32.split(&#39;.&#39;).raku.say;
+# OUTPUT: «(:volume(&quot;&quot;), :dirname(&quot;.&quot;), :basename(&quot;.&quot;))␤»
+
+IO::Spec::Win32.split(&#39;&#39;).raku.say;
+# OUTPUT: «(:volume(&quot;&quot;), :dirname(&quot;&quot;), :basename(&quot;&quot;))␤»
+</pre>
+<h1 id="class_Str"><a class="u" href="#___top" title="go to top of document">class Str</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Str#routine_split">Str</a></p>
+<h2 id="(Str)_routine_split"><a href="/Documentable/integration-test/type/Str#routine_split">(Str) routine split</a></h2>
+<pre class="pod-block-code">multi sub    split(  Str:D $delimiter, Str:D $input, $limit = Inf,
+  :$skip-empty, :$v, :$k, :$kv, :$p)
+</pre>
+<pre class="pod-block-code">multi sub    split(Regex:D $delimiter, Str:D $input, $limit = Inf,
+  :$skip-empty, :$v, :$k, :$kv, :$p)
+</pre>
+<pre class="pod-block-code">multi sub    split(List:D $delimiters, Str:D $input, $limit = Inf,
+  :$skip-empty, :$v, :$k, :$kv, :$p)
+</pre>
+<pre class="pod-block-code">multi method split(Str:D:   Str:D $delimiter, $limit = Inf,
+  :$skip-empty, :$v, :$k, :$kv, :$p)
+</pre>
+<pre class="pod-block-code">multi method split(Str:D: Regex:D $delimiter, $limit = Inf,
+  :$skip-empty, :$v, :$k, :$kv, :$p)
+</pre>
+<pre class="pod-block-code">multi method split(Str:D: List:D $delimiters, $limit = Inf,
+  :$skip-empty, :$v, :$k, :$kv, :$p)
+</pre>
+<p>Splits a string up into pieces based on delimiters found in the string.</p>
+<p>If <code>DELIMITER</code> is a string, it is searched for literally and not treated as a regex. If <code>DELIMITER</code> is the empty string, it effectively returns all characters of the string separately (plus an empty string at the begin and at the end). If <code>PATTERN</code> is a regular expression, then that will be used to split up the string. If <code>DELIMITERS</code> is a list, then all of its elements will be considered a delimiter (either a string or a regular expression) to split the string on.</p>
+<p>The optional <code>LIMIT</code> indicates in how many segments the string should be split, if possible. It defaults to <strong>Inf</strong> (or <strong>*</strong>, whichever way you look at it), which means &quot;as many as possible&quot;. Note that specifying negative limits will not produce any meaningful results.</p>
+<p>A number of optional named parameters can be specified, which alter the result being returned. The <code>:v</code>, <code>:k</code>, <code>:kv</code> and <code>:p</code> named parameters all perform a special action with regards to the delimiter found.</p>
+<ul><li><p>:skip-empty</p>
+</li>
+</ul>
+<p>If specified, do not return empty strings before or after a delimiter.</p>
+<ul><li><p>:v</p>
+</li>
+</ul>
+<p>Also return the delimiter. If the delimiter was a regular expression, then this will be the associated <code>Match</code> object. Since this stringifies as the delimiter string found, you can always assume it is the delimiter string if you&#39;re not interested in further information about that particular match.</p>
+<ul><li><p>:k</p>
+</li>
+</ul>
+<p>Also return the <strong>index</strong> of the delimiter. Only makes sense if a list of delimiters was specified: in all other cases, this will be <strong>0</strong>.</p>
+<ul><li><p>:kv</p>
+</li>
+</ul>
+<p>Also return both the <strong>index</strong> of the delimiter, as well as the delimiter.</p>
+<ul><li><p>:p</p>
+</li>
+</ul>
+<p>Also return the <strong>index</strong> of the delimiter and the delimiter as a <code>Pair</code>.</p>
+<p>Examples:</p>
+<pre class="pod-block-code">say split(&quot;;&quot;, &quot;a;b;c&quot;).raku;           # OUTPUT: «(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;).Seq␤»
+say split(&quot;;&quot;, &quot;a;b;c&quot;, :v).raku;       # OUTPUT: «(&quot;a&quot;, &quot;;&quot;, &quot;b&quot;, &quot;;&quot;, &quot;c&quot;).Seq␤»
+say split(&quot;;&quot;, &quot;a;b;c&quot;, 2).raku;        # OUTPUT: «(&quot;a&quot;, &quot;b;c&quot;).Seq␤»
+say split(&quot;;&quot;, &quot;a;b;c&quot;, 2, :v).raku;    # OUTPUT: «(&quot;a&quot;, &quot;;&quot;, &quot;b;c&quot;).Seq␤»
+say split(&quot;;&quot;, &quot;a;b;c,d&quot;).raku;         # OUTPUT: «(&quot;a&quot;, &quot;b&quot;, &quot;c,d&quot;).Seq␤»
+say split(/\;/, &quot;a;b;c,d&quot;).raku;        # OUTPUT: «(&quot;a&quot;, &quot;b&quot;, &quot;c,d&quot;).Seq␤»
+say split(&lt;; ,&gt;, &quot;a;b;c,d&quot;).raku;       # OUTPUT: «(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;).Seq␤»
+say split(/&lt;[;,]&gt;/, &quot;a;b;c,d&quot;).raku;    # OUTPUT: «(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;).Seq␤»
+say split(&lt;; ,&gt;, &quot;a;b;c,d&quot;, :k).raku;   # OUTPUT: «(&quot;a&quot;, 0, &quot;b&quot;, 0, &quot;c&quot;, 1, &quot;d&quot;).Seq␤»
+say split(&lt;; ,&gt;, &quot;a;b;c,d&quot;, :kv).raku;  # OUTPUT: «(&quot;a&quot;, 0, &quot;;&quot;, &quot;b&quot;, 0, &quot;;&quot;, &quot;c&quot;, 1, &quot;,&quot;, &quot;d&quot;).Seq␤»
+
+say &quot;&quot;.split(&quot;x&quot;).raku;                 # OUTPUT: «(&quot;&quot;,).Seq␤»
+say &quot;&quot;.split(&quot;x&quot;, :skip-empty).raku;    # OUTPUT: «().Seq␤»
+
+say &quot;abcde&quot;.split(&quot;&quot;).raku;             # OUTPUT: «(&quot;&quot;, &quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;, &quot;&quot;).Seq␤»
+say &quot;abcde&quot;.split(&quot;&quot;,:skip-empty).raku; # OUTPUT: «(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;).Seq␤»</pre>
+<h1 id="class_Cool"><a class="u" href="#___top" title="go to top of document">class Cool</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Cool#routine_split">Cool</a></p>
+<h2 id="(Cool)_routine_split"><a href="/Documentable/integration-test/type/Cool#routine_split">(Cool) routine split</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub    split(  Str:D $delimiter, Str(Cool) $input, $limit = Inf, :$k, :$v, :$kv, :$p, :$skip-empty)
+multi sub    split(Regex:D $delimiter, Str(Cool) $input, $limit = Inf, :$k, :$v, :$kv, :$p, :$skip-empty)
+multi sub    split(@delimiters, Str(Cool) $input, $limit = Inf, :$k, :$v, :$kv, :$p, :$skip-empty)
+multi method split(  Str:D $delimiter, $limit = Inf, :$k, :$v, :$kv, :$p, :$skip-empty)
+multi method split(Regex:D $delimiter, $limit = Inf, :$k, :$v, :$kv, :$p, :$skip-empty)
+multi method split(@delimiters, $limit = Inf, :$k, :$v, :$kv, :$p, :$skip-empty)</pre>
+<p><a href="#fn-1" id="fn-ref-1">[1]</a></p>
+<p>Coerces the invocant (or in the sub form, the second argument) to <a href="/Documentable/integration-test/type/Str">Str</a>, and splits it into pieces based on delimiters found in the string.</p>
+<p>If <code>$delimiter</code> is a string, it is searched for literally and not treated as a regex. You can also provide multiple delimiters by specifying them as a list; mixing Cool and Regex objects is OK.</p>
+<pre class="pod-block-code">say split(&#39;;&#39;, &quot;a;b;c&quot;).raku;               # OUTPUT: «(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;)␤»
+say split(&#39;;&#39;, &quot;a;b;c&quot;, 2).raku;            # OUTPUT: «(&quot;a&quot;, &quot;b;c&quot;).Seq␤»
+
+say split(&#39;;&#39;, &quot;a;b;c,d&quot;).raku;             # OUTPUT: «(&quot;a&quot;, &quot;b&quot;, &quot;c,d&quot;)␤»
+say split(/\;/, &quot;a;b;c,d&quot;).raku;            # OUTPUT: «(&quot;a&quot;, &quot;b&quot;, &quot;c,d&quot;)␤»
+say split(/&lt;[;,]&gt;/, &quot;a;b;c,d&quot;).raku;        # OUTPUT: «(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;)␤»
+
+say split([&#39;a&#39;, /b+/, 4], &#39;1a2bb345&#39;).raku; # OUTPUT: «(&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;5&quot;)␤»</pre>
+<p>By default, split omits the matches, and returns a list of only those parts of the string that did not match. Specifying one of the <code>:k, :v, :kv, :p</code> adverbs changes that. Think of the matches as a list that is interleaved with the non-matching parts.</p>
+<p>The <code>:v</code> interleaves the values of that list, which will be either <a href="/Documentable/integration-test/type/Match">Match</a> objects, if a <a href="/Documentable/integration-test/type/Regex">Regex</a> was used as a matcher in the split, or <a href="/Documentable/integration-test/type/Str">Str</a> objects, if a <a href="/Documentable/integration-test/type/Cool">Cool</a> was used as matcher. If multiple delimiters are specified, <a href="/Documentable/integration-test/type/Match">Match</a> objects will be generated for all of them, unless <strong>all</strong> of the delimiters are <a href="/Documentable/integration-test/type/Cool">Cool</a>.</p>
+<pre class="pod-block-code">say &#39;abc&#39;.split(/b/, :v);               # OUTPUT: «(a ｢b｣ c)␤»
+say &#39;abc&#39;.split(&#39;b&#39;, :v);               # OUTPUT: «(a b c)␤»</pre>
+<p><code>:k</code> interleaves the keys, that is, the indexes:</p>
+<pre class="pod-block-code">say &#39;abc&#39;.split(/b/, :k);               # OUTPUT: «(a 0 c)␤»</pre>
+<p><code>:kv</code> adds both indexes and matches:</p>
+<pre class="pod-block-code">say &#39;abc&#39;.split(/b/, :kv);               # OUTPUT: «(a 0 ｢b｣ c)␤»</pre>
+<p>and <code>:p</code> adds them as <a href="/Documentable/integration-test/type/Pair">Pairs</a>, using the same types for values as <code>:v</code> does:</p>
+<pre class="pod-block-code">say &#39;abc&#39;.split(/b/, :p);               # OUTPUT: «(a 0 =&gt; ｢b｣ c)␤»
+say &#39;abc&#39;.split(&#39;b&#39;, :p);               # OUTPUT: «(a 0 =&gt; b c)␤»</pre>
+<p>You can only use one of the <code>:k, :v, :kv, :p</code> adverbs in a single call to <code>split</code>.</p>
+<p>Note that empty chunks are not removed from the result list. For that behavior, use the <code>:skip-empty</code> named argument:</p>
+<pre class="pod-block-code">say (&quot;f,,b,c,d&quot;.split: /&quot;,&quot;/             ).raku;  # OUTPUT: «(&quot;f&quot;, &quot;&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;)␤»
+say (&quot;f,,b,c,d&quot;.split: /&quot;,&quot;/, :skip-empty).raku;  # OUTPUT: «(&quot;f&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;)␤»</pre>
+
+        </div>
+    </div>
+
+    <aside><ol start="1">
+<li><a href="#fn-ref-1" id="fn-1">[↑]</a> <em>the <a href="/Documentable/integration-test/routine/comb">comb</a> routine is a much better choice for many tasks that in other languages are handled by the <code>split</code>.</em> </li>
+</ol></aside>
+
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Performance</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/performance.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Performance</h1>
+        <p class="subtitle">Measuring and improving runtime or compile-time performance</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+     <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#First,_profile_your_code">First, profile your code</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#Time_with_now_-_INIT_now">Time with <code class="pod-code-inline">now - INIT now</code></a></td></tr>
+                              <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#Profile_locally">Profile locally</a></td></tr>
+                                                                                       <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#Profile_compiling">Profile compiling</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">1.4</td><td class="toc-text"><a href="#Create_or_view_benchmarks">Create or view benchmarks</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">1.5</td><td class="toc-text"><a href="#Share_problems">Share problems</a></td></tr>
+       <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Solve_problems">Solve problems</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#Line_by_line">Line by line</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">2.2</td><td class="toc-text"><a href="#Routine_by_routine">Routine by routine</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">2.3</td><td class="toc-text"><a href="#Speed_up_type-checks_and_call_resolution">Speed up type-checks and call resolution</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">2.4</td><td class="toc-text"><a href="#Choose_better_algorithms">Choose better algorithms</a></td></tr>
+        <tr class="toc-level-3"><td class="toc-number">2.4.1</td><td class="toc-text"><a href="#Change_sequential/blocking_code_to_parallel/non-blocking">Change sequential/blocking code to parallel/non-blocking</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">2.5</td><td class="toc-text"><a href="#Use_existing_high_performance_code">Use existing high performance code</a></td></tr>
+            <tr class="toc-level-2"><td class="toc-number">2.6</td><td class="toc-text"><a href="#Make_the_Rakudo_compiler_generate_faster_code">Make the Rakudo compiler generate faster code</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">2.7</td><td class="toc-text"><a href="#Still_need_more_ideas?">Still need more ideas?</a></td></tr>
+   <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Not_getting_the_results_you_need/want?">Not getting the results you need/want?</a></td></tr>
+        
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>This page is about <a href="https://en.wikipedia.org/wiki/Computer_performance">computer performance</a> in the context of Raku.</p>
+<h1 id="First,_profile_your_code"><a class="u" href="#___top" title="go to top of document">First, profile your code</a></h1>
+<p><strong>Make sure you&#39;re not wasting time on the wrong code</strong>: start by identifying your <a href="https://en.wikiquote.org/wiki/Donald_Knuth">&quot;critical 3%&quot;</a> by profiling your code&#39;s performance. The rest of this document shows you how to do that.</p>
+<h2 id="Time_with_now_-_INIT_now"><a class="u" href="#___top" title="go to top of document">Time with <code>now - INIT now</code></a></h2>
+<p>Expressions of the form <code>now - INIT now</code>, where <code>INIT</code> is a <a href="/Documentable/integration-test/language/phasers">phase in the running of a Raku program</a>, provide a great idiom for timing code snippets.</p>
+<p>Use the <code>m: your code goes here</code> <a href="/Documentable/integration-test/language/glossary#camelia">perl6 channel evalbot</a> to write lines like:</p>
+<pre class="pod-block-code">m: say now - INIT now
+rakudo-moar abc1234: OUTPUT«0.0018558␤»
+</pre>
+<p>The <code>now</code> to the left of <code>INIT</code> runs 0.0018558 seconds <em>later</em> than the <code>now</code> to the right of the <code>INIT</code> because the latter occurs during <a href="/Documentable/integration-test/language/phasers#INIT">the INIT phase</a>.</p>
+<h2 id="Profile_locally"><a class="u" href="#___top" title="go to top of document">Profile locally</a></h2>
+<p>When using the <a href="https://moarvm.org">MoarVM</a> backend, the <a href="https://rakudo.org">Rakudo</a> compiler&#39;s <code>--profile</code> command line option writes the profile data to an HTML file.</p>
+<p>This file will open to the &quot;Overview&quot; section, which gives some overall data about how the program ran, e.g., total runtime, time spent doing garbage collection. One important piece of information you&#39;ll get here is percentage of the total call frames (i.e., blocks) that were interpreted (slowest, in red), <a href="/Documentable/integration-test/language/glossary#index-entry-Spesh">speshed</a> (faster, in orange), and jitted (fastest, in green).</p>
+<p>The next section, &quot;Routines&quot;, is probably where you&#39;ll spend the most time. It has a sortable and filterable table of routine (or block) name+file+line, the number of times it ran, the inclusive time (time spent in that routine + time spent in all routines called from it), exclusive time (just the time spent in that routine), and whether it was interpreted, speshed, or jitted (same color code as the &quot;Overview&quot; page). Sorting by exclusive time is a good way to know where to start optimizing. Routines with a filename that starts like <code>SETTING::src/core/</code> or <code>gen/moar/</code> are from the compiler, a good way to just see the stuff from your own code is to put the filename of the script you profiled in the &quot;Name&quot; search box.</p>
+<p>The &quot;Call Graph&quot; section gives a flame graph representation of much of the same information as the &quot;Routines&quot; section.</p>
+<p>The &quot;Allocations&quot; section gives you information about the amount of different types that were allocated, as well as which routines did the allocating.</p>
+<p>The &quot;GC&quot; section gives you detailed information about all the garbage collections that occurred.</p>
+<p>The &quot;OSR / Deopt&quot; section gives you information about On Stack Replacements (OSRs), which is when routines are &quot;upgraded&quot; from interpreted to speshed or jitted. Deopts are the opposite, when speshed or jitted code has to be &quot;downgraded&quot; to being interpreted.</p>
+<p>If the profile data is too big, it could take a long time for a browser to open the file. In that case, output to a file with a <code>.json</code> extension using the <code>--profile=filename</code> option, then open the file with the <a href="https://github.com/tadzik/p6profiler-qt">Qt viewer</a>.</p>
+<p>To deal with even larger profiles, output to a file with a <code>.sql</code> extension. This will write the profile data as a series of SQL statements, suitable for opening in SQLite.</p>
+<pre class="pod-block-code"># create a profile
+perl6 --profile=demo.sql -e &#39;say (^20).combinations(3).elems&#39;
+
+# create a SQLite database
+sqlite3 demo.sqlite
+
+# load the profile data
+sqlite&gt; .read demo.sql
+
+# the query below is equivalent to the default view of the &quot;Routines&quot; tab in the HTML profile
+sqlite&gt; select
+      case when r.name = &quot;&quot; then &quot;&lt;anon&gt;&quot; else r.name end as name,
+      r.file,
+      r.line,
+      sum(entries) as entries,
+      sum(case when rec_depth = 0 then inclusive_time else 0 end) as inclusive_time,
+      sum(exclusive_time) as exclusive_time
+    from
+      calls c,
+      routines r
+    where
+      c.id = r.id
+    group by
+      c.id
+    order by
+      inclusive_time desc
+    limit 30;
+</pre>
+<p>The in-progress, next-gen profiler is <a href="https://github.com/timo/moarperf">moarperf</a>, which can accept .sql or SQLite files and has a bunch of new functionality compared to the original profiler. However, it has more dependencies than the relatively stand-alone original profiler, so you&#39;ll have to install some modules before using it.</p>
+<p>To learn how to interpret the profile info, use the <code>prof-m: your code goes here</code> evalbot (explained above) and ask questions on the IRC channel.</p>
+<h2 id="Profile_compiling"><a class="u" href="#___top" title="go to top of document">Profile compiling</a></h2>
+<p>If you want to profile the time and memory it takes to compile your code, use Rakudo&#39;s <code>--profile-compile</code> or <code>--profile-stage</code> options.</p>
+<h2 id="Create_or_view_benchmarks"><a class="u" href="#___top" title="go to top of document">Create or view benchmarks</a></h2>
+<p>Use <a href="https://github.com/japhb/perl6-bench">perl6-bench</a>.</p>
+<p>If you run perl6-bench for multiple compilers (typically, versions of Perl, Raku, or NQP), results for each are visually overlaid on the same graphs, to provide for quick and easy comparison.</p>
+<h2 id="Share_problems"><a class="u" href="#___top" title="go to top of document">Share problems</a></h2>
+<p>Once you&#39;ve used the above techniques to identify the code to improve, you can then begin to address (and share) the problem with others:</p>
+<ul><li><p>For each problem, distill it down to a one-liner or the gist and either provide performance numbers or make the snippet small enough that it can be profiled using <code>prof-m: your code or gist URL goes here</code>.</p>
+</li>
+<li><p>Think about the minimum speed increase (or ram reduction or whatever) you need/want, and think about the cost associated with achieving that goal. What&#39;s the improvement worth in terms of people&#39;s time and energy?</p>
+</li>
+<li><p>Let others know if your Raku use-case is in a production setting or just for fun.</p>
+</li>
+</ul>
+<h1 id="Solve_problems"><a class="u" href="#___top" title="go to top of document">Solve problems</a></h1>
+<p>This bears repeating: <strong>make sure you&#39;re not wasting time on the wrong code</strong>. Start by identifying the <a href="https://en.wikiquote.org/wiki/Donald_Knuth">&quot;critical 3%&quot;</a> of your code.</p>
+<h2 id="Line_by_line"><a class="u" href="#___top" title="go to top of document">Line by line</a></h2>
+<p>A quick, fun, productive way to try improve code line-by-line is to collaborate with others using the <a href="/Documentable/integration-test/language/glossary#IRC">perl6</a> evalbot <a href="/Documentable/integration-test/language/glossary#camelia">camelia</a>.</p>
+<h2 id="Routine_by_routine"><a class="u" href="#___top" title="go to top of document">Routine by routine</a></h2>
+<p>With multi-dispatch, you can drop in new variants of routines &quot;alongside&quot; existing ones:</p>
+<pre class="pod-block-code"># existing code generically matches a two arg foo call:
+multi sub foo(Any $a, Any $b) { ... }
+
+# new variant takes over for a foo(&quot;quux&quot;, 42) call:
+multi sub foo(&quot;quux&quot;, Int $b) { ... }</pre>
+<p>The call overhead of having multiple <code>foo</code> definitions is generally insignificant (though see discussion of <code>where</code> below), so if your new definition handles its particular case more efficiently than the previously existing set of definitions, then you probably just made your code that much more efficient for that case.</p>
+<h2 id="Speed_up_type-checks_and_call_resolution"><a class="u" href="#___top" title="go to top of document">Speed up type-checks and call resolution</a></h2>
+<p>Most <a href="/Documentable/integration-test/type/Signature#Type_constraints"><code>where</code> clauses</a> – and thus most <a href="https://design.raku.org/S12.html#Types_and_Subtypes">subsets</a> – force dynamic (runtime) type checking and call resolution for any call it <em>might</em> match. This is slower, or at least later, than compile-time.</p>
+<p>Method calls are generally resolved as late as possible (dynamically at runtime), whereas sub calls are generally resolved statically at compile-time.</p>
+<h2 id="Choose_better_algorithms"><a class="u" href="#___top" title="go to top of document">Choose better algorithms</a></h2>
+<p>One of the most reliable techniques for making large performance improvements, regardless of language or compiler, is to pick a more appropriate algorithm.</p>
+<p>A classic example is <a href="https://en.wikipedia.org/wiki/Boyer%E2%80%93Moore_string_search_algorithm">Boyer-Moore</a>. To match a small string in a large string, one obvious way to do it is to compare the first character of the two strings and then, if they match, compare the second characters, or, if they don&#39;t match, compare the first character of the small string with the second character in the large string, and so on. In contrast, the Boyer-Moore algorithm starts by comparing the *last* character of the small string with the correspondingly positioned character in the large string. For most strings, the Boyer-Moore algorithm is close to N times faster algorithmically, where N is the length of the small string.</p>
+<p>The next couple sections discuss two broad categories for algorithmic improvement that are especially easy to accomplish in Raku. For more on this general topic, read the wikipedia page on <a href="https://en.wikipedia.org/wiki/Algorithmic_efficiency">algorithmic efficiency</a>, especially the &#39;See also&#39; section near the end.</p>
+<h3 id="Change_sequential/blocking_code_to_parallel/non-blocking"><a class="u" href="#___top" title="go to top of document">Change sequential/blocking code to parallel/non-blocking</a></h3>
+<p>This is another very important class of algorithmic improvement.</p>
+<p>See the slides for <a href="https://jnthn.net/papers/2015-yapcasia-concurrency.pdf#page=17">Parallelism, Concurrency, and Asynchrony in Raku</a> and/or <a href="https://www.youtube.com/watch?v=JpqnNCx7wVY&list=PLRuESFRW2Fa77XObvk7-BYVFwobZHdXdK&index=8">the matching video</a>.</p>
+<h2 id="Use_existing_high_performance_code"><a class="u" href="#___top" title="go to top of document">Use existing high performance code</a></h2>
+<p>There are plenty of high performance C libraries that you can use within Raku and <a href="/Documentable/integration-test/language/nativecall">NativeCall</a> makes it easy to create wrappers for them. There&#39;s experimental support for C++ libraries, too.</p>
+<p>If you want to <a href="https://stackoverflow.com/a/27206428/1077672">use Perl modules in Raku</a>, mix in Raku types and the <a href="/Documentable/integration-test/language/mop">Metaobject Protocol</a>.</p>
+<p>More generally, Raku is designed to smoothly interoperate with other languages and there are a number of <a href="https://modules.raku.org/#q=inline">modules aimed at facilitating the use of libs from other langs</a>.</p>
+<h2 id="Make_the_Rakudo_compiler_generate_faster_code"><a class="u" href="#___top" title="go to top of document">Make the Rakudo compiler generate faster code</a></h2>
+<p>To date, the focus for the compiler has been correctness, not how fast it generates code or how fast or lean the code it generates runs. But that&#39;s expected to change, eventually... You can talk to compiler devs on the freenode IRC channels #perl6 and #moarvm about what to expect. Better still, you can contribute yourself:</p>
+<ul><li><p>Rakudo is largely written in Raku. So if you can write Raku, then you can hack on the compiler, including optimizing any of the large body of existing high-level code that impacts the speed of your code (and everyone else&#39;s).</p>
+</li>
+<li><p>Most of the rest of the compiler is written in a small language called <a href="https://github.com/Raku/nqp">NQP</a> that&#39;s basically a subset of Raku. If you can write Raku, you can fairly easily learn to use and improve the mid-level NQP code too, at least from a pure language point of view. To dig into NQP and Rakudo&#39;s guts, start with <a href="https://edumentab.github.io/rakudo-and-nqp-internals-course/">NQP and internals course</a>.</p>
+</li>
+<li><p>If low-level C hacking is your idea of fun, checkout <a href="https://moarvm.org">MoarVM</a> and visit the freenode IRC channel #moarvm (<a href="https://colabti.org/irclogger/irclogger_logs/moarvm">logs</a>).</p>
+</li>
+</ul>
+<h2 id="Still_need_more_ideas?"><a class="u" href="#___top" title="go to top of document">Still need more ideas?</a></h2>
+<p>Some known current Rakudo performance weaknesses not yet covered in this page include the use of gather/take, junctions, regexes, and string handling in general.</p>
+<p>If you think some topic needs more coverage on this page, please submit a PR or tell someone your idea. Thanks. :)</p>
+<h1 id="Not_getting_the_results_you_need/want?"><a class="u" href="#___top" title="go to top of document">Not getting the results you need/want?</a></h1>
+<p>If you&#39;ve tried everything on this page to no avail, please consider discussing things with a compiler dev on #perl6, so we can learn from your use-case and what you&#39;ve found out about it so far.</p>
+<p>Once a dev knows of your plight, allow enough time for an informed response (a few days or weeks, depending on the exact nature of your problem and potential solutions).</p>
+<p>If <em>that</em> hasn&#39;t worked out, please consider filing an issue about your experience at <a href="https://github.com/perl6/user-experience/issues">our user experience repo</a> before moving on.</p>
+<p>Thanks. :)</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/performance.pod6">https://github.com/Raku/doc/blob/master/doc/Language/performance.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

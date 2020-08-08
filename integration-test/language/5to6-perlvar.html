@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Perl to Raku guide - special variables</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/5to6-perlvar.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Perl to Raku guide - special variables</h1>
+        <p class="subtitle">A comparison of special variables in Perl and Raku</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+  <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#DESCRIPTION">DESCRIPTION</a></td></tr>
+  <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#NOTE">NOTE</a></td></tr>
+      <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#SPECIAL_VARIABLES">SPECIAL VARIABLES</a></td></tr>
+  <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#General_variables">General variables</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-number">3.1.1</td><td class="toc-text"><a href="#$ARG,_$_">$ARG, $_</a></td></tr>
+           <tr class="toc-level-3"><td class="toc-number">3.1.2</td><td class="toc-text"><a href="#@ARG,_@_">@ARG, @_</a></td></tr>
+                    <tr class="toc-level-3"><td class="toc-number">3.1.3</td><td class="toc-text"><a href="#$LIST_SEPARATOR,_$&quot;">$LIST_SEPARATOR, $&quot;</a></td></tr>
+    <tr class="toc-level-3"><td class="toc-number">3.1.4</td><td class="toc-text"><a href="#$PROCESS_ID,_$PID,_$$">$PROCESS_ID, $PID, $$</a></td></tr>
+     <tr class="toc-level-3"><td class="toc-number">3.1.5</td><td class="toc-text"><a href="#$PROGRAM_NAME,_$0">$PROGRAM_NAME, $0</a></td></tr>
+            <tr class="toc-level-3"><td class="toc-number">3.1.6</td><td class="toc-text"><a href="#$REAL_GROUP_ID,_$GID,_$(">$REAL_GROUP_ID, $GID, $(</a></td></tr>
+          <tr class="toc-level-3"><td class="toc-number">3.1.7</td><td class="toc-text"><a href="#$EFFECTIVE_GROUP_ID,_$EGID,_$)">$EFFECTIVE_GROUP_ID, $EGID, $)</a></td></tr>
+  <tr class="toc-level-3"><td class="toc-number">3.1.8</td><td class="toc-text"><a href="#$REAL_USER_ID,_$UID,_$&lt;">$REAL_USER_ID, $UID, $&lt;</a></td></tr>
+            <tr class="toc-level-3"><td class="toc-number">3.1.9</td><td class="toc-text"><a href="#$EFFECTIVE_USER_ID,_$EUID,_$&gt;">$EFFECTIVE_USER_ID, $EUID, $&gt;</a></td></tr>
+  <tr class="toc-level-3"><td class="toc-number">3.1.10</td><td class="toc-text"><a href="#$SUBSCRIPT_SEPARATOR,_$SUBSEP,_$;">$SUBSCRIPT_SEPARATOR, $SUBSEP, $;</a></td></tr>
+  <tr class="toc-level-3"><td class="toc-number">3.1.11</td><td class="toc-text"><a href="#$a,_$b">$a, $b</a></td></tr>
+                                <tr class="toc-level-3"><td class="toc-number">3.1.12</td><td class="toc-text"><a href="#%ENV">%ENV</a></td></tr>
+    <tr class="toc-level-3"><td class="toc-number">3.1.13</td><td class="toc-text"><a href="#$OLD_PERL_VERSION,_$]">$OLD_PERL_VERSION, $]</a></td></tr>
+            <tr class="toc-level-3"><td class="toc-number">3.1.14</td><td class="toc-text"><a href="#$SYSTEM_FD_MAX,_$^F">$SYSTEM_FD_MAX, $^F</a></td></tr>
+    <tr class="toc-level-3"><td class="toc-number">3.1.15</td><td class="toc-text"><a href="#@F">@F</a></td></tr>
+          <tr class="toc-level-3"><td class="toc-number">3.1.16</td><td class="toc-text"><a href="#@INC">@INC</a></td></tr>
+    <tr class="toc-level-3"><td class="toc-number">3.1.17</td><td class="toc-text"><a href="#%INC">%INC</a></td></tr>
+         <tr class="toc-level-3"><td class="toc-number">3.1.18</td><td class="toc-text"><a href="#$INPLACE_EDIT,_$^I">$INPLACE_EDIT, $^I</a></td></tr>
+  <tr class="toc-level-3"><td class="toc-number">3.1.19</td><td class="toc-text"><a href="#$^M">$^M</a></td></tr>
+  <tr class="toc-level-3"><td class="toc-number">3.1.20</td><td class="toc-text"><a href="#$OSNAME,_$^O">$OSNAME, $^O</a></td></tr>
+                                                    <tr class="toc-level-3"><td class="toc-number">3.1.21</td><td class="toc-text"><a href="#%SIG">%SIG</a></td></tr>
+                          <tr class="toc-level-3"><td class="toc-number">3.1.22</td><td class="toc-text"><a href="#$BASETIME,_$^T">$BASETIME, $^T</a></td></tr>
+      <tr class="toc-level-3"><td class="toc-number">3.1.23</td><td class="toc-text"><a href="#$PERL_VERSION,_$^V">$PERL_VERSION, $^V</a></td></tr>
+      <tr class="toc-level-3"><td class="toc-number">3.1.24</td><td class="toc-text"><a href="#${^WIN32_SLOPPY_STAT}">${^WIN32_SLOPPY_STAT}</a></td></tr>
+  <tr class="toc-level-3"><td class="toc-number">3.1.25</td><td class="toc-text"><a href="#$EXECUTABLE_NAME,_$^X">$EXECUTABLE_NAME, $^X</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">3.2</td><td class="toc-text"><a href="#Variables_related_to_regular_expressions">Variables related to regular expressions</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-number">3.2.1</td><td class="toc-text"><a href="#Performance_issues">Performance issues</a></td></tr>
+          <tr class="toc-level-3"><td class="toc-number">3.2.2</td><td class="toc-text"><a href="#$&lt;digits&gt;_($1,_$2,_...)">$&lt; digits &gt; ($1, $2, ...)</a></td></tr>
+                <tr class="toc-level-3"><td class="toc-number">3.2.3</td><td class="toc-text"><a href="#$MATCH,_$&amp;">$MATCH, $&amp;</a></td></tr>
+              <tr class="toc-level-3"><td class="toc-number">3.2.4</td><td class="toc-text"><a href="#${^MATCH}">${^MATCH}</a></td></tr>
+  <tr class="toc-level-3"><td class="toc-number">3.2.5</td><td class="toc-text"><a href="#$PREMATCH,_$`">$PREMATCH, $`</a></td></tr>
+    <tr class="toc-level-3"><td class="toc-number">3.2.6</td><td class="toc-text"><a href="#${^PREMATCH}">${^PREMATCH}</a></td></tr>
+  <tr class="toc-level-3"><td class="toc-number">3.2.7</td><td class="toc-text"><a href="#$POSTMATCH,_$'">$POSTMATCH, $&#39;</a></td></tr>
+    <tr class="toc-level-3"><td class="toc-number">3.2.8</td><td class="toc-text"><a href="#${^POSTMATCH}">${^POSTMATCH}</a></td></tr>
+  <tr class="toc-level-3"><td class="toc-number">3.2.9</td><td class="toc-text"><a href="#$LAST_PAREN_MATCH,_$+">$LAST_PAREN_MATCH, $+</a></td></tr>
+              <tr class="toc-level-3"><td class="toc-number">3.2.10</td><td class="toc-text"><a href="#$LAST_SUBMATCH_RESULT,_$^N">$LAST_SUBMATCH_RESULT, $^N</a></td></tr>
+      <tr class="toc-level-3"><td class="toc-number">3.2.11</td><td class="toc-text"><a href="#@LAST_MATCH_END,_@+">@LAST_MATCH_END, @+</a></td></tr>
+              <tr class="toc-level-3"><td class="toc-number">3.2.12</td><td class="toc-text"><a href="#%LAST_PAREN_MATCH,_%+">%LAST_PAREN_MATCH, %+</a></td></tr>
+        <tr class="toc-level-3"><td class="toc-number">3.2.13</td><td class="toc-text"><a href="#@LAST_MATCH_START,_@-">@LAST_MATCH_START, @-</a></td></tr>
+                    <tr class="toc-level-3"><td class="toc-number">3.2.14</td><td class="toc-text"><a href="#%LAST_MATCH_START,_%-">%LAST_MATCH_START, %-</a></td></tr>
+        <tr class="toc-level-3"><td class="toc-number">3.2.15</td><td class="toc-text"><a href="#$LAST_REGEXP_CODE_RESULT,_$^R">$LAST_REGEXP_CODE_RESULT, $^R</a></td></tr>
+  <tr class="toc-level-3"><td class="toc-number">3.2.16</td><td class="toc-text"><a href="#${^RE_DEBUG_FLAGS}">${^RE_DEBUG_FLAGS}</a></td></tr>
+  <tr class="toc-level-3"><td class="toc-number">3.2.17</td><td class="toc-text"><a href="#${^RE_TRIE_MAXBUF}">${^RE_TRIE_MAXBUF}</a></td></tr>
+  <tr class="toc-level-2"><td class="toc-number">3.3</td><td class="toc-text"><a href="#Variables_related_to_filehandles">Variables related to filehandles</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-number">3.3.1</td><td class="toc-text"><a href="#$ARGV">$ARGV</a></td></tr>
+    <tr class="toc-level-3"><td class="toc-number">3.3.2</td><td class="toc-text"><a href="#@ARGV">@ARGV</a></td></tr>
+   <tr class="toc-level-3"><td class="toc-number">3.3.3</td><td class="toc-text"><a href="#ARGV">ARGV</a></td></tr>
+    <tr class="toc-level-3"><td class="toc-number">3.3.4</td><td class="toc-text"><a href="#ARGVOUT">ARGVOUT</a></td></tr>
+      <tr class="toc-level-3"><td class="toc-number">3.3.5</td><td class="toc-text"><a href="#$OUTPUT_FIELD_SEPARATOR,_$OFS,_$,">$OUTPUT_FIELD_SEPARATOR, $OFS, $,</a></td></tr>
+  <tr class="toc-level-3"><td class="toc-number">3.3.6</td><td class="toc-text"><a href="#$INPUT_LINE_NUMBER">$INPUT_LINE_NUMBER</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-number">3.3.7</td><td class="toc-text"><a href="#$NR,_$.">$NR, $.</a></td></tr>
+                                      <tr class="toc-level-3"><td class="toc-number">3.3.8</td><td class="toc-text"><a href="#$INPUT_RECORD_SEPARATOR,_$RS,_$/">$INPUT_RECORD_SEPARATOR, $RS, $/</a></td></tr>
+      <tr class="toc-level-3"><td class="toc-number">3.3.9</td><td class="toc-text"><a href="#$OUTPUT_RECORD_SEPARATOR,_$ORS,_$\">$OUTPUT_RECORD_SEPARATOR, $ORS, $\</a></td></tr>
+      <tr class="toc-level-3"><td class="toc-number">3.3.10</td><td class="toc-text"><a href="#$OUTPUT_AUTOFLUSH,_$|">$OUTPUT_AUTOFLUSH, $|</a></td></tr>
+          <tr class="toc-level-3"><td class="toc-number">3.3.11</td><td class="toc-text"><a href="#${^LAST_FH}">${^LAST_FH}</a></td></tr>
+  <tr class="toc-level-2"><td class="toc-number">3.4</td><td class="toc-text"><a href="#Variables_related_to_formats">Variables related to formats</a></td></tr>
+  <tr class="toc-level-2"><td class="toc-number">3.5</td><td class="toc-text"><a href="#Error_variables">Error variables</a></td></tr>
+                                                     <tr class="toc-level-2"><td class="toc-number">3.6</td><td class="toc-text"><a href="#Variables_related_to_the_interpreter_state">Variables related to the interpreter state</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-number">3.6.1</td><td class="toc-text"><a href="#$COMPILING,_$^C,_$^D,_${^ENCODING},_${^GLOBAL_PHASE}">$COMPILING, $^C, $^D, ${^ENCODING}, ${^GLOBAL_PHASE}</a></td></tr>
+  <tr class="toc-level-3"><td class="toc-number">3.6.2</td><td class="toc-text"><a href="#$^H,_%^H,_${^OPEN}">$^H, %^H, ${^OPEN}</a></td></tr>
+  <tr class="toc-level-3"><td class="toc-number">3.6.3</td><td class="toc-text"><a href="#$PERLDB,_$^P">$PERLDB, $^P</a></td></tr>
+  <tr class="toc-level-3"><td class="toc-number">3.6.4</td><td class="toc-text"><a href="#${^TAINT}">${^TAINT}</a></td></tr>
+  <tr class="toc-level-3"><td class="toc-number">3.6.5</td><td class="toc-text"><a href="#${^UNICODE},_${^UTF8CACHE},_${^UTF8LOCALE}">${^UNICODE}, ${^UTF8CACHE}, ${^UTF8LOCALE}</a></td></tr>
+   
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <h1 id="DESCRIPTION"><a class="u" href="#___top" title="go to top of document">DESCRIPTION</a></h1>
+<p>A (hopefully) comprehensive list of Perl Special Variables with their Raku equivalents with notes on variations between them where necessary.</p>
+<h1 id="NOTE"><a class="u" href="#___top" title="go to top of document">NOTE</a></h1>
+<p>This document is an attempt to guide the reader from the <em>Special Variables</em> in Perl to their equivalents in Raku. For full documentation on the Raku <em>Special Variables</em>, please see the Raku documentation for each of them.</p>
+<h1 id="SPECIAL_VARIABLES"><a class="u" href="#___top" title="go to top of document">SPECIAL VARIABLES</a></h1>
+<p><a name="Documentable/integration-test/index-entry-Special_Variables_(Perl)"></a></p>
+<h2 id="General_variables"><a class="u" href="#___top" title="go to top of document">General variables</a></h2>
+<h3 id="$ARG,_$_"><a class="u" href="#___top" title="go to top of document">$ARG, $_</a></h3>
+<p><a name="Documentable/integration-test/index-entry-$___(Perl)"></a></p>
+<p>Thankfully, <code>$_</code> is the general default variable as in Perl. The main difference in Raku is that you can now call methods on it. For instance, Perl&#39;s <code>say $_</code> can be rendered in Raku as <code>$_.say</code>. Furthermore, as it is the default variable, you don&#39;t even need to use the variable name. The previous example can also be achieved by using <code>.say</code>.</p>
+<h3 id="@ARG,_@_"><a class="u" href="#___top" title="go to top of document">@ARG, @_</a></h3>
+<p><a name="Documentable/integration-test/index-entry-@___(Perl)"></a></p>
+<p>As Raku now has function signatures, your arguments can go there, rather than depending on <code>@_</code> for them. In fact, if you use a function signature, use of <code>@_</code> will spit at you telling it cannot override an existing signature.</p>
+<p>If, however, you do not use a function signature, <code>@_</code> will contain the arguments you pass to the function as it did in Perl. Again, as with <code>$_</code>, you can call methods on it. Unlike <code>$_</code> you cannot assume <code>@_</code> as the default variable for those methods to operate on (i. e. <code>@_.shift</code> works, <code>.shift</code> does not).</p>
+<h3 id="$LIST_SEPARATOR,_$&quot;"><a class="u" href="#___top" title="go to top of document">$LIST_SEPARATOR, $&quot;</a></h3>
+<p>Currently, there is no equivalent of the List Separator variable in Raku. Design document <a href="https://design.raku.org/S28.html">S28</a> says there isn&#39;t one, so you probably don&#39;t want to hold your breath.</p>
+<h3 id="$PROCESS_ID,_$PID,_$$"><a class="u" href="#___top" title="go to top of document">$PROCESS_ID, $PID, $$</a></h3>
+<p><a name="Documentable/integration-test/index-entry-$$_(Perl)"></a></p>
+<p><code>$$</code> is replaced in Raku by <code>$*PID</code></p>
+<h3 id="$PROGRAM_NAME,_$0"><a class="u" href="#___top" title="go to top of document">$PROGRAM_NAME, $0</a></h3>
+<p><a name="Documentable/integration-test/index-entry-$0_(Perl)"></a></p>
+<p>You can access the program name in Raku via <code>$*PROGRAM-NAME</code>.</p>
+<p>Note: <code>$0</code> in Raku is the variable holding the first captured value from a regexp match (i. e. capture variables now start from <code>$0</code> rather than <code>$1</code>).</p>
+<h3 id="$REAL_GROUP_ID,_$GID,_$("><a class="u" href="#___top" title="go to top of document">$REAL_GROUP_ID, $GID, $(</a></h3>
+<p>In Raku the group information is handled by <code>$*GROUP</code>, which holds an object of type <a href="/Documentable/integration-test/type/IntStr">IntStr</a> and therefore can be used either within a string or a numeric context. The group id is therefore obtained via <code>+$*GROUP</code>, while the group name via <code>~$*GROUP</code>.</p>
+<h3 id="$EFFECTIVE_GROUP_ID,_$EGID,_$)"><a class="u" href="#___top" title="go to top of document">$EFFECTIVE_GROUP_ID, $EGID, $)</a></h3>
+<p>The effective group id does not appear to be currently provided by Raku.</p>
+<h3 id="$REAL_USER_ID,_$UID,_$<"><a class="u" href="#___top" title="go to top of document">$REAL_USER_ID, $UID, $&lt;</a></h3>
+<p>In Raku the user information is handled by <code>$*USER</code>, which holds an object of type <a href="/Documentable/integration-test/type/IntStr">IntStr</a> and therefore can be used either within a string or a numeric context (this is similar to how the group information is handled by the <code>$*GROUP</code> object). The user id is therefore obtained via <code>+$*USER</code>, while the username via <code>~$*USER</code>.</p>
+<h3 id="$EFFECTIVE_USER_ID,_$EUID,_$>"><a class="u" href="#___top" title="go to top of document">$EFFECTIVE_USER_ID, $EUID, $&gt;</a></h3>
+<p>The effective user id does not appear to be currently provided by Raku.</p>
+<h3 id="$SUBSCRIPT_SEPARATOR,_$SUBSEP,_$;"><a class="u" href="#___top" title="go to top of document">$SUBSCRIPT_SEPARATOR, $SUBSEP, $;</a></h3>
+<p>The subscript separator variable is not included in Raku. Frankly, if your Perl code is using this, it&#39;s almost certainly really, really old.</p>
+<h3 id="$a,_$b"><a class="u" href="#___top" title="go to top of document">$a, $b</a></h3>
+<p><code>$a</code> and <code>$b</code> have no special meaning in Raku. <code>sort()</code> does not use them for anything special. They&#39;re just regular old variables.</p>
+<p>This feature has been extended by having blocks with placeholder parameters which are more versatile. Placeholder variables are created with the <code>^</code> twigil (e. g. <code>$^z</code>. They can be used in a bare block or in a subroutine without an explicit parameter list. The arguments to the block are assigned to the placeholder variables in their Unicode order. I. e. even if the variables appear in the block in the order <code>($^q, $^z, $^a)</code>, they will be <em>assigned</em> in the order <code>($^a, $^q, $^z)</code>. Ergo:</p>
+<pre class="pod-block-code">sort { $^a cmp $^z }, 1, 5, 6, 4, 2, 3;
+# OUTPUT: «(1 2 3 4 5 6)␤»
+sort { $^g cmp $^a }, 1, 5, 6, 4, 2, 3;
+# OUTPUT: «(6 5 4 3 2 1)␤»
+for 1..9 { say $^c, $^a, $^b; last }
+# OUTPUT: «312␤»
+</pre>
+<p>For more on placeholder variables, see <a href="/Documentable/integration-test/language/variables#The_$CIRCUMFLEX_ACCENT_Twigil">this page</a></p>
+<h3 id="%ENV"><a class="u" href="#___top" title="go to top of document">%ENV</a></h3>
+<p>%ENV has been replaced by %*ENV in Raku. Note that the keys of this hash may not be exactly the same between Perl and Raku. For example, <code>OLDPWD</code> is missing from Raku&#39;s %ENV.</p>
+<h3 id="$OLD_PERL_VERSION,_$]"><a class="u" href="#___top" title="go to top of document">$OLD_PERL_VERSION, $]</a></h3>
+<p>The running version of Raku is kept by <code>$*RAKU</code> special variable, that is an object. The running version is retrieved via <code>$*RAKU.version</code>, which returns something like <code>v6.d</code>; the full stringified version of the Raku interpreter is obtained via <code>$*RAKU.gist</code>, which returns something like <code>Raku (6.d)</code>.</p>
+<h3 id="$SYSTEM_FD_MAX,_$^F"><a class="u" href="#___top" title="go to top of document">$SYSTEM_FD_MAX, $^F</a></h3>
+<p>Although the design documents (S28) indicate that this will likely become <code>$*SYS_FD_MAX</code>, this has not yet been implemented.</p>
+<h3 id="@F"><a class="u" href="#___top" title="go to top of document">@F</a></h3>
+<p>[NEEDS FURTHER RESEARCH] A bit confusing at this point. Design doc S28 indicates that <code>@F</code> in Perl is replaced by <code>@_</code> in Raku, but it&#39;s unclear just how that works. On the other hand, it&#39;s currently something of a moot point, as the Perl to Raku Translation doc indicates that the <code>-a</code> and <code>-F</code> command-line switches are not yet implemented in rakudo.</p>
+<h3 id="@INC"><a class="u" href="#___top" title="go to top of document">@INC</a></h3>
+<p><a name="Documentable/integration-test/index-entry-@INC_(Perl)"></a></p>
+<p>No longer exists in Raku. Please use &quot;use lib&quot; to manipulate the module repositories to be searched. The closest thing to @INC is really $*REPO. But that works completely differently from @INC mostly because of the precompilation capabilities of Raku.</p>
+<pre class="pod-block-code"># Print out a list of compunit repositories
+.say for $*REPO.repo-chain;</pre>
+<h3 id="%INC"><a class="u" href="#___top" title="go to top of document">%INC</a></h3>
+<p><a name="Documentable/integration-test/index-entry-$PERCENT_SIGNINC_(Perl)"></a></p>
+<p>No longer exists in Raku. Because each Repository is responsible for remembering which modules have been loaded already. You can get a list of all loaded modules (compilation units) like so:</p>
+<pre class="pod-block-code">use Test;
+use MyModule;
+say flat $*REPO.repo-chain.map(*.loaded); #-&gt; (MyModule Test)
+</pre>
+<h3 id="$INPLACE_EDIT,_$^I"><a class="u" href="#___top" title="go to top of document">$INPLACE_EDIT, $^I</a></h3>
+<p>S28 suggests $*INPLACE_EDIT, but it does not yet exist.</p>
+<h3 id="$^M"><a class="u" href="#___top" title="go to top of document">$^M</a></h3>
+<p>S28 suggests $*EMERGENCY_MEMORY, but it does not yet exist.</p>
+<h3 id="$OSNAME,_$^O"><a class="u" href="#___top" title="go to top of document">$OSNAME, $^O</a></h3>
+<p>This is somewhat unclear. It probably depends on what you mean by &quot;the name of the operating system&quot; as design document <a href="https://design.raku.org/S28.html">S28</a> has three different suggestions, all of which give different answers.</p>
+<p>There are currently three main objects containing information about the &quot;running environment&quot;:</p>
+<ul><li><p><code>$*KERNEL</code> provides information about the running Operating System kernel;</p>
+</li>
+<li><p><code>$*DISTRO</code> provides information about the Operating System distribution;</p>
+</li>
+<li><p><code>$*VM</code> provides information about the running backend machine for Raku.</p>
+</li>
+</ul>
+<p>All the above objects have methods in common:</p>
+<ul><li><p><code>version</code> provides the version number for that component;</p>
+</li>
+<li><p><code>name</code> provides the mnemonic name for that component;</p>
+</li>
+<li><p><code>auth</code> provides the known author(s) for that component.</p>
+</li>
+</ul>
+<p>As a short example, the following piece of code prints information about all the above components:</p>
+<pre class="pod-block-code">for $*KERNEL, $*DISTRO, $*VM -&gt; $what {
+    say $what.^name;
+    say &#39;version &#39;  ~ $what.version
+        ~ &#39; named &#39; ~ $what.name
+        ~ &#39; by &#39;    ~ $what.auth;
+}
+
+# Kernel
+# version 4.10.0.42.generic named linux by unknown
+# Distro
+# version 17.04.Zesty.Zapus named ubuntu by https://www.ubuntu.com/
+# VM
+# version 2017.11 named moar by The MoarVM Team
+</pre>
+<p>The <code>Str</code> method on all of the above produces the <em>short</em> version of the information, at the current time the <code>name</code>.</p>
+<p>All the objects have other methods that can be useful when trying to identify the exact running instance, for more information use &lt;.^methods&gt; to introspect all the above.</p>
+<h3 id="%SIG"><a class="u" href="#___top" title="go to top of document">%SIG</a></h3>
+<p>No equivalent variable. To have your code executed on the reception of a signal, you can call the <a href="/Documentable/integration-test/routine/signal#(Supply)_sub_signal">signal</a> subroutine, which returns a <code>Supply</code> that can be tapped.</p>
+<pre class="pod-block-code">$SIG{&quot;INT&quot;} = sub { say &quot;bye&quot;; exit }
+</pre>
+<pre class="pod-block-code">signal(SIGINT).tap: { say &quot;bye&quot;; exit }; loop {}
+</pre>
+<p>Or, if you have a generic code that want to know which signal it got:</p>
+<pre class="pod-block-code">signal(SIGINT).tap: -&gt; $signal { say &quot;bye with $signal&quot;; exit }; loop {}
+</pre>
+<p>A more idiomatic way of using signals in an event driven situation:</p>
+<pre class="pod-block-code">react {
+    whenever signal(SIGINT) {
+        say &quot;goodbye&quot;;
+        done
+    }
+}
+</pre>
+<h3 id="$BASETIME,_$^T"><a class="u" href="#___top" title="go to top of document">$BASETIME, $^T</a></h3>
+<p>Replaced in Raku by <code>$*INIT-INSTANT</code>. Unlike in Perl, this is not in seconds since epoch, but an <a href="/Documentable/integration-test/type/Instant">Instant</a> object, which is measured in atomic seconds, with fractions.</p>
+<h3 id="$PERL_VERSION,_$^V"><a class="u" href="#___top" title="go to top of document">$PERL_VERSION, $^V</a></h3>
+<p>As with <code>$]</code> this has been replaced with <code>$*RAKU.version</code>.</p>
+<h3 id="${^WIN32_SLOPPY_STAT}"><a class="u" href="#___top" title="go to top of document">${^WIN32_SLOPPY_STAT}</a></h3>
+<p>There is no analog to this in Raku.</p>
+<h3 id="$EXECUTABLE_NAME,_$^X"><a class="u" href="#___top" title="go to top of document">$EXECUTABLE_NAME, $^X</a></h3>
+<p>This has been replaced by <code>$*EXECUTABLE-NAME</code>. Note that there is also <code>$*EXECUTABLE</code>, which is an <code>IO</code> object in Raku.</p>
+<h2 id="Variables_related_to_regular_expressions"><a class="u" href="#___top" title="go to top of document">Variables related to regular expressions</a></h2>
+<h3 id="Performance_issues"><a class="u" href="#___top" title="go to top of document">Performance issues</a></h3>
+<p>As shown below, <code>$`</code>, <code>$&amp;</code>, and <code>$&#39;</code> are gone from Raku, primarily replaced by variations on <code>$/</code> and, with their elimination, the associated performance issues in Perl do not apply.</p>
+<h3 id="$<digits>_($1,_$2,_...)"><a class="u" href="#___top" title="go to top of document">$&lt;<em>digits</em>&gt; ($1, $2, ...)</a></h3>
+<p>These existing variables do the same thing in Raku as they do in Perl, except that they now start at <code>$0</code> rather than <code>$1</code>. Furthermore, they are synonyms for indexed items in the match variable <code>$/</code>. I. e. <code>$0</code> is equivalent to <code>$/[0]</code>, <code>$1</code> is equivalent to <code>$/[1]</code>, etc.</p>
+<h3 id="$MATCH,_$&"><a class="u" href="#___top" title="go to top of document">$MATCH, $&amp;</a></h3>
+<p><code>$/</code> now contains the <a href="/Documentable/integration-test/type/Match">match</a> object, so the Perl behavior of <code>$&amp;</code> can be obtained by stringifying it, i. e. <code>~$/</code>.</p>
+<p>Please note that while <code>$/.Str</code> should also work, <code>~$/</code> is currently the more common idiom.</p>
+<h3 id="${^MATCH}"><a class="u" href="#___top" title="go to top of document">${^MATCH}</a></h3>
+<p>Since the former performance issues are done away with, this variable is not of use in Raku.</p>
+<h3 id="$PREMATCH,_$`"><a class="u" href="#___top" title="go to top of document">$PREMATCH, $`</a></h3>
+<p>Replaced by <code>$/.prematch</code>.</p>
+<h3 id="${^PREMATCH}"><a class="u" href="#___top" title="go to top of document">${^PREMATCH}</a></h3>
+<p>Since the former performance issues are done away with, this variable is not of use in Raku.</p>
+<h3 id="$POSTMATCH,_$'"><a class="u" href="#___top" title="go to top of document">$POSTMATCH, $&#39;</a></h3>
+<p>Replaced by <code>$/.postmatch</code>.</p>
+<h3 id="${^POSTMATCH}"><a class="u" href="#___top" title="go to top of document">${^POSTMATCH}</a></h3>
+<p>Since the former performance issues are done away with, this variable is not of use in Raku.</p>
+<h3 id="$LAST_PAREN_MATCH,_$+"><a class="u" href="#___top" title="go to top of document">$LAST_PAREN_MATCH, $+</a></h3>
+<p>Does not exist in Raku, but you can get the same information using <code>$/[*- 1].Str</code> (<code>$/[*-1]</code> would be the match object, not the actual string).</p>
+<p>If you want to <em>understand</em> why that works, you can look at these documents:</p>
+<ul><li><p><a href="/Documentable/integration-test/routine/[ ]">[ ] routine</a></p>
+</li>
+<li><p><a href="/Documentable/integration-test/type/Whatever">Whatever</a></p>
+</li>
+</ul>
+<p>...and possibly</p>
+<ul><li><p><a href="https://design.raku.org/S02.html#line_1126">https://design.raku.org/S02.html#line_1126</a></p>
+</li>
+</ul>
+<p>...though the design documents are not always up to date.</p>
+<h3 id="$LAST_SUBMATCH_RESULT,_$^N"><a class="u" href="#___top" title="go to top of document">$LAST_SUBMATCH_RESULT, $^N</a></h3>
+<p>S28 suggests <code>$*MOST_RECENT_CAPTURED_MATCH</code>, but there does not seem to be any implemented variable that matches <code>$^N</code>.</p>
+<h3 id="@LAST_MATCH_END,_@+"><a class="u" href="#___top" title="go to top of document">@LAST_MATCH_END, @+</a></h3>
+<p>As with most regular expression related variables, this functionality is, at least in part, moved to the <code>$/</code> variable in Raku. Or, in this case, the numbered variables that alias to the indexes of it. The offset is found by using the <code>.to</code> method. I. e. the first offset is <code>$/[0].to</code>, which is synonymous with <code>$0.to</code>. The value Perl provides as <code>$+[0]</code> is provided by <code>$/.to</code>.</p>
+<h3 id="%LAST_PAREN_MATCH,_%+"><a class="u" href="#___top" title="go to top of document">%LAST_PAREN_MATCH, %+</a></h3>
+<p>Once again, we move over to <code>$/</code>. The former <code>$+{$match}</code> is <code>$/{$match}</code>.</p>
+<h3 id="@LAST_MATCH_START,_@-"><a class="u" href="#___top" title="go to top of document">@LAST_MATCH_START, @-</a></h3>
+<p>Similarly to <code>@+</code> being replaced by using the <code>.to</code> method, <code>@-</code> is replaced by using the <code>.from</code> method on <code>$/</code> and its variations. The first offset is <code>$/[0].from</code> or the equivalent <code>$0.from</code>. Perl&#39;s <code>$- [0]</code> is <code>$/.from</code>.</p>
+<h3 id="%LAST_MATCH_START,_%-"><a class="u" href="#___top" title="go to top of document">%LAST_MATCH_START, %-</a></h3>
+<p>Much like <code>%+</code>, a use of <code>%-{$match}</code> would be replaced with <code>$/{$match}</code>.</p>
+<h3 id="$LAST_REGEXP_CODE_RESULT,_$^R"><a class="u" href="#___top" title="go to top of document">$LAST_REGEXP_CODE_RESULT, $^R</a></h3>
+<p>No equivalent.</p>
+<h3 id="${^RE_DEBUG_FLAGS}"><a class="u" href="#___top" title="go to top of document">${^RE_DEBUG_FLAGS}</a></h3>
+<p>No equivalent.</p>
+<h3 id="${^RE_TRIE_MAXBUF}"><a class="u" href="#___top" title="go to top of document">${^RE_TRIE_MAXBUF}</a></h3>
+<p>No equivalent.</p>
+<h2 id="Variables_related_to_filehandles"><a class="u" href="#___top" title="go to top of document">Variables related to filehandles</a></h2>
+<h3 id="$ARGV"><a class="u" href="#___top" title="go to top of document">$ARGV</a></h3>
+<p>The name of the current file when reading lines can be obtained through <code>$*ARGFILES.path</code>.</p>
+<h3 id="@ARGV"><a class="u" href="#___top" title="go to top of document">@ARGV</a></h3>
+<p><code>@*ARGS</code> contains the command line arguments.</p>
+<h3 id="ARGV"><a class="u" href="#___top" title="go to top of document">ARGV</a></h3>
+<p>This has been replaced by <code>$*ARGFILES</code>.</p>
+<h3 id="ARGVOUT"><a class="u" href="#___top" title="go to top of document">ARGVOUT</a></h3>
+<p>As the <code>-i</code> command line switch has not yet been implemented, there is not yet an equivalent of <code>ARGVOUT</code>.</p>
+<h3 id="$OUTPUT_FIELD_SEPARATOR,_$OFS,_$,"><a class="u" href="#___top" title="go to top of document">$OUTPUT_FIELD_SEPARATOR, $OFS, $,</a></h3>
+<p>Currently no obvious equivalent.</p>
+<h3 id="$INPUT_LINE_NUMBER"><a class="u" href="#___top" title="go to top of document">$INPUT_LINE_NUMBER</a></h3>
+<h3 id="$NR,_$."><a class="u" href="#___top" title="go to top of document">$NR, $.</a></h3>
+<p>No direct replacement exists.</p>
+<p>When iterating using <a href="/Documentable/integration-test/routine/lines">lines</a> method from <a href="/Documentable/integration-test/type/IO::Path">IO::Path</a> or <a href="/Documentable/integration-test/type/IO::Path">IO::Handle</a> types, you can call the <code>.kv</code> method on it to get an interleaved list of indexes and values (then iterate by 2 each loop):</p>
+<pre class="pod-block-code">for &quot;foo&quot;.IO.lines.kv -&gt; $n, $line {
+    say &quot;{$n + 1}: $line&quot;
+}
+# OUTPUT:
+# 1: a
+# 2: b
+# 3: c
+# 4: d
+</pre>
+<p>For <a href="/Documentable/integration-test/type/IO::CatHandle">IO::CatHandle</a> types (of which <a href="/Documentable/integration-test/language/variables#index-entry-%24%2AARGFILES"><code>$*ARGFILES</code></a> is one), you can use <a href="/Documentable/integration-test/type/IO::CatHandle#method_on-switch"><code>on-switch</code></a> hook to reset line number on handle switch, and increment it manually. See also <a href="https://modules.raku.org/repo/IO::CatHandle::AutoLines"><code>IO::CatHandle::AutoLines</code></a> and <a href="https://modules.raku.org/repo/LN"><code>LN</code></a> modules that simplify this operation.</p>
+<h3 id="$INPUT_RECORD_SEPARATOR,_$RS,_$/"><a class="u" href="#___top" title="go to top of document">$INPUT_RECORD_SEPARATOR, $RS, $/</a></h3>
+<p>This is accessed through the <code>.nl-in</code> method on the filehandle. E. g. <code>$*IN.nl-in</code>.</p>
+<h3 id="$OUTPUT_RECORD_SEPARATOR,_$ORS,_$\"><a class="u" href="#___top" title="go to top of document">$OUTPUT_RECORD_SEPARATOR, $ORS, $\</a></h3>
+<p>This is accessed through the <code>.nl-out</code> method on the filehandle. E. g. <code>$*OUT.nl-out</code>.</p>
+<h3 id="$OUTPUT_AUTOFLUSH,_$|"><a class="u" href="#___top" title="go to top of document">$OUTPUT_AUTOFLUSH, $|</a></h3>
+<p>No global alternative available. TTY handles are unbuffered by default, for others, set <a href="/Documentable/integration-test/routine/out-buffer">out-buffer</a> to zero or use <code>:!out-buffer</code> with <a href="/Documentable/integration-test/routine/open">open</a> on a specific <a href="/Documentable/integration-test/type/IO::Handle">IO::Handle</a>.</p>
+<h3 id="${^LAST_FH}"><a class="u" href="#___top" title="go to top of document">${^LAST_FH}</a></h3>
+<p>Not implemented in Raku.</p>
+<h2 id="Variables_related_to_formats"><a class="u" href="#___top" title="go to top of document">Variables related to formats</a></h2>
+<p>There are no built-in formats in Raku.</p>
+<h2 id="Error_variables"><a class="u" href="#___top" title="go to top of document">Error variables</a></h2>
+<p>Because of how error variables have changed in Raku, they will not be detailed here individually.</p>
+<p>To quote the Raku <a href="/Documentable/integration-test/language/variables#index-entry-%24!">docs</a>, &quot;$! is the error variable.&quot; That&#39;s it. All the error variables appear to have been eaten by $!. As with the rest of Raku, it&#39;s an object that will return various things depending on the type of error or <a href="/Documentable/integration-test/type/Exception">exception</a>.</p>
+<p>In particular, when dealing with <a href="/Documentable/integration-test/type/Exception">exceptions</a> the <code>$!</code> provides information about the thrown exception, assuming the program has not halted:</p>
+<pre class="pod-block-code">try {
+    fail &quot;Boooh&quot;;
+    CATCH {
+        # within the catch block
+        # the exception is placed into $_
+        say &#39;within the catch:&#39;;
+        say $_.^name ~ &#39; : &#39; ~ $_.message;
+        $_.resume; # do not abort
+    }
+}
+
+# outside the catch block the exception is placed
+# into $!
+say &#39;outside the catch:&#39;;
+say $!.^name ~ &#39; : &#39; ~ $!.message;
+</pre>
+<p>and the above code produces the following output</p>
+<pre class="pod-block-code">within the catch:
+X::AdHoc : Boooh
+outside the catch:
+X::AdHoc : Boooh
+</pre>
+<p>therefore, as stated before, the <code>$!</code> variable holds the exception object.</p>
+<h2 id="Variables_related_to_the_interpreter_state"><a class="u" href="#___top" title="go to top of document">Variables related to the interpreter state</a></h2>
+<h3 id="$COMPILING,_$^C,_$^D,_${^ENCODING},_${^GLOBAL_PHASE}"><a class="u" href="#___top" title="go to top of document">$COMPILING, $^C, $^D, ${^ENCODING}, ${^GLOBAL_PHASE}</a></h3>
+<p>Currently no equivalents for either of these variables.</p>
+<h3 id="$^H,_%^H,_${^OPEN}"><a class="u" href="#___top" title="go to top of document">$^H, %^H, ${^OPEN}</a></h3>
+<p>There may or may not be equivalents of these in Raku, but they&#39;re internal and you shouldn&#39;t be messing with them in the first place - certainly not if your understanding of Raku requires you to read this document...</p>
+<h3 id="$PERLDB,_$^P"><a class="u" href="#___top" title="go to top of document">$PERLDB, $^P</a></h3>
+<p>The chance of the Raku debugger resembling the Perl debugger is slim at best, and at this point there does not seem to be an equivalent of this variable.</p>
+<h3 id="${^TAINT}"><a class="u" href="#___top" title="go to top of document">${^TAINT}</a></h3>
+<p>S28 claims this variable is &quot;pending&quot;. Not currently in Raku.</p>
+<h3 id="${^UNICODE},_${^UTF8CACHE},_${^UTF8LOCALE}"><a class="u" href="#___top" title="go to top of document">${^UNICODE}, ${^UTF8CACHE}, ${^UTF8LOCALE}</a></h3>
+<p>These Unicode-related variables do not appear to exist in Raku, but - maybe? - could have analogs in <code>$?ENC</code> somewhere. This, however, is totally unconfirmed.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/5to6-perlvar.pod6">https://github.com/Raku/doc/blob/master/doc/Language/5to6-perlvar.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

@@ -1,0 +1,1244 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>class IO::CatHandle</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/type.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-basic.html"> Basic </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-composite.html"> Composite </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-domain-specific.html"> Domain-specific </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-exception.html"> Exceptions </a>
+            </div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Type/IO/CatHandle.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">class IO::CatHandle</h1>
+        <p class="subtitle">Use multiple IO handles as if they were one</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+                    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#method_new">method new</a></td></tr>
+                                                                                              <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#method_chomp">method chomp</a></td></tr>
+                           <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#method_nl-in">method nl-in</a></td></tr>
+                                   <tr class="toc-level-2"><td class="toc-number">1.4</td><td class="toc-text"><a href="#method_close">method close</a></td></tr>
+                <tr class="toc-level-2"><td class="toc-number">1.5</td><td class="toc-text"><a href="#method_comb">method comb</a></td></tr>
+                <tr class="toc-level-2"><td class="toc-number">1.6</td><td class="toc-text"><a href="#method_DESTROY">method DESTROY</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">1.7</td><td class="toc-text"><a href="#method_encoding">method encoding</a></td></tr>
+                             <tr class="toc-level-2"><td class="toc-number">1.8</td><td class="toc-text"><a href="#method_eof">method eof</a></td></tr>
+                                    <tr class="toc-level-2"><td class="toc-number">1.9</td><td class="toc-text"><a href="#method_get">method get</a></td></tr>
+                          <tr class="toc-level-2"><td class="toc-number">1.10</td><td class="toc-text"><a href="#method_getc">method getc</a></td></tr>
+                    <tr class="toc-level-2"><td class="toc-number">1.11</td><td class="toc-text"><a href="#method_handles">method handles</a></td></tr>
+                             <tr class="toc-level-2"><td class="toc-number">1.12</td><td class="toc-text"><a href="#method_IO">method IO</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">1.13</td><td class="toc-text"><a href="#method_lines">method lines</a></td></tr>
+                     <tr class="toc-level-2"><td class="toc-number">1.14</td><td class="toc-text"><a href="#method_lock">method lock</a></td></tr>
+               <tr class="toc-level-2"><td class="toc-number">1.15</td><td class="toc-text"><a href="#method_native-descriptor">method native-descriptor</a></td></tr>
+                               <tr class="toc-level-2"><td class="toc-number">1.16</td><td class="toc-text"><a href="#method_next-handle">method next-handle</a></td></tr>
+                                                                                <tr class="toc-level-2"><td class="toc-number">1.17</td><td class="toc-text"><a href="#method_on-switch">method on-switch</a></td></tr>
+                                                                                         <tr class="toc-level-2"><td class="toc-number">1.18</td><td class="toc-text"><a href="#method_open">method open</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">1.19</td><td class="toc-text"><a href="#method_opened">method opened</a></td></tr>
+                         <tr class="toc-level-2"><td class="toc-number">1.20</td><td class="toc-text"><a href="#method_path">method path</a></td></tr>
+                                  <tr class="toc-level-2"><td class="toc-number">1.21</td><td class="toc-text"><a href="#method_read">method read</a></td></tr>
+                                     <tr class="toc-level-2"><td class="toc-number">1.22</td><td class="toc-text"><a href="#method_readchars">method readchars</a></td></tr>
+                               <tr class="toc-level-2"><td class="toc-number">1.23</td><td class="toc-text"><a href="#method_seek">method seek</a></td></tr>
+                                         <tr class="toc-level-2"><td class="toc-number">1.24</td><td class="toc-text"><a href="#method_tell">method tell</a></td></tr>
+                               <tr class="toc-level-2"><td class="toc-number">1.25</td><td class="toc-text"><a href="#method_slurp">method slurp</a></td></tr>
+                         <tr class="toc-level-2"><td class="toc-number">1.26</td><td class="toc-text"><a href="#method_split">method split</a></td></tr>
+                <tr class="toc-level-2"><td class="toc-number">1.27</td><td class="toc-text"><a href="#method_Str">method Str</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">1.28</td><td class="toc-text"><a href="#method_Supply">method Supply</a></td></tr>
+                                 <tr class="toc-level-2"><td class="toc-number">1.29</td><td class="toc-text"><a href="#method_t">method t</a></td></tr>
+                  <tr class="toc-level-2"><td class="toc-number">1.30</td><td class="toc-text"><a href="#method_unlock">method unlock</a></td></tr>
+               <tr class="toc-level-2"><td class="toc-number">1.31</td><td class="toc-text"><a href="#method_words">method words</a></td></tr>
+                     <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#NYI_Methods">NYI Methods</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#method_flush">method flush</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">2.2</td><td class="toc-text"><a href="#method_nl-out">method nl-out</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">2.3</td><td class="toc-text"><a href="#method_out-buffer">method out-buffer</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">2.4</td><td class="toc-text"><a href="#method_print">method print</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">2.5</td><td class="toc-text"><a href="#method_printf">method printf</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">2.6</td><td class="toc-text"><a href="#method_print-nl">method print-nl</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">2.7</td><td class="toc-text"><a href="#method_put">method put</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">2.8</td><td class="toc-text"><a href="#method_say">method say</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">2.9</td><td class="toc-text"><a href="#method_write">method write</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">2.10</td><td class="toc-text"><a href="#method_WRITE">method WRITE</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">2.11</td><td class="toc-text"><a href="#method_READ">method READ</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">2.12</td><td class="toc-text"><a href="#method_EOF">method EOF</a></td></tr>
+          <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Type_Graph">Type Graph</a></td></tr>
+  <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#Routines_supplied_by_class_IO::Handle">Routines supplied by class IO::Handle</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">4.1</td><td class="toc-text"><a href="#(IO::Handle)_method_open">(IO::Handle) method open</a></td></tr>
+                                                                                                                                                            <tr class="toc-level-2"><td class="toc-number">4.2</td><td class="toc-text"><a href="#(IO::Handle)_method_comb">(IO::Handle) method comb</a></td></tr>
+                 <tr class="toc-level-2"><td class="toc-number">4.3</td><td class="toc-text"><a href="#(IO::Handle)_method_chomp">(IO::Handle) method chomp</a></td></tr>
+                  <tr class="toc-level-2"><td class="toc-number">4.4</td><td class="toc-text"><a href="#(IO::Handle)_routine_get">(IO::Handle) routine get</a></td></tr>
+                               <tr class="toc-level-2"><td class="toc-number">4.5</td><td class="toc-text"><a href="#(IO::Handle)_routine_getc">(IO::Handle) routine getc</a></td></tr>
+            <tr class="toc-level-3"><td class="toc-number">4.5.1</td><td class="toc-text"><a href="#Buffering_terminals">Buffering terminals</a></td></tr>
+  <tr class="toc-level-3"><td class="toc-number">4.5.2</td><td class="toc-text"><a href="#Waiting_for_potential_combiners">Waiting for potential combiners</a></td></tr>
+  <tr class="toc-level-2"><td class="toc-number">4.6</td><td class="toc-text"><a href="#(IO::Handle)_submethod_DESTROY">(IO::Handle) submethod DESTROY</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">4.7</td><td class="toc-text"><a href="#(IO::Handle)_method_gist">(IO::Handle) method gist</a></td></tr>
+            <tr class="toc-level-2"><td class="toc-number">4.8</td><td class="toc-text"><a href="#(IO::Handle)_method_eof">(IO::Handle) method eof</a></td></tr>
+                             <tr class="toc-level-2"><td class="toc-number">4.9</td><td class="toc-text"><a href="#(IO::Handle)_method_encoding">(IO::Handle) method encoding</a></td></tr>
+                                                                   <tr class="toc-level-3"><td class="toc-number">4.9.1</td><td class="toc-text"><a href="#utf16,_utf16le_and_utf16be">utf16, utf16le and utf16be</a></td></tr>
+                    <tr class="toc-level-3"><td class="toc-number">4.9.2</td><td class="toc-text"><a href="#Examples">Examples</a></td></tr>
+               <tr class="toc-level-2"><td class="toc-number">4.10</td><td class="toc-text"><a href="#(IO::Handle)_routine_lines">(IO::Handle) routine lines</a></td></tr>
+                                                                  <tr class="toc-level-2"><td class="toc-number">4.11</td><td class="toc-text"><a href="#(IO::Handle)_method_lock">(IO::Handle) method lock</a></td></tr>
+                                                           <tr class="toc-level-2"><td class="toc-number">4.12</td><td class="toc-text"><a href="#(IO::Handle)_method_unlock">(IO::Handle) method unlock</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">4.13</td><td class="toc-text"><a href="#(IO::Handle)_routine_words">(IO::Handle) routine words</a></td></tr>
+                                                 <tr class="toc-level-2"><td class="toc-number">4.14</td><td class="toc-text"><a href="#(IO::Handle)_method_split">(IO::Handle) method split</a></td></tr>
+                      <tr class="toc-level-2"><td class="toc-number">4.15</td><td class="toc-text"><a href="#(IO::Handle)_method_spurt">(IO::Handle) method spurt</a></td></tr>
+                       <tr class="toc-level-2"><td class="toc-number">4.16</td><td class="toc-text"><a href="#(IO::Handle)_method_print">(IO::Handle) method print</a></td></tr>
+                             <tr class="toc-level-2"><td class="toc-number">4.17</td><td class="toc-text"><a href="#(IO::Handle)_method_print-nl">(IO::Handle) method print-nl</a></td></tr>
+                       <tr class="toc-level-2"><td class="toc-number">4.18</td><td class="toc-text"><a href="#(IO::Handle)_method_printf">(IO::Handle) method printf</a></td></tr>
+                   <tr class="toc-level-2"><td class="toc-number">4.19</td><td class="toc-text"><a href="#(IO::Handle)_method_out-buffer">(IO::Handle) method out-buffer</a></td></tr>
+                                    <tr class="toc-level-2"><td class="toc-number">4.20</td><td class="toc-text"><a href="#(IO::Handle)_method_put">(IO::Handle) method put</a></td></tr>
+                             <tr class="toc-level-2"><td class="toc-number">4.21</td><td class="toc-text"><a href="#(IO::Handle)_method_say">(IO::Handle) method say</a></td></tr>
+                     <tr class="toc-level-2"><td class="toc-number">4.22</td><td class="toc-text"><a href="#(IO::Handle)_method_read">(IO::Handle) method read</a></td></tr>
+                        <tr class="toc-level-2"><td class="toc-number">4.23</td><td class="toc-text"><a href="#(IO::Handle)_method_readchars">(IO::Handle) method readchars</a></td></tr>
+                          <tr class="toc-level-2"><td class="toc-number">4.24</td><td class="toc-text"><a href="#(IO::Handle)_method_write">(IO::Handle) method write</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">4.25</td><td class="toc-text"><a href="#(IO::Handle)_method_seek">(IO::Handle) method seek</a></td></tr>
+              <tr class="toc-level-2"><td class="toc-number">4.26</td><td class="toc-text"><a href="#(IO::Handle)_method_tell">(IO::Handle) method tell</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">4.27</td><td class="toc-text"><a href="#(IO::Handle)_method_slurp-rest">(IO::Handle) method slurp-rest</a></td></tr>
+                     <tr class="toc-level-2"><td class="toc-number">4.28</td><td class="toc-text"><a href="#(IO::Handle)_method_slurp">(IO::Handle) method slurp</a></td></tr>
+                         <tr class="toc-level-2"><td class="toc-number">4.29</td><td class="toc-text"><a href="#(IO::Handle)_method_Supply">(IO::Handle) method Supply</a></td></tr>
+                                    <tr class="toc-level-2"><td class="toc-number">4.30</td><td class="toc-text"><a href="#(IO::Handle)_method_path">(IO::Handle) method path</a></td></tr>
+              <tr class="toc-level-2"><td class="toc-number">4.31</td><td class="toc-text"><a href="#(IO::Handle)_method_IO">(IO::Handle) method IO</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">4.32</td><td class="toc-text"><a href="#(IO::Handle)_method_Str">(IO::Handle) method Str</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">4.33</td><td class="toc-text"><a href="#(IO::Handle)_routine_close">(IO::Handle) routine close</a></td></tr>
+                                                                            <tr class="toc-level-2"><td class="toc-number">4.34</td><td class="toc-text"><a href="#(IO::Handle)_method_flush">(IO::Handle) method flush</a></td></tr>
+                        <tr class="toc-level-2"><td class="toc-number">4.35</td><td class="toc-text"><a href="#(IO::Handle)_method_native-descriptor">(IO::Handle) method native-descriptor</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">4.36</td><td class="toc-text"><a href="#(IO::Handle)_method_nl-in">(IO::Handle) method nl-in</a></td></tr>
+                                      <tr class="toc-level-2"><td class="toc-number">4.37</td><td class="toc-text"><a href="#(IO::Handle)_method_nl-out">(IO::Handle) method nl-out</a></td></tr>
+                                  <tr class="toc-level-2"><td class="toc-number">4.38</td><td class="toc-text"><a href="#(IO::Handle)_method_opened">(IO::Handle) method opened</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">4.39</td><td class="toc-text"><a href="#(IO::Handle)_method_t">(IO::Handle) method t</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">4.40</td><td class="toc-text"><a href="#(IO::Handle)_method_WRITE">(IO::Handle) method WRITE</a></td></tr>
+                                                                  <tr class="toc-level-2"><td class="toc-number">4.41</td><td class="toc-text"><a href="#(IO::Handle)_method_READ">(IO::Handle) method READ</a></td></tr>
+                                                                                                          <tr class="toc-level-2"><td class="toc-number">4.42</td><td class="toc-text"><a href="#(IO::Handle)_method_EOF">(IO::Handle) method EOF</a></td></tr>
+                     
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <pre class="pod-block-code">class IO::CatHandle is IO::Handle { }</pre>
+<p>This class has been available in Rakudo since version 2017.06.</p>
+<p>The <code>IO::CatHandle</code> class provides a means to create an <a href="/Documentable/integration-test/type/IO::Handle">IO::Handle</a> that seamlessly gathers input from multiple <a href="/Documentable/integration-test/type/IO::Handle">IO::Handle</a> and <a href="/Documentable/integration-test/type/IO::Pipe">IO::Pipe</a> sources.</p>
+<p>All of the <a href="/Documentable/integration-test/type/IO::Handle">IO::Handle</a>&#39;s methods are implemented, and while attempt to use write methods will (currently) throw and exception, an <a href="/Documentable/integration-test/type/IO::CatHandle">IO::CatHandle</a> is usable anywhere a read-only <a href="/Documentable/integration-test/type/IO::Handle">IO::Handle</a> can be used.</p>
+<h1 id="Methods"><a class="u" href="#___top" title="go to top of document">Methods</a></h1>
+<h2 id="method_new"><a class="u" href="#___top" title="go to top of document">method new</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method new(*@handles, :&amp;on-switch, :$chomp = True,
+           :$nl-in = [&quot;\n&quot;, &quot;\r\n&quot;], Str :$encoding, Bool :$bin)
+</pre>
+<p>Creates a new <a href="/Documentable/integration-test/type/IO::CatHandle">IO::CatHandle</a> object.</p>
+<p>The <code>@handles</code> positional argument indicates a source of handles for the <code>IO::CatHandle</code> to read from and can deal with a mixed collection of <a href="/Documentable/integration-test/type/Cool">Cool</a>, <a href="/Documentable/integration-test/type/IO::Path">IO::Path</a>, and <a href="/Documentable/integration-test/type/IO::Handle">IO::Handle</a> (including <a href="/Documentable/integration-test/type/IO::Pipe">IO::Pipe</a>) objects. As input from <a href="/Documentable/integration-test/type/IO::CatHandle">IO::CatHandle</a> is processed (so operations won&#39;t happen during <code>.new</code> call, but only when <code>@handles</code>&#39; data is needed), it will walk through the <code>@handles</code> list, processing each argument as follows:</p>
+<ul><li><p>the <a href="/Documentable/integration-test/type/Cool">Cool</a> objects will be coerced to <a href="/Documentable/integration-test/type/IO::Path">IO::Path</a>;</p>
+</li>
+<li><p><a href="/Documentable/integration-test/type/IO::Path">IO::Path</a> objects will be opened for reading using the <a href="/Documentable/integration-test/type/IO::CatHandle">IO::CatHandle</a>&#39;s (invocant&#39;s) attributes for <a href="/Documentable/integration-test/routine/open"><code>open</code></a> calls;</p>
+</li>
+<li><p>un-opened <a href="/Documentable/integration-test/type/IO::Handle">IO::Handle</a> objects will be opened in the same fashion as <a href="/Documentable/integration-test/type/IO::Path">IO::Path</a> objects;</p>
+</li>
+<li><p>and already opened <a href="/Documentable/integration-test/type/IO::Handle">IO::Handle</a> objects will have all of their attributes set to the attributes of the invocant <a href="/Documentable/integration-test/type/IO::CatHandle">IO::CatHandle</a>.</p>
+</li>
+</ul>
+<p>In short, all the <code>@handles</code> end up as <a href="/Documentable/integration-test/type/IO::Handle">IO::Handle</a> objects opened in the same mode and with the same attributes as the invocant <a href="/Documentable/integration-test/type/IO::CatHandle">IO::CatHandle</a>.</p>
+<p>See <a href="/Documentable/integration-test/type/IO::CatHandle#method_on-switch"><code>.on-switch</code> method</a> for details on the <code>:&amp;on-switch</code> named argument, which by default is not set.</p>
+<p>The <a href="/Documentable/integration-test/type/IO::CatHandle#method_encoding"><code>:$encoding</code></a> named argument specifies the handle&#39;s encoding and accepts the same values as <a href="/Documentable/integration-test/type/IO::Handle#method_encoding"><code>IO::Handle.encoding</code></a>. Set <code>:$bin</code> named argument to <code>True</code> if you wish the handle to be in binary mode. Attempting to specify both a defined <code>:$encoding</code> and a <code>True</code> <code>:$bin</code> is a fatal error resulting in <code>X::IO::BinaryAndEncoding</code> exception thrown. If neither <code>:$encoding</code> is set nor <code>:$bin</code> set to a true value, the handle will default to <code>utf8</code> encoding.</p>
+<p>The <code>:$chomp</code> and <code>:$nl-in</code> arguments have the same meaning as in <a href="/Documentable/integration-test/type/IO::Handle">IO::Handle</a> and take and default to the same values.</p>
+<h2 id="method_chomp"><a class="u" href="#___top" title="go to top of document">method chomp</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method chomp(IO::CatHandle:D:) is rw</pre>
+<p>Sets the invocant&#39;s <code>$.chomp</code> attribute to the assigned value. All source handles, including the active one will use the provided <code>$.chomp</code> value.</p>
+<pre class="pod-block-code">(my $f1 = &#39;foo&#39;.IO).spurt: &quot;A\nB\nC\n&quot;;
+(my $f2 = &#39;bar&#39;.IO).spurt: &quot;D\nE\n&quot;;
+with IO::CatHandle.new: $f1, $f2 {
+    # .chomp is True by default:
+    (.get xx 2).raku.say; # OUTPUT: «(&quot;A&quot;, &quot;B&quot;).Seq␤»
+
+    .chomp = False;
+    (.get xx 3).raku.say; # OUTPUT: «(&quot;C\n&quot;, &quot;D\n&quot;, &quot;E\n&quot;).Seq␤»
+    .close
+}
+</pre>
+<h2 id="method_nl-in"><a class="u" href="#___top" title="go to top of document">method nl-in</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method nl-in(IO::CatHandle:D:) is rw</pre>
+<p>Sets the invocant&#39;s <code>$.nl-in</code> attribute to the assigned value, which can be a <a href="/Documentable/integration-test/type/Str">Str</a> or a <a href="/Documentable/integration-test/type/List">List</a> of <a href="/Documentable/integration-test/type/Str">Str</a>, where each <a href="/Documentable/integration-test/type/Str">Str</a> object represents the end-of-line string. All source handles, including the active one will use the provided <code>$.nl-in</code> value. Note that source handle boundary is always counted as a new line break.</p>
+<pre class="pod-block-code">(my $f1 = &#39;foo&#39;.IO).spurt: &quot;A\nB\nC&quot;;
+(my $f2 = &#39;bar&#39;.IO).spurt: &quot;DxEx&quot;;
+with IO::CatHandle.new: $f1, $f2 {
+    # .nl-in is [&quot;\n&quot;, &quot;\r\n&quot;] by default:
+    (.get xx 2).raku.say; # OUTPUT: «(&quot;A&quot;, &quot;B&quot;).Seq␤»
+
+    .nl-in = &#39;x&#39;;
+    (.get xx 3).raku.say; # OUTPUT: «(&quot;C&quot;, &quot;D&quot;, &quot;E&quot;).Seq␤»
+    .close
+}
+</pre>
+<h2 id="method_close"><a class="u" href="#___top" title="go to top of document">method close</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method close(IO::CatHandle:D: --&gt; True)</pre>
+<p>Closes the currently active source handle, as well as any already-open source handles, and empties the source handle queue. Unlike a regular <a href="/Documentable/integration-test/type/IO::Handle">IO::Handle</a>, an explicit call to <code>.close</code> is often not necessary on a CatHandle, as merely exhausting all the input closes all the handles that need to be closed.</p>
+<pre class="pod-block-code">with IO::CatHandle.new: @bunch-of-handles {
+    say .readchars: 42;
+    .close; # we are done; close all the open handles
+}
+</pre>
+<h2 id="method_comb"><a class="u" href="#___top" title="go to top of document">method comb</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method comb(IO::CatHandle:D: |args --&gt; Seq:D)</pre>
+<p>Read the handle and processes its contents the same way <a href="/Documentable/integration-test/type/Str#routine_comb"><code>Str.comb</code></a> does, taking the same arguments. <strong>Implementations may slurp the contents of all the source handles</strong> in their entirety when this method is called.</p>
+<pre class="pod-block-code">(my $f1 = &#39;foo&#39;.IO).spurt: &#39;foo&#39;;
+(my $f2 = &#39;bar&#39;.IO).spurt: &#39;bar&#39;;
+IO::CatHandle.new($f1, $f2).comb(2).raku.say;
+# OUTPUT: «(&quot;fo&quot;, &quot;ob&quot;, &quot;ar&quot;).Seq␤»
+</pre>
+<h2 id="method_DESTROY"><a class="u" href="#___top" title="go to top of document">method DESTROY</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method DESTROY(IO::CatHandle:D:)</pre>
+<p>Calls <a href="/Documentable/integration-test/type/IO::CatHandle#method_close"><code>.close</code></a>. This method isn&#39;t to be used directly, but is something that&#39;s called during garbage collection.</p>
+<h2 id="method_encoding"><a class="u" href="#___top" title="go to top of document">method encoding</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method encoding(IO::CatHandle:D:)
+multi method encoding(IO::CatHandle:D: $new-encoding)</pre>
+<p>Sets the invocant&#39;s <code>$.encoding</code> attribute to the provided value. Valid values are the same as those accepted by <a href="/Documentable/integration-test/type/IO::Handle#method_encoding"><code>IO::Handle.encoding</code></a> (use value <a href="/Documentable/integration-test/type/Nil">Nil</a> to switch to binary mode). All source handles, including the active one will use the provided <code>$.encoding</code> value.</p>
+<pre class="pod-block-code">(my $f1 = &#39;foo&#39;.IO).spurt: &#39;I ♥ Perl&#39;;
+(my $f2 = &#39;bar&#39;.IO).spurt: &#39;meow&#39;;
+with IO::CatHandle.new: $f1, $f2 {
+    # .encoding is &#39;utf8&#39; by default:
+    .readchars(5).say; # OUTPUT: «I ♥ P␤»
+
+    .encoding: Nil; # switch to binary mode
+    .slurp.say; # OUTPUT: «Buf[uint8]:0x&lt;72 6c 6d 65 6f 77&gt;␤»
+}
+</pre>
+<h2 id="method_eof"><a class="u" href="#___top" title="go to top of document">method eof</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method eof(IO::CatHandle:D: --&gt; Bool:D)</pre>
+<p>Returns <code>True</code> if the read operations have exhausted the source handle queue, including the contents of the last handle. <strong>Note:</strong> calling this method may cause one or more <a href="/Documentable/integration-test/type/IO::CatHandle#method_on-switch"><code>.on-switch</code></a> calls, while the source handle queue is examined, and the <a href="/Documentable/integration-test/type/IO::CatHandle#method_next-handle">source handle queue may get exhausted</a>.</p>
+<pre class="pod-block-code">(my $f1 = &#39;foo&#39;.IO).spurt: &#39;foo&#39;;
+(my $f2 = &#39;bar&#39;.IO).spurt: &#39;bar&#39;;
+with IO::CatHandle.new: :on-switch{ print &#39;SWITCH! &#39; }, $f1, $f2 {
+                   # OUTPUT: «SWITCH! »
+    .eof.say;      # OUTPUT: «False␤»
+    .readchars(3);
+    .eof.say;      # OUTPUT: «SWITCH! False␤»
+
+    .slurp;        # OUTPUT: «SWITCH! »
+    .eof.say;      # OUTPUT: «True␤»
+}
+</pre>
+<p>The same caveats for non-seekable handles and empty files that apply to <a href="/Documentable/integration-test/type/IO::Handle#method_eof">IO::Handle.eof</a> apply here.</p>
+<h2 id="method_get"><a class="u" href="#___top" title="go to top of document">method get</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method get(IO::CatHandle:D: --&gt; Bool:D)</pre>
+<p>Returns a single line of input from the handle, with the new line string defined by the value(s) of <a href="/Documentable/integration-test/type/IO::CatHandle#method_nl-in"><code>$.nl-in</code> attribute</a>, which will be removed from the line if <a href="/Documentable/integration-test/type/IO::CatHandle#method_chomp"><code>$.chomp</code> attribute</a> is set to <code>True</code>. Returns <code>Nil</code> when there is no more input. It is an error to call this method when the handle is <a href="/Documentable/integration-test/type/IO::CatHandle#method_encoding">in binary mode</a>, resulting in <code>X::IO::BinaryMode</code> exception being thrown.</p>
+<pre class="pod-block-code">(my $f1 = &#39;foo&#39;.IO).spurt: &quot;a\nb\nc&quot;;
+(my $f2 = &#39;bar&#39;.IO).spurt: &quot;d\ne&quot;;
+my $cat = IO::CatHandle.new: $f1, $f2;
+.say while $_ = $cat.get; # OUTPUT: «a␤b␤c␤d␤e␤»
+</pre>
+<h2 id="method_getc"><a class="u" href="#___top" title="go to top of document">method getc</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method getc(IO::CatHandle:D: --&gt; Bool:D)</pre>
+<p>Returns a single character of input from the handle. All the caveats described in <a href="/Documentable/integration-test/type/IO::Handle#routine_getc"><code>IO::Handle.getc</code></a> apply. Returns <code>Nil</code> when there is no more input. It is an error to call this method when the handle is <a href="/Documentable/integration-test/type/IO::CatHandle#method_encoding">in binary mode</a>, resulting in <code>X::IO::BinaryMode</code> exception being thrown.</p>
+<pre class="pod-block-code">(my $f1 = &#39;foo&#39;.IO).spurt: &#39;I ♥ Perl&#39;;
+(my $f2 = &#39;bar&#39;.IO).spurt: &#39;meow&#39;;
+my $cat = IO::CatHandle.new: $f1, $f2;
+.say while $_ = $cat.getc; # OUTPUT: «I␤ ␤♥␤ ␤P␤e␤r␤l␤m␤e␤o␤w␤»
+</pre>
+<h2 id="method_handles"><a class="u" href="#___top" title="go to top of document">method handles</a></h2>
+<p>Defines as:</p>
+<pre class="pod-block-code">method handles(IO::CatHandle:D: --&gt; Seq:D)</pre>
+<p>Returns a <a href="/Documentable/integration-test/type/Seq">Seq</a> containing the currently-active handle, as well as all the remaining source handles produced by calling <a href="/Documentable/integration-test/routine/next-handle">next-handle</a>. If the invocant has already been fully-consumed, returns an empty <a href="/Documentable/integration-test/type/Seq">Seq</a>.</p>
+<p>This method is especially handy when working with <a href="/Documentable/integration-test/type/IO::ArgFiles">IO::ArgFiles</a>, where you want to treat each filehandle separately:</p>
+<pre class="pod-block-code"># print at most the first 2 lines of each file in $*ARGFILES:
+.say for flat $*ARGFILES.handles.map: *.lines: 2</pre>
+<p>It <em>is</em> acceptable to call this method multiple times; <code>.handles.head</code> is a valid idiom for obtaining the currently-active handle. If, between <a href="/Documentable/integration-test/language/glossary#index-entry-Reify">reification</a> of the elements of the returned <a href="/Documentable/integration-test/type/Seq">Seq</a> the handles get switched by some other means, the next element produced by the <a href="/Documentable/integration-test/type/Seq">Seq</a> would be the next handle of the invocant, not the handle that would&#39;ve been produced if no switching occurred:</p>
+<pre class="pod-block-code">(my $file1 := &#39;file1&#39;.IO).spurt: &quot;1a\n1b\n1c&quot;;
+(my $file2 := &#39;file2&#39;.IO).spurt: &quot;2a\n2b\n2c&quot;;
+(my $file3 := &#39;file3&#39;.IO).spurt: &quot;3a\n3b\n3c&quot;;
+my $cat := IO::CatHandle.new: $file1, $file2, $file3;
+for $cat.handles {
+    say .lines: 2;
+    $cat.next-handle;
+}
+# OUTPUT: «(1a 1b)␤(3a 3b)␤»</pre>
+<p>Likewise, reifying the returned <a href="/Documentable/integration-test/type/Seq">Seq</a> consumes the invocant&#39;s source handles and once it is fully reified the invocant becomes fully-consumed.</p>
+<h2 id="method_IO"><a class="u" href="#___top" title="go to top of document">method IO</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method IO(IO::CatHandle:D:)</pre>
+<p>Alias for <a href="/Documentable/integration-test/type/IO::CatHandle#method_path"><code>.path</code></a></p>
+<h2 id="method_lines"><a class="u" href="#___top" title="go to top of document">method lines</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method lines(IO::CatHandle:D: $limit = Inf, :$close --&gt; Seq:D)</pre>
+<p>Same as <a href="/Documentable/integration-test/type/IO::Handle#routine_lines"><code>IO::Handle.lines</code></a>. Note that a boundary between source handles is considered to be a newline break.</p>
+<pre class="pod-block-code">(my $f1 = &#39;foo&#39;.IO).spurt: &quot;foo\nbar&quot;;
+(my $f2 = &#39;bar&#39;.IO).spurt: &#39;meow&#39;;
+IO::CatHandle.new($f1, $f2).lines.raku.say;
+# OUTPUT: «(&quot;foo&quot;, &quot;bar&quot;, &quot;meow&quot;).Seq␤»
+</pre>
+<p>Note: if <code>:$close</code> is <code>False</code>, fully-consumed handles are <strong>still</strong> going to be closed.</p>
+<h2 id="method_lock"><a class="u" href="#___top" title="go to top of document">method lock</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method lock(IO::CatHandle:D: Bool:D :$non-blocking = False, Bool:D :$shared = False --&gt; True)</pre>
+<p>Same as <a href="/Documentable/integration-test/type/IO::Handle#method_lock"><code>IO::Handle.lock</code></a>. Returns <a href="/Documentable/integration-test/type/Nil">Nil</a> if the <a href="/Documentable/integration-test/type/IO::CatHandle#method_next-handle">source handle queue has been exhausted</a>.</p>
+<p>Locks only the currently active source handle. The <a href="/Documentable/integration-test/type/IO::CatHandle#method_on-switch"><code>.on-switch</code></a> <a href="/Documentable/integration-test/type/Callable">Callable</a> can be used to conveniently lock/unlock the handles as they&#39;re being processed by the CatHandle.</p>
+<h2 id="method_native-descriptor"><a class="u" href="#___top" title="go to top of document">method native-descriptor</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method native-descriptor(IO::CatHandle:D: --&gt; Int:D)</pre>
+<p>Returns the <a href="/Documentable/integration-test/type/IO::Handle#method_native-descriptor">native-descriptor</a> of the currently active source handle or <a href="/Documentable/integration-test/type/Nil">Nil</a> if the <a href="/Documentable/integration-test/type/IO::CatHandle#method_next-handle">source handle queue has been exhausted</a>.</p>
+<p>Since the <code>CatHandle</code> closes a source handle, once it&#39;s done with it, it&#39;s possible for successive source handles to have the same native descriptor, if they were passed to <a href="/Documentable/integration-test/type/IO::CatHandle#method_new">.new</a> as <a href="/Documentable/integration-test/type/Cool">Cool</a> or <a href="/Documentable/integration-test/type/IO::Path">IO::Path</a> objects.</p>
+<pre class="pod-block-code">(my $f1 = &#39;foo&#39;.IO).spurt: &#39;foo&#39;;
+(my $f2 = &#39;bar&#39;.IO).spurt: &#39;bar&#39;;
+with IO::CatHandle.new: $f1, $f2, $*IN {
+    repeat { .native-descriptor.say } while .next-handle;
+    # OUTPUT: «13␤13␤9␤»
+}
+</pre>
+<h2 id="method_next-handle"><a class="u" href="#___top" title="go to top of document">method next-handle</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method next-handle(IO::CatHandle:D: --&gt; IO::Handle:D)</pre>
+<p>Switches the active source handle to the next handle in the source handle queue, which is the sources given in <code>@handles</code> attribute to <a href="/Documentable/integration-test/type/IO::CatHandle#method_new"><code>.new</code></a>. The return value is the currently active source handle or <code>Nil</code> if the source handle queue has been exhausted.</p>
+<p>Coerces <a href="/Documentable/integration-test/type/Cool">Cool</a> source &quot;handles&quot; to <a href="/Documentable/integration-test/type/IO::Path">IO::Path</a>; opens <a href="/Documentable/integration-test/type/IO::Path">IO::Path</a> and unopened <a href="/Documentable/integration-test/type/IO::Handle">IO::Handle</a> source handles for reading using the invocant&#39;s <a href="/Documentable/integration-test/type/IO::CatHandle#method_nl-in"><code>$.nl-in</code></a>, <a href="/Documentable/integration-test/type/IO::CatHandle#method_chomp"><code>$.chomp</code></a>, and <a href="/Documentable/integration-test/type/IO::CatHandle#method_encoding"><code>$.encoding</code></a> attributes; those same attributes of already-opened <a href="/Documentable/integration-test/type/IO::Handle">IO::Handle</a> objects will be changed to the values of the invocant&#39;s attributes.</p>
+<p>This method is called automatically whenever CatHandle&#39;s methods require a switch to the next source handle, triggers <a href="/Documentable/integration-test/type/IO::CatHandle#method_on-switch"><code>.on-switch</code></a> <a href="/Documentable/integration-test/type/Callable">Callable</a> to be called, and is called once during <a href="/Documentable/integration-test/type/IO::CatHandle#method_new">.new</a> call. The <code>.on-switch</code> will continue to be triggered each time this method is called, even after the source handle queue has been exhausted. Note that generally reaching the EOF of the currently active source handle does not trigger the <code>.next-handle</code> call, but rather further read operations that need more data do.</p>
+<pre class="pod-block-code">(my $f1 = &#39;foo&#39;.IO).spurt: &quot;a\nb&quot;;
+(my $f2 = &#39;bar&#39;.IO).spurt: &quot;c\nd&quot;;
+with IO::CatHandle.new: :on-switch{ say &#39;▸ Switching&#39; }, $f1, $f2 {
+    say &#39;one&#39;;
+    .next-handle.^name.say;
+    say &#39;two&#39;;
+    .next-handle.^name.say;
+    say &#39;three&#39;;
+    .next-handle.^name.say;
+    # OUTPUT:
+    # ▸ Switching
+    # one
+    # ▸ Switching
+    # IO::Handle
+    # two
+    # ▸ Switching
+    # Nil
+    # three
+    # ▸ Switching
+    # Nil
+}
+</pre>
+<h2 id="method_on-switch"><a class="u" href="#___top" title="go to top of document">method on-switch</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">has &amp;.on-switch is rw</pre>
+<p>One of the attributes that can be set during <a href="/Documentable/integration-test/type/IO::CatHandle#method_new"><code>.new</code></a> call and changed later by assigning to. By default is not specified. Takes a <a href="/Documentable/integration-test/type/Callable">Callable</a> with <a href="/Documentable/integration-test/type/Code#method_count"><code>.count</code></a> of <code>0</code>, <code>1</code>, <code>2</code>, or <code>Inf</code>. Gets called every time <a href="/Documentable/integration-test/type/IO::CatHandle#method_next-handle"><code>.next-handle</code></a> is, which happens once during <a href="/Documentable/integration-test/type/IO::CatHandle#method_new"><code>.new</code></a> call and then each time a source handle is switched to the next one in the queue, or when the <a href="/Documentable/integration-test/type/IO::CatHandle#method_next-handle"><code>.next-handle</code></a> method is called manually.</p>
+<p>If the <a href="/Documentable/integration-test/type/Code#method_count"><code>.count</code></a> of <code>&amp;.on-switch</code> is <code>0</code>, it receives no arguments; if it&#39;s <code>1</code>, it receives the currently active handle, and if it&#39;s <code>2</code> or <code>Inf</code>, it receives the currently active handle, and the last active handle as positional arguments (in that order). On the very first <code>&amp;.on-switch</code> execution, the &quot;last active handle&quot; argument is <code>Nil</code>. Upon source handle queue exhaustion the &quot;currently active handle&quot; argument is <code>Nil</code>, and all the executions made afterwards have both arguments as <code>Nil</code>.</p>
+<pre class="pod-block-code">(my $f1 = &#39;foo&#39;.IO).spurt: &quot;A\nB\nC&quot;;
+(my $f2 = &#39;bar&#39;.IO).spurt: &quot;D\nE&quot;;
+
+my $line;
+my $cat = IO::CatHandle.new: :on-switch{ $line = 1 }, $f1, $f2;
+say &quot;{$cat.path}:{$line++} $_&quot; for $cat.lines;
+# OUTPUT:
+# foo:1 A
+# foo:2 B
+# foo:3 C
+# bar:1 D
+# bar:2 E
+</pre>
+<pre class="pod-block-code">my @old-stuff;
+sub on-switch ($new, $old) {
+    $new and $new.seek: 1, SeekFromBeginning;
+    $old and @old-stuff.push: $old.open.slurp: :close;
+}
+
+(my $f1 = &#39;foo&#39;.IO).spurt: &quot;A\nB\nC&quot;;
+(my $f2 = &#39;bar&#39;.IO).spurt: &quot;D\nE&quot;;
+my $cat = IO::CatHandle.new: :&amp;on-switch, $f1, $f2;
+$cat.lines.raku.say; # OUTPUT: «(&quot;&quot;, &quot;B&quot;, &quot;C&quot;, &quot;&quot;, &quot;E&quot;).Seq␤»
+@old-stuff.raku.say; # OUTPUT: «[&quot;A\nB\nC&quot;, &quot;D\nE&quot;]␤»
+</pre>
+<h2 id="method_open"><a class="u" href="#___top" title="go to top of document">method open</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method open(IO::CatHandle:D: --&gt; IO::CatHandle:D)</pre>
+<p>Returns the invocant. The intent of this method is to merely make CatHandle workable with things that open <a href="/Documentable/integration-test/type/IO::Handle">IO::Handle</a>. You never have to call this method intentionally.</p>
+<h2 id="method_opened"><a class="u" href="#___top" title="go to top of document">method opened</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method opened(IO::CatHandle:D: --&gt; Bool:D)</pre>
+<p>Returns <code>True</code> if the invocant has any source handles, <code>False</code> otherwise.</p>
+<pre class="pod-block-code">say IO::CatHandle.new      .opened; # OUTPUT: «False␤»
+say IO::CatHandle.new($*IN).opened; # OUTPUT: «True␤»
+
+(my $f1 = &#39;foo&#39;.IO).spurt: &quot;A\nB\nC&quot;;
+with IO::CatHandle.new: $f1 {
+    .opened.say; # OUTPUT: «True␤»
+    .slurp;
+    .opened.say; # OUTPUT: «False␤»
+}
+</pre>
+<h2 id="method_path"><a class="u" href="#___top" title="go to top of document">method path</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method path(IO::CatHandle:D:)</pre>
+<p>Returns the value of <a href="/Documentable/integration-test/type/IO::Handle#method_path"><code>.path</code> attribute</a> of the currently active source handle, or <a href="/Documentable/integration-test/type/Nil">Nil</a> if the <a href="/Documentable/integration-test/type/IO::CatHandle#method_next-handle">source handle queue has been exhausted</a>. Basically, if your CatHandle is based on files, this is the way to get the path of the file the CatHandle is currently reading from.</p>
+<pre class="pod-block-code">(my $f1 = &#39;foo&#39;.IO).spurt: &quot;A\nB\nC&quot;;
+(my $f2 = &#39;bar&#39;.IO).spurt: &quot;D\nE&quot;;
+
+my $line;
+my $cat = IO::CatHandle.new: :on-switch{ $line = 1 }, $f1, $f2;
+say &quot;{$cat.path}:{$line++} $_&quot; for $cat.lines;
+# OUTPUT:
+# foo:1 A
+# foo:2 B
+# foo:3 C
+# bar:1 D
+# bar:2 E
+</pre>
+<h2 id="method_read"><a class="u" href="#___top" title="go to top of document">method read</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method read(IO::CatHandle:D: Int(Cool:D) $bytes = 65536 --&gt; Buf:D)</pre>
+<p>Reads up to <code>$bytes</code> bytes from the handle and returns them in a <a href="/Documentable/integration-test/type/Buf">Buf</a>. <code>$bytes</code> defaults to an implementation-specific value (in Rakudo, the value of <code>$*DEFAULT-READ-ELEMS</code>, which by default is set to <code>65536</code>). It is permitted to call this method on handles that are not in binary mode.</p>
+<pre class="pod-block-code">(my $f1 = &#39;foo&#39;.IO).spurt: &#39;meow&#39;;
+(my $f2 = &#39;bar&#39;.IO).spurt: Blob.new: 4, 5, 6;
+with IO::CatHandle.new: :bin, $f1, $f2 {
+    say .read: 2;    # OUTPUT: «Buf[uint8]:0x&lt;6d 65&gt;␤»
+    say .read: 2000; # OUTPUT: «Buf[uint8]:0x&lt;6f 77 04 05 06&gt;␤»
+}
+
+# Non-binary mode is OK too:
+with IO::CatHandle.new: $f1, $f2 {
+    say .get;        # OUTPUT: «meow␤»
+    say .read: 2000; # OUTPUT: «Buf[uint8]:0x&lt;04 05 06&gt;␤»
+}
+</pre>
+<h2 id="method_readchars"><a class="u" href="#___top" title="go to top of document">method readchars</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method readchars(IO::CatHandle:D: Int(Cool:D) $chars = 65536 --&gt; Str:D)</pre>
+<p>Returns a <a href="/Documentable/integration-test/type/Str">Str</a> of up to <code>$chars</code> characters read from the handle. <code>$chars</code> defaults to an implementation-specific value (in Rakudo, the value of <code>$*DEFAULT-READ-ELEMS</code>, which by default is set to <code>65536</code>). It is <strong>NOT</strong> permitted to call this method on handles opened in binary mode and doing so will result in <code>X::IO::BinaryMode</code> exception being thrown.</p>
+<pre class="pod-block-code">(my $f1 = &#39;foo&#39;.IO).spurt: &#39;Perl loves to&#39;;
+(my $f2 = &#39;bar&#39;.IO).spurt: &#39; meow&#39;;
+
+with IO::CatHandle.new: $f1, $f2 {
+    say .readchars: 11;   # OUTPUT: «Perl loves ␤»
+    say .readchars: 1000; # OUTPUT: «to meow␤»
+}
+</pre>
+<h2 id="method_seek"><a class="u" href="#___top" title="go to top of document">method seek</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method seek(IO::CatHandle:D: |c)</pre>
+<p>Calls <a href="/Documentable/integration-test/type/IO::Handle#method_seek"><code>.seek</code></a> on the currently active source handle, forwarding it all the arguments, and returns the result. Returns <a href="/Documentable/integration-test/type/Nil">Nil</a> if the <a href="/Documentable/integration-test/type/IO::CatHandle#method_next-handle">source handle queue has been exhausted</a>. <strong>NOTE:</strong> this method does <em>NOT</em> perform any source handle switching, so seeking past the end of the current source handle will <em>NOT</em> seek to the next source handle in the queue and seeking past the beginning of the current source handle is a fatal error. Also see <a href="/Documentable/integration-test/type/IO::CatHandle#method_next-handle"><code>.next-handle</code></a>, to learn the details on when source handles are switched.</p>
+<pre class="pod-block-code">(my $f1 = &#39;foo&#39;.IO).spurt: &#39;foo&#39;;
+(my $f2 = &#39;bar&#39;.IO).spurt: &#39;bar&#39;;
+
+with IO::CatHandle.new: $f1, $f2 {
+    .get.say;                     # OUTPUT: «foo␤»
+    .seek: -2, SeekFromCurrent;
+    .readchars(2).say;            # OUTPUT: «oo␤»
+    .seek: 1000, SeekFromCurrent; # this doesn&#39;t switch to second handle!
+    .readchars(3).say;            # OUTPUT: «bar␤»
+    try .seek: -4;                # this won&#39;t seek to previous handle!
+    say ~$!;                      # OUTPUT: «Failed to seek in filehandle: 22␤»
+}
+</pre>
+<h2 id="method_tell"><a class="u" href="#___top" title="go to top of document">method tell</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method tell(IO::CatHandle:D: --&gt; Int:D)</pre>
+<p>Calls <a href="/Documentable/integration-test/type/IO::Handle#method_tell"><code>.tell</code></a> on the currently active source handle and returns the result. Returns <a href="/Documentable/integration-test/type/Nil">Nil</a> if the <a href="/Documentable/integration-test/type/IO::CatHandle#method_next-handle">source handle queue has been exhausted</a>.</p>
+<pre class="pod-block-code">(my $f1 = &#39;foo&#39;.IO).spurt: &#39;foo&#39;;
+(my $f2 = &#39;bar&#39;.IO).spurt: &#39;bar&#39;;
+
+with IO::CatHandle.new: $f1, $f2 {
+    .get.say;                   # OUTPUT: «foo␤»
+    .tell.say;                  # OUTPUT: «3␤»
+    .seek: -2, SeekFromCurrent;
+    .tell.say;                  # OUTPUT: «1␤»
+    say .readchars: 3;          # OUTPUT: «oob␤»
+    .tell.say;                  # OUTPUT: «2␤»
+    }
+</pre>
+<h2 id="method_slurp"><a class="u" href="#___top" title="go to top of document">method slurp</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method slurp(IO::CatHandle:D:)</pre>
+<p>Reads all of the available input from all the source handles and returns it as a <a href="/Documentable/integration-test/type/Buf">Buf</a> if the handle is in <a href="/Documentable/integration-test/type/IO::CatHandle#method_encoding">binary mode</a> or as a <a href="/Documentable/integration-test/type/Str">Str</a> otherwise. Returns <a href="/Documentable/integration-test/type/Nil">Nil</a> if the <a href="/Documentable/integration-test/type/IO::CatHandle#method_next-handle">source handle queue has been exhausted</a>.</p>
+<pre class="pod-block-code">(my $f1 = &#39;foo&#39;.IO).spurt: &#39;foo&#39;;
+(my $f2 = &#39;bar&#39;.IO).spurt: &#39;bar&#39;;
+
+IO::CatHandle.new(      $f1, $f2).slurp.say; # OUTPUT: «foobar␤»
+IO::CatHandle.new(:bin, $f1, $f2).slurp.say; # OUTPUT: «Buf[uint8]:0x&lt;66 6f 6f 62 61 72&gt;␤»
+IO::CatHandle.new                .slurp.say; # OUTPUT: «Nil␤»
+</pre>
+<h2 id="method_split"><a class="u" href="#___top" title="go to top of document">method split</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method split(IO::CatHandle:D: |args --&gt; Seq:D)</pre>
+<p>Read the handle and processes its contents the same way <a href="/Documentable/integration-test/type/Str#routine_split"><code>Str.split</code></a> does, taking the same arguments. <strong>Implementations may slurp the contents of all the source handles</strong> in their entirety when this method is called.</p>
+<pre class="pod-block-code">(my $f1 = &#39;foo&#39;.IO).spurt: &#39;foo&#39;;
+(my $f2 = &#39;bar&#39;.IO).spurt: &#39;bar&#39;;
+IO::CatHandle.new($f1, $f2).split(/o+/).raku.say;
+# OUTPUT: «(&quot;f&quot;, &quot;bar&quot;).Seq␤»
+</pre>
+<h2 id="method_Str"><a class="u" href="#___top" title="go to top of document">method Str</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method Str(IO::CatHandle:D: --&gt; Str:D)</pre>
+<p>Calls <a href="/Documentable/integration-test/type/IO::Handle#method_Str"><code>.Str</code></a> on the currently active source handle and returns the result. If the <a href="/Documentable/integration-test/type/IO::CatHandle#method_next-handle">source handle queue has been exhausted</a>, returns an implementation-defined string (<code>&#39;&lt;closed IO::CatHandle&gt;&#39;</code> in Rakudo).</p>
+<h2 id="method_Supply"><a class="u" href="#___top" title="go to top of document">method Supply</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method Supply(IO::CatHandle:D: :$size = 65536 --&gt; Supply:D)</pre>
+<p>Returns a <a href="/Documentable/integration-test/type/Supply">Supply</a> fed with either <a href="/Documentable/integration-test/type/IO::CatHandle#method_read"><code>.read</code></a>, if the handle is in <a href="/Documentable/integration-test/type/IO::CatHandle#method_encoding">binary mode</a>, or with <a href="/Documentable/integration-test/type/IO::CatHandle#method_readchars"><code>.readchars</code></a>, if it isn&#39;t, with reads of <code>:$size</code> bytes or characters. <code>:$size</code> defaults to an implementation-specific value (in Rakudo, the value of <code>$*DEFAULT-READ-ELEMS</code>, which by default is set to <code>65536</code>).</p>
+<pre class="pod-block-code">(my $f1 = &#39;foo&#39;.IO).spurt: &#39;foo&#39;;
+(my $f2 = &#39;bar&#39;.IO).spurt: &#39;bar&#39;;
+react whenever IO::CatHandle.new($f1, $f2).Supply: :2size {.say}
+# OUTPUT: «fo␤ob␤ar␤»
+
+react whenever IO::CatHandle.new(:bin, $f1, $f2).Supply: :2size {.say}
+# OUTPUT: «Buf[uint8]:0x&lt;66 6f&gt;␤Buf[uint8]:0x&lt;6f 62&gt;␤Buf[uint8]:0x&lt;61 72&gt;␤»
+</pre>
+<h2 id="method_t"><a class="u" href="#___top" title="go to top of document">method t</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method t(IO::CatHandle:D: --&gt; Bool:D)</pre>
+<p>Calls <a href="/Documentable/integration-test/type/IO::Handle#method_t"><code>.t</code></a>, which tells if the handle is a TTY, on the currently active source handle and returns the result. If the <a href="/Documentable/integration-test/type/IO::CatHandle#method_next-handle">source handle queue has been exhausted</a>, returns <code>False</code>.</p>
+<pre class="pod-block-code">(my $f1 = &#39;foo&#39;.IO).spurt: &#39;foo&#39;;
+with IO::CatHandle.new: $f1, $*IN {
+    repeat { .t.say } while .next-handle; # OUTPUT: «False␤True␤»
+}
+</pre>
+<h2 id="method_unlock"><a class="u" href="#___top" title="go to top of document">method unlock</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method unlock(IO::CatHandle:D:)</pre>
+<p>Same as <a href="/Documentable/integration-test/type/IO::Handle#method_unlock"><code>IO::Handle.unlock</code></a>. Returns <a href="/Documentable/integration-test/type/Nil">Nil</a> if the <a href="/Documentable/integration-test/type/IO::CatHandle#method_next-handle">source handle queue has been exhausted</a>.</p>
+<p>Unlocks only the currently active source handle. The <a href="/Documentable/integration-test/type/IO::CatHandle#method_on-switch"><code>.on-switch</code></a> <a href="/Documentable/integration-test/type/Callable">Callable</a> can be used to conveniently lock/unlock the handles as they&#39;re being processed by the CatHandle.</p>
+<h2 id="method_words"><a class="u" href="#___top" title="go to top of document">method words</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method words(IO::CatHandle:D: $limit = Inf, :$close --&gt; Seq:D)</pre>
+<p>Same as <a href="/Documentable/integration-test/type/IO::Handle#routine_words"><code>IO::Handle.words</code></a> (including the caveat about more data read than needed to make some number of words). Note that a boundary between source handles is considered to be word boundary.</p>
+<pre class="pod-block-code">(my $f1 = &#39;foo&#39;.IO).spurt: &#39;foo bar&#39;;
+(my $f2 = &#39;bar&#39;.IO).spurt: &#39;meow&#39;;
+IO::CatHandle.new($f1, $f2).words.raku.say;
+# OUTPUT: «(&quot;foo&quot;, &quot;bar&quot;, &quot;meow&quot;).Seq␤»
+</pre>
+<p>Note: if <code>:$close</code> is <code>False</code>, fully-consumed handles are <strong>still</strong> going to be closed.</p>
+<h1 id="NYI_Methods"><a class="u" href="#___top" title="go to top of document">NYI Methods</a></h1>
+<p>The <a href="/Documentable/integration-test/type/IO::CatHandle">IO::CatHandle</a> type overrides these methods to throw a <a href="/Documentable/integration-test/type/X::NYI"><code>X::NYI</code></a> exception.</p>
+<h2 id="method_flush"><a class="u" href="#___top" title="go to top of document">method flush</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method flush(|)</pre>
+<p>The <a href="/Documentable/integration-test/type/IO::CatHandle">IO::CatHandle</a> type overrides this method to throw a <code>X::NYI</code> exception. If you have a good idea for how this method should behave, <a href="https://webchat.freenode.net/?channels=#raku-dev">tell Rakudo developers about it</a>!</p>
+<h2 id="method_nl-out"><a class="u" href="#___top" title="go to top of document">method nl-out</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method nl-out(|)</pre>
+<p>The <a href="/Documentable/integration-test/type/IO::CatHandle">IO::CatHandle</a> type overrides this method to throw a <code>X::NYI</code> exception. If you have a good idea for how this method should behave, <a href="https://webchat.freenode.net/?channels=#raku-dev">tell Rakudo developers about it</a>!</p>
+<h2 id="method_out-buffer"><a class="u" href="#___top" title="go to top of document">method out-buffer</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method out-buffer(|)</pre>
+<p>The <a href="/Documentable/integration-test/type/IO::CatHandle">IO::CatHandle</a> type overrides this method to throw a <code>X::NYI</code> exception. If you have a good idea for how this method should behave, <a href="https://webchat.freenode.net/?channels=#raku-dev">tell Rakudo developers about it</a>!</p>
+<h2 id="method_print"><a class="u" href="#___top" title="go to top of document">method print</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method print(|)</pre>
+<p>The <a href="/Documentable/integration-test/type/IO::CatHandle">IO::CatHandle</a> type overrides this method to throw a <code>X::NYI</code> exception. If you have a good idea for how this method should behave, <a href="https://webchat.freenode.net/?channels=#raku-dev">tell Rakudo developers about it</a>!</p>
+<h2 id="method_printf"><a class="u" href="#___top" title="go to top of document">method printf</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method printf(|)</pre>
+<p>The <a href="/Documentable/integration-test/type/IO::CatHandle">IO::CatHandle</a> type overrides this method to throw a <code>X::NYI</code> exception. If you have a good idea for how this method should behave, <a href="https://webchat.freenode.net/?channels=#raku-dev">tell Rakudo developers about it</a>!</p>
+<h2 id="method_print-nl"><a class="u" href="#___top" title="go to top of document">method print-nl</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method print-nl(|)</pre>
+<p>The <a href="/Documentable/integration-test/type/IO::CatHandle">IO::CatHandle</a> type overrides this method to throw a <code>X::NYI</code> exception. If you have a good idea for how this method should behave, <a href="https://webchat.freenode.net/?channels=#raku-dev">tell Rakudo developers about it</a>!</p>
+<h2 id="method_put"><a class="u" href="#___top" title="go to top of document">method put</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method put(|)</pre>
+<p>The <a href="/Documentable/integration-test/type/IO::CatHandle">IO::CatHandle</a> type overrides this method to throw a <code>X::NYI</code> exception. If you have a good idea for how this method should behave, <a href="https://webchat.freenode.net/?channels=#raku-dev">tell Rakudo developers about it</a>!</p>
+<h2 id="method_say"><a class="u" href="#___top" title="go to top of document">method say</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method say(|)</pre>
+<p>The <a href="/Documentable/integration-test/type/IO::CatHandle">IO::CatHandle</a> type overrides this method to throw a <code>X::NYI</code> exception. If you have a good idea for how this method should behave, <a href="https://webchat.freenode.net/?channels=#raku-dev">tell Rakudo developers about it</a>!</p>
+<h2 id="method_write"><a class="u" href="#___top" title="go to top of document">method write</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method write(|)</pre>
+<p>The <a href="/Documentable/integration-test/type/IO::CatHandle">IO::CatHandle</a> type overrides this method to throw a <code>X::NYI</code> exception. If you have a good idea for how this method should behave, <a href="https://webchat.freenode.net/?channels=#raku-dev">tell Rakudo developers about it</a>!</p>
+<h2 id="method_WRITE"><a class="u" href="#___top" title="go to top of document">method WRITE</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method WRITE(|)</pre>
+<p>The <a href="/Documentable/integration-test/type/IO::CatHandle">IO::CatHandle</a> type overrides this method to throw a <code>X::NYI</code> exception. If you have a good idea for how this method should behave, <a href="https://webchat.freenode.net/?channels=#raku-dev">tell Rakudo developers about it</a>!</p>
+<h2 id="method_READ"><a class="u" href="#___top" title="go to top of document">method READ</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method EOF(|)</pre>
+<p>The <a href="/Documentable/integration-test/type/IO::CatHandle">IO::CatHandle</a> type overrides this method to throw a <code>X::NYI</code> exception. If you have a good idea for how this method should behave, <a href="https://webchat.freenode.net/?channels=#raku-dev">tell Rakudo developers about it</a>!</p>
+<h2 id="method_EOF"><a class="u" href="#___top" title="go to top of document">method EOF</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method EOF(|)</pre>
+<p>The <a href="/Documentable/integration-test/type/IO::CatHandle">IO::CatHandle</a> type overrides this method to throw a <code>X::NYI</code> exception. If you have a good idea for how this method should behave, <a href="https://webchat.freenode.net/?channels=#raku-dev">tell Rakudo developers about it</a>!</p>
+<h1 id="Type_Graph"><a class="u" href="#___top" title="go to top of document">Type Graph</a></h1>
+<figure>
+  <figcaption>Type relations for <code>IO::CatHandle</code></figcaption>
+  <svg width="156pt" height="332pt"
+ viewBox="0.00 0.00 156.19 332.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 328)">
+<title>perl6&#45;type&#45;graph</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-328 152.19,-328 152.19,4 -4,4"/>
+<!-- IO::CatHandle -->
+<g id="node1" class="node">
+<title>IO::CatHandle</title>
+<g id="a_node1"><a xlink:href="/type/IO::CatHandle" xlink:title="IO::CatHandle">
+<ellipse fill="none" stroke="#000000" cx="74.09" cy="-90" rx="74.19" ry="18"/>
+<text text-anchor="middle" x="74.09" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">IO::CatHandle</text>
+</a>
+</g>
+</g>
+<!-- IO::Handle -->
+<g id="node4" class="node">
+<title>IO::Handle</title>
+<g id="a_node4"><a xlink:href="/type/IO::Handle" xlink:title="IO::Handle">
+<ellipse fill="none" stroke="#000000" cx="74.09" cy="-162" rx="59.59" ry="18"/>
+<text text-anchor="middle" x="74.09" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#000000">IO::Handle</text>
+</a>
+</g>
+</g>
+<!-- IO::CatHandle&#45;&gt;IO::Handle -->
+<g id="edge1" class="edge">
+<title>IO::CatHandle&#45;&gt;IO::Handle</title>
+<path fill="none" stroke="#000000" d="M74.09,-108.3C74.09,-116.02 74.09,-125.29 74.09,-133.89"/>
+<polygon fill="#000000" stroke="#000000" points="70.59,-133.9 74.09,-143.9 77.59,-133.9 70.59,-133.9"/>
+</g>
+<!-- Mu -->
+<g id="node2" class="node">
+<title>Mu</title>
+<g id="a_node2"><a xlink:href="/type/Mu" xlink:title="Mu">
+<ellipse fill="none" stroke="#000000" cx="74.09" cy="-306" rx="27" ry="18"/>
+<text text-anchor="middle" x="74.09" y="-302.3" font-family="FreeSans" font-size="14.00" fill="#000000">Mu</text>
+</a>
+</g>
+</g>
+<!-- Any -->
+<g id="node3" class="node">
+<title>Any</title>
+<g id="a_node3"><a xlink:href="/type/Any" xlink:title="Any">
+<ellipse fill="none" stroke="#000000" cx="74.09" cy="-234" rx="27" ry="18"/>
+<text text-anchor="middle" x="74.09" y="-230.3" font-family="FreeSans" font-size="14.00" fill="#000000">Any</text>
+</a>
+</g>
+</g>
+<!-- Any&#45;&gt;Mu -->
+<g id="edge2" class="edge">
+<title>Any&#45;&gt;Mu</title>
+<path fill="none" stroke="#000000" d="M74.09,-252.3C74.09,-260.02 74.09,-269.29 74.09,-277.89"/>
+<polygon fill="#000000" stroke="#000000" points="70.59,-277.9 74.09,-287.9 77.59,-277.9 70.59,-277.9"/>
+</g>
+<!-- IO::Handle&#45;&gt;Any -->
+<g id="edge3" class="edge">
+<title>IO::Handle&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M74.09,-180.3C74.09,-188.02 74.09,-197.29 74.09,-205.89"/>
+<polygon fill="#000000" stroke="#000000" points="70.59,-205.9 74.09,-215.9 77.59,-205.9 70.59,-205.9"/>
+</g>
+<!-- IO::ArgFiles -->
+<g id="node5" class="node">
+<title>IO::ArgFiles</title>
+<g id="a_node5"><a xlink:href="/type/IO::ArgFiles" xlink:title="IO::ArgFiles">
+<ellipse fill="none" stroke="#000000" cx="74.09" cy="-18" rx="69.59" ry="18"/>
+<text text-anchor="middle" x="74.09" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">IO::ArgFiles</text>
+</a>
+</g>
+</g>
+<!-- IO::ArgFiles&#45;&gt;IO::CatHandle -->
+<g id="edge4" class="edge">
+<title>IO::ArgFiles&#45;&gt;IO::CatHandle</title>
+<path fill="none" stroke="#000000" d="M74.09,-36.3C74.09,-44.02 74.09,-53.29 74.09,-61.89"/>
+<polygon fill="#000000" stroke="#000000" points="70.59,-61.9 74.09,-71.9 77.59,-61.9 70.59,-61.9"/>
+</g>
+</g>
+</svg>
+
+  <p class="fallback">
+    <a
+      rel="alternate"
+      href="/images/type-graph-IO%3A%3ACatHandle.svg"
+      type="image/svg+xml"
+      >Expand above chart</a
+    >
+  </p>
+</figure>
+<h1 id="Routines_supplied_by_class_IO::Handle"><a class="u" href="#___top" title="go to top of document">Routines supplied by class IO::Handle</a></h1>
+<p>IO::CatHandle inherits from class <a href="/Documentable/integration-test/type/IO::Handle">IO::Handle</a>, which provides the following routines:</p>
+<h2 id="(IO::Handle)_method_open"><a href="/Documentable/integration-test/type/IO::Handle#method_open">(IO::Handle) method open</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method open(IO::Handle:D:
+      :$r, :$w, :$x, :$a, :$update,
+      :$rw, :$rx, :$ra,
+      :$mode is copy,
+      :$create is copy,
+      :$append is copy,
+      :$truncate is copy,
+      :$exclusive is copy,
+      :$bin,
+      :$enc is copy,
+      :$chomp = $!chomp,
+      :$nl-in is copy = $!nl-in,
+      Str:D :$nl-out is copy = $!nl-out,
+      :$out-buffer is copy,
+    )
+</pre>
+<p>Opens the handle in one of the modes. <a href="/Documentable/integration-test/routine/fail">Fails</a> with appropriate exception if the open fails.</p>
+<p>See description of individual methods for the accepted values and behavior of <a href="/Documentable/integration-test/type/IO::Handle#method_chomp"><code>:$chomp</code></a>, <a href="/Documentable/integration-test/type/IO::Handle#method_nl-in"><code>:$nl-in</code></a>, <a href="/Documentable/integration-test/type/IO::Handle#method_nl-out"><code>:$nl-out</code></a>, and <a href="/Documentable/integration-test/type/IO::Handle#method_encoding"><code>:$enc</code></a>. The values for parameters default to the invocant&#39;s attributes and if any of them are provided, the attributes will be updated to the new values. Specify <code>:$bin</code> set to <code>True</code> instead of <code>:$enc</code> to indicate the handle should be opened in binary mode. Specifying undefined value as <code>:$enc</code> is equivalent to not specifying <code>:$enc</code> at all. Specifying both a defined encoding as <code>:$enc</code> and <code>:$bin</code> set to true will cause <code>X::IO::BinaryAndEncoding</code> exception to be thrown.</p>
+<p>The open mode defaults to non-exclusive, read only (same as specifying <code>:r</code>) and can be controlled by a mix of the following arguments:</p>
+<pre class="pod-block-code">:r      same as specifying   :mode&lt;ro&gt;  same as specifying nothing
+
+:w      same as specifying   :mode&lt;wo&gt;, :create, :truncate
+:a      same as specifying   :mode&lt;wo&gt;, :create, :append
+:x      same as specifying   :mode&lt;wo&gt;, :create, :exclusive
+
+:update same as specifying   :mode&lt;rw&gt;
+:rw     same as specifying   :mode&lt;rw&gt;, :create
+:ra     same as specifying   :mode&lt;rw&gt;, :create, :append
+:rx     same as specifying   :mode&lt;rw&gt;, :create, :exclusive
+</pre>
+<p>Argument <code>:r</code> along with <code>:w</code>, <code>:a</code>, <code>:x</code> are exactly the same as the combination of both letters, shown in the three last rows in the table above. Support for combinations of modes <em>other</em> than what is listed above is implementation-dependent and should be assumed unsupported. That is, specifying, for example, <code>.open(:r :create)</code> or <code>.open(:mode&lt;wo&gt; :append :truncate)</code> might work or might cause the Universe to implode, depending on a particular implementation. This applies to reads/writes to a handle opened in such unsupported modes as well.</p>
+<p>The mode details are:</p>
+<pre class="pod-block-code">:mode&lt;ro&gt;  means &quot;read only&quot;
+:mode&lt;wo&gt;  means &quot;write only&quot;
+:mode&lt;rw&gt;  means &quot;read and write&quot;
+
+:create    means the file will be created, if it does not exist
+:truncate  means the file will be emptied, if it exists
+:exclusive means .open will fail if the file already exists
+:append    means writes will be done at the end of file&#39;s current contents
+</pre>
+<p>Attempts to open a directory, write to a handle opened in read-only mode or read from a handle opened in write-only mode, or using text-reading methods on a handle opened in binary mode will fail or throw.</p>
+<p>In <strong>6.c</strong> language, it&#39;s possible to open path <code>&#39;-&#39;</code>, which will cause <code>open</code> to open (if <code>closed</code>) the <code>$*IN</code> handle if opening in read-only mode or to open the <code>$*OUT</code> handle if opening in write-only mode. All other modes in this case will result in exception being thrown.</p>
+<p>As of <strong>6.d</strong> language version, the use of path <code>&#39;-&#39;</code> is deprecated and it will be removed in future language versions entirely.</p>
+<p>The <code>:out-buffer</code> controls output buffering and by default behaves as if it were <code>Nil</code>. See method <a href="/Documentable/integration-test/routine/out-buffer">out-buffer</a> for details.</p>
+<p><strong>Note (Rakudo versions before 2017.09): Filehandles are NOT flushed or closed when they go out of scope</strong>. While they <em>will</em> get closed when garbage collected, garbage collection isn&#39;t guaranteed to get run. This means <em>you should</em> use an explicit <code>close</code> on handles opened for writing, to avoid data loss, and an explicit <code>close</code> is <em>recommended</em> on handles opened for reading as well, so that your program does not open too many files at the same time, triggering exceptions on further <code>open</code> calls.</p>
+<p><strong>Note (Rakudo versions 2017.09 and after):</strong> Open filehandles are automatically closed on program exit, but it is still highly recommended that you <code>close</code> opened handles explicitly.</p>
+<h2 id="(IO::Handle)_method_comb"><a href="/Documentable/integration-test/type/IO::Handle#method_comb">(IO::Handle) method comb</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method comb(IO::Handle:D: Bool :$close, |args --&gt; Seq:D)</pre>
+<p>Read the handle and processes its contents the same way <a href="/Documentable/integration-test/type/Str#routine_comb"><code>Str.comb</code></a> does, taking the same arguments, closing the handle when done if <code>$close</code> is set to a true value. Implementations may slurp the file in its entirety when this method is called.</p>
+<p>Attempting to call this method when the handle is <a href="/Documentable/integration-test/type/IO::Handle#method_encoding">in binary mode</a> will result in <code>X::IO::BinaryMode</code> exception being thrown.</p>
+<pre class="pod-block-code">my $fh = &#39;path/to/file&#39;.IO.open;
+say &quot;The file has {+$fh.comb: &#39;♥&#39;, :close} ♥s in it&quot;;
+</pre>
+<h2 id="(IO::Handle)_method_chomp"><a href="/Documentable/integration-test/type/IO::Handle#method_chomp">(IO::Handle) method chomp</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">has $.chomp is rw = True</pre>
+<p>One of the attributes that can be set via <code>.new</code> or <a href="/Documentable/integration-test/routine/open">open</a>. Defaults to <code>True</code>. Takes a <a href="/Documentable/integration-test/type/Bool">Bool</a> specifying whether the line separators (as defined by <a href="/Documentable/integration-test/type/IO::Handle#method_nl-in"><code>.nl-in</code></a>) should be removed from content when using <a href="/Documentable/integration-test/type/IO::Handle#method_get"><code>.get</code></a> or <a href="/Documentable/integration-test/type/IO::Handle#routine_lines"><code>.lines</code></a> methods.</p>
+<h2 id="(IO::Handle)_routine_get"><a href="/Documentable/integration-test/type/IO::Handle#routine_get">(IO::Handle) routine get</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method get(IO::Handle:D: --&gt; Str:D)
+multi sub get (IO::Handle $fh = $*ARGFILES --&gt; Str:D)</pre>
+<p>Reads a single line of input from the handle, removing the trailing newline characters (as set by <a href="/Documentable/integration-test/routine/nl-in"><code>.nl-in</code></a>) if the handle&#39;s <code>.chomp</code> attribute is set to <code>True</code>. Returns <code>Nil</code>, if no more input is available. The subroutine form defaults to <a href="/Documentable/integration-test/language/variables#index-entry-%24%2AARGFILES"><code>$*ARGFILES</code></a> if no handle is given.</p>
+<p>Attempting to call this method when the handle is <a href="/Documentable/integration-test/type/IO::Handle#method_encoding">in binary mode</a> will result in <code>X::IO::BinaryMode</code> exception being thrown.</p>
+<pre class="pod-block-code">$*IN.get.say;              # Read one line from the standard input
+
+my $fh = open &#39;filename&#39;;
+$fh.get.say;               # Read one line from a file
+$fh.close;
+
+say get;                   # Read one line from $*ARGFILES
+</pre>
+<h2 id="(IO::Handle)_routine_getc"><a href="/Documentable/integration-test/type/IO::Handle#routine_getc">(IO::Handle) routine getc</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method getc(IO::Handle:D: --&gt; Str:D)
+multi sub getc (IO::Handle $fh = $*ARGFILES --&gt; Str:D)</pre>
+<p>Reads a single character from the input stream. Attempting to call this method when the handle is <a href="/Documentable/integration-test/type/IO::Handle#method_encoding">in binary mode</a> will result in <code>X::IO::BinaryMode</code> exception being thrown. The subroutine form defaults to <a href="/Documentable/integration-test/language/variables#index-entry-%24%2AARGFILES"><code>$*ARGFILES</code></a> if no handle is given. Returns <code>Nil</code>, if no more input is available, otherwise operation will block, waiting for at least one character to be available; these caveats apply:</p>
+<h3 id="Buffering_terminals"><a class="u" href="#___top" title="go to top of document">Buffering terminals</a></h3>
+<p>Using getc to get a single keypress from a terminal will only work properly if you&#39;ve set the terminal to &quot;unbuffered&quot;. Otherwise the terminal will wait for the return key to be struck or the buffer to be filled up before perl6 gets even a single byte of data.</p>
+<h3 id="Waiting_for_potential_combiners"><a class="u" href="#___top" title="go to top of document">Waiting for potential combiners</a></h3>
+<p>If your handle&#39;s encoding allows combining characters to be read, perl6 will wait for more data to be available before it provides a character. This means that inputting an &quot;e&quot; followed by a combining acute will give you an e with an acute rather than giving an &quot;e&quot; and letting the next reading function give you a dangling combiner. However, it also means that when the user inputs just an &quot;e&quot; and has no intention to also input a combining acute, your program will be waiting for another keypress before the initial &quot;e&quot; is returned.</p>
+<h2 id="(IO::Handle)_submethod_DESTROY"><a href="/Documentable/integration-test/type/IO::Handle#submethod_DESTROY">(IO::Handle) submethod DESTROY</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">submethod DESTROY(IO::Handle:D:)</pre>
+<p>Closes the filehandle, unless its <a href="/Documentable/integration-test/routine/native-descriptor">native-descriptor</a> is <code>2</code> or lower. This ensures the standard filehandles do not get inadvertently closed.</p>
+<p>Note that garbage collection is not guaranteed to happen, so you must NOT rely on <code>DESTROY</code> for closing the handles you <em>write to</em> and instead close them yourself. Programs that open a lot of files should close the handles explicitly as well, regardless of whether they were open for writing, since too many files might get opened before garbage collection happens and the no longer used handles get closed.</p>
+<h2 id="(IO::Handle)_method_gist"><a href="/Documentable/integration-test/type/IO::Handle#method_gist">(IO::Handle) method gist</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method gist(IO::Handle:D: --&gt; Str:D)</pre>
+<p>Returns a string containing information which <a href="/Documentable/integration-test/type/IO::Handle#method_path"><code>.path</code></a>, if any, the handle is created for and whether it is <a href="/Documentable/integration-test/type/IO::Handle#method_opened"><code>.opened</code></a>.</p>
+<pre class="pod-block-code">say IO::Handle.new; # IO::Handle&lt;(Any)&gt;(closed)
+say &quot;foo&quot;.IO.open;  # IO::Handle&lt;&quot;foo&quot;.IO&gt;(opened)
+</pre>
+<h2 id="(IO::Handle)_method_eof"><a href="/Documentable/integration-test/type/IO::Handle#method_eof">(IO::Handle) method eof</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method eof(IO::Handle:D: --&gt; Bool:D)</pre>
+<p>Non-blocking. Returns <code>True</code> if the read operations have exhausted the contents of the handle. For <a href="/Documentable/integration-test/routine/seek">seekable</a> handles, this means current position is at or beyond the end of file and <a href="/Documentable/integration-test/routine/seek">seeking</a> an exhausted handle back into the file&#39;s contents will result in <a href="/Documentable/integration-test/routine/eof">eof</a> returning <code>False</code> again.</p>
+<p>On <a href="/Documentable/integration-test/routine/seek">non-seekable</a> handles and handles opened to zero-size files (including special files in <code>/proc/</code>), EOF won&#39;t be set until a read operation fails to read any bytes. For example, in this code, the first <code>read</code> consumes all of the data, but it&#39;s only until the second <code>read</code> that reads nothing would the EOF on a TTY handle be set:</p>
+<pre class="pod-block-code">$ echo &quot;x&quot; | raku -e &#39;with $*IN { .read: 10000; .eof.say; .read: 10; .eof.say }&#39;
+False
+True
+</pre>
+<h2 id="(IO::Handle)_method_encoding"><a href="/Documentable/integration-test/type/IO::Handle#method_encoding">(IO::Handle) method encoding</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method encoding(IO::Handle:D: --&gt; Str:D)
+multi method encoding(IO::Handle:D: $enc --&gt; Str:D)</pre>
+<p>Returns a <a href="/Documentable/integration-test/type/Str">Str</a> representing the encoding currently used by the handle, defaulting to <code>&quot;utf8&quot;</code>. <code>Nil</code> indicates the filehandle is currently in binary mode. Specifying an optional positional <code>$enc</code> argument switches the encoding used by the handle; specify <code>Nil</code> as encoding to put the handle into binary mode.</p>
+<p>The accepted values for encoding are case-insensitive. The available encodings vary by implementation and backend. On Rakudo MoarVM the following are supported:</p>
+<p><a name="Documentable/integration-test/index-entry-windows-1252"></a><a name="Documentable/integration-test/index-entry-windows-1251"></a><a name="Documentable/integration-test/index-entry-windows-932"></a><a name="Documentable/integration-test/index-entry-iso-8859-1"></a><a name="Documentable/integration-test/index-entry-ascii"></a></p>
+<pre class="pod-block-code">utf8
+utf16
+utf16le
+utf16be
+utf8-c8
+iso-8859-1
+windows-1251
+windows-1252
+windows-932
+ascii
+</pre>
+<p>The default encoding is utf8, which undergoes normalization into Unicode <strong>NFC</strong> (normalization form canonical). In some cases you may want to ensure no normalization is done; for this you can use <code>utf8-c8</code>. Before using <code>utf8-c8</code> please read <a href="/Documentable/integration-test/language/unicode#File_Handles_and_I/O">Unicode: Filehandles and I/O</a> for more information on <code>utf8-c8</code> and <strong>NFC</strong>.</p>
+<p>As of Rakudo 2018.04 <a href="https://en.wikipedia.org/wiki/Code_page_932_(Microsoft_Windows)">windows-932</a> is also supported which is a variant of <a name="Documentable/integration-test/index-entry-ShiftJIS"><span class="index-entry">ShiftJIS</span></a>.</p>
+<p>Implementation may choose to also provide support for aliases, e.g. Rakudo allows aliases <code>latin-1</code> for <code>iso-8859-1</code> encoding and dashed utf versions: <code>utf-8</code> and <code>utf-16</code>.</p>
+<h3 id="utf16,_utf16le_and_utf16be"><a class="u" href="#___top" title="go to top of document">utf16, utf16le and utf16be</a></h3>
+<p><a name="Documentable/integration-test/index-entry-utf16-le"></a><a name="Documentable/integration-test/index-entry-utf16-be"></a><a name="Documentable/integration-test/index-entry-utf16"></a><a name="Documentable/integration-test/index-entry-utf-16"></a></p>
+<p>Unlike utf8, utf16 has an endianness — either big endian or little endian. This relates to the ordering of bytes. Computer CPUs also have an endianness. Raku&#39;s <code>utf16</code> format specifier will use the endianness of host system when encoding. When decoding it will look for a byte order mark and if it is there use that to set the endianness. If there is no byte order mark it will assume the file uses the same endianness as the host system. A byte order mark is the codepoint U+FEFF which is ZERO WIDTH NO-BREAK SPACE. On <code>utf16</code> encoded files the standard states if it exists at the start of a file it shall be interpreted as a byte order mark, not a U+FEFF codepoint.</p>
+<p>While writing will cause a different file to be written on different endian systems, at the release of 2018.10 the byte order mark will be written out when writing a file and files created with the utf16 encoding will be able to be read on either big or little endian systems.</p>
+<p>When using utf16be or utf16le encodings a byte order mark is <strong>not</strong> used. The endianness used is not affected by the host cpu type and is either big endian for utf16be or little endian for utf16le.</p>
+<p>In keeping with the standard, a 0xFEFF byte at the start of a file is interpreted as a ZERO WIDTH NO-BREAK SPACE and not as a byte order mark. No byte order mark is written to files that use the utf16be or utf16le encodings.</p>
+<p>As of Rakudo 2018.09 on MoarVM, utf16, <a name="Documentable/integration-test/index-entry-utf16le"><span class="index-entry">utf16le</span></a> and <a name="Documentable/integration-test/index-entry-utf16be"><span class="index-entry">utf16be</span></a> are supported. In 2018.10, writing to a file with utf16 will properly add a byte order mark (BOM).</p>
+<h3 id="Examples"><a class="u" href="#___top" title="go to top of document">Examples</a></h3>
+<pre class="pod-block-code">with &#39;foo&#39;.IO {
+    .spurt: &quot;First line is text, then:\nBinary&quot;;
+    my $fh will leave {.close} = .open;
+    $fh.get.say;         # OUTPUT: «First line is text, then:␤»
+    $fh.encoding: Nil;
+    $fh.slurp.say;       # OUTPUT: «Buf[uint8]:0x&lt;42 69 6e 61 72 79&gt;␤»
+}
+</pre>
+<h2 id="(IO::Handle)_routine_lines"><a href="/Documentable/integration-test/type/IO::Handle#routine_lines">(IO::Handle) routine lines</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">sub          lines( $what = $*ARGFILES, |c)
+multi method lines( IO::Handle:D: $limit, :$close )
+multi method lines( IO::Handle:D:         :$close )</pre>
+<p>The sub form, which takes <code>$*ARGFILES</code> by default, will apply the <code>lines</code> method to the object that&#39;s the first argument, and pass it the rest of the arguments.</p>
+<p>The method will return a <a href="/Documentable/integration-test/type/Seq">Seq</a> each element of which is a line from the handle (that is chunks delineated by <a href="/Documentable/integration-test/type/IO::Handle#method_nl-in"><code>.nl-in</code></a>). If the handle&#39;s <a href="/Documentable/integration-test/type/IO::Handle#method_chomp"><code>.chomp</code></a> attribute is set to <code>True</code>, then characters specified by <a href="/Documentable/integration-test/type/IO::Handle#method_nl-in"><code>.nl-in</code></a> will be stripped from each line.</p>
+<p>Reads up to <code>$limit</code> lines, where <code>$limit</code> can be a non-negative <a href="/Documentable/integration-test/type/Int">Int</a>, <code>Inf</code>, or <a href="/Documentable/integration-test/type/Whatever">Whatever</a> (which is interpreted to mean <code>Inf</code>). If <code>:$close</code> is set to <code>True</code>, will close the handle when the file ends or <code>$limit</code> is reached. Subroutine form defaults to <a href="/Documentable/integration-test/language/variables#index-entry-%24%2AARGFILES"><code>$*ARGFILES</code></a>, if no handle is provided.</p>
+<p>Attempting to call this method when the handle is <a href="/Documentable/integration-test/type/IO::Handle#method_encoding">in binary mode</a> will result in <code>X::IO::BinaryMode</code> exception being thrown.</p>
+<p><strong>NOTE:</strong> the lines are read lazily, so ensure the returned <a href="/Documentable/integration-test/type/Seq">Seq</a> is either <a href="/Documentable/integration-test/language/glossary#index-entry-Reify">fully reified</a> or is no longer needed when you close the handle or attempt to use any other method that changes the file position.</p>
+<pre class="pod-block-code">say &quot;The file contains &quot;,
+  &#39;50GB-file&#39;.IO.open.lines.grep(*.contains: &#39;Perl&#39;).elems,
+  &quot; lines that mention Perl&quot;;
+# OUTPUT: «The file contains 72 lines that mention Perl␤»
+</pre>
+<p>You can use <code>lines</code> in <code>/proc/*</code> files (from the 6.d version):</p>
+<pre class="pod-block-code">say lines( &quot;/proc/$*PID/statm&quot;.IO ); # OUTPUT: «(58455 31863 8304 2 0 29705 0)␤»
+</pre>
+<h2 id="(IO::Handle)_method_lock"><a href="/Documentable/integration-test/type/IO::Handle#method_lock">(IO::Handle) method lock</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method lock(IO::Handle:D: Bool:D :$non-blocking = False, Bool:D :$shared = False --&gt; True)</pre>
+<p>Places an advisory lock on the filehandle. If <code>:$non-blocking</code> is <code>True</code> will <a href="/Documentable/integration-test/routine/fail"><code>fail</code></a> with <code>X::IO::Lock</code> if lock could not be obtained, otherwise will block until the lock can be placed. If <code>:$shared</code> is <code>True</code> will place a shared (read) lock, otherwise will place an exclusive (write) lock. On success, returns <code>True</code>; <a href="/Documentable/integration-test/routine/fail">fails</a> with <code>X::IO::Lock</code> if lock cannot be placed (e.g. when trying to place a shared lock on a filehandle opened in write mode or trying to place an exclusive lock on a filehandle opened in read mode).</p>
+<p>You can use <code>lock</code> again to replace an existing lock with another one. To remove a lock, <a href="/Documentable/integration-test/routine/close"><code>close</code></a> the filehandle or use <a href="/Documentable/integration-test/routine/unlock"><code>unlock</code></a>.</p>
+<pre class="pod-block-code"># One program writes, the other reads, and thanks to locks either
+# will wait for the other to finish before proceeding to read/write
+
+# Writer
+given &quot;foo&quot;.IO.open(:w) {
+    .lock;
+    .spurt: &quot;I ♥ Raku!&quot;;
+    .close; # closing the handle unlocks it; we could also use `unlock` method for that
+}
+
+# Reader
+given &quot;foo&quot;.IO.open {
+    .lock: :shared;
+    .slurp.say; # OUTPUT: «I ♥ Raku!␤»
+    .close;
+}
+</pre>
+<h2 id="(IO::Handle)_method_unlock"><a href="/Documentable/integration-test/type/IO::Handle#method_unlock">(IO::Handle) method unlock</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method unlock(IO::Handle:D: --&gt; True)</pre>
+<p>Removes a <a href="/Documentable/integration-test/routine/lock"><code>lock</code></a> from the filehandle.</p>
+<h2 id="(IO::Handle)_routine_words"><a href="/Documentable/integration-test/type/IO::Handle#routine_words">(IO::Handle) routine words</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub words(IO::Handle:D $fh = $*ARGFILES, $limit = Inf, :$close --&gt; Seq:D)
+multi method words(IO::Handle:D: $limit = Inf, :$close --&gt; Seq:D)</pre>
+<p>Similar to <a href="/Documentable/integration-test/type/Str#routine_words"><code>Str.words</code></a>, separates the handle&#39;s stream on contiguous chunks of whitespace (as defined by Unicode) and returns a <a href="/Documentable/integration-test/type/Seq">Seq</a> of the resultant &quot;words.&quot; Takes an optional <code>$limit</code> argument that can be a non-negative <a href="/Documentable/integration-test/type/Int">Int</a>, <code>Inf</code>, or <a href="/Documentable/integration-test/type/Whatever">Whatever</a> (which is interpreted to mean <code>Inf</code>), to indicate only up-to <code>$limit</code> words must be returned. If <a href="/Documentable/integration-test/type/Bool">Bool</a> <code>:$close</code> named argument is set to <code>True</code>, will automatically close the handle when the returned <a href="/Documentable/integration-test/type/Seq">Seq</a> is exhausted. Subroutine form defaults to <a href="/Documentable/integration-test/language/variables#index-entry-%24%2AARGFILES"><code>$*ARGFILES</code></a>, if no handle is provided.</p>
+<p>Attempting to call this method when the handle is <a href="/Documentable/integration-test/type/IO::Handle#method_encoding">in binary mode</a> will result in <code>X::IO::BinaryMode</code> exception being thrown.</p>
+<pre class="pod-block-code">my %dict := bag $*IN.words;
+say &quot;Most common words: &quot;, %dict.sort(-*.value).head: 5;
+</pre>
+<p><strong>NOTE:</strong> implementations may read <em>more</em> data than necessary when a call to <code>.words</code> is made. That is, <code>$handle.words(2)</code> may read more data than two &quot;words&quot; worth of data and subsequent calls to read methods might not read from the place right after the two fetched words. After a call to <code>.words</code>, the file position should be treated as undefined.</p>
+<h2 id="(IO::Handle)_method_split"><a href="/Documentable/integration-test/type/IO::Handle#method_split">(IO::Handle) method split</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method split(IO::Handle:D: :$close, |c)</pre>
+<p><a href="/Documentable/integration-test/routine/slurp">Slurps</a> the handle&#39;s content and calls <a href="/Documentable/integration-test/type/Str#routine_split"><code>Str.split</code></a> on it, forwarding any of the given arguments. If <code>:$close</code> named parameter is set to <code>True</code>, will <a href="/Documentable/integration-test/routine/close">close</a> the invocant after slurping.</p>
+<p>Attempting to call this method when the handle is <a href="/Documentable/integration-test/type/IO::Handle#method_encoding">in binary mode</a> will result in <code>X::IO::BinaryMode</code> exception being thrown.</p>
+<pre class="pod-block-code">my $fh = &#39;path/to/file&#39;.IO.open;
+$fh.split: &#39;♥&#39;, :close; # Returns file content split on ♥
+</pre>
+<h2 id="(IO::Handle)_method_spurt"><a href="/Documentable/integration-test/type/IO::Handle#method_spurt">(IO::Handle) method spurt</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method spurt(IO::Handle:D: Blob $data, :$close = False)
+multi method spurt(IO::Handle:D: Cool $data, :$close = False)</pre>
+<p>Writes all of the <code>$data</code> into the filehandle, closing it when finished, if <code>$close</code> is <code>True</code>. For <a href="/Documentable/integration-test/type/Cool"><code>Cool</code></a> <code>$data</code>, will use the encoding the handle is set to use (<a href="/Documentable/integration-test/routine/open"><code>IO::Handle.open</code></a> or <a href="/Documentable/integration-test/routine/encoding"><code>IO::Handle.encoding</code></a>).</p>
+<p>Behavior for spurting a <a href="/Documentable/integration-test/type/Cool"><code>Cool</code></a> when the handle is in binary mode or spurting a <a href="/Documentable/integration-test/type/Blob"><code>Blob</code></a> when the handle is NOT in binary mode is undefined.</p>
+<h2 id="(IO::Handle)_method_print"><a href="/Documentable/integration-test/type/IO::Handle#method_print">(IO::Handle) method print</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method print(**@text --&gt; True)
+multi method print(Junction:D --&gt; True)</pre>
+<p>Writes the given <code>@text</code> to the handle, coercing any non-<a href="/Documentable/integration-test/type/Str">Str</a> objects to <a href="/Documentable/integration-test/type/Str">Str</a> by calling <a href="/Documentable/integration-test/routine/Str"><code>.Str</code></a> method on them. <a href="/Documentable/integration-test/type/Junction">Junction</a> arguments <a href="/Documentable/integration-test/language/glossary#index-entry-Autothreading">autothread</a> and the order of printed strings is not guaranteed. See <a href="/Documentable/integration-test/routine/write">write</a> to write bytes.</p>
+<p>Attempting to call this method when the handle is <a href="/Documentable/integration-test/type/IO::Handle#method_encoding">in binary mode</a> will result in <code>X::IO::BinaryMode</code> exception being thrown.</p>
+<pre class="pod-block-code">my $fh = &#39;path/to/file&#39;.IO.open: :w;
+$fh.print: &#39;some text&#39;;
+$fh.close;
+</pre>
+<h2 id="(IO::Handle)_method_print-nl"><a href="/Documentable/integration-test/type/IO::Handle#method_print-nl">(IO::Handle) method print-nl</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method print-nl(IO::Handle:D: --&gt; True)</pre>
+<p>Writes the value of <code>$.nl-out</code> attribute into the handle. This attribute, by default, is <code>␤</code>, but see the <a href="/Documentable/integration-test/language/newline">page on newline</a> for the rules it follows in different platforms and environments.</p>
+<p>Attempting to call this method when the handle is <a href="/Documentable/integration-test/type/IO::Handle#method_encoding">in binary mode</a> will result in <code>X::IO::BinaryMode</code> exception being thrown.</p>
+<pre class="pod-block-code">my $fh = &#39;path/to/file&#39;.IO.open: :w, :nl-out(&quot;\r\n&quot;);
+$fh.print: &quot;some text&quot;;
+$fh.print-nl; # prints \r\n
+$fh.close;
+</pre>
+<h2 id="(IO::Handle)_method_printf"><a href="/Documentable/integration-test/type/IO::Handle#method_printf">(IO::Handle) method printf</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method printf(IO::Handle:D: Cool $format, *@args)</pre>
+<p>Formats a string based on the given format and arguments and <code>.print</code>s the result into the filehandle. See <a href="/Documentable/integration-test/type/Str#sub_sprintf">sub sprintf</a> for details on acceptable format directives.</p>
+<p>Attempting to call this method when the handle is <a href="/Documentable/integration-test/type/IO::Handle#method_encoding">in binary mode</a> will result in <code>X::IO::BinaryMode</code> exception being thrown.</p>
+<pre class="pod-block-code">my $fh = open &#39;path/to/file&#39;, :w;
+$fh.printf: &quot;The value is %d\n&quot;, 32;
+$fh.close;
+</pre>
+<h2 id="(IO::Handle)_method_out-buffer"><a href="/Documentable/integration-test/type/IO::Handle#method_out-buffer">(IO::Handle) method out-buffer</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method out-buffer(--&gt; Int:D) is rw</pre>
+<p>Controls output buffering and can be set via an argument to <a href="/Documentable/integration-test/routine/open">open</a>. Takes an <code>int</code> as the size of the buffer to use (zero is acceptable). Can take a <a href="/Documentable/integration-test/type/Bool">Bool</a>: <code>True</code> means to use default, implementation-defined buffer size; <code>False</code> means to disable buffering (equivalent to using <code>0</code> as buffer size).</p>
+<p>Lastly, can take a <code>Nil</code> to enable TTY-based buffering control: if the handle <a href="/Documentable/integration-test/routine/t">is a TTY</a>, the buffering is disabled, otherwise, default, implementation-defined buffer size is used.</p>
+<p>See <a href="/Documentable/integration-test/routine/flush">flush</a> to write out data currently in the buffer. Changing buffer size flushes the filehandle.</p>
+<pre class="pod-block-code">given &#39;foo&#39;.IO.open: :w, :1000out-buffer {
+    .say: &#39;Hello world!&#39;; # buffered
+    .out-buffer = 42;       # buffer resized; previous print flushed
+    .say: &#39;And goodbye&#39;;
+    .close; # closing the handle flushes the buffer
+}
+</pre>
+<h2 id="(IO::Handle)_method_put"><a href="/Documentable/integration-test/type/IO::Handle#method_put">(IO::Handle) method put</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method put(**@text --&gt; True)
+multi method put(Junction:D --&gt; True)</pre>
+<p>Writes the given <code>@text</code> to the handle, coercing any non-<a href="/Documentable/integration-test/type/Str">Str</a> objects to <a href="/Documentable/integration-test/type/Str">Str</a> by calling <a href="/Documentable/integration-test/routine/Str"><code>.Str</code></a> method on them, and appending the value of <a href="/Documentable/integration-test/type/IO::Handle#method_nl-out"><code>.nl-out</code></a> at the end. <a href="/Documentable/integration-test/type/Junction">Junction</a> arguments <a href="/Documentable/integration-test/language/glossary#index-entry-Autothreading">autothread</a> and the order of printed strings is not guaranteed.</p>
+<p>Attempting to call this method when the handle is <a href="/Documentable/integration-test/type/IO::Handle#method_encoding">in binary mode</a> will result in <code>X::IO::BinaryMode</code> exception being thrown.</p>
+<pre class="pod-block-code">my $fh = &#39;path/to/file&#39;.IO.open: :w;
+$fh.put: &#39;some text&#39;;
+$fh.close;
+</pre>
+<h2 id="(IO::Handle)_method_say"><a href="/Documentable/integration-test/type/IO::Handle#method_say">(IO::Handle) method say</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method say(IO::Handle:D: **@text --&gt; True)</pre>
+<p>This method is identical to <a href="/Documentable/integration-test/type/IO::Handle#method_put">put</a> except that it stringifies its arguments by calling <a href="/Documentable/integration-test/routine/gist"><code>.gist</code></a> instead of <a href="/Documentable/integration-test/routine/Str"><code>.Str</code></a>.</p>
+<p>Attempting to call this method when the handle is <a href="/Documentable/integration-test/type/IO::Handle#method_encoding">in binary mode</a> will result in <code>X::IO::BinaryMode</code> exception being thrown.</p>
+<pre class="pod-block-code">my $fh = open &#39;path/to/file&#39;, :w;
+$fh.say(Complex.new(3, 4));        # OUTPUT: «3+4i␤»
+$fh.close;
+</pre>
+<h2 id="(IO::Handle)_method_read"><a href="/Documentable/integration-test/type/IO::Handle#method_read">(IO::Handle) method read</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method read(IO::Handle:D: Int(Cool:D) $bytes = 65536 --&gt; Buf:D)</pre>
+<p>Binary reading; reads and returns up to <code>$bytes</code> bytes from the filehandle. <code>$bytes</code> defaults to an implementation-specific value (in Rakudo, the value of <code>$*DEFAULT-READ-ELEMS</code>, which by default is set to <code>65536</code>). This method can be called even when the handle is not <a href="/Documentable/integration-test/type/IO::Handle#method_encoding">in binary mode</a>.</p>
+<pre class="pod-block-code">(my $file = &#39;foo&#39;.IO).spurt: &#39;I ♥ Perl&#39;;
+given $file.open {
+    say .read: 6; # OUTPUT: «Buf[uint8]:0x&lt;49 20 e2 99 a5 20&gt;␤»
+    .close;
+}
+</pre>
+<h2 id="(IO::Handle)_method_readchars"><a href="/Documentable/integration-test/type/IO::Handle#method_readchars">(IO::Handle) method readchars</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method readchars(IO::Handle:D: Int(Cool:D) $chars = 65536 --&gt; Str:D)</pre>
+<p>Reading chars; reads and returns up to <code>$chars</code> chars (graphemes) from the filehandle. <code>$chars</code> defaults to an implementation-specific value (in Rakudo, the value of <code>$*DEFAULT-READ-ELEMS</code>, which by default is set to <code>65536</code>). Attempting to call this method when the handle is <a href="/Documentable/integration-test/type/IO::Handle#method_encoding">in binary mode</a> will result in <code>X::IO::BinaryMode</code> exception being thrown.</p>
+<pre class="pod-block-code">(my $file = &#39;foo&#39;.IO).spurt: &#39;I ♥ Perl&#39;;
+given $file.open {
+    say .readchars: 5; # OUTPUT: «I ♥ P␤»
+    .close;
+}
+</pre>
+<h2 id="(IO::Handle)_method_write"><a href="/Documentable/integration-test/type/IO::Handle#method_write">(IO::Handle) method write</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method write(IO::Handle:D: Blob:D $buf --&gt; True)</pre>
+<p>Writes <code>$buf</code> to the filehandle. This method can be called even when the handle is not <a href="/Documentable/integration-test/type/IO::Handle#method_encoding">in binary mode</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-SeekFromBeginning"></a> <a name="Documentable/integration-test/index-entry-SeekFromCurrent"></a> <a name="Documentable/integration-test/index-entry-SeekFromEnd"></a></p>
+<h2 id="(IO::Handle)_method_seek"><a href="/Documentable/integration-test/type/IO::Handle#method_seek">(IO::Handle) method seek</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method seek(IO::Handle:D: Int:D $offset, SeekType:D $whence --&gt; True)</pre>
+<p>Move the file pointer (that is, the position at which any subsequent read or write operations will begin) to the byte position specified by <code>$offset</code> relative to the location specified by <code>$whence</code> which may be one of:</p>
+<li><p><code>SeekFromBeginning</code>: The beginning of the file.</p>
+</li>
+<li><p><code>SeekFromCurrent</code>: The current position in the file.</p>
+</li>
+<li><p><code>SeekFromEnd</code>: The end of the file. Please note that you need to specify a negative offset if you want to position before the end of the file.</p>
+</li>
+<h2 id="(IO::Handle)_method_tell"><a href="/Documentable/integration-test/type/IO::Handle#method_tell">(IO::Handle) method tell</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method tell(IO::Handle:D: --&gt; Int:D)</pre>
+<p>Return the current position of the file pointer in bytes.</p>
+<h2 id="(IO::Handle)_method_slurp-rest"><a href="/Documentable/integration-test/type/IO::Handle#method_slurp-rest">(IO::Handle) method slurp-rest</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method slurp-rest(IO::Handle:D: :$bin! --&gt; Buf)
+multi method slurp-rest(IO::Handle:D: :$enc --&gt; Str)</pre>
+<p><strong>DEPRECATION NOTICE:</strong> this method is deprecated in the <code>6.d</code> version. Do not use it for new code, use <a href="/Documentable/integration-test/routine/slurp"><code>.slurp</code> method</a> instead.</p>
+<p>Returns the remaining content of the file from the current file position (which may have been set by previous reads or by <code>seek</code>.) If the adverb <code>:bin</code> is provided a <a href="/Documentable/integration-test/type/Buf">Buf</a> will be returned; otherwise the return will be a <code>Str</code> with the optional encoding <code>:enc</code>.</p>
+<h2 id="(IO::Handle)_method_slurp"><a href="/Documentable/integration-test/type/IO::Handle#method_slurp">(IO::Handle) method slurp</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method slurp(IO::Handle:D: :$close, :$bin)</pre>
+<p>Returns all the content from the current file pointer to the end. If the invocant is in binary mode or if <code>$bin</code> is set to <code>True</code>, will return a <a href="/Documentable/integration-test/type/Buf">Buf</a>, otherwise will decode the content using invocant&#39;s current <a href="/Documentable/integration-test/routine/encoding"><code>.encoding</code></a> and return a <a href="/Documentable/integration-test/type/Str">Str</a>.</p>
+<p>If <code>:$close</code> is set to <code>True</code>, will close the handle when finished reading.</p>
+<p><strong>Note:</strong> On <a href="/Documentable/integration-test/language/glossary#Rakudo">Rakudo</a> this method was introduced with release 2017.04; <code>$bin</code> arg was added in 2017.10.</p>
+<h2 id="(IO::Handle)_method_Supply"><a href="/Documentable/integration-test/type/IO::Handle#method_Supply">(IO::Handle) method Supply</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method Supply(IO::Handle:D: :$size = 65536)</pre>
+<p>Returns a <code>Supply</code> that will emit the contents of the handle in chunks. The chunks will be <a href="/Documentable/integration-test/type/Buf"><code>Buf</code></a> if the handle is in binary mode or, if it isn&#39;t, <a href="/Documentable/integration-test/type/Str"><code>Str</code></a> decoded using same encoding as <a href="/Documentable/integration-test/routine/encoding"><code>IO::Handle.encoding</code></a>.</p>
+<p>The size of the chunks is determined by the optional <code>:size</code> named parameter and <code>65536</code> bytes in binary mode or <code>65536</code> characters in non-binary mode.</p>
+<pre class="pod-block-code">&quot;foo&quot;.IO.open(:bin).Supply(:size&lt;10&gt;).tap: *.raku.say;
+# OUTPUT:
+# Buf[uint8].new(73,32,226,153,165,32,80,101,114,108)
+# Buf[uint8].new(32,54,33,10)
+
+&quot;foo&quot;.IO.open.Supply(:size&lt;10&gt;).tap: *.raku.say;
+# OUTPUT:
+# &quot;I ♥ Perl&quot;
+# &quot; 6!\n&quot;
+</pre>
+<h2 id="(IO::Handle)_method_path"><a href="/Documentable/integration-test/type/IO::Handle#method_path">(IO::Handle) method path</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method path(IO::Handle:D:)</pre>
+<p>For a handle opened on a file this returns the <a href="/Documentable/integration-test/type/IO::Path">IO::Path</a> that represents the file. For the standard I/O handles <a href="/Documentable/integration-test/language/variables#index-entry-%24%2AIN"><code>$*IN</code></a>, <a href="/Documentable/integration-test/language/variables#index-entry-%24%2AOUT"><code>$*OUT</code></a>, and <a href="/Documentable/integration-test/language/variables#index-entry-%24%2AERR"><code>$*ERR</code></a> it returns an <a href="/Documentable/integration-test/type/IO::Special">IO::Special</a> object.</p>
+<h2 id="(IO::Handle)_method_IO"><a href="/Documentable/integration-test/type/IO::Handle#method_IO">(IO::Handle) method IO</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method IO(IO::Handle:D:)</pre>
+<p>Alias for <a href="/Documentable/integration-test/type/IO::Handle#method_path"><code>.path</code></a></p>
+<h2 id="(IO::Handle)_method_Str"><a href="/Documentable/integration-test/type/IO::Handle#method_Str">(IO::Handle) method Str</a></h2>
+<p>Returns the value of <a href="/Documentable/integration-test/type/IO::Handle#method_path"><code>.path</code></a>, coerced to <a href="/Documentable/integration-test/type/Str">Str</a>.</p>
+<pre class="pod-block-code">say &quot;foo&quot;.IO.open.Str; # OUTPUT: «foo␤»
+</pre>
+<h2 id="(IO::Handle)_routine_close"><a href="/Documentable/integration-test/type/IO::Handle#routine_close">(IO::Handle) routine close</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method close(IO::Handle:D: --&gt; Bool:D)
+multi sub close(IO::Handle $fh)</pre>
+<p>Closes an open filehandle, returning <code>True</code> on success. No error is thrown if the filehandle is already closed, although if you close one of the standard filehandles (by default: <code>$*IN</code>, <code>$*OUT</code>, or <code>$*ERR</code>: any handle with <a href="/Documentable/integration-test/routine/native-descriptor">native-descriptor</a> <code>2</code> or lower), you won&#39;t be able to re-open them.</p>
+<pre class="pod-block-code">given &quot;foo/bar&quot;.IO.open(:w) {
+    .spurt: &quot;I ♥ Raku!&quot;;
+    .close;
+}
+</pre>
+<p>It&#39;s a common idiom to use <a href="/Documentable/integration-test/language/phasers#LEAVE"><code>LEAVE</code> phaser</a> for closing the handles, which ensures the handle is closed regardless of how the block is left.</p>
+<pre class="pod-block-code">do {
+    my $fh = open &quot;path-to-file&quot;;
+    LEAVE close $fh;
+    # ... do stuff with the file
+}
+
+sub do-stuff-with-the-file (IO $path-to-file) {
+  my $fh = $path-to-file.open;
+
+  # stick a `try` on it, since this will get run even when the sub is
+  # called with wrong arguments, in which case the `$fh` will be an `Any`
+  LEAVE try close $fh;
+
+  # ... do stuff with the file
+}
+</pre>
+<p><strong>Note:</strong> unlike some other languages, Raku does not use reference counting, and so <strong>the filehandles are NOT closed when they go out of scope</strong>. While they <em>will</em> get closed when garbage collected, garbage collection isn&#39;t guaranteed to get run. This means <strong>you must</strong> use an explicit <code>close</code> on handles opened for writing, to avoid data loss, and an explicit <code>close</code> is <em>recommended</em> on handles opened for reading as well, so that your program does not open too many files at the same time, triggering exceptions on further <code>open</code> calls.</p>
+<p>Note several methods allow for providing <code>:close</code> argument, to close the handle after the operation invoked by the method completes. As a simpler alternative, the <a href="/Documentable/integration-test/type/IO::Path">IO::Path</a> type provides many reading and writing methods that let you work with files without dealing with filehandles directly.</p>
+<h2 id="(IO::Handle)_method_flush"><a href="/Documentable/integration-test/type/IO::Handle#method_flush">(IO::Handle) method flush</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method flush(IO::Handle:D: --&gt; True)</pre>
+<p>Will flush the handle, writing any of the buffered data. Returns <code>True</code> on success; otherwise, <a href="/Documentable/integration-test/routine/fail">fails</a> with <code>X::IO::Flush</code>.</p>
+<pre class="pod-block-code">given &quot;foo&quot;.IO.open: :w {
+    LEAVE .close;
+    .print: &#39;something&#39;;
+    &#39;foo&#39;.IO.slurp.say; # (if the data got buffered) OUTPUT: «␤»
+    .flush;             # flush the handle
+    &#39;foo&#39;.IO.slurp.say; # OUTPUT: «something␤»
+}
+</pre>
+<h2 id="(IO::Handle)_method_native-descriptor"><a href="/Documentable/integration-test/type/IO::Handle#method_native-descriptor">(IO::Handle) method native-descriptor</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method native-descriptor()</pre>
+<p>This returns a value that the operating system would understand as a &quot;file descriptor&quot; and is suitable for passing to a native function that requires a file descriptor as an argument such as <code>fcntl</code> or <code>ioctl</code>.</p>
+<h2 id="(IO::Handle)_method_nl-in"><a href="/Documentable/integration-test/type/IO::Handle#method_nl-in">(IO::Handle) method nl-in</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method nl-in(--&gt; Str:D) is rw</pre>
+<p>One of the attributes that can be set via <code>.new</code> or <a href="/Documentable/integration-test/routine/open">open</a>. Defaults to <code>[&quot;\x0A&quot;, &quot;\r\n&quot;]</code>. Takes either a <a href="/Documentable/integration-test/type/Str">Str</a> or <a href="/Documentable/integration-test/type/Array">Array</a> of <code>Str</code> specifying input line ending(s) for this handle. If <code>.chomp</code> attribute is set to <code>True</code>, will strip these endings in routines that <code>chomp</code>, such as <a href="/Documentable/integration-test/routine/get"><code>get</code></a> and <a href="/Documentable/integration-test/routine/lines"><code>lines</code></a>.</p>
+<pre class="pod-block-code">with &#39;test&#39;.IO {
+    .spurt: &#39;1foo2bar3foo&#39;; # write some data into our test file
+    my $fh will leave {.close} = .open; # can also set .nl-in via .open arg
+    $fh.nl-in = [&lt;foo bar&gt;]; # set two possible line endings to use;
+    $fh.lines.say; # OUTPUT: (&quot;1&quot;, &quot;2&quot;, &quot;3&quot;).Seq
+}
+</pre>
+<h2 id="(IO::Handle)_method_nl-out"><a href="/Documentable/integration-test/type/IO::Handle#method_nl-out">(IO::Handle) method nl-out</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">has Str:D $.nl-out is rw = &quot;\n&quot;;</pre>
+<p>One of the attributes that can be set via <code>.new</code> or <a href="/Documentable/integration-test/routine/open">open</a>. Defaults to <code>&quot;\n&quot;</code>. Takes a <a href="/Documentable/integration-test/type/Str">Str</a> specifying output line ending for this handle, to be used by methods <a href="/Documentable/integration-test/type/IO::Handle#method_put"><code>.put</code></a> and <a href="/Documentable/integration-test/type/IO::Handle#method_say"><code>.say</code></a>.</p>
+<pre class="pod-block-code">with &#39;test&#39;.IO {
+    given .open: :w {
+        .put: 42;
+        .nl-out = &#39;foo&#39;;
+        .put: 42;
+        .close;
+    }
+    .slurp.raku.say; # OUTPUT: «&quot;42\n42foo&quot;»
+}
+</pre>
+<h2 id="(IO::Handle)_method_opened"><a href="/Documentable/integration-test/type/IO::Handle#method_opened">(IO::Handle) method opened</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method opened(IO::Handle:D: --&gt; Bool:D)</pre>
+<p>Returns <code>True</code> if the handle is open, <code>False</code> otherwise.</p>
+<h2 id="(IO::Handle)_method_t"><a href="/Documentable/integration-test/type/IO::Handle#method_t">(IO::Handle) method t</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method t(IO::Handle:D: --&gt; Bool:D)</pre>
+<p>Returns <code>True</code> if the handle is opened to a <a href="https://en.wikipedia.org/wiki/Terminal_emulator">TTY</a>, <code>False</code> otherwise.</p>
+<h2 id="(IO::Handle)_method_WRITE"><a href="/Documentable/integration-test/type/IO::Handle#method_WRITE">(IO::Handle) method WRITE</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method WRITE(IO::Handle:D: Blob:D \data --&gt; Bool:D)</pre>
+<p>Called whenever a write operation is performed on the handle. Always receives the data as a <a href="/Documentable/integration-test/type/Blob">Blob</a>, even if a textual writing method has been called.</p>
+<pre class="pod-block-code">class IO::Store is IO::Handle {
+    has @.lines = [];
+
+    submethod TWEAK {
+        self.encoding: &#39;utf8&#39;; # set up encoder/decoder
+    }
+
+    method WRITE(IO::Handle:D: Blob:D \data --&gt; Bool:D) {
+        @!lines.push: data.decode();
+        True;
+    }
+
+    method gist() {
+        return @!lines.join(&quot;\n&quot; );
+    }
+}
+my $store = IO::Store.new();
+my $output = $PROCESS::OUT;
+$PROCESS::OUT = $store;
+.say for &lt;one two three&gt;;
+$PROCESS::OUT = $output;
+say $store.lines(); # OUTPUT «[one␤ two␤ three␤]»
+</pre>
+<p>In this example we are creating a simple <code>WRITE</code> redirection which stores anything written to the filehandle to an array. Se need to save the standard output first, which we do in <code>$output</code>, and then everything that is <code>print</code>ed or said (through <code>say</code>) gets stored in the defined <code>IO::Store</code> class. Two things should be taken into account in this class. By default, <code>IO::Handle</code>s are in binary mode, so we need to <code>TWEAK</code> the objects if we want them to work with text. Second, a <code>WRITE</code> operation should return <code>True</code> if successful. It will fail if it does not.</p>
+<h2 id="(IO::Handle)_method_READ"><a href="/Documentable/integration-test/type/IO::Handle#method_READ">(IO::Handle) method READ</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method READ(IO::Handle:D: Int:D \bytes --&gt; Buf:D)</pre>
+<p>Called whenever a read operation is performed on the handle. Receives the number of bytes requested to read. Returns a <a href="/Documentable/integration-test/type/Buf">Buf</a> with those bytes which can be used to either fill the decoder buffer or returned from reading methods directly. The result is allowed to have fewer than the requested number of bytes, including no bytes at all.</p>
+<p>If you provide your own <code>.READ</code>, you very likely need to provide your own <a href="/Documentable/integration-test/routine/EOF"><code>.EOF</code></a> as well, for all the features to behave correctly.</p>
+<p>The compiler may call <a href="/Documentable/integration-test/routine/EOF"><code>.EOF</code></a> method any number of times during a read operation to ascertain whether a call to <code>.READ</code> should be made. More bytes than necessary to satisfy a read operation may be requested from <code>.READ</code>, in which case the extra data may be buffered by the <a href="/Documentable/integration-test/type/IO::Handle">IO::Handle</a> or the decoder it&#39;s using, to fulfill any subsequent reading operations, without necessarily having to make another <code>.READ</code> call.</p>
+<pre class="pod-block-code">class IO::Store is IO::Handle {
+    has @.lines = [];
+
+    submethod TWEAK {
+      self.encoding: &#39;utf8&#39;; # set up encoder/decoder
+    }
+
+    method WRITE(IO::Handle:D: Blob:D \data --&gt; Bool:D) {
+      @!lines.push: data;
+      True;
+    }
+
+    method whole() {
+      my Buf $everything = Buf.new();
+      for @!lines -&gt; $b {
+        $everything ~= $b;
+      }
+      return $everything;
+    }
+
+    method READ(IO::Handle:D: Int:D \bytes --&gt; Buf:D) {
+      my Buf $everything := self.whole();
+      return $everything;
+    }
+
+    method EOF {
+      my $everything = self.whole();
+      !$everything;
+    }
+}
+
+my $store := IO::Store.new();
+
+$store.print( $_ ) for &lt;one two three&gt;;
+say $store.read(3).decode; # OUTPUT «one␤»
+say $store.read(3).decode; # OUTPUT «two␤»
+</pre>
+<p>In this case, we have programmed the two <code>READ</code> and <code>EOF</code> methods, as well as <code>WRITE</code>, which stores every line in an element in an array. The <code>read</code> method actually calls <code>READ</code>, returning 3 bytes, which correspond to the three characters in the first two elements. Please note that it&#39;s the <code>IO::Handle</code> base class the one that is taking care of cursor, since <code>READ</code> just provides a handle into the whole content of the object; the base class will <code>READ</code> 1024 * 1024 bytes at a time. If your object is planned to hold an amount of bytes bigger than that, you will have to handle an internal cursor yourself. That is why in this example we don&#39;t actually use the <code>bytes</code> argument.</p>
+<h2 id="(IO::Handle)_method_EOF"><a href="/Documentable/integration-test/type/IO::Handle#method_EOF">(IO::Handle) method EOF</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method EOF(IO::Handle:D: --&gt; Bool:D)</pre>
+<p>Indicates whether &quot;end of file&quot; has been reached for the <strong>data source</strong> of the handle; i.e. no more data can be obtained by calling <a href="/Documentable/integration-test/routine/READ"><code>.READ</code></a> method. Note that this is <strong>not</strong> the same as <a href="/Documentable/integration-test/routine/eof">eof</a> method, which will return <code>True</code> only if <code>.EOF</code> returns <code>True</code> <strong>and all the decoder buffers</strong>, if any were used by the handle, are also empty. See <a href="/Documentable/integration-test/routine/READ"><code>.READ</code></a> for an example implementation.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Type/IO/CatHandle.pod6">https://github.com/Raku/doc/blob/master/doc/Type/IO/CatHandle.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>class CallFrame</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/type.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-basic.html"> Basic </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-composite.html"> Composite </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-domain-specific.html"> Domain-specific </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-exception.html"> Exceptions </a>
+            </div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Type/CallFrame.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">class CallFrame</h1>
+        <p class="subtitle">Captures the current frame state</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+                                        <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#method_code">method code</a></td></tr>
+                  <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#method_file">method file</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#method_line">method line</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">1.4</td><td class="toc-text"><a href="#method_annotations">method annotations</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">1.5</td><td class="toc-text"><a href="#method_my">method my</a></td></tr>
+      <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Routines">Routines</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#sub_callframe">sub callframe</a></td></tr>
+          <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Type_Graph">Type Graph</a></td></tr>
+ 
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <pre class="pod-block-code">class CallFrame {}</pre>
+<p>A CallFrame will be usually captured from the current state of a program using the <a href="/Documentable/integration-test/routine/callframe">callframe</a> subroutine.</p>
+<pre class="pod-block-code">my $frame = callframe;
+say &quot;The above line of code ran at {$frame.file}:{$frame.line}.&quot;;</pre>
+<p>With no arguments the callframe will give you frame information for the line calling <code>callframe</code>. The file and line annotations will be identical to those in <a href="/Documentable/integration-test/language/variables#Compile-time_variables"><code>$?FILE</code></a> and <a href="/Documentable/integration-test/language/variables#Compile-time_variables"><code>$?LINE</code></a>.</p>
+<p>You may, however, pass a number to <code>callframe</code> to specify a different frame level. A positive number will move upward through the levels of frame. A negative number will move downward into the <code>callframe</code> method and class itself at the point at which they are running to construct this information for you.</p>
+<p>The frames themselves do not necessarily match only method or subroutine calls. Perl constructs a frames for blocks and such as well, so if you need a callframe for a particular method call, do not assume it is a fixed number of levels up.</p>
+<p>Each frame stores <a href="/Documentable/integration-test/routine/annotations">annotations</a>, including the <a href="/Documentable/integration-test/routine/file">file</a> and <a href="/Documentable/integration-test/routine/line">line</a> annotations, which have convenience methods for accessing them directly. You can also retrieve a reference to the code block of the currently executing frame using the <a href="/Documentable/integration-test/routine/code">code</a> method. The frame also captures all lexical variables stored with the frame, which are available by calling <a href="/Documentable/integration-test/routine/my">my</a> on the frame object.</p>
+<p>Here&#39;s a short example that will find the calling routine and print the package of the caller using the <code>callframe</code> interface.</p>
+<pre class="pod-block-code">sub calling-frame() {
+    for 1..* -&gt; $level {
+        given callframe($level) -&gt; $frame {
+            when $frame ~~ CallFrame {
+                    next unless $frame.code ~~ Routine;
+                    say $frame.code.package;
+                    last;
+            }
+            default {
+                    say &quot;no calling routine or method found&quot;;
+                    last;
+            }
+        }
+    }
+}
+
+calling-frame;</pre>
+<p>If you just need to trace caller information, <a href="/Documentable/integration-test/type/Backtrace">Backtrace</a> may provide a better means of getting it. <a href="/Documentable/integration-test/type/CallFrame">CallFrame</a> contains more information about a specific frame, but provides a tedious interface for enumerating a call stack.</p>
+<h1 id="Methods"><a class="u" href="#___top" title="go to top of document">Methods</a></h1>
+<p><strong>Note</strong> From version 6.d, <code>.raku</code> (<code>.perl</code> before version 2019.11) can be called on <code>CallFrame</code>.</p>
+<h2 id="method_code"><a class="u" href="#___top" title="go to top of document">method code</a></h2>
+<pre class="pod-block-code">method code()</pre>
+<p>Return the callable code for the current block. When called on the object returned by <code>callframe(0)</code>, this will be the same value found in <a href="/Documentable/integration-test/language/variables#Compile-time_variables"><code>&amp;?BLOCK</code></a>.</p>
+<pre class="pod-block-code">my $frame;
+for ^3 { FIRST $frame = callframe; say $_ * 3 };
+say $frame.code()
+</pre>
+<p>The <code>$frame</code> variable will hold the <code>Code</code> for the block inside the loop in this case.</p>
+<h2 id="method_file"><a class="u" href="#___top" title="go to top of document">method file</a></h2>
+<pre class="pod-block-code">method file()</pre>
+<p>This is a shortcut for looking up the <code>file</code> annotation. Therefore, the following code prints <code>True</code>.</p>
+<pre class="pod-block-code">my $frame = callframe(0);
+say $frame.file eq $frame.annotations&lt;file&gt;;</pre>
+<h2 id="method_line"><a class="u" href="#___top" title="go to top of document">method line</a></h2>
+<pre class="pod-block-code">method line()</pre>
+<p>This is a shortcut for looking up the <code>line</code> annotation. For example, the following two calls are identical.</p>
+<pre class="pod-block-code">say callframe(1).line;
+say callframe(1).annotations&lt;line&gt;;</pre>
+<h2 id="method_annotations"><a class="u" href="#___top" title="go to top of document">method annotations</a></h2>
+<pre class="pod-block-code">method annotations()</pre>
+<p>Returns a <a href="/Documentable/integration-test/type/Map">Map</a> containing the invocants annotations, i.e. <code>line</code> and <code>file</code>. An easier way to get hold of the annotation information is to use one of the convenience methods instead.</p>
+<pre class="pod-block-code">say callframe.annotations.^name;                   # OUTPUT: «Map␤»
+say callframe.annotations&lt;file&gt; eq callframe.file; # OUTPUT: «True␤»</pre>
+<h2 id="method_my"><a class="u" href="#___top" title="go to top of document">method my</a></h2>
+<pre class="pod-block-code">method my()</pre>
+<p>Return a <a href="/Documentable/integration-test/type/Hash">Hash</a> that names all the variables and their values associated with the lexical scope of the frame.</p>
+<pre class="pod-block-code">sub some-value {
+    my $the-answer = 42;
+    callframe(0);
+}
+
+my $frame = some-value();
+say $frame.my&lt;$the-answer&gt;; # OUTPUT: «42␤»</pre>
+<h1 id="Routines"><a class="u" href="#___top" title="go to top of document">Routines</a></h1>
+<h2 id="sub_callframe"><a class="u" href="#___top" title="go to top of document">sub callframe</a></h2>
+<pre class="pod-block-code">sub callframe(Int:D $level = 0)</pre>
+<p>Returns a <a href="/Documentable/integration-test/type/CallFrame">CallFrame</a> object for the given level. If no level is given, the default level is 0. Positive levels move up the frame stack and negative levels move down (into the call to <code>callframe</code> and deeper).</p>
+<p>Returns <a href="/Documentable/integration-test/type/Mu">Mu</a> if there is no call information for the given level. Negative levels may result in an exception.</p>
+<h1 id="Type_Graph"><a class="u" href="#___top" title="go to top of document">Type Graph</a></h1>
+<figure>
+  <figcaption>Type relations for <code>CallFrame</code></figcaption>
+  <svg width="117pt" height="188pt"
+ viewBox="0.00 0.00 117.19 188.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 184)">
+<title>perl6&#45;type&#45;graph</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-184 113.19,-184 113.19,4 -4,4"/>
+<!-- CallFrame -->
+<g id="node1" class="node">
+<title>CallFrame</title>
+<g id="a_node1"><a xlink:href="/type/CallFrame" xlink:title="CallFrame">
+<ellipse fill="none" stroke="#000000" cx="54.6" cy="-18" rx="54.69" ry="18"/>
+<text text-anchor="middle" x="54.6" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">CallFrame</text>
+</a>
+</g>
+</g>
+<!-- Any -->
+<g id="node3" class="node">
+<title>Any</title>
+<g id="a_node3"><a xlink:href="/type/Any" xlink:title="Any">
+<ellipse fill="none" stroke="#000000" cx="54.6" cy="-90" rx="27" ry="18"/>
+<text text-anchor="middle" x="54.6" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Any</text>
+</a>
+</g>
+</g>
+<!-- CallFrame&#45;&gt;Any -->
+<g id="edge1" class="edge">
+<title>CallFrame&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M54.6,-36.3C54.6,-44.02 54.6,-53.29 54.6,-61.89"/>
+<polygon fill="#000000" stroke="#000000" points="51.1,-61.9 54.6,-71.9 58.1,-61.9 51.1,-61.9"/>
+</g>
+<!-- Mu -->
+<g id="node2" class="node">
+<title>Mu</title>
+<g id="a_node2"><a xlink:href="/type/Mu" xlink:title="Mu">
+<ellipse fill="none" stroke="#000000" cx="54.6" cy="-162" rx="27" ry="18"/>
+<text text-anchor="middle" x="54.6" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#000000">Mu</text>
+</a>
+</g>
+</g>
+<!-- Any&#45;&gt;Mu -->
+<g id="edge2" class="edge">
+<title>Any&#45;&gt;Mu</title>
+<path fill="none" stroke="#000000" d="M54.6,-108.3C54.6,-116.02 54.6,-125.29 54.6,-133.89"/>
+<polygon fill="#000000" stroke="#000000" points="51.1,-133.9 54.6,-143.9 58.1,-133.9 51.1,-133.9"/>
+</g>
+</g>
+</svg>
+
+  <p class="fallback">
+    <a
+      rel="alternate"
+      href="/images/type-graph-CallFrame.svg"
+      type="image/svg+xml"
+      >Expand above chart</a
+    >
+  </p>
+</figure>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Type/CallFrame.pod6">https://github.com/Raku/doc/blob/master/doc/Type/CallFrame.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

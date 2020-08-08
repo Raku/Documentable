@@ -1,0 +1,19 @@
+digraph "perl6-type-graph" {
+    rankdir=BT;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "Metamodel::SubsetHOW" [color="#000000", fontcolor="#000000", href="/type/Metamodel::SubsetHOW", fontname="FreeSans"];
+    "Mu" [color="#000000", fontcolor="#000000", href="/type/Mu", fontname="FreeSans"];
+    "Any" [color="#000000", fontcolor="#000000", href="/type/Any", fontname="FreeSans"];
+    "Metamodel::Naming" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::Naming", fontname="FreeSans"];
+    "Metamodel::Documenting" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::Documenting", fontname="FreeSans"];
+
+    // Superclasses
+    "Metamodel::SubsetHOW" -> "Any" [color="#000000"];
+    "Any" -> "Mu" [color="#000000"];
+
+    // Roles
+    "Metamodel::SubsetHOW" -> "Metamodel::Naming" [color="#6666FF"];
+    "Metamodel::SubsetHOW" -> "Metamodel::Documenting" [color="#6666FF"];
+}

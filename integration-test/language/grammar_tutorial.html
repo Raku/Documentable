@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Grammar tutorial</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/grammar_tutorial.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Grammar tutorial</h1>
+        <p class="subtitle">An introduction to grammars</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+  <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Before_we_start">Before we start</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#Why_grammars?">Why grammars?</a></td></tr>
+  <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#When_would_I_use_grammars?">When would I use grammars?</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#The_broad_concept_of_grammars">The broad concept of grammars</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Getting_more_technical">Getting more technical</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#The_conceptual_overview">The conceptual overview</a></td></tr>
+               <tr class="toc-level-2"><td class="toc-number">2.2</td><td class="toc-text"><a href="#The_technical_overview">The technical overview</a></td></tr>
+                                                                            <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Learning_by_example_-_a_REST_contrivance">Learning by example - a REST contrivance</a></td></tr>
+                                                                 <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#Adding_some_flexibility">Adding some flexibility</a></td></tr>
+                                                                    <tr class="toc-level-2"><td class="toc-number">3.2</td><td class="toc-text"><a href="#Inheriting_from_a_grammar">Inheriting from a grammar</a></td></tr>
+                                                                                                                           <tr class="toc-level-2"><td class="toc-number">3.3</td><td class="toc-text"><a href="#Adding_some_constraints">Adding some constraints</a></td></tr>
+                                                    <tr class="toc-level-2"><td class="toc-number">3.4</td><td class="toc-text"><a href="#Putting_our_RESTful_grammar_together">Putting our RESTful grammar together</a></td></tr>
+                                                                  <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#Grammar_actions">Grammar actions</a></td></tr>
+                    <tr class="toc-level-2"><td class="toc-number">4.1</td><td class="toc-text"><a href="#Grammars_by_example_with_actions">Grammars by example with actions</a></td></tr>
+                                               <tr class="toc-level-2"><td class="toc-number">4.2</td><td class="toc-text"><a href="#Keeping_grammars_with_actions_tidy_with_make_and_made">Keeping grammars with actions tidy with <code class="pod-code-inline">make</code> and <code class="pod-code-inline">made</code></a></td></tr>
+                                                                                                                                                                                                                                              <tr class="toc-level-2"><td class="toc-number">4.3</td><td class="toc-text"><a href="#Add_actions_directly">Add actions directly</a></td></tr>
+                                              
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <h1 id="Before_we_start"><a class="u" href="#___top" title="go to top of document">Before we start</a></h1>
+<h2 id="Why_grammars?"><a class="u" href="#___top" title="go to top of document">Why grammars?</a></h2>
+<p>Grammars parse strings and return data structures from those strings. Grammars can be used to prepare a program for execution, to determine if a program can run at all (if it&#39;s a valid program), to break down a web page into constituent parts, or to identify the different parts of a sentence, among other things.</p>
+<h2 id="When_would_I_use_grammars?"><a class="u" href="#___top" title="go to top of document">When would I use grammars?</a></h2>
+<p>If you have strings to tame or interpret, grammars provide the tools to do the job.</p>
+<p>The string could be a file that you&#39;re looking to break into sections; perhaps a protocol, like SMTP, where you need to specify which &quot;commands&quot; come after what user-supplied data; maybe you&#39;re designing your own domain specific language. Grammars can help.</p>
+<h2 id="The_broad_concept_of_grammars"><a class="u" href="#___top" title="go to top of document">The broad concept of grammars</a></h2>
+<p>Regular expressions (<a href="/Documentable/integration-test/language/regexes">Regexes</a>) work well for finding patterns in strings. However, for some tasks, like finding multiple patterns at once, or combining patterns, or testing for patterns that may surround strings regular expressions, alone, are not enough.</p>
+<p>When working with HTML, you could define a grammar to recognize HTML tags, both the opening and closing elements, and the text in between. You could then organize these elements into data structures, such as arrays or hashes.</p>
+<h1 id="Getting_more_technical"><a class="u" href="#___top" title="go to top of document">Getting more technical</a></h1>
+<h2 id="The_conceptual_overview"><a class="u" href="#___top" title="go to top of document">The conceptual overview</a></h2>
+<p>Grammars are a special kind of class. You declare and define a grammar exactly as you would any other class, except that you use the <em>grammar</em> keyword instead of <em>class</em>.</p>
+<pre class="pod-block-code">grammar G { ... }
+</pre>
+<p>As such classes, grammars are made up of methods that define a regex, a token, or a rule. These are all varieties of different types of match methods. Once you have a grammar defined, you call it and pass in a string for parsing.</p>
+<pre class="pod-block-code">my $matchObject = G.parse($string);
+</pre>
+<p>Now, you may be wondering, if I have all these regexes defined that just return their results, how does that help with parsing strings that may be ahead or backwards in another string, or things that need to be combined from many of those regexes... And that&#39;s where grammar actions come in.</p>
+<p>For every &quot;method&quot; you match in your grammar, you get an action you can use to act on that match. You also get an overarching action that you can use to tie together all your matches and to build a data structure. This overarching method is called <code>TOP</code> by default.</p>
+<h2 id="The_technical_overview"><a class="u" href="#___top" title="go to top of document">The technical overview</a></h2>
+<p>As already mentioned, grammars are declared using the <em>grammar</em> keyword and its &quot;methods&quot; are declared with <em>regex</em>, or <em>token</em>, or <em>rule</em>.</p>
+<ul><li><p>Regex methods are slow but thorough, they will look back in the string and really try.</p>
+</li>
+<li><p>Token methods are faster than regex methods and ignore whitespace. Token methods don&#39;t backtrack; they give up after the first possible match.</p>
+</li>
+<li><p>Rule methods are the same as token methods except whitespace is not ignored.</p>
+</li>
+</ul>
+<p>When a method (regex, token or rule) matches in the grammar, the string matched is put into a <a href="/Documentable/integration-test/type/Match">match object</a> and keyed with the same name as the method.</p>
+<pre class="pod-block-code">grammar G {
+    token TOP { &lt;thingy&gt; .* }
+    token thingy { &#39;clever_text_keyword&#39; }
+}
+</pre>
+<p>If you were to use <code>my $match = G.parse($string)</code> and your string started with &#39;clever_text_keyword&#39;, you would get a match object back that contained &#39;clever_text_keyword&#39; keyed by the name of <code>&lt;thingy&gt;</code> in your match object. For instance:</p>
+<pre class="pod-block-code">grammar G {
+    token TOP { &lt;thingy&gt; .* }
+    token thingy { &#39;Þor&#39; }
+}
+
+my $match = G.parse(&quot;Þor is mighty&quot;);
+say $match.raku;     # OUTPUT: «Match.new(made =&gt; Any, pos =&gt; 13, orig =&gt; &quot;Þor is mighty&quot;,...»
+say $/.raku;         # OUTPUT: «Match.new(made =&gt; Any, pos =&gt; 13, orig =&gt; &quot;Þor is mighty&quot;,...»
+say $/&lt;thingy&gt;.raku;
+# OUTPUT: «Match.new(made =&gt; Any, pos =&gt; 3, orig =&gt; &quot;Þor is mighty&quot;, hash =&gt; Map.new(()), list =&gt; (), from =&gt; 0)␤»
+</pre>
+<p>The two first output lines show that <code>$match</code> contains a <code>Match</code> objects with the results of the parsing; but those results are also assigned to the <a href="/Documentable/integration-test/syntax/$$SOLIDUS">match variable <code>$/</code></a>. Either match object can be keyed, as indicated above, by <code>thingy</code> to return the match for that particular <code>token</code>.</p>
+<p>The <code>TOP</code> method (whether regex, token, or rule) is the overarching pattern that must match everything (by default). If the parsed string doesn&#39;t match the TOP regex, your returned match object will be empty (<code>Nil</code>).</p>
+<p>As you can see above, in <code>TOP</code>, the <code>&lt;thingy&gt;</code> token is mentioned. The <code>&lt;thingy&gt;</code> is defined on the next line. That means that <code>&#39;clever_text_keyword&#39;</code> <strong>must</strong> be the first thing in the string, or the grammar parse will fail and we&#39;ll get an empty match. This is great for recognizing a malformed string that should be discarded.</p>
+<h1 id="Learning_by_example_-_a_REST_contrivance"><a class="u" href="#___top" title="go to top of document">Learning by example - a REST contrivance</a></h1>
+<p>Let&#39;s suppose we&#39;d like to parse a URI into the component parts that make up a RESTful request. We want the URIs to work like this:</p>
+<ul><li><p>The first part of the URI will be the &quot;subject&quot;, like a part, or a product, or a person.</p>
+</li>
+<li><p>The second part of the URI will be the &quot;command&quot;, the standard CRUD functions (create, retrieve, update, or delete).</p>
+</li>
+<li><p>The third part of the URI will be arbitrary data, perhaps the specific ID we&#39;ll be working with or a long list of data separated by &quot;/&quot;&#39;s.</p>
+</li>
+<li><p>When we get a URI, we&#39;ll want 1-3 above to be placed into a data structure that we can easily work with (and later enhance).</p>
+</li>
+</ul>
+<p>So, if we have &quot;/product/update/7/notify&quot;, we would want our grammar to give us a match object that has a <code>subject</code> of &quot;product&quot;, a <code>command</code> of &quot;update&quot;, and <code>data</code> of &quot;7/notify&quot;.</p>
+<p>We&#39;ll start by defining a grammar class and some match methods for the subject, command, and data. We&#39;ll use the token declarator since we don&#39;t care about whitespace.</p>
+<pre class="pod-block-code">grammar REST {
+    token subject { \w+ }
+    token command { \w+ }
+    token data    { .* }
+}
+</pre>
+<p>So far, this REST grammar says we want a subject that will be just <em>word</em> characters, a command that will be just <em>word</em> characters, and data that will be everything else left in the string.</p>
+<p>Next, we&#39;ll want to arrange these matching tokens within the larger context of the URI. That&#39;s what the TOP method allows us to do. We&#39;ll add the TOP method and place the names of our tokens within it, together with the rest of the patterns that makes up the overall pattern. Note how we&#39;re building a larger regex from our named regexes.</p>
+<pre class="pod-block-code">grammar REST {
+    token TOP     { &#39;/&#39; &lt;subject&gt; &#39;/&#39; &lt;command&gt; &#39;/&#39; &lt;data&gt; }
+    token subject { \w+ }
+    token command { \w+ }
+    token data    { .* }
+}
+</pre>
+<p>With this code, we can already get the three parts of our RESTful request:</p>
+<pre class="pod-block-code">my $match = REST.parse(&#39;/product/update/7/notify&#39;);
+say $match;
+
+# OUTPUT: «｢/product/update/7/notify｣␤
+#          subject =&gt; ｢product｣
+#          command =&gt; ｢update｣
+#          data =&gt; ｢7/notify｣»
+</pre>
+<p>The data can be accessed directly by using <code>$match&lt;subject&gt;</code> or <code>$match&lt;command&gt;</code> or <code>$match&lt;data&gt;</code> to return the values parsed. They each contain match objects that you can work further with, such as coercing into a string ( <code>$match&lt;command&gt;.Str</code> ).</p>
+<h2 id="Adding_some_flexibility"><a class="u" href="#___top" title="go to top of document">Adding some flexibility</a></h2>
+<p>So far, the grammar will handle retrieves, deletes and updates. However, a <em>create</em> command doesn&#39;t have the third part (the <em>data</em> portion). This means the grammar will fail to match if we try to parse a create URI. To avoid this, we need to make that last <em>data</em> position match optional, along with the &#39;/&#39; preceding it. This is accomplished by adding a question mark to the grouped &#39;/&#39; and <em>data</em> components of the TOP token, to indicate their optional nature, just like a normal regex.</p>
+<p>So, now we have:</p>
+<pre class="pod-block-code">grammar REST {
+    token TOP     { &#39;/&#39; &lt;subject&gt; &#39;/&#39; &lt;command&gt; [ &#39;/&#39; &lt;data&gt; ]? }
+    token subject { \w+ }
+    token command { \w+ }
+    token data    { .* }
+}
+
+my $m = REST.parse(&#39;/product/create&#39;);
+say $m&lt;subject&gt;, $m&lt;command&gt;;
+
+# OUTPUT: «｢product｣｢create｣␤»
+</pre>
+<p>Next, assume that the URIs will be entered manually by a user and that the user might accidentally put spaces between the &#39;/&#39;s. If we wanted to accommodate for this, we could replace the &#39;/&#39;s in TOP with a token that allowed for spaces.</p>
+<pre class="pod-block-code">grammar REST {
+    token TOP     { &lt;slash&gt;&lt;subject&gt;&lt;slash&gt;&lt;command&gt;[&lt;slash&gt;&lt;data&gt;]? }
+    token subject { \w+ }
+    token command { \w+ }
+    token data    { .* }
+
+    token slash   { \s* &#39;/&#39; \s* }
+}
+
+my $m = REST.parse(&#39;/ product / update /7 /notify&#39;);
+say $m;
+
+# OUTPUT: «｢/ product / update /7 /notify｣␤
+#          slash =&gt; ｢/ ｣
+#          subject =&gt; ｢product｣
+#          slash =&gt; ｢ / ｣
+#          command =&gt; ｢update｣
+#          slash =&gt; ｢ /｣
+#          data =&gt; ｢7 /notify｣»
+</pre>
+<p>We&#39;re getting some extra junk in the match object now, with those slashes. There are techniques to clean that up that we&#39;ll get to later.</p>
+<h2 id="Inheriting_from_a_grammar"><a class="u" href="#___top" title="go to top of document">Inheriting from a grammar</a></h2>
+<p>Since grammars are classes, they behave, OOP-wise, in the same way as any other class; specifically, they can inherit from base classes that include some tokens or rules, this way:</p>
+<pre class="pod-block-code">grammar Letters {
+    token letters { \w+ }
+}
+
+grammar Quote-Quotes {
+    token quote { &quot;\&quot;&quot; | &quot;`&quot; | &quot;&#39;&quot; }
+}
+
+grammar Quote-Other {
+    token quote { &quot;|&quot; | &quot;/&quot; | &quot;¡&quot; }
+}
+
+grammar Quoted-Quotes is Letters is Quote-Quotes {
+    token TOP { ^  &lt;quoted&gt; $}
+    token quoted { &lt;quote&gt;? &lt;letters&gt; &lt;quote&gt;?  }
+}
+
+grammar Quoted-Other is Letters is Quote-Other {
+    token TOP { ^  &lt;quoted&gt; $}
+    token quoted { &lt;quote&gt;? &lt;letters&gt; &lt;quote&gt;?  }
+}
+
+my $quoted = q{&quot;enhanced&quot;};
+my $parsed = Quoted-Quotes.parse($quoted);
+say $parsed;
+#OUTPUT:
+#｢&quot;enhanced&quot;｣
+# quote =&gt; ｢&quot;｣
+# letters =&gt; ｢enhanced｣
+#quote =&gt; ｢&quot;｣
+
+$quoted = &quot;|barred|&quot;;
+$parsed = Quoted-Other.parse($quoted);
+say $parsed;
+#OUTPUT:
+#|barred|｣
+#quote =&gt; ｢|｣
+#letters =&gt; ｢barred｣
+#quote =&gt; ｢|｣
+</pre>
+<p>This example uses multiple inheritance to compose two different grammars by varying the rules that correspond to <code>quotes</code>. In this case, besides, we are rather using composition than inheritance, so we could use Roles instead of inheritance.</p>
+<pre class="pod-block-code">role Letters {
+    token letters { \w+ }
+}
+
+role Quote-Quotes {
+    token quote { &quot;\&quot;&quot; | &quot;`&quot; | &quot;&#39;&quot; }
+}
+
+role Quote-Other {
+    token quote { &quot;|&quot; | &quot;/&quot; | &quot;¡&quot; }
+}
+
+grammar Quoted-Quotes does Letters does Quote-Quotes {
+    token TOP { ^  &lt;quoted&gt; $}
+    token quoted { &lt;quote&gt;? &lt;letters&gt; &lt;quote&gt;?  }
+}
+
+grammar Quoted-Other does Letters does Quote-Other {
+    token TOP { ^  &lt;quoted&gt; $}
+    token quoted { &lt;quote&gt;? &lt;letters&gt; &lt;quote&gt;?  }
+
+}
+</pre>
+<p>Will output exactly the same as the code above. Symptomatic of the difference between Classes and Roles, a conflict like defining <code>token quote</code> twice using Role composition will result in an error:</p>
+<pre class="pod-block-code">grammar Quoted-Quotes does Letters does Quote-Quotes does Quote-Other { ... }
+# OUTPUT: ... Error while compiling ... Method &#39;quote&#39; must be resolved ...
+</pre>
+<h2 id="Adding_some_constraints"><a class="u" href="#___top" title="go to top of document">Adding some constraints</a></h2>
+<p>We want our RESTful grammar to allow for CRUD operations only. Anything else we want to fail to parse. That means our &quot;command&quot; above should have one of four values: create, retrieve, update or delete.</p>
+<p>There are several ways to accomplish this. For example, you could change the command method:</p>
+<pre class="pod-block-code">token command { \w+ }
+
+# …becomes…
+
+token command { &#39;create&#39;|&#39;retrieve&#39;|&#39;update&#39;|&#39;delete&#39; }
+</pre>
+<p>For a URI to parse successfully, the second part of the string between &#39;/&#39;s must be one of those CRUD values, otherwise the parsing fails. Exactly what we want.</p>
+<p>There&#39;s another technique that provides greater flexibility and improved readability when options grow large: <em>proto-regexes</em>.</p>
+<p>To utilize these proto-regexes (multimethods, in fact) to limit ourselves to the valid CRUD options, we&#39;ll replace <code>token command</code> with the following:</p>
+<pre class="pod-block-code">proto token command {*}
+token command:sym&lt;create&gt;   { &lt;sym&gt; }
+token command:sym&lt;retrieve&gt; { &lt;sym&gt; }
+token command:sym&lt;update&gt;   { &lt;sym&gt; }
+token command:sym&lt;delete&gt;   { &lt;sym&gt; }
+</pre>
+<p>The <code>sym</code> keyword is used to create the various proto-regex options. Each option is named (e.g., <code>sym&lt;update&gt;</code>), and for that option&#39;s use, a special <code>&lt;sym&gt;</code> token is auto-generated with the same name.</p>
+<p>The <code>&lt;sym&gt;</code> token, as well as other user-defined tokens, may be used in the proto-regex option block to define the specific <em>match condition</em>. Regex tokens are compiled forms and, once defined, cannot subsequently be modified by adverb actions (e.g., <code>:i</code>). Therefore, as it&#39;s auto-generated, the special <code>&lt;sym&gt;</code> token is useful only where an exact match of the option name is required.</p>
+<p>If, for one of the proto-regex options, a match condition occurs, then the whole proto&#39;s search terminates. The matching data, in the form of a match object, is assigned to the parent proto token. If the special <code>&lt;sym&gt;</code> token was employed and formed all or part of the actual match, then it&#39;s preserved as a sub-level in the match object, otherwise it&#39;s absent.</p>
+<p>Using proto-regex like this gives us a lot of flexibility. For example, instead of returning <code>&lt;sym&gt;</code>, which in this case is the entire string that was matched, we could instead enter our own string, or do other funny stuff. We could do the same with the <code>token subject</code> method and limit it also to only parsing correctly on valid subjects (like &#39;part&#39; or &#39;people&#39;, etc.).</p>
+<h2 id="Putting_our_RESTful_grammar_together"><a class="u" href="#___top" title="go to top of document">Putting our RESTful grammar together</a></h2>
+<p>This is what we have for processing our RESTful URIs, so far:</p>
+<pre class="pod-block-code">grammar REST
+{
+    token TOP { &lt;slash&gt;&lt;subject&gt;&lt;slash&gt;&lt;command&gt;[&lt;slash&gt;&lt;data&gt;]? }
+
+    proto token command {*}
+    token command:sym&lt;create&gt;   { &lt;sym&gt; }
+    token command:sym&lt;retrieve&gt; { &lt;sym&gt; }
+    token command:sym&lt;update&gt;   { &lt;sym&gt; }
+    token command:sym&lt;delete&gt;   { &lt;sym&gt; }
+
+    token subject { \w+ }
+    token data    { .* }
+    token slash   { \s* &#39;/&#39; \s* }
+}
+</pre>
+<p>Let&#39;s look at various URIs and see how they work with our grammar.</p>
+<pre class="pod-block-code">my @uris = [&#39;/product/update/7/notify&#39;,
+            &#39;/product/create&#39;,
+            &#39;/item/delete/4&#39;];
+
+for @uris -&gt; $uri {
+    my $m = REST.parse($uri);
+    say &quot;Sub: $m&lt;subject&gt; Cmd: $m&lt;command&gt; Dat: $m&lt;data&gt;&quot;;
+}
+
+# OUTPUT: «Sub: product Cmd: update Dat: 7/notify␤
+#          Sub: product Cmd: create Dat: ␤
+#          Sub: item Cmd: delete Dat: 4␤»
+</pre>
+<p>Note that since <code>&lt;data&gt;</code> matches nothing on the second string, <code>$m&lt;data&gt;</code> will be <code>Nil</code>, then using it in string context in the <code>say</code> function warns.</p>
+<p>With just this part of a grammar, we&#39;re getting almost everything we&#39;re looking for. The URIs get parsed and we get a data structure with the data.</p>
+<p>The <em>data</em> token returns the entire end of the URI as one string. The 4 is fine. However from the &#39;7/notify&#39;, we only want the 7. To get just the 7, we&#39;ll use another feature of grammar classes: <em>actions</em>.</p>
+<h1 id="Grammar_actions"><a class="u" href="#___top" title="go to top of document">Grammar actions</a></h1>
+<p>Grammar actions are used within grammar classes to do things with matches. Actions are defined in their own classes, distinct from grammar classes.</p>
+<p>You can think of grammar actions as a kind of plug-in expansion module for grammars. A lot of the time you&#39;ll be happy using grammars all by their own. But when you need to further process some of those strings, you can plug in the Actions expansion module.</p>
+<p>To work with actions, you use a named parameter called <code>actions</code> which should contain an instance of your actions class. With the code above, if our actions class called REST-actions, we would parse the URI string like this:</p>
+<pre class="pod-block-code">my $matchObject = REST.parse($uri, actions =&gt; REST-actions.new);
+
+#   …or if you prefer…
+
+my $matchObject = REST.parse($uri, :actions(REST-actions.new));
+</pre>
+<p>If you <em>name your action methods with the same name as your grammar methods</em> (tokens, regexes, rules), then when your grammar methods match, your action method with the same name will get called automatically. The method will also be passed the corresponding match object (represented by the <code>$/</code> variable).</p>
+<p>Let&#39;s turn to an example.</p>
+<h2 id="Grammars_by_example_with_actions"><a class="u" href="#___top" title="go to top of document">Grammars by example with actions</a></h2>
+<p>Here we are back to our grammar.</p>
+<pre class="pod-block-code">grammar REST
+{
+    token TOP { &lt;slash&gt;&lt;subject&gt;&lt;slash&gt;&lt;command&gt;[&lt;slash&gt;&lt;data&gt;]? }
+
+    proto token command {*}
+    token command:sym&lt;create&gt;   { &lt;sym&gt; }
+    token command:sym&lt;retrieve&gt; { &lt;sym&gt; }
+    token command:sym&lt;update&gt;   { &lt;sym&gt; }
+    token command:sym&lt;delete&gt;   { &lt;sym&gt; }
+
+    token subject { \w+ }
+    token data    { .* }
+    token slash   { \s* &#39;/&#39; \s* }
+}
+</pre>
+<p>Recall that we want to further process the data token &quot;7/notify&quot;, to get the 7. To do this, we&#39;ll create an action class that has a method with the same name as the named token. In this case, our token is named <code>data</code> so our method is also named <code>data</code>.</p>
+<pre class="pod-block-code">class REST-actions
+{
+    method data($/) { $/.split(&#39;/&#39;) }
+}
+</pre>
+<p>Now when we pass the URI string through the grammar, the <em>data token match</em> will be passed to the <em>REST-actions&#39; data method</em>. The action method will split the string by the &#39;/&#39; character and the first element of the returned list will be the ID number (7 in the case of &quot;7/notify&quot;).</p>
+<p>But not really; there&#39;s a little more.</p>
+<h2 id="Keeping_grammars_with_actions_tidy_with_make_and_made"><a class="u" href="#___top" title="go to top of document">Keeping grammars with actions tidy with <code>make</code> and <code>made</code></a></h2>
+<p>If the grammar calls the action above on data, the data method will be called, but nothing will show up in the big <code>TOP</code> grammar match result returned to our program. In order to make the action results show up, we need to call <a href="/Documentable/integration-test/routine/make">make</a> on that result. The result can be many things, including strings, array or hash structures.</p>
+<p>You can imagine that the <code>make</code> places the result in a special contained area for a grammar. Everything that we <code>make</code> can be accessed later by <a href="/Documentable/integration-test/routine/made">made</a>.</p>
+<p>So instead of the REST-actions class above, we should write:</p>
+<pre class="pod-block-code">class REST-actions
+{
+    method data($/) { make $/.split(&#39;/&#39;) }
+}
+</pre>
+<p>When we add <code>make</code> to the match split (which returns a list), the action will return a data structure to the grammar that will be stored separately from the <code>data</code> token of the original grammar. This way, we can work with both if we need to.</p>
+<p>If we want to access just the ID of 7 from that long URI, we access the first element of the list returned from the <code>data</code> action that we <code>made</code>:</p>
+<pre class="pod-block-code">my $uri = &#39;/product/update/7/notify&#39;;
+
+my $match = REST.parse($uri, actions =&gt; REST-actions.new);
+
+say $match&lt;data&gt;.made[0];  # OUTPUT: «7␤»
+say $match&lt;command&gt;.Str;   # OUTPUT: «update␤»
+</pre>
+<p>Here we call <code>made</code> on data, because we want the result of the action that we <code>made</code> (with <code>make</code>) to get the split array. That&#39;s lovely! But, wouldn&#39;t it be lovelier if we could <code>make</code> a friendlier data structure that contained all of the stuff we want, rather than having to coerce types and remember arrays?</p>
+<p>Just like Grammar&#39;s <code>TOP</code>, which matches the entire string, actions have a TOP method as well. We can <code>make</code> all of the individual match components, like <code>data</code> or <code>subject</code> or <code>command</code>, and then we can place them in a data structure that we will <code>make</code> in TOP. When we return the final match object, we can then access this data structure.</p>
+<p>To do this, we add the method <code>TOP</code> to the action class and <code>make</code> whatever data structure we like from the component pieces.</p>
+<p>So, our action class becomes:</p>
+<pre class="pod-block-code">class REST-actions
+{
+    method TOP ($/) {
+        make { subject =&gt; $&lt;subject&gt;.Str,
+               command =&gt; $&lt;command&gt;.Str,
+               data    =&gt; $&lt;data&gt;.made }
+    }
+
+    method data($/) { make $/.split(&#39;/&#39;) }
+}
+</pre>
+<p>Here in the <code>TOP</code> method, the <code>subject</code> remains the same as the subject we matched in the grammar. Also, <code>command</code> returns the valid <code>&lt;sym&gt;</code> that was matched (create, update, retrieve, or delete). We coerce each into <code>.Str</code>, as well, since we don&#39;t need the full match object.</p>
+<p>We want to make sure to use the <code>made</code> method on the <code>$&lt;data&gt;</code> object, since we want to access the split one that we <code>made</code> with <code>make</code> in our action, rather than the proper <code>$&lt;data&gt;</code> object.</p>
+<p>After we <code>make</code> something in the <code>TOP</code> method of a grammar action, we can then access all the custom values by calling the <code>made</code> method on the grammar result object. The code now becomes</p>
+<pre class="pod-block-code">my $uri = &#39;/product/update/7/notify&#39;;
+
+my $match = REST.parse($uri, actions =&gt; REST-actions.new);
+
+my $rest = $match.made;
+say $rest&lt;data&gt;[0];   # OUTPUT: «7␤»
+say $rest&lt;command&gt;;   # OUTPUT: «update␤»
+say $rest&lt;subject&gt;;   # OUTPUT: «product␤»
+</pre>
+<p>If the complete return match object is not needed, you could return only the made data from your action&#39;s <code>TOP</code>.</p>
+<pre class="pod-block-code">my $uri = &#39;/product/update/7/notify&#39;;
+
+my $rest = REST.parse($uri, actions =&gt; REST-actions.new).made;
+
+say $rest&lt;data&gt;[0];   # OUTPUT: «7␤»
+say $rest&lt;command&gt;;   # OUTPUT: «update␤»
+say $rest&lt;subject&gt;;   # OUTPUT: «product␤»
+</pre>
+<p>Oh, did we forget to get rid of that ugly array element number? Hmm. Let&#39;s make something new in the grammar&#39;s custom return in <code>TOP</code>... how about we call it <code>subject-id</code> and have it set to element 0 of <code>&lt;data&gt;</code>.</p>
+<pre class="pod-block-code">class REST-actions
+{
+    method TOP ($/) {
+        make { subject    =&gt; $&lt;subject&gt;.Str,
+               command    =&gt; $&lt;command&gt;.Str,
+               data       =&gt; $&lt;data&gt;.made,
+               subject-id =&gt; $&lt;data&gt;.made[0] }
+    }
+
+    method data($/) { make $/.split(&#39;/&#39;) }
+}
+</pre>
+<p>Now we can do this instead:</p>
+<pre class="pod-block-code">my $uri = &#39;/product/update/7/notify&#39;;
+
+my $rest = REST.parse($uri, actions =&gt; REST-actions.new).made;
+
+say $rest&lt;command&gt;;    # OUTPUT: «update␤»
+say $rest&lt;subject&gt;;    # OUTPUT: «product␤»
+say $rest&lt;subject-id&gt;; # OUTPUT: «7␤»
+</pre>
+<p>Here&#39;s the final code:</p>
+<pre class="pod-block-code">grammar REST
+{
+    token TOP { &lt;slash&gt;&lt;subject&gt;&lt;slash&gt;&lt;command&gt;[&lt;slash&gt;&lt;data&gt;]? }
+
+    proto token command {*}
+    token command:sym&lt;create&gt;   { &lt;sym&gt; }
+    token command:sym&lt;retrieve&gt; { &lt;sym&gt; }
+    token command:sym&lt;update&gt;   { &lt;sym&gt; }
+    token command:sym&lt;delete&gt;   { &lt;sym&gt; }
+
+    token subject { \w+ }
+    token data    { .* }
+    token slash   { \s* &#39;/&#39; \s* }
+}
+
+
+class REST-actions
+{
+    method TOP ($/) {
+        make { subject    =&gt; $&lt;subject&gt;.Str,
+               command    =&gt; $&lt;command&gt;.Str,
+               data       =&gt; $&lt;data&gt;.made,
+               subject-id =&gt; $&lt;data&gt;.made[0] }
+    }
+
+    method data($/) { make $/.split(&#39;/&#39;) }
+}
+</pre>
+<h2 id="Add_actions_directly"><a class="u" href="#___top" title="go to top of document">Add actions directly</a></h2>
+<p>Above we see how to associate grammars with action objects and perform actions on the match object. However, when we want to deal with the match object, that isn&#39;t the only way. See the example below:</p>
+<pre class="pod-block-code">grammar G {
+  rule TOP { &lt;function-define&gt; }
+  rule function-define {
+    &#39;sub&#39; &lt;identifier&gt;
+    {
+      say &quot;func &quot; ~ $&lt;identifier&gt;.made;
+      make $&lt;identifier&gt;.made;
+    }
+    &#39;(&#39; &lt;parameter&gt; &#39;)&#39; &#39;{&#39; &#39;}&#39;
+    { say &quot;end &quot; ~ $/.made; }
+  }
+  token identifier { \w+ { make ~$/; } }
+  token parameter { \w+ { say &quot;param &quot; ~ $/; } }
+}
+
+G.parse(&#39;sub f ( a ) { }&#39;);
+# OUTPUT: «func f␤param a␤end f␤»
+</pre>
+<p>This example is a reduced portion of a parser. Let&#39;s focus more on the feature it shows.</p>
+<p>First, we can add actions inside the grammar itself, and such actions are performed once the control flow of the regex arrives at them. Note that action object&#39;s method will always be performed after the whole regex item matched. Second, it shows what <code>make</code> really does, which is no more than a sugar of <code>$/.made = ...</code>. And this trick introduces a way to pass messages from within a regex item.</p>
+<p>Hopefully this has helped introduce you to the grammars in Raku and shown you how grammars and grammar action classes work together. For more information, check out the more advanced <a href="/Documentable/integration-test/language/grammars">Perl Grammar Guide</a>.</p>
+<p>For more grammar debugging, see <a href="https://github.com/jnthn/grammar-debugger">Grammar::Debugger</a>. This provides breakpoints and color-coded MATCH and FAIL output for each of your grammar tokens.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/grammar_tutorial.pod6">https://github.com/Raku/doc/blob/master/doc/Language/grammar_tutorial.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

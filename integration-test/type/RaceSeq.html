@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>class RaceSeq</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/type.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-basic.html"> Basic </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-composite.html"> Composite </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-domain-specific.html"> Domain-specific </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-exception.html"> Exceptions </a>
+            </div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Type/RaceSeq.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">class RaceSeq</h1>
+        <p class="subtitle">Performs batches of work in parallel without respecting original order.</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+        <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#method_iterator">method iterator</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#method_grep">method grep</a></td></tr>
+                  <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#method_map">method map</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.4</td><td class="toc-text"><a href="#method_invert">method invert</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.5</td><td class="toc-text"><a href="#method_race">method race</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.6</td><td class="toc-text"><a href="#method_hyper">method hyper</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">1.7</td><td class="toc-text"><a href="#method_serial">method serial</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">1.8</td><td class="toc-text"><a href="#method_is-lazy">method is-lazy</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">1.9</td><td class="toc-text"><a href="#method_sink">method sink</a></td></tr>
+    <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Type_Graph">Type Graph</a></td></tr>
+  <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Routines_supplied_by_role_Iterable">Routines supplied by role Iterable</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">5.1</td><td class="toc-text"><a href="#(Iterable)_method_iterator">(Iterable) method iterator</a></td></tr>
+            <tr class="toc-level-2"><td class="toc-number">5.2</td><td class="toc-text"><a href="#(Iterable)_method_flat">(Iterable) method flat</a></td></tr>
+                               <tr class="toc-level-2"><td class="toc-number">5.3</td><td class="toc-text"><a href="#(Iterable)_method_lazy">(Iterable) method lazy</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">5.4</td><td class="toc-text"><a href="#(Iterable)_method_hyper">(Iterable) method hyper</a></td></tr>
+           <tr class="toc-level-3"><td class="toc-number">5.4.1</td><td class="toc-text"><a href="#Options_degree_and_batch">Options degree and batch</a></td></tr>
+                 <tr class="toc-level-2"><td class="toc-number">5.5</td><td class="toc-text"><a href="#(Iterable)_method_race">(Iterable) method race</a></td></tr>
+                     <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#Routines_supplied_by_role_Sequence">Routines supplied by role Sequence</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">5.6</td><td class="toc-text"><a href="#(Sequence)_method_Str">(Sequence) method Str</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">5.7</td><td class="toc-text"><a href="#(Sequence)_method_Stringy">(Sequence) method Stringy</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">5.8</td><td class="toc-text"><a href="#(Sequence)_method_Numeric">(Sequence) method Numeric</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">5.9</td><td class="toc-text"><a href="#(Sequence)_method_AT-POS">(Sequence) method AT-POS</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">5.10</td><td class="toc-text"><a href="#(Sequence)_method_EXISTS-POS">(Sequence) method EXISTS-POS</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">5.11</td><td class="toc-text"><a href="#(Sequence)_method_eager">(Sequence) method eager</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">5.12</td><td class="toc-text"><a href="#(Sequence)_method_fmt">(Sequence) method fmt</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">5.13</td><td class="toc-text"><a href="#(Sequence)_method_gist">(Sequence) method gist</a></td></tr>
+       <tr class="toc-level-1"><td class="toc-number">5</td><td class="toc-text"><a href="#Routines_supplied_by_role_PositionalBindFailover">Routines supplied by role PositionalBindFailover</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">5.14</td><td class="toc-text"><a href="#(PositionalBindFailover)_method_cache">(PositionalBindFailover) method cache</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">5.15</td><td class="toc-text"><a href="#(PositionalBindFailover)_method_list">(PositionalBindFailover) method list</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">5.16</td><td class="toc-text"><a href="#(PositionalBindFailover)_method_iterator">(PositionalBindFailover) method iterator</a></td></tr>
+      
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <pre class="pod-block-code">class RaceSeq does Iterable does Sequence { }</pre>
+<p>An RaceSeq is the intermediate object used when the operator <a href="/Documentable/integration-test/routine/race"><code>race</code></a> is invoked on a <a href="/Documentable/integration-test/type/Seq"><code>Seq</code></a>. In general, it&#39;s not intended for direct consumption by the developer.</p>
+<h1 id="Methods"><a class="u" href="#___top" title="go to top of document">Methods</a></h1>
+<h2 id="method_iterator"><a class="u" href="#___top" title="go to top of document">method iterator</a></h2>
+<pre class="pod-block-code">method iterator(RaceSeq:D: --&gt; Iterator:D)</pre>
+<p>Returns the underlying iterator.</p>
+<h2 id="method_grep"><a class="u" href="#___top" title="go to top of document">method grep</a></h2>
+<pre class="pod-block-code">method grep(RaceSeq:D: $matcher, *%options)</pre>
+<p>Applies <code>grep</code> to the <code>RaceSeq</code> similarly to how it would do it on a Seq.</p>
+<pre class="pod-block-code">my @raced = (^10000).map(*²).race;
+@raced.grep( * %% 3 ).say;
+# OUTPUT: «(0 9 36 81 144 …»
+</pre>
+<p>When you use <code>race</code> on a <code>Seq</code>, this is the method that is actually called.</p>
+<h2 id="method_map"><a class="u" href="#___top" title="go to top of document">method map</a></h2>
+<pre class="pod-block-code">method map(RaceSeq:D: $matcher, *%options)</pre>
+<p>Uses maps on the <code>RaceSeq</code>, generally created by application of <code>.race</code> to a preexisting <code>Seq</code>.</p>
+<h2 id="method_invert"><a class="u" href="#___top" title="go to top of document">method invert</a></h2>
+<pre class="pod-block-code">method invert(RaceSeq:D:)</pre>
+<p>Inverts the <code>RaceSeq</code> created from a <code>Seq</code> by <code>.race</code>.</p>
+<h2 id="method_race"><a class="u" href="#___top" title="go to top of document">method race</a></h2>
+<pre class="pod-block-code">method race(RaceSeq:D:)</pre>
+<p>Returns the object.</p>
+<h2 id="method_hyper"><a class="u" href="#___top" title="go to top of document">method hyper</a></h2>
+<pre class="pod-block-code">method hyper(RaceSeq:D:)</pre>
+<p>Creates a <code>HyperSeq</code> object out of the current one.</p>
+<h2 id="method_serial"><a class="u" href="#___top" title="go to top of document">method serial</a></h2>
+<pre class="pod-block-code">multi method serial(RaceSeq:D:)</pre>
+<p>Converts the object to a <code>Seq</code> and returns it.</p>
+<h2 id="method_is-lazy"><a class="u" href="#___top" title="go to top of document">method is-lazy</a></h2>
+<pre class="pod-block-code">method is-lazy(--&gt; False )</pre>
+<p>Returns <code>False</code>.</p>
+<h2 id="method_sink"><a class="u" href="#___top" title="go to top of document">method sink</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method sink(--&gt; Nil)</pre>
+<p>Sinks the underlying data structure, producing any side effects.</p>
+<h1 id="Type_Graph"><a class="u" href="#___top" title="go to top of document">Type Graph</a></h1>
+<figure>
+  <figcaption>Type relations for <code>RaceSeq</code></figcaption>
+  <svg width="366pt" height="188pt"
+ viewBox="0.00 0.00 366.29 188.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 184)">
+<title>perl6&#45;type&#45;graph</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-184 362.29,-184 362.29,4 -4,4"/>
+<!-- RaceSeq -->
+<g id="node1" class="node">
+<title>RaceSeq</title>
+<g id="a_node1"><a xlink:href="/type/RaceSeq" xlink:title="RaceSeq">
+<ellipse fill="none" stroke="#000000" cx="122" cy="-18" rx="44.69" ry="18"/>
+<text text-anchor="middle" x="122" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">RaceSeq</text>
+</a>
+</g>
+</g>
+<!-- Any -->
+<g id="node3" class="node">
+<title>Any</title>
+<g id="a_node3"><a xlink:href="/type/Any" xlink:title="Any">
+<ellipse fill="none" stroke="#000000" cx="27" cy="-90" rx="27" ry="18"/>
+<text text-anchor="middle" x="27" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Any</text>
+</a>
+</g>
+</g>
+<!-- RaceSeq&#45;&gt;Any -->
+<g id="edge1" class="edge">
+<title>RaceSeq&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M101.39,-34.19C87.02,-44.77 67.76,-58.96 52.44,-70.25"/>
+<polygon fill="#000000" stroke="#000000" points="50.36,-67.44 44.39,-76.19 54.52,-73.07 50.36,-67.44"/>
+</g>
+<!-- Iterable -->
+<g id="node4" class="node">
+<title>Iterable</title>
+<g id="a_node4"><a xlink:href="/type/Iterable" xlink:title="Iterable">
+<ellipse fill="none" stroke="#6666ff" cx="122" cy="-90" rx="50.09" ry="18"/>
+<text text-anchor="middle" x="122" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#6666ff">Iterable</text>
+</a>
+</g>
+</g>
+<!-- RaceSeq&#45;&gt;Iterable -->
+<g id="edge3" class="edge">
+<title>RaceSeq&#45;&gt;Iterable</title>
+<path fill="none" stroke="#6666ff" d="M122,-36.3C122,-44.02 122,-53.29 122,-61.89"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="118.5,-61.9 122,-71.9 125.5,-61.9 118.5,-61.9"/>
+</g>
+<!-- Sequence -->
+<g id="node6" class="node">
+<title>Sequence</title>
+<g id="a_node6"><a xlink:href="/type/Sequence" xlink:title="Sequence">
+<ellipse fill="none" stroke="#6666ff" cx="240" cy="-90" rx="50.09" ry="18"/>
+<text text-anchor="middle" x="240" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#6666ff">Sequence</text>
+</a>
+</g>
+</g>
+<!-- RaceSeq&#45;&gt;Sequence -->
+<g id="edge4" class="edge">
+<title>RaceSeq&#45;&gt;Sequence</title>
+<path fill="none" stroke="#6666ff" d="M146.16,-33.33C163.51,-43.62 187.11,-57.63 206.31,-69.01"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="204.67,-72.11 215.06,-74.2 208.24,-66.09 204.67,-72.11"/>
+</g>
+<!-- Mu -->
+<g id="node2" class="node">
+<title>Mu</title>
+<g id="a_node2"><a xlink:href="/type/Mu" xlink:title="Mu">
+<ellipse fill="none" stroke="#000000" cx="27" cy="-162" rx="27" ry="18"/>
+<text text-anchor="middle" x="27" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#000000">Mu</text>
+</a>
+</g>
+</g>
+<!-- Any&#45;&gt;Mu -->
+<g id="edge2" class="edge">
+<title>Any&#45;&gt;Mu</title>
+<path fill="none" stroke="#000000" d="M27,-108.3C27,-116.02 27,-125.29 27,-133.89"/>
+<polygon fill="#000000" stroke="#000000" points="23.5,-133.9 27,-143.9 30.5,-133.9 23.5,-133.9"/>
+</g>
+<!-- PositionalBindFailover -->
+<g id="node5" class="node">
+<title>PositionalBindFailover</title>
+<g id="a_node5"><a xlink:href="/type/PositionalBindFailover" xlink:title="PositionalBindFailover">
+<ellipse fill="none" stroke="#6666ff" cx="240" cy="-162" rx="118.08" ry="18"/>
+<text text-anchor="middle" x="240" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#6666ff">PositionalBindFailover</text>
+</a>
+</g>
+</g>
+<!-- Sequence&#45;&gt;PositionalBindFailover -->
+<g id="edge5" class="edge">
+<title>Sequence&#45;&gt;PositionalBindFailover</title>
+<path fill="none" stroke="#6666ff" d="M240,-108.3C240,-116.02 240,-125.29 240,-133.89"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="236.5,-133.9 240,-143.9 243.5,-133.9 236.5,-133.9"/>
+</g>
+</g>
+</svg>
+
+  <p class="fallback">
+    <a
+      rel="alternate"
+      href="/images/type-graph-RaceSeq.svg"
+      type="image/svg+xml"
+      >Expand above chart</a
+    >
+  </p>
+</figure>
+<h1 id="Routines_supplied_by_role_Iterable"><a class="u" href="#___top" title="go to top of document">Routines supplied by role Iterable</a></h1>
+<p>RaceSeq does role <a href="/Documentable/integration-test/type/Iterable">Iterable</a>, which provides the following routines:</p>
+<h2 id="(Iterable)_method_iterator"><a href="/Documentable/integration-test/type/Iterable#method_iterator">(Iterable) method iterator</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method iterator(--&gt; Iterator:D)</pre>
+<p>Method stub that ensures all classes doing the <code>Iterable</code> role have a method <code>iterator</code>.</p>
+<p>It is supposed to return an <a href="/Documentable/integration-test/type/Iterator">Iterator</a>.</p>
+<pre class="pod-block-code">say (1..10).iterator;</pre>
+<h2 id="(Iterable)_method_flat"><a href="/Documentable/integration-test/type/Iterable#method_flat">(Iterable) method flat</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method flat(--&gt; Iterable)</pre>
+<p>Returns another <a href="/Documentable/integration-test/type/Iterable">Iterable</a> that flattens out all iterables that the first one returns.</p>
+<p>For example</p>
+<pre class="pod-block-code">say (&lt;a b&gt;, &#39;c&#39;).elems;         # OUTPUT: «2␤»
+say (&lt;a b&gt;, &#39;c&#39;).flat.elems;    # OUTPUT: «3␤»</pre>
+<p>because <code>&lt;a b&gt; </code> is a <a href="/Documentable/integration-test/type/List">List</a> and thus iterable, so <code> (&lt;a b&gt;, &#39;c&#39;).flat </code> returns <code>(&#39;a&#39;, &#39;b&#39;, &#39;c&#39;)</code>, which has three elems.</p>
+<p>Note that the flattening is recursive, so <code>(((&quot;a&quot;, &quot;b&quot;), &quot;c&quot;), &quot;d&quot;).flat</code> returns <code>(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;)</code>, but it does not flatten itemized sublists:</p>
+<pre class="pod-block-code">say ($(&#39;a&#39;, &#39;b&#39;), &#39;c&#39;).raku;    # OUTPUT: «($(&quot;a&quot;, &quot;b&quot;), &quot;c&quot;)␤»</pre>
+<p>You can use the <a href="/Documentable/integration-test/language/operators#index-entry-postfix_»..html">hyper method call</a> to call the <a href="/Documentable/integration-test/routine/List"><code>.List</code></a> method on all the inner itemized sublists and so de-containerize them, so that <code>flat</code> can flatten them:</p>
+<pre class="pod-block-code">say ($(&#39;a&#39;, &#39;b&#39;), &#39;c&#39;)&gt;&gt;.List.flat.elems;    # OUTPUT: «3␤»</pre>
+<h2 id="(Iterable)_method_lazy"><a href="/Documentable/integration-test/type/Iterable#method_lazy">(Iterable) method lazy</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method lazy(--&gt; Iterable)</pre>
+<p>Returns a lazy iterable wrapping the invocant.</p>
+<pre class="pod-block-code">say (1 ... 1000).is-lazy;      # OUTPUT: «False␤»
+say (1 ... 1000).lazy.is-lazy; # OUTPUT: «True␤»</pre>
+<h2 id="(Iterable)_method_hyper"><a href="/Documentable/integration-test/type/Iterable#method_hyper">(Iterable) method hyper</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method hyper(Int(Cool) :$batch = 64, Int(Cool) :$degree = 4)</pre>
+<p>Returns another Iterable that is potentially iterated in parallel, with a given batch size and degree of parallelism.</p>
+<p>The order of elements is preserved.</p>
+<pre class="pod-block-code">say ([1..100].hyper.map({ $_ +1 }).list);</pre>
+<p>Use <code>hyper</code> in situations where it is OK to do the processing of items in parallel, and the output order should be kept relative to the input order. See <a href="/Documentable/integration-test/routine/race"><code>race</code></a> for situations where items are processed in parallel and the output order does not matter.</p>
+<h3 id="Options_degree_and_batch"><a class="u" href="#___top" title="go to top of document">Options degree and batch</a></h3>
+<p>The <code>degree</code> option (short for &quot;degree of parallelism&quot;) configures how many parallel workers should be started. To start 4 workers (e.g. to use at most 4 cores), pass <code>:4degree</code> to the <code>hyper</code> or <code>race</code> method. Note that in some cases, choosing a degree higher than the available CPU cores can make sense, for example I/O bound work or latency-heavy tasks like web crawling. For CPU-bound work, however, it makes no sense to pick a number higher than the CPU core count.</p>
+<p>The <code>batch</code> size option configures the number of items sent to a given parallel worker at once. It allows for making a throughput/latency trade-off. If, for example, an operation is long-running per item, and you need the first results as soon as possible, set it to 1. That means every parallel worker gets 1 item to process at a time, and reports the result as soon as possible. In consequence, the overhead for inter-thread communication is maximized. In the other extreme, if you have 1000 items to process and 10 workers, and you give every worker a batch of 100 items, you will incur minimal overhead for dispatching the items, but you will only get the first results when 100 items are processed by the fastest worker (or, for <code>hyper</code>, when the worker getting the first batch returns.) Also, if not all items take the same amount of time to process, you might run into the situation where some workers are already done and sit around without being able to help with the remaining work. In situations where not all items take the same time to process, and you don&#39;t want too much inter-thread communication overhead, picking a number somewhere in the middle makes sense. Your aim might be to keep all workers about evenly busy to make best use of the resources available.</p>
+<p>You can also check out this <strong><a href="https://6guts.wordpress.com/2017/03/16/considering-hyperrace-semantics/">blog post on the semantics of hyper and race</a></strong></p>
+<h2 id="(Iterable)_method_race"><a href="/Documentable/integration-test/type/Iterable#method_race">(Iterable) method race</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method race(Int(Cool) :$batch = 64, Int(Cool) :$degree = 4 --&gt; Iterable)</pre>
+<p>Returns another Iterable that is potentially iterated in parallel, with a given batch size and degree of parallelism (number of parallel workers).</p>
+<p>Unlike <a href="/Documentable/integration-test/routine/hyper"><code>hyper</code></a>, <code>race</code> does not preserve the order of elements.</p>
+<pre class="pod-block-code">say ([1..100].race.map({ $_ +1 }).list);</pre>
+<p>Use race in situations where it is OK to do the processing of items in parallel, and the output order does not matter. See <a href="/Documentable/integration-test/routine/hyper"><code>hyper</code></a> for situations where you want items processed in parallel and the output order should be kept relative to the input order.</p>
+<p><strong><a href="https://6guts.wordpress.com/2017/03/16/considering-hyperrace-semantics/">Blog post on the semantics of hyper and race</a></strong></p>
+<p>See <a href="/Documentable/integration-test/routine/hyper"><code>hyper</code></a> for an explanation of <code>:$batch</code> and <code>:$degree</code>.</p>
+<h1 id="Routines_supplied_by_role_Sequence"><a class="u" href="#___top" title="go to top of document">Routines supplied by role Sequence</a></h1>
+<p>RaceSeq does role <a href="/Documentable/integration-test/type/Sequence">Sequence</a>, which provides the following routines:</p>
+<h2 id="(Sequence)_method_Str"><a href="/Documentable/integration-test/type/Sequence#method_Str">(Sequence) method Str</a></h2>
+<pre class="pod-block-code">multi method Str(::?CLASS:D:)</pre>
+<p><a href="/Documentable/integration-test/type/List#method_Str">Stringifies</a> the <a href="/Documentable/integration-test/type/PositionalBindFailover#method_cache">cached</a> sequence.</p>
+<h2 id="(Sequence)_method_Stringy"><a href="/Documentable/integration-test/type/Sequence#method_Stringy">(Sequence) method Stringy</a></h2>
+<pre class="pod-block-code">multi method Stringy(::?CLASS:D:)</pre>
+<p>Calls <code>.Stringy</code> on the <a href="/Documentable/integration-test/type/PositionalBindFailover#method_cache">cached</a> sequence.</p>
+<h2 id="(Sequence)_method_Numeric"><a href="/Documentable/integration-test/type/Sequence#method_Numeric">(Sequence) method Numeric</a></h2>
+<pre class="pod-block-code">method Numeric(::?CLASS:D:)</pre>
+<p>Returns the number of elements in the <a href="/Documentable/integration-test/type/PositionalBindFailover#method_cache">cached</a> sequence.</p>
+<h2 id="(Sequence)_method_AT-POS"><a href="/Documentable/integration-test/type/Sequence#method_AT-POS">(Sequence) method AT-POS</a></h2>
+<pre class="pod-block-code">multi method AT-POS(::?CLASS:D: Int:D $idx)
+multi method AT-POS(::?CLASS:D: int $idx)</pre>
+<p>Returns the element at position <code>$idx</code> in the <a href="/Documentable/integration-test/type/PositionalBindFailover#method_cache">cached</a> sequence.</p>
+<h2 id="(Sequence)_method_EXISTS-POS"><a href="/Documentable/integration-test/type/Sequence#method_EXISTS-POS">(Sequence) method EXISTS-POS</a></h2>
+<pre class="pod-block-code">multi method EXISTS-POS(::?CLASS:D: Int:D $idx)
+multi method EXISTS-POS(::?CLASS:D: int $idx)</pre>
+<p>Returns a <code>Bool</code> indicating whether there is an element at position <code>$idx</code> in the <a href="/Documentable/integration-test/type/PositionalBindFailover#method_cache">cached</a> sequence.</p>
+<h2 id="(Sequence)_method_eager"><a href="/Documentable/integration-test/type/Sequence#method_eager">(Sequence) method eager</a></h2>
+<pre class="pod-block-code">method eager(::?CLASS:D: --&gt; List:D)</pre>
+<p>Returns an eagerly evaluated <a href="/Documentable/integration-test/type/List">List</a> based on the invocant sequence, and marks it as consumed. If called on an already consumed <code>Seq</code>, throws an error of type <a href="/Documentable/integration-test/type/X::Seq::Consumed">X::Seq::Consumed</a>.</p>
+<pre class="pod-block-code">my $s = lazy 1..5;
+
+say $s.is-lazy; # OUTPUT: «True␤»
+say $s.eager;   # OUTPUT: «(1 2 3 4 5)␤»
+
+say $s.eager;
+CATCH {
+    when X::Seq::Consumed {
+        say &#39;Throws exception if already consumed&#39;;
+    }
+}
+# OUTPUT: «Throws exception if already consumed␤»</pre>
+<h2 id="(Sequence)_method_fmt"><a href="/Documentable/integration-test/type/Sequence#method_fmt">(Sequence) method fmt</a></h2>
+<pre class="pod-block-code">method fmt($format = &#39;%s&#39;, $separator = &#39; &#39; --&gt; Str:D)</pre>
+<p><a href="/Documentable/integration-test/type/List#method_fmt">Formats</a> the <a href="/Documentable/integration-test/type/PositionalBindFailover#method_cache">cached</a> sequence.</p>
+<h2 id="(Sequence)_method_gist"><a href="/Documentable/integration-test/type/Sequence#method_gist">(Sequence) method gist</a></h2>
+<pre class="pod-block-code">multi method gist(::?CLASS:D:)</pre>
+<p>Returns the <a href="/Documentable/integration-test/type/List#method_gist">gist</a> of the <a href="/Documentable/integration-test/type/PositionalBindFailover#method_cache">cached</a> sequence.</p>
+<h1 id="Routines_supplied_by_role_PositionalBindFailover"><a class="u" href="#___top" title="go to top of document">Routines supplied by role PositionalBindFailover</a></h1>
+<p>RaceSeq does role <a href="/Documentable/integration-test/type/PositionalBindFailover">PositionalBindFailover</a>, which provides the following routines:</p>
+<h2 id="(PositionalBindFailover)_method_cache"><a href="/Documentable/integration-test/type/PositionalBindFailover#method_cache">(PositionalBindFailover) method cache</a></h2>
+<pre class="pod-block-code">method cache(PositionalBindFailover:D: --&gt; List:D)</pre>
+<p>Returns a <a href="/Documentable/integration-test/type/List">List</a> based on the <code>iterator</code> method, and caches it. Subsequent calls to <code>cache</code> always return the same <code>List</code> object.</p>
+<h2 id="(PositionalBindFailover)_method_list"><a href="/Documentable/integration-test/type/PositionalBindFailover#method_list">(PositionalBindFailover) method list</a></h2>
+<pre class="pod-block-code">method list(PositionalBindFailover:D: --&gt; List:D)</pre>
+<p>Returns a <a href="/Documentable/integration-test/type/List">List</a> based on the <code>iterator</code> method without caching it.</p>
+<h2 id="(PositionalBindFailover)_method_iterator"><a href="/Documentable/integration-test/type/PositionalBindFailover#method_iterator">(PositionalBindFailover) method iterator</a></h2>
+<pre class="pod-block-code">method iterator(PositionalBindFailover:D:) { ... }</pre>
+<p>This method stub ensure that a class implementing role <code>PositionalBindFailover</code> provides an <code>iterator</code> method.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Type/RaceSeq.pod6">https://github.com/Raku/doc/blob/master/doc/Type/RaceSeq.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

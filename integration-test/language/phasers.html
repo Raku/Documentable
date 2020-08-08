@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Phasers</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/phasers.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Phasers</h1>
+        <p class="subtitle">Program execution phases and corresponding phaser blocks</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+     <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Phasers">Phasers</a></td></tr>
+                                                                                                             <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#Execution_order">Execution order</a></td></tr>
+                                                <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Program_execution_phasers">Program execution phasers</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#BEGIN">BEGIN</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">2.2</td><td class="toc-text"><a href="#CHECK">CHECK</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">2.3</td><td class="toc-text"><a href="#INIT">INIT</a></td></tr>
+                 <tr class="toc-level-2"><td class="toc-number">2.4</td><td class="toc-text"><a href="#END">END</a></td></tr>
+         <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Block_phasers">Block phasers</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#ENTER">ENTER</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">3.2</td><td class="toc-text"><a href="#LEAVE">LEAVE</a></td></tr>
+                                                 <tr class="toc-level-2"><td class="toc-number">3.3</td><td class="toc-text"><a href="#KEEP">KEEP</a></td></tr>
+  <tr class="toc-level-2"><td class="toc-number">3.4</td><td class="toc-text"><a href="#UNDO">UNDO</a></td></tr>
+  <tr class="toc-level-2"><td class="toc-number">3.5</td><td class="toc-text"><a href="#PRE">PRE</a></td></tr>
+                   <tr class="toc-level-2"><td class="toc-number">3.6</td><td class="toc-text"><a href="#POST">POST</a></td></tr>
+                                      <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#Loop_phasers">Loop phasers</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">4.1</td><td class="toc-text"><a href="#FIRST">FIRST</a></td></tr>
+  <tr class="toc-level-2"><td class="toc-number">4.2</td><td class="toc-text"><a href="#NEXT">NEXT</a></td></tr>
+                   <tr class="toc-level-2"><td class="toc-number">4.3</td><td class="toc-text"><a href="#LAST">LAST</a></td></tr>
+        <tr class="toc-level-1"><td class="toc-number">5</td><td class="toc-text"><a href="#Exception_handling_phasers">Exception handling phasers</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">5.1</td><td class="toc-text"><a href="#CATCH">CATCH</a></td></tr>
+  <tr class="toc-level-2"><td class="toc-number">5.2</td><td class="toc-text"><a href="#CONTROL">CONTROL</a></td></tr>
+                         <tr class="toc-level-1"><td class="toc-number">6</td><td class="toc-text"><a href="#Object_phasers">Object phasers</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">6.1</td><td class="toc-text"><a href="#COMPOSE_(Not_yet_implemented)">COMPOSE (Not yet implemented)</a></td></tr>
+  <tr class="toc-level-1"><td class="toc-number">7</td><td class="toc-text"><a href="#Asynchronous_phasers">Asynchronous phasers</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">7.1</td><td class="toc-text"><a href="#LAST">LAST</a></td></tr>
+                   <tr class="toc-level-2"><td class="toc-number">7.2</td><td class="toc-text"><a href="#QUIT">QUIT</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">7.3</td><td class="toc-text"><a href="#CLOSE">CLOSE</a></td></tr>
+  <tr class="toc-level-1"><td class="toc-number">8</td><td class="toc-text"><a href="#DOC_phasers">DOC phasers</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">8.1</td><td class="toc-text"><a href="#DOC">DOC</a></td></tr>
+            
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>The lifetime (execution timeline) of a program is broken up into phases. A <em>phaser</em> is a block of code called during a specific execution phase.</p>
+<h1 id="Phasers"><a class="u" href="#___top" title="go to top of document">Phasers</a></h1>
+<p>A phaser block is just a trait of the closure containing it, and is automatically called at the appropriate moment. These auto-called blocks are known as <em>phasers</em>, since they generally mark the transition from one phase of computing to another. For instance, a <code>CHECK</code> block is called at the end of compiling a compilation unit. Other kinds of phasers can be installed as well; these are automatically called at various times as appropriate, and some of them respond to various control exceptions and exit values. For instance, some phasers might be called if the exit from a block is successful or not, with <em>success</em> in this case defined by returning with a defined value or list without any <code>Failure</code> or exception in the process.</p>
+<p>Here is a summary:</p>
+<pre class="pod-block-code">  BEGIN {...} #  * at compile time, as soon as possible, only ever runs once
+  CHECK {...} #  * at compile time, as late as possible, only ever runs once
+   INIT {...} #  * at runtime, as soon as possible, only ever runs once
+    END {...} #  at runtime, as late as possible, only ever runs once
+    DOC [BEGIN|CHECK|INIT] {...} # only in documentation mode
+
+  ENTER {...} #  * at every block entry time, repeats on loop blocks.
+  LEAVE {...} #  at every block exit time (even stack unwinds from exceptions)
+   KEEP {...} #  at every successful block exit, part of LEAVE queue
+   UNDO {...} #  at every unsuccessful block exit, part of LEAVE queue
+
+  FIRST {...} #  at loop initialization time, before any ENTER
+   NEXT {...} #  at loop continuation time, before any LEAVE
+   LAST {...} #  at loop termination time, after any LEAVE
+
+    PRE {...} #  assert precondition at every block entry, before ENTER
+   POST {...} #  assert postcondition at every block exit, after LEAVE
+
+  CATCH {...} #  catch exceptions, before LEAVE
+CONTROL {...} #  catch control exceptions, before LEAVE
+
+   LAST {...} #  supply tapped by whenever-block is done, runs very last
+   QUIT {...} #  catch async exceptions within a whenever-block, runs very last
+
+COMPOSE {...} #  when a role is composed into a class (Not yet implemented)
+  CLOSE {...} #  appears in a supply block, called when the supply is closed
+</pre>
+<p>Phasers marked with a <code>*</code> have a runtime value, and if evaluated earlier than their surrounding expression, they simply save their result for use in the expression later when the rest of the expression is evaluated:</p>
+<pre class="pod-block-code">my $compiletime = BEGIN { now };
+our $random = ENTER { rand };</pre>
+<p>As with other statement prefixes, these value-producing constructs may be placed in front of either a block or a statement:</p>
+<pre class="pod-block-code">my $compiletime = BEGIN now;
+our $random = ENTER rand;</pre>
+<p>Most of these phasers will take either a block or a function reference. The statement form can be particularly useful to expose a lexically scoped declaration to the surrounding lexical scope without &quot;trapping&quot; it inside a block.</p>
+<p>These declare the same variables with the same scope as the preceding example, but run the statements as a whole at the indicated time:</p>
+<pre class="pod-block-code">BEGIN my $compiletime = now;
+ENTER our $random = rand;</pre>
+<p>(Note, however, that the value of a variable calculated at compile time may not persist under runtime cloning of any surrounding closure.)</p>
+<p>Most of the non-value-producing phasers may also be so used:</p>
+<pre class="pod-block-code">END say my $accumulator;</pre>
+<p>Note, however, that</p>
+<pre class="pod-block-code">END say my $accumulator = 0;</pre>
+<p>sets the variable to 0 at <code>END</code> time, since that is when the &quot;my&quot; declaration is actually executed. Only argumentless phasers may use the statement form. This means that <code>CATCH</code> and <code>CONTROL</code> always require a block, since they take an argument that sets <code>$_</code> to the current topic, so that the innards are able to behave as a switch statement. (If bare statements were allowed, the temporary binding of <code>$_</code> would leak out past the end of the <code>CATCH</code> or <code>CONTROL</code>, with unpredictable and quite possibly dire consequences. Exception handlers are supposed to reduce uncertainty, not increase it.)</p>
+<p><a name="Documentable/integration-test/index-entry-Phasers__will_trait"></a> Some of these phasers also have corresponding traits that can be set on variables; they use <code>will</code> followed by the name of the phaser in lowercase. These have the advantage of passing the variable in question into the closure as its topic:</p>
+<pre class="pod-block-code">our $h will enter { .rememberit() } will undo { .forgetit() };</pre>
+<p>Only phasers that can occur multiple times within a block are eligible for this per-variable form; this excludes <code>CATCH</code> and others like <code>CLOSE</code> or <code>QUIT</code>.</p>
+<p>The topic of the block outside a phaser is still available as <code>OUTER::&lt;$_&gt; </code>. Whether the return value is modifiable may be a policy of the phaser in question. In particular, the return value should not be modified within a <code>POST</code> phaser, but a <code>LEAVE</code> phaser could be more liberal.</p>
+<p>Any phaser defined in the lexical scope of a method is a closure that closes over <code>self</code> as well as normal lexicals. (Or equivalently, an implementation may simply turn all such phasers into submethods whose primed invocant is the current object.)</p>
+<p>When multiple phasers are scheduled to run at the same moment, the general tiebreaking principle is that initializing phasers execute in order declared, while finalizing phasers execute in the opposite order, because setup and teardown usually want to happen in the opposite order from each other.</p>
+<h2 id="Execution_order"><a class="u" href="#___top" title="go to top of document">Execution order</a></h2>
+<p>Compilation begins</p>
+<pre class="pod-block-code">      BEGIN {...} #  at compile time, As soon as possible, only ever runs once
+      CHECK {...} #  at compile time, As late as possible, only ever runs once
+    COMPOSE {...} #  when a role is composed into a class (Not yet implemented)
+</pre>
+<p>Execution begins</p>
+<pre class="pod-block-code">       INIT {...} #  at runtime, as soon as possible, only ever runs once
+</pre>
+<p>Before block execution begins</p>
+<pre class="pod-block-code">        PRE {...} #  assert precondition at every block entry, before ENTER
+</pre>
+<p>Loop execution begins</p>
+<pre class="pod-block-code">      FIRST {...} #  at loop initialization time, before any ENTER
+</pre>
+<p>Block execution begins</p>
+<pre class="pod-block-code">      ENTER {...} #  at every block entry time, repeats on loop blocks.
+</pre>
+<p>Exception maybe happens</p>
+<pre class="pod-block-code">      CATCH {...} #  catch exceptions, before LEAVE
+    CONTROL {...} #  catch control exceptions, before LEAVE
+</pre>
+<p>End of loop, either continuing or finished</p>
+<pre class="pod-block-code">       NEXT {...} #  at loop continuation time, before any LEAVE
+       LAST {...} #  at loop termination time, after any LEAVE
+</pre>
+<p>End of block</p>
+<pre class="pod-block-code">      LEAVE {...} #  when blocks exits, even stack unwinds from exceptions
+       KEEP {...} #  at every successful block exit, part of LEAVE queue
+       UNDO {...} #  at every unsuccessful block exit, part of LEAVE queue
+</pre>
+<p>Postcondition for block</p>
+<pre class="pod-block-code">       POST {...} #  assert postcondition at every block exit, after LEAVE
+</pre>
+<p>Async whenever-block is complete</p>
+<pre class="pod-block-code">       LAST {...} #  if ended normally with done, runs once after block
+       QUIT {...} #  catch async exceptions
+</pre>
+<p>Program terminating</p>
+<pre class="pod-block-code">        END {...} #  at runtime, ALAP, only ever runs once
+</pre>
+<h1 id="Program_execution_phasers"><a class="u" href="#___top" title="go to top of document">Program execution phasers</a></h1>
+<h2 id="BEGIN"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-Phasers__BEGIN-BEGIN"><span class="index-entry">BEGIN</span></a></a></h2>
+<p>Runs at compile time, as soon as the code in the phaser has compiled, only runs once.</p>
+<p>The return value is available for use in later phases:</p>
+<pre class="pod-block-code">say &quot;About to print 3 things&quot;;
+for ^3 {
+    say ^10 .pick ~ &#39;-&#39; ~ BEGIN { say  &quot;Generating BEGIN value&quot;; ^10 .pick }
+}
+# OUTPUT:
+# Generating BEGIN value
+# About to print 3 things
+# 3-3
+# 4-3
+# 6-3</pre>
+<p>The <code>^10 .pick</code> in the phaser is generated only once and is then re-used by the loop during runtime. Note how the <a href="/Documentable/integration-test/routine/say">say</a> in the <code>BEGIN</code> block is executed before the <a href="/Documentable/integration-test/routine/say">say</a> that is above the loop.</p>
+<h2 id="CHECK"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-Phasers__CHECK-CHECK"><span class="index-entry">CHECK</span></a></a></h2>
+<p>Runs at compile time, as late as possible, only runs once.</p>
+<p>Can have a return value that is provided even in later phases.</p>
+<p>Code that is generated at runtime can still fire off <code>CHECK</code> and <code>INIT</code> phasers, though of course those phasers can&#39;t do things that would require travel back in time. You need a wormhole for that.</p>
+<h2 id="INIT"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-Phasers__INIT-INIT"><span class="index-entry">INIT</span></a></a></h2>
+<p>Runs after compilation during main execution, as soon as possible, only runs once. It can have a return value that is provided even in later phases.</p>
+<p>When phasers are in different modules, the <code>INIT</code> and <code>END</code> phasers are treated as if declared at <code>use</code> time in the using module. (It is erroneous to depend on this order if the module is used more than once, however, since the phasers are only installed the first time they&#39;re noticed.)</p>
+<p>Code that is generated at runtime can still fire off <code>CHECK</code> and <code>INIT</code> phasers, though of course those phasers can&#39;t do things that would require travel back in time. You need a wormhole for that.</p>
+<p>An <code>INIT</code> only runs once for all copies of a cloned closure.</p>
+<h2 id="END"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-Phasers__END-END"><span class="index-entry">END</span></a></a></h2>
+<p>Runs after compilation during main execution, as late as possible, only runs once. It will close any open handles automatically.</p>
+<p>When phasers are in different modules, the <code>INIT</code> and <code>END</code> phasers are treated as if declared at <code>use</code> time in the using module. (It is erroneous to depend on this order if the module is used more than once, however, since the phasers are only installed the first time they&#39;re noticed.)</p>
+<h1 id="Block_phasers"><a class="u" href="#___top" title="go to top of document">Block phasers</a></h1>
+<p>Execution in the context of a block has its own phases.</p>
+<p>Block-leaving phasers wait until the call stack is actually unwound to run. Unwinding happens only after some exception handler decides to handle the exception that way. That is, just because an exception is thrown past a stack frame does not mean we have officially left the block yet, since the exception might be resumable. In any case, exception handlers are specified to run within the dynamic scope of the failing code, whether or not the exception is resumable. The stack is unwound and the phasers are called only if an exception is not resumed.</p>
+<p>These can occur multiple times within the block. So they aren&#39;t really traits, exactly--they add themselves onto a list stored in the actual trait. If you examine the <code>ENTER</code> trait of a block, you&#39;ll find that it&#39;s really a list of phasers rather than a single phaser.</p>
+<p>All of these phaser blocks can see any previously declared lexical variables, even if those variables have not been elaborated yet when the closure is invoked (in which case the variables evaluate to an undefined value.)</p>
+<h2 id="ENTER"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-Phasers__ENTER-ENTER"><span class="index-entry">ENTER</span></a></a></h2>
+<p>Runs at every block entry time, repeats on loop blocks.</p>
+<p>Can have a return value that is provided even in later phases.</p>
+<p>An exception thrown from an <code>ENTER</code> phaser will abort the <code>ENTER</code> queue, but one thrown from a <code>LEAVE</code> phaser will not.</p>
+<h2 id="LEAVE"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-Phasers__LEAVE-LEAVE"><span class="index-entry">LEAVE</span></a></a></h2>
+<p>Runs at every block exit time (even stack unwinds from exceptions), except when the program exits abruptly (e.g. with <a href="/Documentable/integration-test/routine/exit"><code>exit</code></a>).</p>
+<p><code>LEAVE</code> phasers for a given block are necessarily evaluated after any <code>CATCH</code> and <code>CONTROL</code> phasers. This includes the <code>LEAVE</code> variants, <code>KEEP</code> and <code>UNDO</code>. <code>POST</code> phasers are evaluated after everything else, to guarantee that even <code>LEAVE</code> phasers can&#39;t violate postconditions.</p>
+<p>An exception thrown from an <code>ENTER</code> phaser will abort the <code>ENTER</code> queue, but one thrown from a <code>LEAVE</code> phaser will not.</p>
+<p>If a <code>POST</code> fails or any kind of <code>LEAVE</code> block throws an exception while the stack is unwinding, the unwinding continues and collects exceptions to be handled. When the unwinding is completed all new exceptions are thrown from that point.</p>
+<pre class="pod-block-code">sub answer() {
+    LEAVE say „I say after the return value.“;
+
+    42 # this is the return value
+}</pre>
+<p><strong>Note:</strong> be mindful of <code>LEAVE</code> phasers directly in blocks of routines, as they will get executed even when an attempt to call the routine with wrong arguments is made:</p>
+<pre class="pod-block-code">sub foo (Int) {
+    say &quot;Hello!&quot;;
+    LEAVE say &quot;oh noes!&quot;
+}
+try foo rand; # OUTPUT: «oh noes!␤»</pre>
+<p>Although the subroutine&#39;s body did not get run, because the sub expects an <a href="/Documentable/integration-test/type/Int">Int</a> and <a href="/Documentable/integration-test/routine/rand"><code>rand</code></a> returned a <a href="/Documentable/integration-test/type/Num">Num</a>, its block was entered and left (when param binding failed), and so the <code>LEAVE</code> phaser <em>was</em> run.</p>
+<h2 id="KEEP"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-Phasers__KEEP-KEEP"><span class="index-entry">KEEP</span></a></a></h2>
+<p>Runs at every successful block exit, as part of the LEAVE queue (shares the same order of execution).</p>
+<h2 id="UNDO"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-Phasers__UNDO-UNDO"><span class="index-entry">UNDO</span></a></a></h2>
+<p>Runs at every unsuccessful block exit, as part of the LEAVE queue (shares the same order of execution).</p>
+<h2 id="PRE"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-Phasers__PRE-PRE"><span class="index-entry">PRE</span></a></a></h2>
+<p>Asserts a precondition at every block entry. Runs before the ENTER phase.</p>
+<p><code>PRE</code> phasers fire off before any <code>ENTER</code> or <code>FIRST</code>.</p>
+<p>The exceptions thrown by failing <code>PRE</code> and <code>POST</code> phasers cannot be caught by a <code>CATCH</code> in the same block, which implies that <code>POST</code> phaser are not run if a <code>PRE</code> phaser fails.</p>
+<h2 id="POST"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-Phasers__POST-POST"><span class="index-entry">POST</span></a></a></h2>
+<p>Asserts a postcondition at every block entry. Runs after the LEAVE phase.</p>
+<p>For phasers such as <code>KEEP</code> and <code>POST</code> that are run when exiting a scope normally, the return value (if any) from that scope is available as the current topic within the phaser.</p>
+<p>The <code>POST</code> block can be defined in one of two ways. Either the corresponding <code>POST</code> is defined as a separate phaser, in which case <code>PRE</code> and <code>POST</code> share no lexical scope. Alternately, any <code>PRE</code> phaser may define its corresponding <code>POST</code> as an embedded phaser block that closes over the lexical scope of the <code>PRE</code>.</p>
+<p>If a <code>POST</code> fails or any kind of <code>LEAVE</code> block throws an exception while the stack is unwinding, the unwinding continues and collects exceptions to be handled. When the unwinding is completed all new exceptions are thrown from that point.</p>
+<p>The exceptions thrown by failing <code>PRE</code> and <code>POST</code> phasers cannot be caught by a <code>CATCH</code> in the same block, which implies that <code>POST</code> phaser are not run if a <code>PRE</code> phaser fails.</p>
+<h1 id="Loop_phasers"><a class="u" href="#___top" title="go to top of document">Loop phasers</a></h1>
+<p><code>FIRST</code>, <code>NEXT</code>, and <code>LAST</code> are meaningful only within the lexical scope of a loop, and may occur only at the top level of such a loop block.</p>
+<h2 id="FIRST"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-Phasers__FIRST-FIRST"><span class="index-entry">FIRST</span></a></a></h2>
+<p>Runs at loop initialization, before ENTER.</p>
+<h2 id="NEXT"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-Phasers__NEXT-NEXT"><span class="index-entry">NEXT</span></a></a></h2>
+<p>Runs when loop is continued (either through <code>next</code> or because you got to the bottom of the loop and are looping back around), before LEAVE.</p>
+<p>A <code>NEXT</code> executes only if the end of the loop block is reached normally, or an explicit <code>next</code> is executed. In distinction to <code>LEAVE</code> phasers, a <code>NEXT</code> phaser is not executed if the loop block is exited via any exception other than the control exception thrown by <code>next</code>. In particular, a <code>last</code> bypasses evaluation of <code>NEXT</code> phasers.</p>
+<h2 id="LAST"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-Phasers__LAST-LAST"><span class="index-entry">LAST</span></a></a></h2>
+<p>Runs when a loop is finished because the condition is met, or when it exits using <code>last</code> or <code>return</code>; it is executed after <code>LEAVE</code>.</p>
+<h1 id="Exception_handling_phasers"><a class="u" href="#___top" title="go to top of document">Exception handling phasers</a></h1>
+<h2 id="CATCH"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-Phasers__CATCH-CATCH"><span class="index-entry">CATCH</span></a></a></h2>
+<p>Runs when an exception is raised by the current block, before the LEAVE phase.</p>
+<h2 id="CONTROL"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-Phasers__CONTROL-CONTROL"><span class="index-entry">CONTROL</span></a></a></h2>
+<p>Runs when a control exception is raised by the current block, before the LEAVE phase. It is raised by <code>return</code>, <code>fail</code>, <code>redo</code>, <code>next</code>, <code>last</code>, <code>done</code>, <code>emit</code>, <code>take</code>, <code>warn</code>, <code>proceed</code> and <code>succeed</code>.</p>
+<pre class="pod-block-code">say elems gather {
+    CONTROL {
+        when CX::Warn { say &quot;WARNING!!! $_&quot;; .resume }
+        when CX::Take { say &quot;Don&#39;t take my stuff&quot;; .resume }
+        when CX::Done { say &quot;Done&quot;; .resume }
+    }
+    warn &#39;people take stuff here&#39;;
+    take &#39;keys&#39;;
+    done;
+}
+# OUTPUT:
+# WARNING!!! people take stuff here
+# Don&#39;t take my stuff
+# Done
+# 0</pre>
+<h1 id="Object_phasers"><a class="u" href="#___top" title="go to top of document">Object phasers</a></h1>
+<h2 id="COMPOSE_(Not_yet_implemented)"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-Phasers__COMPOSE-COMPOSE"><span class="index-entry">COMPOSE</span></a> (Not yet implemented)</a></h2>
+<p>Runs when a role is composed into a class.</p>
+<h1 id="Asynchronous_phasers"><a class="u" href="#___top" title="go to top of document">Asynchronous phasers</a></h1>
+<h2 id="LAST"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-Asynchronous_Phasers__LAST-LAST"><span class="index-entry">LAST</span></a></a></h2>
+<p>Runs when a <a href="/Documentable/integration-test/type/Supply">Supply</a> finishes with a call to <code>done</code> or when a <code>supply</code> block exits normally. It runs completely after the <code>whenever</code> block it is placed within finishes.</p>
+<p>This phaser reuses the name <code>LAST</code>, but works differently from the <code>LAST</code> loop phaser. This phaser is similar to setting the <code>done</code> routine while tapping a supply with <code>tap</code>.</p>
+<h2 id="QUIT"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-Asynchronous_Phasers__QUIT-QUIT"><span class="index-entry">QUIT</span></a></a></h2>
+<p>Runs when a <a href="/Documentable/integration-test/type/Supply">Supply</a> terminates early with an exception. It runs after the <code>whenever</code> block it is placed within finishes.</p>
+<p>This phaser is similar to setting the <code>quit</code> routine while tapping a Supply with <code>tap</code>.</p>
+<h2 id="CLOSE"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-Asynchronous_Phasers__CLOSE-CLOSE"><span class="index-entry">CLOSE</span></a></a></h2>
+<p>Appears in a supply block. Called when the supply is closed.</p>
+<h1 id="DOC_phasers"><a class="u" href="#___top" title="go to top of document">DOC phasers</a></h1>
+<h2 id="DOC"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-Asynchronous_Phasers__DOC-DOC"><span class="index-entry">DOC</span></a></a></h2>
+<p>The phasers <code>BEGIN</code>, <code>CHECK</code> and <code>INIT</code> are run only in documentation mode when prefixed with the <code>DOC</code> keyword. The compiler is in documentation mode when run with <code>--doc</code>.</p>
+<pre class="pod-block-code">DOC INIT { say &#39;init&#39;  }  # prints &#39;init&#39; at initialization time when in documentation mode.</pre>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/phasers.pod6">https://github.com/Raku/doc/blob/master/doc/Language/phasers.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

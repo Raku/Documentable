@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Quoting constructs</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/quoting.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Quoting constructs</h1>
+        <p class="subtitle">Writing strings, word lists, and regexes in Raku</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+  <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#The_Q_lang">The Q lang</a></td></tr>
+              <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#Literal_strings:_Q">Literal strings: Q</a></td></tr>
+                                                                                                                                                     <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#Escaping:_q">Escaping: q</a></td></tr>
+                                                  <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#Interpolation:_qq">Interpolation: qq</a></td></tr>
+                                                                                                                         <tr class="toc-level-2"><td class="toc-number">1.4</td><td class="toc-text"><a href="#Word_quoting:_qw">Word quoting: qw </a></td></tr>
+                                     <tr class="toc-level-2"><td class="toc-number">1.5</td><td class="toc-text"><a href="#Word_quoting:_&lt;_&gt;">Word quoting: &lt; &gt; </a></td></tr>
+                                                  <tr class="toc-level-2"><td class="toc-number">1.6</td><td class="toc-text"><a href="#Word_quoting_with_quote_protection:_qww">Word quoting with quote protection: qww</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">1.7</td><td class="toc-text"><a href="#Word_quoting_with_interpolation:_qqw">Word quoting with interpolation: qqw</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">1.8</td><td class="toc-text"><a href="#Word_quoting_with_interpolation_and_quote_protection:_qqww">Word quoting with interpolation and quote protection: qqww</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">1.9</td><td class="toc-text"><a href="#Word_quoting_with_interpolation_and_quote_protection:_«_»">Word quoting with interpolation and quote protection: « »</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">1.10</td><td class="toc-text"><a href="#Shell_quoting:_qx">Shell quoting: qx</a></td></tr>
+                                    <tr class="toc-level-2"><td class="toc-number">1.11</td><td class="toc-text"><a href="#Shell_quoting_with_interpolation:_qqx">Shell quoting with interpolation: qqx</a></td></tr>
+            <tr class="toc-level-2"><td class="toc-number">1.12</td><td class="toc-text"><a href="#Heredocs:_:to">Heredocs: :to</a></td></tr>
+                                                                              <tr class="toc-level-2"><td class="toc-number">1.13</td><td class="toc-text"><a href="#Unquoting">Unquoting</a></td></tr>
+        <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Regexes">Regexes</a></td></tr>
+   
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <h1 id="The_Q_lang"><a class="u" href="#___top" title="go to top of document">The Q lang</a></h1>
+<p>Strings are usually represented in Raku code using some form of quoting construct. The most minimalistic of these is <code>Q</code>, usable via the shortcut <code>｢…｣</code>, or via <code>Q</code> followed by any pair of delimiters surrounding your text, including many <a href="https://github.com/Raku/roast/blob/aa4994a7f6b3f6b450a9d231bebd5fba172439b0/S02-literals/quoting-unicode.t#L49-L65">Unicode pairs</a>. Most of the time, though, the most you&#39;ll need is <code>&#39;…&#39;</code> or <code>&quot;…&quot;</code>, described in more detail in the following sections.</p>
+<h2 id="Literal_strings:_Q"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-quote_Q-quote_｢_｣-Literal_strings:_Q"><span class="index-entry">Literal strings: Q</span></a></a></h2>
+<pre class="pod-block-code"><strong>Q[</strong>A literal string<strong>]</strong>
+<strong>｢</strong>More plainly.<strong>｣</strong>
+<strong>Q ^</strong>Almost any non-word character can be a delimiter!<strong>^</strong>
+<strong>Q ｢｢</strong>Delimiters can be repeated/nested if they are adjacent.<strong>｣｣</strong>
+<strong>Q｟Quoting with fancy unicode pairs｠</strong>
+</pre>
+<p>Delimiters can be nested, but in the plain <code>Q</code> form, backslash escapes aren&#39;t allowed. In other words, basic <code>Q</code> strings are as literal as possible.</p>
+<p>Some delimiters are not allowed immediately after <code>Q</code>, <code>q</code>, or <code>qq</code>. Any characters that are allowed in <a href="/Documentable/integration-test/language/syntax#Identifiers">identifiers</a> are not allowed to be used, since in such a case, the quoting construct together with such characters are interpreted as an identifier. In addition, <code>( )</code> is not allowed because that is interpreted as a function call. If you still wish to use those characters as delimiters, separate them from <code>Q</code>, <code>q</code>, or <code>qq</code> with a space. Please note that some natural languages use a left delimiting quote on the right side of a string. <code>Q</code> will not support those as it relies on unicode properties to tell left and right delimiters apart.</p>
+<pre class="pod-block-code"><strong>Q&#39;</strong>this will not work!<strong>&#39;</strong>
+<strong>Q(</strong>this won&#39;t work either!<strong>)</strong>
+</pre>
+<p>The examples above will produce an error. However, this will work</p>
+<pre class="pod-block-code"><strong>Q (</strong>this is fine, because of space after Q<strong>)</strong>
+<strong>Q &#39;</strong>and so is this<strong>&#39;</strong>
+Q&lt;Make sure you <strong>&lt;</strong>match<strong>&gt;</strong> opening and closing delimiters&gt;
+Q{This is still a closing curly brace → <strong>\</strong>}
+</pre>
+<p>These examples produce:</p>
+<pre class="pod-block-code">this is fine, because of space after Q
+and so is this
+Make sure you &lt;match&gt; opening and closing delimiters
+This is still a closing curly brace → \
+</pre>
+<p><a name="Documentable/integration-test/index-entry-:x_(quoting_adverb)"></a><a name="Documentable/integration-test/index-entry-:exec_(quoting_adverb)"></a><a name="Documentable/integration-test/index-entry-:w_(quoting_adverb)"></a><a name="Documentable/integration-test/index-entry-:words_(quoting_adverb)"></a><a name="Documentable/integration-test/index-entry-:ww_(quoting_adverb)"></a><a name="Documentable/integration-test/index-entry-:quotewords_(quoting_adverb)"></a><a name="Documentable/integration-test/index-entry-:q_(quoting_adverb)"></a><a name="Documentable/integration-test/index-entry-:single_(quoting_adverb)"></a><a name="Documentable/integration-test/index-entry-:qq_(quoting_adverb)"></a><a name="Documentable/integration-test/index-entry-:double_(quoting_adverb)"></a><a name="Documentable/integration-test/index-entry-:s_(quoting_adverb)"></a><a name="Documentable/integration-test/index-entry-:scalar_(quoting_adverb)"></a><a name="Documentable/integration-test/index-entry-:a_(quoting_adverb)"></a><a name="Documentable/integration-test/index-entry-:array_(quoting_adverb)"></a><a name="Documentable/integration-test/index-entry-:h_(quoting_adverb)"></a><a name="Documentable/integration-test/index-entry-:hash_(quoting_adverb)"></a><a name="Documentable/integration-test/index-entry-:f_(quoting_adverb)"></a><a name="Documentable/integration-test/index-entry-:function_(quoting_adverb)"></a><a name="Documentable/integration-test/index-entry-:c_(quoting_adverb)"></a><a name="Documentable/integration-test/index-entry-:closure_(quoting_adverb)"></a><a name="Documentable/integration-test/index-entry-:b_(quoting_adverb)"></a><a name="Documentable/integration-test/index-entry-:backslash_(quoting_adverb)"></a><a name="Documentable/integration-test/index-entry-:to_(quoting_adverb)"></a><a name="Documentable/integration-test/index-entry-:heredoc_(quoting_adverb)"></a><a name="Documentable/integration-test/index-entry-:v_(quoting_adverb)"></a><a name="Documentable/integration-test/index-entry-:val_(quoting_adverb)"></a></p>
+<p>The behavior of quoting constructs can be modified with adverbs, as explained in detail in later sections.</p>
+<table class="pod-table">
+<tbody>
+<tr> <td>Short</td> <td>Long</td> <td>Meaning</td> </tr> <tr> <td>:x</td> <td>:exec</td> <td>Execute as command and return results</td> </tr> <tr> <td>:w</td> <td>:words</td> <td>Split result on words (no quote protection)</td> </tr> <tr> <td>:ww</td> <td>:quotewords</td> <td>Split result on words (with quote protection)</td> </tr> <tr> <td>:q</td> <td>:single</td> <td>Interpolate \\, \qq[...] and escaping the delimiter with \</td> </tr> <tr> <td>:qq</td> <td>:double</td> <td>Interpolate with :s, :a, :h, :f, :c, :b</td> </tr> <tr> <td>:s</td> <td>:scalar</td> <td>Interpolate $ vars</td> </tr> <tr> <td>:a</td> <td>:array</td> <td>Interpolate @ vars</td> </tr> <tr> <td>:h</td> <td>:hash</td> <td>Interpolate % vars</td> </tr> <tr> <td>:f</td> <td>:function</td> <td>Interpolate &amp; calls</td> </tr> <tr> <td>:c</td> <td>:closure</td> <td>Interpolate {...} expressions</td> </tr> <tr> <td>:b</td> <td>:backslash</td> <td>Enable backslash escapes (\n, \qq, \$foo, etc)</td> </tr> <tr> <td>:to</td> <td>:heredoc</td> <td>Parse result as heredoc terminator</td> </tr> <tr> <td>:v</td> <td>:val</td> <td>Convert to allomorph if possible</td> </tr>
+</tbody>
+</table><p><a name="Documentable/integration-test/index-entry-escaping_quote"></a></p>
+<h2 id="Escaping:_q"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-quote_q-quote_'_'-Escaping:_q"><span class="index-entry">Escaping: q</span></a></a></h2>
+<pre class="pod-block-code">&#39;Very plain&#39;;
+q[This back\slash stays];
+q[This back\\slash stays]; # Identical output
+q{This is not a closing curly brace → \}, but this is → };
+Q :q $There are no backslashes here, only lots of \$\$\$!$;
+&#39;(Just kidding. There\&#39;s no money in that string)&#39;;
+&#39;No $interpolation {here}!&#39;;
+Q:q!Just a literal &quot;\n&quot; here!;
+</pre>
+<p>The <code>q</code> form allows for escaping characters that would otherwise end the string using a backslash. The backslash itself can be escaped, too, as in the third example above. The usual form is <code>&#39;…&#39;</code> or <code>q</code> followed by a delimiter, but it&#39;s also available as an adverb on <code>Q</code>, as in the fifth and last example above.</p>
+<p>These examples produce:</p>
+<pre class="pod-block-code">Very plain
+This back\slash stays
+This back\slash stays
+This is not a closing curly brace → } but this is →
+There are no backslashes here, only lots of $$$!
+(Just kidding. There&#39;s no money in that string)
+No $interpolation {here}!
+Just a literal &quot;\n&quot; here
+</pre>
+<p>The <code>\qq[...]</code> escape sequence enables <a href="/Documentable/integration-test/language/quoting#Interpolation:_qq"><code>qq</code> interpolation</a> for a portion of the string. Using this escape sequence is handy when you have HTML markup in your strings, to avoid interpretation of angle brackets as hash keys:</p>
+<pre class="pod-block-code">my $var = &#39;foo&#39;;
+say &#39;&lt;code&gt;$var&lt;/code&gt; is &lt;var&gt;\qq[$var.uc()]&lt;/var&gt;&#39;;
+# OUTPUT: «&lt;code&gt;$var&lt;/code&gt; is &lt;var&gt;FOO&lt;/var&gt;␤»</pre>
+<h2 id="Interpolation:_qq"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-quote_qq-quote_"_"-Interpolation:_qq"><span class="index-entry">Interpolation: qq</span></a></a></h2>
+<pre class="pod-block-code">my $color = &#39;blue&#39;;
+<a href="/Documentable/integration-test/routine/say">say</a> <strong>&quot;</strong>My favorite color is <strong>$color</strong>!<strong>&quot;</strong>
+</pre>
+<pre class="pod-block-code">My favorite color is blue!
+</pre>
+<p><a name="Documentable/integration-test/index-entry-\_(quoting)"></a> The <code>qq</code> form – usually written using double quotes – allows for interpolation of backslash sequences and variables, i.e., variables can be written within the string so that the content of the variable is inserted into the string. It is also possible to escape variables within a <code>qq</code>-quoted string:</p>
+<pre class="pod-block-code">say <strong>&quot;</strong>The <strong>\</strong>$color variable contains the value &#39;$color&#39;<strong>&quot;</strong>;
+</pre>
+<pre class="pod-block-code">The $color variable contains the value &#39;blue&#39;
+</pre>
+<p>Another feature of <code>qq</code> is the ability to interpolate Raku code from within the string, using curly braces:</p>
+<pre class="pod-block-code">my ($x, $y, $z) = 4, 3.5, 3;
+say &quot;This room is <strong>$x</strong> m by <strong>$y</strong> m by <strong>$z</strong> m.&quot;;
+say &quot;Therefore its volume should be <strong>{ $x * $y * $z }</strong> m³!&quot;;
+</pre>
+<pre class="pod-block-code">This room is 4 m by 3.5 m by 3 m.
+Therefore its volume should be 42 m³!
+</pre>
+<p>By default, only variables with the <code>$</code> sigil are interpolated normally. This way, when you write <code>&quot;documentation@raku.org&quot;</code>, you aren&#39;t interpolating the <code>@raku</code> variable. If that&#39;s what you want to do, append a <code>[]</code> to the variable name:</p>
+<pre class="pod-block-code">my @neighbors = &quot;Felix&quot;, &quot;Danielle&quot;, &quot;Lucinda&quot;;
+say &quot;@neighbors<strong>[]</strong> and I try our best to coexist peacefully.&quot;
+</pre>
+<pre class="pod-block-code">Felix Danielle Lucinda and I try our best to coexist peacefully.
+</pre>
+<p>Often a method call is more appropriate. These are allowed within <code>qq</code> quotes as long as they have parentheses after the call. Thus the following code will work:</p>
+<pre class="pod-block-code">say &quot;@neighbors<strong>.<a href="/Documentable/integration-test/routine/join">join</a>(&#39;, &#39;)</strong> and I try our best to coexist peacefully.&quot;
+</pre>
+<pre class="pod-block-code">Felix, Danielle, Lucinda and I try our best to coexist peacefully.
+</pre>
+<p>However, <code>&quot;@example.com&quot;</code> produces <code>@example.com</code>.</p>
+<p>To call a subroutine, use the <code>&amp;</code>-sigil. <a name="Documentable/integration-test/index-entry-&_(interpolation)"></a></p>
+<pre class="pod-block-code">say &quot;abc&amp;uc(&quot;def&quot;)ghi&quot;;
+# OUTPUT: «abcDEFghi␤»</pre>
+<p>Postcircumfix operators and therefore <a href="/Documentable/integration-test/language/subscripts">subscripts</a> are interpolated as well.</p>
+<pre class="pod-block-code">my %h = :1st; say &quot;abc%h&lt;st&gt;ghi&quot;;
+# OUTPUT: «abc1ghi␤»</pre>
+<p>To enter unicode sequences, use <code>\x</code> or <code>\x[]</code> with the hex-code of the character or a list of characters.</p>
+<pre class="pod-block-code">my $s = &quot;I \x2665 Raku!&quot;;
+say $s;
+# OUTPUT: «I ♥ Raku!␤»
+
+$s = &quot;I really \x[2661,2665,2764,1f495] Raku!&quot;;
+say $s;
+# OUTPUT: «I really ♡♥❤💕 Raku!␤»</pre>
+<p>You can also use <a href="/Documentable/integration-test/language/unicode#Entering_unicode_codepoints_and_codepoint_sequences">unicode names</a> , <a href="/Documentable/integration-test/language/unicode#Named_sequences">named sequences</a> and <a href="/Documentable/integration-test/language/unicode#Name_aliases">name aliases</a> with <a href="/Documentable/integration-test/language/unicode#Entering_unicode_codepoints_and_codepoint_sequences">\c[]</a>.</p>
+<pre class="pod-block-code">my $s = &quot;Camelia \c[BROKEN HEART] my \c[HEAVY BLACK HEART]!&quot;;
+say $s;
+# OUTPUT: «Camelia 💔 my ❤!␤»</pre>
+<p>Interpolation of undefined values will raise a control exception that can be caught in the current block with <a href="/Documentable/integration-test/language/phasers#CONTROL">CONTROL</a>.</p>
+<pre class="pod-block-code">sub niler {Nil};
+my Str $a = niler;
+say(&quot;$a.html&quot;, &quot;sometext&quot;);
+say &quot;alive&quot;; # this line is dead code
+CONTROL { .die };
+</pre>
+<h2 id="Word_quoting:_qw"><a class="u" href="#___top" title="go to top of document">Word quoting: qw <a name="Documentable/integration-test/index-entry-qw_word_quote"></a></a></h2>
+<pre class="pod-block-code"><strong>qw|</strong>! @ # $ % ^ &amp; * \| &lt; &gt; <strong>|</strong> eqv &#39;! @ # $ % ^ &amp; * | &lt; &gt;&#39;.words.list;
+<strong>q:w {</strong> [ ] \{ \} <strong>}</strong> eqv (&#39;[&#39;, &#39;]&#39;, &#39;{&#39;, &#39;}&#39;);
+<strong>Q:w |</strong> [ ] { } <strong>|</strong> eqv (&#39;[&#39;, &#39;]&#39;, &#39;{&#39;, &#39;}&#39;);
+</pre>
+<p>The <code>:w</code> form, usually written as <code>qw</code>, splits the string into &quot;words&quot;. In this context, words are defined as sequences of non-whitespace characters separated by whitespace. The <code>q:w</code> and <code>qw</code> forms inherit the interpolation and escape semantics of the <code>q</code> and single quote string delimiters, whereas <code>Qw</code> and <code>Q:w</code> inherit the non-escaping semantics of the <code>Q</code> quoter.</p>
+<p>This form is used in preference to using many quotation marks and commas for lists of strings. For example, where you could write:</p>
+<pre class="pod-block-code">my @directions = &#39;left&#39;, &#39;right,&#39;, &#39;up&#39;, &#39;down&#39;;</pre>
+<p>It&#39;s easier to write and to read this:</p>
+<pre class="pod-block-code">my @directions = qw|left right up down|;</pre>
+<h2 id="Word_quoting:_<_>"><a class="u" href="#___top" title="go to top of document">Word quoting: &lt; &gt; <a name="Documentable/integration-test/index-entry-<_>_word_quote"></a></a></h2>
+<pre class="pod-block-code">say <strong>&lt;</strong>a b c<strong>&gt;</strong> <a href="/Documentable/integration-test/routine/eqv">eqv</a> (&#39;a&#39;, &#39;b&#39;, &#39;c&#39;);   # OUTPUT: «True␤»
+say <strong>&lt;</strong>a b 42<strong>&gt;</strong> <a href="/Documentable/integration-test/routine/eqv">eqv</a> (&#39;a&#39;, &#39;b&#39;, &#39;42&#39;); # OUTPUT: «False␤», the 42 became an IntStr allomorph
+say &lt; 42 &gt; ~~ Int; # OUTPUT: «True␤»
+say &lt; 42 &gt; ~~ Str; # OUTPUT: «True␤»
+</pre>
+<p>The angle brackets quoting is like <code>qw</code>, but with extra feature that lets you construct <a href="/Documentable/integration-test/language/glossary#index-entry-Allomorph">allomorphs</a> or literals of certain numbers:</p>
+<pre class="pod-block-code">say &lt;42 4/2 1e6 1+1i abc&gt;.raku;
+# OUTPUT: «(IntStr.new(42, &quot;42&quot;), RatStr.new(2.0, &quot;4/2&quot;), NumStr.new(1000000e0, &quot;1e6&quot;), ComplexStr.new(&lt;1+1i&gt;, &quot;1+1i&quot;), &quot;abc&quot;)␤»</pre>
+<p>To construct a <a href="/Documentable/integration-test/type/Rat"><code>Rat</code></a> or <a href="/Documentable/integration-test/type/Complex"><code>Complex</code></a> literal, use angle brackets around the number, without any extra spaces:</p>
+<pre class="pod-block-code">say &lt;42/10&gt;.^name;   # OUTPUT: «Rat␤»
+say &lt;1+42i&gt;.^name;   # OUTPUT: «Complex␤»
+say &lt; 42/10 &gt;.^name; # OUTPUT: «RatStr␤»
+say &lt; 1+42i &gt;.^name; # OUTPUT: «ComplexStr␤»</pre>
+<p>Compared to <code>42/10</code> and <code>1+42i</code>, there&#39;s no division (or addition) operation involved. This is useful for literals in routine signatures, for example:</p>
+<pre class="pod-block-code">sub close-enough-π (&lt;355/113&gt;) {
+    say &quot;Your π is close enough!&quot;
+}
+close-enough-π 710/226; # OUTPUT: «Your π is close enough!␤»
+</pre>
+<pre class="pod-block-code"># WRONG: can&#39;t do this, since it&#39;s a division operation
+sub compilation-failure (355/113) {}
+</pre>
+<h2 id="Word_quoting_with_quote_protection:_qww"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-quote_qww-Word_quoting_with_quote_protection:_qww"><span class="index-entry">Word quoting with quote protection: qww</span></a></a></h2>
+<p>The <code>qw</code> form of word quoting will treat quote characters literally, leaving them in the resulting words:</p>
+<pre class="pod-block-code">say qw{&quot;a b&quot; c}.raku; # OUTPUT: «(&quot;\&quot;a&quot;, &quot;b\&quot;&quot;, &quot;c&quot;)␤»</pre>
+<p>Thus, if you wish to preserve quoted sub-strings as single items in the resulting words you need to use the <code>qww</code> variant:</p>
+<pre class="pod-block-code">say qww{&quot;a b&quot; c}.raku; # OUTPUT: «(&quot;a b&quot;, &quot;c&quot;)␤»</pre>
+<p>Other kind of quotes are also supported</p>
+<pre class="pod-block-code">say qww{ ’this and that’ “here or there” ｢infinity and beyond｣ }.raku;
+# OUTPUT: «(&quot;this and that&quot;, &quot;here or there&quot;, &quot;infinity and beyond&quot;)␤»</pre>
+<h2 id="Word_quoting_with_interpolation:_qqw"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-quote_qqw-Word_quoting_with_interpolation:_qqw"><span class="index-entry">Word quoting with interpolation: qqw</span></a></a></h2>
+<p>The <code>qw</code> form of word quoting doesn&#39;t interpolate variables:</p>
+<pre class="pod-block-code">my $a = 42; say qw{$a b c};  # OUTPUT: «$a b c␤»</pre>
+<p>Thus, if you wish for variables to be interpolated within the quoted string, you need to use the <code>qqw</code> variant:</p>
+<pre class="pod-block-code">my $a = 42;
+my @list = qqw{$a b c};
+say @list;                # OUTPUT: «[42 b c]␤»</pre>
+<p>Note that variable interpolation happens before word splitting:</p>
+<pre class="pod-block-code">my $a = &quot;a b&quot;;
+my @list = qqw{$a c};
+.say for @list; # OUTPUT: «a␤b␤c␤»</pre>
+<h2 id="Word_quoting_with_interpolation_and_quote_protection:_qqww"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-quote_qqww-Word_quoting_with_interpolation_and_quote_protection:_qqww"><span class="index-entry">Word quoting with interpolation and quote protection: qqww</span></a></a></h2>
+<p>The <code>qqw</code> form of word quoting will treat quote characters literally, leaving them in the resulting words:</p>
+<pre class="pod-block-code">my $a = 42; say qqw{&quot;$a b&quot; c}.raku;  # OUTPUT: «(&quot;\&quot;42&quot;, &quot;b\&quot;&quot;, &quot;c&quot;)␤»</pre>
+<p>Thus, if you wish to preserve quoted sub-strings as single items in the resulting words you need to use the <code>qqww</code> variant:</p>
+<pre class="pod-block-code">my $a = 42; say qqww{&quot;$a b&quot; c}.raku; # OUTPUT: «(&quot;42 b&quot;, &quot;c&quot;)␤»</pre>
+<p>Quote protection happens before interpolation, and interpolation happens before word splitting, so quotes coming from inside interpolated variables are just literal quote characters:</p>
+<pre class="pod-block-code">my $a = &quot;1 2&quot;;
+say qqww{&quot;$a&quot; $a}.raku; # OUTPUT: «(&quot;1 2&quot;, &quot;1&quot;, &quot;2&quot;)␤»
+my $b = &quot;1 \&quot;2 3\&quot;&quot;;
+say qqww{&quot;$b&quot; $b}.raku; # OUTPUT: «(&quot;1 \&quot;2 3\&quot;&quot;, &quot;1&quot;, &quot;\&quot;2&quot;, &quot;3\&quot;&quot;)␤»</pre>
+<h2 id="Word_quoting_with_interpolation_and_quote_protection:_«_»"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-quote_<<_>>-quote_«_»-Word_quoting_with_interpolation_and_quote_protection:_«_»"><span class="index-entry">Word quoting with interpolation and quote protection: « »</span></a></a></h2>
+<p>This style of quoting is like <code>qqww</code>, but with the added benefit of constructing <a href="/Documentable/integration-test/language/glossary#index-entry-Allomorph">allomorphs</a> (making it functionally equivalent to <a href="#index-entry-%3Aval_%28quoting_adverb%29">qq:ww:v</a>). The ASCII equivalent to <code>« »</code> are double angle brackets <code>&lt;&lt; &gt;&gt;</code>.</p>
+<pre class="pod-block-code"># Allomorph Construction
+my $a = 42; say «  $a b c    ».raku;  # OUTPUT: «(IntStr.new(42, &quot;42&quot;), &quot;b&quot;, &quot;c&quot;)␤»
+my $a = 42; say &lt;&lt; $a b c   &gt;&gt;.raku;  # OUTPUT: «(IntStr.new(42, &quot;42&quot;), &quot;b&quot;, &quot;c&quot;)␤»
+
+# Quote Protection
+my $a = 42; say «  &quot;$a b&quot; c  ».raku;  # OUTPUT: «(&quot;42 b&quot;, &quot;c&quot;)␤»
+my $a = 42; say &lt;&lt; &quot;$a b&quot; c &gt;&gt;.raku;  # OUTPUT: «(&quot;42 b&quot;, &quot;c&quot;)␤»</pre>
+<h2 id="Shell_quoting:_qx"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-quote_qx-Shell_quoting:_qx"><span class="index-entry">Shell quoting: qx</span></a></a></h2>
+<p>To run a string as an external program, not only is it possible to pass the string to the <code>shell</code> or <code>run</code> functions but one can also perform shell quoting. There are some subtleties to consider, however. <code>qx</code> quotes <em>don&#39;t</em> interpolate variables. Thus</p>
+<pre class="pod-block-code">my $world = &quot;there&quot;;
+say qx{echo &quot;hello $world&quot;}</pre>
+<p>prints simply <code>hello</code>. Nevertheless, if you have declared an environment variable before calling <code>perl6</code>, this will be available within <code>qx</code>, for instance</p>
+<pre class="pod-block-code">WORLD=&quot;there&quot; perl6
+&gt; say qx{echo &quot;hello $WORLD&quot;}
+</pre>
+<p>will now print <code>hello there</code>.</p>
+<p>The result of calling <code>qx</code> is returned, so this information can be assigned to a variable for later use:</p>
+<pre class="pod-block-code">my $output = qx{echo &quot;hello!&quot;};
+say $output;    # OUTPUT: «hello!␤»</pre>
+<p>See also <a href="/Documentable/integration-test/routine/shell">shell</a>, <a href="/Documentable/integration-test/routine/run">run</a> and <a href="/Documentable/integration-test/type/Proc::Async">Proc::Async</a> for other ways to execute external commands.</p>
+<h2 id="Shell_quoting_with_interpolation:_qqx"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-quote_qqx-Shell_quoting_with_interpolation:_qqx"><span class="index-entry">Shell quoting with interpolation: qqx</span></a></a></h2>
+<p>If one wishes to use the content of a Raku variable within an external command, then the <code>qqx</code> shell quoting construct should be used:</p>
+<pre class="pod-block-code">my $world = &quot;there&quot;;
+say qqx{echo &quot;hello $world&quot;};  # OUTPUT: «hello there␤»</pre>
+<p>Again, the output of the external command can be kept in a variable:</p>
+<pre class="pod-block-code">my $word = &quot;cool&quot;;
+my $option = &quot;-i&quot;;
+my $file = &quot;/usr/share/dict/words&quot;;
+my $output = qqx{grep $option $word $file};
+# runs the command: grep -i cool /usr/share/dict/words
+say $output;      # OUTPUT: «Cooley␤Cooley&#39;s␤Coolidge␤Coolidge&#39;s␤cool␤...»</pre>
+<p>See also <a href="/Documentable/integration-test/routine/run">run</a> and <a href="/Documentable/integration-test/type/Proc::Async">Proc::Async</a> for better ways to execute external commands.</p>
+<h2 id="Heredocs:_:to"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-quote_heredocs_:to-Heredocs:_:to"><span class="index-entry">Heredocs: :to</span></a></a></h2>
+<p>A convenient way to write multi-line string literals are <em>heredocs</em>, which let you choose the delimiter yourself:</p>
+<pre class="pod-block-code">say q:to/END/;
+Here is
+some multi-line
+string
+END
+</pre>
+<p>The contents of the heredoc always begin on the next line, so you can (and should) finish the line.</p>
+<pre class="pod-block-code">my $escaped = my-escaping-function(q:to/TERMINATOR/, language =&gt; &#39;html&#39;);
+Here are the contents of the heredoc.
+Potentially multiple lines.
+TERMINATOR
+</pre>
+<p>If the terminator is indented, that amount of indention is removed from the string literals. Therefore this heredoc</p>
+<pre class="pod-block-code">say q:to/END/;
+    Here is
+    some multi line
+        string
+    END
+</pre>
+<p>produces this output:</p>
+<pre class="pod-block-code">Here is
+some multi line
+    string
+
+
+</pre>
+<p>Heredocs include the newline from before the terminator.</p>
+<p>To allow interpolation of variables use the <code>qq</code> form, but you will then have to escape metacharacters <code>\{</code> as well as <code>$</code> if it is not the sigil for a defined variable. For example:</p>
+<pre class="pod-block-code">my $f = &#39;db.7.3.8&#39;;
+my $s = qq:to/END/;
+option \{
+    file &quot;$f&quot;;
+};
+END
+say $s;</pre>
+<p>would produce:</p>
+<pre class="pod-block-code">option {
+    file &quot;db.7.3.8&quot;;
+};
+</pre>
+<p>You can begin multiple Heredocs in the same line.</p>
+<pre class="pod-block-code">my ($first, $second) = qq:to/END1/, qq:to/END2/;
+  FIRST
+  MULTILINE
+  STRING
+  END1
+   SECOND
+   MULTILINE
+   STRING
+   END2
+</pre>
+<h2 id="Unquoting"><a class="u" href="#___top" title="go to top of document">Unquoting</a></h2>
+<p>Literal strings permit interpolation of embedded quoting constructs by using the escape sequences such as these:</p>
+<pre class="pod-block-code">my $animal=&quot;quaggas&quot;;
+say &#39;These animals look like \qq[$animal]&#39;; # OUTPUT: «These animals look like quaggas␤»
+say &#39;These animals are \qqw[$animal or zebras]&#39;; # OUTPUT: «These animals are quaggas or zebras␤»</pre>
+<p>In this example, <code>\qq</code> will do double-quoting interpolation, and <code>\qqw</code> word quoting with interpolation. Escaping any other quoting construct as above will act in the same way, allowing interpolation in literal strings.</p>
+<h1 id="Regexes"><a class="u" href="#___top" title="go to top of document">Regexes</a></h1>
+<p>For information about quoting as applied in regexes, see the <a href="/Documentable/integration-test/language/regexes">regular expression documentation</a>.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/quoting.pod6">https://github.com/Raku/doc/blob/master/doc/Language/quoting.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

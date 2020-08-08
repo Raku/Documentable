@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Iterating</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/iterating.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Iterating</h1>
+        <p class="subtitle">Functionalities available for visiting all items in a complex data structure</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+  <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#The_Iterator_and_Iterable_roles">The <code class="pod-code-inline">Iterator</code> and <code class="pod-code-inline">Iterable</code> roles</a></td></tr>
+                                                                                                                                                             <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#How_to_iterate:_contextualizing_and_topic_variables">How to iterate: contextualizing and topic variables</a></td></tr>
+                      <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Classic_loops_and_why_we_do_not_like_them"><code class="pod-code-inline">Classic</code> loops and why we do not like them</a></td></tr>
+                  
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <h1 id="The_Iterator_and_Iterable_roles"><a class="u" href="#___top" title="go to top of document">The <code>Iterator</code> and <code>Iterable</code> roles</a></h1>
+<p>Raku is a functional language, but functions need something to hold on to when working on complex data structures. In particular, they need a uniform interface that can be applied to all data structures in the same way. One of these kind of interfaces is provided by the <a href="/Documentable/integration-test/type/Iterator">Iterator</a> and <a href="/Documentable/integration-test/type/Iterable">Iterable</a> roles.</p>
+<p>The <code>Iterable</code> role is relatively simple. It provides a stub for the <code>iterator</code> method, which is the one actually used by statements such as <code>for</code>. <code>for</code> will call <code>.iterator</code> on the variable it precedes, and then run a block once for every item. Other methods, such as array assignment, will make the <code>Iterable</code> class behave in the same way.</p>
+<pre class="pod-block-code">class DNA does Iterable {
+    has $.chain;
+    method new ($chain where {
+                       $chain ~~ /^^ &lt;[ACGT]&gt;+ $$ / and
+                       $chain.chars %% 3 } ) {
+        self.bless( :$chain );
+    }
+
+    method iterator(DNA:D:){ $.chain.comb.rotor(3).iterator }
+};
+
+my @longer-chain =  DNA.new(&#39;ACGTACGTT&#39;);
+say @longer-chain.raku;
+# OUTPUT: «[(&quot;A&quot;, &quot;C&quot;, &quot;G&quot;), (&quot;T&quot;, &quot;A&quot;, &quot;C&quot;), (&quot;G&quot;, &quot;T&quot;, &quot;T&quot;)]␤»
+
+say  @longer-chain».join(&quot;&quot;).join(&quot;|&quot;); #OUTPUT: «ACG|TAC|GTT␤»
+</pre>
+<p>In this example, which is an extension of the <a href="/Documentable/integration-test/type/Iterable">example in <code>Iterable</code> that shows how <code>for</code> calls <code>.iterator</code></a>, the <code>iterator</code> method will be called in the appropriate context only when the created object is assigned to a <a href="/Documentable/integration-test/type/Positional">Positional</a> variable, <code>@longer-chain</code>; this variable is an <a href="/Documentable/integration-test/type/Array">Array</a> and we operate on it as such in the last example.</p>
+<p>The (maybe a bit confusingly named) <code>Iterator</code> role is a bit more complex than <code>Iterable</code>. First, it provides a constant, <code>IterationEnd</code>. Then, it also provides a series of <a href="/Documentable/integration-test/type/Iterator#Methods">methods</a> such as <code>.pull-one</code>, which allows for a finer operation of iteration in several contexts: adding or eliminating items, or skipping over them to access other items. In fact, the role provides a default implementation for all the other methods, so the only one that has to be defined is precisely <code>pull-one</code>, of which only a stub is provided by the role. While <code>Iterable</code> provides the high-level interface loops will be working with, <code>Iterator</code> provides the lower-level functions that will be called in every iteration of the loop. Let&#39;s extend the previous example with this role.</p>
+<pre class="pod-block-code">class DNA does Iterable does Iterator {
+    has $.chain;
+    has Int $!index = 0;
+
+    method new ($chain where {
+                       $chain ~~ /^^ &lt;[ACGT]&gt;+ $$ / and
+                       $chain.chars %% 3 } ) {
+        self.bless( :$chain );
+    }
+
+    method iterator( ){ self }
+    method pull-one( --&gt; Mu){
+        if $!index &lt; $.chain.chars {
+            my $codon = $.chain.comb.rotor(3)[$!index div 3];
+            $!index += 3;
+            return $codon;
+        } else {
+            return IterationEnd;
+        }
+    }
+};
+
+my $a := DNA.new(&#39;GAATCC&#39;);
+.say for $a; # OUTPUT: «(G A A)␤(T C C)␤»
+</pre>
+<p>We declare a <code>DNA</code> class which does the two roles, <code>Iterator</code> and <code>Iterable</code>; the class will include a string that will be constrained to have a length that is a multiple of 3 and composed only of ACGT.</p>
+<p>Let us look at the <code>pull-one</code> method. This one is going to be called every time a new iteration occurs, so it must keep the state of the last one. An <code>$.index</code> attribute will hold that state across invocations; <code>pull-one</code> will check if the end of the chain has been reached and will return the <code>IterationEnd</code> constant provided by the role. Implementing this low-level interface, in fact, simplifies the implementation of the <code>Iterable</code> interface. Now the iterator will be the object itself, since we can call <code>pull-one</code> on it to access every member in turn; <code>.iterator</code> will thus return just <code>self</code>; this is possible since the object will be, at the same time, <code>Iterable</code> and <code>Iterator</code>.</p>
+<p>This need not always be the case, and in most cases <code>.iterator</code> will have to build an iterator type to be returned (that will, for instance, keep track of the iteration state, which we are doing now in the main class), such as we did in the previous example; however, this example shows the minimal code needed to build a class that fulfills the iterator and iterable roles.</p>
+<h1 id="How_to_iterate:_contextualizing_and_topic_variables"><a class="u" href="#___top" title="go to top of document">How to iterate: contextualizing and topic variables</a></h1>
+<p><code>for</code> and other loops place the item produced in every iteration into the <a href="/Documentable/integration-test/language/variables#index-entry-topic_variable">topic variable <code>$_</code></a>, or capture them into the variables that are declared along with the block. These variables can be directly used inside the loop, without needing to declare them, by using the <a href="/Documentable/integration-test/syntax/$CIRCUMFLEX_ACCENT#(Traps_to_avoid)_twigil_$CIRCUMFLEX_ACCENT"><code>^</code> twigil</a>.</p>
+<p>Implicit iteration occurs when using the <a href="/Documentable/integration-test/language/operators#index-entry-..._operators">sequence operator</a>.</p>
+<pre class="pod-block-code">say 1,1,1, { $^a²+2*$^b+$^c } … * &gt; 300; # OUTPUT: «(1 1 1 4 7 16 46 127 475)</pre>
+<p>The generating block is being run once while the condition to finish the sequence, in this case the term being bigger than 300, is not met. This has the side effect of running a loop, but also creating a list that is output.</p>
+<p>This can be done more systematically through the use of the <a href="/Documentable/integration-test/syntax/gather take"><code>gather/take</code> blocks</a>, which are a different kind of iterating construct that instead of running in sink context, returns an item every iteration. This <a href="https://perl6advent.wordpress.com/2009/12/23/day-23-lazy-fruits-from-the-gather-of-eden/">Advent Calendar tutorial</a> explains use cases for this kind of loops; in fact, gather is not so much a looping construct, but a statement prefix that collects the items produced by <code>take</code> and creates a list out of them.</p>
+<h1 id="Classic_loops_and_why_we_do_not_like_them"><a class="u" href="#___top" title="go to top of document"><code>Classic</code> loops and why we do not like them</a></h1>
+<p>Classic <code>for</code> loops, with a loop variable being incremented, can be done in Raku through the <a href="/Documentable/integration-test/language/control#loop"><code>loop</code> keyword</a>. Other <a href="/Documentable/integration-test/language/control#repeat/while,_repeat/until">repeat</a> and <a href="/Documentable/integration-test/language/control#while,_until">while</a> loops are also possible.</p>
+<p>However, in general, they are discouraged. Raku is a functional and concurrent language; when coding in Raku, you should look at loops in a functional way: processing, one by one, the items produced by an iterator, that is, feeding an item to a block without any kind of secondary effects. This functional view allows also easy parallelization of the operation via the <a href="/Documentable/integration-test/routine/hyper"><code>hyper</code></a> or <a href="/Documentable/integration-test/routine/race"><code>race</code></a> auto-threading methods.</p>
+<p>If you feel more comfortable with your good old loops, the language allows you to use them. However, it is considered better practice in Raku to try and use, whenever possible, functional and concurrent iterating constructs.</p>
+<p><em>Note:</em> Since version 6.d loops can produce a list of values from the values of last statements.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/iterating.pod6">https://github.com/Raku/doc/blob/master/doc/Language/iterating.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

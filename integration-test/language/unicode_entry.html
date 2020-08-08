@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Entering unicode characters</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/unicode_entry.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Entering unicode characters</h1>
+        <p class="subtitle">Input methods for unicode characters in terminals, the shell, and editors</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+        <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#XCompose_(Linux)">XCompose (Linux) </a></td></tr>
+                                 <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#Getting_compose_working_in_all_programs">Getting compose working in all programs</a></td></tr>
+                  <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#ibus">ibus </a></td></tr>
+           <tr class="toc-level-3"><td class="toc-number">1.2.1</td><td class="toc-text"><a href="#KDE">KDE</a></td></tr>
+              <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#WinCompose_(Windows)">WinCompose (Windows) </a></td></tr>
+                               <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Terminals,_shells,_and_editors:">Terminals, shells, and editors:</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#XTerm">XTerm</a></td></tr>
+                              <tr class="toc-level-2"><td class="toc-number">3.2</td><td class="toc-text"><a href="#URxvt">URxvt</a></td></tr>
+                  <tr class="toc-level-2"><td class="toc-number">3.3</td><td class="toc-text"><a href="#Unix_shell">Unix shell</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">3.4</td><td class="toc-text"><a href="#Screen">Screen</a></td></tr>
+                <tr class="toc-level-2"><td class="toc-number">3.5</td><td class="toc-text"><a href="#Vim">Vim </a></td></tr>
+                           <tr class="toc-level-3"><td class="toc-number">3.5.1</td><td class="toc-text"><a href="#vim-raku">vim-raku</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">3.6</td><td class="toc-text"><a href="#Emacs">Emacs </a></td></tr>
+                                               <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#Some_characters_useful_in_Raku">Some characters useful in Raku</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">4.1</td><td class="toc-text"><a href="#Smart_quotes">Smart quotes</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">4.2</td><td class="toc-text"><a href="#Guillemets">Guillemets</a></td></tr>
+              <tr class="toc-level-2"><td class="toc-number">4.3</td><td class="toc-text"><a href="#Set/bag_operators">Set/bag operators</a></td></tr>
+                                                              <tr class="toc-level-2"><td class="toc-number">4.4</td><td class="toc-text"><a href="#Mathematical_symbols">Mathematical symbols</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">4.5</td><td class="toc-text"><a href="#Greek_characters">Greek characters</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">4.6</td><td class="toc-text"><a href="#Superscripts_and_subscripts">Superscripts and subscripts</a></td></tr>
+                                                  
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Raku allows the use of unicode characters as variable names. Many operators are defined with unicode symbols (in particular the <a href="/Documentable/integration-test/language/setbagmix#Set%2FBag_operators">set/bag operators</a>) as well as some quoting constructs. Hence it is good to know how to enter these symbols into editors, the Raku shell and the command line, especially if the symbols aren&#39;t available as actual characters on a keyboard.</p>
+<p>General information about entering unicode under various operating systems and environments can be found on the Wikipedia <a href="https://en.wikipedia.org/wiki/Unicode_input">unicode input page</a>.</p>
+<h1 id="XCompose_(Linux)"><a class="u" href="#___top" title="go to top of document">XCompose (Linux) <a name="Documentable/integration-test/index-entry-XCompose"></a></a></h1>
+<p>Xorg includes digraph support using a <a href="https://en.wikipedia.org/wiki/Compose_key#GNU.2FLinux"><em>Compose key</em></a> . The default of <code>AltGr + Shift</code> can be remapped to something easier such as <code>Capslock</code>. In <em>GNOME 2</em> and <em>MATE</em> this can be setup under <code>Preferences → Keyboard → Layouts → Options → Position of Compose Key</code>. So, for example, to input <code>»+«</code> you could type <code>CAPSLOCK &gt; &gt; + CAPSLOCK &lt; &lt; </code></p>
+<p><em>XCompose</em> allows customizing the digraph sequences using a <code>.XCompose</code> file and <a href="https://github.com/kragen/xcompose/blob/master/dotXCompose">https://github.com/kragen/xcompose/blob/master/dotXCompose</a> is an extremely complete one. In <em>GNOME</em>, <em>XCompose</em> was overridden and replaced with a hardcoded list, but it is possible to restore <em>XCompose</em> by setting <code>GTK_IM_MODULE=xim</code> in your environment. It might be necessary to install a xim bridge as well, such as <code>uim-xim</code>.</p>
+<h2 id="Getting_compose_working_in_all_programs"><a class="u" href="#___top" title="go to top of document">Getting compose working in all programs</a></h2>
+<p>You may have issues using the compose key in all programs. In that case you can try <code>ibus</code>.</p>
+<pre class="pod-block-code">input_module=xim
+export GTK_IM_MODULE=$input_module
+export XMODIFIERS=@im=$input_module
+export QT_IM_MODULE=$input_module
+</pre>
+<p>If you want this to be for all users you can put this in a file <code>/etc/profile.d/compose.sh</code>, which is the easiest way, since you won&#39;t have to deal with how different GUI environments set up their environment variables.</p>
+<p>If you use KDE you can put this file in <code>~/.config/plasma-workspace/env/compose.sh</code> and that should work. Other desktop environments will be different. Look up how to set environment variables in yours or use the system-wide option above.</p>
+<h2 id="ibus"><a class="u" href="#___top" title="go to top of document">ibus <a name="Documentable/integration-test/index-entry-ibus"></a></a></h2>
+<p>If you have problems entering high codepoint symbols such as <strong>🐧</strong> using the <code>xim</code> input module, you can instead use ibus. You will have to install the ibus package for your distribution. Then you will have to set it to start on load of your Desktop environment. The command that needs to be run is:</p>
+<pre class="pod-block-code">ibus-daemon --xim --verbose --daemonize --replace
+</pre>
+<p>Setting <code>--xim</code> should also allow programs not using ibus to still use the xim input method and be backward compatible.</p>
+<h3 id="KDE"><a class="u" href="#___top" title="go to top of document">KDE</a></h3>
+<p>If you are using KDE, open the start menu and type in “Autostart” and click <strong>Autostart</strong> which should be the first result. In the settings window that opens, click <strong>Add program</strong>, type in <code>ibus-daemon</code> and click OK. Then go into the Application tab of the window that pops up. In the <code>Command</code> field, enter in the full ibus-daemon command as shown above, with the <code>--desktop</code> option set to <code>--desktop=plasma</code>. Click OK. It should now launch automatically when you log in again.</p>
+<h1 id="WinCompose_(Windows)"><a class="u" href="#___top" title="go to top of document">WinCompose (Windows) <a name="Documentable/integration-test/index-entry-WinCompose"></a></a></h1>
+<p><a href="https://github.com/samhocevar/wincompose">WinCompose</a> adds <a href="https://en.wikipedia.org/wiki/Compose_key">compose key</a> functionality to Windows. It can be installed either via the <a href="https://github.com/samhocevar/wincompose/releases">WinCompose releases</a> page on GitHub, or with the <a href="https://chocolatey.org/packages/wincompose">Chocolatey package manager</a>.</p>
+<p>Once the program is installed and running, right click the tray icon and select <code>Options → Composing → Behavior → Compose Key</code> to set your desired key.</p>
+<p>WinCompose has multiple sources to choose from in <code>Options → Composing → Sequences</code>. It is recommended to enable <code>XCompose</code> and disable <code>Xorg</code>, as there are a handful of operators which <code>Xorg</code> does not provide sequences for, and <code>Xorg</code> also has sequences which conflict with operator sequences present in <code>XCompose</code>. Sequences can be viewed by right clicking the tray icon and selecting <code>Show Sequences</code>. If you wish to add your own sequences, you can do so by either adding/modifying <code>.XCompose</code> in <code>%USERPROFILE%</code>, or editing user-defined sequences in the options menu.</p>
+<h1 id="Terminals,_shells,_and_editors:"><a class="u" href="#___top" title="go to top of document">Terminals, shells, and editors:</a></h1>
+<h2 id="XTerm"><a class="u" href="#___top" title="go to top of document">XTerm</a></h2>
+<p>Unicode support is enabled in XTerm primarily by setting its <code>utf8</code> and <code>utf8Fonts</code> options to <code>1</code>, along with its <code>locale</code> option to <code>UTF-8</code>, in <code>~/.Xdefaults</code>. Here is a sample configuration that supports displaying enough of unicode to program in Raku:</p>
+<pre class="pod-block-code">XTerm*faceName:           xft:Noto Mono:style=Regular
+XTerm*faceNameDoublesize: xft:Noto Emoji:style=Regular
+XTerm*faceSize:           10
+XTerm*locale:             UTF-8
+XTerm*titleModes:         16
+XTerm*utf8:               1
+XTerm*utf8Fonts:          1
+XTerm*utf8Title:          true
+</pre>
+<h2 id="URxvt"><a class="u" href="#___top" title="go to top of document">URxvt</a></h2>
+<p>Similarly to XTerm, unicode support is enabled in URxvt primarily by setting its <code>locale</code> option to <code>en_US.UTF-8</code> in <code>~/.Xdefaults</code>. Here is a sample configuration that supports displaying enough of unicode to program in Raku:</p>
+<pre class="pod-block-code">URxvt*font:              xft:Noto Mono:pixelsize=14:style=Regular,\
+                         xft:Noto Emoji:pixelsize=14:style=Regular
+URxvt*letterSpace:       -1
+URxvt*locale:            en_US.UTF-8
+URxvt*skipBuiltInGlyphs: true
+</pre>
+<h2 id="Unix_shell"><a class="u" href="#___top" title="go to top of document">Unix shell</a></h2>
+<p>At the bash shell, one enters unicode characters by using entering <code>Ctrl-Shift-u</code>, then the unicode code point value followed by enter. For instance, to enter the character for the element-of operator (∈) use the following key combination (whitespace has been added for clarity):</p>
+<pre class="pod-block-code">Ctrl-Shift-u 2208 Enter
+</pre>
+<p>This also the method one would use to enter unicode characters into the <code>raku</code> REPL, if one has started the REPL inside a Unix shell.</p>
+<h2 id="Screen"><a class="u" href="#___top" title="go to top of document">Screen</a></h2>
+<p><a href="https://www.gnu.org/software/screen/">GNU Screen</a> does sport a <strong>digraph</strong> command but with a rather limited digraph table. Thanks to <strong>bindkey</strong> and <strong>exec</strong> an external program can be used to insert characters to the current screen window.</p>
+<pre class="pod-block-code">bindkey ^K exec .! digraphs
+</pre>
+<p>This will bind control-k to the shell command digraphs. You can use <a href="https://github.com/gfldex/digraphs">digraphs</a> if you prefer a Raku friendly digraph table over <a href="https://tools.ietf.org/html/rfc1345">RFC 1345</a> or change it to your needs.</p>
+<h2 id="Vim"><a class="u" href="#___top" title="go to top of document">Vim <a name="Documentable/integration-test/index-entry-Vim"></a></a></h2>
+<p>In <a href="https://www.vim.org/">Vim</a>, unicode characters are entered (in insert-mode) by pressing first <code>Ctrl-V</code> (also denoted <code>^V</code>), then <code>u</code> and then the hexadecimal value of the unicode character to be entered. For example, the Greek letter λ (lambda) is entered via the key combination:</p>
+<pre class="pod-block-code">^Vu03BB
+</pre>
+<p>You can also use <code>Ctrl-K</code>/<code>^K</code> along with a digraph to type in some characters. So an alternative to the above using digraphs looks like this:</p>
+<pre class="pod-block-code">^Kl*
+</pre>
+<p>The list of digraphs Vim provides is documented <a href="http://vimdoc.sourceforge.net/htmldoc/digraph.html">here</a>; you can add your own with the <code>:digraph</code> command.</p>
+<p>Further information about entering special characters in Vim can be found on the Vim Wikia page about <a href="http://vim.wikia.com/wiki/Entering_special_characters">entering special characters</a>.</p>
+<h3 id="vim-raku"><a class="u" href="#___top" title="go to top of document">vim-raku</a></h3>
+<p>The <a href="https://github.com/Raku/vim-raku">vim-raku</a> plugin for Vim can be configured to optionally replace ASCII based ops with their Unicode based equivalents. This will convert the ASCII based ops on the fly while typing them.</p>
+<h2 id="Emacs"><a class="u" href="#___top" title="go to top of document">Emacs <a name="Documentable/integration-test/index-entry-Emacs"></a></a></h2>
+<p>In <a href="https://www.gnu.org/software/emacs/">Emacs</a>, unicode characters are entered by first entering the chord <code>C-x 8 RET</code> at which point the text <code>Unicode (name or hex):</code> appears in the minibuffer. One then enters the unicode code point hexadecimal number followed by the enter key. The unicode character will now appear in the document. Thus, to enter the Greek letter λ (lambda), one uses the following key combination:</p>
+<pre class="pod-block-code">C-x 8 RET 3bb RET
+</pre>
+<p>Further information about unicode and its entry into Emacs can be found on the <a href="https://www.emacswiki.org/emacs/UnicodeEncoding">Unicode Encoding Emacs wiki page</a>.</p>
+<p>You can also use <a href="https://tools.ietf.org/html/rfc1345">RFC 1345</a> character mnemonics by typing:</p>
+<pre class="pod-block-code">C-x RET C-\ rfc1345 RET
+</pre>
+<p>Or <code>C-u C-\ rfc1345 RET</code>.</p>
+<p>To type special characters, type <code>&amp;</code> followed by a mnemonic. Emacs will show the possible characters in the echo area. For example, Greek letter λ (lambda) can be entered by typing:</p>
+<pre class="pod-block-code">&amp;l*
+</pre>
+<p>You can use <code>C-\</code> to toggle <a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Select-Input-Method.html">input method</a>.</p>
+<p>Another <a href="https://www.emacswiki.org/emacs/InputMethods">input method</a> you can use to insert special characters is <a href="https://www.emacswiki.org/emacs/TeXInputMethod">TeX</a>. Select it by typing <code>C-u C-\ TeX RET</code>. You can enter a special character by using a prefix such as <code>\</code>. For example, to enter λ, type:</p>
+<pre class="pod-block-code">\lambda
+</pre>
+<p>To view characters and sequences provided by an input method, run the <code>describe-input-method</code> command:</p>
+<pre class="pod-block-code">C-h I TeX
+</pre>
+<h1 id="Some_characters_useful_in_Raku"><a class="u" href="#___top" title="go to top of document">Some characters useful in Raku</a></h1>
+<h2 id="Smart_quotes"><a href="https://en.wikipedia.org/wiki/Quotation_mark#Curved_quotes_and_Unicode">Smart quotes</a></h2>
+<p>These characters are used in different languages as quotation marks. In Raku they are used as <a href="/Documentable/integration-test/language/quoting">quoting characters</a></p>
+<p>Constructs such as these are now possible:</p>
+<pre class="pod-block-code">say ｢What?!｣;
+say ”Whoa!“;
+say „This works too!”;
+say „There are just too many ways“;
+say “here: “no problem” at all!”; # You can nest them!</pre>
+<p>This is very useful in shell:</p>
+<pre class="pod-block-code">raku -e &#39;say ‘hello world’&#39;
+</pre>
+<p>since you can just copy and paste some piece of code and not worry about quotes.</p>
+<h2 id="Guillemets"><a href="https://en.wikipedia.org/wiki/Guillemet">Guillemets</a></h2>
+<p>These characters are used in French and German as quotation marks. In Raku they are used as <a href="/Documentable/integration-test/language/quoting#Word_quoting_with_interpolation_and_quote_protection:_qqww">interpolation word quotes</a>, <a href="/Documentable/integration-test/language/operators#Hyper_operators">hyper operators</a> and as an angle bracket alternative in POD6.</p>
+<table class="pod-table">
+<thead><tr>
+<th>symbol</th> <th>unicode code point</th> <th>ascii equivalent</th>
+</tr></thead>
+<tbody>
+<tr> <td>«</td> <td>U+00AB</td> <td>&lt;&lt;</td> </tr> <tr> <td>»</td> <td>U+00BB</td> <td>&gt;&gt;</td> </tr>
+</tbody>
+</table><p>Thus constructs such as these are now possible:</p>
+<pre class="pod-block-code">say (1, 2) »+« (3, 4);     # OUTPUT: «(4 6)␤» - element-wise add
+[1, 2, 3] »+=» 42;         # add 42 to each element of @array
+say «moo»;                 # OUTPUT: «moo␤»
+
+my $baa = &quot;foo bar&quot;;
+say «$baa $baa ber».raku;  # OUTPUT: «(&quot;foo&quot;, &quot;bar&quot;, &quot;foo&quot;, &quot;bar&quot;, &quot;ber&quot;)␤»</pre>
+<h2 id="Set/bag_operators"><a class="u" href="#___top" title="go to top of document">Set/bag operators</a></h2>
+<p>The <a href="/Documentable/integration-test/language/setbagmix#Set%2FBag_operators">set/bag operators</a> all have set-theory-related symbols, the unicode code points and their ascii equivalents are listed below. To compose such a character, it is merely necessary to enter the character composition chord (e.g. <code>Ctrl-V u</code> in Vim; <code>Ctrl-Shift-u</code> in Bash) then the unicode code point hexadecimal number.</p>
+<table class="pod-table">
+<thead><tr>
+<th>operator</th> <th>unicode code point</th> <th>ascii equivalent</th>
+</tr></thead>
+<tbody>
+<tr> <td>∈</td> <td>U+2208</td> <td>(elem)</td> </tr> <tr> <td>∉</td> <td>U+2209</td> <td>!(elem)</td> </tr> <tr> <td>∋</td> <td>U+220B</td> <td>(cont)</td> </tr> <tr> <td>∌</td> <td>U+220C</td> <td>!(cont)</td> </tr> <tr> <td>⊆</td> <td>U+2286</td> <td>(&lt;=)</td> </tr> <tr> <td>⊈</td> <td>U+2288</td> <td>!(&lt;=)</td> </tr> <tr> <td>⊂</td> <td>U+2282</td> <td>(&lt;)</td> </tr> <tr> <td>⊄</td> <td>U+2284</td> <td>!(&lt;)</td> </tr> <tr> <td>⊇</td> <td>U+2287</td> <td>(&gt;=)</td> </tr> <tr> <td>⊉</td> <td>U+2289</td> <td>!(&gt;=)</td> </tr> <tr> <td>⊃</td> <td>U+2283</td> <td>(&gt;)</td> </tr> <tr> <td>⊅</td> <td>U+2285</td> <td>!(&gt;)</td> </tr> <tr> <td>∪</td> <td>U+222A</td> <td>(|)</td> </tr> <tr> <td>∩</td> <td>U+2229</td> <td>(&amp;)</td> </tr> <tr> <td>∖</td> <td>U+2216</td> <td>(-)</td> </tr> <tr> <td>⊖</td> <td>U+2296</td> <td>(^)</td> </tr> <tr> <td>⊍</td> <td>U+228D</td> <td>(.)</td> </tr> <tr> <td>⊎</td> <td>U+228E</td> <td>(+)</td> </tr>
+</tbody>
+</table><h2 id="Mathematical_symbols"><a class="u" href="#___top" title="go to top of document">Mathematical symbols</a></h2>
+<p>Wikipedia contains a full list of <a href="https://en.wikipedia.org/wiki/Mathematical_operators_and_symbols_in_Unicode">mathematical operators and symbols in unicode</a> as well as links to their mathematical meaning.</p>
+<h2 id="Greek_characters"><a class="u" href="#___top" title="go to top of document">Greek characters</a></h2>
+<p>Greek characters may be used as variable names. For a list of Greek and Coptic characters and their unicode code points see the <a href="https://en.wikipedia.org/wiki/Greek_alphabet#Greek_in_Unicode">Greek in Unicode Wikipedia article</a>.</p>
+<p>For example, to assign the value 3 to π, enter the following in Vim (whitespace added to the compose sequences for clarity):</p>
+<pre class="pod-block-code">my $<strong>Ctrl-V u 03C0</strong> = 3;  # same as: my $π = 3;
+say $<strong>Ctrl-V u 03C0</strong>;     # 3    same as: say $π;
+</pre>
+<h2 id="Superscripts_and_subscripts"><a class="u" href="#___top" title="go to top of document">Superscripts and subscripts</a></h2>
+<p>A limited set of <a href="https://en.wikipedia.org/wiki/Superscripts_and_Subscripts">superscripts and subscripts</a> can be created directly in unicode by using the <code>U+207x</code>, <code>U+208x</code> and (less often) the <code>U+209x</code> ranges. However, to produce a value squared (to the power of 2) or cubed (to the power of 3), one needs to use <code>U+00B2</code> and <code>U+00B3</code> since these are defined in the <a href="https://en.wikipedia.org/wiki/Latin-1_Supplement_(Unicode_block)">Latin1 supplement Unicode block</a>.</p>
+<p>Thus, to write the <a href="https://en.wikipedia.org/wiki/Taylor_series">Taylor series</a> expansion around zero of the function <code>exp(x)</code> one would input into e.g. vim the following:</p>
+<pre class="pod-block-code">exp(x) = 1 + x + x<strong>Ctrl-V u 00B2</strong>/2! + x<strong>Ctrl-V u 00B3</strong>/3!
++ ... + x<strong>Ctrl-V u 207F</strong>/n!
+# which would appear as
+exp(x) = 1 + x + x²/2! + x³/3! + ... + xⁿ/n!
+</pre>
+<p>Or to specify the elements in a list from <code>1</code> up to <code>k</code>:</p>
+<pre class="pod-block-code">A<strong>Ctrl-V u 2081</strong>, A<strong>Ctrl-V u 2082</strong>, ..., A<strong>Ctrl-V u 2096</strong>
+# which would appear as
+A₁, A₂, ..., Aₖ
+</pre>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/unicode_entry.pod6">https://github.com/Raku/doc/blob/master/doc/Language/unicode_entry.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

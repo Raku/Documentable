@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>with orwith without with orwith without</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">with orwith without with orwith without</h1>
+        <p class="subtitle"></p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#language_documentation_Control_flow">language documentation Control flow</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#(Control_flow)_with_orwith_without_with_orwith_without">(Control flow) with orwith without with orwith without</a></td></tr>
+                                                                                                       
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Documentation for with orwith without <code>with orwith without</code> assembled from the following types:</p>
+<h1 id="language_documentation_Control_flow"><a class="u" href="#___top" title="go to top of document">language documentation Control flow</a></h1>
+<p>From <a href="/Documentable/integration-test/language/control#with_orwith_without">Control flow</a></p>
+<h2 id="(Control_flow)_with_orwith_without_with_orwith_without"><a href="/Documentable/integration-test/language/control#with_orwith_without">(Control flow) with orwith without with orwith without</a></h2>
+<p>The <code>with</code> statement is like <code>if</code>, but tests for definedness rather than truth, and it topicalizes on the condition, much like <code>given</code>:</p>
+<pre class="pod-block-code">with &quot;abc&quot;.index(&quot;a&quot;) { .say }      # prints 0</pre>
+<p>Similarly to <code>elsif</code>, <code>orwith</code> may be used to chain definedness tests:</p>
+<pre class="pod-block-code"># The below code says &quot;Found a at 0&quot;
+my $s = &quot;abc&quot;;
+with   $s.index(&quot;a&quot;) { say &quot;Found a at $_&quot; }
+orwith $s.index(&quot;b&quot;) { say &quot;Found b at $_&quot; }
+orwith $s.index(&quot;c&quot;) { say &quot;Found c at $_&quot; }
+else                 { say &quot;Didn&#39;t find a, b or c&quot; }</pre>
+<p>You may intermix <code>if</code>-based and <code>with</code>-based clauses.</p>
+<pre class="pod-block-code"># This says &quot;Yes&quot;
+if 0 { say &quot;No&quot; } orwith Nil { say &quot;No&quot; } orwith 0 { say &quot;Yes&quot; };</pre>
+<p>As with <code>unless</code>, you may use <code>without</code> to check for undefinedness, but you may not add an <code>else</code> clause:</p>
+<pre class="pod-block-code">my $answer = Any;
+without $answer { warn &quot;Got: {$_.raku}&quot; }</pre>
+<p>There are also <code>with</code> and <code>without</code> statement modifiers:</p>
+<pre class="pod-block-code">my $answer = (Any, True).roll;
+say 42 with $answer;
+warn &quot;undefined answer&quot; without $answer;</pre>
+<p>As with the other chainable constructs, an <code>else</code> completing a <code>with/if</code>..<code>orwith/elsif</code> chain will itself topicalize to the value of the prior (failed) condition&#39;s topic (either the topic of <code>with</code> or the final <code>orwith</code> or <code>elsif</code>).</p>
+<p>In the case of an <code>else</code> following a <code>with</code> or <code>orwith</code>, topicalizing a value guaranteed to be undefined may seem useless. But it makes for a useful idiom when used in conjunction with operations that may fail, because <a href="/Documentable/integration-test/type/Failure">Failure</a> values are always undefined:</p>
+<pre class="pod-block-code">sub may_fail( --&gt; Numeric:D ) {
+  my $value = (^10).pick || fail &quot;Zero is unacceptable&quot;;
+  fail &quot;Odd is also not okay&quot; if $value % 2;
+  return $value;
+}
+
+with may_fail() -&gt; $value { # defined, so didn&#39;t fail
+  say &quot;I know $value isn&#39;t zero or odd.&quot;
+} else { # undefined, so failed, and the Failure is the topic
+  say &quot;Uh-oh: {.exception.message}.&quot;
+}
+</pre>
+<p>Note that while topicalizing a <a href="/Documentable/integration-test/type/Failure">Failure</a> marks it <a href="/Documentable/integration-test/type/Failure#method_handled"><code>handled</code></a>—so you can use the <code>with</code>/<code>else</code> to proceed safely with execution—it doesn&#39;t make the <em>Failure value itself</em> safe. Even within the <code>else</code> clause, if you try to use the value directly, it will result in your <code>else</code> clause itself failing (or, in Rakudo, &quot;promoting&quot; the Failure into a thrown exception).</p>
+<p>But as seen above, you <em>can</em> use the methods of a handled <code>Failure</code> object the <code>else</code> topicalizes, such as <a href="/Documentable/integration-test/type/Failure#method_exception"><code>exception</code></a>, if you wish to provide diagnostics or interrogate the underlying <a href="/Documentable/integration-test/type/Exception">Exception</a>.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

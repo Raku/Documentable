@@ -1,0 +1,611 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>class Submethod</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/type.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-basic.html"> Basic </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-composite.html"> Composite </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-domain-specific.html"> Domain-specific </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-exception.html"> Exceptions </a>
+            </div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Type/Submethod.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">class Submethod</h1>
+        <p class="subtitle">Member function that is not inherited by subclasses</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+            <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#method_gist">method gist</a></td></tr>
+    <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Type_Graph">Type Graph</a></td></tr>
+  <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Routines_supplied_by_class_Routine">Routines supplied by class Routine</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">5.1</td><td class="toc-text"><a href="#(Routine)_method_name">(Routine) method name</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">5.2</td><td class="toc-text"><a href="#(Routine)_method_package">(Routine) method package</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">5.3</td><td class="toc-text"><a href="#(Routine)_method_multi">(Routine) method multi</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">5.4</td><td class="toc-text"><a href="#(Routine)_method_candidates">(Routine) method candidates</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">5.5</td><td class="toc-text"><a href="#(Routine)_method_cando">(Routine) method cando</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">5.6</td><td class="toc-text"><a href="#(Routine)_method_wrap">(Routine) method wrap</a></td></tr>
+                   <tr class="toc-level-2"><td class="toc-number">5.7</td><td class="toc-text"><a href="#(Routine)_method_unwrap">(Routine) method unwrap</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">5.8</td><td class="toc-text"><a href="#(Routine)_method_yada">(Routine) method yada</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">5.9</td><td class="toc-text"><a href="#(Routine)_trait_is_cached">(Routine) trait is cached</a></td></tr>
+                                         <tr class="toc-level-2"><td class="toc-number">5.10</td><td class="toc-text"><a href="#(Routine)_trait_is_pure">(Routine) trait is pure</a></td></tr>
+                                             <tr class="toc-level-2"><td class="toc-number">5.11</td><td class="toc-text"><a href="#(Routine)_trait_is_rw">(Routine) trait is rw</a></td></tr>
+                                             <tr class="toc-level-2"><td class="toc-number">5.12</td><td class="toc-text"><a href="#(Routine)_trait_is_export">(Routine) trait is export</a></td></tr>
+                          <tr class="toc-level-2"><td class="toc-number">5.13</td><td class="toc-text"><a href="#(Routine)_trait_is_DEPRECATED">(Routine) trait is DEPRECATED</a></td></tr>
+                           <tr class="toc-level-2"><td class="toc-number">5.14</td><td class="toc-text"><a href="#(Routine)_trait_is_hidden-from-backtrace">(Routine) trait is hidden-from-backtrace</a></td></tr>
+                                     <tr class="toc-level-2"><td class="toc-number">5.15</td><td class="toc-text"><a href="#(Routine)_trait_is_default">(Routine) trait is default</a></td></tr>
+                                   <tr class="toc-level-2"><td class="toc-number">5.16</td><td class="toc-text"><a href="#(Routine)_trait_is_raw">(Routine) trait is raw</a></td></tr>
+                <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#Routines_supplied_by_class_Code">Routines supplied by class Code</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">5.17</td><td class="toc-text"><a href="#(Code)_method_ACCEPTS">(Code) method ACCEPTS</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">5.18</td><td class="toc-text"><a href="#(Code)_method_arity">(Code) method arity</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">5.19</td><td class="toc-text"><a href="#(Code)_method_assuming">(Code) method assuming</a></td></tr>
+                                     <tr class="toc-level-2"><td class="toc-number">5.20</td><td class="toc-text"><a href="#(Code)_method_count">(Code) method count</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">5.21</td><td class="toc-text"><a href="#(Code)_method_of">(Code) method of</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">5.22</td><td class="toc-text"><a href="#(Code)_method_signature">(Code) method signature</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">5.23</td><td class="toc-text"><a href="#(Code)_method_cando">(Code) method cando</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">5.24</td><td class="toc-text"><a href="#(Code)_method_Str">(Code) method Str</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">5.25</td><td class="toc-text"><a href="#(Code)_method_file">(Code) method file</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">5.26</td><td class="toc-text"><a href="#(Code)_method_line">(Code) method line</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">5.27</td><td class="toc-text"><a href="#(Code)_method_is-implementation-detail">(Code) method is-implementation-detail</a></td></tr>
+          <tr class="toc-level-1"><td class="toc-number">5</td><td class="toc-text"><a href="#Routines_supplied_by_role_Callable">Routines supplied by role Callable</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">5.28</td><td class="toc-text"><a href="#(Callable)_method_CALL-ME">(Callable) method CALL-ME</a></td></tr>
+            <tr class="toc-level-2"><td class="toc-number">5.29</td><td class="toc-text"><a href="#(Callable)_method_Capture">(Callable) method Capture</a></td></tr>
+     
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <pre class="pod-block-code">class Submethod is Routine {}</pre>
+<p>A Submethod is a method that is not inherited by child classes. They are typically used for per-class initialization and tear-down tasks which are called explicitly per class in an inheritance tree, usually for enforcing a particular order. For example object construction with the <code>BUILD</code> submethod happens from the least-derived to most-derived, so that the most-derived (child) classes can depend on the parent already being initialized.</p>
+<p>Submethods are of type <code>Submethod</code>, and are declared with the <code>submethod</code> declarator:</p>
+<pre class="pod-block-code">class Area {
+    has $.size;
+    submethod BUILD(:$x, :$y, :$z) {
+        $!size = $x * $y * $z;
+    }
+}</pre>
+<h1 id="Methods"><a class="u" href="#___top" title="go to top of document">Methods</a></h1>
+<h2 id="method_gist"><a class="u" href="#___top" title="go to top of document">method gist</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method gist(Submethod:D:)</pre>
+<p>Returns the name of the submethod.</p>
+<h1 id="Type_Graph"><a class="u" href="#___top" title="go to top of document">Type Graph</a></h1>
+<figure>
+  <figcaption>Type relations for <code>Submethod</code></figcaption>
+  <svg width="180pt" height="404pt"
+ viewBox="0.00 0.00 180.05 404.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 400)">
+<title>perl6&#45;type&#45;graph</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-400 176.05,-400 176.05,4 -4,4"/>
+<!-- Submethod -->
+<g id="node1" class="node">
+<title>Submethod</title>
+<g id="a_node1"><a xlink:href="/type/Submethod" xlink:title="Submethod">
+<ellipse fill="none" stroke="#000000" cx="74" cy="-18" rx="54.69" ry="18"/>
+<text text-anchor="middle" x="74" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">Submethod</text>
+</a>
+</g>
+</g>
+<!-- Routine -->
+<g id="node7" class="node">
+<title>Routine</title>
+<g id="a_node7"><a xlink:href="/type/Routine" xlink:title="Routine">
+<ellipse fill="none" stroke="#000000" cx="74" cy="-90" rx="44.69" ry="18"/>
+<text text-anchor="middle" x="74" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Routine</text>
+</a>
+</g>
+</g>
+<!-- Submethod&#45;&gt;Routine -->
+<g id="edge1" class="edge">
+<title>Submethod&#45;&gt;Routine</title>
+<path fill="none" stroke="#000000" d="M74,-36.3C74,-44.02 74,-53.29 74,-61.89"/>
+<polygon fill="#000000" stroke="#000000" points="70.5,-61.9 74,-71.9 77.5,-61.9 70.5,-61.9"/>
+</g>
+<!-- Mu -->
+<g id="node2" class="node">
+<title>Mu</title>
+<g id="a_node2"><a xlink:href="/type/Mu" xlink:title="Mu">
+<ellipse fill="none" stroke="#000000" cx="27" cy="-378" rx="27" ry="18"/>
+<text text-anchor="middle" x="27" y="-374.3" font-family="FreeSans" font-size="14.00" fill="#000000">Mu</text>
+</a>
+</g>
+</g>
+<!-- Any -->
+<g id="node3" class="node">
+<title>Any</title>
+<g id="a_node3"><a xlink:href="/type/Any" xlink:title="Any">
+<ellipse fill="none" stroke="#000000" cx="27" cy="-306" rx="27" ry="18"/>
+<text text-anchor="middle" x="27" y="-302.3" font-family="FreeSans" font-size="14.00" fill="#000000">Any</text>
+</a>
+</g>
+</g>
+<!-- Any&#45;&gt;Mu -->
+<g id="edge2" class="edge">
+<title>Any&#45;&gt;Mu</title>
+<path fill="none" stroke="#000000" d="M27,-324.3C27,-332.02 27,-341.29 27,-349.89"/>
+<polygon fill="#000000" stroke="#000000" points="23.5,-349.9 27,-359.9 30.5,-349.9 23.5,-349.9"/>
+</g>
+<!-- Callable -->
+<g id="node4" class="node">
+<title>Callable</title>
+<g id="a_node4"><a xlink:href="/type/Callable" xlink:title="Callable">
+<ellipse fill="none" stroke="#6666ff" cx="122" cy="-306" rx="50.09" ry="18"/>
+<text text-anchor="middle" x="122" y="-302.3" font-family="FreeSans" font-size="14.00" fill="#6666ff">Callable</text>
+</a>
+</g>
+</g>
+<!-- Code -->
+<g id="node5" class="node">
+<title>Code</title>
+<g id="a_node5"><a xlink:href="/type/Code" xlink:title="Code">
+<ellipse fill="none" stroke="#000000" cx="74" cy="-234" rx="30.59" ry="18"/>
+<text text-anchor="middle" x="74" y="-230.3" font-family="FreeSans" font-size="14.00" fill="#000000">Code</text>
+</a>
+</g>
+</g>
+<!-- Code&#45;&gt;Any -->
+<g id="edge3" class="edge">
+<title>Code&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M63.33,-250.88C57.45,-259.66 50.01,-270.74 43.39,-280.58"/>
+<polygon fill="#000000" stroke="#000000" points="40.29,-278.93 37.62,-289.18 46.1,-282.83 40.29,-278.93"/>
+</g>
+<!-- Code&#45;&gt;Callable -->
+<g id="edge6" class="edge">
+<title>Code&#45;&gt;Callable</title>
+<path fill="none" stroke="#6666ff" d="M84.89,-250.88C90.74,-259.41 98.08,-270.11 104.68,-279.75"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="101.94,-281.93 110.48,-288.2 107.71,-277.98 101.94,-281.93"/>
+</g>
+<!-- Block -->
+<g id="node6" class="node">
+<title>Block</title>
+<g id="a_node6"><a xlink:href="/type/Block" xlink:title="Block">
+<ellipse fill="none" stroke="#000000" cx="74" cy="-162" rx="35.19" ry="18"/>
+<text text-anchor="middle" x="74" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#000000">Block</text>
+</a>
+</g>
+</g>
+<!-- Block&#45;&gt;Code -->
+<g id="edge4" class="edge">
+<title>Block&#45;&gt;Code</title>
+<path fill="none" stroke="#000000" d="M74,-180.3C74,-188.02 74,-197.29 74,-205.89"/>
+<polygon fill="#000000" stroke="#000000" points="70.5,-205.9 74,-215.9 77.5,-205.9 70.5,-205.9"/>
+</g>
+<!-- Routine&#45;&gt;Block -->
+<g id="edge5" class="edge">
+<title>Routine&#45;&gt;Block</title>
+<path fill="none" stroke="#000000" d="M74,-108.3C74,-116.02 74,-125.29 74,-133.89"/>
+<polygon fill="#000000" stroke="#000000" points="70.5,-133.9 74,-143.9 77.5,-133.9 70.5,-133.9"/>
+</g>
+</g>
+</svg>
+
+  <p class="fallback">
+    <a
+      rel="alternate"
+      href="/images/type-graph-Submethod.svg"
+      type="image/svg+xml"
+      >Expand above chart</a
+    >
+  </p>
+</figure>
+<h1 id="Routines_supplied_by_class_Routine"><a class="u" href="#___top" title="go to top of document">Routines supplied by class Routine</a></h1>
+<p>Submethod inherits from class <a href="/Documentable/integration-test/type/Routine">Routine</a>, which provides the following routines:</p>
+<h2 id="(Routine)_method_name"><a href="/Documentable/integration-test/type/Routine#method_name">(Routine) method name</a></h2>
+<pre class="pod-block-code">method name(Routine:D: --&gt; Str:D)</pre>
+<p>Returns the name of the sub or method.</p>
+<h2 id="(Routine)_method_package"><a href="/Documentable/integration-test/type/Routine#method_package">(Routine) method package</a></h2>
+<pre class="pod-block-code">method package(Routine:D:)</pre>
+<p>Returns the package in which the routine is defined.</p>
+<h2 id="(Routine)_method_multi"><a href="/Documentable/integration-test/type/Routine#method_multi">(Routine) method multi</a></h2>
+<pre class="pod-block-code">method multi(Routine:D: --&gt; Bool:D)</pre>
+<p>Returns <code>True</code> if the routine is a multi sub or method. Note that the name of a multi sub refers to its <a href="/Documentable/integration-test/syntax/proto"><code>proto</code></a> and this method would return false if called on it. It needs to be called on the candidates themselves:</p>
+<pre class="pod-block-code">multi foo ($, $) {};
+say &amp;foo.multi;             # OUTPUT: «False␤»
+say &amp;foo.candidates».multi; # OUTPUT: «(True)␤»</pre>
+<h2 id="(Routine)_method_candidates"><a href="/Documentable/integration-test/type/Routine#method_candidates">(Routine) method candidates</a></h2>
+<pre class="pod-block-code">method candidates(Routine:D: --&gt; Positional:D)</pre>
+<p>Returns a list of multi candidates, or a one-element list with itself if it&#39;s not a multi</p>
+<h2 id="(Routine)_method_cando"><a href="/Documentable/integration-test/type/Routine#method_cando">(Routine) method cando</a></h2>
+<pre class="pod-block-code">method cando(Capture $c)</pre>
+<p>Returns a possibly-empty list of candidates that can be called with the given <a href="/Documentable/integration-test/type/Capture">Capture</a>, ordered by narrowest candidate first. For methods, the first element of the Capture needs to be the invocant:</p>
+<pre class="pod-block-code">.signature.say for &quot;foo&quot;.^can(&quot;comb&quot;)[0].cando: \(Cool, &quot;o&quot;);
+# OUTPUT: «(Cool $: Str $matcher, $limit = Inf, *%_)␤»</pre>
+<h2 id="(Routine)_method_wrap"><a href="/Documentable/integration-test/type/Routine#method_wrap">(Routine) method wrap</a></h2>
+<pre class="pod-block-code">method wrap(Routine:D: &amp;wrapper)</pre>
+<p>Wraps (i.e. in-place modifies) the routine. That means a call to this routine first calls <code>&amp;wrapper</code>, which then can (but doesn&#39;t have to) call the original routine with the <code>callsame</code>, <code>callwith</code>, <code>nextsame</code> and <code>nextwith</code> dispatchers. The return value from the routine is also the return value from the wrapper.</p>
+<p><code>wrap</code> returns an instance of a private class called <a href="/Documentable/integration-test/type/Routine::WrapHandle"><code>Routine::WrapHandle</code></a>, which you can pass to <a href="/Documentable/integration-test/routine/unwrap">unwrap</a> to restore the original routine.</p>
+<h2 id="(Routine)_method_unwrap"><a href="/Documentable/integration-test/type/Routine#method_unwrap">(Routine) method unwrap</a></h2>
+<pre class="pod-block-code">method unwrap($wraphandle)</pre>
+<p>Restores the original routine after it has been wrapped with <a href="/Documentable/integration-test/routine/wrap">wrap</a>. While the signature allows any type to be passed, only the <a href="/Documentable/integration-test/type/Routine::WrapHandle"><code>Routine::WrapHandle</code></a> type returned from <code>wrap</code> can usefully be.</p>
+<h2 id="(Routine)_method_yada"><a href="/Documentable/integration-test/type/Routine#method_yada">(Routine) method yada</a></h2>
+<pre class="pod-block-code">method yada(Routine:D: --&gt; Bool:D)</pre>
+<p>Returns <code>True</code> if the routine is a stub</p>
+<pre class="pod-block-code">say (sub f() { ... }).yada;      # OUTPUT: «True␤»
+say (sub g() { 1;  }).yada;      # OUTPUT: «False␤»</pre>
+<h2 id="(Routine)_trait_is_cached"><a href="/Documentable/integration-test/type/Routine#trait_is_cached">(Routine) trait is cached</a></h2>
+<pre class="pod-block-code">multi sub trait_mod:&lt;is&gt;(Routine $r, :$cached!)</pre>
+<p>Causes the return value of a routine to be stored, so that when subsequent calls with the same list of arguments are made, the stored value can be returned immediately instead of re-running the routine.<a href="#fn-1" id="fn-ref-1">[1]</a></p>
+<p>Useful when storing and returning the computed value is much faster than re-computing it every time, and when the time saved trumps the cost of the use of more memory.</p>
+<p>Even if the arguments passed to the routine are &quot;reference types&quot; (such as objects or arrays), then for the purpose of caching they will only be compared based on their contents. Thus the second invocation will hit the cache in this case:</p>
+<pre class="pod-block-code">say foo( [1, 2, 3] );   # runs foo
+say foo( [1, 2, 3] );   # doesn&#39;t run foo, uses cached value
+</pre>
+<p>Since it&#39;s still at the experimental stage, you will have to insert the <code>use experimental :cached;</code> statement in any module or script that uses it.</p>
+<pre class="pod-block-code">use experimental :cached;
+
+sub nth-prime(Int:D $x where * &gt; 0) is cached {
+    say &quot;Calculating {$x}th prime&quot;;
+    return (2..*).grep(*.is-prime)[$x - 1];
+}
+
+say nth-prime(43);
+say nth-prime(43);
+say nth-prime(43);
+</pre>
+<p>produces this output:</p>
+<pre class="pod-block-code">Calculating 43th prime
+191
+191
+191
+</pre>
+<h2 id="(Routine)_trait_is_pure"><a href="/Documentable/integration-test/type/Routine#trait_is_pure">(Routine) trait is pure</a></h2>
+<pre class="pod-block-code">multi sub trait_mod:&lt;is&gt;(Routine $r, :$pure!)</pre>
+<p>Marks a subroutine as <em>pure</em>, that is, it asserts that for the same input, it will always produce the same output without any additional side effects.</p>
+<p>The <code>is pure</code> trait is a promise by the programmer to the compiler that it can constant-fold calls to such functions when the arguments are known at compile time.</p>
+<pre class="pod-block-code">sub syllables() is pure {
+    say &quot;Generating syllables&quot;;
+    my @vowels = &lt;a e i o u&gt;;
+    return  @vowels.append: &lt;k m n sh d r t y&gt; X~ @vowels;
+}</pre>
+<p>You can mark function as pure even if they throw exceptions in edge cases or if they modify temporary objects; hence the <code>is pure</code> trait can cover cases that the compiler cannot deduce on its own. On the other hand, you might not want to constant-fold functions that produce a large return value (such as the string or list repetition operators, infix <code>x</code> and <code>xx</code>) even if they are pure, to avoid large precompilation files.</p>
+<p>To see it an action with a particular compiler you can try this example:</p>
+<pre class="pod-block-code">BEGIN { say ‘Begin’ }
+say ‘Start’;
+say (^100).map: { syllables().pick(2..5).join(&quot;&quot;) };
+
+
+# Example output:
+# Begin
+# Generating syllables
+# Start
+# (matiroi yeterani shoriyuru...
+</pre>
+<p>Essentially this allows the compiler to perform some operations at compile time. The benefits of constant-folding <em>may</em> include better performance, especially in cases when the folded code is precompiled.</p>
+<p>In addition, using a pure function or operator in sink context (that is, where the result is discarded) may lead to a warning. The code</p>
+<pre class="pod-block-code">sub double($x) is pure { 2 * $x };
+double(21);
+say &quot;anything&quot;;
+# WARNING: «Useless use of &quot;double(21)&quot; in expression &quot;double(21)&quot; in sink context (line 2)»</pre>
+<p>If you want to apply this trait to a <code>multi</code>, you need to apply it to the <code>proto</code>; it will not work otherwise, at least in versions 2018.08 and below.</p>
+<h2 id="(Routine)_trait_is_rw"><a href="/Documentable/integration-test/type/Routine#trait_is_rw">(Routine) trait is rw</a></h2>
+<pre class="pod-block-code">multi sub trait_mod:&lt;is&gt;(Routine $r, :$rw!)</pre>
+<p>When a routine is modified with this trait, its return value will be writable. This is useful when returning variables or writable elements of hashes or arrays, for example:</p>
+<pre class="pod-block-code">sub walk(\thing, *@keys) is rw {
+    my $current := thing;
+    for @keys -&gt; $k {
+        if $k ~~ Int {
+            $current := $current[$k];
+        }
+        else {
+            $current := $current{$k};
+        }
+    }
+    $current;
+}
+
+my %hash;
+walk(%hash, &#39;some&#39;, &#39;key&#39;, 1, 2) = &#39;autovivified&#39;;
+
+say %hash.raku;
+</pre>
+<p>produces</p>
+<pre class="pod-block-code">(&quot;some&quot; =&gt; {&quot;key&quot; =&gt; [Any, [Any, Any, &quot;autovivified&quot;]]}).hash
+</pre>
+<p>Note that <code>return</code> marks return values as read only; if you need an early exit from an <code>is rw</code> routine, you have to use <a name="Documentable/integration-test/index-entry-return-rw-return-rw"><span class="index-entry"><code>return-rw</code></span></a> instead.</p>
+<h2 id="(Routine)_trait_is_export"><a href="/Documentable/integration-test/type/Routine#trait_is_export">(Routine) trait is export</a></h2>
+<pre class="pod-block-code">multi sub trait_mod:&lt;is&gt;(Routine $r, :$export!)</pre>
+<p>Marks a routine as exported to the rest of the world</p>
+<pre class="pod-block-code">module Foo {
+    sub double($x) <strong>is export</strong> {
+        2 * $x
+    }
+}
+
+import Foo;         # makes sub double available
+say double 21;      # 42
+</pre>
+<p>From inside another file you&#39;d say <code>use Foo;</code> to load a module and import the exported functions.</p>
+<p>See <a href="/Documentable/integration-test/language/modules#Exporting_and_selective_importing">Exporting and Selective Importing Modules</a> for more details.</p>
+<h2 id="(Routine)_trait_is_DEPRECATED"><a href="/Documentable/integration-test/type/Routine#trait_is_DEPRECATED">(Routine) trait is DEPRECATED</a></h2>
+<pre class="pod-block-code">multi sub trait_mod:&lt;is&gt;(Routine:D $r, :$DEPRECATED!)</pre>
+<p>Marks a routine as deprecated, optionally with a message what to use instead.</p>
+<p>This code</p>
+<pre class="pod-block-code">sub f() is DEPRECATED(&#39;the literal 42&#39;) { 42 }
+say f();
+</pre>
+<p>produces this output:</p>
+<pre class="pod-block-code">42
+Saw 1 occurrence of deprecated code.
+================================================================================
+Sub f (from GLOBAL) seen at:
+  deprecated.p6, line 2
+Please use the literal 42 instead.
+--------------------------------------------------------------------------------
+Please contact the author to have these occurrences of deprecated code
+adapted, so that this message will disappear!
+</pre>
+<h2 id="(Routine)_trait_is_hidden-from-backtrace"><a href="/Documentable/integration-test/type/Routine#trait_is_hidden-from-backtrace">(Routine) trait is hidden-from-backtrace</a></h2>
+<pre class="pod-block-code">multi sub trait_mod:&lt;is&gt;(Routine:D, :$hidden-from-backtrace!)</pre>
+<p>Hides a routine from showing up in a default backtrace. For example</p>
+<pre class="pod-block-code">sub inner { die &quot;OH NOEZ&quot; };
+sub outer { inner() };
+outer();
+</pre>
+<p>produces the error message and backtrace</p>
+<pre class="pod-block-code">OH NOEZ
+  in sub inner at bt.p6:1
+  in sub outer at bt.p6:2
+  in block &lt;unit&gt; at bt.p6:3
+</pre>
+<p>but if <code>inner</code> is marked with <code>hidden-from-backtrace</code></p>
+<pre class="pod-block-code">sub inner is hidden-from-backtrace { die &quot;OH NOEZ&quot; };
+sub outer { inner() };
+outer();
+</pre>
+<p>the error backtrace does not show it:</p>
+<pre class="pod-block-code">OH NOEZ
+  in sub outer at bt.p6:2
+  in block &lt;unit&gt; at bt.p6:3
+</pre>
+<p><a name="Documentable/integration-test/index-entry-is_default_(Routine)"></a></p>
+<h2 id="(Routine)_trait_is_default"><a href="/Documentable/integration-test/type/Routine#trait_is_default">(Routine) trait is default</a></h2>
+<p>Defined as</p>
+<pre class="pod-block-code">multi sub trait_mod:&lt;is&gt;(Routine:D $r, :$default!)</pre>
+<p>There is a special trait for <code>Routine</code>s called <code>is default</code>. This trait is designed as a way to disambiguate <code>multi</code> calls that would normally throw an error because the compiler would not know which one to use. This means that given the following two <code>Routine</code>s, the one with the <code>is default</code> trait will be called.</p>
+<pre class="pod-block-code">multi sub f() is default { say &quot;Hello there&quot; }
+multi sub f() { say &quot;Hello friend&quot; }
+f();   # OUTPUT: «&quot;Hello there&quot;␤»</pre>
+<p>The <code>is default</code> trait can become very useful for debugging and other uses but keep in mind that it will only resolve an ambiguous dispatch between two <code>Routine</code>s of the same precedence. If one of the <code>Routine</code>s is narrower than another, then that one will be called. For example:</p>
+<pre class="pod-block-code">multi sub f() is default { say &quot;Hello there&quot; }
+multi sub f(:$greet) { say &quot;Hello &quot; ~ $greet }
+f();   # &quot;Use of uninitialized value $greet...&quot;
+</pre>
+<p>In this example, the <code>multi</code> without <code>is default</code> was called because it was actually narrower than the <code>Sub</code> with it.</p>
+<h2 id="(Routine)_trait_is_raw"><a href="/Documentable/integration-test/type/Routine#trait_is_raw">(Routine) trait is raw</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub trait_mod:&lt;is&gt;(Routine:D $r, :$raw!)</pre>
+<p>Gives total access to the data structure returned by the routine.</p>
+<pre class="pod-block-code">my @zipi = &lt;zape zapatilla&gt;;
+sub þor() is raw {
+    return @zipi
+};
+þor()[1] = &#39;pantuflo&#39;;
+say @zipi;  # OUTPUT: «[zape pantuflo]␤»
+</pre>
+<h1 id="Routines_supplied_by_class_Code"><a class="u" href="#___top" title="go to top of document">Routines supplied by class Code</a></h1>
+<p>Submethod inherits from class <a href="/Documentable/integration-test/type/Code">Code</a>, which provides the following routines:</p>
+<h2 id="(Code)_method_ACCEPTS"><a href="/Documentable/integration-test/type/Code#method_ACCEPTS">(Code) method ACCEPTS</a></h2>
+<pre class="pod-block-code">multi method ACCEPTS(Code:D: Mu $topic)</pre>
+<p>Usually calls the code object and passes <code>$topic</code> as an argument. However, when called on a code object that takes no arguments, the code object is invoked with no arguments and <code>$topic</code> is dropped. The result of the call is returned.</p>
+<h2 id="(Code)_method_arity"><a href="/Documentable/integration-test/type/Code#method_arity">(Code) method arity</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method arity(Code:D: --&gt; Int:D)</pre>
+<p>Returns the minimum number of positional arguments that must be passed in order to call the code object. Any optional or slurpy parameters in the code object&#39;s <code>Signature</code> do not contribute, nor do named parameters.</p>
+<pre class="pod-block-code">sub argless() { }
+sub args($a, $b?) { }
+sub slurpy($a, $b, *@c) { }
+say &amp;argless.arity;             # OUTPUT: «0␤»
+say &amp;args.arity;                # OUTPUT: «1␤»
+say &amp;slurpy.arity;              # OUTPUT: «2␤»</pre>
+<h2 id="(Code)_method_assuming"><a href="/Documentable/integration-test/type/Code#method_assuming">(Code) method assuming</a></h2>
+<pre class="pod-block-code">method assuming(Callable:D $self: |primers)</pre>
+<p>Returns a <code>Callable</code> that implements the same behavior as the original, but has the values passed to .assuming already bound to the corresponding parameters.</p>
+<pre class="pod-block-code">my sub slow($n){ my $i = 0; $i++ while $i &lt; $n; $i };
+
+# takes only one parameter and as such wont forward $n
+sub bench(&amp;c){ c, now - ENTER now };
+
+say &amp;slow.assuming(10000000).&amp;bench; # OUTPUT: «(10000000 7.5508834)␤»</pre>
+<p>For a sub with arity greater than one, you can use <code>Whatever</code> <code>*</code> for all of the positional parameters that are not &quot;assumed&quot;.</p>
+<pre class="pod-block-code">sub first-and-last ( $first, $last ) {
+    say &quot;Name is $first $last&quot;;
+}
+
+my &amp;surname-smith = &amp;first-and-last.assuming( *, &#39;Smith&#39; );
+
+&amp;surname-smith.( &#39;Joe&#39; ); # OUTPUT: «Name is Joe Smith␤»</pre>
+<p>You can handle any combination of assumed and not assumed positional parameters:</p>
+<pre class="pod-block-code">sub longer-names ( $first, $middle, $last, $suffix ) {
+    say &quot;Name is $first $middle $last $suffix&quot;;
+}
+
+my &amp;surname-public = &amp;longer-names.assuming( *, *, &#39;Public&#39;, * );
+
+&amp;surname-public.( &#39;Joe&#39;, &#39;Q.&#39;, &#39;Jr.&#39;); # OUTPUT: «Name is Joe Q. Public Jr.␤»
+</pre>
+<p>Named parameters can be assumed as well:</p>
+<pre class="pod-block-code">sub foo { say &quot;$^a $^b $:foo $:bar&quot; }
+&amp;foo.assuming(13, :42foo)(24, :72bar); # OUTPUT: «13 24 42 72␤»</pre>
+<p>And you can use <code>.assuming</code> on all types of <a href="/Documentable/integration-test/type/Callable">Callables</a>, including <a href="/Documentable/integration-test/type/Method">Methods</a> and <a href="/Documentable/integration-test/type/Block">Blocks</a>:</p>
+<pre class="pod-block-code"># We use a Whatever star for the invocant:
+my &amp;comber = Str.^lookup(&#39;comb&#39;).assuming: *, /P \w+/;
+say comber &#39;Perl is awesome! Python is great! And PHP is OK too&#39;;
+# OUTPUT: «(Perl Python PHP)␤»
+
+my &amp;learner = {
+    &quot;It took me $:months months to learn $^lang&quot;
+}.assuming: &#39;Raku&#39;;
+say learner :6months;  # OUTPUT: «It took me 6 months to learn Raku␤»</pre>
+<h2 id="(Code)_method_count"><a href="/Documentable/integration-test/type/Code#method_count">(Code) method count</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method count(Code:D: --&gt; Real:D)</pre>
+<p>Returns the maximum number of positional arguments that may be passed when calling the code object. For code objects that can accept any number of positional arguments (that is, they have a slurpy parameter), <code>count</code> will return <code>Inf</code>. Named parameters do not contribute.</p>
+<pre class="pod-block-code">sub argless() { }
+sub args($a, $b?) { }
+sub slurpy($a, $b, *@c) { }
+say &amp;argless.count;             # OUTPUT: «0␤»
+say &amp;args.count;                # OUTPUT: «2␤»
+say &amp;slurpy.count;              # OUTPUT: «Inf␤»</pre>
+<h2 id="(Code)_method_of"><a href="/Documentable/integration-test/type/Code#method_of">(Code) method of</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method of(Code:D: --&gt; Mu)</pre>
+<p>Returns the <a href="/Documentable/integration-test/type/Signature#Constraining_return_types">return type constraint</a> of the <code>Code</code>:</p>
+<pre class="pod-block-code">say -&gt; () --&gt; Int {}.of; # OUTPUT: «(Int)␤»</pre>
+<h2 id="(Code)_method_signature"><a href="/Documentable/integration-test/type/Code#method_signature">(Code) method signature</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method signature(Code:D: --&gt; Signature:D)</pre>
+<p>Returns the <a href="/Documentable/integration-test/type/Signature"><code>Signature</code></a> object for this code object, which describes its parameters.</p>
+<pre class="pod-block-code">sub a(Int $one, Str $two) {};
+say &amp;a.signature; # OUTPUT: «(Int $one, Str $two)␤»</pre>
+<h2 id="(Code)_method_cando"><a href="/Documentable/integration-test/type/Code#method_cando">(Code) method cando</a></h2>
+<pre class="pod-block-code">method cando(Capture $c)</pre>
+<p>Returns a list of candidates that can be called with the given <a href="/Documentable/integration-test/type/Capture">Capture</a>. Since <code>Code</code> objects do not have any multiple dispatch, this either returns a list with the object, or an empty list.</p>
+<pre class="pod-block-code">my $single = \&#39;a&#39;;         # a single argument Capture
+my $plural = \(&#39;a&#39;, 42);   # a two argument Capture
+my &amp;block = { say $^a };   # a Block object, that is a subclass of Code, taking one argument
+say &amp;block.cando($single); # OUTPUT: «(-&gt; $a { #`(Block|94212856419136) ... })␤»
+say &amp;block.cando($plural); # OUTPUT: «()␤»</pre>
+<h2 id="(Code)_method_Str"><a href="/Documentable/integration-test/type/Code#method_Str">(Code) method Str</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method Str(Code:D: --&gt; Str:D)</pre>
+<p>Will output the method name, but also produce a warning. Use <code>.raku</code> or <code>.gist</code> instead.</p>
+<pre class="pod-block-code">sub marine() { }
+say ~&amp;marine;
+# OUTPUT: «Sub object coerced to string (please use .gist or .raku to do that)␤marine␤»
+say &amp;marine.Str;
+# OUTPUT: «Sub object coerced to string (please use .gist or .raku to do that)␤marine␤»
+say &amp;marine.raku; # OUTPUT: «sub marine { #`(Sub|94280758332168) ... }␤»</pre>
+<h2 id="(Code)_method_file"><a href="/Documentable/integration-test/type/Code#method_file">(Code) method file</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method file(Code:D: --&gt; Str:D)</pre>
+<p>Returns the name of the file in which the code object was declared.</p>
+<pre class="pod-block-code">say &amp;infix:&lt;+&gt;.file;</pre>
+<h2 id="(Code)_method_line"><a href="/Documentable/integration-test/type/Code#method_line">(Code) method line</a></h2>
+<p>Defined as</p>
+<pre class="pod-block-code">method line(Code:D: --&gt; Int:D)</pre>
+<p>Returns the line number in which the code object was declared.</p>
+<pre class="pod-block-code">say &amp;infix:&lt;+&gt;.line;</pre>
+<h2 id="(Code)_method_is-implementation-detail"><a href="/Documentable/integration-test/type/Code#method_is-implementation-detail">(Code) method is-implementation-detail</a></h2>
+<pre class="pod-block-code">method is-implementation-detail(--&gt; False)</pre>
+<p>Note: this trait has been available in Rakudo compiler starting from 2020.05 release.</p>
+<p>Returns <code>True</code> if the code object was marked with <code>is implementation-detail</code> trait, <code>False</code> otherwise.</p>
+<h1 id="Routines_supplied_by_role_Callable"><a class="u" href="#___top" title="go to top of document">Routines supplied by role Callable</a></h1>
+<p>Submethod inherits from class <a href="/Documentable/integration-test/type/Code">Code</a>, which does role <a href="/Documentable/integration-test/type/Callable">Callable</a>, which provides the following routines:</p>
+<h2 id="(Callable)_method_CALL-ME"><a href="/Documentable/integration-test/type/Callable#method_CALL-ME">(Callable) method CALL-ME</a></h2>
+<pre class="pod-block-code">method CALL-ME(Callable:D $self: |arguments)</pre>
+<p>This method is required for postfix:«( )» and postfix:«.( )». It&#39;s what makes an object actually call-able and needs to be overloaded to let a given object act like a routine. If the object needs to be stored in a <code>&amp;</code>-sigiled container, is has to implement Callable.</p>
+<pre class="pod-block-code">class A does Callable {
+    submethod CALL-ME(|c){ &#39;called&#39; }
+}
+my &amp;a = A;
+say a(); # OUTPUT: «called␤»</pre>
+<p>Applying the <code>Callable</code> role is not a requirement to make an object callable; if a class simply wants to add subroutine-like semantics in a regular scalar container, the submethod <code>CALL-ME</code> can be used for that.</p>
+<pre class="pod-block-code">class A {
+    has @.values;
+    submethod CALL-ME(Int $x where 0 &lt;= * &lt; @!values.elems) {
+        @!values[$x]
+    }
+}
+my $a = A.new: values =&gt; [4,5,6,7];
+say $a(2); # OUTPUT: «6␤»</pre>
+<h2 id="(Callable)_method_Capture"><a href="/Documentable/integration-test/type/Callable#method_Capture">(Callable) method Capture</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method Capture()</pre>
+<p>Throws <code>X::Cannot::Capture</code>.</p>
+
+        </div>
+    </div>
+
+    <aside><ol start="1">
+<li><a href="#fn-ref-1" id="fn-1">[↑]</a> This is still in experimental stage. Please check <a href="/Documentable/integration-test/language/experimental#cached">the corresponding section in the experimental features document</a> </li>
+</ol></aside>
+
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Type/Submethod.pod6">https://github.com/Raku/doc/blob/master/doc/Type/Submethod.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

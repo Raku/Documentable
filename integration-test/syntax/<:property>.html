@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>syntax &lt;:property&gt;</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">syntax &amp;lt;:property&amp;gt;</h1>
+        <p class="subtitle"></p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#language_documentation_Regexes">language documentation Regexes</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#(Regexes)_regex_&lt;:property&gt;_&lt;:property&gt;">(Regexes) regex &lt;:property&gt; &lt;:property&gt;</a></td></tr>
+                                                                                                            
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Documentation for syntax <code>&lt;:property&gt;</code> assembled from the following types:</p>
+<h1 id="language_documentation_Regexes"><a class="u" href="#___top" title="go to top of document">language documentation Regexes</a></h1>
+<p>From <a href="/Documentable/integration-test/language/regexes#Unicode_properties">Regexes</a></p>
+<h2 id="(Regexes)_regex_<:property>_<:property>"><a href="/Documentable/integration-test/language/regexes#Unicode_properties">(Regexes) regex &lt;:property&gt; &lt;:property&gt;</a></h2>
+<p>The character classes mentioned so far are mostly for convenience; another approach is to use Unicode character properties. These come in the form <code>&lt;:property&gt;</code>, where <code>property</code> can be a short or long Unicode General Category name. These use pair syntax.</p>
+<p>To match against a Unicode property you can use either smartmatch or <a href="/Documentable/integration-test/routine/uniprop"><code>uniprop</code></a>:</p>
+<pre class="pod-block-code">&quot;a&quot;.uniprop(&#39;Script&#39;);                 # OUTPUT: «Latin␤»
+&quot;a&quot; ~~ / &lt;:Script&lt;Latin&gt;&gt; /;           # OUTPUT: «｢a｣␤»
+&quot;a&quot;.uniprop(&#39;Block&#39;);                  # OUTPUT: «Basic Latin␤»
+&quot;a&quot; ~~ / &lt;:Block(&#39;Basic Latin&#39;)&gt; /;    # OUTPUT: «｢a｣␤»</pre>
+<p>These are the Unicode general categories used for matching:</p>
+<table class="pod-table">
+<thead><tr>
+<th>Short</th> <th>Long</th>
+</tr></thead>
+<tbody>
+<tr> <td>L</td> <td>Letter</td> </tr> <tr> <td>LC</td> <td>Cased_Letter</td> </tr> <tr> <td>Lu</td> <td>Uppercase_Letter</td> </tr> <tr> <td>Ll</td> <td>Lowercase_Letter</td> </tr> <tr> <td>Lt</td> <td>Titlecase_Letter</td> </tr> <tr> <td>Lm</td> <td>Modifier_Letter</td> </tr> <tr> <td>Lo</td> <td>Other_Letter</td> </tr> <tr> <td>M</td> <td>Mark</td> </tr> <tr> <td>Mn</td> <td>Nonspacing_Mark</td> </tr> <tr> <td>Mc</td> <td>Spacing_Mark</td> </tr> <tr> <td>Me</td> <td>Enclosing_Mark</td> </tr> <tr> <td>N</td> <td>Number</td> </tr> <tr> <td>Nd</td> <td>Decimal_Number or digit</td> </tr> <tr> <td>Nl</td> <td>Letter_Number</td> </tr> <tr> <td>No</td> <td>Other_Number</td> </tr> <tr> <td>P</td> <td>Punctuation or punct</td> </tr> <tr> <td>Pc</td> <td>Connector_Punctuation</td> </tr> <tr> <td>Pd</td> <td>Dash_Punctuation</td> </tr> <tr> <td>Ps</td> <td>Open_Punctuation</td> </tr> <tr> <td>Pe</td> <td>Close_Punctuation</td> </tr> <tr> <td>Pi</td> <td>Initial_Punctuation</td> </tr> <tr> <td>Pf</td> <td>Final_Punctuation</td> </tr> <tr> <td>Po</td> <td>Other_Punctuation</td> </tr> <tr> <td>S</td> <td>Symbol</td> </tr> <tr> <td>Sm</td> <td>Math_Symbol</td> </tr> <tr> <td>Sc</td> <td>Currency_Symbol</td> </tr> <tr> <td>Sk</td> <td>Modifier_Symbol</td> </tr> <tr> <td>So</td> <td>Other_Symbol</td> </tr> <tr> <td>Z</td> <td>Separator</td> </tr> <tr> <td>Zs</td> <td>Space_Separator</td> </tr> <tr> <td>Zl</td> <td>Line_Separator</td> </tr> <tr> <td>Zp</td> <td>Paragraph_Separator</td> </tr> <tr> <td>C</td> <td>Other</td> </tr> <tr> <td>Cc</td> <td>Control or cntrl</td> </tr> <tr> <td>Cf</td> <td>Format</td> </tr> <tr> <td>Cs</td> <td>Surrogate</td> </tr> <tr> <td>Co</td> <td>Private_Use</td> </tr> <tr> <td>Cn</td> <td>Unassigned</td> </tr>
+</tbody>
+</table><p>For example, <code>&lt;:Lu&gt;</code> matches a single, upper-case letter.</p>
+<p>Its negation is this: <code>&lt;:!property&gt;</code>. So, <code>&lt;:!Lu&gt;</code> matches a single character that is not an upper-case letter.</p>
+<p>Categories can be used together, with an infix operator:</p>
+<table class="pod-table">
+<thead><tr>
+<th>Operator</th> <th>Meaning</th>
+</tr></thead>
+<tbody>
+<tr> <td>+</td> <td>set union</td> </tr> <tr> <td>-</td> <td>set difference</td> </tr>
+</tbody>
+</table><p>To match either a lower-case letter or a number, write <code>&lt;:Ll+:N&gt;</code> or <code>&lt;:Ll+:Number&gt;</code> or <code>&lt;+ :Lowercase_Letter + :Number&gt;</code>.</p>
+<p>It&#39;s also possible to group categories and sets of categories with parentheses; for example:</p>
+<pre class="pod-block-code">say $0 if &#39;perl6&#39; ~~ /\w+(&lt;:Ll+:N&gt;)/ # OUTPUT: «｢6｣␤»</pre>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

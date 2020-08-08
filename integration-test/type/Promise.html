@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>class Promise</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/type.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-basic.html"> Basic </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-composite.html"> Composite </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-domain-specific.html"> Domain-specific </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-exception.html"> Exceptions </a>
+            </div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Type/Promise.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">class Promise</h1>
+        <p class="subtitle">Status/result of an asynchronous computation</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+                                                                         <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#method_start">method start</a></td></tr>
+                                                            <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#method_in">method in</a></td></tr>
+                 <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#method_at">method at</a></td></tr>
+                      <tr class="toc-level-2"><td class="toc-number">1.4</td><td class="toc-text"><a href="#method_kept">method kept</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">1.5</td><td class="toc-text"><a href="#method_broken">method broken</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">1.6</td><td class="toc-text"><a href="#method_allof">method allof</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.7</td><td class="toc-text"><a href="#method_anyof">method anyof</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">1.8</td><td class="toc-text"><a href="#method_then">method then</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">1.9</td><td class="toc-text"><a href="#method_keep">method keep</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">1.10</td><td class="toc-text"><a href="#method_break">method break</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">1.11</td><td class="toc-text"><a href="#method_result">method result</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.12</td><td class="toc-text"><a href="#method_cause">method cause</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">1.13</td><td class="toc-text"><a href="#method_Bool">method Bool</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.14</td><td class="toc-text"><a href="#method_status">method status</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">1.15</td><td class="toc-text"><a href="#method_scheduler">method scheduler</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.16</td><td class="toc-text"><a href="#method_vow">method vow</a></td></tr>
+                     <tr class="toc-level-2"><td class="toc-number">1.17</td><td class="toc-text"><a href="#method_Supply">method Supply</a></td></tr>
+               <tr class="toc-level-2"><td class="toc-number">1.18</td><td class="toc-text"><a href="#sub_await">sub await</a></td></tr>
+       <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Type_Graph">Type Graph</a></td></tr>
+ 
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <pre class="pod-block-code">my enum PromiseStatus (:Planned(0), :Kept(1), :Broken(2));
+class Promise {}</pre>
+<p>A <em>Promise</em> is used to handle the result of a computation that might not have finished. It allows the user to execute code once the computation is done (with the <code>then</code> method), execution after a time delay (with <code>in</code>), combining promises, and waiting for results.</p>
+<pre class="pod-block-code">my $p = Promise.start({ sleep 2; 42});
+$p.then({ say .result });   # will print 42 once the block finished
+say $p.status;              # OUTPUT: «Planned␤»
+$p.result;                  # waits for the computation to finish
+say $p.status;              # OUTPUT: «Kept␤»</pre>
+<p>There are two typical scenarios for using promises. The first is to use a factory method (<code>start</code>, <code>in</code>, <code>at</code>, <code>anyof</code>, <code>allof</code>, <code>kept</code>, <code>broken</code>) on the type object; those will make sure that the promise is automatically kept or broken for you, and you can&#39;t call <code>break</code> or <code>keep</code> on these promises yourself.</p>
+<p>The second is to create your promises yourself with <code>Promise.new</code>. If you want to ensure that only your code can keep or break the promise, you can use the <code>vow</code> method to get a unique handle, and call <code>keep</code> or <code>break</code> on it:</p>
+<pre class="pod-block-code">sub async-get-with-promise($user-agent, $url) {
+    my $p = Promise.new;
+    my $v = $p.vow;
+
+    # do an asynchronous call on a fictive user agent,
+    # and return the promise:
+    $user-agent.async-get($url,
+            on-error =&gt; -&gt; $error {
+                $v.break($error);
+            },
+            on-success =&gt; -&gt; $response {
+                $v.keep($response);
+            }
+    );
+    return $p;
+}
+</pre>
+<p>Further examples can be found in the <a href="/Documentable/integration-test/language/concurrency#Promises">concurrency page</a>.</p>
+<h1 id="Methods"><a class="u" href="#___top" title="go to top of document">Methods</a></h1>
+<h2 id="method_start"><a class="u" href="#___top" title="go to top of document">method start</a></h2>
+<pre class="pod-block-code">method start(Promise:U: &amp;code, :$scheduler = $*SCHEDULER --&gt; Promise:D)</pre>
+<p>Creates a new Promise that runs the given code object. The promise will be kept when the code terminates normally, or broken if it throws an exception. The return value or exception can be inspected with the <code>result</code> method.</p>
+<p>The scheduler that handles this promise can be passed as a named argument.</p>
+<p>There is also a statement prefix <code>start</code> that provides syntactic sugar for this method:</p>
+<pre class="pod-block-code"># these two are equivalent:
+my $p1 = Promise.start({ ;#`( do something here ) });
+my $p2 = start { ;#`( do something here ) };</pre>
+<p>As of the 6.d version of the language, <code>start</code> statement prefix used in <a href="/Documentable/integration-test/routine/sink">sink</a> context will automatically attach an exceptions handler. If an exception occurs in the given code, it will be printed and the program will then exit, like if it were thrown without any <code>start</code> statement prefixes involved.</p>
+<pre class="pod-block-code">use v6.c;
+start { die }; sleep ⅓; say &quot;hello&quot;; # OUTPUT: «hello␤»
+</pre>
+<pre class="pod-block-code">use v6.d;
+start { die }; sleep ⅓; say &quot;hello&quot;;
+# OUTPUT:
+# Unhandled exception in code scheduled on thread 4
+# Died
+#     in block  at -e line 1
+</pre>
+<p>If you wish to avoid this behavior, use <code>start</code> in non-sink context or catch the exception yourself:</p>
+<pre class="pod-block-code"># Don&#39;t sink it:
+my $ = start { die }; sleep ⅓; say &quot;hello&quot;; # OUTPUT: «hello␤»
+
+# Catch yourself:
+start { die; CATCH { default { say &quot;caught&quot; } } };
+sleep ⅓;
+say &quot;hello&quot;;
+# OUTPUT: «caught␤hello␤»
+</pre>
+<p>This behavior exists only syntactically, by using an alternate <code>.sink</code> method for <a href="/Documentable/integration-test/type/Promise">Promise</a> objects created by <code>start</code> blocks in sink context, thus simply sinking a <a href="/Documentable/integration-test/type/Promise">Promise</a> object that was created by other means won&#39;t trigger this behavior.</p>
+<h2 id="method_in"><a class="u" href="#___top" title="go to top of document">method in</a></h2>
+<pre class="pod-block-code">method in(Promise:U: $seconds, :$scheduler = $*SCHEDULER --&gt; Promise:D)</pre>
+<p>Creates a new Promise that will be kept in <code>$seconds</code> seconds, or later.</p>
+<pre class="pod-block-code">my $proc = Proc::Async.new(&#39;perl6&#39;, &#39;-e&#39;, &#39;sleep 10; warn &quot;end&quot;&#39;);
+
+my $result = await Promise.anyof(
+    my $promise = $proc.start,  # may or may not work in time
+    Promise.in(5).then: {       # fires after 5 seconds no matter what
+        unless $promise {       # don&#39;t do anything if we were successful
+            note &#39;timeout&#39;;
+            $proc.kill;
+        }
+    }
+).then: { $promise.result }
+# OUTPUT: «timeout␤»</pre>
+<p><code>$seconds</code> can be fractional or negative. Negative values are treated as <code>0</code> (i.e. <a href="/Documentable/integration-test/routine/keep">keeping</a> the returned <a href="/Documentable/integration-test/type/Promise">Promise</a> right away).</p>
+<p>Please note that situations like these are often more clearly handled with a <a href="/Documentable/integration-test/language/concurrency#index-entry-react-react">react and whenever block</a>.</p>
+<h2 id="method_at"><a class="u" href="#___top" title="go to top of document">method at</a></h2>
+<pre class="pod-block-code">method at(Promise:U: $at, :$scheduler = $*SCHEDULER --&gt; Promise:D)</pre>
+<p>Creates a new <code>Promise</code> that will be kept <code>$at</code> the given time—which is given as an <a href="/Documentable/integration-test/type/Instant">Instant</a> or equivalent <a href="/Documentable/integration-test/type/Numeric">Numeric</a>—or as soon as possible after it.</p>
+<pre class="pod-block-code">my $p = Promise.at(now + 2).then({ say &quot;2 seconds later&quot; });
+# do other stuff here
+
+await $p;   # wait here until the 2 seconds are over</pre>
+<p>If the given time is in the past, it will be treated as <a href="/Documentable/integration-test/routine/now">now</a> (i.e. <a href="/Documentable/integration-test/routine/keep">keeping</a> the returned <a href="/Documentable/integration-test/type/Promise">Promise</a> right away).</p>
+<p>Please note that situations like these are often more clearly handled with a <a href="/Documentable/integration-test/language/concurrency#index-entry-react-react">react and whenever block</a>.</p>
+<h2 id="method_kept"><a class="u" href="#___top" title="go to top of document">method kept</a></h2>
+<pre class="pod-block-code">multi method kept(Promise:U: \result = True --&gt; Promise:D)</pre>
+<p>Returns a new promise that is already kept, either with the given value, or with the default value <code>True</code>.</p>
+<h2 id="method_broken"><a class="u" href="#___top" title="go to top of document">method broken</a></h2>
+<pre class="pod-block-code">multi method broken(Promise:U: --&gt; Promise:D)
+multi method broken(Promise:U: \exception --&gt; Promise:D)</pre>
+<p>Returns a new promise that is already broken, either with the given value, or with the default value <code>X::AdHoc.new(payload =&gt; &quot;Died&quot;)</code></p>
+<h2 id="method_allof"><a class="u" href="#___top" title="go to top of document">method allof</a></h2>
+<pre class="pod-block-code">method allof(Promise:U: *@promises --&gt; Promise:D)</pre>
+<p>Returns a new promise that will be kept when all the promises passed as arguments are kept or broken. The result of the individual Promises is not reflected in the result of the returned promise: it simply indicates that all the promises have been completed in some way. If the results of the individual promises are important then they should be inspected after the <code>allof</code> promise is kept.</p>
+<p>In the following requesting the <code>result</code> of a broken promise will cause the original Exception to be thrown. (You may need to run it several times to see the exception.)</p>
+<pre class="pod-block-code">my @promises;
+for 1..5 -&gt; $t {
+    push @promises, start {
+        sleep $t;
+    };
+}
+my $all-done = Promise.allof(@promises);
+await $all-done;
+@promises&gt;&gt;.result;
+say &quot;Promises kept so we get to live another day!&quot;;</pre>
+<h2 id="method_anyof"><a class="u" href="#___top" title="go to top of document">method anyof</a></h2>
+<pre class="pod-block-code">method anyof(Promise:U: *@promises --&gt; Promise:D)</pre>
+<p>Returns a new promise that will be kept as soon as any of the promises passed as arguments is kept or broken. The result of the completed Promise is not reflected in the result of the returned promise which will always be Kept.</p>
+<p>You can use this to wait at most a number of seconds for a promise:</p>
+<pre class="pod-block-code">my $timeout = 5;
+await Promise.anyof(
+    Promise.in($timeout),
+    start {
+        # do a potentially long-running calculation here
+    },
+);</pre>
+<h2 id="method_then"><a class="u" href="#___top" title="go to top of document">method then</a></h2>
+<pre class="pod-block-code">method then(Promise:D: &amp;code)</pre>
+<p>Schedules a piece of code to be run after the invocant has been kept or broken, and returns a new promise for this computation. In other words, creates a chained promise.</p>
+<pre class="pod-block-code">my $timer = Promise.in(2);
+my $after = $timer.then({ say &quot;2 seconds are over!&quot;; &#39;result&#39; });
+say $after.result;  # 2 seconds are over
+                    # result</pre>
+<h2 id="method_keep"><a class="u" href="#___top" title="go to top of document">method keep</a></h2>
+<pre class="pod-block-code">multi method keep(Promise:D: \result = True)</pre>
+<p>Keeps a promise, optionally setting the result. If no result is passed, the result will be <code>True</code>.</p>
+<p>Throws an exception of type <code>X::Promise::Vowed</code> if a vow has already been taken. See method <code>vow</code> for more information.</p>
+<pre class="pod-block-code">my $p = Promise.new;
+
+if Bool.pick {
+    $p.keep;
+}
+else {
+     $p.break;
+}</pre>
+<h2 id="method_break"><a class="u" href="#___top" title="go to top of document">method break</a></h2>
+<pre class="pod-block-code">multi method break(Promise:D: \cause = False)</pre>
+<p>Breaks a promise, optionally setting the cause. If no cause is passed, the cause will be <code>False</code>.</p>
+<p>Throws an exception of type <code>X::Promise::Vowed</code> if a vow has already been taken. See method <code>vow</code> for more information.</p>
+<pre class="pod-block-code">my $p = Promise.new;
+
+$p.break(&#39;sorry&#39;);
+say $p.status;          # OUTPUT: «Broken␤»
+say $p.cause;           # OUTPUT: «sorry␤»</pre>
+<h2 id="method_result"><a class="u" href="#___top" title="go to top of document">method result</a></h2>
+<pre class="pod-block-code">method result(Promise:D)</pre>
+<p>Waits for the promise to be kept or broken. If it is kept, returns the result; otherwise throws the result as an exception.</p>
+<h2 id="method_cause"><a class="u" href="#___top" title="go to top of document">method cause</a></h2>
+<pre class="pod-block-code">method cause(Promise:D)</pre>
+<p>If the promise was broken, returns the result (or exception). Otherwise, throws an exception of type <code>X::Promise::CauseOnlyValidOnBroken</code>.</p>
+<h2 id="method_Bool"><a class="u" href="#___top" title="go to top of document">method Bool</a></h2>
+<pre class="pod-block-code">multi method Bool(Promise:D:)</pre>
+<p>Returns <code>True</code> for a kept or broken promise, and <code>False</code> for one in state <code>Planned</code>.</p>
+<h2 id="method_status"><a class="u" href="#___top" title="go to top of document">method status</a></h2>
+<pre class="pod-block-code">method status(Promise:D --&gt; PromiseStatus)</pre>
+<p>Returns the current state of the promise: <code>Kept</code>, <code>Broken</code> or <code>Planned</code>:</p>
+<pre class="pod-block-code">say &quot;promise got Kept&quot; if $promise.status ~~ Kept;
+</pre>
+<h2 id="method_scheduler"><a class="u" href="#___top" title="go to top of document">method scheduler</a></h2>
+<pre class="pod-block-code">method scheduler(Promise:D:)</pre>
+<p>Returns the scheduler that manages the promise.</p>
+<h2 id="method_vow"><a class="u" href="#___top" title="go to top of document">method vow</a></h2>
+<pre class="pod-block-code">my class Vow {
+    has Promise $.promise;
+    method keep() { ... }
+    method break() { ... }
+}
+method vow(Promise:D: --&gt; Vow:D)
+</pre>
+<p>Returns an object that holds the sole authority over keeping or breaking a promise. Calling <code>keep</code> or <code>break</code> on a promise that has vow taken throws an exception of type <code>X::Promise::Vowed</code>.</p>
+<pre class="pod-block-code">my $p   = Promise.new;
+my $vow = $p.vow;
+$vow.keep($p);
+say $p.status;          # OUTPUT: «Kept␤»</pre>
+<h2 id="method_Supply"><a class="u" href="#___top" title="go to top of document">method Supply</a></h2>
+<pre class="pod-block-code">method Supply(Promise:D:)</pre>
+<p>Returns a <a href="/Documentable/integration-test/type/Supply">Supply</a> that will emit the <code>result</code> of the <a href="/Documentable/integration-test/type/Promise">Promise</a> being Kept or <code>quit</code> with the <code>cause</code> if the <a href="/Documentable/integration-test/type/Promise">Promise</a> is Broken.</p>
+<h2 id="sub_await"><a class="u" href="#___top" title="go to top of document">sub await</a></h2>
+<pre class="pod-block-code">multi sub await(Promise:D --&gt; Promise)
+multi sub await(*@ --&gt; Array)</pre>
+<p>Waits until one or more promises are <em>all</em> fulfilled, and then returns their values. Also works on <a href="/Documentable/integration-test/type/Channel">channels</a>. Any broken promises will rethrow their exceptions. If a list is passed it will return a list containing the results of awaiting each item in turn.</p>
+<h1 id="Type_Graph"><a class="u" href="#___top" title="go to top of document">Type Graph</a></h1>
+<figure>
+  <figcaption>Type relations for <code>Promise</code></figcaption>
+  <svg width="98pt" height="188pt"
+ viewBox="0.00 0.00 97.69 188.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 184)">
+<title>perl6&#45;type&#45;graph</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-184 93.69,-184 93.69,4 -4,4"/>
+<!-- Promise -->
+<g id="node1" class="node">
+<title>Promise</title>
+<g id="a_node1"><a xlink:href="/type/Promise" xlink:title="Promise">
+<ellipse fill="none" stroke="#000000" cx="44.85" cy="-18" rx="44.69" ry="18"/>
+<text text-anchor="middle" x="44.85" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">Promise</text>
+</a>
+</g>
+</g>
+<!-- Any -->
+<g id="node3" class="node">
+<title>Any</title>
+<g id="a_node3"><a xlink:href="/type/Any" xlink:title="Any">
+<ellipse fill="none" stroke="#000000" cx="44.85" cy="-90" rx="27" ry="18"/>
+<text text-anchor="middle" x="44.85" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Any</text>
+</a>
+</g>
+</g>
+<!-- Promise&#45;&gt;Any -->
+<g id="edge1" class="edge">
+<title>Promise&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M44.85,-36.3C44.85,-44.02 44.85,-53.29 44.85,-61.89"/>
+<polygon fill="#000000" stroke="#000000" points="41.35,-61.9 44.85,-71.9 48.35,-61.9 41.35,-61.9"/>
+</g>
+<!-- Mu -->
+<g id="node2" class="node">
+<title>Mu</title>
+<g id="a_node2"><a xlink:href="/type/Mu" xlink:title="Mu">
+<ellipse fill="none" stroke="#000000" cx="44.85" cy="-162" rx="27" ry="18"/>
+<text text-anchor="middle" x="44.85" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#000000">Mu</text>
+</a>
+</g>
+</g>
+<!-- Any&#45;&gt;Mu -->
+<g id="edge2" class="edge">
+<title>Any&#45;&gt;Mu</title>
+<path fill="none" stroke="#000000" d="M44.85,-108.3C44.85,-116.02 44.85,-125.29 44.85,-133.89"/>
+<polygon fill="#000000" stroke="#000000" points="41.35,-133.9 44.85,-143.9 48.35,-133.9 41.35,-133.9"/>
+</g>
+</g>
+</svg>
+
+  <p class="fallback">
+    <a
+      rel="alternate"
+      href="/images/type-graph-Promise.svg"
+      type="image/svg+xml"
+      >Expand above chart</a
+    >
+  </p>
+</figure>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Type/Promise.pod6">https://github.com/Raku/doc/blob/master/doc/Type/Promise.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

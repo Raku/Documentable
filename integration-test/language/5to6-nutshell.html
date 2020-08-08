@@ -1,0 +1,1301 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Perl to Raku guide - in a nutshell</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/5to6-nutshell.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Perl to Raku guide - in a nutshell</h1>
+        <p class="subtitle">How do I do what I used to do? (Raku in a nutshell)</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+          <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#CPAN">CPAN</a></td></tr>
+                                     <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Syntax">Syntax</a></td></tr>
+  <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#Identifiers">Identifiers</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">2.2</td><td class="toc-text"><a href="#-&gt;_Method_calls"><code class="pod-code-inline">-&gt;</code> Method calls</a></td></tr>
+                     <tr class="toc-level-2"><td class="toc-number">2.3</td><td class="toc-text"><a href="#Whitespace">Whitespace</a></td></tr>
+                                                                                  <tr class="toc-level-2"><td class="toc-number">2.4</td><td class="toc-text"><a href="#Sigils">Sigils</a></td></tr>
+  <tr class="toc-level-3"><td class="toc-number">2.4.1</td><td class="toc-text"><a href="#$_Scalar"><code class="pod-code-inline">$</code> Scalar</a></td></tr>
+                        <tr class="toc-level-3"><td class="toc-number">2.4.2</td><td class="toc-text"><a href="#@_Array"><code class="pod-code-inline">@</code> Array</a></td></tr>
+            <tr class="toc-level-3"><td class="toc-number">2.4.3</td><td class="toc-text"><a href="#%_Hash"><code class="pod-code-inline">%</code> Hash</a></td></tr>
+            <tr class="toc-level-3"><td class="toc-number">2.4.4</td><td class="toc-text"><a href="#&amp;_Sub"><code class="pod-code-inline">&amp;</code> Sub</a></td></tr>
+                                                                              <tr class="toc-level-3"><td class="toc-number">2.4.5</td><td class="toc-text"><a href="#*_Glob"><code class="pod-code-inline">*</code> Glob</a></td></tr>
+                                                  <tr class="toc-level-2"><td class="toc-number">2.5</td><td class="toc-text"><a href="#[]_Array_indexing/slicing">[] Array indexing/slicing</a></td></tr>
+                      <tr class="toc-level-2"><td class="toc-number">2.6</td><td class="toc-text"><a href="#{}_Hash_indexing/slicing">{} Hash indexing/slicing</a></td></tr>
+                                        <tr class="toc-level-2"><td class="toc-number">2.7</td><td class="toc-text"><a href="#Creating_references_and_using_them">Creating references and using them</a></td></tr>
+                                                                     <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Operators">Operators</a></td></tr>
+                             <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#,_(Comma)_List_separator"><code class="pod-code-inline">,</code> (Comma) List separator</a></td></tr>
+                <tr class="toc-level-2"><td class="toc-number">3.2</td><td class="toc-text"><a href="#&lt;=&gt;_cmp_Three-way_comparisons"><code class="pod-code-inline">&lt;=&gt; cmp</code> Three-way comparisons</a></td></tr>
+                    <tr class="toc-level-2"><td class="toc-number">3.3</td><td class="toc-text"><a href="#~~_Smartmatch_operator"><code class="pod-code-inline">~~</code> Smartmatch operator</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">3.4</td><td class="toc-text"><a href="#&amp;_|_^_String_bitwise_ops"><code class="pod-code-inline">&amp; | ^</code> String bitwise ops</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">3.5</td><td class="toc-text"><a href="#&amp;_|_^_Numeric_bitwise_ops"><code class="pod-code-inline">&amp; | ^</code> Numeric bitwise ops</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">3.6</td><td class="toc-text"><a href="#&amp;_|_^_Boolean_ops"><code class="pod-code-inline">&amp; | ^</code> Boolean ops</a></td></tr>
+                          <tr class="toc-level-2"><td class="toc-number">3.7</td><td class="toc-text"><a href="#&lt;&lt;_&gt;&gt;_Numeric_shift_left|right_ops"><code class="pod-code-inline">&lt;&lt; &gt;&gt;</code> Numeric shift left|right ops</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">3.8</td><td class="toc-text"><a href="#=&gt;_Fat_comma"><code class="pod-code-inline">=&gt;</code> Fat comma</a></td></tr>
+                                                                     <tr class="toc-level-2"><td class="toc-number">3.9</td><td class="toc-text"><a href="#?_:_Ternary_operator"><code class="pod-code-inline">? :</code> Ternary operator</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">3.10</td><td class="toc-text"><a href="#._(Dot)_String_concatenation"><code class="pod-code-inline">.</code> (Dot) String concatenation</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">3.11</td><td class="toc-text"><a href="#x_List_repetition_or_string_repetition_operator"><code class="pod-code-inline">x</code> List repetition or string repetition operator</a></td></tr>
+                                      <tr class="toc-level-2"><td class="toc-number">3.12</td><td class="toc-text"><a href="#.._..._Two_dots_or_three_dots,_range_op_or_flipflop_op"><code class="pod-code-inline">..</code>  <code class="pod-code-inline">...</code> Two dots or three dots, range op or flipflop op</a></td></tr>
+                  <tr class="toc-level-2"><td class="toc-number">3.13</td><td class="toc-text"><a href="#String_interpolation">String interpolation</a></td></tr>
+      <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#Compound_statements">Compound statements</a></td></tr>
+  <tr class="toc-level-2"><td class="toc-number">4.1</td><td class="toc-text"><a href="#Conditionals">Conditionals</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-number">4.1.1</td><td class="toc-text"><a href="#if_elsif_else_unless"><code class="pod-code-inline">if</code>  <code class="pod-code-inline">elsif</code>  <code class="pod-code-inline">else</code>  <code class="pod-code-inline">unless</code></a></td></tr>
+                <tr class="toc-level-3"><td class="toc-number">4.1.2</td><td class="toc-text"><a href="#given-when"><code class="pod-code-inline">given</code> - <code class="pod-code-inline">when</code></a></td></tr>
+                                                           <tr class="toc-level-2"><td class="toc-number">4.2</td><td class="toc-text"><a href="#Loops">Loops</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-number">4.2.1</td><td class="toc-text"><a href="#while_until"><code class="pod-code-inline">while</code>  <code class="pod-code-inline">until</code></a></td></tr>
+                                   <tr class="toc-level-3"><td class="toc-number">4.2.2</td><td class="toc-text"><a href="#do_while/until"><code class="pod-code-inline">do</code>  <code class="pod-code-inline">while</code> / <code class="pod-code-inline">until</code></a></td></tr>
+                                         <tr class="toc-level-3"><td class="toc-number">4.2.3</td><td class="toc-text"><a href="#for_foreach"><code class="pod-code-inline">for</code>  <code class="pod-code-inline">foreach</code></a></td></tr>
+                                                                     <tr class="toc-level-3"><td class="toc-number">4.2.4</td><td class="toc-text"><a href="#each"><code class="pod-code-inline">each</code></a></td></tr>
+              <tr class="toc-level-2"><td class="toc-number">4.3</td><td class="toc-text"><a href="#Flow_control_statements">Flow control statements</a></td></tr>
+     <tr class="toc-level-3"><td class="toc-number">4.3.1</td><td class="toc-text"><a href="#continue"><code class="pod-code-inline">continue</code></a></td></tr>
+                                                         <tr class="toc-level-1"><td class="toc-number">5</td><td class="toc-text"><a href="#Functions">Functions</a></td></tr>
+  <tr class="toc-level-2"><td class="toc-number">5.1</td><td class="toc-text"><a href="#Built-ins_with_bare_blocks">Built-ins with bare blocks</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">5.2</td><td class="toc-text"><a href="#delete"><code class="pod-code-inline">delete</code></a></td></tr>
+                <tr class="toc-level-2"><td class="toc-number">5.3</td><td class="toc-text"><a href="#exists"><code class="pod-code-inline">exists</code></a></td></tr>
+                <tr class="toc-level-1"><td class="toc-number">6</td><td class="toc-text"><a href="#Regular_expressions_(_regex_/_regexp_)">Regular expressions ( regex / regexp )</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">6.1</td><td class="toc-text"><a href="#Change_=~_and_!~_to_~~_and_!~~_.">Change <code class="pod-code-inline">=~</code> and <code class="pod-code-inline">!~</code> to <code class="pod-code-inline">~~</code> and <code class="pod-code-inline">!~~</code> .</a></td></tr>
+                           <tr class="toc-level-2"><td class="toc-number">6.2</td><td class="toc-text"><a href="#Captures_start_with_0,_not_1">Captures start with 0, not 1</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">6.3</td><td class="toc-text"><a href="#Move_modifiers">Move modifiers</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">6.4</td><td class="toc-text"><a href="#Add_:P5_or_:Perl5_adverb">Add :P5 or :Perl5 adverb</a></td></tr>
+                                       <tr class="toc-level-2"><td class="toc-number">6.5</td><td class="toc-text"><a href="#Special_matchers_generally_fall_under_the_&lt;&gt;_syntax">Special matchers generally fall under the &lt;&gt; syntax</a></td></tr>
+                                                   <tr class="toc-level-2"><td class="toc-number">6.6</td><td class="toc-text"><a href="#Longest_token_matching_(LTM)_displaces_alternation">Longest token matching (LTM) displaces alternation</a></td></tr>
+                <tr class="toc-level-2"><td class="toc-number">6.7</td><td class="toc-text"><a href="#Named_captures">Named captures</a></td></tr>
+                      <tr class="toc-level-3"><td class="toc-number">6.7.1</td><td class="toc-text"><a href="#Comments">Comments</a></td></tr>
+   <tr class="toc-level-1"><td class="toc-number">7</td><td class="toc-text"><a href="#BEGIN,_UNITCHECK,_CHECK,_INIT_and_END">BEGIN, UNITCHECK, CHECK, INIT and END</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">7.1</td><td class="toc-text"><a href="#UNITCHECK_becomes_CHECK">UNITCHECK becomes CHECK</a></td></tr>
+                    <tr class="toc-level-2"><td class="toc-number">7.2</td><td class="toc-text"><a href="#No_block_necessary">No block necessary</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">7.3</td><td class="toc-text"><a href="#Changed_semantics_with_regards_to_precompilation">Changed semantics with regards to precompilation</a></td></tr>
+                <tr class="toc-level-1"><td class="toc-number">8</td><td class="toc-text"><a href="#Pragmas">Pragmas</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-number">8.0.1</td><td class="toc-text"><a href="#strict"><code class="pod-code-inline">strict</code></a></td></tr>
+  <tr class="toc-level-3"><td class="toc-number">8.0.2</td><td class="toc-text"><a href="#warnings"><code class="pod-code-inline">warnings</code></a></td></tr>
+        <tr class="toc-level-3"><td class="toc-number">8.0.3</td><td class="toc-text"><a href="#autodie"><code class="pod-code-inline">autodie</code></a></td></tr>
+                                               <tr class="toc-level-3"><td class="toc-number">8.0.4</td><td class="toc-text"><a href="#base,_parent"><code class="pod-code-inline">base</code> , <code class="pod-code-inline">parent</code></a></td></tr>
+                       <tr class="toc-level-3"><td class="toc-number">8.0.5</td><td class="toc-text"><a href="#bigint_bignum_bigrat"><code class="pod-code-inline">bigint</code>  <code class="pod-code-inline">bignum</code>  <code class="pod-code-inline">bigrat</code></a></td></tr>
+              <tr class="toc-level-3"><td class="toc-number">8.0.6</td><td class="toc-text"><a href="#constant"><code class="pod-code-inline">constant</code></a></td></tr>
+                     <tr class="toc-level-3"><td class="toc-number">8.0.7</td><td class="toc-text"><a href="#encoding"><code class="pod-code-inline">encoding</code></a></td></tr>
+  <tr class="toc-level-3"><td class="toc-number">8.0.8</td><td class="toc-text"><a href="#integer"><code class="pod-code-inline">integer</code></a></td></tr>
+          <tr class="toc-level-3"><td class="toc-number">8.0.9</td><td class="toc-text"><a href="#lib"><code class="pod-code-inline">lib</code></a></td></tr>
+      <tr class="toc-level-3"><td class="toc-number">8.0.10</td><td class="toc-text"><a href="#mro"><code class="pod-code-inline">mro</code></a></td></tr>
+       <tr class="toc-level-3"><td class="toc-number">8.0.11</td><td class="toc-text"><a href="#utf8"><code class="pod-code-inline">utf8</code></a></td></tr>
+  <tr class="toc-level-3"><td class="toc-number">8.0.12</td><td class="toc-text"><a href="#vars"><code class="pod-code-inline">vars</code></a></td></tr>
+       <tr class="toc-level-1"><td class="toc-number">9</td><td class="toc-text"><a href="#Command-line_flags">Command-line flags</a></td></tr>
+     <tr class="toc-level-3"><td class="toc-number">9.0.1</td><td class="toc-text"><a href="#-a"><code class="pod-code-inline">-a</code></a></td></tr>
+    <tr class="toc-level-3"><td class="toc-number">9.0.2</td><td class="toc-text"><a href="#-F"><code class="pod-code-inline">-F</code></a></td></tr>
+    <tr class="toc-level-3"><td class="toc-number">9.0.3</td><td class="toc-text"><a href="#-l"><code class="pod-code-inline">-l</code></a></td></tr>
+  <tr class="toc-level-3"><td class="toc-number">9.0.4</td><td class="toc-text"><a href="#-M_-m"><code class="pod-code-inline">-M</code>  <code class="pod-code-inline">-m</code></a></td></tr>
+        <tr class="toc-level-3"><td class="toc-number">9.0.5</td><td class="toc-text"><a href="#-E"><code class="pod-code-inline">-E</code></a></td></tr>
+    <tr class="toc-level-3"><td class="toc-number">9.0.6</td><td class="toc-text"><a href="#-d,_-dt,_-d:foo,_-D,_etc."><code class="pod-code-inline">-d</code> , <code class="pod-code-inline">-dt</code> , <code class="pod-code-inline">-d:foo</code> , <code class="pod-code-inline">-D</code> , etc.</a></td></tr>
+    <tr class="toc-level-3"><td class="toc-number">9.0.7</td><td class="toc-text"><a href="#-s">-s</a></td></tr>
+                                                     <tr class="toc-level-1"><td class="toc-number">10</td><td class="toc-text"><a href="#File-related_operations">File-related operations</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">10.1</td><td class="toc-text"><a href="#Reading_the_lines_of_a_text_file_into_an_array">Reading the lines of a text file into an array</a></td></tr>
+                                         <tr class="toc-level-2"><td class="toc-number">10.2</td><td class="toc-text"><a href="#Capturing_the_standard_output_of_executables.">Capturing the standard output of executables.</a></td></tr>
+                                <tr class="toc-level-1"><td class="toc-number">11</td><td class="toc-text"><a href="#Environment_variables">Environment variables</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">11.1</td><td class="toc-text"><a href="#Perl_module_library_path">Perl module library path</a></td></tr>
+                                    <tr class="toc-level-1"><td class="toc-number">12</td><td class="toc-text"><a href="#Misc.">Misc.</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">12.1</td><td class="toc-text"><a href="#'0'_is_True"><code class="pod-code-inline">&#39;0&#39;</code> is True</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">12.2</td><td class="toc-text"><a href="#dump"><code class="pod-code-inline">dump</code></a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">12.3</td><td class="toc-text"><a href="#AUTOLOAD">AUTOLOAD</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">12.4</td><td class="toc-text"><a href="#Importing_specific_functions_from_a_module">Importing specific functions from a module</a></td></tr>
+                                                                                                                                     <tr class="toc-level-2"><td class="toc-number">12.5</td><td class="toc-text"><a href="#Importing_groups_of_specific_functions_from_a_module">Importing groups of specific functions from a module</a></td></tr>
+                              <tr class="toc-level-1"><td class="toc-number">13</td><td class="toc-text"><a href="#Core_modules">Core modules</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-number">13.0.1</td><td class="toc-text"><a href="#Data::Dumper"><code class="pod-code-inline">Data::Dumper</code></a></td></tr>
+                                                                                    <tr class="toc-level-3"><td class="toc-number">13.0.2</td><td class="toc-text"><a href="#Getopt::Long"><code class="pod-code-inline">Getopt::Long</code></a></td></tr>
+                                                                                  <tr class="toc-level-1"><td class="toc-number">14</td><td class="toc-text"><a href="#Automated_translation">Automated translation</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">14.1</td><td class="toc-text"><a href="#Blue_Tiger">Blue Tiger</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">14.2</td><td class="toc-text"><a href="#Perlito">Perlito</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">14.3</td><td class="toc-text"><a href="#Perl-ToPerl6">Perl-ToPerl6</a></td></tr>
+    <tr class="toc-level-1"><td class="toc-number">15</td><td class="toc-text"><a href="#Other_sources_of_translation_knowledge">Other sources of translation knowledge</a></td></tr>
+    
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Note: Some references to Perl&nbsp;6 still apply in the Raku infrastructure, but the changeover from the name Perl&nbsp;6 to Raku is ongoing and the references will be changed as soon as they become operative in the latest release of Raku (and some volunteer changes them!).</p>
+<p>This page attempts to provide a fast-path to the changes in syntax and semantics from Perl to Raku. Whatever worked in Perl and must be written differently in Raku, should be listed here (whereas many <em>new</em> Raku features and idioms need not).</p>
+<p>Hence this should not be mistaken for a beginner tutorial or a promotional overview of Raku; it is intended as a technical reference for Raku learners with a strong Perl background and for anyone porting Perl code to Raku (though note that <a href="#Automated_translation">Automated translation</a> might be more convenient).</p>
+<p>A note on semantics; when we say &quot;now&quot; in this document, we mostly just mean &quot;now that you are trying out Raku.&quot; We don&#39;t mean to imply that Perl is now suddenly obsolete. Quite the contrary, most of us love Perl, and we expect Perl to continue in use for a good many years. Indeed, one of our more important goals has been to make interaction between Perl and Raku run smoothly. However, we do also like the design decisions in Raku, which are certainly newer and arguably better integrated than many of the historical design decisions in Perl. So many of us do hope that over the next decade or two, Raku will become the more dominant language. If you want to take &quot;now&quot; in that future sense, that&#39;s okay too. But we&#39;re not at all interested in the either/or thinking that leads to fights.</p>
+<h1 id="CPAN"><a class="u" href="#___top" title="go to top of document">CPAN</a></h1>
+<p>See <a href="https://modules.raku.org/">https://modules.raku.org/</a>.</p>
+<p>If the module that you were using has not been converted to Raku, and no alternative is listed in this document, then its use under Raku may not have been addressed yet.</p>
+<p>The <a href="https://github.com/niner/Inline-Perl5/">Inline::Perl5</a> project makes it possible to <code>use</code> Perl modules directly from Raku code by using an embedded instance of the <code>perl</code> interpreter to run Perl code.</p>
+<p>This is as simple as:</p>
+<pre class="pod-block-code"># the :from&lt;Perl5&gt; makes Raku load Inline::Perl5 first (if installed)
+# and then load the Scalar::Util module from Perl
+use Scalar::Util:from&lt;Perl5&gt; &lt;looks_like_number&gt;;
+say looks_like_number &quot;foo&quot;;   # 0
+say looks_like_number &quot;42&quot;;    # 1
+</pre>
+<p>A number of Perl modules have been ported to Raku, trying to maintain the API of these modules as much as possible, as part of the CPAN Butterfly Plan. These can be found at <a href="https://modules.raku.org/t/CPAN5">https://modules.raku.org/t/CPAN5</a>.</p>
+<p>Many Perl built-in functions (about a 100 so far) have been ported to Raku with the same semantics. Think about the <code>shift</code> function in Perl having magic shifting from <code>@_</code> or <code>@ARGV</code> by default, depending on context. These can be found at <a href="https://modules.raku.org/t/Perl5">https://modules.raku.org/t/Perl5</a> as separately loadable modules, and in the <a href="https://modules.raku.org/dist/P5built-ins">P5built-ins</a> bundle to get them all at once.</p>
+<h1 id="Syntax"><a class="u" href="#___top" title="go to top of document">Syntax</a></h1>
+<p>There are a few differences in syntax between the two languages, starting with how identifiers are defined.</p>
+<h2 id="Identifiers"><a class="u" href="#___top" title="go to top of document">Identifiers</a></h2>
+<p>Raku allows the use of dashes (<code>-</code>), underscores (<code>_</code>), apostrophes (<code>&#39;</code>), and alphanumerics in identifiers:</p>
+<pre class="pod-block-code">sub test-doesn&#39;t-hang { ... }
+my $ความสงบ = 42;
+my \Δ = 72; say 72 - Δ;</pre>
+<h2 id="->_Method_calls"><a class="u" href="#___top" title="go to top of document"><code>-&gt;</code> Method calls</a></h2>
+<p>If you&#39;ve read any Raku code at all, it&#39;s immediately obvious that method call syntax now uses a dot instead of an arrow:</p>
+<pre class="pod-block-code">$person-&gt;name  # Perl
+</pre>
+<pre class="pod-block-code">$person.name   # Raku
+</pre>
+<p>The dot notation is both easier to type and more of an industry standard. But we also wanted to steal the arrow for something else. (Concatenation is now done with the <code>~</code> operator, if you were wondering.)</p>
+<p>To call a method whose name is not known until runtime:</p>
+<pre class="pod-block-code">$object-&gt;$methodname(@args);  # Perl
+</pre>
+<pre class="pod-block-code">$object.&quot;$methodname&quot;(@args); # Raku
+</pre>
+<p>If you leave out the quotes, then Raku expects <code>$methodname</code> to contain a <code>Method</code> object rather than the simple string name of the method. Yes, <strong>everything</strong> in Raku can be considered an object.</p>
+<h2 id="Whitespace"><a class="u" href="#___top" title="go to top of document">Whitespace</a></h2>
+<p>Perl allows a surprising amount of flexibility in the use of whitespace, even with strict mode and warnings turned on:</p>
+<pre class="pod-block-code"># unidiomatic but valid Perl
+say&quot;Hello &quot;.ucfirst  ($people
+    [$ i]
+    -&gt;
+    name).&quot;!&quot;if$greeted[$i]&lt;1;
+</pre>
+<p>Raku also endorses programmer freedom and creativity, but balanced syntactic flexibility against its design goal of having a consistent, deterministic, extensible grammar that supports single-pass parsing and helpful error messages, integrates features like custom operators cleanly, and doesn&#39;t lead programmers to accidentally misstate their intent. Also, the practice of &quot;code golf&quot; is slightly de-emphasized; Raku is designed to be more concise in concepts than in keystrokes.</p>
+<p>As a result, there are various places in the syntax where whitespace is optional in Perl, but is either mandatory or forbidden in Raku. Many of those restrictions are unlikely to concern much real-life Perl code (e.g., whitespace being disallowed between the sigil and name of a variable), but there are a few that will unfortunately conflict with some Perl hackers&#39; habitual coding styles:</p>
+<ul><li><p><em>No space allowed before the opening parenthesis of an argument list.</em></p>
+<pre class="pod-block-code">substr ($s, 4, 1); # Perl (in Raku this would try to pass a single
+                       #         argument of type List to substr)
+</pre>
+<pre class="pod-block-code">substr($s, 4, 1);  # Raku
+substr $s, 4, 1;   # Raku - alternative parentheses-less style
+</pre>
+<p>Should this really be a problem for you, then you might want to have a look at the <code>Slang::Tuxic</code> module in the Raku ecosystem: it changes the grammar of Raku in such a way that you <strong>can</strong> have a space before the opening parenthesis of an argument list.</p>
+</li>
+<li><p><em>Space is <strong>required</strong> immediately after keywords</em></p>
+<pre class="pod-block-code">my($alpha, $beta);          # Perl, tries to call my() sub in Raku
+</pre>
+<pre class="pod-block-code">my ($alpha, $beta);         # Raku
+</pre>
+<pre class="pod-block-code">if($a &lt; 0) { ... }          # Perl, dies in Raku
+</pre>
+<pre class="pod-block-code">if ($a &lt; 0) { ... }         # Raku
+if $a &lt; 0 { ... }           # Raku, more idiomatic
+</pre>
+<pre class="pod-block-code">while($x-- &gt; 5) { ... }     # Perl, dies in Raku
+</pre>
+<pre class="pod-block-code">while ($x-- &gt; 5) { ... }    # Raku
+while $x-- &gt; 5 { ... }      # Raku, more idiomatic
+</pre>
+</li>
+<li><p><em>No space allowed after a prefix operator, or before a postfix/postcircumfix operator (including array/hash subscripts).</em></p>
+<pre class="pod-block-code">$seen {$_} ++; # Perl
+</pre>
+<pre class="pod-block-code">%seen{$_}++;   # Raku
+</pre>
+</li>
+<li><p><em>Space required before an infix operator if it would conflict with an existing postfix/postcircumfix operator.</em></p>
+<pre class="pod-block-code">$n&lt;1;   # Perl (in Raku this would conflict with postcircumfix &lt; &gt;)
+</pre>
+<pre class="pod-block-code">$n &lt; 1; # Raku
+</pre>
+</li>
+<li><p><em>However, whitespace <strong>is allowed</strong> before the period of a method call!</em></p>
+<pre class="pod-block-code"># Perl
+my @books = $xml
+  -&gt;parse_file($file)          # some comment
+  -&gt;findnodes(&quot;/library/book&quot;);
+</pre>
+<pre class="pod-block-code"># Raku
+my @books = $xml
+  .parse-file($file)           # some comment
+  .findnodes(&quot;/library/book&quot;);
+</pre>
+</li>
+</ul>
+<p>However, note that you can use <a href="/Documentable/integration-test/language/syntax#Unspace">unspace</a> to add whitespace in Raku code in places where it is otherwise not allowed.</p>
+<p>See also <a href="/Documentable/integration-test/language/syntax#Lexical_conventions">other lexical conventions in the syntax page</a>.</p>
+<h2 id="Sigils"><a class="u" href="#___top" title="go to top of document">Sigils</a></h2>
+<p>In Perl, arrays and hashes use changing sigils depending on how they are being accessed. In Raku the sigils are invariant, no matter how the variable is being used - you can think of them as part of the variable&#39;s name.</p>
+<h3 id="$_Scalar"><a class="u" href="#___top" title="go to top of document"><code>$</code> Scalar</a></h3>
+<p>The <code>$</code> sigil is now always used with &quot;scalar&quot; variables (e.g. <code>$name</code>), and no longer for <a href="#%5B%5D_Array_indexing%2Fslicing">array indexing</a> and <a href="#%7B%7D_Hash_indexing%2Fslicing">Hash indexing</a>. That is, you can still use <code>$x[1]</code> and <code>$x{&quot;foo&quot;}</code>, but it will act on <code>$x</code>, with no effect on a similarly named <code>@x</code> or <code>%x</code>. Those would now be accessed with <code>@x[1]</code> and <code>%x{&quot;foo&quot;}</code>.</p>
+<h3 id="@_Array"><a class="u" href="#___top" title="go to top of document"><code>@</code> Array</a></h3>
+<p>The <code>@</code> sigil is now always used with &quot;array&quot; variables (e.g. <code>@months</code>, <code>@months[2]</code>, <code>@months[2, 4]</code>), and no longer for <a href="#%7B%7D_Hash_indexing%2Fslicing">value-slicing hashes</a>.</p>
+<h3 id="%_Hash"><a class="u" href="#___top" title="go to top of document"><code>%</code> Hash</a></h3>
+<p>The <code>%</code> sigil is now always used with &quot;hash&quot; variables (e.g. <code>%calories</code>, <code>%calories&lt;apple&gt;</code>, <code>%calories&lt;pear plum&gt;</code>), and no longer for <a href="#%5B%5D_Array_indexing%2Fslicing">key/value-slicing arrays</a>.</p>
+<h3 id="&_Sub"><a class="u" href="#___top" title="go to top of document"><code>&amp;</code> Sub</a></h3>
+<p>The <code>&amp;</code> sigil is now used consistently (and without the help of a backslash) to refer to the function object of a named subroutine/operator without invoking it, i.e. to use the name as a &quot;noun&quot; instead of a &quot;verb&quot;:</p>
+<pre class="pod-block-code">my $sub = \&amp;foo; # Perl
+</pre>
+<pre class="pod-block-code">my $sub = &amp;foo;  # Raku
+</pre>
+<pre class="pod-block-code">callback =&gt; sub { say @_ }  # Perl - can&#39;t pass built-in sub directly
+</pre>
+<pre class="pod-block-code">callback =&gt; &amp;say            # Raku - &amp; gives &quot;noun&quot; form of any sub
+</pre>
+<p>Since Raku does not allow adding/removing symbols in a lexical scope once it has finished compiling, there is no equivalent to Perl&#39;s <code>undef &amp;foo;</code>, and the closest equivalent to Perl&#39;s <code>defined &amp;foo</code> would be <code>defined ::(&#39;&amp;foo&#39;)</code> (which uses the &quot;dynamic symbol lookup&quot; syntax). However, you can declare a mutable named subroutine with <code>my &amp;foo;</code> and then change its meaning at runtime by assigning to <code>&amp;foo</code>.</p>
+<p>In Perl, the ampersand sigil can additionally be used to call subroutines in special ways with subtly different behavior compared to normal sub calls. In Raku those special forms are no longer available:</p>
+<ul><li><p><code>&amp;foo(...)</code> <em>for circumventing a function prototype</em></p>
+<p>In Raku there are no prototypes, and it no longer makes a difference whether you, say, pass a literal code block or a variable holding a code object as an argument:</p>
+<pre class="pod-block-code"># Perl:
+first_index { $_ &gt; 5 } @values;
+&amp;first_index($coderef, @values); # (disabling the prototype that parses a
+                                     # literal block as the first argument)
+</pre>
+<pre class="pod-block-code"># Raku:
+first { $_ &gt; 5 }, @values, :k;   # the :k makes first return an index
+first $coderef, @values, :k;
+</pre>
+</li>
+<li><p><code>&amp;foo;</code> <em>and</em> <code>goto &amp;foo;</code> <em>for re-using the caller&#39;s argument list / replacing the caller in the call stack</em>. Raku can use either <a href="/Documentable/integration-test/language/functions#index-entry-dispatch_callsame"><code>callsame</code></a> for re-dispatching or <a href="/Documentable/integration-test/language/functions#index-entry-dispatch_nextsame"><code>nextsame</code></a> and <a href="/Documentable/integration-test/language/functions#index-entry-dispatch_nextwith"><code>nextwith</code></a>, which have no exact equivalent in Perl.</p>
+<pre class="pod-block-code">sub foo { say &quot;before&quot;; &amp;bar;     say &quot;after&quot; } # Perl
+</pre>
+<pre class="pod-block-code">sub foo { say &quot;before&quot;; bar(|@_); say &quot;after&quot; } # Raku - have to be explicit
+</pre>
+<pre class="pod-block-code">sub foo { say &quot;before&quot;; goto &amp;bar } # Perl
+</pre>
+<pre class="pod-block-code">proto foo (|) {*};
+multi foo ( Any $n ) {
+    say &quot;Any&quot;; say $n;
+};
+multi foo ( Int $n ) {
+    say &quot;Int&quot;; callsame;
+};
+foo(3); # /language/functions#index-entry-dispatch_callsame
+</pre>
+</li>
+</ul>
+<h3 id="*_Glob"><a class="u" href="#___top" title="go to top of document"><code>*</code> Glob</a></h3>
+<p>In Perl, the <code>*</code> sigil referred to the GLOB structure that Perl uses to store non-lexical variables, filehandles, subs, and formats.</p>
+<p><a href="#fn-1" id="fn-ref-1">[1]</a></p>
+<p>You are most likely to encounter a GLOB in code written on an early Perl version that does not support lexical filehandles, when a filehandle needed to be passed into a sub.</p>
+<pre class="pod-block-code"># Perl - ancient method
+sub read_2 {
+    local (*H) = @_;
+    return scalar(&lt;H&gt;), scalar(&lt;H&gt;);
+}
+open FILE, &#39;&lt;&#39;, $path or die;
+my ($line1, $line2) = read_2(*FILE);
+</pre>
+<p>You should refactor your Perl code to remove the need for the GLOB, before translating into Raku.</p>
+<pre class="pod-block-code"># Perl - modern use of lexical filehandles
+sub read_2 {
+    my ($fh) = @_;
+    return scalar(&lt;$fh&gt;), scalar(&lt;$fh&gt;);
+}
+open my $in_file, &#39;&lt;&#39;, $path or die;
+my ($line1, $line2) = read_2($in_file);
+</pre>
+<p>And here&#39;s just one possible Raku translation:</p>
+<pre class="pod-block-code"># Raku
+sub read-n($fh, $n) {
+    return $fh.get xx $n;
+}
+my $in-file = open $path or die;
+my ($line1, $line2) = read-n($in-file, 2);
+</pre>
+<h2 id="[]_Array_indexing/slicing"><a class="u" href="#___top" title="go to top of document">[] Array indexing/slicing</a></h2>
+<p>Index and slice operations on arrays no longer inflect the variable&#39;s <a href="#%40_Array">sigil</a>, and adverbs can be used to control the type of slice:</p>
+<ul><li><p><em>Indexing</em></p>
+<pre class="pod-block-code">say $months[2]; # Perl
+</pre>
+<pre class="pod-block-code">say @months[2]; # Raku - @ instead of $
+</pre>
+</li>
+<li><p><em>Value-slicing</em></p>
+<pre class="pod-block-code">say join &#39;,&#39;, @months[6, 8..11]; # Perl and Raku
+</pre>
+</li>
+<li><p><em>Key/value-slicing</em></p>
+<pre class="pod-block-code">say join &#39;,&#39;, %months[6, 8..11];    # Perl
+</pre>
+<pre class="pod-block-code">say join &#39;,&#39;, @months[6, 8..11]:kv; # Raku - @ instead of %; use :kv adverb
+</pre>
+</li>
+</ul>
+<p>Also note that the subscripting square brackets are now a normal postcircumfix operator rather than a special syntactic form, and thus <a href="#exists">checking for existence of elements</a> and <a href="#delete">unsetting elements</a> is done with adverbs.</p>
+<h2 id="{}_Hash_indexing/slicing"><a class="u" href="#___top" title="go to top of document">{} Hash indexing/slicing</a></h2>
+<p>Index and slice operations on hashes no longer inflect the variable&#39;s <a href="#%25_Hash">sigil</a>, and adverbs can be used to control the type of slice. Also, single-word subscripts are no longer magically autoquoted inside the curly braces; instead, the new angle brackets version is available which always autoquotes its contents (using the same rules as the <code>qw//</code> quoting construct):</p>
+<ul><li><p><em>Indexing</em></p>
+<pre class="pod-block-code">say $calories{&quot;apple&quot;}; # Perl
+</pre>
+<pre class="pod-block-code">say %calories{&quot;apple&quot;}; # Raku - % instead of $
+</pre>
+<pre class="pod-block-code">say $calories{apple};   # Perl
+</pre>
+<pre class="pod-block-code">say %calories&lt;apple&gt;;   # Raku - angle brackets; % instead of $
+say %calories«&quot;$key&quot;»;  # Raku - double angles interpolate as a list of Str
+</pre>
+</li>
+<li><p><em>Value-slicing</em></p>
+<pre class="pod-block-code">say join &#39;,&#39;, @calories{&#39;pear&#39;, &#39;plum&#39;}; # Perl
+</pre>
+<pre class="pod-block-code">say join &#39;,&#39;, %calories{&#39;pear&#39;, &#39;plum&#39;}; # Raku - % instead of @
+say join &#39;,&#39;, %calories&lt;pear plum&gt;;      # Raku (prettier version)
+my $keys = &#39;pear plum&#39;;
+say join &#39;,&#39;, %calories«$keys»;          # Raku the split is done after interpolation
+</pre>
+</li>
+<li><p><em>Key/value-slicing</em></p>
+<pre class="pod-block-code">say join &#39;,&#39;, %calories{&#39;pear&#39;, &#39;plum&#39;};    # Perl
+</pre>
+<pre class="pod-block-code">say join &#39;,&#39;, %calories{&#39;pear&#39;, &#39;plum&#39;}:kv; # Raku - use :kv adverb
+say join &#39;,&#39;, %calories&lt;pear plum&gt;:kv;      # Raku (prettier version)
+</pre>
+</li>
+</ul>
+<p>Also note that the subscripting curly braces are now a normal postcircumfix operator rather than a special syntactic form, and thus <a href="#exists">checking for existence of keys</a> and <a href="#delete">removing keys</a> is done with adverbs.</p>
+<h2 id="Creating_references_and_using_them"><a class="u" href="#___top" title="go to top of document">Creating references and using them</a></h2>
+<p>In Perl, references to anonymous arrays and hashes and subs are returned during their creation. References to existing named variables and subs were generated with the <code>\</code> operator. the &quot;referencing/dereferencing&quot; metaphor does not map cleanly to the actual Raku container system, so we will have to focus on the intent of the reference operators instead of the actual syntax.</p>
+<pre class="pod-block-code">my $aref = \@aaa  ; # Perl
+</pre>
+<p>This might be used for passing a reference to a routine, for instance. But in Raku, the (single) underlying object is passed (which you could consider to be a sort of pass by reference).</p>
+<pre class="pod-block-code">my @array = 4,8,15;
+{ $_[0] = 66 }(@array);   # run the block with @array aliased to $_
+say @array; #  OUTPUT: «[66 8 15]␤»
+</pre>
+<p>The underlying <code>Array</code> object of <code>@array</code> is passed, and its first value modified inside the declared routine.</p>
+<p>In Perl, the syntax for dereferencing an entire reference is the type-sigil and curly braces, with the reference inside the curly braces. In Raku, this concept simply does not apply, since the <em>reference</em> metaphor does not really apply.</p>
+<p>In Perl, the arrow operator, <code>-&gt;</code> , is used for single access to a composite&#39;s reference or to call a sub through its reference. In Raku, the dot operator <code>.</code> is always used for object methods, but the rest does not really apply.</p>
+<pre class="pod-block-code"># Perl
+    say $arrayref-&gt;[7];
+    say $hashref-&gt;{&#39;fire bad&#39;};
+    say $subref-&gt;($foo, $bar);
+</pre>
+<p>In relatively recent versions of Perl (5.20 and later), a new feature allows the use of the arrow operator for dereferencing: see <a href="https://metacpan.org/pod/release/SHAY/perl-5.20.1/pod/perl5200delta.pod#Experimental_Postfix_Dereferencing">Postfix Dereferencing</a>. This can be used to create an array from a scalar. This operation is usually called <em>decont</em>, as in decontainerization, and in Raku methods such as <code>.list</code> and <code>.hash</code> are used:</p>
+<pre class="pod-block-code"># Perl&nbsp;5.20
+    use experimental qw&lt; postderef &gt;;
+    my @a = $arrayref-&gt;@*;
+    my %h = $hashref-&gt;%*;
+    my @slice = $arrayref-&gt;@[3..7];
+</pre>
+<pre class="pod-block-code"># Raku
+    my @a = $contains-an-array.list;        # or @($arrayref)
+    my %h = $contains-a-hash.hash;          # or %($hashref)
+</pre>
+<p>The &quot;Zen&quot; slice does the same thing:</p>
+<pre class="pod-block-code"># Raku
+    my @a = $contains-an-array[];
+    my %h = $contains-a-hash{};
+</pre>
+<p>See <a href="/Documentable/integration-test/language/containers">the &quot;Containers&quot; section of the documentation</a> for more information.</p>
+<h1 id="Operators"><a class="u" href="#___top" title="go to top of document">Operators</a></h1>
+<p>See <a href="/Documentable/integration-test/language/operators">the documentation for operators</a> for full details on all operators.</p>
+<p>Unchanged:</p>
+<ul><li><p><code>+</code> Numeric Addition</p>
+</li>
+<li><p><code>-</code> Numeric Subtraction</p>
+</li>
+<li><p><code>*</code> Numeric Multiplication</p>
+</li>
+<li><p><code>/</code> Numeric Division</p>
+</li>
+<li><p><code>%</code> Numeric Modulus</p>
+</li>
+<li><p><code>**</code> Numeric Exponentiation</p>
+</li>
+<li><p><code>++</code> Numeric Increment</p>
+</li>
+<li><p><code>--</code> Numeric Decrement</p>
+</li>
+<li><p><code>! &amp;&amp; || ^</code> Booleans, high-precedence</p>
+</li>
+<li><p><code>not and or xor</code> Booleans, low-precedence</p>
+</li>
+<li><p><code>== != &lt; &gt; &lt;= &gt;=</code> Numeric comparisons</p>
+</li>
+<li><p><code>eq ne lt gt le ge</code> String comparisons</p>
+</li>
+</ul>
+<h2 id=",_(Comma)_List_separator"><a class="u" href="#___top" title="go to top of document"><code>,</code> (Comma) List separator</a></h2>
+<p>Unchanged, but note that in order to flatten an array variable to a list (in order to append or prefix more items) one should use the <code>|</code> operator (see also <a href="/Documentable/integration-test/type/Slip">Slip</a>). For instance:</p>
+<pre class="pod-block-code">my @numbers = 100, 200, 300;
+my @more_numbers = 500, 600, 700;
+my @all_numbers = |@numbers, 400, |@more_numbers;
+</pre>
+<p>That way one can concatenate arrays.</p>
+<p>Note that one does not need to have any parentheses on the right-hand side: the list separator takes care of creating the list, <strong>not</strong> the parentheses!</p>
+<h2 id="<=>_cmp_Three-way_comparisons"><a class="u" href="#___top" title="go to top of document"><code>&lt;=&gt; cmp</code> Three-way comparisons</a></h2>
+<p>In Perl, these operators returned -1, 0, or 1. In Raku, they return <code>Order::Less</code>, <code>Order::Same</code>, or <code>Order::More</code>.</p>
+<p><code>cmp</code> is now named <code>leg</code>; it forces string context for the comparison.</p>
+<p><code>&lt;=&gt;</code> still forces numeric context.</p>
+<p><code>cmp</code> in Raku does either <code>&lt;=&gt;</code> or <code>leg</code>, depending on the existing type of its arguments.</p>
+<h2 id="~~_Smartmatch_operator"><a class="u" href="#___top" title="go to top of document"><code>~~</code> Smartmatch operator</a></h2>
+<p>While the operator has not changed, the rules for what exactly is matched depend on the types of both arguments, and those rules are far from identical in Perl and Raku. See <a href="/Documentable/integration-test/routine/~~">~~</a> and <a href="/Documentable/integration-test/language/operators#index-entry-smartmatch_operator">the smartmatch operator</a></p>
+<h2 id="&_|_^_String_bitwise_ops"><a class="u" href="#___top" title="go to top of document"><code>&amp; | ^</code> String bitwise ops</a></h2>
+<h2 id="&_|_^_Numeric_bitwise_ops"><a class="u" href="#___top" title="go to top of document"><code>&amp; | ^</code> Numeric bitwise ops</a></h2>
+<h2 id="&_|_^_Boolean_ops"><a class="u" href="#___top" title="go to top of document"><code>&amp; | ^</code> Boolean ops</a></h2>
+<p>In Perl, <code>&amp; | ^</code> were invoked according to the contents of their arguments. For example, <code>31 | 33</code> returns a different result than <code>&quot;31&quot; | &quot;33&quot;</code>.</p>
+<p>In Raku, those single-character ops have been removed, and replaced by two-character ops which coerce their arguments to the needed context.</p>
+<pre class="pod-block-code"># Infix ops (two arguments; one on each side of the op)
++&amp;  +|  +^  And Or Xor: Numeric
+~&amp;  ~|  ~^  And Or Xor: String
+?&amp;  ?|  ?^  And Or Xor: Boolean
+
+# Prefix ops (one argument, after the op)
++^  Not: Numeric
+~^  Not: String
+?^  Not: Boolean (same as the ! op)
+</pre>
+<h2 id="<<_>>_Numeric_shift_left|right_ops"><a class="u" href="#___top" title="go to top of document"><code>&lt;&lt; &gt;&gt;</code> Numeric shift left|right ops</a></h2>
+<p>Replaced by <code>+&lt;</code> and <code>+&gt;</code> .</p>
+<pre class="pod-block-code">say 42 &lt;&lt; 3; # Perl
+</pre>
+<pre class="pod-block-code">say 42 +&lt; 3; # Raku
+</pre>
+<h2 id="=>_Fat_comma"><a class="u" href="#___top" title="go to top of document"><code>=&gt;</code> Fat comma</a></h2>
+<p>In Perl, <code>=&gt;</code> acted just like a comma, but also quoted its left-hand side.</p>
+<p>In Raku, <code>=&gt;</code> is the <a href="/Documentable/integration-test/type/Pair">Pair</a> operator, which is quite different in principle, but works the same in many situations.</p>
+<p>If you were using <code>=&gt;</code> in hash initialization, or in passing arguments to a sub that expects a hashref, then the usage is likely identical.</p>
+<pre class="pod-block-code">sub get_the_loot { ... }; # Raku stub
+# Works in Perl and Raku
+my %hash = ( AAA =&gt; 1, BBB =&gt; 2 );
+get_the_loot( &#39;diamonds&#39;, { quiet_level =&gt; &#39;very&#39;, quantity =&gt; 9 }); # Note the curly braces</pre>
+<p>If you were using <code>=&gt;</code> as a convenient shortcut to not have to quote part of a list, or in passing arguments to a sub that expects a flat list of <code>KEY, VALUE, KEY, VALUE</code>, then continuing to use <code>=&gt;</code> may break your code. The easiest workaround is to change that <em>fat arrow</em> to a regular comma, and manually add quotes to its left-hand side. Or, you can change the sub&#39;s API to <a href="/Documentable/integration-test/type/Signature#Slurpy_(A.K.A._variadic)_parameters">slurp a hash</a>. A better long-term solution is to change the sub&#39;s API to expect <a href="/Documentable/integration-test/type/Pair">Pair</a>s; however, this requires you to change all sub calls at once.</p>
+<pre class="pod-block-code"># Perl
+sub get_the_loot {
+    my $loot = shift;
+    my %options = @_;
+    # ...
+}
+# Note: no curly braces in this sub call
+get_the_loot( &#39;diamonds&#39;, quiet_level =&gt; &#39;very&#39;, quantity =&gt; 9 );
+</pre>
+<pre class="pod-block-code"># Raku, original API
+sub get_the_loot( $loot, *%options ) { # The * means to slurp everything
+    ...
+}
+get_the_loot( &#39;diamonds&#39;, quiet_level =&gt; &#39;very&#39;, quantity =&gt; 9 ); # Note: no curly braces in this API
+
+# Raku, API changed to specify valid options
+# The colon before the sigils means to expect a named variable,
+# with the key having the same name as the variable.
+sub get_the_loot( $loot, :$quiet_level?, :$quantity = 1 ) {
+    # This version will check for unexpected arguments!
+    ...
+}
+get_the_loot( &#39;diamonds&#39;, quietlevel =&gt; &#39;very&#39; ); # Throws error for misspelled parameter name
+</pre>
+<h2 id="?_:_Ternary_operator"><a class="u" href="#___top" title="go to top of document"><code>? :</code> Ternary operator</a></h2>
+<p>The conditional operator <code>? :</code> has been replaced by <code>?? !!</code>:</p>
+<pre class="pod-block-code">my $result = $score &gt; 60 ?  &#39;Pass&#39; :  &#39;Fail&#39;; # Perl
+</pre>
+<pre class="pod-block-code">my $result = $score &gt; 60 ?? &#39;Pass&#39; !! &#39;Fail&#39;; # Raku
+</pre>
+<h2 id="._(Dot)_String_concatenation"><a class="u" href="#___top" title="go to top of document"><code>.</code> (Dot) String concatenation</a></h2>
+<p>Replaced by the tilde.</p>
+<p>Mnemonic: think of &quot;stitching&quot; together the two strings with needle and thread.</p>
+<pre class="pod-block-code">$food = &#39;grape&#39; . &#39;fruit&#39;; # Perl
+</pre>
+<pre class="pod-block-code">$food = &#39;grape&#39; ~ &#39;fruit&#39;; # Raku
+</pre>
+<h2 id="x_List_repetition_or_string_repetition_operator"><a class="u" href="#___top" title="go to top of document"><code>x</code> List repetition or string repetition operator</a></h2>
+<p>In Perl, <code>x</code> is the repetition operator, which behaves differently in scalar or list contexts:</p>
+<ul><li><p>in scalar context <code>x</code> repeats a string;</p>
+</li>
+<li><p>in list context <code>x</code> repeats a list, but only if the left argument is parenthesized!</p>
+</li>
+</ul>
+<p>Raku uses two different repetition operators to achieve the above:</p>
+<ul><li><p><code>x</code> for string repetitions (in any context);</p>
+</li>
+<li><p><code>xx</code> for list repetitions (in any context).</p>
+</li>
+</ul>
+<p>Mnemonic: <code>x</code> is short and <code>xx</code> is long, so <code>xx</code> is the one used for lists.</p>
+<pre class="pod-block-code"># Perl
+    print &#39;-&#39; x 80;             # Print row of dashes
+    @ones = (1) x 80;           # A list of 80 1&#39;s
+    @ones = (5) x @ones;        # Set all elements to 5
+</pre>
+<pre class="pod-block-code"># Raku
+    print &#39;-&#39; x 80;             # Unchanged
+    @ones = 1 xx 80;            # Parentheses no longer needed
+    @ones = 5 xx @ones;         # Parentheses no longer needed
+</pre>
+<h2 id=".._..._Two_dots_or_three_dots,_range_op_or_flipflop_op"><a class="u" href="#___top" title="go to top of document"><code>..</code> <code>...</code> Two dots or three dots, range op or flipflop op</a></h2>
+<p>In Perl, <code>..</code> was one of two completely different operators, depending on context.</p>
+<p>In list context, <code>..</code> is the familiar range operator. Ranges from Perl code should <strong>not</strong> require translation.</p>
+<p>In scalar context, <code>..</code> and <code>...</code> were the little-known Flipflop operators. They have been replaced by <code>ff</code> and <code>fff</code>.</p>
+<h2 id="String_interpolation"><a class="u" href="#___top" title="go to top of document">String interpolation</a></h2>
+<p>In Perl, <code>&quot;${foo}s&quot;</code> deliminates a variable name from regular text next to it. In Raku, simply extend the curly braces to include the sigil too: <code>&quot;{$foo}s&quot;</code>. This is in fact a very simple case of interpolating an expression.</p>
+<h1 id="Compound_statements"><a class="u" href="#___top" title="go to top of document">Compound statements</a></h1>
+<p>These statements include conditionals and loops.</p>
+<h2 id="Conditionals"><a class="u" href="#___top" title="go to top of document">Conditionals</a></h2>
+<h3 id="if_elsif_else_unless"><a class="u" href="#___top" title="go to top of document"><code>if</code> <code>elsif</code> <code>else</code> <code>unless</code></a></h3>
+<p>Mostly unchanged; parentheses around the conditions are now optional, but if used, must not immediately follow the keyword, or it will be taken as a function call instead. Binding the conditional expression to a variable is also a little different:</p>
+<pre class="pod-block-code">if (my $x = dostuff()) {...}  # Perl
+</pre>
+<pre class="pod-block-code">if dostuff() -&gt; $x {...}      # Raku
+</pre>
+<p>(You can still use the <code>my</code> form in Raku, but it will scope to the outer block, not the inner.)</p>
+<p>The <code>unless</code> conditional only allows for a single block in Raku; it does not allow for an <code>elsif</code> or <code>else</code> clause.</p>
+<h3 id="given-when"><a class="u" href="#___top" title="go to top of document"><code>given</code>-<code>when</code></a></h3>
+<p>The <code>given</code>-<code>when</code> construct is like a chain of <code>if</code>-<code>elsif</code>-<code>else</code> statements or like the <code>switch</code>-<code>case</code> construct C, for example. It has the general structure:</p>
+<pre class="pod-block-code">given EXPR {
+    when EXPR { ... }
+    when EXPR { ... }
+    default { ... }
+}
+</pre>
+<p>In its simplest form, the construct is as follows:</p>
+<pre class="pod-block-code">given $value {                   # assigns $_
+    when &quot;a match&quot; {             # if $_ ~~ &quot;a match&quot;
+        # do-something();
+    }
+    when &quot;another match&quot; {       # elsif $_ ~~ &quot;another match&quot;
+        # do-something-else();
+    }
+    default {                    # else
+        # do-default-thing();
+    }
+}
+</pre>
+<p>This is simple in the sense that a scalar value is matched in the <code>when</code> statements against <code>$_</code>, which was set by the <code>given</code>. More generally, the matches are actually smartmatches on <code>$_</code> such that lookups using more complex entities such as regexps can be used instead of scalar values.</p>
+<p>See also the warnings on the smartmatch op above.</p>
+<h2 id="Loops"><a class="u" href="#___top" title="go to top of document">Loops</a></h2>
+<h3 id="while_until"><a class="u" href="#___top" title="go to top of document"><code>while</code> <code>until</code></a></h3>
+<p>Mostly unchanged; parentheses around the conditions are now optional, but if used, must not immediately follow the keyword, or it will be taken as a function call instead. Binding the conditional expression to a variable is also a little different:</p>
+<pre class="pod-block-code">while (my $x = dostuff()) {...}  # Perl
+</pre>
+<pre class="pod-block-code">while dostuff() -&gt; $x {...}      # Raku
+</pre>
+<p>(You can still use the <code>my</code> form in Raku, but it will scope to the outer block, not the inner.)</p>
+<p>Note that reading line-by-line from a filehandle has changed.</p>
+<p>In Perl, it was done in a <code>while</code> loop using the diamond operator. Using <code>for</code> instead of <code>while</code> was a common bug, because the <code>for</code> causes the whole file to be sucked in at once, swamping the program&#39;s memory usage.</p>
+<p>In Raku, <code>for</code> statement is <strong>lazy</strong>, so we read line-by-line in a <code>for</code> loop using the <code>.lines</code> method.</p>
+<pre class="pod-block-code">while (&lt;IN_FH&gt;)  { } # Perl
+</pre>
+<pre class="pod-block-code">for $IN_FH.lines { } # Raku
+</pre>
+<p>Also note that in Raku, lines are <code>chomp</code>ed by default.</p>
+<h3 id="do_while/until"><a class="u" href="#___top" title="go to top of document"><code>do</code> <code>while</code>/<code>until</code></a></h3>
+<pre class="pod-block-code"># Perl
+do {
+    ...
+} while $x &lt; 10;
+
+do {
+    ...
+} until $x &gt;= 10;
+</pre>
+<p>The construct is still present, but <code>do</code> was renamed to <code>repeat</code>, to better represent what the construct does:</p>
+<pre class="pod-block-code"># Raku
+repeat {
+    ...
+} while $x &lt; 10;
+
+repeat {
+    ...
+} until $x &gt;= 10;
+</pre>
+<p>Note that Perl&#39;s unadorned <code>do</code> block (&#39;<code>do {...}</code>&#39;) behaves the same when used in Raku.</p>
+<h3 id="for_foreach"><a class="u" href="#___top" title="go to top of document"><code>for</code> <code>foreach</code></a></h3>
+<p>Note first this common misunderstanding about the <code>for</code> and <code>foreach</code> keywords: Many programmers think that they distinguish between the C-style three-expression form and the list-iterator form; they do not! In fact, the keywords are interchangeable; the Perl compiler looks for the semicolons within the parentheses to determine which type of loop to parse.</p>
+<p>The C-style three-factor form now uses the <code>loop</code> keyword, and is otherwise unchanged. The parentheses <strong>are</strong> still required.</p>
+<pre class="pod-block-code">for  ( my $i = 1; $i &lt;= 10; $i++ ) { ... } # Perl
+</pre>
+<pre class="pod-block-code">loop ( my $i = 1; $i &lt;= 10; $i++ ) { ... } # Raku
+</pre>
+<p>The loop-iterator form is named <code>for</code> in Raku and <code>foreach</code> is no longer a keyword. The <code>for</code> loop has the following rules:</p>
+<ul><li><p>parentheses are optional;</p>
+</li>
+<li><p>the iteration variable, if any, has been moved from appearing before the list, to appearing after the list and an added arrow operator;</p>
+</li>
+<li><p>the iteration variable is now always lexical: <code>my</code> is neither needed nor allowed;</p>
+</li>
+<li><p>the iteration variable is a <em>read-only</em> alias to the current list element (in Perl it is a <em>read-write</em> alias!). If a read-write alias is required, change the <code>-&gt;</code> before the iteration variable to a <code>&lt;-&gt;</code>. When translating from Perl, inspect the use of the loop variable to decide if read-write is needed.</p>
+</li>
+</ul>
+<pre class="pod-block-code">for my $car (@cars)  {...} # Perl; read-write
+</pre>
+<pre class="pod-block-code">for @cars  -&gt; $car   {...} # Raku; read-only
+for @cars &lt;-&gt; $car   {...} # Raku; read-write
+</pre>
+<p>In Raku and unlike Perl, the default topic <code>$_</code> will behave in the same way, becoming read-only when used as a topic variable.</p>
+<pre class="pod-block-code">for (@cars)      {...} # Perl; $_ is read-write
+</pre>
+<pre class="pod-block-code">for @cars        {...} # Raku; $_ is read-only
+for @cars &lt;-&gt; $_ {...} # Raku; $_ is also read-write
+</pre>
+<p>It is possible to consume more than one element of the list in each iteration simply specifying more than one variable after the arrow operator:</p>
+<pre class="pod-block-code">my @array = 1..10;
+for @array -&gt; $first, $second {
+    say &quot;First is $first, second is $second&quot;;
+}
+</pre>
+<p>For cases in which the number of elements iterated over isn&#39;t a multiple of the number of variables after the arrow operator, you can provide variables with default values:</p>
+<pre class="pod-block-code">my @array = 1..9;
+for @array -&gt; $first, $second = 0 {
+    say &quot;First is $first, second is $second&quot;;
+}
+</pre>
+<h3 id="each"><a class="u" href="#___top" title="go to top of document"><code>each</code></a></h3>
+<p>Here is the equivalent to Perl’s <code>while…each(%hash)</code> or <code>while…each(@array)</code> (i.e., iterating over both the keys/indices and values of a data structure) in Raku:</p>
+<pre class="pod-block-code">while (my ($i, $v) = each(@array)) { ... } # Perl
+</pre>
+<pre class="pod-block-code">for @array.kv -&gt; $i, $v { ... } # Raku
+</pre>
+<pre class="pod-block-code">while (my ($k, $v) = each(%hash)) { ... } # Perl
+</pre>
+<pre class="pod-block-code">for %hash.kv -&gt; $k, $v { ... } # Raku
+</pre>
+<h2 id="Flow_control_statements"><a class="u" href="#___top" title="go to top of document">Flow control statements</a></h2>
+<p>Unchanged:</p>
+<ul><li><p><code>next</code></p>
+</li>
+<li><p><code>last</code></p>
+</li>
+<li><p><code>redo</code></p>
+</li>
+</ul>
+<h3 id="continue"><a class="u" href="#___top" title="go to top of document"><code>continue</code></a></h3>
+<p>There is no longer a <code>continue</code> block. Instead, use a <code>NEXT</code> block (phaser) within the body of the loop.</p>
+<pre class="pod-block-code"># Perl
+    my $str = &#39;&#39;;
+    for (1..5) {
+        next if $_ % 2 == 1;
+        $str .= $_;
+    }
+    continue {
+        $str .= &#39;:&#39;
+    }
+</pre>
+<pre class="pod-block-code"># Raku
+    my $str = &#39;&#39;;
+    for 1..5 {
+        next if $_ % 2 == 1;
+        $str ~= $_;
+        NEXT {
+            $str ~= &#39;:&#39;
+        }
+    }
+</pre>
+<p>Please note that phasers don&#39;t really need a block. This can be very handy when you don&#39;t want another scope:</p>
+<pre class="pod-block-code"># Raku
+    my $str = &#39;&#39;;
+    for 1..5 {
+        next if $_ % 2 == 1;
+        $str ~= $_;
+        NEXT $str ~= &#39;:&#39;;
+    }
+</pre>
+<h1 id="Functions"><a class="u" href="#___top" title="go to top of document">Functions</a></h1>
+<h2 id="Built-ins_with_bare_blocks"><a class="u" href="#___top" title="go to top of document">Built-ins with bare blocks</a></h2>
+<p>Builtins that previously accepted a bare block followed, without a comma, by the remainder of the arguments will now require a comma between the block and the arguments e.g. <code>map</code>, <code>grep</code>, etc.</p>
+<pre class="pod-block-code">my @results = grep { $_ eq &quot;bars&quot; } @foo; # Perl
+</pre>
+<pre class="pod-block-code">my @results = grep { $_ eq &quot;bars&quot; }, @foo; # Raku
+</pre>
+<h2 id="delete"><a class="u" href="#___top" title="go to top of document"><code>delete</code></a></h2>
+<p>Turned into an adverb of the <a href="#%7B%7D_Hash_indexing%2Fslicing"><code>{}</code> hash subscripting</a> and <a href="#%5B%5D_Array_indexing%2Fslicing"><code>[]</code> array subscripting</a> operators.</p>
+<pre class="pod-block-code">my $deleted_value = delete $hash{$key};  # Perl
+</pre>
+<pre class="pod-block-code">my $deleted_value = %hash{$key}:delete;  # Raku - use :delete adverb
+</pre>
+<pre class="pod-block-code">my $deleted_value = delete $array[$i];  # Perl
+</pre>
+<pre class="pod-block-code">my $deleted_value = @array[$i]:delete;  # Raku - use :delete adverb
+</pre>
+<h2 id="exists"><a class="u" href="#___top" title="go to top of document"><code>exists</code></a></h2>
+<p>Turned into an adverb of the <a href="#%7B%7D_Hash_indexing%2Fslicing"><code>{}</code> hash subscripting</a> and <a href="#%5B%5D_Array_indexing%2Fslicing"><code>[]</code> array subscripting</a> operators.</p>
+<pre class="pod-block-code">say &quot;element exists&quot; if exists $hash{$key};  # Perl
+</pre>
+<pre class="pod-block-code">say &quot;element exists&quot; if %hash{$key}:exists;  # Raku - use :exists adverb
+</pre>
+<pre class="pod-block-code">say &quot;element exists&quot; if exists $array[$i];  # Perl
+</pre>
+<pre class="pod-block-code">say &quot;element exists&quot; if @array[$i]:exists;  # Raku - use :exists adverb
+</pre>
+<h1 id="Regular_expressions_(_regex_/_regexp_)"><a class="u" href="#___top" title="go to top of document">Regular expressions ( regex / regexp )</a></h1>
+<h2 id="Change_=~_and_!~_to_~~_and_!~~_."><a class="u" href="#___top" title="go to top of document">Change <code>=~</code> and <code>!~</code> to <code>~~</code> and <code>!~~</code> .</a></h2>
+<p>In Perl, matches and substitutions are done against a variable using the <code>=~</code> regexp-binding op.</p>
+<p>In Raku, the <code>~~</code> smartmatch op is used instead.</p>
+<pre class="pod-block-code">next if $line  =~ /static/  ; # Perl
+</pre>
+<pre class="pod-block-code">next if $line  ~~ /static/  ; # Raku
+</pre>
+<pre class="pod-block-code">next if $line  !~ /dynamic/ ; # Perl
+</pre>
+<pre class="pod-block-code">next if $line !~~ /dynamic/ ; # Raku
+</pre>
+<pre class="pod-block-code">$line =~ s/abc/123/;          # Perl
+</pre>
+<pre class="pod-block-code">$line ~~ s/abc/123/;          # Raku
+</pre>
+<p>Alternately, the new <code>.match</code> and <code>.subst</code> methods can be used. Note that <a href="/Documentable/integration-test/routine/subst"><code>.subst</code> is non-mutating</a>.</p>
+<h2 id="Captures_start_with_0,_not_1"><a class="u" href="#___top" title="go to top of document">Captures start with 0, not 1</a></h2>
+<pre class="pod-block-code">/(.+)/ and print $1; # Per
+</pre>
+<pre class="pod-block-code">/(.+)/ and print $0; # Raku
+</pre>
+<h2 id="Move_modifiers"><a class="u" href="#___top" title="go to top of document">Move modifiers</a></h2>
+<p>Move any modifiers from the end of the regex to the beginning. This may require you to add the optional <code>m</code> on a plain match like <code>/abc/</code>.</p>
+<pre class="pod-block-code">next if $line =~    /static/i ; # Perl
+</pre>
+<pre class="pod-block-code">next if $line ~~ m:i/static/  ; # Raku
+</pre>
+<h2 id="Add_:P5_or_:Perl5_adverb"><a class="u" href="#___top" title="go to top of document">Add :P5 or :Perl5 adverb</a></h2>
+<p>If the actual regex is complex, you may want to use it as-is (with some exceptions), by adding the <code>P5</code> modifier.</p>
+<pre class="pod-block-code">next if $line =~    m/[aeiou]/   ; # Perl
+</pre>
+<pre class="pod-block-code">next if $line ~~ m:P5/[aeiou]/   ; # Raku, using P5 modifier
+next if $line ~~ m/  &lt;[aeiou]&gt; / ; # Raku, native new syntax
+</pre>
+<p>If the Perl regex has any modifiers, move them from the end and place them after the <code>P5</code> modifier. Each modifier will have to be separated from any others by a colon. For example:</p>
+<pre class="pod-block-code">my $a = &quot;abcabc&quot;;
+my $b = $a;
+$a =~ s/abcaBc//gi;  # Perl&nbsp;5
+$a ~~ s:P5:g:i/ab//; # Raku, using P5 modifier
+$b ~~ s:gi/ab//;     # Raku, native new syntax
+say $a;
+say $b;
+</pre>
+<p>Another accommodation required with the P5 syntax is to replace curly braces with square brackets when specifying Unicode in the expression:</p>
+<pre class="pod-block-code">next if $line =~ m/\x{2043};
+next if $line ~~ m:P5/\x[2043]/;
+next if $line ~~ /\x[2043]/;
+</pre>
+<p>Please note that the Perl regular expression syntax dates from many years ago and may lack features that have been added since the beginning of the Raku project. Two such features not yet implemented in Raku for the P5 syntax are the Perl Unicode property matchers <code>\p{}</code> and <code>\P{}</code>.</p>
+<h2 id="Special_matchers_generally_fall_under_the_<>_syntax"><a class="u" href="#___top" title="go to top of document">Special matchers generally fall under the &lt;&gt; syntax</a></h2>
+<p>There are many cases of special matching syntax that Perl regexes support. They won&#39;t all be listed here but often, instead of being surrounded by <code>()</code>, the assertions will be surrounded by <code>&lt;&gt;</code>.</p>
+<p>For character classes, this means that:</p>
+<ul><li><p><code>[abc]</code> becomes <code>&lt;[abc]&gt;</code></p>
+</li>
+<li><p><code>[^abc]</code> becomes <code>&lt;-[abc]&gt;</code></p>
+</li>
+<li><p><code>[a-zA-Z]</code> becomes <code>&lt;[a..zA..Z]&gt;</code></p>
+</li>
+<li><p><code>[[:upper:]]</code> becomes <code>&lt;:Upper&gt;</code></p>
+</li>
+<li><p><code>[abc[:upper:]]</code> becomes <code>&lt;[abc]+:Upper&gt;</code></p>
+</li>
+</ul>
+<p>For lookaround assertions:</p>
+<ul><li><p><code>(?=[abc])</code> becomes <code>&lt;?[abc]&gt;</code></p>
+</li>
+<li><p><code>(?=ar?bitrary* pattern)</code> becomes <code>&lt;before ar?bitrary* pattern&gt;</code></p>
+</li>
+<li><p><code>(?!=[abc])</code> becomes <code>&lt;![abc]&gt;</code></p>
+</li>
+<li><p><code>(?!=ar?bitrary* pattern)</code> becomes <code>&lt;!before ar?bitrary* pattern&gt;</code></p>
+</li>
+<li><p><code>(?&lt;=ar?bitrary* pattern)</code> becomes <code>&lt;after ar?bitrary* pattern&gt;</code></p>
+</li>
+<li><p><code>(?&lt;!ar?bitrary* pattern)</code> becomes <code>&lt;!after ar?bitrary* pattern&gt;</code></p>
+</li>
+</ul>
+<p>For more info see <a href="/Documentable/integration-test/language/regexes#Lookahead_assertions_<?before_pattern>">lookahead assertions</a>.</p>
+<p>(Unrelated to &lt;&gt; syntax, the &quot;lookaround&quot; <code>/foo\Kbar/</code> becomes <code>/foo &lt;( bar )&gt; /</code></p>
+<ul><li><p><code>(?(?{condition))yes-pattern|no-pattern)</code> becomes <code>[ &lt;?{condition}&gt; yes-pattern | no-pattern ]</code></p>
+</li>
+</ul>
+<h2 id="Longest_token_matching_(LTM)_displaces_alternation"><a class="u" href="#___top" title="go to top of document">Longest token matching (LTM) displaces alternation</a></h2>
+<p>In Raku regexes, <code>|</code> does LTM, which decides which alternation wins an ambiguous match based off of a set of rules, rather than about which was written first.</p>
+<p>The simplest way to deal with this is just to change any <code>|</code> in your Perl regex to a <code>||</code>.</p>
+<p>However, if a regex written with <code>||</code> is inherited or composed into a grammar that uses <code>|</code> either by design or typo, the result may not work as expected. So when the matching process becomes complex, you finally need to have some understanding of both, especially how LTM strategy works. Besides, <code>|</code> may be a better choice for grammar reuse.</p>
+<h2 id="Named_captures"><a class="u" href="#___top" title="go to top of document">Named captures</a></h2>
+<p>These work in a slightly different way; also they only work in the latest versions of Perl.</p>
+<pre class="pod-block-code">use v5.22;
+&quot;þor is mighty&quot; =~ /is (?&lt;iswhat&gt;\w+)/n;
+say $+{iswhat};
+</pre>
+<p>The <code>iswhat</code> within a non-capturing group is used to actually capture what is behind, and up to the end of the group (the <code>)</code>). The capture goes to the <code>%+</code> hash under the key with the name of the capture. In Raku <a href="/Documentable/integration-test/language/regexes#Capturing_groups">named captures work this way</a></p>
+<pre class="pod-block-code">&quot;þor is mighty&quot; ~~ /is \s+ $&lt;iswhat&gt;=(\w+)/;
+say $&lt;iswhat&gt;;
+</pre>
+<p>An actual assignment is made within the regular expression; that&#39;s the same syntax used for the variable outside it.</p>
+<h3 id="Comments"><a class="u" href="#___top" title="go to top of document">Comments</a></h3>
+<p>As with Perl, comments work as usual in regexes.</p>
+<pre class="pod-block-code">/ word #`(match lexical &quot;word&quot;) /</pre>
+<h1 id="BEGIN,_UNITCHECK,_CHECK,_INIT_and_END"><a class="u" href="#___top" title="go to top of document">BEGIN, UNITCHECK, CHECK, INIT and END</a></h1>
+<p>Except for <code>UNITCHECK</code>, all of these special blocks exist in Raku as well. In Raku, these are called <a href="/Documentable/integration-test/language/phasers">Phasers</a>. But there are some differences!</p>
+<h2 id="UNITCHECK_becomes_CHECK"><a class="u" href="#___top" title="go to top of document">UNITCHECK becomes CHECK</a></h2>
+<p>There is currently <strong>no</strong> direct equivalent of <code>CHECK</code> blocks in Raku. The <code>CHECK</code> phaser in Raku has the same semantics as the <code>UNITCHECK</code> block in Perl: it gets run whenever the compilation unit in which it occurs has finished parsing. This is considered a much saner semantic than the current semantics of <code>CHECK</code> blocks in Perl. But for compatibility reasons, it was impossible to change the semantics of <code>CHECK</code> blocks in Perl, so a <code>UNITCHECK</code> block was introduced in 5.10. Consequently, it was decided that the Raku <code>CHECK</code> phaser would follow the saner Perl <code>UNITCHECK</code> semantics.</p>
+<h2 id="No_block_necessary"><a class="u" href="#___top" title="go to top of document">No block necessary</a></h2>
+<p>In Perl, these special blocks <strong>must</strong> have curly braces, which implies a separate scope. In Raku this is not necessary, allowing these special blocks to share their scope with the surrounding lexical scope.</p>
+<pre class="pod-block-code">my $foo;             # Perl
+BEGIN { $foo = 42 }
+</pre>
+<pre class="pod-block-code">BEGIN my $foo = 42;  # Raku
+</pre>
+<h2 id="Changed_semantics_with_regards_to_precompilation"><a class="u" href="#___top" title="go to top of document">Changed semantics with regards to precompilation</a></h2>
+<p>If you put <code>BEGIN</code> and <code>CHECK</code> phasers in a module that is being precompiled, then these phasers will <strong>only</strong> be executed during precompilation and <strong>not</strong> when a precompiled module is being loaded. So when porting module code from Perl, you may need to change <code>BEGIN</code> and <code>CHECK</code> blocks to <code>INIT</code> blocks to ensure that they&#39;re run when loading that module.</p>
+<h1 id="Pragmas"><a class="u" href="#___top" title="go to top of document">Pragmas</a></h1>
+<h3 id="strict"><a class="u" href="#___top" title="go to top of document"><code>strict</code></a></h3>
+<p>Strict mode is now on by default.</p>
+<h3 id="warnings"><a class="u" href="#___top" title="go to top of document"><code>warnings</code></a></h3>
+<p>Warnings are now on by default.</p>
+<p><code>no warnings</code> is currently <a href="/Documentable/integration-test/language/glossary#NYI">NYI</a>, but putting things in a <code>quietly</code> {} block will silence.</p>
+<h3 id="autodie"><a class="u" href="#___top" title="go to top of document"><code>autodie</code></a></h3>
+<p>The functions which were altered by <code>autodie</code> to throw exceptions on error, now generally return <code>Failure</code>s by default. You can test a <code>Failure</code> for definedness / truthiness without any problem. If you use the <code>Failure</code> in any other way, then the <code>Exception</code> that was encapsulated by the <code>Failure</code> will be thrown.</p>
+<pre class="pod-block-code"># Perl
+open my $i_fh, &#39;&lt;&#39;, $input_path;  # Fails silently on error
+use autodie;
+open my $o_fh, &#39;&gt;&#39;, $output_path; # Throws exception on error
+</pre>
+<pre class="pod-block-code"># Raku
+my $i_fh = open $input_path,  :r; # Returns Failure on error
+my $o_fh = open $output_path, :w; # Returns Failure on error
+</pre>
+<p>Because you can check for truthiness without any problem, you can use the result of an <code>open</code> in an <code>if</code> statement:</p>
+<pre class="pod-block-code"># Raku
+if open($input_path,:r) -&gt; $handle {
+    .say for $handle.lines;
+}
+else {
+    # gracefully handle the fact that the open() failed
+}
+</pre>
+<h3 id="base,_parent"><a class="u" href="#___top" title="go to top of document"><code>base</code>, <code>parent</code></a></h3>
+<p>Both <code>use base</code> and <code>use parent</code> have been replaced in Raku by the <code>is</code> keyword, in the class declaration.</p>
+<pre class="pod-block-code"># Perl
+package Cat;
+use base qw(Animal);
+</pre>
+<pre class="pod-block-code"># Raku
+class Cat is Animal {}
+</pre>
+<p>Note that the <code>Animal</code> class must be <strong>known</strong> at compilation time prior to be able to inherit from it.</p>
+<h3 id="bigint_bignum_bigrat"><a class="u" href="#___top" title="go to top of document"><code>bigint</code> <code>bignum</code> <code>bigrat</code></a></h3>
+<p>No longer relevant.</p>
+<p><code>Int</code> is now arbitrary precision, as is the numerator of <code>Rat</code> (the denominator is limited to <code>2**64</code>, after which it will automatically upgrade to <code>Num</code> to preserve performance). If you want a <code>Rat</code> with an arbitrary-precision denominator, <code>FatRat</code> is available.</p>
+<h3 id="constant"><a class="u" href="#___top" title="go to top of document"><code>constant</code></a></h3>
+<p>In Raku, <code>constant</code> is a declarator for variables, just like <code>my</code>, except the variable is permanently locked to the result of its initialization expression (evaluated at compile time).</p>
+<p>So, change the <code>=&gt;</code> to <code>=</code>.</p>
+<pre class="pod-block-code">use constant DEBUG =&gt; 0; # Perl
+</pre>
+<pre class="pod-block-code">constant DEBUG = 0;      # Raku
+</pre>
+<pre class="pod-block-code">use constant pi =&gt; 4 * atan2(1, 1); # Perl
+</pre>
+<pre class="pod-block-code">tau, pi, e, i; # built-in constants in Raku
+τ, π, 𝑒        # and their unicode equivalents
+</pre>
+<h3 id="encoding"><a class="u" href="#___top" title="go to top of document"><code>encoding</code></a></h3>
+<p>Allows you to write your script in non-ascii or non-utf8. Raku uses, for the time being, only utf8 for its scripts.</p>
+<h3 id="integer"><a class="u" href="#___top" title="go to top of document"><code>integer</code></a></h3>
+<p>Perl pragma to use integer arithmetic instead of floating point. There is no such thing in Raku. If you use native integers in your calculations, then this will be the closest thing.</p>
+<pre class="pod-block-code">#Raku
+my int $foo = 42;
+my int $bar = 666;
+say $foo * $bar;    # uses native integer multiplication
+</pre>
+<h3 id="lib"><a class="u" href="#___top" title="go to top of document"><code>lib</code></a></h3>
+<p>Manipulate where modules are looked up at compile time. The underlying logic is <strong>very</strong> different from Perl, but in the case you are using an equivalent syntax, <code>use lib</code> in Raku works the same as in Perl.</p>
+<h3 id="mro"><a class="u" href="#___top" title="go to top of document"><code>mro</code></a></h3>
+<p>No longer relevant.</p>
+<p>In Raku, method calls now always use the C3 method resolution order. If you need to find out parent classes of a given class, you can invoke the <code>mro</code> metamethod thusly:</p>
+<pre class="pod-block-code">say Animal.^mro;    # .^ indicates calling a metamethod on the object
+</pre>
+<h3 id="utf8"><a class="u" href="#___top" title="go to top of document"><code>utf8</code></a></h3>
+<p>No longer relevant: in Raku, source code is expected to be in utf8 encoding.</p>
+<h3 id="vars"><a class="u" href="#___top" title="go to top of document"><code>vars</code></a></h3>
+<p>Discouraged in Perl. See <a href="https://perldoc.perl.org/vars.html">https://perldoc.perl.org/vars.html</a>.</p>
+<p>You should refactor your Perl code to remove the need for <code>use vars</code>, before translating into Raku.</p>
+<h1 id="Command-line_flags"><a class="u" href="#___top" title="go to top of document">Command-line flags</a></h1>
+<p>See <a href="https://github.com/rakudo/rakudo/wiki/Running-rakudo-from-the-command-line">the command line flags that Rakudo uses</a></p>
+<p>Unchanged:</p>
+<p>-c -e -h -I -n -p -v -V</p>
+<h3 id="-a"><a class="u" href="#___top" title="go to top of document"><code>-a</code></a></h3>
+<p>Change your code to use <code>.split</code> manually.</p>
+<h3 id="-F"><a class="u" href="#___top" title="go to top of document"><code>-F</code></a></h3>
+<p>Change your code to use <code>.split</code> manually.</p>
+<h3 id="-l"><a class="u" href="#___top" title="go to top of document"><code>-l</code></a></h3>
+<p>This is now the default behavior.</p>
+<h3 id="-M_-m"><a class="u" href="#___top" title="go to top of document"><code>-M</code> <code>-m</code></a></h3>
+<p>Only <code>-M</code> remains. And, as you can no longer use the &quot;no Module&quot; syntax, the use of <code>-</code> with <code>-M</code> to &quot;no&quot; a module is no longer available.</p>
+<h3 id="-E"><a class="u" href="#___top" title="go to top of document"><code>-E</code></a></h3>
+<p>Since all features are already enabled, just use lowercase <code>-e</code> .</p>
+<h3 id="-d,_-dt,_-d:foo,_-D,_etc."><a class="u" href="#___top" title="go to top of document"><code>-d</code>, <code>-dt</code>, <code>-d:foo</code>, <code>-D</code>, etc.</a></h3>
+<p>Replaced with the <code>++BUG</code> metasyntactic option.</p>
+<h3 id="-s"><a class="u" href="#___top" title="go to top of document">-s</a></h3>
+<p>Switch parsing is now done by the parameter list of the <code>MAIN</code> subroutine.</p>
+<pre class="pod-block-code"># Perl
+    #!/usr/bin/perl -s
+    if ($xyz) { print &quot;$xyz\n&quot; }
+./example.pl -xyz=5
+5
+</pre>
+<pre class="pod-block-code"># Raku
+    sub MAIN( Int :$xyz ) {
+        say $xyz if $xyz.defined;
+    }
+</pre>
+<pre class="pod-block-code">raku example.p6 --xyz=5
+5
+raku example.p6 -xyz=5
+5
+</pre>
+<ul><li><p><code>-t</code></p>
+</li>
+</ul>
+<p>Removed.</p>
+<ul><li><p><code>-P</code> <code>-u</code> <code>-U</code> <code>-W</code> <code>-X</code></p>
+</li>
+</ul>
+<p>Removed. See <a href="https://design.raku.org/S19.html#Removed_Syntactic_Features">Removed Syntactic Features</a>.</p>
+<ul><li><p><code>-w</code></p>
+</li>
+</ul>
+<p>This is now the default behavior.</p>
+<ul><li><p><code>-S</code>, <code>-T</code>.</p>
+</li>
+</ul>
+<p>This has been eliminated. Several ways to <a href="https://www.reddit.com/r/perl6/comments/718z4o/taint_mode_for_perl_6/">replicate &quot;taint&quot; mode are discussed in Reddit</a>.</p>
+<h1 id="File-related_operations"><a class="u" href="#___top" title="go to top of document">File-related operations</a></h1>
+<h2 id="Reading_the_lines_of_a_text_file_into_an_array"><a class="u" href="#___top" title="go to top of document">Reading the lines of a text file into an array</a></h2>
+<p>In Perl, a common idiom for reading the lines of a text file goes something like this:</p>
+<pre class="pod-block-code">open my $fh, &quot;&lt;&quot;, &quot;file&quot; or die &quot;$!&quot;;
+my @lines = &lt;$fh&gt;;                # lines are NOT chomped
+close $fh;
+</pre>
+<p>In Raku, this has been simplified to</p>
+<pre class="pod-block-code">my @lines = &quot;file&quot;.IO.lines;  # auto-chomped</pre>
+<p>Do <em>not</em> be tempted to try slurping in a file and splitting the resulting string on newlines as this will give an array with a trailing empty element, which is one more than you probably expect (it&#39;s also more complicated), e.g.:</p>
+<pre class="pod-block-code"># initialize the file to read
+spurt &quot;test-file&quot;, q:to/END/;
+first line
+second line
+third line
+END
+# read the file
+my @lines = &quot;test-file&quot;.IO.slurp.split(/\n/);
+say @lines.elems;    #-&gt; 4</pre>
+<p>If for some reason you do want to slurp the file first, then you can call the <code>lines</code> method on the result of <code>slurp</code> instead:</p>
+<pre class="pod-block-code">my @lines = &quot;test-file&quot;.IO.slurp.lines;  # also auto-chomps</pre>
+<p>Also, be aware that <code>$!</code> is not really relevant for file IO operation failures in Raku. An IO operation that fails will return a <code>Failure</code> instead of throwing an exception. If you want to return the failure message, it is in the failure itself, not in <code>$!</code>. To do similar IO error checking and reporting as in Perl:</p>
+<pre class="pod-block-code">my $fh = open(&#39;./bad/path/to/file&#39;, :w) or die $fh;</pre>
+<p><em>Note</em>: <code>$fh</code> instead of <code>$!</code>. Or, you can set <code>$_</code> to the failure and die with $_:</p>
+<pre class="pod-block-code">my $fh = open(&#39;./bad/path/to/file&#39;, :w) orelse .die; # Raku</pre>
+<p>Any operation that tries to use the failure will cause the program to fault and terminate. Even just a call to the <code>.self</code> method is sufficient.</p>
+<pre class="pod-block-code">my $fh = open(&#39;./bad/path/to/file&#39;, :w).self;</pre>
+<h2 id="Capturing_the_standard_output_of_executables."><a class="u" href="#___top" title="go to top of document">Capturing the standard output of executables.</a></h2>
+<p>Whereas in Perl you would do:</p>
+<pre class="pod-block-code">my $arg = &#39;Hello&#39;;
+my $captured = `echo \Q$arg\E`;
+my $captured = qx(echo \Q$arg\E);
+</pre>
+<p>Or using <code>String::ShellQuote</code> (because <code>\Q…\E</code> is not completely right):</p>
+<pre class="pod-block-code">my $arg = shell_quote &#39;Hello&#39;;
+my $captured = `echo $arg`;
+my $captured = qx(echo $arg);
+</pre>
+<p>In Raku, you will probably want to run commands without using the shell:</p>
+<pre class="pod-block-code">my $arg = &#39;Hello&#39;;
+my $captured = run(&#39;echo&#39;, $arg, :out).out.slurp;
+my $captured = run(«echo &quot;$arg&quot;», :out).out.slurp;</pre>
+<p>You can also use the shell if you really want to:</p>
+<pre class="pod-block-code">my $arg = &#39;Hello&#39;;
+my $captured = shell(&quot;echo $arg&quot;, :out).out.slurp;
+my $captured = qqx{echo $arg};</pre>
+<p>But beware that in this case there is <strong>no protection at all</strong>! <code>run</code> does not use the shell, so there is no need to escape the arguments (arguments are passed directly). If you are using <code>shell</code> or <code>qqx</code>, then everything ends up being one long string which is then passed to the shell. Unless you validate your arguments very carefully, there is a high chance of introducing shell injection vulnerabilities with such code.</p>
+<h1 id="Environment_variables"><a class="u" href="#___top" title="go to top of document">Environment variables</a></h1>
+<h2 id="Perl_module_library_path"><a class="u" href="#___top" title="go to top of document">Perl module library path</a></h2>
+<p>In Perl one of the environment variables to specify extra search paths for Perl modules is <code>PERL5LIB</code>.</p>
+<pre class="pod-block-code">$ PERL5LIB=&quot;/some/module/lib&quot; perl program.pl
+</pre>
+<p>In Raku this is similar, one merely needs to change a number! As you probably guessed, you just need to use <a name="Documentable/integration-test/index-entry-PERL6LIB-PERL6LIB"><span class="index-entry"><code>PERL6LIB</code></span></a>:</p>
+<pre class="pod-block-code">$ PERL6LIB=&quot;/some/module/lib&quot; raku program.p6
+</pre>
+<p>In Perl one uses the &#39;:&#39; (colon) as a directory separator for <code>PERL5LIB</code>, but in Raku one uses the &#39;,&#39; (comma). For example:</p>
+<pre class="pod-block-code">$ export PERL5LIB=/module/dir1:/module/dir2;
+</pre>
+<p>but</p>
+<pre class="pod-block-code">$ export PERL6LIB=/module/dir1,/module/dir2;
+</pre>
+<p>(Raku does not recognize either the <code>PERL5LIB</code> or the older Perl environment variable <code>PERLLIB</code>.)</p>
+<p>As with Perl, if you don&#39;t specify <code>PERL6LIB</code>, you need to specify the library path within the program via the <code>use lib</code> pragma:</p>
+<pre class="pod-block-code">use lib &#39;/some/module/lib&#39;
+</pre>
+<p>Note that <code>PERL6LIB</code> is more of a developer convenience in Raku (as opposed to the equivalent usage of <code>PERL5LIB</code> in Perl) and shouldn&#39;t be used by module consumers as it could be removed in the future. This is because Raku&#39;s module loading isn&#39;t directly compatible with operating system paths.</p>
+<h1 id="Misc."><a class="u" href="#___top" title="go to top of document">Misc.</a></h1>
+<h2 id="'0'_is_True"><a class="u" href="#___top" title="go to top of document"><code>&#39;0&#39;</code> is True</a></h2>
+<p>Unlike Perl, a string containing nothing but zero (&#39;0&#39;) is <code>True</code>. As Raku has types in core, that makes more sense. This also means the common pattern:</p>
+<pre class="pod-block-code">... if defined $x and length $x; # or just length() in modern perls
+</pre>
+<p>In Raku becomes a simple</p>
+<pre class="pod-block-code">... if $x;
+</pre>
+<h2 id="dump"><a class="u" href="#___top" title="go to top of document"><code>dump</code></a></h2>
+<p>Gone.</p>
+<p>The Raku design allows for automatic and transparent saving-and-loading of compiled bytecode.</p>
+<p>Rakudo supports this only for modules so far.</p>
+<h2 id="AUTOLOAD"><a class="u" href="#___top" title="go to top of document">AUTOLOAD</a></h2>
+<p>The <a href="/Documentable/integration-test/language/typesystem#index-entry-FALLBACK_(method)"><code>FALLBACK</code> method</a> provides similar functionality.</p>
+<h2 id="Importing_specific_functions_from_a_module"><a class="u" href="#___top" title="go to top of document">Importing specific functions from a module</a></h2>
+<p>In Perl it is possible to selectively import functions from a given module like so:</p>
+<pre class="pod-block-code">use ModuleName qw{foo bar baz};
+</pre>
+<p>In Raku one specifies the functions which are to be exported by using the <code>is export</code> role on the relevant subs; <em>all</em> subs with this role are then exported. Hence, the following module <code>Bar</code> exports the subs <code>foo</code> and <code>bar</code> but not <code>baz</code>:</p>
+<pre class="pod-block-code">unit module Bar;
+
+sub foo($a) is export { say &quot;foo $a&quot; }
+sub bar($b) is export { say &quot;bar $b&quot; }
+sub baz($z) { say &quot;baz $z&quot; }
+</pre>
+<p>To use this module, simply <code>use Bar</code> and the functions <code>foo</code> and <code>bar</code> will be available</p>
+<pre class="pod-block-code">use Bar;
+foo(1);    #=&gt; &quot;foo 1&quot;
+bar(2);    #=&gt; &quot;bar 2&quot;
+</pre>
+<p>If one tries to use <code>baz</code> an &quot;Undeclared routine&quot; error is raised at compile time.</p>
+<p>So, how does one recreate the Perl behavior of being able to selectively import functions? By defining an <code>EXPORT</code> sub inside the module which specifies the functions to be exported and removing the <code>module Bar</code> statement.</p>
+<p>The former module <code>Bar</code> now is merely a file called <code>Bar.rakumod</code> with the following contents:</p>
+<pre class="pod-block-code">sub EXPORT(*@import-list) {
+    my %exportable-subs =
+        &#39;&amp;foo&#39; =&gt; &amp;foo,
+        &#39;&amp;bar&#39; =&gt; &amp;bar,
+        ;
+    my %subs-to-export;
+    for @import-list -&gt; $import {
+        if grep $sub-name, %exportable-subs.keys {
+            %subs-to-export{$sub-name} = %exportable-subs{$sub-name};
+        }
+    }
+    return %subs-to-export;
+}
+
+sub foo($a, $b, $c) { say &quot;foo, $a, $b, $c&quot; }
+sub bar($a) { say &quot;bar, $a&quot; }
+sub baz($z) { say &quot;baz, $z&quot; }
+</pre>
+<p>Note that the subs are no longer explicitly exported via the <code>is export</code> role, but by an <code>EXPORT</code> sub which specifies the subs in the module we want to make available for export and then we are populating a hash containing the subs which will actually be exported. The <code>@import-list</code> is set by the <code>use</code> statement in the calling code thus allowing us to selectively import the subs made available by the module.</p>
+<p>So, to import only the <code>foo</code> routine, we do the following in the calling code:</p>
+<pre class="pod-block-code">use Bar &lt;foo&gt;;
+foo(1);       #=&gt; &quot;foo 1&quot;
+</pre>
+<p>Here we see that even though <code>bar</code> is exportable, if we don&#39;t explicitly import it, it&#39;s not available for use. Hence this causes an &quot;Undeclared routine&quot; error at compile time:</p>
+<pre class="pod-block-code">use Bar &lt;foo&gt;;
+foo(1);
+bar(5);       #!&gt; &quot;Undeclared routine: bar used at line 3&quot;
+</pre>
+<p>However, this will work</p>
+<pre class="pod-block-code">use Bar &lt;foo bar&gt;;
+foo(1);       #=&gt; &quot;foo 1&quot;
+bar(5);       #=&gt; &quot;bar 5&quot;
+</pre>
+<p>Note also that <code>baz</code> remains unimportable even if specified in the <code>use</code> statement:</p>
+<pre class="pod-block-code">use Bar &lt;foo bar baz&gt;;
+baz(3);       #!&gt; &quot;Undeclared routine: baz used at line 2&quot;
+</pre>
+<p>In order to get this to work, one obviously has to jump through many hoops. In the standard use-case where one specifies the functions to be exported via the <code>is export</code> role, Raku automatically creates the <code>EXPORT</code> sub in the correct manner for you, so one should consider very carefully whether or not writing one&#39;s own <code>EXPORT</code> routine is worthwhile.</p>
+<h2 id="Importing_groups_of_specific_functions_from_a_module"><a class="u" href="#___top" title="go to top of document">Importing groups of specific functions from a module</a></h2>
+<p>If you would like to export groups of functions from a module, you just need to assign names to the groups, and the rest will work automagically. When you specify <code>is export</code> in a sub declaration, you are in fact adding this subroutine to the <code>:DEFAULT</code> export group. But you can add a subroutine to another group, or to multiple groups:</p>
+<pre class="pod-block-code">unit module Bar;
+sub foo() is export { }                   # added by default to :DEFAULT
+sub bar() is export(:FNORBL) { }          # added to the FNORBL export group
+sub baz() is export(:DEFAULT:FNORBL) { }  # added to both
+</pre>
+<p>So now you can use the <code>Bar</code> module like this:</p>
+<pre class="pod-block-code">use Bar;                     # imports foo / baz
+use Bar :FNORBL;             # imports bar / baz
+use Bar :ALL;                # imports foo / bar / baz
+</pre>
+<p>Note that <code>:ALL</code> is an auto-generated group that encompasses <strong>all</strong> subroutines that have an <code>is export</code> trait.</p>
+<h1 id="Core_modules"><a class="u" href="#___top" title="go to top of document">Core modules</a></h1>
+<h3 id="Data::Dumper"><a class="u" href="#___top" title="go to top of document"><code>Data::Dumper</code></a></h3>
+<p>In Perl, the <a href="https://metacpan.org/pod/Data::Dumper">Data::Dumper</a> module was used for serialization, and for debugging views of program data structures by the programmer.</p>
+<p>In Raku, these tasks are accomplished with the <code>.raku</code> method, which every object has.</p>
+<pre class="pod-block-code"># Given:
+    my @array_of_hashes = (
+        { NAME =&gt; &#39;apple&#39;,   type =&gt; &#39;fruit&#39; },
+        { NAME =&gt; &#39;cabbage&#39;, type =&gt; &#39;no, please no&#39; },
+    );
+# Perl
+    use Data::Dumper;
+    $Data::Dumper::Useqq = 1;
+    print Dumper \@array_of_hashes; # Note the backslash.
+</pre>
+<pre class="pod-block-code"># Raku
+say @array_of_hashes.raku; # .raku on the array, not on its reference.
+</pre>
+<p>In Perl, Data::Dumper has a more complex optional calling convention, which allows for naming the VARs.</p>
+<p>In Raku, placing a colon in front of the variable&#39;s sigil turns it into a Pair, with a key of the var name, and a value of the var value.</p>
+<pre class="pod-block-code"># Given:
+    my ( $foo, $bar ) = ( 42, 44 );
+    my @baz = ( 16, 32, 64, &#39;Hike!&#39; );
+# Perl
+    use Data::Dumper;
+    print Data::Dumper-&gt;Dump(
+        [     $foo, $bar, \@baz   ],
+        [ qw(  foo   bar   *baz ) ],
+    );
+# Output
+#    $foo = 42;
+#    $bar = 44;
+#    @baz = (
+#             16,
+#             32,
+#             64,
+#             &#39;Hike!&#39;
+#           );
+</pre>
+<pre class="pod-block-code"># Raku
+say [ :$foo, :$bar, :@baz ].raku;
+# OUTPUT: «[&quot;foo&quot; =&gt; 42, &quot;bar&quot; =&gt; 44, &quot;baz&quot; =&gt; [16, 32, 64, &quot;Hike!&quot;]]␤»
+</pre>
+<p>There is also a Rakudo-specific debugging aid for developers called <code>dd</code> (Tiny Data Dumper, so tiny it lost the &quot;t&quot;). This will print the <code>.raku</code> representation plus some extra information that could be introspected, of the given variables on STDERR:</p>
+<pre class="pod-block-code"># Raku
+dd $foo, $bar, @baz;
+# OUTPUT: «Int $foo = 42␤Int $bar = 44␤Array @baz = [16, 32, 64, &quot;Hike!&quot;]␤»
+</pre>
+<h3 id="Getopt::Long"><a class="u" href="#___top" title="go to top of document"><code>Getopt::Long</code></a></h3>
+<p>Switch parsing is now done by the parameter list of the <code>MAIN</code> subroutine.</p>
+<pre class="pod-block-code"># Perl
+    use 5.010;
+    use Getopt::Long;
+    GetOptions(
+        &#39;length=i&#39; =&gt; \( my $length = 24       ), # numeric
+        &#39;file=s&#39;   =&gt; \( my $data = &#39;file.dat&#39; ), # string
+        &#39;verbose&#39;  =&gt; \( my $verbose           ), # flag
+    ) or die;
+    say $length;
+    say $data;
+    say &#39;Verbosity &#39;, ($verbose ? &#39;on&#39; : &#39;off&#39;) if defined $verbose;
+perl example.pl
+    24
+    file.dat
+perl example.pl --file=foo --length=42 --verbose
+    42
+    foo
+    Verbosity on
+
+perl example.pl --length=abc
+    Value &quot;abc&quot; invalid for option length (number expected)
+    Died at c.pl line 3.
+</pre>
+<pre class="pod-block-code"># Raku
+    sub MAIN( Int :$length = 24, :file($data) = &#39;file.dat&#39;, Bool :$verbose ) {
+        say $length if $length.defined;
+        say $data   if $data.defined;
+        say &#39;Verbosity &#39;, ($verbose ?? &#39;on&#39; !! &#39;off&#39;);
+    }
+</pre>
+<pre class="pod-block-code">raku example.p6
+    24
+    file.dat
+    Verbosity off
+raku example.p6 --file=foo --length=42 --verbose
+    42
+    foo
+    Verbosity on
+raku example.p6 --length=abc
+    Usage:
+      c.p6 [--length=&lt;Int&gt;] [--file=&lt;Any&gt;] [--verbose]
+</pre>
+<p>Note that Raku auto-generates a full usage message on error in command-line parsing.</p>
+<h1 id="Automated_translation"><a class="u" href="#___top" title="go to top of document">Automated translation</a></h1>
+<p>A quick way to find the Raku version of a Perl construct, is to run it through an automated translator.</p>
+<p><strong>NOTE:</strong> None of these translators are yet complete.</p>
+<h2 id="Blue_Tiger"><a class="u" href="#___top" title="go to top of document">Blue Tiger</a></h2>
+<p>This project is dedicated to automated modernization of Perl code. It does not (yet) have a web front-end, and so must be locally installed to be useful. It also contains a separate program to translate Perl regexes into Raku.</p>
+<p><a href="https://github.com/Util/Blue_Tiger/">https://github.com/Util/Blue_Tiger/</a></p>
+<h2 id="Perlito"><a class="u" href="#___top" title="go to top of document">Perlito</a></h2>
+<p>Online translator!</p>
+<p>This project is a suite of Perl cross-compilers, including Perl&nbsp;to Raku translation. It has a web front-end, and so can be used without installation. It only supports a subset of Perl syntax so far.</p>
+<p><a href="https://fglock.github.io/Perlito/perlito/perlito5.html">https://fglock.github.io/Perlito/perlito/perlito5.html</a></p>
+<h2 id="Perl-ToPerl6"><a class="u" href="#___top" title="go to top of document">Perl-ToPerl6</a></h2>
+<p>The late Jeff Goff&#39;s <a href="https://metacpan.org/release/JGOFF/Perl-ToPerl6-0.03">Perl::ToPerl6</a> module for Perl is designed around Perl::Critic&#39;s framework. It aims to convert Perl to compilable (if not necessarily running) Raku code with the bare minimum of changes. Code transformers are configurable and pluggable, so you can create and contribute your own transformers, and customize existing transformers to your own needs. You can install the latest release from CPAN, or follow the project live on GitHub. An online converter may become available at some point.</p>
+<h1 id="Other_sources_of_translation_knowledge"><a class="u" href="#___top" title="go to top of document">Other sources of translation knowledge</a></h1>
+<ul><li><p><a href="https://perlgeek.de/en/article/5-to-6">https://perlgeek.de/en/article/5-to-6</a></p>
+</li>
+<li><p><a href="https://github.com/Util/Blue_Tiger/">https://github.com/Util/Blue_Tiger/</a></p>
+</li>
+<li><p><a href="https://perl6advent.wordpress.com/2011/12/23/day-23-idiomatic-perl-6/">https://perl6advent.wordpress.com/2011/12/23/day-23-idiomatic-perl-6/</a></p>
+</li>
+<li><p><a href="/Documentable/integration-test/language/5to6-overview">/language/5to6-overview</a></p>
+</li>
+</ul>
+
+        </div>
+    </div>
+
+    <aside><ol start="1">
+<li><a href="#fn-ref-1" id="fn-1">[↑]</a> This should not be confused with the Perl built-in <code>glob()</code> function, which reads filenames from a directory. </li>
+</ol></aside>
+
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/5to6-nutshell.pod6">https://github.com/Raku/doc/blob/master/doc/Language/5to6-nutshell.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

@@ -1,0 +1,872 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>class Signature</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/type.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-basic.html"> Basic </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-composite.html"> Composite </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-domain-specific.html"> Domain-specific </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-exception.html"> Exceptions </a>
+            </div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Type/Signature.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">class Signature</h1>
+        <p class="subtitle">Parameter list pattern</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+              <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Signature_literals">Signature literals</a></td></tr>
+                                                                      <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#Parameter_separators">Parameter separators</a></td></tr>
+            <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#Type_constraints">Type constraints</a></td></tr>
+                                                                                                  <tr class="toc-level-3"><td class="toc-number">1.2.1</td><td class="toc-text"><a href="#Constraining_optional_arguments">Constraining optional arguments</a></td></tr>
+        <tr class="toc-level-3"><td class="toc-number">1.2.2</td><td class="toc-text"><a href="#Constraining_slurpy_arguments">Constraining slurpy arguments</a></td></tr>
+                 <tr class="toc-level-3"><td class="toc-number">1.2.3</td><td class="toc-text"><a href="#Constraining_named_arguments">Constraining named arguments</a></td></tr>
+            <tr class="toc-level-3"><td class="toc-number">1.2.4</td><td class="toc-text"><a href="#Constraining_argument_definiteness">Constraining argument definiteness</a></td></tr>
+                                                                                                                                                                                <tr class="toc-level-3"><td class="toc-number">1.2.5</td><td class="toc-text"><a href="#Constraining_signatures_of_Callables">Constraining signatures of <code class="pod-code-inline">Callable</code> s</a></td></tr>
+                  <tr class="toc-level-3"><td class="toc-number">1.2.6</td><td class="toc-text"><a href="#Constraining_return_types">Constraining return types</a></td></tr>
+               <tr class="toc-level-4"><td class="toc-number">1.2.6.1</td><td class="toc-text"><a href="#Return_type_arrow:_--&gt;">Return type arrow: <code class="pod-code-inline">--</code> &gt;</a></td></tr>
+                             <tr class="toc-level-4"><td class="toc-number">1.2.6.2</td><td class="toc-text"><a href="#returns"><code class="pod-code-inline">returns</code></a></td></tr>
+          <tr class="toc-level-4"><td class="toc-number">1.2.6.3</td><td class="toc-text"><a href="#of"><code class="pod-code-inline">of</code></a></td></tr>
+         <tr class="toc-level-4"><td class="toc-number">1.2.6.4</td><td class="toc-text"><a href="#prefix(C-like)_form">prefix(C-like) form</a></td></tr>
+          <tr class="toc-level-3"><td class="toc-number">1.2.7</td><td class="toc-text"><a href="#Coercion_type">Coercion type</a></td></tr>
+                                         <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#Slurpy_(A.K.A._variadic)_parameters">Slurpy (A.K.A. variadic) parameters</a></td></tr>
+                                                                                         <tr class="toc-level-2"><td class="toc-number">1.4</td><td class="toc-text"><a href="#Types_of_slurpy_array_parameters">Types of slurpy array parameters</a></td></tr>
+      <tr class="toc-level-3"><td class="toc-number">1.4.1</td><td class="toc-text"><a href="#Flattened_slurpy">Flattened slurpy</a></td></tr>
+                     <tr class="toc-level-3"><td class="toc-number">1.4.2</td><td class="toc-text"><a href="#Unflattened_slurpy">Unflattened slurpy</a></td></tr>
+                      <tr class="toc-level-3"><td class="toc-number">1.4.3</td><td class="toc-text"><a href="#Single_argument_rule_slurpy">Single argument rule slurpy</a></td></tr>
+                              <tr class="toc-level-2"><td class="toc-number">1.5</td><td class="toc-text"><a href="#Type_captures">Type captures</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">1.6</td><td class="toc-text"><a href="#Positional_vs._named_arguments">Positional vs. named arguments</a></td></tr>
+                           <tr class="toc-level-2"><td class="toc-number">1.7</td><td class="toc-text"><a href="#Argument_aliases">Argument aliases</a></td></tr>
+                                                                    <tr class="toc-level-2"><td class="toc-number">1.8</td><td class="toc-text"><a href="#Optional_and_mandatory_arguments">Optional and mandatory arguments</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">1.9</td><td class="toc-text"><a href="#Dynamic_variables">Dynamic variables</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">1.10</td><td class="toc-text"><a href="#Destructuring_arguments">Destructuring arguments</a></td></tr>
+                 <tr class="toc-level-2"><td class="toc-number">1.11</td><td class="toc-text"><a href="#Sub-signatures">Sub-signatures</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.12</td><td class="toc-text"><a href="#Long_names">Long names</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.13</td><td class="toc-text"><a href="#Capture_parameters">Capture parameters</a></td></tr>
+                      <tr class="toc-level-2"><td class="toc-number">1.14</td><td class="toc-text"><a href="#Parameter_traits_and_modifiers">Parameter traits and modifiers</a></td></tr>
+                                      <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#method_params">method params</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">2.2</td><td class="toc-text"><a href="#method_arity">method arity</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">2.3</td><td class="toc-text"><a href="#method_count">method count</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">2.4</td><td class="toc-text"><a href="#method_returns">method returns</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">2.5</td><td class="toc-text"><a href="#method_ACCEPTS">method ACCEPTS</a></td></tr>
+                                                   <tr class="toc-level-2"><td class="toc-number">2.6</td><td class="toc-text"><a href="#method_Capture">method Capture</a></td></tr>
+      <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Runtime_creation_of_Signature_objects_(6.d,_2019.03_and_later)">Runtime creation of Signature objects (6.d, 2019.03 and later)</a></td></tr>
+                                <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#Type_Graph">Type Graph</a></td></tr>
+ 
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <pre class="pod-block-code">class Signature { }</pre>
+<p>A signature is a static description of the <a href="/Documentable/integration-test/type/Parameter">parameter</a> list of a code object. That is, it describes what and how many arguments you need to pass to the code or function in order to call it.</p>
+<p>Passing arguments to a signature <em>binds</em> the arguments, contained in a <a href="/Documentable/integration-test/type/Capture">Capture</a>, to the signature.</p>
+<p><a name="Documentable/integration-test/index-entry-signature_literal"></a> <a name="Documentable/integration-test/index-entry-:()"></a></p>
+<h1 id="Signature_literals"><a class="u" href="#___top" title="go to top of document">Signature literals</a></h1>
+<p>Signatures appear inside parentheses after <a href="/Documentable/integration-test/type/Sub">subroutine</a> and <a href="/Documentable/integration-test/type/Method">method</a> names, on blocks after a <code>-&gt; </code> or <code>&lt;-&gt; </code> arrow, as the input to <a href="/Documentable/integration-test/language/variables#Variable_declarators_and_scope">variable declarators</a> like <a href="/Documentable/integration-test/syntax/my"><code>my</code></a>, or as a separate term starting with a colon.</p>
+<pre class="pod-block-code">sub f($x) { }
+#    ^^^^ Signature of sub f
+my method x() { }
+#          ^^ Signature of a method
+my $s = sub (*@a) { }
+#           ^^^^^ Signature of an anonymous function
+
+for &lt;a b c&gt; -&gt; $x { }
+#              ^^   Signature of a Block
+
+my ($a, @b) = 5, (6, 7, 8);
+#  ^^^^^^^^ Signature of a variable declarator
+
+my $sig = :($a, $b);
+#          ^^^^^^^^ Standalone Signature object</pre>
+<p>Signature literals can be used to define the signature of a callback or a closure.</p>
+<pre class="pod-block-code">sub f(&amp;c:(Int)) { }
+sub will-work(Int) { }
+sub won&#39;t-work(Str) { }
+f(&amp;will-work);
+
+f(&amp;won&#39;t-work);
+CATCH { default { put .^name, &#39;: &#39;, .Str } };
+# OUTPUT: «X::TypeCheck::Binding::Parameter: Constraint type check failed in binding to parameter &#39;&amp;c&#39;␤»
+
+f(-&gt; Int { &#39;this works too&#39; } );</pre>
+<p>You can use any kind of literal, including numeric ones, as part of a signature; this is generally used in conjunction with multis</p>
+<pre class="pod-block-code">proto sub stuff(|) {*}
+multi sub stuff(33) { 58 }
+multi sub stuff(⅓) { 43 }
+multi sub stuff(Int)  { 3 }
+multi sub stuff(Complex)  { 66 }
+say stuff($_) for (33, ⅓, i, 48); # OUTPUT: «58␤43␤66␤3␤»
+</pre>
+<p>However, you can&#39;t use <code>True</code> or <code>False</code> as literals in signatures since they will always succeed (or fail). A warning will be issued if you do so:</p>
+<pre class="pod-block-code">sub foo(True) {};
+my $sig =  :( True );
+</pre>
+<p>They will both warn &quot;Literal values in signatures are smartmatched against and smartmatch with <code>True</code> will always succeed. Use the <code>where</code> clause instead.&quot;. Use of <code>False</code> will produce a similar warning.</p>
+<p>Smartmatching signatures against a <code>List</code> is supported.</p>
+<pre class="pod-block-code">my $sig = :(Int $i, Str $s);
+say (10, &#39;answer&#39;) ~~ $sig;
+# OUTPUT: «True␤»
+my $sub = sub ( Str $s, Int $i ) { return $s xx $i };
+say $sub.signature ~~ :( Str, Int );
+# OUTPUT: «True␤»
+given $sig {
+    when :(Str, Int) { say &#39;mismatch&#39; }
+    when :($, $)     { say &#39;match&#39; }
+    default          { say &#39;no match&#39; }
+}
+# OUTPUT: «match␤»</pre>
+<p>It matches the second <code>when</code> clause since <code>:($, $)</code> represents a <code>Signature</code> with two scalar, anonymous, arguments, which is a more general version of <code>$sig</code>.</p>
+<p>When smartmatching against a <code>Hash</code>, the signature is assumed to consist of the keys of the <code>Hash</code>.</p>
+<pre class="pod-block-code">my %h = left =&gt; 1, right =&gt; 2;
+say %h ~~ :(:$left, :$right);
+# OUTPUT: «True␤»</pre>
+<p><code>Signature</code> literals can contain string/numeric literals</p>
+<pre class="pod-block-code">my $sig = :(&#39;Þor&#39;, Str, Int);
+say &lt;Þor Hammer 1&gt; ~~ $sig; # OUTPUT: «True␤»</pre>
+<p>And they can also contain the invocant marker</p>
+<pre class="pod-block-code">class Foo {
+    method bar( $self: ){ &quot;baz&quot; }
+};
+say Foo.^methods.first(*.name eq &#39;bar&#39;).signature ~~ :($: *%) ;
+# OUTPUT: «True␤»</pre>
+<h2 id="Parameter_separators"><a class="u" href="#___top" title="go to top of document">Parameter separators</a></h2>
+<p>A signature consists of zero or more <em><a href="/Documentable/integration-test/type/Parameter">parameters</a></em>, separated by commas.</p>
+<pre class="pod-block-code">my $sig = :($a, @b, %c);
+sub add($a, $b) { $a + $b };</pre>
+<p>As an exception the first parameter may be followed by a colon instead of a comma to mark the invocant of a method. This is done in order to distinguish it from what would then be a regular positional parameter. The invocant is the object that was used to call the method, which is usually bound to <a href="/Documentable/integration-test/routine/self"><code>self</code></a>. By specifying it in the signature, you can change the variable name it is bound to.</p>
+<pre class="pod-block-code">method ($a: @b, %c) {};       # first argument is the invocant
+
+class Foo {
+    method whoami($me:) {
+        &quot;Well I&#39;m class $me.^name(), of course!&quot;
+    }
+}
+say Foo.whoami; # OUTPUT: «Well I&#39;m class Foo, of course!␤»</pre>
+<p><a name="Documentable/integration-test/index-entry-type_constraint"></a> <a name="Documentable/integration-test/index-entry-Constraint"></a></p>
+<h2 id="Type_constraints"><a class="u" href="#___top" title="go to top of document">Type constraints</a></h2>
+<p>Parameters can optionally have a type constraint (the default is <a href="/Documentable/integration-test/type/Any">Any</a>). These can be used to restrict the allowed input to a function.</p>
+<pre class="pod-block-code">my $sig = :(Int $a, Str $b);
+</pre>
+<p>Type constraints can have any compile-time defined value</p>
+<pre class="pod-block-code">subset Positive-integer of Int where * &gt; 0;
+sub divisors(Positive-integer $n) { $_ if $n %% $_ for 1..$n };
+divisors 2.5;
+# ERROR «Type check failed in binding to parameter &#39;$n&#39;;
+# expected Positive-integer but got Rat (2.5) $n)»
+divisors -3;
+# ERROR: «Constraint type check failed in binding to parameter &#39;$n&#39;;
+# expected Positive-integer but got Int (-3)»
+</pre>
+<p>Please note that in the code above type constraints are enforced at two different levels: the first level checks if it belongs to the type in which the subset is based, in this case <code>Int</code>. If it fails, a <code>Type check</code> error is produced. Once that filter is cleared, the constraint that defined the subset is checked, producing a <code>Constraint type check</code> error if it fails.</p>
+<p>Type constraints can define multiple allowable types</p>
+<pre class="pod-block-code">sub abbrev($arg where Str|List|Hash) {...} # throws if $arg is not one of those types
+</pre>
+<p><a name="Documentable/integration-test/index-entry-anonymous_arguments"></a> Anonymous arguments are fine too, if you don&#39;t actually need to refer to a parameter by name, for instance to distinguish between different signatures in a <a href="/Documentable/integration-test/language/functions#index-entry-declarator_multi-Multi-dispatch">multi</a> or to check the signature of a <a href="/Documentable/integration-test/type/Callable">Callable</a>.</p>
+<pre class="pod-block-code">my $sig = :($, @, %a);          # two anonymous and a &quot;normal&quot; parameter
+$sig = :(Int, Positional);      # just a type is also fine (two parameters)
+sub baz(Str) { &quot;Got passed a Str&quot; }</pre>
+<p>Type constraints may also be <a href="/Documentable/integration-test/type/Signature#Type_captures">type captures</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-where_clause"></a> In addition to those <em>nominal</em> types, additional constraints can be placed on parameters in the form of code blocks which must return a true value to pass the type check</p>
+<pre class="pod-block-code">sub f(Real $x where { $x &gt; 0 }, Real $y where { $y &gt;= $x }) { }</pre>
+<p>The code in <code>where</code> clauses has some limitations: anything that produces side-effects (e.g., printing output, pulling from an iterator, or increasing a state variable) is not supported and may produce surprising results if used. Also, the code of the <code>where</code> clause may run more than once for a single typecheck in some implementations.</p>
+<p>The <code>where</code> clause doesn&#39;t need to be a code block, anything on the right of the <code>where</code>-clause will be used to <a href="/Documentable/integration-test/language/operators#infix_~~">smartmatch</a> the argument against it. So you can also write:</p>
+<pre class="pod-block-code">multi factorial(Int $ where 0) { 1 }
+multi factorial(Int $x)        { $x * factorial($x - 1) }</pre>
+<p>The first of those can be shortened to</p>
+<pre class="pod-block-code">multi factorial(0) { 1 }</pre>
+<p>i.e., you can use a literal directly as a type and value constraint on an anonymous parameter.</p>
+<p><strong>Tip:</strong> pay attention to not accidentally leave off a block when you, say, have several conditions:</p>
+<pre class="pod-block-code">-&gt; $y where   .so &amp;&amp; .name    {}( sub one   {} ); # WRONG!!
+-&gt; $y where { .so &amp;&amp; .name }  {}( sub two   {} ); # OK!
+-&gt; $y where   .so &amp;  .name.so {}( sub three {} ); # Also good</pre>
+<p>The first version is wrong and will issue a warning about a sub object coerced to string. The reason is the expression is equivalent to <code>($y ~~ ($y.so &amp;&amp; $y.name))</code>; that is &quot;call <code>.so</code>, and if that is <code>True</code>, call <code>.name</code>; if that is also <code>True</code> use its value for smartmatching…&quot;. It&#39;s the <strong>result</strong> of <code>(.so &amp;&amp; .name)</code> it will be smartmatched against, but we want to check that both <code>.so</code> and <code>.name</code> are truthy values. That is why an explicit Block or a <a href="/Documentable/integration-test/type/Junction">Junction</a> is the right version.</p>
+<p>All previous arguments that are not part of a sub-signature in a <code>Signature</code> are accessible in a <code>where</code>-clause that follows an argument. Therefore, the <code>where</code>-clause of the last argument has access to all arguments of a signature that are not part of a sub-signature. For a sub-signature place the <code>where</code>-clause inside the sub-signature.</p>
+<pre class="pod-block-code">sub foo($a, $b where * == $a ** 2) { say &quot;$b is a square of $a&quot; }
+foo 2, 4; # OUTPUT: «4 is a square of 2␤»»
+# foo 2, 3;
+# OUTPUT: «Constraint type check failed in binding to parameter &#39;$b&#39;…»</pre>
+<h3 id="Constraining_optional_arguments"><a class="u" href="#___top" title="go to top of document">Constraining optional arguments</a></h3>
+<p><a href="#Optional_and_mandatory_arguments">Optional arguments</a> can have constraints, too. Any <code>where</code> clause on any parameter will be executed, even if it&#39;s optional and not provided by the caller. In that case you may have to guard against undefined values within the <code>where</code> clause.</p>
+<pre class="pod-block-code">sub f(Int $a, UInt $i? where { !$i.defined or $i &gt; 5 }) { ... }</pre>
+<h3 id="Constraining_slurpy_arguments"><a class="u" href="#___top" title="go to top of document">Constraining slurpy arguments</a></h3>
+<p><a href="#Slurpy_%28A.K.A._variadic%29_parameters">Slurpy arguments</a> can not have type constraints. A <code>where</code>-clause in conjunction with a <a href="/Documentable/integration-test/type/Junction">Junction</a> can be used to that effect.</p>
+<pre class="pod-block-code">sub f(*@a where {$_.all ~~ Int}) { say @a };
+f(42);
+f(&lt;a&gt;);
+CATCH { default { say .^name, &#39; ==&gt; &#39;, .Str }  }
+# OUTPUT: «[42]␤Constraint type check failed in binding to parameter &#39;@a&#39; ...»
+</pre>
+<h3 id="Constraining_named_arguments"><a class="u" href="#___top" title="go to top of document">Constraining named arguments</a></h3>
+<p>Constraints against <a href="#Positional_vs._named_arguments">named arguments</a> apply to the value part of the <a href="/Documentable/integration-test/type/Pair">colon-pair</a>.</p>
+<pre class="pod-block-code">sub f(Int :$i){};
+f :i&lt;forty-two&gt;;
+CATCH { default { say .^name, &#39; ==&gt; &#39;, .Str }  }
+# OUTPUT: «X::TypeCheck::Binding::Parameter ==&gt; Type check failed in
+# binding to parameter &#39;$i&#39;; expected Int but got Str (&quot;forty-two&quot;)␤»</pre>
+<p><a name="Documentable/integration-test/index-entry-type_constraint_:D"></a> <a name="Documentable/integration-test/index-entry-type_constraint_:U"></a> <a name="Documentable/integration-test/index-entry-type_constraint_:__"></a></p>
+<h3 id="Constraining_argument_definiteness"><a class="u" href="#___top" title="go to top of document">Constraining argument definiteness</a></h3>
+<p>Normally, a type constraint only checks whether the value of the parameter is of the correct type. Crucially, both <em>object instances</em> and <em>type objects</em> will satisfy such a constraint as illustrated below:</p>
+<pre class="pod-block-code">say  42.^name;    # OUTPUT: «Int␤»
+say  42 ~~ Int;   # OUTPUT: «True␤»
+say Int ~~ Int;   # OUTPUT: «True␤»</pre>
+<p>Note how both <code>42</code> and <code>Int</code> satisfy the match.</p>
+<p>Sometimes we need to distinguish between these object instances (<code>42</code>) and type objects (<code>Int</code>). Consider the following code:</p>
+<pre class="pod-block-code">sub limit-lines(Str $s, Int $limit) {
+    my @lines = $s.lines;
+    @lines[0 .. min @lines.elems, $limit].join(&quot;\n&quot;)
+}
+say (limit-lines &quot;a \n b \n c \n d \n&quot;, 3).raku; # &quot;a \n b \n c \n d &quot;
+say limit-lines Str, 3;
+CATCH { default { put .^name, &#39;: &#39;, .Str } };
+# OUTPUT: «X::Multi::NoMatch: Cannot resolve caller lines(Str: );
+# none of these signatures match:
+#     (Str:D $: :$count!, *%_)
+#     (Str:D $: $limit, *%_)
+#     (Str:D $: *%_)»
+say limit-lines &quot;a \n b&quot;, Int; # Always returns the max number of lines</pre>
+<p>Here we really only want to deal with string instances, not type objects. To do this, we can use the <code>:D</code> type constraint. This constraint checks that the value passed is an <em>object instance</em>, in a similar fashion to calling its <a href="/Documentable/integration-test/language/mop#DEFINITE">DEFINITE</a> (meta)method.</p>
+<p>To warm up, let&#39;s apply <code>:D</code> to the right-hand side of our humble <code>Int</code> example:</p>
+<pre class="pod-block-code">say  42 ~~ Int:D;  # OUTPUT: «True␤»
+say Int ~~ Int:D;  # OUTPUT: «False␤»</pre>
+<p>Note how only <code>42</code> matches <code>Int:D</code> in the above.</p>
+<p>Returning to <code>limit-lines</code>, we can now amend its signature to catch the error early:</p>
+<pre class="pod-block-code">sub limit-lines(Str:D $s, Int $limit) { };
+say limit-lines Str, 3;
+CATCH { default { put .^name ~ &#39;--&#39; ~ .Str } };
+# OUTPUT: «Parameter &#39;$s&#39; of routine &#39;limit-lines&#39; must be an object instance of type &#39;Str&#39;,
+#          not a type object of type &#39;Str&#39;.  Did you forget a &#39;.new&#39;?»</pre>
+<p>This is much better than the way the program failed before, since here the reason for failure is clearer.</p>
+<p>It&#39;s also possible that <em>type objects</em> are the only ones that make sense for a routine to accept. This can be done with the <code>:U</code> type constraint, which checks whether the value passed is a type object rather than an object instance. Here&#39;s our <code>Int</code> example again, this time with <code>:U</code> applied:</p>
+<pre class="pod-block-code">say  42 ~~ Int:U;  # OUTPUT: «False␤»
+say Int ~~ Int:U;  # OUTPUT: «True␤»</pre>
+<p>Now <code>42</code> fails to match <code>Int:U</code> while <code>Int</code> succeeds.</p>
+<p>Here&#39;s a more practical example:</p>
+<pre class="pod-block-code">sub can-turn-into(Str $string, Any:U $type) {
+   return so $string.$type;
+}
+say can-turn-into(&quot;3&quot;, Int);        # OUTPUT: «True␤»
+say can-turn-into(&quot;6.5&quot;, Int);      # OUTPUT: «True␤»
+say can-turn-into(&quot;6.5&quot;, Num);      # OUTPUT: «True␤»
+say can-turn-into(&quot;a string&quot;, Num); # OUTPUT: «False␤»</pre>
+<p>Calling <code>can-turn-into</code> with an object instance as its second parameter will yield a constraint violation as intended:</p>
+<pre class="pod-block-code">say can-turn-into(&quot;a string&quot;, 123);
+# OUTPUT: «Parameter &#39;$type&#39; of routine &#39;can-turn-into&#39; must be a type object
+# of type &#39;Any&#39;, not an object instance of type &#39;Int&#39;...»
+</pre>
+<p>For explicitly indicating the normal behavior, that is, not constraining whether the argument will be an instance or a type object, <code>:_</code> can be used but this is unnecessary since this is the default constraint (of this kind) on arguments. Thus, <code>:(Num:_ $)</code> is the same as <code>:(Num $)</code>.</p>
+<p>To recap, here is a quick illustration of these type constraints, also known collectively as <em>type smileys</em>:</p>
+<pre class="pod-block-code"># Checking a type object
+say Int ~~ Any:D;    # OUTPUT: «False␤»
+say Int ~~ Any:U;    # OUTPUT: «True␤»
+say Int ~~ Any:_;    # OUTPUT: «True␤»
+
+# Checking a subset
+subset Even of Int where * // 2;
+say 3 ~~ Even:D;     # OUTPUT: «True␤»
+say 3 ~~ Even:U;     # OUTPUT: «False␤»
+say Int ~~ Even:U;   # OUTPUT: «True␤»
+
+# Checking an object instance
+say 42 ~~ Any:D;     # OUTPUT: «True␤»
+say 42 ~~ Any:U;     # OUTPUT: «False␤»
+say 42 ~~ Any:_;     # OUTPUT: «True␤»
+
+# Checking a user-supplied class
+class Foo {};
+say Foo ~~ Any:D;    # OUTPUT: «False␤»
+say Foo ~~ Any:U;    # OUTPUT: «True␤»
+say Foo ~~ Any:_;    # OUTPUT: «True␤»
+
+# Checking an instance of a class
+my $f = Foo.new;
+say $f  ~~ Any:D;    # OUTPUT: «True␤»
+say $f  ~~ Any:U;    # OUTPUT: «False␤»
+say $f  ~~ Any:_;    # OUTPUT: «True␤»</pre>
+<p>The <a href="/Documentable/integration-test/language/classtut#Starting_with_class">Classes and Objects</a> document further elaborates on the concepts of instances and type objects and discovering them with the <code>.DEFINITE</code> method.</p>
+<p>Keep in mind all parameters have values; even optional ones have default values that are the type object of the constrained type for explicit type constraints. If no explicit type constraint exists, the default value is an <a href="/Documentable/integration-test/type/Any">Any</a> type object for methods, submethods, and subroutines, and a <a href="/Documentable/integration-test/type/Mu">Mu</a> type object for blocks. This means that if you use the <code>:D</code> type smiley, you&#39;d need to provide a default value or make the parameter required. Otherwise, the default value would be a type object, which would fail the definiteness constraint.</p>
+<pre class="pod-block-code">sub divide (Int:D :$a = 2, Int:D :$b!) { say $a/$b }
+divide :1a, :2b; # OUTPUT: «0.5␤»</pre>
+<p>The default value will kick in when that particular parameter, either positional or named, gets no value <em>at all</em>.</p>
+<pre class="pod-block-code">sub f($a = 42){
+  my $b is default(&#39;answer&#39;);
+  say $a;
+  $b = $a;
+  say $b
+};
+f;     # OUTPUT: «42␤42␤»
+f Nil; # OUTPUT: «Nil␤answer␤»</pre>
+<p><code>$a</code> has 42 as its default value. With no value, <code>$a</code> will be assigned the default value declared in the <code>Signature</code>. However, in the second case, it <em>does</em> receive a value, which happens to be <code>Nil</code>. Assigning <code>Nil</code> to any variable resets it to its default value, which has been declared as <code>&#39;answer&#39;</code> by use of the <em>default</em> trait. That explains what happens the second time we call <code>f</code>. Routine parameters and variables deal differently with default value, which is in part clarified by the different way default values are declared in each case (using <code>=</code> for parameters, using the <code>default</code> trait for variables).</p>
+<p>Note: in 6.c language, the default value of <code>:U</code>/<code>:D</code> constrained variables was a type object with such a constraint, which is not initializable, thus you cannot use the <code>.=</code> operator, for example.</p>
+<pre class="pod-block-code">use v6.c;
+my Int:D $x .= new: 42;
+# OUTPUT: You cannot create an instance of this type (Int:D)
+# in block &lt;unit&gt; at -e line 1
+</pre>
+<p>In the 6.d language, the default <em>default</em> is the type object without the smiley constraint:</p>
+<pre class="pod-block-code">use v6.d;
+my Int:D $x .= new: 42; # OUTPUT: «42␤»
+</pre>
+<p>A closing remark on terminology: this section is about the use of the type smileys <code>:D</code> and <code>:U</code> to constrain the definiteness of arguments. Occasionally <em>definedness</em> is used as a synonym for <em>definiteness</em>; this may be confusing, since the terms have subtly different meanings.</p>
+<p>As explained above, <em>definiteness</em> is concerned with the distinction between type objects and object instances. A type object is always indefinite, while an object instance is always definite. Whether an object is a type object/indefinite or an object instance/definite can be verified using the <a href="/Documentable/integration-test/language/mop#DEFINITE">DEFINITE</a> (meta)method.</p>
+<p><em>Definiteness</em> should be distinguished from <em>definedness</em>, which is concerned with the difference between defined and undefined objects. Whether an object is defined or undefined can be verified using the <code>defined</code>-method, which is implemented in class <a href="/Documentable/integration-test/type/Mu">Mu</a>. By default a type object is considered undefined, while an object instance is considered defined; that is: <code>.defined</code> returns <code>False</code> on a type object, and <code>True</code> otherwise. But this default behavior may be overridden by subclasses. An example of a subclass that overrides the default <code>.defined</code> behavior is <a href="/Documentable/integration-test/type/Failure">Failure</a>, so that even an instantiated <code>Failure</code> acts as an undefined value:</p>
+<pre class="pod-block-code">my $a = Failure;                # Initialize with type object
+my $b = Failure.new(&quot;foo&quot;);     # Initialize with object instance
+say $a.DEFINITE;                # Output: «False␤» : indefinite type object
+say $b.DEFINITE;                # Output: «True␤»  : definite object instance
+say $a.defined;                 # Output: «False␤» : default response
+say $b.defined;                 # Output: «False␤» : .defined override</pre>
+<h3 id="Constraining_signatures_of_Callables"><a class="u" href="#___top" title="go to top of document">Constraining signatures of <code>Callable</code>s</a></h3>
+<p>The signature of a <a href="/Documentable/integration-test/type/Callable">Callable</a> parameter can be constrained by specifying a <a href="/Documentable/integration-test/type/Signature">Signature</a> literal right after the parameter (no whitespace allowed):</p>
+<pre class="pod-block-code">sub apply(&amp;l:(Int:D --&gt; Int:D), Int:D \n) {
+    l(n)
+}
+
+sub identity(Int:D \i --&gt; Int:D) { i }
+sub double(Int:D \x --&gt; Int:D) { 2 * x }
+
+say apply &amp;identity, 10; # OUTPUT: «10␤»
+say apply &amp;double, 10;   # OUTPUT: «20␤»</pre>
+<p>Typed <a href="/Documentable/integration-test/language/functions#Blocks_and_lambdas">lambdas</a> also work with constrained callable parameters.</p>
+<pre class="pod-block-code">    say apply -&gt; Int:D \x --&gt; Int:D { 2 * x }, 3;  # OUTPUT: «6␤»
+    say apply -&gt; Int:D \x --&gt; Int:D { x ** 3 }, 3; # OUTPUT: «27␤»
+</pre>
+<p>Note that this shorthand syntax is available only for parameters with the <code>&amp;</code> sigil. For others, you need to use the long version:</p>
+<pre class="pod-block-code">sub play-with-tens($c where .signature ~~ :(Int, Str)) { say $c(10, &#39;ten&#39;) }
+sub by-joining-them(Int $i, Str $s) { $s ~ $i }
+play-with-tens &amp;by-joining-them;                              # OUTPUT: «ten10␤»
+play-with-tens -&gt; Int \i, Str \s { s x (1..10).roll mod i };  # OUTPUT: «tenten␤»
+
+sub g(Num $i, Str $s) { $s ~ $i }
+# play-with-tens(&amp;g); # Constraint type check failed</pre>
+<h3 id="Constraining_return_types"><a class="u" href="#___top" title="go to top of document">Constraining return types</a></h3>
+<p>There are multiple ways to constrain return types on a <a href="/Documentable/integration-test/type/Routine">Routine</a>. All versions below are currently valid and will force a type check on successful execution of a routine.</p>
+<p><a href="/Documentable/integration-test/type/Nil"><code>Nil</code></a> and <a href="/Documentable/integration-test/type/Failure"><code>Failure</code></a> are always allowed as return types, regardless of any type constraint. This allows <a href="/Documentable/integration-test/type/Failure">Failure</a> to be returned and passed on down the call chain.</p>
+<pre class="pod-block-code">sub foo(--&gt; Int) { Nil };
+say foo.raku; # OUTPUT: «Nil␤»</pre>
+<p>Type captures are not supported.</p>
+<p><a name="Documentable/integration-test/index-entry--->"></a> <a name="Documentable/integration-test/index-entry-Return_type_arrow"></a></p>
+<h4 id="Return_type_arrow:_-->"><a class="u" href="#___top" title="go to top of document">Return type arrow: <code>--</code>&gt;</a></h4>
+<p>This form of indicating return types (or constants) in the signature is preferred, since it can handle constant values while the others can&#39;t. For consistency, it is the only form accepted on this site.</p>
+<p>The return type arrow has to be placed at the end of the parameter list, with or without a <code>,</code> before it.</p>
+<pre class="pod-block-code">sub greeting1(Str $name  --&gt; Str) { say &quot;Hello, $name&quot; } # Valid
+sub greeting2(Str $name, --&gt; Str) { say &quot;Hello, $name&quot; } # Valid
+
+sub favorite-number1(--&gt; 42) {        } # OUTPUT: 42
+sub favorite-number2(--&gt; 42) { return } # OUTPUT: 42
+</pre>
+<p>If the type constraint is a constant expression, it is used as the return value of the routine. Any return statement in that routine has to be argumentless.</p>
+<pre class="pod-block-code">sub foo(Str $word --&gt; 123) { say $word; return; }
+my $value = foo(&quot;hello&quot;); # OUTPUT: hello
+say $value;               # OUTPUT: 123
+</pre>
+<pre class="pod-block-code"># The code below will not compile
+sub foo(Str $word --&gt; 123) { say $word; return $word; }
+my $value = foo(&quot;hello&quot;);
+say $value;
+</pre>
+<h4 id="returns"><a class="u" href="#___top" title="go to top of document"><code>returns</code></a></h4>
+<p>The keyword <code>returns</code> following a signature declaration has the same function as <code>--&gt;</code> with the caveat that this form does not work with constant values. You cannot use it in a block either. That is why the pointy arrow form is always preferred.</p>
+<pre class="pod-block-code">sub greeting(Str $name) returns Str { say &quot;Hello, $name&quot; } # Valid
+</pre>
+<pre class="pod-block-code">sub favorite-number returns 42 {        } # This will fail.
+</pre>
+<h4 id="of"><a class="u" href="#___top" title="go to top of document"><code>of</code></a></h4>
+<p><code>of</code> is just the real name of the <code>returns</code> keyword.</p>
+<pre class="pod-block-code">sub foo() of Int { 42 }; # Valid
+</pre>
+<pre class="pod-block-code">sub foo() of 42 {  };    # This will fail.
+</pre>
+<h4 id="prefix(C-like)_form"><a class="u" href="#___top" title="go to top of document">prefix(C-like) form</a></h4>
+<p>This is similar to placing type constraints on variables like <code>my Type $var = 20;</code>, except the <code>$var</code> is a definition for a routine.</p>
+<pre class="pod-block-code">my Int sub bar { 1 };     # Valid
+</pre>
+<pre class="pod-block-code">my 42 sub bad-answer {};  # This will fail.
+</pre>
+<h3 id="Coercion_type"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-Coercion_type"><span class="index-entry">Coercion type</span></a></a></h3>
+<p>To accept one type but coerce it automatically to another, use the accepted type as an argument to the target type. If the accepted type is <code>Any</code> it can be omitted.</p>
+<pre class="pod-block-code">sub f(Int(Str) $want-int, Str() $want-str) {
+    say $want-int.^name ~ &#39; &#39; ~ $want-str.^name
+}
+f &#39;10&#39;, 10;
+# OUTPUT: «Int Str␤»
+
+use MONKEY;
+augment class Str { method Date() { Date.new(self) } };
+sub foo(Date(Str) $d) { say $d.^name; say $d };
+foo &quot;2016-12-01&quot;;
+# OUTPUT: «Date␤2016-12-01␤»</pre>
+<p>The coercion is performed by calling the method with the name of the type to coerce to, if it exists (e.g. <code>Foo(Bar)</code> coercer, would call method <code>Foo</code>). The method is assumed to return the correct type—no additional checks on the result are currently performed.</p>
+<p>Coercion can also be performed on return types:</p>
+<pre class="pod-block-code">sub square-str (Int $x --&gt; Str(Int)) {
+    $x²
+}
+
+for 2,4, *²  … 256 -&gt; $a {
+    say $a, &quot;² is &quot;, square-str( $a ).chars, &quot; figures long&quot;;
+}
+
+# OUTPUT: «2² is 1 figures long␤
+#          4² is 2 figures long␤
+#          16² is 3 figures long␤
+#          256² is 5 figures long␤»
+</pre>
+<p>In this example, coercing the return type to <code>Str</code> allows us to directly apply string methods, such as the number of characters.</p>
+<p><a name="Documentable/integration-test/index-entry-parameter_*@"></a> <a name="Documentable/integration-test/index-entry-parameter_*$PERCENT_SIGN"></a> <a name="Documentable/integration-test/index-entry-slurpy_argument"></a></p>
+<h2 id="Slurpy_(A.K.A._variadic)_parameters"><a class="u" href="#___top" title="go to top of document">Slurpy (A.K.A. variadic) parameters</a></h2>
+<p>A function is <a name="Documentable/integration-test/index-entry-variadic"><span class="index-entry">variadic</span></a> if it can take a varying number of arguments; that is, its arity is not fixed. Therefore, optional, named, and slurpy parameters are variadic. An array or hash parameter can be marked as <em>slurpy</em> by leading single (*) or double asterisk (**) or a leading plus (+). A slurpy parameter can bind to an arbitrary number of arguments (zero or more), and it will result in a type that is compatible with the sigil.</p>
+<p>These are called &quot;slurpy&quot; because they slurp up any remaining arguments to a function, like someone slurping up noodles.</p>
+<pre class="pod-block-code">$ = :($a, @b);  # exactly two arguments, where the second one must be Positional
+$ = :($a, *@b); # at least one argument, @b slurps up any beyond that
+$ = :(*%h);     # no positional arguments, but any number of named arguments
+
+sub one-arg (@)  { }
+sub slurpy  (*@) { }
+one-arg (5, 6, 7); # ok, same as one-arg((5, 6, 7))
+slurpy  (5, 6, 7); # ok
+slurpy   5, 6, 7 ; # ok
+# one-arg(5, 6, 7) ; # X::TypeCheck::Argument
+# one-arg  5, 6, 7 ; # X::TypeCheck::Argument
+
+sub named-names (*%named-args) { %named-args.keys };
+say named-names :foo(42) :bar&lt;baz&gt;; # OUTPUT: «foo bar␤»
+</pre>
+<p>Positional and named slurpies can be combined; named arguments (i.e., <code>Pair</code>s) are collected in the specified hash, positional arguments in the array:</p>
+<pre class="pod-block-code">sub combined-slurpy (*@a, *%h) { { array =&gt; @a, hash =&gt; %h } }
+# or: sub combined-slurpy (*%h, *@a) { ... }
+
+say combined-slurpy(one =&gt; 1, two =&gt; 2);
+# OUTPUT: «{array =&gt; [], hash =&gt; {one =&gt; 1, two =&gt; 2}}␤»
+say combined-slurpy(one =&gt; 1, two =&gt; 2, 3, 4);
+# OUTPUT: «{array =&gt; [3 4], hash =&gt; {one =&gt; 1, two =&gt; 2}}␤»
+say combined-slurpy(one =&gt; 1, two =&gt; 2, 3, 4, five =&gt; 5);
+# OUTPUT: «{array =&gt; [3 4], hash =&gt; {five =&gt; 5, one =&gt; 1, two =&gt; 2}}␤»
+say combined-slurpy(one =&gt; 1, two =&gt; 2, 3, 4, five =&gt; 5, 6);
+# OUTPUT: «{array =&gt; [3 4 6], hash =&gt; {five =&gt; 5, one =&gt; 1, two =&gt; 2}}␤»
+</pre>
+<p>Note that positional parameters aren&#39;t allowed after slurpy parameters:</p>
+<pre class="pod-block-code">:(*@args, $last);
+# ===SORRY!=== Error while compiling:
+# Cannot put required parameter $last after variadic parameters
+</pre>
+<p>Normally a slurpy parameter will create an <a href="/Documentable/integration-test/type/Array">Array</a> (or compatible type), create a new <a href="/Documentable/integration-test/type/Scalar">Scalar</a> container for each argument, and assign the value from each argument to those <code>Scalar</code>s. If the original argument also had an intermediary <code>Scalar</code> it is bypassed during this process, and is not available inside the called function.</p>
+<p>Sigiled parameters will always impose a context on the collected arguments. Sigilless parameters can also be used slurpily, preceded by a + sign, to work with whatever initial type they started with:</p>
+<pre class="pod-block-code">sub zipi( +zape ) {
+    zape.^name =&gt; zape
+};
+say zipi( &quot;Hey &quot;); # OUTPUT: «List =&gt; (Hey )␤»
+say zipi( 1...* ); # OUTPUT: «Seq =&gt; (...)␤»
+</pre>
+<p>Slurpy parameters have special behaviors when combined with some <a href="#Parameter_Traits_and_Modifiers">traits and modifiers</a>, as described in <a href="/Documentable/integration-test/type/Signature#Types_of_slurpy_array_parameters">the section on slurpy array parameters</a>.</p>
+<h2 id="Types_of_slurpy_array_parameters"><a class="u" href="#___top" title="go to top of document">Types of slurpy array parameters</a></h2>
+<p>There are three variations to slurpy array parameters.</p>
+<ul><li><p>The single asterisk form flattens passed arguments.</p>
+</li>
+<li><p>The double asterisk form does not flatten arguments.</p>
+</li>
+<li><p>The plus form flattens according to the single argument rule.</p>
+</li>
+</ul>
+<p>Each will be described in detail in the next few sections. As the difference between each is a bit nuanced, examples are provided for each to demonstrate how each slurpy convention varies from the others.</p>
+<h3 id="Flattened_slurpy"><a class="u" href="#___top" title="go to top of document">Flattened slurpy</a></h3>
+<p>Slurpy parameters declared with one asterisk will flatten arguments by dissolving one or more layers of bare <a href="/Documentable/integration-test/type/Iterable">Iterable</a>s.</p>
+<pre class="pod-block-code">my @array = &lt;a b c&gt;;
+my $list := &lt;d e f&gt;;
+sub a(*@a)  { @a.raku.say };
+a(@array);                 # OUTPUT: «[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]»
+a(1, $list, [2, 3]);       # OUTPUT: «[1, &quot;d&quot;, &quot;e&quot;, &quot;f&quot;, 2, 3]»
+a([1, 2]);                 # OUTPUT: «[1, 2]»
+a(1, [1, 2], ([3, 4], 5)); # OUTPUT: «[1, 1, 2, 3, 4, 5]»
+a(($_ for 1, 2, 3));       # OUTPUT: «[1, 2, 3]»
+</pre>
+<p>A single asterisk slurpy flattens all given iterables, effectively hoisting any object created with commas up to the top level.</p>
+<h3 id="Unflattened_slurpy"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-parameter__**@-Unflattened_slurpy"><span class="index-entry">Unflattened slurpy</span></a></a></h3>
+<p>Slurpy parameters declared with two stars do not flatten any <a href="/Documentable/integration-test/type/Iterable">Iterable</a> arguments within the list, but keep the arguments more or less as-is:</p>
+<pre class="pod-block-code">my @array = &lt;a b c&gt;;
+my $list := &lt;d e f&gt;;
+sub b(**@b) { @b.raku.say };
+b(@array);                 # OUTPUT: «[[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;],]␤»
+b(1, $list, [2, 3]);       # OUTPUT: «[1, (&quot;d&quot;, &quot;e&quot;, &quot;f&quot;), [2, 3]]␤»
+b([1, 2]);                 # OUTPUT: «[[1, 2],]␤»
+b(1, [1, 2], ([3, 4], 5)); # OUTPUT: «[1, [1, 2], ([3, 4], 5)]␤»
+b(($_ for 1, 2, 3));       # OUTPUT: «[(1, 2, 3),]␤»
+</pre>
+<p>The double asterisk slurpy hides the nested comma objects and leaves them as-is in the slurpy array.</p>
+<p><a name="Documentable/integration-test/index-entry-+_(Single_argument_rule_slurpy)"></a></p>
+<h3 id="Single_argument_rule_slurpy"><a class="u" href="#___top" title="go to top of document">Single argument rule slurpy</a></h3>
+<p>A slurpy parameter created using a plus engages the <em>&quot;single argument rule&quot;</em>, which decides how to handle the slurpy argument based upon context. Basically, if only a single argument is passed and that argument is <a href="/Documentable/integration-test/type/Iterable">Iterable</a>, that argument is used to fill the slurpy parameter array. In any other case, <code>+@</code> works like <code>**@</code>.</p>
+<pre class="pod-block-code">my @array = &lt;a b c&gt;;
+my $list := &lt;d e f&gt;;
+sub c(+@b) { @b.raku.say };
+c(@array);                 # OUTPUT: «[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]␤»
+c(1, $list, [2, 3]);       # OUTPUT: «[1, (&quot;d&quot;, &quot;e&quot;, &quot;f&quot;), [2, 3]]␤»
+c([1, 2]);                 # OUTPUT: «[1, 2]␤»
+c(1, [1, 2], ([3, 4], 5)); # OUTPUT: «[1, [1, 2], ([3, 4], 5)]␤»
+c(($_ for 1, 2, 3));       # OUTPUT: «[1, 2, 3]␤»
+</pre>
+<p>For additional discussion and examples, see <a href="/Documentable/integration-test/language/functions#Slurpy_conventions">Slurpy Conventions for Functions</a>.</p>
+<p><a name="Documentable/integration-test/index-entry-Type_capture"></a></p>
+<h2 id="Type_captures"><a class="u" href="#___top" title="go to top of document">Type captures</a></h2>
+<p>Type captures allow deferring the specification of a type constraint to the time the function is called. They allow referring to a type both in the signature and the function body.</p>
+<pre class="pod-block-code">sub f(::T $p1, T $p2, ::C){
+    # $p1 and $p2 are of the same type T, that we don&#39;t know yet
+    # C will hold a type we derive from a type object or value
+    my C $division = $p1 / $p2;
+    return sub (T $p1) {
+        $division * $p1;
+    }
+}
+
+# The first parameter is Int and so must be the 2nd.
+# We derive the 3rd type from calling the operator that is used in &amp;f.
+my &amp;s = f(10, 2, Int.new / Int.new);
+say s(2); # 10 / 2 * 2 == 10</pre>
+<p><a name="Documentable/integration-test/index-entry-positional_argument"></a> <a name="Documentable/integration-test/index-entry-named_argument"></a></p>
+<h2 id="Positional_vs._named_arguments"><a class="u" href="#___top" title="go to top of document">Positional vs. named arguments</a></h2>
+<p>An argument can be <em>positional</em> or <em>named</em>. By default, arguments are positional, except slurpy hash and arguments marked with a leading colon <code>:</code>. The latter is called a <a href="/Documentable/integration-test/type/Pair">colon-pair</a>. Check the following signatures and what they denote:</p>
+<pre class="pod-block-code">$ = :($a);               # a positional argument
+$ = :(:$a);              # a named argument of name &#39;a&#39;
+$ = :(*@a);              # a slurpy positional argument
+$ = :(*%h);              # a slurpy named argument</pre>
+<p>On the caller side, positional arguments are passed in the same order as the arguments are declared.</p>
+<pre class="pod-block-code">sub pos($x, $y) { &quot;x=$x y=$y&quot; }
+pos(4, 5);                          # OUTPUT: «x=4 y=5»</pre>
+<p>In the case of named arguments and parameters, only the name is used for mapping arguments to parameters. If a fat arrow is used to construct a <a href="/Documentable/integration-test/type/Pair">Pair</a> only those with valid identifiers as keys are recognized as named arguments.</p>
+<pre class="pod-block-code">sub named(:$x, :$y) { &quot;x=$x y=$y&quot; }
+named( y =&gt; 5, x =&gt; 4);             # OUTPUT: «x=4 y=5»
+</pre>
+<p>You can invoke the routine using a variable with the same name as the named argument; in that case <code>:</code> will be used for the invocation so that the name of the variable is understood as the key of the argument.</p>
+<pre class="pod-block-code">sub named-shortcut( :$shortcut ) {
+    say &quot;Looks like $shortcut&quot;
+}
+named-shortcut( shortcut =&gt; &quot;to here&quot;); # OUTPUT: «Looks like to here␤»
+my $shortcut = &quot;Þor is mighty&quot;;
+named-shortcut( :$shortcut );           # OUTPUT: «Looks like Þor is mighty␤»</pre>
+<p>It is possible to have a different name for a named argument than the variable name:</p>
+<pre class="pod-block-code">sub named(:official($private)) { &quot;Official business!&quot; if $private }
+named :official;</pre>
+<p><a name="Documentable/integration-test/index-entry-argument_aliases"></a></p>
+<h2 id="Argument_aliases"><a class="u" href="#___top" title="go to top of document">Argument aliases</a></h2>
+<p>The <a href="/Documentable/integration-test/type/Pair">colon-pair</a> syntax can be used to provide aliases for arguments:</p>
+<pre class="pod-block-code">sub alias-named(:color(:$colour), :type(:class($kind))) {
+    say $colour ~ &quot; &quot; ~ $kind
+}
+alias-named(color =&gt; &quot;red&quot;, type =&gt; &quot;A&quot;);    # both names can be used
+alias-named(colour =&gt; &quot;green&quot;, type =&gt; &quot;B&quot;); # more than two names are ok
+alias-named(color =&gt; &quot;white&quot;, class =&gt; &quot;C&quot;); # every alias is independent</pre>
+<p>The presence of the colon <code>:</code> will decide whether we are creating a new named argument or not. <code>:$colour</code> will not only be the name of the aliased variable, but also a new named argument (used in the second invocation). However, <code>$kind</code> will just be the name of the aliased variable, that does not create a new named argument. More uses of aliases can be found in <a href="/Documentable/integration-test/language/create-cli#sub_MAIN">sub MAIN</a>.</p>
+<p>A function with named arguments can be called dynamically, dereferencing a <a href="/Documentable/integration-test/type/Pair">Pair</a> with <code>|</code> to turn it into a named argument.</p>
+<pre class="pod-block-code">multi f(:$named) { note &amp;?ROUTINE.signature };
+multi f(:$also-named) { note &amp;?ROUTINE.signature };
+for &#39;named&#39;, &#39;also-named&#39; -&gt; $n {
+    f(|($n =&gt; rand))                # OUTPUT: «(:$named)␤(:$also-named)␤»
+}
+
+my $pair = :named(1);
+f |$pair;                           # OUTPUT: «(:$named)␤»</pre>
+<p>The same can be used to convert a <code>Hash</code> into named arguments.</p>
+<pre class="pod-block-code">sub f(:$also-named) { note &amp;?ROUTINE.signature };
+my %pairs = also-named =&gt; 4;
+f |%pairs;                              # OUTPUT: «(:$also-named)␤»</pre>
+<p>A <code>Hash</code> that contains a list may prove problematic when slipped into named arguments. To avoid the extra layer of containers coerce to <a href="/Documentable/integration-test/type/Map">Map</a> before slipping.</p>
+<pre class="pod-block-code">class C { has $.x; has $.y; has @.z };
+my %h = &lt;x y z&gt; Z=&gt; (5, 20, [1,2]);
+say C.new(|%h.Map);
+# OUTPUT: «C.new(x =&gt; 5, y =&gt; 20, z =&gt; [1, 2])␤»</pre>
+<p>You can create as many aliases to a named argument as you want:</p>
+<pre class="pod-block-code">sub alias-named(:color(:$colour),
+                :variety(:style(:sort(:type(:class($kind)))))) {
+    return $colour ~ &quot; &quot; ~ $kind
+}
+say alias-named(color =&gt; &quot;red&quot;, style =&gt; &quot;A&quot;);
+say alias-named(colour =&gt; &quot;green&quot;, variety =&gt; &quot;B&quot;);
+say alias-named(color =&gt; &quot;white&quot;, class =&gt; &quot;C&quot;);
+</pre>
+<p>You can create named arguments that do not create any variables by making the argument an alias for an <a href="#index-entry-anonymous_arguments">anonymous argument</a>. This can be useful when using named arguments solely as a means of selecting a <code>multi</code> candidate, which is often the case with traits, for instance:</p>
+<pre class="pod-block-code"># Timestamps calls to a routine.
+multi sub trait_mod:&lt;is&gt;(Routine:D $r is raw, :timestamped($)!) {
+    $r does my role timestamped { has Instant:D @.timestamps };
+    $r.wrap: -&gt; | { ENTER $r.timestamps.push: now; callsame };
+}
+
+sub foo is timestamped { }
+foo;
+say +&amp;foo.?timestamps; # OUTPUT: «1␤»
+</pre>
+<p><a name="Documentable/integration-test/index-entry-optional_argument"></a></p>
+<h2 id="Optional_and_mandatory_arguments"><a class="u" href="#___top" title="go to top of document">Optional and mandatory arguments</a></h2>
+<p>Positional parameters are mandatory by default, and can be made optional with a default value or a trailing question mark:</p>
+<pre class="pod-block-code">$ = :(Str $id);         # required parameter
+$ = :($base = 10);      # optional parameter, default value 10
+$ = :(Int $x?);         # optional parameter, default is the Int type object</pre>
+<p><a name="Documentable/integration-test/index-entry-mandatory_named_argument"></a> Named parameters are optional by default, and can be made mandatory with a trailing exclamation mark:</p>
+<pre class="pod-block-code">$ = :(:%config);        # optional parameter
+$ = :(:$debug = False); # optional parameter, defaults to False
+$ = :(:$name!);         # mandatory &#39;name&#39; named parameter</pre>
+<p>Default values can depend on previous parameters, and are (at least notionally) computed anew for each call</p>
+<pre class="pod-block-code">$ = :($goal, $accuracy = $goal / 100);
+$ = :(:$excludes = [&#39;.&#39;, &#39;..&#39;]);        # a new Array for every call</pre>
+<h2 id="Dynamic_variables"><a class="u" href="#___top" title="go to top of document">Dynamic variables</a></h2>
+<p><a href="/Documentable/integration-test/language/variables#The_*_twigil">Dynamic variables</a> are allowed in signatures although they don&#39;t provide special behavior because argument binding does connect two scopes anyway.</p>
+<p><a name="Documentable/integration-test/index-entry-destructuring_arguments"></a></p>
+<h2 id="Destructuring_arguments"><a class="u" href="#___top" title="go to top of document">Destructuring arguments</a></h2>
+<p>Non-scalar parameters can be followed or substituted by a sub-signature in parentheses, which will destructure the argument given. The destructuring of a list is just its elements:</p>
+<pre class="pod-block-code">sub first(@array ($first, *@rest)) { $first }</pre>
+<p>or</p>
+<pre class="pod-block-code">sub first([$f, *@]) { $f }</pre>
+<p>While the destructuring of a hash is its pairs:</p>
+<pre class="pod-block-code">sub all-dimensions(% (:length(:$x), :width(:$y), :depth(:$z))) {
+    $x andthen $y andthen $z andthen True
+}</pre>
+<p>Pointy loops can also destructure hashes, allowing assignment to variables:</p>
+<pre class="pod-block-code">my %hhgttu = (:40life, :41universe, :42everything);
+for %hhgttu -&gt; (:$key, :$value) {
+  say &quot;$key → $value&quot;;
+}
+# OUTPUT: «universe → 41␤life → 40␤everything → 42␤»</pre>
+<p>In general, an object is destructured based on its attributes. A common idiom is to unpack a <a href="/Documentable/integration-test/type/Pair">Pair</a>&#39;s key and value in a for loop:</p>
+<pre class="pod-block-code">for &lt;Peter Paul Merry&gt;.pairs -&gt; (:key($index), :value($guest)) { }</pre>
+<p>However, this unpacking of objects as their attributes is only the default behavior. To make an object get destructured differently, change its <a href="/Documentable/integration-test/routine/Capture"><code>Capture</code></a> method.</p>
+<p><a name="Documentable/integration-test/index-entry-sub-signature"></a></p>
+<h2 id="Sub-signatures"><a class="u" href="#___top" title="go to top of document">Sub-signatures</a></h2>
+<p>To match against a compound parameter use a sub-signature following the argument name in parentheses.</p>
+<pre class="pod-block-code">sub foo(|c(Int, Str)){
+   put &quot;called with {c.raku}&quot;
+};
+foo(42, &quot;answer&quot;);
+# OUTPUT: «called with \(42, &quot;answer&quot;)␤»</pre>
+<h2 id="Long_names"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-Long_names"><span class="index-entry">Long names</span></a></a></h2>
+<p>To exclude certain parameters from being considered in multiple dispatch, separate them with a double semicolon.</p>
+<pre class="pod-block-code">multi sub f(Int $i, Str $s;; :$b) { say &quot;$i, $s, {$b.raku}&quot; };
+f(10, &#39;answer&#39;);
+# OUTPUT: «10, answer, Any␤»</pre>
+<h2 id="Capture_parameters"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-parameter_|-Capture_parameters"><span class="index-entry">Capture parameters</span></a></a></h2>
+<p>Prefixing a parameter with a vertical bar <code>|</code> makes the parameter a <a href="/Documentable/integration-test/type/Capture"><code>Capture</code></a>, using up all the remaining positional and named arguments.</p>
+<p>This is often used in <code>proto</code> definitions (like <code>proto foo (|) {*}</code>) to indicate that the routine&#39;s <a href="/Documentable/integration-test/syntax/multi"><code>multi</code> definitions</a> can have any <a href="#Type_constraints">type constraints</a>. See <a href="/Documentable/integration-test/language/functions#proto">proto</a> for an example.</p>
+<p>If bound to a variable, arguments can be forwarded as a whole using the slip operator <code>|</code>.</p>
+<pre class="pod-block-code">sub a(Int $i, Str $s) { say $i.^name ~ &#39; &#39; ~ $s.^name }
+sub b(|c) { say c.^name; a(|c) }
+b(42, &quot;answer&quot;);
+# OUTPUT: «Capture␤Int Str␤»</pre>
+<h2 id="Parameter_traits_and_modifiers"><a class="u" href="#___top" title="go to top of document">Parameter traits and modifiers</a></h2>
+<p>By default, parameters are bound to their argument and marked as read-only. One can change that with traits on the parameter.</p>
+<p><a name="Documentable/integration-test/index-entry-trait_is_copy"></a> The <code>is copy</code> trait causes the argument to be copied, and allows it to be modified inside the routine</p>
+<pre class="pod-block-code">sub count-up($x is copy) {
+    $x = ∞ if $x ~~ Whatever;
+    .say for 1..$x;
+}</pre>
+<p><a name="Documentable/integration-test/index-entry-trait_is_rw"></a> The <code>is rw</code> trait, which stands for <em>is read-write</em>, makes the parameter bind to a variable (or other writable container). Assigning to the parameter changes the value of the variable at the caller side.</p>
+<pre class="pod-block-code">sub swap($x is rw, $y is rw) {
+    ($x, $y) = ($y, $x);
+}</pre>
+<p>On slurpy parameters, <code>is rw</code> is reserved for future use by language designers.</p>
+<p><a name="Documentable/integration-test/index-entry-trait__is_raw"></a> The <a href="/Documentable/integration-test/type/Parameter#method_raw"><code>is raw</code> trait</a> is automatically applied to parameters declared with a <a href="/Documentable/integration-test/language/variables#Sigilless_variables">backslash</a> as a &quot;sigil&quot;, and may also be used to make normally sigiled parameters behave like these do. In the special case of slurpies, which normally produce an <code>Array</code> full of <code>Scalar</code>s as described above, <code>is raw</code> will instead cause the parameter to produce a <code>List</code>. Each element of that list will be bound directly as raw parameter.</p>
+<p><a name="Documentable/integration-test/index-entry-trait_is_readonly"></a> To explicitly ask for a read-only parameter use the <code>is readonly</code> trait. Please note that this applies only to the container. The object inside can very well have mutator methods and Raku will not enforce immutability on the attributes of the object.</p>
+<p>Traits can be followed by the where clause:</p>
+<pre class="pod-block-code">sub ip-expand-ipv6($ip is copy where m:i/^&lt;[a..f\d\:]&gt;**3..39$/) { }</pre>
+<h1 id="Methods"><a class="u" href="#___top" title="go to top of document">Methods</a></h1>
+<h2 id="method_params"><a class="u" href="#___top" title="go to top of document">method params</a></h2>
+<pre class="pod-block-code">method params(Signature:D: --&gt; Positional)</pre>
+<p>Returns the list of <a href="/Documentable/integration-test/type/Parameter"><code>Parameter</code></a> objects that make up the signature.</p>
+<h2 id="method_arity"><a class="u" href="#___top" title="go to top of document">method arity</a></h2>
+<pre class="pod-block-code">method arity(Signature:D: --&gt; Int:D)</pre>
+<p>Returns the <em>minimal</em> number of positional arguments required to satisfy the signature.</p>
+<h2 id="method_count"><a class="u" href="#___top" title="go to top of document">method count</a></h2>
+<pre class="pod-block-code">method count(Signature:D: --&gt; Real:D)</pre>
+<p>Returns the <em>maximal</em> number of positional arguments which can be bound to the signature. Returns <code>Inf</code> if there is a slurpy positional parameter.</p>
+<h2 id="method_returns"><a class="u" href="#___top" title="go to top of document">method returns</a></h2>
+<p>Whatever the Signature&#39;s return constraint is:</p>
+<pre class="pod-block-code">:($a, $b --&gt; Int).returns # OUTPUT: «(Int)»</pre>
+<h2 id="method_ACCEPTS"><a class="u" href="#___top" title="go to top of document">method ACCEPTS</a></h2>
+<pre class="pod-block-code">multi method ACCEPTS(Signature:D: Signature $topic)
+multi method ACCEPTS(Signature:D: Capture $topic)
+multi method ACCEPTS(Signature:D: Mu \topic)</pre>
+<p>If <code>$topic</code> is a <a href="/Documentable/integration-test/type/Signature">Signature</a> returns <code>True</code> if anything accepted by <code>$topic</code> would also be accepted by the invocant, otherwise returns <code>False</code>:</p>
+<pre class="pod-block-code">:($a, $b) ~~ :($foo, $bar, $baz?);   # OUTPUT: «True»
+:(Int $n) ~~ :(Str);                 # OUTPUT: «False»</pre>
+<p>The <code>$topic</code> is a <a href="/Documentable/integration-test/type/Capture">Capture</a>, returns <code>True</code> if it can be bound to the invocant, i.e., if a function with invocant&#39;s <code>Signature</code> would be able to be called with the <code>$topic</code>:</p>
+<pre class="pod-block-code">\(1, 2, :foo) ~~ :($a, $b, :foo($bar)); # OUTPUT: «True»
+\(1, :bar)    ~~ :($a);                 # OUTPUT: «False»</pre>
+<p>Lastly, the candidate with <code>Mu \topic</code> converts <code>topic</code> to <a href="/Documentable/integration-test/type/Capture">Capture</a> and follows the same semantics as <a href="/Documentable/integration-test/type/Capture">Capture</a> <code>$topic</code>:</p>
+<pre class="pod-block-code">&lt;a b c d&gt;  ~~ :(Int $a);      # OUTPUT: «False»
+42         ~~ :(Int);         # OUTPUT: «False» (Int.Capture throws)
+set(&lt;a b&gt;) ~~ :(:$a, :$b);    # OUTPUT: «True»</pre>
+<p>Since <a href="/Documentable/integration-test/type/Signature#index-entry-where_clause_(Signature)"><code>where</code> clauses</a> are not introspectable, the method cannot determine whether two signatures <a href="/Documentable/integration-test/type/Signature#method_ACCEPTS">ACCEPTS</a> the same sort of <code>where</code>-constrained parameters. Such comparisons will return <code>False</code>. This includes signatures with literals, which are just sugar for the <code>where</code>-constraints:</p>
+<pre class="pod-block-code">say :(42) ~~ :($ where 42)    # OUTPUT: «False␤»</pre>
+<h2 id="method_Capture"><a class="u" href="#___top" title="go to top of document">method Capture</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method Capture()</pre>
+<p>Throws <code>X::Cannot::Capture</code>.</p>
+<h1 id="Runtime_creation_of_Signature_objects_(6.d,_2019.03_and_later)"><a class="u" href="#___top" title="go to top of document">Runtime creation of Signature objects (6.d, 2019.03 and later)</a></h1>
+<pre class="pod-block-code">Signature.new(params =&gt; (...), returns =&gt; Type, arity =&gt; 1, count =&gt; 1)
+</pre>
+<p>In some situations, specifically when working with the MetaObject Protocol, it makes sense to create <code>Signature</code> objects programmatically. For this purpose, you can call the <code>new</code> method with the following named parameters:</p>
+<ul><li><p>params</p>
+</li>
+</ul>
+<p>A list of <a href="/Documentable/integration-test/type/Parameter">Parameter</a> objects for this signature.</p>
+<ul><li><p>returns</p>
+</li>
+</ul>
+<p>Any constraint the return value should match. Defaults to <code>Mu</code>, which effectively implies no return value constraint check.</p>
+<ul><li><p>arity</p>
+</li>
+</ul>
+<p>The <em>minimal</em> number of positional arguments required to satisfy the signature. Defaults to the number of <code>Parameter</code> objects given with the <code>params</code> parameter.</p>
+<ul><li><p>count</p>
+</li>
+</ul>
+<p>The <em>maximal</em> number of positional arguments which can be bound to the signature. Defaults to the <code>arity</code> if not specified. Specify <code>Inf</code> if there is a slurpy positional parameter.</p>
+<h1 id="Type_Graph"><a class="u" href="#___top" title="go to top of document">Type Graph</a></h1>
+<figure>
+  <figcaption>Type relations for <code>Signature</code></figcaption>
+  <svg width="117pt" height="188pt"
+ viewBox="0.00 0.00 117.19 188.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 184)">
+<title>perl6&#45;type&#45;graph</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-184 113.19,-184 113.19,4 -4,4"/>
+<!-- Signature -->
+<g id="node1" class="node">
+<title>Signature</title>
+<g id="a_node1"><a xlink:href="/type/Signature" xlink:title="Signature">
+<ellipse fill="none" stroke="#000000" cx="54.6" cy="-18" rx="54.69" ry="18"/>
+<text text-anchor="middle" x="54.6" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">Signature</text>
+</a>
+</g>
+</g>
+<!-- Any -->
+<g id="node3" class="node">
+<title>Any</title>
+<g id="a_node3"><a xlink:href="/type/Any" xlink:title="Any">
+<ellipse fill="none" stroke="#000000" cx="54.6" cy="-90" rx="27" ry="18"/>
+<text text-anchor="middle" x="54.6" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Any</text>
+</a>
+</g>
+</g>
+<!-- Signature&#45;&gt;Any -->
+<g id="edge1" class="edge">
+<title>Signature&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M54.6,-36.3C54.6,-44.02 54.6,-53.29 54.6,-61.89"/>
+<polygon fill="#000000" stroke="#000000" points="51.1,-61.9 54.6,-71.9 58.1,-61.9 51.1,-61.9"/>
+</g>
+<!-- Mu -->
+<g id="node2" class="node">
+<title>Mu</title>
+<g id="a_node2"><a xlink:href="/type/Mu" xlink:title="Mu">
+<ellipse fill="none" stroke="#000000" cx="54.6" cy="-162" rx="27" ry="18"/>
+<text text-anchor="middle" x="54.6" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#000000">Mu</text>
+</a>
+</g>
+</g>
+<!-- Any&#45;&gt;Mu -->
+<g id="edge2" class="edge">
+<title>Any&#45;&gt;Mu</title>
+<path fill="none" stroke="#000000" d="M54.6,-108.3C54.6,-116.02 54.6,-125.29 54.6,-133.89"/>
+<polygon fill="#000000" stroke="#000000" points="51.1,-133.9 54.6,-143.9 58.1,-133.9 51.1,-133.9"/>
+</g>
+</g>
+</svg>
+
+  <p class="fallback">
+    <a
+      rel="alternate"
+      href="/images/type-graph-Signature.svg"
+      type="image/svg+xml"
+      >Expand above chart</a
+    >
+  </p>
+</figure>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Type/Signature.pod6">https://github.com/Raku/doc/blob/master/doc/Type/Signature.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

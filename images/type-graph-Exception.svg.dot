@@ -1,0 +1,23 @@
+digraph "perl6-type-graph" {
+    rankdir=LR;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "X::Documentable::Config::InvalidConfig" [color="#000000", fontcolor="#000000", href="/type/X::Documentable::Config::InvalidConfig", fontname="FreeSans"];
+    "X::Documentable::MissingMetadata" [color="#000000", fontcolor="#000000", href="/type/X::Documentable::MissingMetadata", fontname="FreeSans"];
+    "X::Documentable::SubtitleNotFound" [color="#000000", fontcolor="#000000", href="/type/X::Documentable::SubtitleNotFound", fontname="FreeSans"];
+    "X::Documentable::TitleNotFound" [color="#000000", fontcolor="#000000", href="/type/X::Documentable::TitleNotFound", fontname="FreeSans"];
+    "X::Documentable::TypeNotFound" [color="#000000", fontcolor="#000000", href="/type/X::Documentable::TypeNotFound", fontname="FreeSans"];
+    "Exception" [color="#000000", fontcolor="#000000", href="/type/Exception", fontname="FreeSans"];
+    "Any" [color="#000000", fontcolor="#000000", href="/type/Any", fontname="FreeSans"];
+
+    // Superclasses
+    "X::Documentable::Config::InvalidConfig" -> "Exception" [color="#000000"];
+    "X::Documentable::MissingMetadata" -> "Exception" [color="#000000"];
+    "X::Documentable::SubtitleNotFound" -> "Exception" [color="#000000"];
+    "X::Documentable::TitleNotFound" -> "Exception" [color="#000000"];
+    "X::Documentable::TypeNotFound" -> "Exception" [color="#000000"];
+    "Exception" -> "Any" [color="#000000"];
+
+    // Roles
+}

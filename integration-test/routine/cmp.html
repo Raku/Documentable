@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>infix cmp</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/routine.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-sub.html"> Sub </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-method.html"> Method </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-term.html"> Term </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-operator.html"> Operator </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-trait.html"> Trait </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-submethod.html"> Submethod </a>
+            </div></div></div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">infix cmp</h1>
+        <p class="subtitle"></p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#language_documentation_Operators">language documentation Operators</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#(Operators)_infix_cmp">(Operators) infix cmp</a></td></tr>
+                 <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#class_NumStr">class NumStr</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#(NumStr)_infix_cmp">(NumStr) infix cmp</a></td></tr>
+              <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#class_ComplexStr">class ComplexStr</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#(ComplexStr)_infix_cmp">(ComplexStr) infix cmp</a></td></tr>
+              <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#class_Pair">class Pair</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">4.1</td><td class="toc-text"><a href="#(Pair)_infix_cmp">(Pair) infix cmp</a></td></tr>
+           <tr class="toc-level-1"><td class="toc-number">5</td><td class="toc-text"><a href="#class_RatStr">class RatStr</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">5.1</td><td class="toc-text"><a href="#(RatStr)_infix_cmp">(RatStr) infix cmp</a></td></tr>
+              <tr class="toc-level-1"><td class="toc-number">6</td><td class="toc-text"><a href="#class_IntStr">class IntStr</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">6.1</td><td class="toc-text"><a href="#(IntStr)_infix_cmp">(IntStr) infix cmp</a></td></tr>
+              <tr class="toc-level-1"><td class="toc-number">7</td><td class="toc-text"><a href="#enum_Order">enum Order</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">7.1</td><td class="toc-text"><a href="#(Order)_infix_cmp">(Order) infix cmp</a></td></tr>
+            <tr class="toc-level-1"><td class="toc-number">8</td><td class="toc-text"><a href="#class_List">class List</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">8.1</td><td class="toc-text"><a href="#(List)_infix_cmp">(List) infix cmp</a></td></tr>
+                                  
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Documentation for infix <code>cmp</code> assembled from the following types:</p>
+<h1 id="language_documentation_Operators"><a class="u" href="#___top" title="go to top of document">language documentation Operators</a></h1>
+<p>From <a href="/Documentable/integration-test/language/operators#infix_cmp">Operators</a></p>
+<h2 id="(Operators)_infix_cmp"><a href="/Documentable/integration-test/language/operators#infix_cmp">(Operators) infix cmp</a></h2>
+<pre class="pod-block-code">multi sub infix:&lt;cmp&gt;(Any,       Any)
+multi sub infix:&lt;cmp&gt;(Real:D,    Real:D)
+multi sub infix:&lt;cmp&gt;(Str:D,     Str:D)
+multi sub infix:&lt;cmp&gt;(Version:D, Version:D)</pre>
+<p><a name="Documentable/integration-test/index-entry-Generic,_"smart"_three-way_comparator"><span class="index-entry">Generic, &quot;smart&quot; three-way comparator</span></a>.</p>
+<p>Compares strings with string semantics, numbers with number semantics, <a href="/Documentable/integration-test/type/Pair">Pair</a> objects first by key and then by value etc.</p>
+<p>if <code>$a eqv $b</code>, then <code>$a cmp $b</code> always returns <code>Order::Same</code>.</p>
+<pre class="pod-block-code">say (a =&gt; 3) cmp (a =&gt; 4);   # OUTPUT: «Less␤»
+say 4        cmp 4.0;        # OUTPUT: «Same␤»
+say &#39;b&#39;      cmp &#39;a&#39;;        # OUTPUT: «More␤»</pre>
+<p>Strings are compared codepoint by codepoint; if leading codepoints are the same, the result of comparing the first differing codepoint is returned or the longer string if their lengths differ.</p>
+<pre class="pod-block-code">&quot;abcd&quot; cmp &quot;abcde&quot;;    # OUTPUT: «Less␤»
+&quot;abcd &quot; cmp &quot;abcde&quot;;   # OUTPUT: «Less␤»
+&#39;A&#39; cmp &#39;Ẳ&#39;;           # OUTPUT: «Less␤»</pre>
+<h1 id="class_NumStr"><a class="u" href="#___top" title="go to top of document">class NumStr</a></h1>
+<p>From <a href="/Documentable/integration-test/type/NumStr#infix_cmp">NumStr</a></p>
+<h2 id="(NumStr)_infix_cmp"><a href="/Documentable/integration-test/type/NumStr#infix_cmp">(NumStr) infix cmp</a></h2>
+<pre class="pod-block-code">multi sub infix:&lt;cmp&gt;(NumStr:D $a, NumStr:D $b)</pre>
+<p>Compare two <code>NumStr</code> objects. The comparison is done on the <code>Num</code> value first and then on the <code>Str</code> value. If you want to compare in a different order then you would coerce to a <code>Num</code> or <code>Str</code> value first:</p>
+<pre class="pod-block-code">my $f = NumStr.new(42.1e0, &quot;smaller&quot;);
+my $g = NumStr.new(43.1e0, &quot;larger&quot;);
+say $f cmp $g;          # OUTPUT: «Less␤»
+say $f.Str cmp $g.Str;  # OUTPUT: «More␤»</pre>
+<h1 id="class_ComplexStr"><a class="u" href="#___top" title="go to top of document">class ComplexStr</a></h1>
+<p>From <a href="/Documentable/integration-test/type/ComplexStr#infix_cmp">ComplexStr</a></p>
+<h2 id="(ComplexStr)_infix_cmp"><a href="/Documentable/integration-test/type/ComplexStr#infix_cmp">(ComplexStr) infix cmp</a></h2>
+<pre class="pod-block-code">multi sub infix:&lt;cmp&gt;(ComplexStr:D $a, ComplexStr:D $b)</pre>
+<p>Compare two <code>ComplexStr</code> objects. The comparison is done on the <code>Complex</code> value first and then on the <code>Str</code> value. If you want to compare in a different order then you would coerce to the <code>Complex</code> or <code>Str</code> values first:</p>
+<pre class="pod-block-code">my $f = ComplexStr.new(42+0i, &quot;smaller&quot;);
+my $g = ComplexStr.new(43+0i, &quot;larger&quot;);
+say $f cmp $g;          # OUTPUT: «Less␤»
+say $f.Str cmp $g.Str;  # OUTPUT: «More␤»</pre>
+<h1 id="class_Pair"><a class="u" href="#___top" title="go to top of document">class Pair</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Pair#infix_cmp">Pair</a></p>
+<h2 id="(Pair)_infix_cmp"><a href="/Documentable/integration-test/type/Pair#infix_cmp">(Pair) infix cmp</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub infix:&lt;cmp&gt;(Pair:D, Pair:D)</pre>
+<p>The type-agnostic comparator; compares two <code>Pair</code>s. Compares first their <em>key</em> parts, and then compares the <em>value</em> parts if the keys are equal.</p>
+<pre class="pod-block-code">my $a = (Apple =&gt; 1);
+my $b = (Apple =&gt; 2);
+say $a cmp $b; # OUTPUT: «Less␤»</pre>
+<h1 id="class_RatStr"><a class="u" href="#___top" title="go to top of document">class RatStr</a></h1>
+<p>From <a href="/Documentable/integration-test/type/RatStr#infix_cmp">RatStr</a></p>
+<h2 id="(RatStr)_infix_cmp"><a href="/Documentable/integration-test/type/RatStr#infix_cmp">(RatStr) infix cmp</a></h2>
+<pre class="pod-block-code">multi sub infix:&lt;cmp&gt;(RatStr:D $a, RatStr:D $b)</pre>
+<p>Compare two <code>RatStr</code> objects. The comparison is done on the <code>Rat</code> value first and then on the <code>Str</code> value. If you want to compare in a different order then you would coerce to the <code>Rat</code> or <code>Str</code> values first:</p>
+<pre class="pod-block-code">my $f = RatStr.new(42.1, &quot;smaller&quot;);
+my $g = RatStr.new(43.1, &quot;larger&quot;);
+say $f cmp $g;          # OUTPUT: «Less␤»
+say $f.Str cmp $g.Str;  # OUTPUT: «More␤»</pre>
+<h1 id="class_IntStr"><a class="u" href="#___top" title="go to top of document">class IntStr</a></h1>
+<p>From <a href="/Documentable/integration-test/type/IntStr#infix_cmp">IntStr</a></p>
+<h2 id="(IntStr)_infix_cmp"><a href="/Documentable/integration-test/type/IntStr#infix_cmp">(IntStr) infix cmp</a></h2>
+<pre class="pod-block-code">multi sub infix:&lt;cmp&gt;(IntStr:D $a, IntStr:D $b)</pre>
+<p>Compare two <code>IntStr</code> objects. The comparison is done on the <code>Int</code> value first and then on the <code>Str</code> value. If you want to compare in a different order then you would coerce to an <code>Int</code> or <code>Str</code> value first:</p>
+<pre class="pod-block-code">my $f = IntStr.new(42, &quot;smaller&quot;);
+my $g = IntStr.new(43, &quot;larger&quot;);
+say $f cmp $g;          # OUTPUT: «Less␤»
+say $f.Str cmp $g.Str;  # OUTPUT: «More␤»</pre>
+<h1 id="enum_Order"><a class="u" href="#___top" title="go to top of document">enum Order</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Order#infix_cmp">Order</a></p>
+<h2 id="(Order)_infix_cmp"><a href="/Documentable/integration-test/type/Order#infix_cmp">(Order) infix cmp</a></h2>
+<pre class="pod-block-code">multi sub infix:&lt;cmp&gt;(\a, \b --&gt; Order:D)</pre>
+<p><code>cmp</code> will first try to compare operands as strings (via coercion to <a href="/Documentable/integration-test/type/Stringy">Stringy</a>), and, failing that, will try to compare numerically via the <code>&lt;=&gt;</code> operator or any other type-appropriate comparison operator. See also <a href="/Documentable/integration-test/routine/cmp#(Operators)_infix_cmp">the documentation for the <code>cmp</code> operator</a>.</p>
+<h1 id="class_List"><a class="u" href="#___top" title="go to top of document">class List</a></h1>
+<p>From <a href="/Documentable/integration-test/type/List#infix_cmp">List</a></p>
+<h2 id="(List)_infix_cmp"><a href="/Documentable/integration-test/type/List#infix_cmp">(List) infix cmp</a></h2>
+<pre class="pod-block-code">multi sub infix:&lt;cmp&gt;(List @a, List @b)</pre>
+<p>Evaluates <code>Lists</code> by comparing element <code>@a[$i]</code> with <code>@b[$i]</code> (for some <code>Int $i</code>, beginning at 0) and returning <code>Order::Less</code>, <code>Order::Same</code>, or <code>Order::More</code> depending on if and how the values differ. If the operation evaluates to <code>Order::Same</code>, <code>@a[$i + 1]</code> is compared with <code>@b[$i + 1]</code>. This is repeated until one is greater than the other or all elements are exhausted.</p>
+<p>If the <code>Lists</code> are of different lengths, at most only <code>$n</code> comparisons will be made (where <code>$n = @a.elems min @b.elems</code>). If all of those comparisons evaluate to <code>Order::Same</code>, the final value is selected based upon which <code>List</code> is longer.</p>
+<pre class="pod-block-code">say (1, 2, 3) cmp (1, 2, 3);   # OUTPUT: «Same␤»
+say (4, 5, 6) cmp (4, 5, 7);   # OUTPUT: «Less␤»
+say (7, 8, 9) cmp (7, 8, 8);   # OUTPUT: «More␤»
+
+say (1, 2)    cmp (1, 2, 3);   # OUTPUT: «Less␤»
+say (1, 2, 3) cmp (1, 2);      # OUTPUT: «More␤»
+say (9).List  cmp (^10).List;  # OUTPUT: «More␤»</pre>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>routine produce</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/routine.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-sub.html"> Sub </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-method.html"> Method </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-term.html"> Term </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-operator.html"> Operator </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-trait.html"> Trait </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-submethod.html"> Submethod </a>
+            </div></div></div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">routine produce</h1>
+        <p class="subtitle"></p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#class_Any">class Any</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#(Any)_routine_produce">(Any) routine produce</a></td></tr>
+              <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#class_List">class List</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#(List)_routine_produce">(List) routine produce</a></td></tr>
+                                           <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#class_Supply">class Supply</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#(Supply)_method_produce">(Supply) method produce</a></td></tr>
+     
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Documentation for routine <code>produce</code> assembled from the following types:</p>
+<h1 id="class_Any"><a class="u" href="#___top" title="go to top of document">class Any</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Any#routine_produce">Any</a></p>
+<h2 id="(Any)_routine_produce"><a href="/Documentable/integration-test/type/Any#routine_produce">(Any) routine produce</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method produce(Any:U: &amp; --&gt; Nil)
+multi method produce(Any:D: &amp;with)
+multi sub produce (&amp;with, +list)</pre>
+<p>This is similar to <a href="/Documentable/integration-test/routine/reduce#(List)_routine_reduce"><code>reduce</code></a>, but returns a list with the accumulated values instead of a single result.</p>
+<pre class="pod-block-code">&lt;10 5 3&gt;.reduce( &amp;[*] ).say ; # OUTPUT: «150␤»
+&lt;10 5 3&gt;.produce( &amp;[*] ).say; # OUTPUT: «(10 50 150)␤»
+</pre>
+<p>The last element of the produced list would be the output produced by the <code>.reduce</code> method.</p>
+<p>If it&#39;s a class, it will simply return Nil.</p>
+<h1 id="class_List"><a class="u" href="#___top" title="go to top of document">class List</a></h1>
+<p>From <a href="/Documentable/integration-test/type/List#routine_produce">List</a></p>
+<h2 id="(List)_routine_produce"><a href="/Documentable/integration-test/type/List#routine_produce">(List) routine produce</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub    produce(&amp;with, *@values)
+multi method produce(List:D: &amp;with)</pre>
+<p>Generates a list of all intermediate &quot;combined&quot; values along with the final result by iteratively applying a function which knows how to combine <em>two</em> values.</p>
+<p>If <code>@values</code> contains just a single element, a list containing that element is returned immediately. If it contains no elements, an exception is thrown, unless <code>&amp;with</code> is an <em>operator</em> with a known identity value.</p>
+<p>If <code>&amp;with</code> is the function object of an <em>operator</em>, its inherent identity value and associativity is respected - in other words, <code>(VAL1, VAL2, VAL3).produce(&amp;[OP])</code> is the same as <code>VAL1 OP VAL2 OP VAL3</code> even for operators which aren&#39;t left-associative:</p>
+<pre class="pod-block-code"># Raise 2 to the 81st power, because 3 to the 4th power is 81
+[2,3,4].produce(&amp;[**]).say;        # OUTPUT: «(4 81 2417851639229258349412352)␤»
+say produce &amp;[**], (2,3,4);        # OUTPUT: «(4 81 2417851639229258349412352)␤»
+say [\**] (2,3,4);                 # OUTPUT: «(4 81 2417851639229258349412352)␤»
+
+# Subtract 4 from -1, because 2 minus 3 is -1
+[2,3,4].produce(&amp;[-]).say;         # OUTPUT: «(2 -1 -5)␤»
+say produce &amp;[-], (2,3,4);         # OUTPUT: «(2 -1 -5)␤»
+say [\-] (2,3,4);                  # OUTPUT: «(2 -1 -5)␤»</pre>
+<p>A triangle metaoperator <code>[\ ]</code> provides a syntactic shortcut for producing with an infix operator:</p>
+<pre class="pod-block-code"># The following all do the same thing...
+my @numbers = (1,2,3,4,5);
+say produce { $^a + $^b }, @numbers;
+say produce * + *, @numbers;
+say produce &amp;[+], @numbers; # operator does not need explicit identity
+say [\+] @numbers;          # most people write it this way</pre>
+<p>The visual picture of a triangle <code>[\</code> is not accidental. To produce a triangular list of lists, you can use a &quot;triangular comma&quot;:</p>
+<pre class="pod-block-code">[\,] 1..5;
+# (
+# (1)
+# (1 2)
+# (1 2 3)
+# (1 2 3 4)
+# (1 2 3 4 5)
+# )</pre>
+<p>Since <code>produce</code> is an implicit loop, it responds to <code>next</code>, <code>last</code> and <code>redo</code> statements inside <code>&amp;with</code>:</p>
+<pre class="pod-block-code">say (2,3,4,5).produce: { last if $^a &gt; 7; $^a + $^b }; # OUTPUT: «(2 5 9)␤»</pre>
+<h1 id="class_Supply"><a class="u" href="#___top" title="go to top of document">class Supply</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Supply#method_produce">Supply</a></p>
+<h2 id="(Supply)_method_produce"><a href="/Documentable/integration-test/type/Supply#method_produce">(Supply) method produce</a></h2>
+<pre class="pod-block-code">method produce(Supply:D: &amp;with --&gt; Supply:D)</pre>
+<p>Creates a &quot;producing&quot; supply with the same semantics as <a href="/Documentable/integration-test/type/List#routine_produce">List.produce</a>.</p>
+<pre class="pod-block-code">my $supply = Supply.from-list(1..5).produce({$^a + $^b});
+$supply.tap(-&gt; $v { say &quot;$v&quot; }); # OUTPUT: «1␤3␤6␤10␤15␤»</pre>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Packages</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/packages.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Packages</h1>
+        <p class="subtitle">Organizing and referencing namespaced program elements</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+      <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Names">Names</a></td></tr>
+                                                                 <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#Package-qualified_names">Package-qualified names</a></td></tr>
+                              <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Pseudo-packages">Pseudo-packages</a></td></tr>
+                                                                                <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Looking_up_names">Looking up names</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#Interpolating_into_names">Interpolating into names </a></td></tr>
+                                                          <tr class="toc-level-2"><td class="toc-number">3.2</td><td class="toc-text"><a href="#Direct_lookup">Direct lookup</a></td></tr>
+                        <tr class="toc-level-2"><td class="toc-number">3.3</td><td class="toc-text"><a href="#Package_lookup">Package lookup</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">3.4</td><td class="toc-text"><a href="#Class_member_lookup">Class member lookup</a></td></tr>
+      <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#Globals">Globals</a></td></tr>
+           
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Packages are nested namespaces of named program elements. <a href="/Documentable/integration-test/language/module-packages">Modules</a>, classes, grammars, and others are types of packages. Like files in a directory, you can generally refer to named elements with their short-name if they are local, or with the longer name that includes the namespace to disambiguate as long as their scope allows that.</p>
+<h1 id="Names"><a class="u" href="#___top" title="go to top of document">Names</a></h1>
+<p>A package <em>name</em> is anything that is a legal part of a variable name (not counting the sigil). This includes:</p>
+<pre class="pod-block-code">class Foo {
+    sub zape () { say &quot;zipi&quot; }
+    class Bar {
+        method baz () { return &#39;Þor is mighty&#39; }
+        our &amp;zape = { &quot;zipi&quot; };
+        our $quux = 42;
+    }
+}
+
+my $foo;                # simple identifiers
+say Foo::Bar.baz;       # calling a method; OUTPUT: «Þor is mighty␤»
+say Foo::Bar::zape;     # compound identifiers separated by ::; OUTPUT: «zipi␤»
+my $bar = &#39;Bar&#39;;
+say $Foo::($bar)::quux; # compound identifiers with interpolations; OUTPUT: «42␤»
+$42;                    # numeric names
+$!;                     # certain punctuation variables
+</pre>
+<p><a name="Documentable/integration-test/index-entry-::_package"></a> <code>::</code> is used to separate nested package names.</p>
+<p>Packages do not really have an identity; they can be simply part of a module or class name, for instance. They are more similar to namespaces than to modules. A module of the same name will <em>capture</em> the identity of a package if it exists.</p>
+<pre class="pod-block-code">package Foo:ver&lt;0&gt; {};
+module Foo:ver&lt;1&gt; {};
+say Foo.^ver; # OUTPUT: «1␤»
+</pre>
+<p>The syntax allows the declared package to use a version as well as an <em>authority</em> <code>auth</code>, but as a matter of fact, it&#39;s dismissed; only modules, classes and other higher order type objects have an identity that might include <code>auth</code> and <code>ver</code>.</p>
+<pre class="pod-block-code">package Foo:ver&lt;0&gt;:auth&lt;bar&gt; {};
+say Foo.^auth;
+# OUTPUT: «(exit code 1) No such method &#39;auth&#39; for invocant of type
+# &#39;Perl6::Metamodel::PackageHOW&#39; ...
+</pre>
+<h2 id="Package-qualified_names"><a class="u" href="#___top" title="go to top of document">Package-qualified names</a></h2>
+<p>Ordinary package-qualified names look like this: <code>$Foo::Bar::quux</code>, which would be the <code>$quux</code> variable in package <code>Foo::Bar</code>; <code>Foo::Bar::zape</code> would represent the <code>&amp;zape</code> variable in the same package.</p>
+<p>Sometimes it&#39;s clearer to keep the sigil with the variable name, so an alternate way to write this is:</p>
+<pre class="pod-block-code">Foo::Bar::&lt;$quux&gt;</pre>
+<p>This does not work with the <code>Foo«&amp;zape»</code> variable, since <code>sub</code>s, by default, have lexical scope. The name is resolved at compile time because the variable name is a constant. We can access the rest of the variables in <code>Bar</code> (as shown in the example above) since classes, by default, have package scope.</p>
+<p>If the name part before <code>::</code> is null, it means the package is unspecified and must be searched for. Generally this means that an initial <code>::</code> following the main sigil is a no-op on names that are known at compile time, though <code>::()</code> can also be used to introduce an interpolation. Also, in the absence of another sigil, <code>::</code> can serve as its own sigil indicating intentional use of a not-yet-declared package name.</p>
+<h1 id="Pseudo-packages"><a class="u" href="#___top" title="go to top of document">Pseudo-packages</a></h1>
+<p><a name="Documentable/integration-test/index-entry-MY_(package)"></a><a name="Documentable/integration-test/index-entry-OUR_(package)"></a><a name="Documentable/integration-test/index-entry-CORE_(package)"></a><a name="Documentable/integration-test/index-entry-GLOBAL_(package)"></a><a name="Documentable/integration-test/index-entry-PROCESS_(package)"></a><a name="Documentable/integration-test/index-entry-COMPILING(package)"></a> The following pseudo-package names are reserved at the front of a name:</p>
+<table class="pod-table">
+<tbody>
+<tr> <td>MY</td> <td>Symbols in the current lexical scope (aka $?SCOPE)</td> </tr> <tr> <td>OUR</td> <td>Symbols in the current package (aka $?PACKAGE)</td> </tr> <tr> <td>CORE</td> <td>Outermost lexical scope, definition of standard Perl</td> </tr> <tr> <td>GLOBAL</td> <td>Interpreter-wide package symbols, really UNIT::GLOBAL</td> </tr> <tr> <td>PROCESS</td> <td>Process-related globals (superglobals). The last place dynamic variable lookup will look.</td> </tr> <tr> <td>COMPILING</td> <td>Lexical symbols in the scope being compiled</td> </tr>
+</tbody>
+</table><p><a name="Documentable/integration-test/index-entry-CALLER_(package)"></a><a name="Documentable/integration-test/index-entry-CALLERS_(package)"></a><a name="Documentable/integration-test/index-entry-DYNAMIC_(package)"></a> <a name="Documentable/integration-test/index-entry-OUTER_(package)"></a><a name="Documentable/integration-test/index-entry-OUTERS_(package)"></a><a name="Documentable/integration-test/index-entry-LEXICAL_(package)"></a> <a name="Documentable/integration-test/index-entry-UNIT_(package)"></a><a name="Documentable/integration-test/index-entry-SETTING_(package)"></a><a name="Documentable/integration-test/index-entry-PARENT_(package)"></a><a name="Documentable/integration-test/index-entry-CLIENT_(package)"></a> The following relative names are also reserved but may be used anywhere in a name:</p>
+<table class="pod-table">
+<tbody>
+<tr> <td>CALLER</td> <td>Dynamic symbols in the immediate caller&#39;s lexical scope</td> </tr> <tr> <td>CALLERS</td> <td>Dynamic symbols in any caller&#39;s lexical scope</td> </tr> <tr> <td>DYNAMIC</td> <td>Dynamic symbols in my or any caller&#39;s lexical scope</td> </tr> <tr> <td>OUTER</td> <td>Symbols in the next outer lexical scope</td> </tr> <tr> <td>OUTERS</td> <td>Symbols in any outer lexical scope</td> </tr> <tr> <td>LEXICAL</td> <td>Dynamic symbols in my or any outer&#39;s lexical scope</td> </tr> <tr> <td>UNIT</td> <td>Symbols in the outermost lexical scope of compilation unit</td> </tr> <tr> <td>SETTING</td> <td>Lexical symbols in the unit&#39;s DSL (usually CORE)</td> </tr> <tr> <td>PARENT</td> <td>Symbols in this package&#39;s parent package (or lexical scope)</td> </tr> <tr> <td>CLIENT</td> <td>The nearest CALLER that comes from a different package</td> </tr>
+</tbody>
+</table><p>The file&#39;s scope is known as <code>UNIT</code>, but there are one or more lexical scopes outside of that corresponding to the linguistic setting (often known as the prelude in other cultures). Hence, the <code>SETTING</code> scope is equivalent to <code>UNIT::OUTERS</code>. For a standard Raku program <code>SETTING</code> is the same as <code>CORE</code>, but various startup options (such as <code>-n</code> or <code>-p</code>) can put you into a domain specific language, in which case <code>CORE</code> remains the scope of the standard language, while <code>SETTING</code> represents the scope defining the DSL that functions as the setting of the current file. When used as a search term in the middle of a name, <code>SETTING</code> includes all its outer scopes up to <code>CORE</code>. To get <em>only</em> the setting&#39;s outermost scope, use <code>UNIT::OUTER</code> instead.</p>
+<h1 id="Looking_up_names"><a class="u" href="#___top" title="go to top of document">Looking up names</a></h1>
+<h2 id="Interpolating_into_names"><a class="u" href="#___top" title="go to top of document">Interpolating into names <a name="Documentable/integration-test/index-entry-interpolating_into_names"></a></a></h2>
+<p><a name="Documentable/integration-test/index-entry-::()"></a> You may <a href="/Documentable/integration-test/language/packages#Interpolating">interpolate</a> a string into a package or variable name using <code>::($expr)</code> where you&#39;d ordinarily put a package or variable name. The string is allowed to contain additional instances of <code>::</code>, which will be interpreted as package nesting. You may only interpolate entire names, since the construct starts with <code>::</code>, and either ends immediately or is continued with another <code>::</code> outside the parentheses. Most symbolic references are done with this notation:</p>
+<pre class="pod-block-code">my $foo = &quot;Foo&quot;;
+my $bar = &quot;Bar&quot;;
+my $foobar = &quot;Foo::Bar&quot;;
+$::($bar)              # lexically-scoped $Bar
+$::(&quot;MY::$bar&quot;)        # lexically-scoped $Bar
+$::(&quot;OUR::$bar&quot;)       # package-scoped $Bar
+$::(&quot;GLOBAL::$bar&quot;)    # global $Bar
+$::(&quot;PROCESS::$bar&quot;)   # process $Bar
+$::(&quot;PARENT::$bar&quot;)    # current package&#39;s parent&#39;s $Bar
+$::($foobar)           # $Foo::Bar
+@::($foobar)::baz      # @Foo::Bar::baz
+@::($foo)::Bar::baz    # @Bar::Bar::baz
+@::($foobar)baz        # ILLEGAL at compile time (no operator baz)
+@::($foo)::($bar)::baz # @Foo::Bar::baz
+</pre>
+<p>An initial <code>::</code> doesn&#39;t imply global; here as part of the interpolation syntax it doesn&#39;t even imply package. After the interpolation of the <code>::()</code> component, the indirect name is looked up exactly as if it had been there in the original source code, with priority given first to leading pseudo-package names, then to names in the lexical scope (searching scopes outwards, ending at <code>CORE</code>). The current package is searched last.</p>
+<p>Use the <code>MY</code> pseudopackage to limit the lookup to the current lexical scope, and <code>OUR</code> to limit the scopes to the current package scope.</p>
+<p>In the same vein, class and method names can be interpolated too:</p>
+<pre class="pod-block-code">role with-method {
+    method a-method { return &#39;in-a-method of &#39; ~ $?CLASS.^name  };
+}
+
+class a-class does with-method {
+    method another-method { return &#39;in-another-method&#39; };
+}
+
+class b-class does with-method {};
+
+my $what-class = &#39;a-class&#39;;
+
+say ::($what-class).a-method; # OUTPUT: «in-a-method of a-class␤»
+$what-class = &#39;b-class&#39;;
+say ::($what-class).a-method; # OUTPUT: «in-a-method of b-class␤»
+
+my $what-method = &#39;a-method&#39;;
+say a-class.&quot;$what-method&quot;(); # OUTPUT: «in-a-method of a-class␤»
+$what-method = &#39;another-method&#39;;
+say a-class.&quot;$what-method&quot;(); # OUTPUT: «in-another-method␤»</pre>
+<p><a name="Documentable/integration-test/index-entry-::($c).m"></a> <a name="Documentable/integration-test/index-entry-A."$m"()"></a></p>
+<h2 id="Direct_lookup"><a class="u" href="#___top" title="go to top of document">Direct lookup</a></h2>
+<p>To do direct lookup in a package&#39;s symbol table without scanning, treat the package name as a hash:</p>
+<pre class="pod-block-code">Foo::Bar::{&#39;&amp;baz&#39;}  # same as &amp;Foo::Bar::baz
+PROCESS::&lt;$IN&gt;      # same as $*IN
+Foo::&lt;::Bar&gt;&lt;::Baz&gt; # same as Foo::Bar::Baz
+</pre>
+<p>Unlike <code>::()</code> symbolic references, this does not parse the argument for <code>::</code>, nor does it initiate a namespace scan from that initial point. In addition, for constant subscripts, it is guaranteed to resolve the symbol at compile time.</p>
+<p>You cannot use this kind of direct lookup inside regular expressions, unless you issue a <code>MONKEY-SEE-NO-EVAL</code> pragma. The main intention of this measure is to avoid user input being executed externally.</p>
+<p>The null pseudo-package is the same search list as an ordinary name search. That is, the following are all identical in meaning:</p>
+<pre class="pod-block-code">$foo
+::{&#39;$foo&#39;}
+::&lt;$foo&gt;
+</pre>
+<p>Each of them scans the lexical scopes outward, and then the current package scope (though the package scope is then disallowed when &quot;strict&quot; is in effect).</p>
+<h2 id="Package_lookup"><a class="u" href="#___top" title="go to top of document">Package lookup</a></h2>
+<p>Subscript the package object itself as a hash object, the key of which is the variable name, including any sigil. The package object can be derived from a type name by use of the <code>::</code> postfix:</p>
+<pre class="pod-block-code">MyType::&lt;$foo&gt;
+</pre>
+<h2 id="Class_member_lookup"><a class="u" href="#___top" title="go to top of document">Class member lookup</a></h2>
+<p>Methods—including auto-generated methods, such as public attributes&#39; accessors—are stored in the class metaobject and can be looked up through by the <a href="/Documentable/integration-test/routine/lookup">lookup</a> method.</p>
+<pre class="pod-block-code">Str.^lookup(&#39;chars&#39;)
+</pre>
+<h1 id="Globals"><a class="u" href="#___top" title="go to top of document">Globals</a></h1>
+<p>Interpreter globals live in the <code>GLOBAL</code> package. The user&#39;s program starts in the <code>GLOBAL</code> package, so &quot;our&quot; declarations in the mainline code go into that package by default. Process-wide variables live in the <code>PROCESS</code> package. Most predefined globals such as <code>$*UID</code> and <code>$*PID</code> are actually process globals.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/packages.pod6">https://github.com/Raku/doc/blob/master/doc/Language/packages.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Python to Raku - nutshell</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/py-nutshell.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Python to Raku - nutshell</h1>
+        <p class="subtitle">Learning Raku from Python, in a nutshell</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+   <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Basic_syntax">Basic syntax</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#Hello,_world">Hello, world</a></td></tr>
+                                <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#Statement_separators">Statement separators</a></td></tr>
+              <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#Blocks">Blocks</a></td></tr>
+              <tr class="toc-level-2"><td class="toc-number">1.4</td><td class="toc-text"><a href="#Variables">Variables</a></td></tr>
+                                        <tr class="toc-level-2"><td class="toc-number">1.5</td><td class="toc-text"><a href="#Scope">Scope</a></td></tr>
+                                                                                                        <tr class="toc-level-2"><td class="toc-number">1.6</td><td class="toc-text"><a href="#Control_flow">Control flow</a></td></tr>
+                                                                                     <tr class="toc-level-2"><td class="toc-number">1.7</td><td class="toc-text"><a href="#Lambdas,_functions_and_subroutines">Lambdas, functions and subroutines</a></td></tr>
+                                                                   <tr class="toc-level-2"><td class="toc-number">1.8</td><td class="toc-text"><a href="#List_comprehensions">List comprehensions</a></td></tr>
+                              <tr class="toc-level-2"><td class="toc-number">1.9</td><td class="toc-text"><a href="#Classes_and_objects">Classes and objects</a></td></tr>
+                                                                                                              <tr class="toc-level-2"><td class="toc-number">1.10</td><td class="toc-text"><a href="#Decorators">Decorators</a></td></tr>
+                             <tr class="toc-level-2"><td class="toc-number">1.11</td><td class="toc-text"><a href="#Context_managers">Context managers</a></td></tr>
+                        <tr class="toc-level-2"><td class="toc-number">1.12</td><td class="toc-text"><a href="#input"><code class="pod-code-inline">input</code></a></td></tr>
+                <tr class="toc-level-2"><td class="toc-number">1.13</td><td class="toc-text"><a href="#Tuples">Tuples</a></td></tr>
+               
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>This page is an attempt to provide a way to learn Raku for folks coming from a Python background. We discuss the equivalent syntax in Raku for a number of Python constructs and idioms.</p>
+<h1 id="Basic_syntax"><a class="u" href="#___top" title="go to top of document">Basic syntax</a></h1>
+<h2 id="Hello,_world"><a class="u" href="#___top" title="go to top of document">Hello, world</a></h2>
+<p>Let&#39;s start with printing &quot;Hello, world!&quot;. The <a href="/Documentable/integration-test/routine/put">put</a> keyword in Raku is the equivalent of <a href="/Documentable/integration-test/routine/print">print</a> in Python. Like Python 2, parentheses are optional. A newline is added to the end of the line.</p>
+<p><em>Python 2</em></p>
+<pre class="pod-block-code">print &quot;Hello, world!&quot;
+</pre>
+<p><em>Python 3</em></p>
+<pre class="pod-block-code">print(&quot;Hello, world!&quot;)
+</pre>
+<p>Raku</p>
+<pre class="pod-block-code">put &quot;Hello, world!&quot;</pre>
+<p>There is also the <a href="/Documentable/integration-test/routine/say">say</a> keyword, which behaves similarly, but will call the <a href="/Documentable/integration-test/routine/gist">gist</a> method of its argument.</p>
+<p>Raku</p>
+<pre class="pod-block-code">my $hello = &quot;Hello, world!&quot;;
+say $hello;  # also prints &quot;Hello, world!&quot;
+             # same as: put $hello.gist</pre>
+<p>In Python, <code>&#39;</code> and <code>&quot;</code> are interchangeable. In Raku, both may be used for quoting, but double quotes (<code>&quot;</code>) signify that interpolation should be performed. For instance, variables that start with a <code>$</code>, and expressions contained in curly braces are interpolated.</p>
+<p>Raku</p>
+<pre class="pod-block-code">my $planet = &#39;earth&#39;;
+say &quot;Hello, $planet&quot;;   # Hello, earth
+say &#39;Hello, $planet&#39;;   # Hello, $planet
+say &quot;Hello, planet number { 1 + 2 }&quot;; # Hello, planet number 3</pre>
+<h2 id="Statement_separators"><a class="u" href="#___top" title="go to top of document">Statement separators</a></h2>
+<p>In Python, a newline signifies the end of a statement. There are a few exceptions: A backslash before a newline continues a statement across lines. Also if there is an unmatched opening parentheses, square bracket, or curly brace, the statement continues across lines, until the matching curly braces are closed.</p>
+<p>In Raku, a semicolon signifies the end of a statement. The semicolon may be omitted if it is the last statement of a block. The semicolon may also be omitted if there is a closing curly brace followed by a newline.</p>
+<p>Python</p>
+<pre class="pod-block-code">print 1 + 2 + \
+    3 + 4
+print ( 1 +
+    2 )
+</pre>
+<p>Raku</p>
+<pre class="pod-block-code">say 1 + 2 +
+    3 + 4;
+say 1 +
+    2;</pre>
+<h2 id="Blocks"><a class="u" href="#___top" title="go to top of document">Blocks</a></h2>
+<p>In Python, indentation is used to indicate a block. Raku uses curly braces.</p>
+<p>Python</p>
+<pre class="pod-block-code">if 1 == 2:
+    print &quot;Wait, what?&quot;
+else:
+    print &quot;1 is not 2.&quot;
+</pre>
+<p>Raku</p>
+<pre class="pod-block-code">if 1 == 2 {
+    say &quot;Wait, what?&quot;
+} else {
+    say &quot;1 is not 2.&quot;
+}</pre>
+<p>Parentheses are optional in both languages for expressions in conditionals, as shown above.</p>
+<h2 id="Variables"><a class="u" href="#___top" title="go to top of document">Variables</a></h2>
+<p>In Python, variables are declared and initialized at the same time:</p>
+<pre class="pod-block-code">foo = 12
+bar = 19
+</pre>
+<p>In Raku, the <code>my</code> declarator declares a lexical variable. A variable can be initialized with <code>=</code>. This variable can either be declared first and later initialized or declared and initialized at once.</p>
+<pre class="pod-block-code">my $foo;       # declare
+$foo = 12;     # initialize
+my $bar = 19;  # both at once</pre>
+<p>Also, as you may have noticed, variables in Raku usually start with sigils -- symbols indicating the type of their container. Variables starting with a <code>$</code> hold scalars. Variables starting with an <code>@</code> hold arrays, and variables starting with a <code>%</code> hold a hash (dict). Sigilless variables, declared with a <code>\</code> but used without them, are bound to the value they are assigned to and are thus immutable.</p>
+<p>Please note that, from now on, we are going to use sigilless variables in most examples just to illustrate the similarity with Python. That is technically correct, but in general we are going to use sigilless variables in places where their immutability (or independence of type, when they are used in signatures) is needed or needs to be highlighted.</p>
+<p>Python</p>
+<pre class="pod-block-code">s = 10
+l = [1, 2, 3]
+d = { a : 12, b : 99 }
+
+print s
+print l[2]
+print d[&#39;a&#39;]
+# 10, 2, 12
+</pre>
+<p>Raku</p>
+<pre class="pod-block-code">my $s = 10;
+my @l = 1, 2, 3;
+my %d = a =&gt; 12, b =&gt; 99;
+my \x = 99;
+
+say $s;
+say @l[1];
+say %d&lt;a&gt;;  # or %d{&#39;a&#39;}
+say x;
+# 10, 2, 12, 99</pre>
+<h2 id="Scope"><a class="u" href="#___top" title="go to top of document">Scope</a></h2>
+<p>In Python, functions and classes create a new scope, but no other block constructor (e.g. loops, conditionals) creates a scope. In Python 2, list comprehensions do not create a new scope, but in Python 3, they do.</p>
+<p>In Raku, every block creates a lexical scope.</p>
+<p>Python</p>
+<pre class="pod-block-code">if True:
+    x = 10
+print x
+# x is now 10
+</pre>
+<p>Raku</p>
+<pre class="pod-block-code">if True {
+    my $x = 10
+}
+say $x
+# error, $x is not declared in this scope
+</pre>
+<pre class="pod-block-code">my $x;
+if True {
+    $x = 10
+}
+say $x
+# ok, $x is 10
+</pre>
+<p>Python</p>
+<pre class="pod-block-code">x = 10
+for x in 1, 2, 3:
+   pass
+print x
+# x is 3
+</pre>
+<p>Raku</p>
+<pre class="pod-block-code">my \x = 10;
+for 1, 2, 3 -&gt; \x {
+    # do nothing
+}
+say x;
+# x is 10</pre>
+<p>Lambdas in Python can be written as blocks or pointy blocks in Raku.</p>
+<p>Python</p>
+<pre class="pod-block-code">l = lambda i: i + 12
+</pre>
+<p>Raku</p>
+<pre class="pod-block-code">my $l = -&gt; $i { $i + 12 }
+</pre>
+<p>Another Raku idiom for constructing lambdas is the Whatever star, <code>*</code>.</p>
+<p>Raku</p>
+<pre class="pod-block-code">my $l = * + 12    # same as above</pre>
+<p>A <code>*</code> in an expression will become a placeholder for the argument, and transform the expression into a lambda at compile time. Each <code>*</code> in an expression is a separate positional parameter.</p>
+<p>See the section below for more constructs regarding subroutines and blocks.</p>
+<p>Another example (from the Python <a href="https://docs.python.org/3/faq/programming.html#why-do-lambdas-defined-in-a-loop-with-different-values-all-return-the-same-result">FAQ</a>):</p>
+<p>Python</p>
+<pre class="pod-block-code">squares = []
+for x in range(5):
+    squares.append(lambda: x ** 2)
+print squares[2]()
+print squares[4]()
+# both 16 since there is only one x
+</pre>
+<p>Raku</p>
+<pre class="pod-block-code">my \squares = [];
+for ^5 -&gt; \x {
+    squares.append({ x² });
+}
+say squares[2]();
+say squares[4]();
+# 4, 16 since each loop iteration has a lexically scoped x,</pre>
+<p>Note that <code>^N</code> is like <code>range(N)</code>. Similarly, <code>N..^M</code> works like <code>range(N, M)</code> (a list from N to M - 1). The range <code>N..M</code> is a list from N to M. The <code>^</code> before or after the <code>..</code> indicates that the beginning or ending endpoint of the list (or both) should be excluded.</p>
+<p>Also, <code>x²</code> is a cute way of writing <code>x ** 2</code> (which also works fine); the unicode superscript 2 squares a number. Many of the other unicode operators work as you would expect (exponents, fractions, π), but every unicode operator or symbol that can be used in Raku has an ASCII equivalent.</p>
+<h2 id="Control_flow"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-Python-Control_flow"><span class="index-entry">Control flow</span></a></a></h2>
+<p>Python has <code>for</code> loops and <code>while</code> loops:</p>
+<pre class="pod-block-code">for i in 1, 2:
+    print i
+j = 1
+while j &lt; 3:
+    print j
+    j += 1
+</pre>
+<p># 1, 2, 1, 2</p>
+<p>Raku also has <code>for</code> loops and <code>while</code> loops:</p>
+<pre class="pod-block-code">for 1, 2 -&gt; $i {
+    say $i
+}
+my $j = 1;
+while $j &lt; 3 {
+    say $j;
+    $j += 1
+}</pre>
+<p>(Raku also has a few more looping constructs: <code>repeat...until</code>, <code>repeat...while</code>, <code>until</code>, and <code>loop</code>.)</p>
+<p><code>last</code> leaves a loop in Raku, and is analogous to <code>break</code> in Python. <code>continue</code> in Python is <code>next</code> in Raku.</p>
+<p>Python</p>
+<pre class="pod-block-code">for i in range(10):
+    if i == 3:
+        continue
+    if i == 5:
+        break
+    print i
+</pre>
+<p>Raku</p>
+<pre class="pod-block-code">for ^10 -&gt; $i {
+    next if $i == 3;
+    last if $i == 5;
+    say $i;
+}</pre>
+<p>Using <code>if</code> as a statement modifier (as above) is acceptable in Raku, even outside of a list comprehension.</p>
+<p>The <code>yield</code> statement within a <code>for</code> loop in Python, which produces a <code>generator</code>, is like a <code>gather</code>/<code>take</code> construct in Raku. These both print 1, 2, 3.</p>
+<p><em>Python</em></p>
+<pre class="pod-block-code">def count():
+    for i in 1, 2, 3:
+        yield i
+
+for c in count():
+    print c
+</pre>
+<p><em>Raku</em></p>
+<pre class="pod-block-code">sub count {
+    gather {
+        for 1, 2, 3 -&gt; $i {
+            take $i
+        }
+    }
+}
+
+for count() -&gt; $c {
+    say $c;
+}</pre>
+<h2 id="Lambdas,_functions_and_subroutines"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-Python-Lambdas,_functions_and_subroutines"><span class="index-entry">Lambdas, functions and subroutines</span></a></a></h2>
+<p>Declaring a function (subroutine) with <code>def</code> in Python is accomplished with <code>sub</code> in Raku.</p>
+<pre class="pod-block-code">def add(a, b):
+    return a + b
+
+sub add(\a, \b) {
+    return a + b
+}
+</pre>
+<p>The <code>return</code> is optional; the value of the last expression is used as the return value:</p>
+<pre class="pod-block-code">sub add(\a, \b) {
+    a + b
+}
+</pre>
+<pre class="pod-block-code"># using variables with sigils
+sub add($a, $b) {
+    $a + $b
+}
+</pre>
+<p>Python 2 functions can be called with positional arguments or keyword arguments. These are determined by the caller. In Python 3, some arguments may be &quot;keyword only&quot;. In Raku, positional and named arguments are determined by the signature of the routine.</p>
+<p>Python</p>
+<pre class="pod-block-code">def speak(word, times):
+    for i in range(times):
+        print word
+speak(&#39;hi&#39;, 2)
+speak(word=&#39;hi&#39;, times=2)
+</pre>
+<p>Raku</p>
+<p>Positional parameters:</p>
+<pre class="pod-block-code">sub speak($word, $times) {
+  say $word for ^$times
+}
+speak(&#39;hi&#39;, 2);</pre>
+<p>Named parameters start with a colon:</p>
+<pre class="pod-block-code">sub speak(:$word, :$times) {
+  say $word for ^$times
+}
+speak(word =&gt; &#39;hi&#39;, times =&gt; 2);
+speak(:word&lt;hi&gt;, :times&lt;2&gt;);      # Alternative, more idiomatic</pre>
+<p>Raku supports multiple dispatch, so several signatures could be made available by declaring a routine as a <code>multi</code>.</p>
+<pre class="pod-block-code">multi sub speak($word, $times) {
+  say $word for ^$times
+}
+multi sub speak(:$word, :$times) {
+    speak($word, $times);
+}
+speak(&#39;hi&#39;, 2);
+speak(:word&lt;hi&gt;, :times&lt;2&gt;);</pre>
+<p>Named parameters can be sent using a variety of formats:</p>
+<pre class="pod-block-code">sub hello {...};
+# all the same
+hello(name =&gt; &#39;world&#39;); # fat arrow syntax
+hello(:name(&#39;world&#39;));  # pair constructor
+hello :name&lt;world&gt;;     # &lt;&gt; quotes words and makes a list
+my $name = &#39;world&#39;;
+hello(:$name);          # lexical var with the same name</pre>
+<p>Creating an anonymous function can be done with <code>sub</code>, with a block or with a pointy block.</p>
+<p>Python</p>
+<pre class="pod-block-code">square = lambda x: x ** 2
+</pre>
+<p>Raku</p>
+<pre class="pod-block-code">my $square = sub ($x) { $x ** 2 };  # anonymous sub
+my $square = -&gt; $x { $x ** 2 };     # pointy block
+my $square = { $^x ** 2 };          # placeholder variable
+my $square = { $_ ** 2 };           # topic variable</pre>
+<p>Placeholder variables are lexicographically ordered to form positional parameters. Thus these are the same:</p>
+<pre class="pod-block-code">my $power = { $^x ** $^y };
+my $power = -&gt; $x, $y { $x ** $y };</pre>
+<h2 id="List_comprehensions"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-Python-List_comprehensions"><span class="index-entry">List comprehensions</span></a></a></h2>
+<p>Postfix statement modifiers and blocks can be combined to easily create list comprehensions in Raku.</p>
+<p>Python</p>
+<pre class="pod-block-code">print [ i * 2 for i in 3, 9 ]                      # OUTPUT: «[6, 18]␤»
+</pre>
+<p>Raku</p>
+<pre class="pod-block-code">say ( $_ * 2 for 3, 9 );                           # OUTPUT: «(6 18)␤»
+say ( { $^i * 2 } for 3, 9 );                      # OUTPUT: «(6 18)␤»
+say ( -&gt; \i { i * 2 } for 3, 9 );                  # OUTPUT: «(6 18)␤»</pre>
+<p>Conditionals can be applied, but the <code>if</code> keyword comes first, unlike in Python where the if comes second.</p>
+<pre class="pod-block-code">print [ x * 2 for x in 1, 2, 3 if x &gt; 1 ]          # OUTPUT: «[4, 6]␤»
+</pre>
+<p>vs</p>
+<pre class="pod-block-code">say ( $_ * 2 if $_ &gt; 1 for 1, 2, 3 );              # OUTPUT: «(4 6)␤»</pre>
+<p>For nested loops, the cross product operator <code>X</code> will help:</p>
+<pre class="pod-block-code">print [ i + j for i in 3,9 for j in 2,10 ]         # OUTPUT: «[5, 13, 11, 19]␤»
+</pre>
+<p>becomes either of these:</p>
+<pre class="pod-block-code">say ( { $_[0] + $_[1] } for (3,9) X (2,10) );      # OUTPUT: «(5 13 11 19)␤»
+say ( -&gt; (\i, \j) { i + j } for (3,9) X (2,10) );  # OUTPUT: «(5 13 11 19)␤»
+say ( -&gt; ($i, $j) { $i + $j } for (3,9) X (2,10) );# OUTPUT: «(5 13 11 19)␤»
+say ( { $^a[0] + $^a[1] } for (3,9) X (2,10) );    # OUTPUT: «(5 13 11 19)␤»</pre>
+<p>Using <code>map</code> (which is just like Python&#39;s <code>map</code>) and <code>grep</code> (which is like Python&#39;s <code>filter</code>) is an alternative.</p>
+<h2 id="Classes_and_objects"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-Python-Classes_and_objects"><span class="index-entry">Classes and objects</span></a></a></h2>
+<p>Here&#39;s an example from the Python <a href="https://docs.python.org/3/tutorial/classes.html#class-and-instance-variables">docs</a>. First let&#39;s go over &quot;instance variables&quot; which are known as attributes in Raku:</p>
+<p>Python:</p>
+<pre class="pod-block-code">class Dog:
+    def __init__(self, name):
+        self.name = name
+</pre>
+<p>Raku:</p>
+<pre class="pod-block-code">class Dog {
+    has $.name;
+}</pre>
+<p>For each created class, Raku provides the constructor method <code>new</code> by default which takes named arguments.</p>
+<p>Python:</p>
+<pre class="pod-block-code">d = Dog(&#39;Fido&#39;)
+e = Dog(&#39;Buddy&#39;)
+print d.name
+print e.name
+</pre>
+<p>Raku</p>
+<pre class="pod-block-code">my $d = Dog.new(:name&lt;Fido&gt;); # or: Dog.new(name =&gt; &#39;Fido&#39;)
+my $e = Dog.new(:name&lt;Buddy&gt;);
+say $d.name;
+say $e.name;
+</pre>
+<p>Class attributes in Raku can be declared in a few ways. One way is to just declare a lexical variable and a method for accessing it.</p>
+<p>Python:</p>
+<pre class="pod-block-code">class Dog:
+    kind = &#39;canine&#39;                # class attribute
+    def __init__(self, name):
+        self.name = name           # instance attribute
+d = Dog(&#39;Fido&#39;)
+e = Dog(&#39;Buddy&#39;)
+print d.kind
+print e.kind
+print d.name
+print e.name
+</pre>
+<p>Raku:</p>
+<pre class="pod-block-code">class Dog {
+    my $kind = &#39;canine&#39;;           # class attribute
+    method kind { $kind }
+    has $.name;                    # instance attribute
+}
+
+my $d = Dog.new(:name&lt;Fido&gt;);
+my $e = Dog.new(:name&lt;Buddy&gt;);
+say $d.kind;
+say $e.kind;
+say $d.name;
+say $e.name;</pre>
+<p>In order to mutate attributes in Raku, you must use the <code>is rw</code> trait on the attributes:</p>
+<p>Python:</p>
+<pre class="pod-block-code">class Dog:
+    def __init__(self, name):
+        self.name = name
+d = Dog()
+d.name = &#39;rover&#39;
+</pre>
+<p>Raku:</p>
+<pre class="pod-block-code">class Dog {
+    has $.name is rw;
+}
+my $d = Dog.new;
+$d.name = &#39;rover&#39;;</pre>
+<p>Inheritance is done using <code>is</code>:</p>
+<p>Python</p>
+<pre class="pod-block-code">class Animal:
+    def jump(self):
+        print (&quot;I am jumping&quot;)
+
+class Dog(Animal):
+    pass
+
+d = Dog()
+d.jump()
+</pre>
+<p>Raku</p>
+<pre class="pod-block-code">class Animal {
+    method jump {
+        say &quot;I am jumping&quot;
+    }
+}
+
+class Dog is Animal {
+}
+
+my $d = Dog.new;
+$d.jump;</pre>
+<p>Multiple inheritance is possible by using the <code>is</code> trait as many times as required. Alternatively, it can be used in conjunction with the <code>also</code> keyword.</p>
+<p>Python</p>
+<pre class="pod-block-code">class Dog(Animal, Friend, Pet):
+    pass
+</pre>
+<p>Raku</p>
+<pre class="pod-block-code">class Animal {}; class Friend {}; class Pet {};
+...;
+class Dog is Animal is Friend is Pet {};</pre>
+<p>or</p>
+<pre class="pod-block-code">class Animal {}; class Friend {}; class Pet {};
+...;
+class Dog is Animal {
+    also is Friend;
+    also is Pet;
+    ...
+}</pre>
+<h2 id="Decorators"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-Python-Decorators"><span class="index-entry">Decorators</span></a></a></h2>
+<p>Decorators in Python are a way of wrapping a function in another one. In Raku, this is done with <code>wrap</code>.</p>
+<p>Python</p>
+<pre class="pod-block-code">def greeter(f):
+    def new():
+        print &#39;hello&#39;
+        f()
+    return new
+
+@greeter
+def world():
+    print &#39;world&#39;
+
+world();
+</pre>
+<p>Raku</p>
+<pre class="pod-block-code">sub world {
+    say &#39;world&#39;
+}
+
+&amp;world.wrap(sub () {
+    say &#39;hello&#39;;
+    callsame;
+});
+
+world;</pre>
+<p>An alternative would be to use a trait:</p>
+<pre class="pod-block-code"># declare the trait &#39;greeter&#39;
+multi sub trait_mod:&lt;is&gt;(Routine $r, :$greeter) {
+    $r.wrap(sub {
+        say &#39;hello&#39;;
+        callsame;
+    })
+}
+
+sub world is greeter {
+    say &#39;world&#39;;
+}
+
+world;</pre>
+<h2 id="Context_managers"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-Python-Context_managers"><span class="index-entry">Context managers</span></a></a></h2>
+<p>Context managers in Python declare actions that happen when entering or exiting a scope.</p>
+<p>Here&#39;s a Python context manager that prints the strings &#39;hello&#39;, &#39;world&#39;, and &#39;bye&#39;.</p>
+<pre class="pod-block-code">class hello:
+    def __exit__(self, type, value, traceback):
+        print &#39;bye&#39;
+    def __enter__(self):
+        print &#39;hello&#39;
+
+with hello():
+    print &#39;world&#39;
+</pre>
+<p>For &quot;enter&quot; and &quot;exit&quot; events, passing a block as an argument would be one option:</p>
+<pre class="pod-block-code">sub hello(Block $b) {
+    say &#39;hello&#39;;
+    $b();
+    say &#39;bye&#39;;
+}
+
+hello {
+    say &#39;world&#39;;
+}</pre>
+<p>A related idea is &#39;<a href="/Documentable/integration-test/language/phasers">Phasers</a>&#39; which may be set up to run on entering or leaving a block.</p>
+<pre class="pod-block-code">{
+    LEAVE say &#39;bye&#39;;
+    ENTER say &#39;hello&#39;;
+    say &#39;world&#39;;
+}</pre>
+<h2 id="input"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-Python-input"><span class="index-entry"><code>input</code></span></a></a></h2>
+<p>In Python 3, the <code>input</code> keyword is used to prompt the user. This keyword can be provided with an optional argument which is written to standard output without a trailing newline:</p>
+<pre class="pod-block-code">user_input = input(&quot;Say hi → &quot;)
+print(user_input)
+</pre>
+<p>When prompted, you can enter <code>Hi</code> or any other string, which will be stored in the <code>user_input</code> variable. This is similar to <a href="/Documentable/integration-test/routine/prompt">prompt</a> in Raku:</p>
+<pre class="pod-block-code">my $user_input = prompt(&quot;Say hi → &quot;);
+say $user_input; # OUTPUT: whatever you entered.</pre>
+<h2 id="Tuples"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-Python-Tuples"><span class="index-entry">Tuples</span></a></a></h2>
+<p>Python tuples are immutable sequences. The sequence elements do not need to be of the same types.</p>
+<p>Python</p>
+<pre class="pod-block-code">tuple1 = (1, &quot;two&quot;, 3, &quot;hat&quot;)
+tuple2 = (5, 6, &quot;seven&quot;)
+print(tuple1[1])                                   # OUTPUT: «two␤»
+tuple3 = tuple1 + tuple2
+print(tuple3)                                      # OUTPUT: «(1, &#39;two&#39;, 3, &#39;hat&#39;, 5, 6, &#39;seven&#39;)␤»
+</pre>
+<p>Raku</p>
+<p>Raku does not have a builtin Tuple type, though they are available as modules. You can obtain the same behavior from Raku using the List type.</p>
+<pre class="pod-block-code">my $list1 = (1, &quot;two&quot;, 3, &quot;hat&quot;);
+my $list2 = (5, 6, &quot;seven&quot;);
+say $list1[1];                                 # OUTPUT: «two␤»
+my $list3 = slip($list1), slip($list2);
+my $list4 = |$list1, |$list2;                  # equivalent to previous line
+say $list3;                                    # OUTPUT: «(1, two, 3, hat, 5, 6, seven)␤»</pre>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/py-nutshell.pod6">https://github.com/Raku/doc/blob/master/doc/Language/py-nutshell.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

@@ -1,0 +1,34 @@
+digraph "perl6-type-graph" {
+    rankdir=BT;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "Metamodel::MethodDelegation" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::MethodDelegation", fontname="FreeSans"];
+    "Mu" [color="#000000", fontcolor="#000000", href="/type/Mu", fontname="FreeSans"];
+    "Any" [color="#000000", fontcolor="#000000", href="/type/Any", fontname="FreeSans"];
+    "Metamodel::Naming" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::Naming", fontname="FreeSans"];
+    "Metamodel::Documenting" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::Documenting", fontname="FreeSans"];
+    "Metamodel::Stashing" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::Stashing", fontname="FreeSans"];
+    "Metamodel::TypePretense" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::TypePretense", fontname="FreeSans"];
+    "Metamodel::PackageHOW" [color="#000000", fontcolor="#000000", href="/type/Metamodel::PackageHOW", fontname="FreeSans"];
+    "Metamodel::Versioning" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::Versioning", fontname="FreeSans"];
+    "Metamodel::ModuleHOW" [color="#000000", fontcolor="#000000", href="/type/Metamodel::ModuleHOW", fontname="FreeSans"];
+
+    // Superclasses
+    "Any" -> "Mu" [color="#000000"];
+    "Metamodel::PackageHOW" -> "Any" [color="#000000"];
+    "Metamodel::ModuleHOW" -> "Any" [color="#000000"];
+
+    // Roles
+    "Metamodel::PackageHOW" -> "Metamodel::Naming" [color="#6666FF"];
+    "Metamodel::PackageHOW" -> "Metamodel::Documenting" [color="#6666FF"];
+    "Metamodel::PackageHOW" -> "Metamodel::Stashing" [color="#6666FF"];
+    "Metamodel::PackageHOW" -> "Metamodel::TypePretense" [color="#6666FF"];
+    "Metamodel::PackageHOW" -> "Metamodel::MethodDelegation" [color="#6666FF"];
+    "Metamodel::ModuleHOW" -> "Metamodel::Naming" [color="#6666FF"];
+    "Metamodel::ModuleHOW" -> "Metamodel::Documenting" [color="#6666FF"];
+    "Metamodel::ModuleHOW" -> "Metamodel::Versioning" [color="#6666FF"];
+    "Metamodel::ModuleHOW" -> "Metamodel::Stashing" [color="#6666FF"];
+    "Metamodel::ModuleHOW" -> "Metamodel::TypePretense" [color="#6666FF"];
+    "Metamodel::ModuleHOW" -> "Metamodel::MethodDelegation" [color="#6666FF"];
+}

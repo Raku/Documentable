@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>syntax :</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">syntax :</h1>
+        <p class="subtitle"></p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#language_documentation_Regexes">language documentation Regexes</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#(Regexes)_regex_:_:">(Regexes) regex : :</a></td></tr>
+                                                             <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#language_documentation_Variables">language documentation Variables</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#(Variables)_twigil_:">(Variables) twigil :</a></td></tr>
+         
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Documentation for syntax <code>:</code> assembled from the following types:</p>
+<h1 id="language_documentation_Regexes"><a class="u" href="#___top" title="go to top of document">language documentation Regexes</a></h1>
+<p>From <a href="/Documentable/integration-test/language/regexes#Preventing_backtracking:_:">Regexes</a></p>
+<h2 id="(Regexes)_regex_:_:"><a href="/Documentable/integration-test/language/regexes#Preventing_backtracking:_:">(Regexes) regex : :</a></h2>
+<p>One way to prevent <a href="/Documentable/integration-test/language/regexes#Preventing_backtracking">backtracking</a> is through the use of the <code>ratchet</code> adverb as described <a href="/Documentable/integration-test/language/regexes#Ratchet">below</a>. Another more fine-grained way of preventing backtracking in regexes is attaching a <code>:</code> modifier to a quantifier:</p>
+<pre class="pod-block-code">my $str = &quot;ACG GCT ACT An interesting chain&quot;;
+say $str ~~ /&lt;[ACGT\s]&gt;+ \s+ (&lt;[A..Z a..z \s]&gt;+)/;
+# OUTPUT: «｢ACG GCT ACT An interesting chain｣␤ 0 =&gt; ｢An interesting chain｣␤»
+say $str ~~ /&lt;[ACGT\s]&gt;+: \s+ (&lt;[A..Z a..z \s]&gt;+)/;
+# OUTPUT: «Nil␤»
+</pre>
+<p>In the second case, the <code>A</code> in <code>An</code> had already been &quot;absorbed&quot; by the pattern, preventing the matching of the second part of the pattern, after <code>\s+</code>. Generally we will want the opposite: prevent backtracking to match precisely what we are looking for.</p>
+<p>In most cases, you will want to prevent backtracking for efficiency reasons, for instance here:</p>
+<pre class="pod-block-code">say $str ~~ m:g/[(&lt;[ACGT]&gt; **: 3) \s*]+ \s+ (&lt;[A..Z a..z \s]&gt;+)/;
+# OUTPUT:
+# «(｢ACG GCT ACT An interesting chain｣
+# «0 =&gt; ｢ACG｣␤»
+# «0 =&gt; ｢GCT｣␤»
+# «0 =&gt; ｢ACT｣␤»
+# «1 =&gt; ｢An interesting chain｣)␤»
+</pre>
+<p>Although in this case, eliminating the <code>:</code> from behind <code>**</code> would make it behave exactly in the same way. The best use is to create <em>tokens</em> that will not be backtracked:</p>
+<pre class="pod-block-code">$_ = &quot;ACG GCT ACT IDAQT&quot;;
+say  m:g/[(\w+:) \s*]+ (\w+) $$/;
+# OUTPUT:
+# «(｢ACG GCT ACT IDAQT｣␤»
+# «0 =&gt; ｢ACG｣␤»
+# «0 =&gt; ｢GCT｣␤»
+# «0 =&gt; ｢ACT｣␤»
+# «1 =&gt; ｢IDAQT｣)␤»</pre>
+<p>Without the <code>:</code> following <code>\w+</code>, the <em>ID</em> part captured would have been simply <code>T</code>, since the pattern would go ahead and match everything, leaving a single letter to match the <code>\w+</code> expression at the end of the line.</p>
+<h1 id="language_documentation_Variables"><a class="u" href="#___top" title="go to top of document">language documentation Variables</a></h1>
+<p>From <a href="/Documentable/integration-test/language/variables#The_:_twigil">Variables</a></p>
+<h2 id="(Variables)_twigil_:"><a href="/Documentable/integration-test/language/variables#The_:_twigil">(Variables) twigil :</a></h2>
+<p>The <code>:</code> twigil declares a formal named parameter to a block or subroutine. Variables declared using this form are a type of placeholder variable too. Therefore the same things that apply to variables declared using the <code>^</code> twigil also apply here (with the exception that they are not positional and therefore not ordered using Unicode order, of course). For instance:</p>
+<pre class="pod-block-code">say { $:add ?? $^a + $^b !! $^a - $^b }( 4, 5 ) :!add
+# OUTPUT: «-1␤»</pre>
+<p>See <a href="/Documentable/integration-test/syntax/$CIRCUMFLEX_ACCENT">^</a> for more details about placeholder variables.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

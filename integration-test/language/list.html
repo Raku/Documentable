@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Lists, sequences, and arrays</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/list.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Lists, sequences, and arrays</h1>
+        <p class="subtitle">Positional data constructs</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+   <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Literal_lists">Literal lists</a></td></tr>
+                                        <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#The_@_sigil">The @ sigil</a></td></tr>
+                              <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Reset_a_list_container">Reset a list container</a></td></tr>
+         <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#Iteration">Iteration</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">4.1</td><td class="toc-text"><a href="#Single_Argument_Rule">Single Argument Rule</a></td></tr>
+                                                                    <tr class="toc-level-1"><td class="toc-number">5</td><td class="toc-text"><a href="#Testing_for_elements">Testing for elements</a></td></tr>
+                    <tr class="toc-level-2"><td class="toc-number">5.1</td><td class="toc-text"><a href="#Sequences">Sequences</a></td></tr>
+                                                         <tr class="toc-level-2"><td class="toc-number">5.2</td><td class="toc-text"><a href="#Using_.iterator">Using <code class="pod-code-inline">.iterator</code></a></td></tr>
+                                       <tr class="toc-level-2"><td class="toc-number">5.3</td><td class="toc-text"><a href="#Slips">Slips</a></td></tr>
+              <tr class="toc-level-1"><td class="toc-number">6</td><td class="toc-text"><a href="#Lazy_lists">Lazy lists</a></td></tr>
+                                                                      <tr class="toc-level-1"><td class="toc-number">7</td><td class="toc-text"><a href="#Immutability">Immutability</a></td></tr>
+                     <tr class="toc-level-1"><td class="toc-number">8</td><td class="toc-text"><a href="#List_contexts">List contexts</a></td></tr>
+  <tr class="toc-level-2"><td class="toc-number">8.1</td><td class="toc-text"><a href="#List_assignment_context">List assignment context</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">8.2</td><td class="toc-text"><a href="#Flattening_&quot;context&quot;">Flattening &quot;context&quot;</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">8.3</td><td class="toc-text"><a href="#Argument_list_(Capture)_context">Argument list (Capture) context</a></td></tr>
+                                                         <tr class="toc-level-2"><td class="toc-number">8.4</td><td class="toc-text"><a href="#Slice_indexing_context">Slice indexing context</a></td></tr>
+                               <tr class="toc-level-2"><td class="toc-number">8.5</td><td class="toc-text"><a href="#Range_as_slice">Range as slice</a></td></tr>
+                                     <tr class="toc-level-2"><td class="toc-number">8.6</td><td class="toc-text"><a href="#Array_constructor_context">Array constructor context</a></td></tr>
+    <tr class="toc-level-1"><td class="toc-number">9</td><td class="toc-text"><a href="#Arrays">Arrays</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">9.1</td><td class="toc-text"><a href="#Typing">Typing</a></td></tr>
+                                                                                         <tr class="toc-level-2"><td class="toc-number">9.2</td><td class="toc-text"><a href="#Fixed_size_arrays">Fixed size arrays</a></td></tr>
+                                       <tr class="toc-level-2"><td class="toc-number">9.3</td><td class="toc-text"><a href="#Itemization">Itemization</a></td></tr>
+                                            <tr class="toc-level-2"><td class="toc-number">9.4</td><td class="toc-text"><a href="#Literal_arrays">Literal arrays</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">9.5</td><td class="toc-text"><a href="#Mutability">Mutability</a></td></tr>
+     <tr class="toc-level-3"><td class="toc-number">9.5.1</td><td class="toc-text"><a href="#Assigning">Assigning</a></td></tr>
+              <tr class="toc-level-3"><td class="toc-number">9.5.2</td><td class="toc-text"><a href="#Binding">Binding</a></td></tr>
+           
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Lists have been a central part of computing since before there were computers, during which time many devils have taken up residence in their details. They were actually one of the hardest parts of Raku to design, but through persistence and patience, Raku has arrived with an elegant system for handling them.</p>
+<h1 id="Literal_lists"><a class="u" href="#___top" title="go to top of document">Literal lists</a></h1>
+<p>Literal <a href="/Documentable/integration-test/type/List"><code>List</code>s</a> are created with commas and semicolons, <strong>not</strong> with parentheses, so:</p>
+<pre class="pod-block-code">1, 2;                # This is two-element list
+our $list = (1, 2);  # This is also a List, in parentheses
+$list = (1; 2);      # same List (see below)
+$list = (1);         # This is not a List, just a 1 in parentheses
+$list = (1,);        # This is a one-element List</pre>
+<p>There is one exception, empty lists are created with just a pair of parentheses:</p>
+<pre class="pod-block-code">();          # This is an empty List
+</pre>
+<pre class="pod-block-code">(,);         # This is a syntax error
+</pre>
+<p>Note that hanging commas are just fine as long as the beginning and end of a list are clear, so feel free to use them for easy code editing.</p>
+<p>Parentheses can be used to mark the beginning and end of a <code>List</code>, so:</p>
+<pre class="pod-block-code">(1, 2), (1, 2); # This is a list of two lists.</pre>
+<p><code>List</code>s of <code>List</code>s can also be created by combining comma and semicolon. This is also called multi-dimensional syntax, because it is most often used to index multidimensional arrays.</p>
+<pre class="pod-block-code">say so (1,2; 3,4) eqv ((1,2), (3,4));
+# OUTPUT: «True␤»
+say so (1,2; 3,4;) eqv ((1,2), (3,4));
+# OUTPUT: «True␤»
+say so (&quot;foo&quot;;) eqv (&quot;foo&quot;) eqv ((&quot;foo&quot;)); # not a list
+# OUTPUT: «True␤»</pre>
+<p>Unlike a comma, a hanging semicolon does not create a multidimensional list in a literal. However, be aware that this behavior changes in most argument lists, where the exact behavior depends on the function... But will usually be:</p>
+<pre class="pod-block-code">say(&#39;foo&#39;;);   # a list with one element and the empty list
+# OUTPUT: «(foo)()␤»
+say((&#39;foo&#39;;)); # no list, just the string &quot;foo&quot;
+# OUTPUT: «foo␤»</pre>
+<p>Because the semicolon doubles as a <a href="/Documentable/integration-test/language/control#statements">statement terminator</a> it will end a literal list when used at the top level, instead creating a statement list. If you want to create a statement list inside parenthesis, use a sigil before the parenthesis:</p>
+<pre class="pod-block-code">say so (42) eqv $(my $a = 42; $a;);
+# OUTPUT: «True␤»
+say so (42,42) eqv (my $a = 42; $a;);
+# OUTPUT: «True␤»</pre>
+<p>Individual elements can be pulled out of a list using a subscript. The first element of a list is at index number zero:</p>
+<pre class="pod-block-code">say (1, 2)[0];  # says 1
+say (1, 2)[1];  # says 2
+say (1, 2)[2];  # says Nil
+</pre>
+<pre class="pod-block-code">say (1, 2)[-1]; # Error
+</pre>
+<pre class="pod-block-code">say ((&lt;a b&gt;,&lt;c d&gt;),(&lt;e f&gt;,&lt;g h&gt;))[1;0;1]; # says &quot;f&quot;
+</pre>
+<h1 id="The_@_sigil"><a class="u" href="#___top" title="go to top of document">The @ sigil</a></h1>
+<p>Variables in Raku whose names bear the <code>@</code> sigil are expected to contain some sort of list-like object. Of course, other variables may also contain these objects, but <code>@</code>-sigiled variables always do, and are expected to act the part.</p>
+<p>By default, when you assign a <code>List</code> to an <code>@</code>-sigiled variable, you create an <code>Array</code>. Those are described below. If instead you want to refer directly to a <code>List</code> object using an <code>@</code>-sigiled variable, you can use binding with <code>:=</code> instead.</p>
+<pre class="pod-block-code">my @a := 1, 2, 3;</pre>
+<p>One of the ways <code>@</code>-sigiled variables act like lists is by always supporting <a href="/Documentable/integration-test/language/subscripts">positional subscripting</a>. Anything bound to a <code>@</code>-sigiled value must support the <a href="/Documentable/integration-test/type/Positional">Positional</a> role which guarantees that this is going to fail:</p>
+<pre class="pod-block-code">my @a := 1; # Type check failed in binding; expected Positional but got Int</pre>
+<h1 id="Reset_a_list_container"><a class="u" href="#___top" title="go to top of document">Reset a list container</a></h1>
+<p>To remove all elements from a Positional container assign <a href="/Documentable/integration-test/type/Slip#constant_Empty"><code>Empty</code></a>, the empty list <code>()</code> or a <code>Slip</code> of the empty list to the container.</p>
+<pre class="pod-block-code">my @a = 1, 2, 3;
+@a = ();
+@a = Empty;
+@a = |();</pre>
+<h1 id="Iteration"><a class="u" href="#___top" title="go to top of document">Iteration</a></h1>
+<p>All lists may be iterated, which means taking each element from the list in order and stopping after the last element:</p>
+<pre class="pod-block-code">for 1, 2, 3 { .say }  # OUTPUT: «1␤2␤3␤»</pre>
+<h2 id="Single_Argument_Rule"><a class="u" href="#___top" title="go to top of document"><a name="Documentable/integration-test/index-entry-Single_Argument_Rule"><span class="index-entry">Single Argument Rule</span></a></a></h2>
+<p>It is the rule by which the set of parameters passed to an iterator such as <code>for</code> is treated as a single argument, instead of several arguments; that is <code>some-iterator( a, b, c, ...)</code> will always be treated as <code>some-iterator( list-or-array(a, b, c))</code> and never as <code>(some-iterator(a))(b)...</code>, that is, iterative application of the iterator to the first argument, then the result to the next argument, and so on. In this example</p>
+<pre class="pod-block-code">my @list = [ (1, 2, 3),
+             (1, 2, ),
+             [&lt;a b c&gt;, &lt;d e f&gt;],
+             [[1]] ];
+
+for @list -&gt; @element {
+    say &quot;{@element} → {@element.^name}&quot;;
+    for @element -&gt; $sub-element {
+        say $sub-element;
+    }
+}
+# OUTPUT
+#1 2 3 → List
+#1
+#2
+#3
+#1 2 → List
+#1
+#2
+#a b c d e f → Array
+#(a b c)
+#(d e f)
+#1 → Array
+#1
+</pre>
+<p>Since what <code>for</code> receives is a single argument, it will be treated as a list of elements to iterate over. The rule of thumb is that <a href="https://perl6advent.wordpress.com/2015/12/14/day-15-2015-the-year-of-the-great-list-refactor/">if there&#39;s a comma, anything preceding it is an element</a> and the list thus created becomes the <em>single element</em>. That happens in the case of the two arrays separated by a comma which are the third in the <code>Array</code> we are iterating. In general, quoting the article linked above, the single argument rule <em>... makes for behavior as the programmer would expect</em>.</p>
+<h1 id="Testing_for_elements"><a class="u" href="#___top" title="go to top of document">Testing for elements</a></h1>
+<p>To test for elements in a <code>List</code> or <code>Array</code>, you can use the <a href="/Documentable/integration-test/language/setbagmix#infix_(elem),_infix_∈">&quot;is element of&quot;</a> <a href="/Documentable/integration-test/type/Set"><code>Set</code></a> operator.</p>
+<pre class="pod-block-code">my @a = &lt;foo bar buzz&gt;;
+say &#39;bar&#39; (elem) @a;    # OUTPUT: «True␤»
+say &#39;bar&#39; ∈ @a;         # same, using unicode version of operator</pre>
+<p>This is the equivalent of:</p>
+<pre class="pod-block-code">&#39;bar&#39; (elem) @a.Set;    # convert the array to a Set first
+</pre>
+<p>except that, if possible, it won&#39;t actually do the conversion.</p>
+<p>It basically compares the value with each element in the array using the <a href="/Documentable/integration-test/routine/===">===</a> infix operator. If you want to use another way to compare values, you probably should use <a href="/Documentable/integration-test/routine/first#(List)_routine_first">first</a>.</p>
+<h2 id="Sequences"><a class="u" href="#___top" title="go to top of document">Sequences</a></h2>
+<p>Not all lists are born full of elements. Some only create as many elements as they are asked for. These are called sequences, which are of type <a href="/Documentable/integration-test/type/Seq">Seq</a>. As it so happens, loops return <code>Seq</code>s.</p>
+<pre class="pod-block-code">(loop { 42.say })[2]  # OUTPUT: «42␤42␤42␤»</pre>
+<p>So, it is fine to have infinite lists in Raku, just so long as you never ask them for all their elements. In some cases, you may want to avoid asking them how long they are too – Raku will try to return <code>Inf</code> if it knows a sequence is infinite, but it cannot always know.</p>
+<p>These lists can be built using the <a href="/Documentable/integration-test/language/operators#infix_....html">...</a> operator, which builds lazy lists using a variety of generating expressions.</p>
+<p>Although the <code>Seq</code> class does provide some positional subscripting, it does not provide the full interface of <code>Positional</code>, so an <code>@</code>-sigiled variable may <strong>not</strong> be bound to a <code>Seq</code>, and trying to do so will yield an error.</p>
+<pre class="pod-block-code">my @s := &lt;a b c&gt;.Seq; CATCH { default { say .^name, &#39; &#39;, .Str } }
+# OUTPUT «X::TypeCheck::Binding Type check failed in binding; expected Positional but got Seq ($((&quot;a&quot;, &quot;b&quot;,&quot;c&quot;).Seq))␤»</pre>
+<p>This is because the <code>Seq</code> does not keep values around after you have used them. This is useful behavior if you have a very long sequence, as you may want to throw values away after using them, so that your program does not fill up memory. For example, when processing a file of a million lines:</p>
+<pre class="pod-block-code">for &#39;filename&#39;.IO.lines -&gt; $line {
+    do-something-with($line);
+}
+</pre>
+<p>You can be confident that the entire content of the file will not stay around in memory, unless you are explicitly storing the lines somewhere.</p>
+<p>On the other hand, you may want to keep old values around in some cases. It is possible to hide a <code>Seq</code> inside a <code>List</code>, which will still be lazy, but will remember old values. This is done by calling the <code>.list</code> method. Since this <code>List</code> fully supports <code>Positional</code>, you may bind it directly to an <code>@</code>-sigiled variable.</p>
+<pre class="pod-block-code">my @s := (loop { 42.say }).list;
+@s[2]; # says 42 three times
+@s[1]; # does not say anything
+@s[4]; # says 42 two more times</pre>
+<p>You may also use the <code>.cache</code> method instead of <code>.list</code>, depending on how you want the references handled. See the <a href="/Documentable/integration-test/type/Seq">page on <code>Seq</code></a> for details.</p>
+<h2 id="Using_.iterator"><a class="u" href="#___top" title="go to top of document">Using <code>.iterator</code></a></h2>
+<p>All lists mix in the <a href="/Documentable/integration-test/type/Iterator">Iterator</a> role, and as such have an <code>.iterator</code> method they can use for a finer control over a list. We can use it like this, for instance:</p>
+<pre class="pod-block-code">my @multiples-of-five = 0,5,10 … 500;
+my $odd-iterator = @multiples-of-five.iterator;
+my $odd;
+repeat {
+    $odd-iterator.skip-one;
+    $odd = $odd-iterator.pull-one;
+    say &quot;→ $odd&quot;;
+} until $odd.Str eq IterationEnd.Str;
+</pre>
+<p>Instead of using the iterator implicitly as we do in <code>for</code> loops, we explicitly assign it to the <code>$odd-iterator</code> variable to work over the odd elements of the sequence only. That way, we can skip even elements using <code>.skip-one</code>. We do have to test explicitly for termination, which we do in the <code>until</code> expression. When there&#39;s nothing left to iterate, <code>$odd</code> will have the value <code>IterationEnd</code>. Please check the <a href="/Documentable/integration-test/type/Iterator">documentation on <code>Iterator</code>s</a> for the methods and functions that are available.</p>
+<h2 id="Slips"><a class="u" href="#___top" title="go to top of document">Slips</a></h2>
+<p>Sometimes you want to insert the elements of a list into another list. This can be done with a special type of list called a <a href="/Documentable/integration-test/type/Slip">Slip</a>.</p>
+<pre class="pod-block-code">say (1, (2, 3), 4) eqv (1, 2, 3, 4);         # OUTPUT: «False␤»
+say (1, Slip.new(2, 3), 4) eqv (1, 2, 3, 4); # OUTPUT: «True␤»
+say (1, slip(2, 3), 4) eqv (1, 2, 3, 4);     # OUTPUT: «True␤»</pre>
+<p>Another way to make a <code>Slip</code> is with the <code>|</code> prefix operator. Note that this has a tighter precedence than the comma, so it only affects a single value, but unlike the above options, it will break <a href="/Documentable/integration-test/type/Scalar">Scalars</a>.</p>
+<pre class="pod-block-code">say (1, |(2, 3), 4) eqv (1, 2, 3, 4);        # OUTPUT: «True␤»
+say (1, |$(2, 3), 4) eqv (1, 2, 3, 4);       # OUTPUT: «True␤»
+say (1, slip($(2, 3)), 4) eqv (1, 2, 3, 4);  # OUTPUT: «True␤»</pre>
+<p><a name="Documentable/integration-test/index-entry-laziness_in_Iterable_objects"></a></p>
+<h1 id="Lazy_lists"><a class="u" href="#___top" title="go to top of document">Lazy lists</a></h1>
+<p><code>List</code>s, <code>Seq</code>s, <code>Array</code>s and any other class that implements the <a href="/Documentable/integration-test/type/Iterator">Iterator</a> role can be lazy, which means that their values are computed on demand and stored for later use. One of the ways to create a lazy object is to use <a href="/Documentable/integration-test/language/control#gather/take">gather/take</a> or the <a href="/Documentable/integration-test/language/operators#infix_....html">sequence operator</a>. You can also write a class that implements the role <a href="/Documentable/integration-test/type/Iterator">Iterator</a> and returns <code>True</code> on a call to <a href="/Documentable/integration-test/routine/is-lazy">is-lazy</a>. Please note that some methods like <code>elems</code> cannot be called on a lazy List and will result in a thrown <a href="/Documentable/integration-test/type/Exception">Exception</a>.</p>
+<pre class="pod-block-code"># This array is lazy and its elements will not be available
+# until explicitly requested.
+
+my @lazy-array = lazy 1, 11, 121 ... 10**100;
+say @lazy-array.is-lazy;     # OUTPUT: «True␤»
+say @lazy-array[];           # OUTPUT: «[...]␤»
+
+# Once all elements have been retrieved, the list
+# is no longer considered lazy.
+
+my @no-longer-lazy = eager @lazy-array;  # Forcing eager evaluation
+say @no-longer-lazy.is-lazy;             # OUTPUT: «False␤»
+say @no-longer-lazy[];
+# OUTPUT: (sequence starting with «[1 11 121» ending with a 300 digit number)
+</pre>
+<p>In the example above, <code>@lazy-array</code> is an <code>Array</code> which, through construction, is made <code>lazy</code>. Calling <code>is-lazy</code> on it actually calls the method mixed in by the role <code>Iterator</code>, which, since it originates in a lazy list, is itself lazy.</p>
+<p>A common use case for lazy <code>Seq</code>s is the processing of infinite sequences of numbers, whose values have not been computed yet and cannot be computed in their entirety. Specific values in the List will only be computed when they are needed.</p>
+<pre class="pod-block-code">my  $l := 1, 2, 4, 8 ... Inf;
+say $l[0..16];
+#OUTPUT: «(1 2 4 8 16 32 64 128 256 512 1024 2048 4096 8192 16384 32768 65536)␤»
+</pre>
+<p>You can easily assign lazy objects to other objects, conserving their laziness:</p>
+<pre class="pod-block-code">my  $l := 1, 2, 4, 8 ... Inf; # This is a lazy Seq.
+my  @lazy-array = $l;
+say @lazy-array[10..15]; # OUTPUT: «(1024 2048 4096 8192 16384 32768)␤»
+say @lazy-array.is-lazy; # OUTPUT: «True␤»</pre>
+<h1 id="Immutability"><a class="u" href="#___top" title="go to top of document">Immutability</a></h1>
+<p>The lists we have talked about so far (<code>List</code>, <code>Seq</code> and <code>Slip</code>) are all immutable. This means you cannot remove elements from them, or re-bind existing elements:</p>
+<pre class="pod-block-code">(1, 2, 3)[0]:delete; # Error Can not remove elements from a List
+(1, 2, 3)[0] := 0;   # Error Cannot use bind operator with this left-hand side
+(1, 2, 3)[0] = 0;    # Error Cannot modify an immutable Int
+</pre>
+<p>However, if any of the elements is wrapped in a <a href="/Documentable/integration-test/type/Scalar"><code>Scalar</code></a> you can still change the value which that <code>Scalar</code> points to:</p>
+<pre class="pod-block-code">my $a = 2;
+(1, $a, 3)[1] = 42;
+$a.say;            # OUTPUT: «42␤»</pre>
+<p>that is, it is only the list structure itself – how many elements there are and each element&#39;s identity – that is immutable. The immutability is not contagious past the identity of the element.</p>
+<h1 id="List_contexts"><a class="u" href="#___top" title="go to top of document">List contexts</a></h1>
+<p>So far we have mostly dealt with lists in neutral contexts. Lists are actually very context sensitive on a syntactical level.</p>
+<h2 id="List_assignment_context"><a class="u" href="#___top" title="go to top of document">List assignment context</a></h2>
+<p>When a list (or something that is going to be converted into a list) appears on the right-hand side of an assignment into a <code>@</code>-sigiled variable, it is &quot;eagerly&quot; evaluated. This means that a <code>Seq</code> will be iterated until it can produce no more elements, for instance. This is one of the places you do not want to put an infinite list, lest your program hang and, eventually, run out of memory:</p>
+<pre class="pod-block-code">my @divisors = (gather {
+    for &lt;2 3 5 7&gt; {
+        take $_ if 70 %% $_;
+    }
+});
+say @divisors; # OUTPUT: «[2 5 7]␤»</pre>
+<p>The <a href="/Documentable/integration-test/language/control#index-entry-lazy_list_gather"><code>gather</code> statement</a> creates a lazy list, which is eagerly evaluated when assigned to <code>@divisors</code>.</p>
+<h2 id="Flattening_&quot;context&quot;"><a class="u" href="#___top" title="go to top of document">Flattening &quot;context&quot;</a></h2>
+<p>When you have a list that contains sub-lists, but you only want one flat list, you may flatten the list to produce a sequence of values as if all parentheses were removed. This works no matter how many levels deep the parentheses are nested.</p>
+<pre class="pod-block-code">say (1, (2, (3, 4)), 5).flat eqv (1, 2, 3, 4, 5) # OUTPUT: «True␤»</pre>
+<p>This is not really a syntactical &quot;context&quot; as much as it is a process of iteration, but it has the appearance of a context.</p>
+<p>Note that <a href="/Documentable/integration-test/type/Scalar"><code>Scalar</code>s</a> around a list will make it immune to flattening:</p>
+<pre class="pod-block-code">for (1, (2, $(3, 4)), 5).flat { .say } # OUTPUT: «1␤2␤(3 4)␤5␤»</pre>
+<p>...but an <code>@</code>-sigiled variable will spill its elements.</p>
+<pre class="pod-block-code">my @l := 2, (3, 4);
+for (1, @l, 5).flat { .say };      # OUTPUT: «1␤2␤3␤4␤5␤»
+my @a = 2, (3, 4);                 # Arrays are special, see below
+for (1, @a, 5).flat { .say };      # OUTPUT: «1␤2␤(3 4)␤5␤»</pre>
+<h2 id="Argument_list_(Capture)_context"><a class="u" href="#___top" title="go to top of document">Argument list (Capture) context</a></h2>
+<p>When a list appears as arguments to a function or method call, special syntax rules are at play: the list is immediately converted into a <code>Capture</code>. A <code>Capture</code> itself has a List (<code>.list</code>) and a Hash (<code>.hash</code>). Any <code>Pair</code> literals whose keys are not quoted, or which are not parenthesized, never make it into <code>.list</code>. Instead, they are considered to be named arguments and squashed into <code>.hash</code>. See the <a href="/Documentable/integration-test/type/Capture">page on <code>Capture</code></a> for the details of this processing.</p>
+<p>Consider the following ways to make a new <code>Array</code> from a <code>List</code>. These ways place the <code>List</code> in an argument list context and because of that, the <code>Array</code> only contains <code>1</code> and <code>2</code> but not the <code>Pair</code> <code>:c(3)</code>, which is ignored.</p>
+<pre class="pod-block-code">Array.new(1, 2, :c(3));
+Array.new: 1, 2, :c(3);
+new Array: 1, 2, :c(3);</pre>
+<p>In contrast, these ways do not place the <code>List</code> in argument list context, so all the elements, even the <code>Pair</code> <code>:c(3)</code>, are placed in the <code>Array</code>.</p>
+<pre class="pod-block-code">Array.new((1, 2, :c(3)));
+(1, 2, :c(3)).Array;
+my @a = 1, 2, :c(3); Array.new(@a);
+my @a = 1, 2, :c(3); Array.new: @a;
+my @a = 1, 2, :c(3); new Array: @a;</pre>
+<p>In argument list context the <code>|</code> prefix operator applied to a <code>Positional</code> will always slip list elements as positional arguments to the Capture, while a <code>|</code> prefix operator applied to an <code>Associative</code> will slip pairs in as named parameters:</p>
+<pre class="pod-block-code">my @a := 2, &quot;c&quot; =&gt; 3;
+Array.new(1, |@a, 4);    # Array contains 1, 2, :c(3), 4
+my %a = &quot;c&quot; =&gt; 3;
+Array.new(1, |%a, 4);    # Array contains 1, 4</pre>
+<h2 id="Slice_indexing_context"><a class="u" href="#___top" title="go to top of document">Slice indexing context</a></h2>
+<p>From the perspective of the <code>List</code> inside a <a href="/Documentable/integration-test/language/subscripts#Slices">slice subscript</a>, is only remarkable in that it is unremarkable: because <a href="/Documentable/integration-test/language/subscripts#Adverbs">adverbs</a> to a slice are attached after the <code>]</code>, the inside of a slice is <strong>not</strong> an argument list, and no special processing of pair forms happens.</p>
+<p>Most <code>Positional</code> types will enforce an integer coercion on each element of a slice index, so pairs appearing there will generate an error, anyway:</p>
+<pre class="pod-block-code">(1, 2, 3)[1, 2, :c(3)] # OUTPUT: «Method &#39;Int&#39; not found for invocant of class &#39;Pair&#39;␤»
+</pre>
+<p>...however this is entirely up to the type – if it defines an order for pairs, it could consider <code>:c(3)</code> a valid index.</p>
+<p>Indices inside a slice are usually not automatically flattened, but neither are sublists usually coerced to <code>Int</code>. Instead, the list structure is kept intact, causing a nested slice operation that replicates the structure in the result:</p>
+<pre class="pod-block-code">say (&quot;a&quot;, &quot;b&quot;, &quot;c&quot;)[(1, 2), (0, 1)] eqv ((&quot;b&quot;, &quot;c&quot;), (&quot;a&quot;, &quot;b&quot;)) # OUTPUT: «True␤»</pre>
+<p>Slices can be taken also across several dimensions using <em>semilists</em>, which are lists of slices separated by semicolons:</p>
+<pre class="pod-block-code">my @sliceable = [[ ^10 ], [&#39;a&#39;..&#39;h&#39;], [&#39;Ⅰ&#39;..&#39;Ⅺ&#39;]];
+say @sliceable[ ^3; 4..6 ]; #OUTPUT: «(4 5 6 e f g Ⅴ Ⅵ Ⅶ)␤»</pre>
+<p>which is selecting the 4 to 6th element from the three first dimensions (<code>^3</code>).</p>
+<h2 id="Range_as_slice"><a class="u" href="#___top" title="go to top of document">Range as slice</a></h2>
+<p>A <a href="/Documentable/integration-test/type/Range"><code>Range</code></a> is a container for a lower and an upper boundary, either of which may be excluded. Generating a slice with a <code>Range</code> will include any index between the bounds, though an infinite Range will <a href="/Documentable/integration-test/language/subscripts#Truncating_slices">truncate</a> non-existent elements. An infinite range with excluded upper boundary (e.g. <code>0..^Inf</code>) is still infinite and will reach all elements.</p>
+<pre class="pod-block-code">my @a = 1..5;
+say @a[0..2];     # OUTPUT: «(1 2 3)␤»
+say @a[0..^2];    # OUTPUT: «(1 2)␤»
+say @a[0..*];     # OUTPUT: «(1 2 3 4 5)␤»
+say @a[0..^*];    # OUTPUT: «(1 2 3 4 5)␤»
+say @a[0..Inf-1]; # OUTPUT: «(1 2 3 4 5)␤»</pre>
+<p>Note that when the upper boundary is a WhateverCode instead of just a Whatever, the range is not infinite but becomes a Callable producing Ranges. This is normal behavior of the <a href="/Documentable/integration-test/type/Range">..</a> operator. The subscript operator <a href="/Documentable/integration-test/language/subscripts#Slices">[]</a> evaluates the WhateverCode providing the list&#39;s <code>.elems</code> as an argument and uses the resulting range to slice:</p>
+<pre class="pod-block-code">    say @a[0..*-1];   # OUTPUT: «(1 2 3 4 5)␤»
+    say @a[0..^*-1];  # OUTPUT: «(1 2 3 4)␤»
+    # Produces 0..^2.5 as the slice range
+    say @a[0..^*/2];  # OUTPUT: «(1 2 3)␤»
+</pre>
+<p>Notice that <code>0..^*</code> and <code>0..^*+0</code> behave consistently in subscripts despite one being an infinite range and the other a WhateverCode producing ranges, but <code>0..*+0</code> will give you an additional trailing <code>Nil</code> because, unlike the infinite range <code>0..*</code>, it does not truncate.</p>
+<h2 id="Array_constructor_context"><a class="u" href="#___top" title="go to top of document">Array constructor context</a></h2>
+<p>Inside an Array Literal, the list of initialization values is not in capture context and is just a normal list. It is, however, eagerly evaluated just as in assignment.</p>
+<pre class="pod-block-code">say so [ 1, 2, :c(3) ] eqv Array.new((1, 2, :c(3))); # OUTPUT: «True␤»
+[while $++ &lt; 2 { 42.say; 43 }].map: *.say;           # OUTPUT: «42␤42␤43␤43␤»
+(while $++ &lt; 2 { 42.say; 43 }).map: *.say;           # OUTPUT: «42␤43␤42␤43␤»</pre>
+<p>Which brings us to Arrays...</p>
+<h1 id="Arrays"><a class="u" href="#___top" title="go to top of document">Arrays</a></h1>
+<p>Arrays differ from lists in three major ways: Their elements may be typed, they automatically itemize their elements, and they are mutable. Otherwise they are Lists and are accepted wherever lists are.</p>
+<pre class="pod-block-code">say Array ~~ List     # OUTPUT: «True␤»</pre>
+<p>A fourth, more subtle, way they differ is that when working with Arrays, it can sometimes be harder to maintain laziness or work with infinite sequences.</p>
+<h2 id="Typing"><a class="u" href="#___top" title="go to top of document">Typing</a></h2>
+<p><a name="Documentable/integration-test/index-entry-typed_array"></a><a name="Documentable/integration-test/index-entry-[_]_(typed_array)"></a> Arrays may be typed such that their slots perform a typecheck whenever they are assigned to. An Array that only allows <code>Int</code> values to be assigned is of type <code>Array[Int]</code> and one can create one with <code>Array[Int].new</code>. If you intend to use an <code>@</code>-sigiled variable only for this purpose, you may change its type by specifying the type of the elements when declaring it:</p>
+<pre class="pod-block-code">my Int @a = 1, 2, 3;              # An Array that contains only Ints
+# the same as
+my @a of Int = 1, 2, 3;           # An Array of Ints
+my @b := Array[Int].new(1, 2, 3); # Same thing, but the variable is not typed
+my @b := Array[Int](1, 2, 3);     # Rakudo shortcut for the same code
+say @b eqv @a;                    # says True.
+my @c = 1, 2, 3;                  # An Array that can contain anything
+say @b eqv @c;                    # says False because types do not match
+say @c eqv (1, 2, 3);             # says False because one is a List
+say @b eq @c;                     # says True, because eq only checks values
+say @b eq (1, 2, 3);              # says True, because eq only checks values
+
+@a[0] = 42;                       # fine
+@a[0] = &quot;foo&quot;;                    # error: Type check failed in assignment
+</pre>
+<p>In the above example we bound a typed Array object to a <code>@</code>-sigil variable for which no type had been specified. The other way around does not work – you may not bind an Array that has the wrong type to a typed <code>@</code>-sigiled variable:</p>
+<pre class="pod-block-code">my @a := Array[Int].new(1, 2, 3);     # fine
+@a := Array[Str].new(&quot;a&quot;, &quot;b&quot;);       # fine, can be re-bound
+my Int @b := Array[Int].new(1, 2, 3); # fine
+@b := Array.new(1, 2, 3);             # error: Type check failed in binding
+</pre>
+<p>When working with typed arrays, it is important to remember that they are nominally typed. This means the declared type of an array is what matters. Given the following sub declaration:</p>
+<pre class="pod-block-code">sub mean(Int @a) {
+    @a.sum / @a.elems
+}</pre>
+<p>Calls that pass an Array[Int] will be successful:</p>
+<pre class="pod-block-code">my Int @b = 1, 3, 5;
+say mean(@b);                       # @b is Array[Int]
+say mean(Array[Int].new(1, 3, 5));  # Anonymous Array[Int]
+say mean(my Int @ = 1, 3, 5);       # Another anonymous Array[Int]
+</pre>
+<p>However, the following calls will all fail, due to passing an untyped array, even if the array just happens to contain Int values at the point it is passed:</p>
+<pre class="pod-block-code">my @c = 1, 3, 5;
+say mean(@c);                       # Fails, passing untyped Array
+say mean([1, 3, 5]);                # Same
+say mean(Array.new(1, 3, 5));       # Same again
+</pre>
+<p>Note that in any given compiler, there may be fancy, under-the-hood, ways to bypass the type check on arrays, so when handling untrusted input, it can be good practice to perform additional type checks, where it matters:</p>
+<pre class="pod-block-code">for @a -&gt; Int $i { $_++.say };
+</pre>
+<p>However, as long as you stick to normal assignment operations inside a trusted area of code, this will not be a problem, and typecheck errors will happen promptly during assignment to the array, if they cannot be caught at compile time. None of the core functions provided in Raku for operating on lists should ever produce a wonky typed Array.</p>
+<p>Nonexistent elements (when indexed), or elements to which <code>Nil</code> has been assigned, will assume a default value. This default may be adjusted on a variable-by-variable basis with the <code>is default</code> trait. Note that an untyped <code>@</code>-sigiled variable has an element type of <code>Mu</code>, however its default value is an undefined <code>Any</code>:</p>
+<pre class="pod-block-code">my @a;
+@a.of.raku.say;                 # OUTPUT: «Mu␤»
+@a.default.raku.say;            # OUTPUT: «Any␤»
+@a[0].say;                      # OUTPUT: «(Any)␤»
+my Numeric @n is default(Real);
+@n.of.raku.say;                 # OUTPUT: «Numeric␤»
+@n.default.raku.say;            # OUTPUT: «Real␤»
+@n[0].say;                      # OUTPUT: «(Real)␤»</pre>
+<p><a name="Documentable/integration-test/index-entry-Shaped_arrays"></a></p>
+<h2 id="Fixed_size_arrays"><a class="u" href="#___top" title="go to top of document">Fixed size arrays</a></h2>
+<p>To limit the dimensions of an <code>Array</code>, provide the dimensions separated by <code>,</code> or <code>;</code> in square brackets after the name of the array container in case there is more than one dimension; these are called <em>shaped</em> arrays too. The values of such a kind of <code>Array</code> will default to <code>Any</code>. The shape can be accessed at runtime via the <code>shape</code> method.</p>
+<pre class="pod-block-code">my @a[2,2];
+say @a.raku;
+# OUTPUT: «Array.new(:shape(2, 2), [Any, Any], [Any, Any])␤»
+say @a.shape;         # OUTPUT: «(2 2)␤»
+my @just-three[3] = &lt;alpha beta kappa&gt;;
+say @just-three.raku;
+# OUTPUT: «Array.new(:shape(3,), [&quot;alpha&quot;, &quot;beta&quot;, &quot;kappa&quot;])␤»</pre>
+<p>Shape will control the amount of elements that can be assigned by dimension:</p>
+<pre class="pod-block-code">my @just-two[2] = &lt;alpha beta kappa&gt;;
+# Will throw exception: «Index 2 for dimension 1 out of range (must be 0..1)»
+</pre>
+<p>Assignment to a fixed size <code>Array</code> will promote a List of Lists to an Array of Arrays (making then mutable in the process).</p>
+<pre class="pod-block-code">my @a[2;2] = (1,2; 3,4);
+say @a.Array; # OUTPUT: «[1 2 3 4]␤»
+@a[1;1] = 42;
+say @a.raku;
+# OUTPUT: «Array.new(:shape(2, 2), [1, 2], [3, 42])␤»</pre>
+<p>As the third statement shows, you can assign directly to an element in a shaped array too. <strong>Note</strong>: the second statement works only from version 2018.09.</p>
+<p>Since version 6.d, <a href="/Documentable/integration-test/language/typesystem#index-entry-Enumeration-_Enums-_enum"><code>enum</code>s</a> can be used also as shape parameters:</p>
+<pre class="pod-block-code">enum Cards &lt;Trump Ace Deuce Trey&gt;;
+my @cards[Deuce;Deuce];
+say @cards.shape; # OUTPUT: «(Deuce Deuce)␤»
+</pre>
+<h2 id="Itemization"><a class="u" href="#___top" title="go to top of document">Itemization</a></h2>
+<p>For most uses, <code>Array</code>s consist of a number of slots each containing a <code>Scalar</code> of the correct type. Every such <code>Scalar</code>, in turn, contains a value of that type. Raku will automatically type-check values and create Scalars to contain them when Arrays are initialized, assigned to, or constructed.</p>
+<p>This is actually one of the trickiest parts of Raku list handling to get a firm understanding of.</p>
+<p>First, be aware that because itemization in Arrays is assumed, it essentially means that <code>$(…)</code>s are being put around everything that you assign to an array, if you do not put them there yourself. On the other side, Array.raku does not put <code>$</code> to explicitly show scalars, unlike List.raku:</p>
+<pre class="pod-block-code">((1, 2), $(3, 4)).raku.say; # says &quot;((1, 2), $(3, 4))&quot;
+[(1, 2), $(3, 4)].raku.say; # says &quot;[(1, 2), (3, 4)]&quot;
+                            # ...but actually means: &quot;[$(1, 2), $(3, 4)]&quot;</pre>
+<p>It was decided all those extra dollar signs and parentheses were more of an eye sore than a benefit to the user. Basically, when you see a square bracket, remember the invisible dollar signs.</p>
+<p>Second, remember that these invisible dollar signs also protect against flattening, so you cannot really flatten the elements inside of an Array with a normal call to <code>flat</code> or <code>.flat</code>.</p>
+<pre class="pod-block-code">((1, 2), $(3, 4)).flat.raku.say; # OUTPUT: «(1, 2, $(3, 4)).Seq␤»
+[(1, 2), $(3, 4)].flat.raku.say; # OUTPUT: «($(1, 2), $(3, 4)).Seq␤»</pre>
+<p>Since the square brackets do not themselves protect against flattening, you can still spill the elements out of an Array into a surrounding list using <code>flat</code>.</p>
+<pre class="pod-block-code">(0, [(1, 2), $(3, 4)], 5).flat.raku.say; # OUTPUT: «(0, $(1, 2), $(3, 4), 5).Seq␤»</pre>
+<p>...the elements themselves, however, stay in one piece.</p>
+<p>This can irk users of data you provide if you have deeply nested Arrays where they want flat data. Currently they have to deeply map the structure by hand to undo the nesting:</p>
+<pre class="pod-block-code">say gather [0, [(1, 2), [3, 4]], $(5, 6)].deepmap: *.take; # OUTPUT: «(0 1 2 3 4 5 6)␤»</pre>
+<p>... Future versions of Raku might find a way to make this easier. However, not returning Arrays or itemized lists from functions, when non-itemized lists are sufficient, is something that one should consider as a courtesy to their users:</p>
+<ul><li><p>Use <code>Slip</code>s when you want to always merge with surrounding lists.</p>
+</li>
+<li><p>Use non-itemized lists when you want to make it easy for the user to flatten.</p>
+</li>
+<li><p>Use itemized lists to protect things the user probably will not want flattened.</p>
+</li>
+<li><p>Use <code>Arrays</code> as non-itemized lists of itemized lists, if appropriate.</p>
+</li>
+<li><p>Use <code>Array</code>s if the user is going to want to mutate the result without copying it first.</p>
+</li>
+</ul>
+<p>The fact that all elements of an array are itemized (in <code>Scalar</code> containers) is more a gentleman&#39;s agreement than a universally enforced rule, and it is less well enforced that typechecks in typed arrays. See the section below on binding to Array slots.</p>
+<h2 id="Literal_arrays"><a class="u" href="#___top" title="go to top of document">Literal arrays</a></h2>
+<p>Literal <code>Array</code>s are constructed with a <code>List</code> inside square brackets. The <code>List</code> is eagerly iterated (at compile time if possible) and values in it are each type-checked and itemized. The square brackets themselves will spill elements into surrounding lists when flattened, but the elements themselves will not spill due to the itemization.</p>
+<h2 id="Mutability"><a class="u" href="#___top" title="go to top of document">Mutability</a></h2>
+<p>Unlike lists, <code>Array</code>s are mutable. Elements may deleted, added, or changed.</p>
+<pre class="pod-block-code">my @a = &quot;a&quot;, &quot;b&quot;, &quot;c&quot;;
+@a.say;                  # OUTPUT: «[a b c]␤»
+@a.pop.say;              # OUTPUT: «c␤»
+@a.say;                  # OUTPUT: «[a b]␤»
+@a.push(&quot;d&quot;);
+@a.say;                  # OUTPUT: «[a b d]␤»
+@a[1, 3] = &quot;c&quot;, &quot;c&quot;;
+@a.say;                  # OUTPUT: «[a c d c]␤»</pre>
+<h3 id="Assigning"><a class="u" href="#___top" title="go to top of document">Assigning</a></h3>
+<p>Assignment of a list to an <code>Array</code> is eager. The list will be entirely evaluated, and should not be infinite or the program may hang. Assignment to a slice of an <code>Array</code> is, likewise, eager, but only up to the requested number of elements, which may be finite:</p>
+<pre class="pod-block-code">my @a;
+@a[0, 1, 2] = (loop { 42 });
+@a.say;                     # OUTPUT: «[42 42 42]␤»</pre>
+<p>During assignment, each value will be typechecked to ensure it is a permitted type for the <code>Array</code>. Any <code>Scalar</code> will be stripped from each value and a new <code>Scalar</code> will be wrapped around it.</p>
+<h3 id="Binding"><a class="u" href="#___top" title="go to top of document">Binding</a></h3>
+<p>Individual Array slots may be bound the same way <code>$</code>-sigiled variables are:</p>
+<pre class="pod-block-code">my $b = &quot;foo&quot;;
+my @a = 1, 2, 3;
+@a[2] := $b;
+@a.say;          # OUTPUT: «[1 2 &quot;foo&quot;]␤»
+$b = &quot;bar&quot;;
+@a.say;          # OUTPUT: «[1 2 &quot;bar&quot;]␤»</pre>
+<p>... But binding <code>Array</code> slots directly to values is strongly discouraged. If you do, expect surprises with built-in functions. The only time this would be done is if a mutable container that knows the difference between values and <code>Scalar</code>-wrapped values is needed, or for very large <code>Array</code>s where a native-typed array cannot be used. Such a creature should never be passed back to unsuspecting users.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/list.pod6">https://github.com/Raku/doc/blob/master/doc/Language/list.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

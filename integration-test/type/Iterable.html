@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>role Iterable</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/type.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-basic.html"> Basic </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-composite.html"> Composite </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-domain-specific.html"> Domain-specific </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-exception.html"> Exceptions </a>
+            </div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Type/Iterable.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">role Iterable</h1>
+        <p class="subtitle">Interface for container objects that can be iterated over</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+                                                   <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#method_iterator">method iterator</a></td></tr>
+            <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#method_flat">method flat</a></td></tr>
+                               <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#method_lazy">method lazy</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">1.4</td><td class="toc-text"><a href="#method_hyper">method hyper</a></td></tr>
+           <tr class="toc-level-3"><td class="toc-number">1.4.1</td><td class="toc-text"><a href="#Options_degree_and_batch">Options degree and batch</a></td></tr>
+                 <tr class="toc-level-2"><td class="toc-number">1.5</td><td class="toc-text"><a href="#method_race">method race</a></td></tr>
+                     <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Type_Graph">Type Graph</a></td></tr>
+ 
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <pre class="pod-block-code">role Iterable { }</pre>
+<p><code>Iterable</code> serves as an API for objects that can be iterated with <code>for</code> and related iteration constructs, like assignment to a <code>Positional</code> variable.</p>
+<p><code>Iterable</code> objects nested in other <code>Iterable</code> objects (but not within scalar containers) flatten in certain contexts, for example when passed to a slurpy parameter (<code>*@a</code>), or on explicit calls to <code>flat</code>.</p>
+<p>Its most important aspect is a method stub for <code>iterator</code>.</p>
+<pre class="pod-block-code">class DNA does Iterable {
+    has $.chain;
+    method new ($chain where { $chain ~~ /^^ &lt;[ACGT]&gt;+ $$ / } ) {
+        self.bless( :$chain );
+    }
+
+    method iterator(DNA:D:) {
+        $!chain.comb.rotor(3).iterator;
+    }
+}
+
+my $a := DNA.new(&#39;GAATCC&#39;);
+.say for $a; # OUTPUT: «(G A A)␤(T C C)␤»
+</pre>
+<p>This example mixes in the Iterable role to offer a new way of iterating over what is essentially a string (constrained by <a href="/Documentable/integration-test/type/Signature#index-entry-where_clause_(Signature)"><code>where</code></a> to just the four DNA letters). In the last statement, <code>for</code> actually hooks to the <code>iterator</code> role printing the letters in groups of 3.</p>
+<h1 id="Methods"><a class="u" href="#___top" title="go to top of document">Methods</a></h1>
+<h2 id="method_iterator"><a class="u" href="#___top" title="go to top of document">method iterator</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method iterator(--&gt; Iterator:D)</pre>
+<p>Method stub that ensures all classes doing the <code>Iterable</code> role have a method <code>iterator</code>.</p>
+<p>It is supposed to return an <a href="/Documentable/integration-test/type/Iterator">Iterator</a>.</p>
+<pre class="pod-block-code">say (1..10).iterator;</pre>
+<h2 id="method_flat"><a class="u" href="#___top" title="go to top of document">method flat</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method flat(--&gt; Iterable)</pre>
+<p>Returns another <a href="/Documentable/integration-test/type/Iterable">Iterable</a> that flattens out all iterables that the first one returns.</p>
+<p>For example</p>
+<pre class="pod-block-code">say (&lt;a b&gt;, &#39;c&#39;).elems;         # OUTPUT: «2␤»
+say (&lt;a b&gt;, &#39;c&#39;).flat.elems;    # OUTPUT: «3␤»</pre>
+<p>because <code>&lt;a b&gt; </code> is a <a href="/Documentable/integration-test/type/List">List</a> and thus iterable, so <code> (&lt;a b&gt;, &#39;c&#39;).flat </code> returns <code>(&#39;a&#39;, &#39;b&#39;, &#39;c&#39;)</code>, which has three elems.</p>
+<p>Note that the flattening is recursive, so <code>(((&quot;a&quot;, &quot;b&quot;), &quot;c&quot;), &quot;d&quot;).flat</code> returns <code>(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;)</code>, but it does not flatten itemized sublists:</p>
+<pre class="pod-block-code">say ($(&#39;a&#39;, &#39;b&#39;), &#39;c&#39;).raku;    # OUTPUT: «($(&quot;a&quot;, &quot;b&quot;), &quot;c&quot;)␤»</pre>
+<p>You can use the <a href="/Documentable/integration-test/language/operators#index-entry-postfix_»..html">hyper method call</a> to call the <a href="/Documentable/integration-test/routine/List"><code>.List</code></a> method on all the inner itemized sublists and so de-containerize them, so that <code>flat</code> can flatten them:</p>
+<pre class="pod-block-code">say ($(&#39;a&#39;, &#39;b&#39;), &#39;c&#39;)&gt;&gt;.List.flat.elems;    # OUTPUT: «3␤»</pre>
+<h2 id="method_lazy"><a class="u" href="#___top" title="go to top of document">method lazy</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method lazy(--&gt; Iterable)</pre>
+<p>Returns a lazy iterable wrapping the invocant.</p>
+<pre class="pod-block-code">say (1 ... 1000).is-lazy;      # OUTPUT: «False␤»
+say (1 ... 1000).lazy.is-lazy; # OUTPUT: «True␤»</pre>
+<h2 id="method_hyper"><a class="u" href="#___top" title="go to top of document">method hyper</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method hyper(Int(Cool) :$batch = 64, Int(Cool) :$degree = 4)</pre>
+<p>Returns another Iterable that is potentially iterated in parallel, with a given batch size and degree of parallelism.</p>
+<p>The order of elements is preserved.</p>
+<pre class="pod-block-code">say ([1..100].hyper.map({ $_ +1 }).list);</pre>
+<p>Use <code>hyper</code> in situations where it is OK to do the processing of items in parallel, and the output order should be kept relative to the input order. See <a href="/Documentable/integration-test/routine/race"><code>race</code></a> for situations where items are processed in parallel and the output order does not matter.</p>
+<h3 id="Options_degree_and_batch"><a class="u" href="#___top" title="go to top of document">Options degree and batch</a></h3>
+<p>The <code>degree</code> option (short for &quot;degree of parallelism&quot;) configures how many parallel workers should be started. To start 4 workers (e.g. to use at most 4 cores), pass <code>:4degree</code> to the <code>hyper</code> or <code>race</code> method. Note that in some cases, choosing a degree higher than the available CPU cores can make sense, for example I/O bound work or latency-heavy tasks like web crawling. For CPU-bound work, however, it makes no sense to pick a number higher than the CPU core count.</p>
+<p>The <code>batch</code> size option configures the number of items sent to a given parallel worker at once. It allows for making a throughput/latency trade-off. If, for example, an operation is long-running per item, and you need the first results as soon as possible, set it to 1. That means every parallel worker gets 1 item to process at a time, and reports the result as soon as possible. In consequence, the overhead for inter-thread communication is maximized. In the other extreme, if you have 1000 items to process and 10 workers, and you give every worker a batch of 100 items, you will incur minimal overhead for dispatching the items, but you will only get the first results when 100 items are processed by the fastest worker (or, for <code>hyper</code>, when the worker getting the first batch returns.) Also, if not all items take the same amount of time to process, you might run into the situation where some workers are already done and sit around without being able to help with the remaining work. In situations where not all items take the same time to process, and you don&#39;t want too much inter-thread communication overhead, picking a number somewhere in the middle makes sense. Your aim might be to keep all workers about evenly busy to make best use of the resources available.</p>
+<p>You can also check out this <strong><a href="https://6guts.wordpress.com/2017/03/16/considering-hyperrace-semantics/">blog post on the semantics of hyper and race</a></strong></p>
+<h2 id="method_race"><a class="u" href="#___top" title="go to top of document">method race</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method race(Int(Cool) :$batch = 64, Int(Cool) :$degree = 4 --&gt; Iterable)</pre>
+<p>Returns another Iterable that is potentially iterated in parallel, with a given batch size and degree of parallelism (number of parallel workers).</p>
+<p>Unlike <a href="/Documentable/integration-test/routine/hyper"><code>hyper</code></a>, <code>race</code> does not preserve the order of elements.</p>
+<pre class="pod-block-code">say ([1..100].race.map({ $_ +1 }).list);</pre>
+<p>Use race in situations where it is OK to do the processing of items in parallel, and the output order does not matter. See <a href="/Documentable/integration-test/routine/hyper"><code>hyper</code></a> for situations where you want items processed in parallel and the output order should be kept relative to the input order.</p>
+<p><strong><a href="https://6guts.wordpress.com/2017/03/16/considering-hyperrace-semantics/">Blog post on the semantics of hyper and race</a></strong></p>
+<p>See <a href="/Documentable/integration-test/routine/hyper"><code>hyper</code></a> for an explanation of <code>:$batch</code> and <code>:$degree</code>.</p>
+<h1 id="Type_Graph"><a class="u" href="#___top" title="go to top of document">Type Graph</a></h1>
+<figure>
+  <figcaption>Type relations for <code>Iterable</code></figcaption>
+  <svg width="759pt" height="404pt"
+ viewBox="0.00 0.00 758.63 404.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 400)">
+<title>perl6&#45;type&#45;graph</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-400 754.63,-400 754.63,4 -4,4"/>
+<!-- Iterable -->
+<g id="node1" class="node">
+<title>Iterable</title>
+<g id="a_node1"><a xlink:href="/type/Iterable" xlink:title="Iterable">
+<ellipse fill="none" stroke="#6666ff" cx="317.29" cy="-234" rx="50.09" ry="18"/>
+<text text-anchor="middle" x="317.29" y="-230.3" font-family="FreeSans" font-size="14.00" fill="#6666ff">Iterable</text>
+</a>
+</g>
+</g>
+<!-- Mu -->
+<g id="node2" class="node">
+<title>Mu</title>
+<g id="a_node2"><a xlink:href="/type/Mu" xlink:title="Mu">
+<ellipse fill="none" stroke="#000000" cx="281.29" cy="-378" rx="27" ry="18"/>
+<text text-anchor="middle" x="281.29" y="-374.3" font-family="FreeSans" font-size="14.00" fill="#000000">Mu</text>
+</a>
+</g>
+</g>
+<!-- Any -->
+<g id="node3" class="node">
+<title>Any</title>
+<g id="a_node3"><a xlink:href="/type/Any" xlink:title="Any">
+<ellipse fill="none" stroke="#000000" cx="281.29" cy="-306" rx="27" ry="18"/>
+<text text-anchor="middle" x="281.29" y="-302.3" font-family="FreeSans" font-size="14.00" fill="#000000">Any</text>
+</a>
+</g>
+</g>
+<!-- Any&#45;&gt;Mu -->
+<g id="edge1" class="edge">
+<title>Any&#45;&gt;Mu</title>
+<path fill="none" stroke="#000000" d="M281.29,-324.3C281.29,-332.02 281.29,-341.29 281.29,-349.89"/>
+<polygon fill="#000000" stroke="#000000" points="277.79,-349.9 281.29,-359.9 284.79,-349.9 277.79,-349.9"/>
+</g>
+<!-- PositionalBindFailover -->
+<g id="node4" class="node">
+<title>PositionalBindFailover</title>
+<g id="a_node4"><a xlink:href="/type/PositionalBindFailover" xlink:title="PositionalBindFailover">
+<ellipse fill="none" stroke="#6666ff" cx="118.29" cy="-306" rx="118.08" ry="18"/>
+<text text-anchor="middle" x="118.29" y="-302.3" font-family="FreeSans" font-size="14.00" fill="#6666ff">PositionalBindFailover</text>
+</a>
+</g>
+</g>
+<!-- Sequence -->
+<g id="node5" class="node">
+<title>Sequence</title>
+<g id="a_node5"><a xlink:href="/type/Sequence" xlink:title="Sequence">
+<ellipse fill="none" stroke="#6666ff" cx="161.29" cy="-234" rx="50.09" ry="18"/>
+<text text-anchor="middle" x="161.29" y="-230.3" font-family="FreeSans" font-size="14.00" fill="#6666ff">Sequence</text>
+</a>
+</g>
+</g>
+<!-- Sequence&#45;&gt;PositionalBindFailover -->
+<g id="edge14" class="edge">
+<title>Sequence&#45;&gt;PositionalBindFailover</title>
+<path fill="none" stroke="#6666ff" d="M150.88,-251.95C145.88,-260.08 139.79,-270 134.23,-279.06"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="131.15,-277.37 128.9,-287.72 137.12,-281.04 131.15,-277.37"/>
+</g>
+<!-- HyperSeq -->
+<g id="node6" class="node">
+<title>HyperSeq</title>
+<g id="a_node6"><a xlink:href="/type/HyperSeq" xlink:title="HyperSeq">
+<ellipse fill="none" stroke="#000000" cx="230.29" cy="-162" rx="50.09" ry="18"/>
+<text text-anchor="middle" x="230.29" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#000000">HyperSeq</text>
+</a>
+</g>
+</g>
+<!-- HyperSeq&#45;&gt;Iterable -->
+<g id="edge15" class="edge">
+<title>HyperSeq&#45;&gt;Iterable</title>
+<path fill="none" stroke="#6666ff" d="M250.03,-178.88C261.71,-188.28 276.69,-200.33 289.54,-210.67"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="287.64,-213.64 297.63,-217.18 292.03,-208.18 287.64,-213.64"/>
+</g>
+<!-- HyperSeq&#45;&gt;Any -->
+<g id="edge2" class="edge">
+<title>HyperSeq&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M235.69,-180.16C243.82,-206.02 258.29,-252 258.29,-252 258.29,-252 264.18,-265.57 270,-278.98"/>
+<polygon fill="#000000" stroke="#000000" points="266.95,-280.74 274.14,-288.52 273.37,-277.95 266.95,-280.74"/>
+</g>
+<!-- HyperSeq&#45;&gt;Sequence -->
+<g id="edge16" class="edge">
+<title>HyperSeq&#45;&gt;Sequence</title>
+<path fill="none" stroke="#6666ff" d="M214.29,-179.24C205.4,-188.25 194.2,-199.61 184.38,-209.57"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="181.73,-207.27 177.21,-216.85 186.72,-212.19 181.73,-207.27"/>
+</g>
+<!-- RaceSeq -->
+<g id="node7" class="node">
+<title>RaceSeq</title>
+<g id="a_node7"><a xlink:href="/type/RaceSeq" xlink:title="RaceSeq">
+<ellipse fill="none" stroke="#000000" cx="117.29" cy="-162" rx="44.69" ry="18"/>
+<text text-anchor="middle" x="117.29" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#000000">RaceSeq</text>
+</a>
+</g>
+</g>
+<!-- RaceSeq&#45;&gt;Iterable -->
+<g id="edge17" class="edge">
+<title>RaceSeq&#45;&gt;Iterable</title>
+<path fill="none" stroke="#6666ff" d="M149.87,-174.4C183.4,-186.14 235.86,-204.5 273.11,-217.54"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="272.12,-220.9 282.71,-220.9 274.43,-214.29 272.12,-220.9"/>
+</g>
+<!-- RaceSeq&#45;&gt;Any -->
+<g id="edge3" class="edge">
+<title>RaceSeq&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M112.46,-180.06C108.08,-195.55 102.29,-216 102.29,-216 102.29,-216 102.29,-252 102.29,-252 102.29,-252 245.29,-288 245.29,-288 245.29,-288 247.47,-289.03 250.76,-290.58"/>
+<polygon fill="#000000" stroke="#000000" points="249.4,-293.81 259.93,-294.91 252.38,-287.48 249.4,-293.81"/>
+</g>
+<!-- RaceSeq&#45;&gt;Sequence -->
+<g id="edge18" class="edge">
+<title>RaceSeq&#45;&gt;Sequence</title>
+<path fill="none" stroke="#6666ff" d="M127.72,-179.59C132.96,-187.92 139.42,-198.2 145.27,-207.51"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="142.35,-209.44 150.63,-216.04 148.27,-205.71 142.35,-209.44"/>
+</g>
+<!-- Cool -->
+<g id="node8" class="node">
+<title>Cool</title>
+<g id="a_node8"><a xlink:href="/type/Cool" xlink:title="Cool">
+<ellipse fill="none" stroke="#000000" cx="553.29" cy="-234" rx="30.59" ry="18"/>
+<text text-anchor="middle" x="553.29" y="-230.3" font-family="FreeSans" font-size="14.00" fill="#000000">Cool</text>
+</a>
+</g>
+</g>
+<!-- Cool&#45;&gt;Any -->
+<g id="edge4" class="edge">
+<title>Cool&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M529.26,-245.48C521.23,-248.97 514.29,-252 514.29,-252 514.29,-252 381.63,-282.18 316.51,-296.99"/>
+<polygon fill="#000000" stroke="#000000" points="315.64,-293.6 306.67,-299.23 317.2,-300.42 315.64,-293.6"/>
+</g>
+<!-- Positional -->
+<g id="node9" class="node">
+<title>Positional</title>
+<g id="a_node9"><a xlink:href="/type/Positional" xlink:title="Positional">
+<ellipse fill="none" stroke="#6666ff" cx="445.29" cy="-234" rx="59.59" ry="18"/>
+<text text-anchor="middle" x="445.29" y="-230.3" font-family="FreeSans" font-size="14.00" fill="#6666ff">Positional</text>
+</a>
+</g>
+</g>
+<!-- Range -->
+<g id="node10" class="node">
+<title>Range</title>
+<g id="a_node10"><a xlink:href="/type/Range" xlink:title="Range">
+<ellipse fill="none" stroke="#000000" cx="405.29" cy="-162" rx="35.19" ry="18"/>
+<text text-anchor="middle" x="405.29" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#000000">Range</text>
+</a>
+</g>
+</g>
+<!-- Range&#45;&gt;Iterable -->
+<g id="edge20" class="edge">
+<title>Range&#45;&gt;Iterable</title>
+<path fill="none" stroke="#6666ff" d="M387.06,-177.5C374.97,-187.12 358.87,-199.93 345.18,-210.81"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="342.68,-208.33 337.03,-217.3 347.03,-213.81 342.68,-208.33"/>
+</g>
+<!-- Range&#45;&gt;Cool -->
+<g id="edge5" class="edge">
+<title>Range&#45;&gt;Cool</title>
+<path fill="none" stroke="#000000" d="M430.4,-174.87C455.33,-186.67 493.67,-204.8 520.89,-217.68"/>
+<polygon fill="#000000" stroke="#000000" points="519.48,-220.88 530.01,-221.99 522.47,-214.55 519.48,-220.88"/>
+</g>
+<!-- Range&#45;&gt;Positional -->
+<g id="edge19" class="edge">
+<title>Range&#45;&gt;Positional</title>
+<path fill="none" stroke="#6666ff" d="M414.77,-179.59C419.48,-187.84 425.28,-197.99 430.56,-207.22"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="427.6,-209.1 435.6,-216.04 433.68,-205.62 427.6,-209.1"/>
+</g>
+<!-- List -->
+<g id="node11" class="node">
+<title>List</title>
+<g id="a_node11"><a xlink:href="/type/List" xlink:title="List">
+<ellipse fill="none" stroke="#000000" cx="489.29" cy="-162" rx="30.59" ry="18"/>
+<text text-anchor="middle" x="489.29" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#000000">List</text>
+</a>
+</g>
+</g>
+<!-- List&#45;&gt;Iterable -->
+<g id="edge22" class="edge">
+<title>List&#45;&gt;Iterable</title>
+<path fill="none" stroke="#6666ff" d="M465.1,-173.28C456.67,-176.86 449.29,-180 449.29,-180 449.29,-180 397.76,-200.69 359.09,-216.21"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="357.56,-213.06 349.58,-220.03 360.16,-219.56 357.56,-213.06"/>
+</g>
+<!-- List&#45;&gt;Cool -->
+<g id="edge6" class="edge">
+<title>List&#45;&gt;Cool</title>
+<path fill="none" stroke="#000000" d="M503.18,-178.19C511.73,-187.55 522.86,-199.72 532.46,-210.21"/>
+<polygon fill="#000000" stroke="#000000" points="530.1,-212.82 539.43,-217.84 535.26,-208.1 530.1,-212.82"/>
+</g>
+<!-- List&#45;&gt;Positional -->
+<g id="edge21" class="edge">
+<title>List&#45;&gt;Positional</title>
+<path fill="none" stroke="#6666ff" d="M479.08,-179.24C473.85,-187.56 467.35,-197.9 461.46,-207.27"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="458.41,-205.55 456.05,-215.88 464.34,-209.27 458.41,-205.55"/>
+</g>
+<!-- Associative -->
+<g id="node12" class="node">
+<title>Associative</title>
+<g id="a_node12"><a xlink:href="/type/Associative" xlink:title="Associative">
+<ellipse fill="none" stroke="#6666ff" cx="666.29" cy="-234" rx="64.19" ry="18"/>
+<text text-anchor="middle" x="666.29" y="-230.3" font-family="FreeSans" font-size="14.00" fill="#6666ff">Associative</text>
+</a>
+</g>
+</g>
+<!-- Map -->
+<g id="node13" class="node">
+<title>Map</title>
+<g id="a_node13"><a xlink:href="/type/Map" xlink:title="Map">
+<ellipse fill="none" stroke="#000000" cx="573.29" cy="-162" rx="27" ry="18"/>
+<text text-anchor="middle" x="573.29" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#000000">Map</text>
+</a>
+</g>
+</g>
+<!-- Map&#45;&gt;Iterable -->
+<g id="edge23" class="edge">
+<title>Map&#45;&gt;Iterable</title>
+<path fill="none" stroke="#6666ff" d="M550.52,-171.8C539.78,-175.95 529.29,-180 529.29,-180 529.29,-180 376.29,-216 376.29,-216 376.29,-216 371.69,-217.33 365.05,-219.24"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="363.63,-216.01 354.99,-222.14 365.57,-222.73 363.63,-216.01"/>
+</g>
+<!-- Map&#45;&gt;Cool -->
+<g id="edge7" class="edge">
+<title>Map&#45;&gt;Cool</title>
+<path fill="none" stroke="#000000" d="M568.45,-179.95C566.19,-187.86 563.44,-197.46 560.91,-206.31"/>
+<polygon fill="#000000" stroke="#000000" points="557.47,-205.63 558.09,-216.21 564.2,-207.56 557.47,-205.63"/>
+</g>
+<!-- Map&#45;&gt;Associative -->
+<g id="edge24" class="edge">
+<title>Map&#45;&gt;Associative</title>
+<path fill="none" stroke="#6666ff" d="M590.78,-176.17C603.75,-185.92 621.72,-199.45 636.88,-210.86"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="634.86,-213.73 644.96,-216.94 639.07,-208.13 634.86,-213.73"/>
+</g>
+<!-- Seq -->
+<g id="node14" class="node">
+<title>Seq</title>
+<g id="a_node14"><a xlink:href="/type/Seq" xlink:title="Seq">
+<ellipse fill="none" stroke="#000000" cx="325.29" cy="-162" rx="27" ry="18"/>
+<text text-anchor="middle" x="325.29" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#000000">Seq</text>
+</a>
+</g>
+</g>
+<!-- Seq&#45;&gt;Iterable -->
+<g id="edge25" class="edge">
+<title>Seq&#45;&gt;Iterable</title>
+<path fill="none" stroke="#6666ff" d="M323.31,-180.3C322.43,-188.02 321.37,-197.29 320.39,-205.89"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="316.9,-205.56 319.24,-215.9 323.86,-206.36 316.9,-205.56"/>
+</g>
+<!-- Seq&#45;&gt;Sequence -->
+<g id="edge26" class="edge">
+<title>Seq&#45;&gt;Sequence</title>
+<path fill="none" stroke="#6666ff" d="M303.93,-173.09C296.18,-176.75 289.29,-180 289.29,-180 289.29,-180 240.03,-200.4 202.63,-215.88"/>
+<polygon fill="#6666ff" stroke="#6666ff" points="200.83,-212.84 192.93,-219.9 203.51,-219.31 200.83,-212.84"/>
+</g>
+<!-- Seq&#45;&gt;Cool -->
+<g id="edge8" class="edge">
+<title>Seq&#45;&gt;Cool</title>
+<path fill="none" stroke="#000000" d="M346.65,-173.09C354.4,-176.75 361.29,-180 361.29,-180 361.29,-180 514.29,-216 514.29,-216 514.29,-216 516.49,-216.96 519.84,-218.42"/>
+<polygon fill="#000000" stroke="#000000" points="518.69,-221.74 529.26,-222.52 521.49,-215.32 518.69,-221.74"/>
+</g>
+<!-- Slip -->
+<g id="node15" class="node">
+<title>Slip</title>
+<g id="a_node15"><a xlink:href="/type/Slip" xlink:title="Slip">
+<ellipse fill="none" stroke="#000000" cx="405.29" cy="-90" rx="30.59" ry="18"/>
+<text text-anchor="middle" x="405.29" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Slip</text>
+</a>
+</g>
+</g>
+<!-- Slip&#45;&gt;List -->
+<g id="edge9" class="edge">
+<title>Slip&#45;&gt;List</title>
+<path fill="none" stroke="#000000" d="M422.29,-105.17C434.36,-115.22 450.76,-128.89 464.31,-140.18"/>
+<polygon fill="#000000" stroke="#000000" points="462.39,-143.14 472.32,-146.86 466.87,-137.76 462.39,-143.14"/>
+</g>
+<!-- Array -->
+<g id="node16" class="node">
+<title>Array</title>
+<g id="a_node16"><a xlink:href="/type/Array" xlink:title="Array">
+<ellipse fill="none" stroke="#000000" cx="489.29" cy="-90" rx="35.19" ry="18"/>
+<text text-anchor="middle" x="489.29" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Array</text>
+</a>
+</g>
+</g>
+<!-- Array&#45;&gt;List -->
+<g id="edge10" class="edge">
+<title>Array&#45;&gt;List</title>
+<path fill="none" stroke="#000000" d="M489.29,-108.3C489.29,-116.02 489.29,-125.29 489.29,-133.89"/>
+<polygon fill="#000000" stroke="#000000" points="485.79,-133.9 489.29,-143.9 492.79,-133.9 485.79,-133.9"/>
+</g>
+<!-- Hash -->
+<g id="node17" class="node">
+<title>Hash</title>
+<g id="a_node17"><a xlink:href="/type/Hash" xlink:title="Hash">
+<ellipse fill="none" stroke="#000000" cx="573.29" cy="-90" rx="30.59" ry="18"/>
+<text text-anchor="middle" x="573.29" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Hash</text>
+</a>
+</g>
+</g>
+<!-- Hash&#45;&gt;Map -->
+<g id="edge11" class="edge">
+<title>Hash&#45;&gt;Map</title>
+<path fill="none" stroke="#000000" d="M573.29,-108.3C573.29,-116.02 573.29,-125.29 573.29,-133.89"/>
+<polygon fill="#000000" stroke="#000000" points="569.79,-133.9 573.29,-143.9 576.79,-133.9 569.79,-133.9"/>
+</g>
+<!-- PseudoStash -->
+<g id="node18" class="node">
+<title>PseudoStash</title>
+<g id="a_node18"><a xlink:href="/type/PseudoStash" xlink:title="PseudoStash">
+<ellipse fill="none" stroke="#000000" cx="686.29" cy="-90" rx="64.19" ry="18"/>
+<text text-anchor="middle" x="686.29" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">PseudoStash</text>
+</a>
+</g>
+</g>
+<!-- PseudoStash&#45;&gt;Map -->
+<g id="edge12" class="edge">
+<title>PseudoStash&#45;&gt;Map</title>
+<path fill="none" stroke="#000000" d="M660.93,-106.71C643.23,-117.68 619.6,-132.31 601.33,-143.63"/>
+<polygon fill="#000000" stroke="#000000" points="599.25,-140.8 592.59,-149.04 602.93,-146.75 599.25,-140.8"/>
+</g>
+<!-- Stash -->
+<g id="node19" class="node">
+<title>Stash</title>
+<g id="a_node19"><a xlink:href="/type/Stash" xlink:title="Stash">
+<ellipse fill="none" stroke="#000000" cx="573.29" cy="-18" rx="35.19" ry="18"/>
+<text text-anchor="middle" x="573.29" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">Stash</text>
+</a>
+</g>
+</g>
+<!-- Stash&#45;&gt;Hash -->
+<g id="edge13" class="edge">
+<title>Stash&#45;&gt;Hash</title>
+<path fill="none" stroke="#000000" d="M573.29,-36.3C573.29,-44.02 573.29,-53.29 573.29,-61.89"/>
+<polygon fill="#000000" stroke="#000000" points="569.79,-61.9 573.29,-71.9 576.79,-61.9 569.79,-61.9"/>
+</g>
+</g>
+</svg>
+
+  <p class="fallback">
+    <a
+      rel="alternate"
+      href="/images/type-graph-Iterable.svg"
+      type="image/svg+xml"
+      >Expand above chart</a
+    >
+  </p>
+</figure>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Type/Iterable.pod6">https://github.com/Raku/doc/blob/master/doc/Type/Iterable.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

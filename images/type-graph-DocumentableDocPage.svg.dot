@@ -1,0 +1,31 @@
+digraph "perl6-type-graph" {
+    rankdir=BT;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "Documentable::DocPage" [color="#6666FF", fontcolor="#6666FF", href="/type/Documentable::DocPage", fontname="FreeSans"];
+    "Documentable::DocPage::Primary::Type" [color="#000000", fontcolor="#000000", href="/type/Documentable::DocPage::Primary::Type", fontname="FreeSans"];
+    "Documentable::DocPage::SubIndex::Routine" [color="#000000", fontcolor="#000000", href="/type/Documentable::DocPage::SubIndex::Routine", fontname="FreeSans"];
+    "Documentable::DocPage::Index::Programs" [color="#000000", fontcolor="#000000", href="/type/Documentable::DocPage::Index::Programs", fontname="FreeSans"];
+    "Documentable::DocPage::Primary::Programs" [color="#000000", fontcolor="#000000", href="/type/Documentable::DocPage::Primary::Programs", fontname="FreeSans"];
+    "Documentable::DocPage::Primary::Language" [color="#000000", fontcolor="#000000", href="/type/Documentable::DocPage::Primary::Language", fontname="FreeSans"];
+    "Documentable::DocPage::Index::Type" [color="#000000", fontcolor="#000000", href="/type/Documentable::DocPage::Index::Type", fontname="FreeSans"];
+    "Documentable::DocPage::Secondary" [color="#000000", fontcolor="#000000", href="/type/Documentable::DocPage::Secondary", fontname="FreeSans"];
+    "Documentable::DocPage::SubIndex::Type" [color="#000000", fontcolor="#000000", href="/type/Documentable::DocPage::SubIndex::Type", fontname="FreeSans"];
+    "Documentable::DocPage::Index::Routine" [color="#000000", fontcolor="#000000", href="/type/Documentable::DocPage::Index::Routine", fontname="FreeSans"];
+    "Documentable::DocPage::Index::Language" [color="#000000", fontcolor="#000000", href="/type/Documentable::DocPage::Index::Language", fontname="FreeSans"];
+
+    // Superclasses
+    "Documentable::DocPage::Primary::Type" -> "Documentable::DocPage" [color="#000000"];
+    "Documentable::DocPage::SubIndex::Routine" -> "Documentable::DocPage" [color="#000000"];
+    "Documentable::DocPage::Index::Programs" -> "Documentable::DocPage" [color="#000000"];
+    "Documentable::DocPage::Primary::Programs" -> "Documentable::DocPage" [color="#000000"];
+    "Documentable::DocPage::Primary::Language" -> "Documentable::DocPage" [color="#000000"];
+    "Documentable::DocPage::Index::Type" -> "Documentable::DocPage" [color="#000000"];
+    "Documentable::DocPage::Secondary" -> "Documentable::DocPage" [color="#000000"];
+    "Documentable::DocPage::SubIndex::Type" -> "Documentable::DocPage" [color="#000000"];
+    "Documentable::DocPage::Index::Routine" -> "Documentable::DocPage" [color="#000000"];
+    "Documentable::DocPage::Index::Language" -> "Documentable::DocPage" [color="#000000"];
+
+    // Roles
+}

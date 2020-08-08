@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>class Label</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/type.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-basic.html"> Basic </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-composite.html"> Composite </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-domain-specific.html"> Domain-specific </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-exception.html"> Exceptions </a>
+            </div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Type/Label.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">class Label</h1>
+        <p class="subtitle">Tagged location in the source code</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+                                                         <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#method_name">method name</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#method_next">method next</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#method_redo">method redo</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">1.4</td><td class="toc-text"><a href="#method_last">method last</a></td></tr>
+     <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Type_Graph">Type Graph</a></td></tr>
+ 
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <pre class="pod-block-code">class Label {}</pre>
+<p>Labels are used in Raku to tag loops so that you can specify the one you want to jump to with statements such as <code>last</code>. You can use it to jump out of loops and get to outer ones, instead of just exiting the current loop or going to the statement before.</p>
+<pre class="pod-block-code">USERS:          # the label
+for @users -&gt; $u {
+    for $u.pets -&gt; $pet {
+        # usage of a label
+        next USERS if $pet.barks;
+    }
+    say &quot;None of {$u}&#39;s pets barks&quot;;
+}
+say USERS.^name;        # OUTPUT: «Label␤»
+</pre>
+<p>Those label are objects of type <code>Label</code>, as shown in the last statement. Labels can be used in any loop construct, as long as they appear right before the loop statement.</p>
+<pre class="pod-block-code">my $x = 0;
+my $y = 0;
+my $t = &#39;&#39;;
+A: while $x++ &lt; 2 {
+    $t ~= &quot;A$x&quot;;
+    B: while $y++ &lt; 2 {
+        $t ~= &quot;B$y&quot;;
+        redo A if $y++ == 1;
+        last A
+    }
+}
+say $t; # OUTPUT: «A1B1A1A2»
+</pre>
+<p>Putting them on the line before the loop or the same line is optional. <code>Label</code>s must follow the syntax of <a href="/Documentable/integration-test/language/syntax#Ordinary_identifiers">ordinary identifiers</a>, although traditionally we will use the latin alphabet in uppercase so that they stand out in the source. You can use, however, other alphabets like here:</p>
+<pre class="pod-block-code">駱駝道: while True {
+  say 駱駝道.name;
+  last 駱駝道;
+}</pre>
+<h1 id="Methods"><a class="u" href="#___top" title="go to top of document">Methods</a></h1>
+<h2 id="method_name"><a class="u" href="#___top" title="go to top of document">method name</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method name()</pre>
+<p>Not terribly useful, returns the name of the defined label:</p>
+<pre class="pod-block-code">A: while True {
+  say A.name; # OUTPUT: «A»
+  last A;
+}</pre>
+<h2 id="method_next"><a class="u" href="#___top" title="go to top of document">method next</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method next(Label:)</pre>
+<p>Begin the next iteration of the loop associated with the label.</p>
+<pre class="pod-block-code">MY-LABEL:
+for 1..10 {
+    next MY-LABEL if $_ &lt; 5;
+    print &quot;$_ &quot;;
+}
+
+# OUTPUT: «5 6 7 8 9 10 »</pre>
+<h2 id="method_redo"><a class="u" href="#___top" title="go to top of document">method redo</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method redo(Label:)</pre>
+<p>Repeat the same iteration of the loop associated with the label.</p>
+<pre class="pod-block-code">my $has-repeated = False;
+
+MY-LABEL:
+for 1..10 {
+    print &quot;$_ &quot;;
+    if $_ == 5 {
+        LEAVE $has-repeated = True;
+        redo MY-LABEL unless $has-repeated;
+    }
+}
+
+# OUTPUT: «1 2 3 4 5 5 6 7 8 9 10 »</pre>
+<h2 id="method_last"><a class="u" href="#___top" title="go to top of document">method last</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method last(Label:)</pre>
+<p>Terminate the execution of the loop associated with the label.</p>
+<pre class="pod-block-code">MY-LABEL:
+for 1..10 {
+    last MY-LABEL if $_ &gt; 5;
+    print &quot;$_ &quot;;
+}
+
+# OUTPUT: «1 2 3 4 5 »</pre>
+<h1 id="Type_Graph"><a class="u" href="#___top" title="go to top of document">Type Graph</a></h1>
+<figure>
+  <figcaption>Type relations for <code>Label</code></figcaption>
+  <svg width="78pt" height="188pt"
+ viewBox="0.00 0.00 78.19 188.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 184)">
+<title>perl6&#45;type&#45;graph</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-184 74.19,-184 74.19,4 -4,4"/>
+<!-- Label -->
+<g id="node1" class="node">
+<title>Label</title>
+<g id="a_node1"><a xlink:href="/type/Label" xlink:title="Label">
+<ellipse fill="none" stroke="#000000" cx="35.1" cy="-18" rx="35.19" ry="18"/>
+<text text-anchor="middle" x="35.1" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">Label</text>
+</a>
+</g>
+</g>
+<!-- Any -->
+<g id="node3" class="node">
+<title>Any</title>
+<g id="a_node3"><a xlink:href="/type/Any" xlink:title="Any">
+<ellipse fill="none" stroke="#000000" cx="35.1" cy="-90" rx="27" ry="18"/>
+<text text-anchor="middle" x="35.1" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Any</text>
+</a>
+</g>
+</g>
+<!-- Label&#45;&gt;Any -->
+<g id="edge1" class="edge">
+<title>Label&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M35.1,-36.3C35.1,-44.02 35.1,-53.29 35.1,-61.89"/>
+<polygon fill="#000000" stroke="#000000" points="31.6,-61.9 35.1,-71.9 38.6,-61.9 31.6,-61.9"/>
+</g>
+<!-- Mu -->
+<g id="node2" class="node">
+<title>Mu</title>
+<g id="a_node2"><a xlink:href="/type/Mu" xlink:title="Mu">
+<ellipse fill="none" stroke="#000000" cx="35.1" cy="-162" rx="27" ry="18"/>
+<text text-anchor="middle" x="35.1" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#000000">Mu</text>
+</a>
+</g>
+</g>
+<!-- Any&#45;&gt;Mu -->
+<g id="edge2" class="edge">
+<title>Any&#45;&gt;Mu</title>
+<path fill="none" stroke="#000000" d="M35.1,-108.3C35.1,-116.02 35.1,-125.29 35.1,-133.89"/>
+<polygon fill="#000000" stroke="#000000" points="31.6,-133.9 35.1,-143.9 38.6,-133.9 31.6,-133.9"/>
+</g>
+</g>
+</svg>
+
+  <p class="fallback">
+    <a
+      rel="alternate"
+      href="/images/type-graph-Label.svg"
+      type="image/svg+xml"
+      >Expand above chart</a
+    >
+  </p>
+</figure>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Type/Label.pod6">https://github.com/Raku/doc/blob/master/doc/Type/Label.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

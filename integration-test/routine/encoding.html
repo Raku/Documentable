@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>method encoding</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/routine.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-sub.html"> Sub </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-method.html"> Method </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-term.html"> Term </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-operator.html"> Operator </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-trait.html"> Trait </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-submethod.html"> Submethod </a>
+            </div></div></div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">method encoding</h1>
+        <p class="subtitle"></p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#class_IO::CatHandle">class IO::CatHandle</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#(IO::CatHandle)_method_encoding">(IO::CatHandle) method encoding</a></td></tr>
+                             <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#class_IO::Handle">class IO::Handle</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#(IO::Handle)_method_encoding">(IO::Handle) method encoding</a></td></tr>
+                                                                   <tr class="toc-level-3"><td class="toc-number">2.1.1</td><td class="toc-text"><a href="#utf16,_utf16le_and_utf16be">utf16, utf16le and utf16be</a></td></tr>
+                    <tr class="toc-level-3"><td class="toc-number">2.1.2</td><td class="toc-text"><a href="#Examples">Examples</a></td></tr>
+              
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Documentation for method <code>encoding</code> assembled from the following types:</p>
+<h1 id="class_IO::CatHandle"><a class="u" href="#___top" title="go to top of document">class IO::CatHandle</a></h1>
+<p>From <a href="/Documentable/integration-test/type/IO::CatHandle#method_encoding">IO::CatHandle</a></p>
+<h2 id="(IO::CatHandle)_method_encoding"><a href="/Documentable/integration-test/type/IO::CatHandle#method_encoding">(IO::CatHandle) method encoding</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method encoding(IO::CatHandle:D:)
+multi method encoding(IO::CatHandle:D: $new-encoding)</pre>
+<p>Sets the invocant&#39;s <code>$.encoding</code> attribute to the provided value. Valid values are the same as those accepted by <a href="/Documentable/integration-test/type/IO::Handle#method_encoding"><code>IO::Handle.encoding</code></a> (use value <a href="/Documentable/integration-test/type/Nil">Nil</a> to switch to binary mode). All source handles, including the active one will use the provided <code>$.encoding</code> value.</p>
+<pre class="pod-block-code">(my $f1 = &#39;foo&#39;.IO).spurt: &#39;I ♥ Perl&#39;;
+(my $f2 = &#39;bar&#39;.IO).spurt: &#39;meow&#39;;
+with IO::CatHandle.new: $f1, $f2 {
+    # .encoding is &#39;utf8&#39; by default:
+    .readchars(5).say; # OUTPUT: «I ♥ P␤»
+
+    .encoding: Nil; # switch to binary mode
+    .slurp.say; # OUTPUT: «Buf[uint8]:0x&lt;72 6c 6d 65 6f 77&gt;␤»
+}
+</pre>
+<h1 id="class_IO::Handle"><a class="u" href="#___top" title="go to top of document">class IO::Handle</a></h1>
+<p>From <a href="/Documentable/integration-test/type/IO::Handle#method_encoding">IO::Handle</a></p>
+<h2 id="(IO::Handle)_method_encoding"><a href="/Documentable/integration-test/type/IO::Handle#method_encoding">(IO::Handle) method encoding</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method encoding(IO::Handle:D: --&gt; Str:D)
+multi method encoding(IO::Handle:D: $enc --&gt; Str:D)</pre>
+<p>Returns a <a href="/Documentable/integration-test/type/Str">Str</a> representing the encoding currently used by the handle, defaulting to <code>&quot;utf8&quot;</code>. <code>Nil</code> indicates the filehandle is currently in binary mode. Specifying an optional positional <code>$enc</code> argument switches the encoding used by the handle; specify <code>Nil</code> as encoding to put the handle into binary mode.</p>
+<p>The accepted values for encoding are case-insensitive. The available encodings vary by implementation and backend. On Rakudo MoarVM the following are supported:</p>
+<p><a name="Documentable/integration-test/index-entry-windows-1252"></a><a name="Documentable/integration-test/index-entry-windows-1251"></a><a name="Documentable/integration-test/index-entry-windows-932"></a><a name="Documentable/integration-test/index-entry-iso-8859-1"></a><a name="Documentable/integration-test/index-entry-ascii"></a></p>
+<pre class="pod-block-code">utf8
+utf16
+utf16le
+utf16be
+utf8-c8
+iso-8859-1
+windows-1251
+windows-1252
+windows-932
+ascii
+</pre>
+<p>The default encoding is utf8, which undergoes normalization into Unicode <strong>NFC</strong> (normalization form canonical). In some cases you may want to ensure no normalization is done; for this you can use <code>utf8-c8</code>. Before using <code>utf8-c8</code> please read <a href="/Documentable/integration-test/language/unicode#File_Handles_and_I/O">Unicode: Filehandles and I/O</a> for more information on <code>utf8-c8</code> and <strong>NFC</strong>.</p>
+<p>As of Rakudo 2018.04 <a href="https://en.wikipedia.org/wiki/Code_page_932_(Microsoft_Windows)">windows-932</a> is also supported which is a variant of <a name="Documentable/integration-test/index-entry-ShiftJIS"><span class="index-entry">ShiftJIS</span></a>.</p>
+<p>Implementation may choose to also provide support for aliases, e.g. Rakudo allows aliases <code>latin-1</code> for <code>iso-8859-1</code> encoding and dashed utf versions: <code>utf-8</code> and <code>utf-16</code>.</p>
+<h3 id="utf16,_utf16le_and_utf16be"><a class="u" href="#___top" title="go to top of document">utf16, utf16le and utf16be</a></h3>
+<p><a name="Documentable/integration-test/index-entry-utf16-le"></a><a name="Documentable/integration-test/index-entry-utf16-be"></a><a name="Documentable/integration-test/index-entry-utf16"></a><a name="Documentable/integration-test/index-entry-utf-16"></a></p>
+<p>Unlike utf8, utf16 has an endianness — either big endian or little endian. This relates to the ordering of bytes. Computer CPUs also have an endianness. Raku&#39;s <code>utf16</code> format specifier will use the endianness of host system when encoding. When decoding it will look for a byte order mark and if it is there use that to set the endianness. If there is no byte order mark it will assume the file uses the same endianness as the host system. A byte order mark is the codepoint U+FEFF which is ZERO WIDTH NO-BREAK SPACE. On <code>utf16</code> encoded files the standard states if it exists at the start of a file it shall be interpreted as a byte order mark, not a U+FEFF codepoint.</p>
+<p>While writing will cause a different file to be written on different endian systems, at the release of 2018.10 the byte order mark will be written out when writing a file and files created with the utf16 encoding will be able to be read on either big or little endian systems.</p>
+<p>When using utf16be or utf16le encodings a byte order mark is <strong>not</strong> used. The endianness used is not affected by the host cpu type and is either big endian for utf16be or little endian for utf16le.</p>
+<p>In keeping with the standard, a 0xFEFF byte at the start of a file is interpreted as a ZERO WIDTH NO-BREAK SPACE and not as a byte order mark. No byte order mark is written to files that use the utf16be or utf16le encodings.</p>
+<p>As of Rakudo 2018.09 on MoarVM, utf16, <a name="Documentable/integration-test/index-entry-utf16le"><span class="index-entry">utf16le</span></a> and <a name="Documentable/integration-test/index-entry-utf16be"><span class="index-entry">utf16be</span></a> are supported. In 2018.10, writing to a file with utf16 will properly add a byte order mark (BOM).</p>
+<h3 id="Examples"><a class="u" href="#___top" title="go to top of document">Examples</a></h3>
+<pre class="pod-block-code">with &#39;foo&#39;.IO {
+    .spurt: &quot;First line is text, then:\nBinary&quot;;
+    my $fh will leave {.close} = .open;
+    $fh.get.say;         # OUTPUT: «First line is text, then:␤»
+    $fh.encoding: Nil;
+    $fh.slurp.say;       # OUTPUT: «Buf[uint8]:0x&lt;42 69 6e 61 72 79&gt;␤»
+}
+</pre>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

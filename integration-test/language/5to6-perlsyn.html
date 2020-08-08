@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Perl to Raku guide - syntax</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/5to6-perlsyn.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Perl to Raku guide - syntax</h1>
+        <p class="subtitle">Syntactic differences between Perl and Raku</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+   <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#DESCRIPTION">DESCRIPTION</a></td></tr>
+  <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#NOTE">NOTE</a></td></tr>
+    <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Free_form">Free form</a></td></tr>
+                           <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#Declarations">Declarations</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">3.2</td><td class="toc-text"><a href="#Comments">Comments</a></td></tr>
+                 <tr class="toc-level-2"><td class="toc-number">3.3</td><td class="toc-text"><a href="#Truth_and_falsehood">Truth and falsehood</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">3.4</td><td class="toc-text"><a href="#Statement_modifiers">Statement modifiers</a></td></tr>
+                        <tr class="toc-level-2"><td class="toc-number">3.5</td><td class="toc-text"><a href="#Compound_statements">Compound statements</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">3.6</td><td class="toc-text"><a href="#Loop_control">Loop control</a></td></tr>
+                                                <tr class="toc-level-2"><td class="toc-number">3.7</td><td class="toc-text"><a href="#For_loops">For loops</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">3.8</td><td class="toc-text"><a href="#Foreach_loops">Foreach loops</a></td></tr>
+            <tr class="toc-level-2"><td class="toc-number">3.9</td><td class="toc-text"><a href="#Switch_statements">Switch statements</a></td></tr>
+                     <tr class="toc-level-2"><td class="toc-number">3.10</td><td class="toc-text"><a href="#Goto">Goto</a></td></tr>
+                                      <tr class="toc-level-2"><td class="toc-number">3.11</td><td class="toc-text"><a href="#Ellipsis_statement">Ellipsis statement</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">3.12</td><td class="toc-text"><a href="#PODs:_embedded_documentation">PODs: embedded documentation</a></td></tr>
+                 
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>perlsyn - Perl syntax</p>
+<h1 id="DESCRIPTION"><a class="u" href="#___top" title="go to top of document">DESCRIPTION</a></h1>
+<p>A (hopefully) comprehensive description of the differences between Perl and Raku with regards to the syntax elements described in the perlsyn document.</p>
+<h1 id="NOTE"><a class="u" href="#___top" title="go to top of document">NOTE</a></h1>
+<p>I will <em>not</em> be explaining Raku syntax in detail. This document is an attempt to guide you from how things work in Perl to the equivalents in Raku. For full documentation on the Raku syntax, please see the Raku documentation.</p>
+<h1 id="Free_form"><a class="u" href="#___top" title="go to top of document">Free form</a></h1>
+<p>Raku is still <em>largely</em> free form. However, there are a few instances where the presence or lack of whitespace is now significant. For instance, in Perl, you can omit a space following a keyword (e. g. <code>while($x &lt; 5)</code> or <code>my($x, $y)</code>). In Raku, that space is required, thus <code>while ($x &lt; 5)</code> or <code>my ($x, $y)</code>. In Raku, however, you can omit the parentheses altogether: <code>while $x &lt; 5 </code>. This holds for <code>if</code>, <code>for</code>, etc.</p>
+<p>Oddly, in Perl, you can leave spaces between an array or hash and its subscript, and before a postfix operator. So <code>$seen {$_} ++</code> is valid. No more. That would now have to be <code>%seen{$_}++</code>.</p>
+<p>If it makes you feel better, you can use backslashes to &quot;unspace&quot; whitespace, so you can use whitespace where it would otherwise be forbidden.</p>
+<p>See <a href="/Documentable/integration-test/language/5to6-nutshell#Whitespace">Whitespace</a> for details.</p>
+<h2 id="Declarations"><a class="u" href="#___top" title="go to top of document">Declarations</a></h2>
+<p>As noted in the <a href="/Documentable/integration-test/language/5to6-perlfunc">Functions</a> guide, there is no <code>undef</code> in Raku. A declared, but uninitialized scalar variable will evaluate to its type. In other words, <code>my $x;say $x;</code> will give you &quot;(Any)&quot;. <code>my Int $y;say $y;</code> will give you &quot;(Int)&quot;.</p>
+<h2 id="Comments"><a class="u" href="#___top" title="go to top of document">Comments</a></h2>
+<p><code>#</code> starts a comment that runs to the end of the line as in Perl.</p>
+<p>Embedded comments start with a hash character and a backtick (<code>#`</code>), followed by an opening bracketing character, and continue to the matching closing bracketing character. Like so:</p>
+<pre class="pod-block-code">if #`( why would I ever write an inline comment here? ) True {
+    say &quot;something stupid&quot;;
+}
+</pre>
+<p>As in Perl, you can use pod directives to create multiline comments, with <code>=begin comment</code> before and <code>=end comment</code> after the comment.</p>
+<h2 id="Truth_and_falsehood"><a class="u" href="#___top" title="go to top of document">Truth and falsehood</a></h2>
+<p>The one difference between Perl truth and Raku truth is that, unlike Perl, Raku treats the string <code>&quot;0&quot;</code> as true. Numeric <code>0</code> is still false, and you can use prefix <code>+</code> to coerce string <code>&quot;0&quot;</code> to numeric to get it to be false. Raku, additionally has an actual Boolean type, so, in many cases, True and False may be available to you without having to worry about what values count as true and false.</p>
+<h2 id="Statement_modifiers"><a class="u" href="#___top" title="go to top of document">Statement modifiers</a></h2>
+<p>Mostly, statement modifiers still work, with a few exceptions.</p>
+<p>First, <code>for</code> loops are exclusively what were known in Perl as <code>foreach</code> loops and <code>for</code> is not used for C-style <code>for</code> loops in Raku. To get that behavior, you want <code>loop</code>. <code>loop</code> cannot be used as a statement modifier.</p>
+<p>In Raku, you cannot use the form <code>do {...} while $x</code>. You will want to replace <code>do</code> in that form with <code>repeat</code>. Similarly for <code>do {...} until $x</code>.</p>
+<h2 id="Compound_statements"><a class="u" href="#___top" title="go to top of document">Compound statements</a></h2>
+<p>The big change from Perl is that <code>given</code> is not experimental or disabled by default in Raku. For the details on <code>given</code> see <a href="/Documentable/integration-test/language/control#given">this page</a>.</p>
+<h2 id="Loop_control"><a class="u" href="#___top" title="go to top of document">Loop control</a></h2>
+<p><code>next</code>, <code>last</code>, and <code>redo</code> have not changed from Perl to Raku.</p>
+<p><code>continue</code>, however, does not exist in Raku. You would use a <code>NEXT</code> block in the body of the loop.</p>
+<pre class="pod-block-code"># Perl
+my $str = &#39;&#39;;
+for (1..5) {
+    next if $_ % 2 == 1;
+    $str .= $_;
+}
+continue {
+    $str .= &#39;:&#39;
+}
+
+</pre>
+<pre class="pod-block-code"># Raku
+my $str = &#39;&#39;;
+for 1..5 {
+    next if $_ % 2 == 1;
+    $str ~= $_;
+    NEXT {
+        $str ~= &#39;:&#39;
+    }
+}
+</pre>
+<h2 id="For_loops"><a class="u" href="#___top" title="go to top of document">For loops</a></h2>
+<p>As noted above, C-style <code>for</code> loops are not called <code>for</code> loops in Raku. They are just <code>loop</code> loops. To write an infinite loop, you do not need to use the C idiom of <code>loop (;;) {...}</code>, but may just omit the spec completely: <code>loop {...}</code></p>
+<h2 id="Foreach_loops"><a class="u" href="#___top" title="go to top of document">Foreach loops</a></h2>
+<p>In Perl, <code>for</code>, in addition to being used for C-style <code>for</code> loops, is a synonym for <code>foreach</code>. In Raku, <code>for</code> is just used for <code>foreach</code> style loops.</p>
+<h2 id="Switch_statements"><a class="u" href="#___top" title="go to top of document">Switch statements</a></h2>
+<p>Raku has actual switch statements, provided by <code>given</code> with the individual cases handled by <code>when</code> and <code>default</code>. The basic syntax is:</p>
+<pre class="pod-block-code">given EXPR {
+    when EXPR { ... }
+    when EXPR { ... }
+    default { ... }
+}
+</pre>
+<p>The full details can be found <a href="/Documentable/integration-test/language/control#given">here</a>.</p>
+<h2 id="Goto"><a class="u" href="#___top" title="go to top of document">Goto</a></h2>
+<p><code>goto</code> is currently not implemented (yet). Labels <strong>are</strong> implemented, and can be used as a target for <code>next</code>, <code>last</code> and <code>redo</code>:</p>
+<pre class="pod-block-code">FOO:                         # Labels end with colons, like in Perl
+for ^10 {
+    say &quot;outer for before&quot;;
+    for ^10 {
+        say &quot;inner for&quot;;
+        last FOO;
+    }
+    say &quot;outer for after&quot;;   # Will not show because of the &quot;last&quot;
+}
+# outer for before
+# inner for
+</pre>
+<p>For what is planned for <code>goto</code>, see <a href="https://design.raku.org/S04.html#The_goto_statement">https://design.raku.org/S04.html#The_goto_statement</a>.</p>
+<h2 id="Ellipsis_statement"><a class="u" href="#___top" title="go to top of document">Ellipsis statement</a></h2>
+<p><code>...</code> (along with <code>!!!</code> and <code>???</code>) are used to create stub declarations. This is a bit more complicated than the use of <code>...</code> in Perl, so you&#39;ll probably want to look at <a href="https://design.raku.org/S06.html#Stub_declarations">https://design.raku.org/S06.html#Stub_declarations</a> for the gory details. That said, there doesn&#39;t seem to be an <em>obvious</em> reason why it shouldn&#39;t still fulfill the role it did in Perl, despite its role being expanded in Raku.</p>
+<h2 id="PODs:_embedded_documentation"><a class="u" href="#___top" title="go to top of document">PODs: embedded documentation</a></h2>
+<p>Pod has changed between Perl and Raku. Probably the biggest difference is that you need to enclose your pod between <code>=begin pod</code> and <code>=end pod</code> directives. There are a few tweaks here and there as well. For instance, as I have discovered while writing these documents, the vertical bar (&quot;|&quot;) is significant in <code>X&lt;&gt; </code> codes, and it&#39;s not clear how to get a literal &quot;|&quot; into them. Your best bet may be to use the Raku interpreter to check your pod. You can do this by using the <code>--doc</code> switch. E. g. <code>raku --doc Whatever.pod</code>. This will output any problems to standard error. (Depending on how/where you&#39;ve installed <code>raku</code>, you may need to specify the location of <code>Pod::To::Text</code>.) Details on Raku-style pod is at <a href="https://design.raku.org/S26.html">https://design.raku.org/S26.html</a>.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/5to6-perlsyn.pod6">https://github.com/Raku/doc/blob/master/doc/Language/5to6-perlsyn.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

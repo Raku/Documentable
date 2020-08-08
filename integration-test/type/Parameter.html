@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>class Parameter</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/type.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-basic.html"> Basic </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-composite.html"> Composite </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-domain-specific.html"> Domain-specific </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-exception.html"> Exceptions </a>
+            </div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Type/Parameter.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">class Parameter</h1>
+        <p class="subtitle">Element of a Signature</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+             <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#method_name">method name</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#method_sigil">method sigil</a></td></tr>
+                                <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#method_type">method type</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">1.4</td><td class="toc-text"><a href="#method_coerce_type">method coerce_type</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">1.5</td><td class="toc-text"><a href="#method_constraints">method constraints</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">1.6</td><td class="toc-text"><a href="#method_named">method named</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.7</td><td class="toc-text"><a href="#method_named_names">method named_names</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">1.8</td><td class="toc-text"><a href="#method_positional">method positional</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.9</td><td class="toc-text"><a href="#method_slurpy">method slurpy</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">1.10</td><td class="toc-text"><a href="#method_twigil">method twigil</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">1.11</td><td class="toc-text"><a href="#method_optional">method optional</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">1.12</td><td class="toc-text"><a href="#method_raw">method raw</a></td></tr>
+                                  <tr class="toc-level-2"><td class="toc-number">1.13</td><td class="toc-text"><a href="#method_capture">method capture</a></td></tr>
+            <tr class="toc-level-2"><td class="toc-number">1.14</td><td class="toc-text"><a href="#method_rw">method rw</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.15</td><td class="toc-text"><a href="#method_copy">method copy</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.16</td><td class="toc-text"><a href="#method_readonly">method readonly</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">1.17</td><td class="toc-text"><a href="#method_invocant">method invocant</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">1.18</td><td class="toc-text"><a href="#method_default">method default</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">1.19</td><td class="toc-text"><a href="#method_type_captures">method type_captures</a></td></tr>
+                           <tr class="toc-level-2"><td class="toc-number">1.20</td><td class="toc-text"><a href="#method_sub_signature">method sub_signature</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">1.21</td><td class="toc-text"><a href="#method_prefix">method prefix</a></td></tr>
+             <tr class="toc-level-2"><td class="toc-number">1.22</td><td class="toc-text"><a href="#method_suffix">method suffix</a></td></tr>
+         <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Runtime_creation_of_Parameter_objects_(6.d,_2019.03_and_later)">Runtime creation of Parameter objects (6.d, 2019.03 and later)</a></td></tr>
+                                                                                     <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Type_Graph">Type Graph</a></td></tr>
+ 
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <pre class="pod-block-code">class Parameter { }</pre>
+<p>Represents a parameter, for purpose of introspection.</p>
+<p>The usual way to obtain a <code>Parameter</code> object is to create a signature, and call <code>.params</code> on it to obtain a list of the parameters.</p>
+<pre class="pod-block-code">my $sig   = :(Str $x);
+my $param = $sig.params[0];
+say $param.type;              # OUTPUT: «Str()␤»</pre>
+<p>See <a href="/Documentable/integration-test/type/Signature">Signature</a> for more information, and also for an explanation on what most of the concepts related to parameters mean.</p>
+<h1 id="Methods"><a class="u" href="#___top" title="go to top of document">Methods</a></h1>
+<h2 id="method_name"><a class="u" href="#___top" title="go to top of document">method name</a></h2>
+<p>Returns the variable name, which includes all sigils and twigils. This name is used internally when applied to code, or in a declaration to determine the declared the name. This name is not necessarily usable by a caller – if it is, it will also appear as an <a href="#method_named_names">alias</a>. Often, the name will be chosen descriptively as a form of self-documentation.</p>
+<p>If the parameter is anonymous, <code>Nil</code> will be returned.</p>
+<h2 id="method_sigil"><a class="u" href="#___top" title="go to top of document">method sigil</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method sigil(Parameter:D: --&gt; Str:D)</pre>
+<p>Returns a string containing the parameter&#39;s sigil, for a looser definition of &quot;sigil&quot; than what is considered part of the variable&#39;s <code>name|method name</code>. Still returns a sigil even if the parameter is anonymous.</p>
+<p>This &quot;sigil&quot; is actually an introspection used to help determine the normal binding style of a parameter, if it has not been altered through a <a href="/Documentable/integration-test/type/Signature#Parameter_traits_and_modifiers">trait</a>.</p>
+<table class="pod-table">
+<thead><tr>
+<th>Sigil</th> <th>Will bind to</th> <th>Default behavior</th>
+</tr></thead>
+<tbody>
+<tr> <td>$</td> <td>Scalar</td> <td>Generate new Scalar, use instead of Scalar in argument, if any</td> </tr> <tr> <td>@</td> <td>Positional</td> <td>Bind directly to the argument</td> </tr> <tr> <td>@</td> <td>PositionalBindFailover</td> <td>If binding failed, call argument&#39;s .cache method, bind to result</td> </tr> <tr> <td>%</td> <td>Associative</td> <td>Bind directly to the argument</td> </tr> <tr> <td>&amp;</td> <td>Callable</td> <td>Bind directly to the argument</td> </tr> <tr> <td>\</td> <td>(anything)</td> <td>Bind directly to the argument, keep existing Scalar, if any</td> </tr>
+</tbody>
+</table><p>Also, <code>|</code> will bind to all remaining arguments and make new <code>Capture</code> if needed.</p>
+<h2 id="method_type"><a class="u" href="#___top" title="go to top of document">method type</a></h2>
+<p>Returns the <a href="/Documentable/integration-test/type/Signature#Type_constraints">nominal type constraint</a> of the parameter.</p>
+<h2 id="method_coerce_type"><a class="u" href="#___top" title="go to top of document">method coerce_type</a></h2>
+<p>Returns the <a href="/Documentable/integration-test/syntax/Coercion%20type">coercion type</a> of the parameter.</p>
+<h2 id="method_constraints"><a class="u" href="#___top" title="go to top of document">method constraints</a></h2>
+<p>Returns <a href="/Documentable/integration-test/type/Signature#Type_constraints">additional constraints</a> on the parameter (usually as an <code>all</code>-Junction).</p>
+<h2 id="method_named"><a class="u" href="#___top" title="go to top of document">method named</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method named(Parameter:D: --&gt; Bool:D)</pre>
+<p>Returns <code>True</code> if it&#39;s a <a href="/Documentable/integration-test/type/Signature#Positional_vs._named_arguments">named parameter</a>.</p>
+<pre class="pod-block-code">my Signature $sig = :(Str $x, Bool :$is-named);
+say $sig.params[0].named;                          # OUTPUT: «False␤»
+say $sig.params[1].named;                          # OUTPUT: «True␤»</pre>
+<h2 id="method_named_names"><a class="u" href="#___top" title="go to top of document">method named_names</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method named_names(Parameter:D: --&gt; List:D)</pre>
+<p>Returns the list of externally usable names/aliases for a <a href="/Documentable/integration-test/type/Signature#Positional_vs._named_arguments">named parameter</a>.</p>
+<h2 id="method_positional"><a class="u" href="#___top" title="go to top of document">method positional</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method positional(Parameter:D: --&gt; Bool:D)</pre>
+<p>Returns <code>True</code> if the parameter is <a href="/Documentable/integration-test/type/Signature#Positional_vs._named_arguments">positional</a>.</p>
+<pre class="pod-block-code">my Signature $sig = :(Str $x, Bool :$is-named);
+say $sig.params[0].positional;                     # OUTPUT: «True␤»
+say $sig.params[1].positional;                     # OUTPUT: «False␤»</pre>
+<h2 id="method_slurpy"><a class="u" href="#___top" title="go to top of document">method slurpy</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method slurpy(Parameter:D: --&gt; Bool:D)</pre>
+<p>Returns <code>True</code> for <a href="/Documentable/integration-test/type/Signature#Slurpy_(A.K.A._variadic)_parameters">slurpy parameters</a>.</p>
+<h2 id="method_twigil"><a class="u" href="#___top" title="go to top of document">method twigil</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method twigil(Parameter:D: --&gt; Str:D)</pre>
+<p>Returns a string containing the twigil part of the parameter&#39;s name.</p>
+<h2 id="method_optional"><a class="u" href="#___top" title="go to top of document">method optional</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method optional(Parameter:D: --&gt; Bool:D)</pre>
+<p>Returns <code>True</code> for <a href="/Documentable/integration-test/type/Signature#Optional_and_Mandatory_Parameters">optional parameters</a>.</p>
+<h2 id="method_raw"><a class="u" href="#___top" title="go to top of document">method raw</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method raw(Parameter:D: --&gt; Bool:D)</pre>
+<p>Returns <code>True</code> for raw parameters.</p>
+<pre class="pod-block-code">sub f($a, $b is raw, \c) {
+    my $sig = &amp;?ROUTINE.signature;
+    for ^$sig.params.elems {
+        say $sig.params[$_].raw;
+    }
+}
+f(17, &quot;4711&quot;, 42); OUTPUT: «False␤True␤True␤»</pre>
+<p>Raw parameters bind either a variable or a value passed to it, with no decontainerization taking place. That means that if a variable was passed to it, you can assign to the parameter. This is different from <a href="#method_rw">rw</a>-parameter which can only bind to variables, never to values.</p>
+<p>This is the normal behavior for parameters declared with a <a href="#method_sigil">sigil</a> of &#39;<code>\</code>&#39;, which is not really a sigil insofar as it is only used on the parameter.</p>
+<pre class="pod-block-code">sub f(\x) {
+    x = 5;
+}
+f(my $x);   # works
+f(42);      # dies
+CATCH { default { put .^name, &#39;: &#39;, .Str } };
+# OUTPUT: «X::Assignment::RO: Cannot modify an immutable Int␤»</pre>
+<p>Other parameters may become raw through use of the &#39;<code>is raw</code>&#39; <a href="/Documentable/integration-test/type/Signature#Parameter_Traits_and_Modifiers">trait</a>. These still use their sigil in code.</p>
+<pre class="pod-block-code">sub f($x is raw) {
+    $x = 5;
+}</pre>
+<p>When used with slurpy list parameters, the <code>is raw</code> trait will cause the list of arguments given to be packed into a <code>List</code> instead of an <code>Array</code>, which prevents them from being containerized with <code>Scalar</code>. This is the default behavior when using <code>+</code> with a sigilless parameter:</p>
+<pre class="pod-block-code">my @types is List = Mu, Any;
+say -&gt; *@l { @l }(@types)[0] =:= @types[0];        # OUTPUT: «False␤»
+say -&gt; +@l { @l }(@types)[0] =:= @types[0];        # OUTPUT: «False␤»
+say -&gt; +l { l }(@types)[0] =:= @types[0];          # OUTPUT: «True␤»
+say -&gt; *@l is raw { @l }(@types)[0] =:= @types[0]; # OUTPUT: «True␤»</pre>
+<h2 id="method_capture"><a class="u" href="#___top" title="go to top of document">method capture</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method capture(Parameter:D: --&gt; Bool:D)</pre>
+<p>Returns <code>True</code> for parameters that capture the rest of the argument list into a single <a href="/Documentable/integration-test/type/Capture">Capture</a> object.</p>
+<pre class="pod-block-code">sub how_many_extra_positionals($!, |capture) { capture.elems.say }
+how_many_extra_positionals(0, 1, 2, 3);                        # OUTPUT: «3»
+say &amp;how_many_extra_positionals.signature.params[1].capture;   # OUTPUT: «True␤»</pre>
+<p>Like raw parameters, <code>Capture</code> parameters do not force any context on the values bound to them, which is why their sigils are only used in declarations.</p>
+<h2 id="method_rw"><a class="u" href="#___top" title="go to top of document">method rw</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method rw(Parameter:D: --&gt; Bool:D)</pre>
+<p>Returns <code>True</code> for <a href="/Documentable/integration-test/type/Signature#Parameter_Traits_and_Modifiers"><code>is rw</code></a> parameters.</p>
+<pre class="pod-block-code">my Signature $sig = :(Str $x is rw, Bool :$is-named);
+say $sig.params[0].rw;                             # OUTPUT: «True␤»
+say $sig.params[1].rw;                             # OUTPUT: «False␤»</pre>
+<h2 id="method_copy"><a class="u" href="#___top" title="go to top of document">method copy</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method copy(Parameter:D: --&gt; Bool:D)</pre>
+<p>Returns <code>True</code> for <a href="/Documentable/integration-test/type/Signature#Parameter_Traits_and_Modifiers"><code>is copy</code></a> parameters.</p>
+<pre class="pod-block-code">my Signature $sig = :(Str $x, Bool :$is-named is copy);
+say $sig.params[0].copy;                           # OUTPUT: «False␤»
+say $sig.params[1].copy;                           # OUTPUT: «True␤»</pre>
+<h2 id="method_readonly"><a class="u" href="#___top" title="go to top of document">method readonly</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method readonly(Parameter:D: --&gt; Bool:D)</pre>
+<p>Returns <code>True</code> for read-only parameters (the default).</p>
+<pre class="pod-block-code">my Signature $sig = :(Str $x is rw, Bool :$is-named);
+say $sig.params[0].readonly;                       # OUTPUT: «False␤»
+say $sig.params[1].readonly;                       # OUTPUT: «True␤»</pre>
+<h2 id="method_invocant"><a class="u" href="#___top" title="go to top of document">method invocant</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method invocant(Parameter:D: --&gt; Bool:D)</pre>
+<p>Returns <code>True</code> if the parameter is the <a href="/Documentable/integration-test/type/Signature#Parameter_separators">invocant parameter</a>.</p>
+<pre class="pod-block-code">my Signature $sig = :($i : Str $x is rw, Bool :$is-named);
+say $sig.params[0].invocant;                       # OUTPUT: «True␤»
+say $sig.params[1].invocant;                       # OUTPUT: «False␤»</pre>
+<h2 id="method_default"><a class="u" href="#___top" title="go to top of document">method default</a></h2>
+<p>Returns a closure that upon invocation returns the <a href="/Documentable/integration-test/type/Signature#Optional_and_Mandatory_Parameters">default value</a> for this parameter, or <code>Any</code> if no default was provided.</p>
+<h2 id="method_type_captures"><a class="u" href="#___top" title="go to top of document">method type_captures</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method type_captures(Parameter:D: --&gt; List:D)</pre>
+<p>Returns a list of variable names of type captures associated with this parameter. Type captures define a type name within the attached code, which is an alias to the type gleaned from the argument during a call.</p>
+<pre class="pod-block-code">sub a(::T ::U $x) { T.say }
+a(8);                                       # OUTPUT: «(Int)␤»
+say &amp;a.signature.params[0].type_captures;   # OUTPUT: «(T U)␤»
+sub b($x) { $x.^name.say }
+a(8);                                       # OUTPUT: «Int␤»</pre>
+<p>The type used may change from call to call. Once they are defined, type captures can be used wherever you would use a type, even later in the same signature:</p>
+<pre class="pod-block-code">sub c(::T $x, T $y, $z) { my T $zz = $z };
+c(4, 5, 6);          # OK
+c(4, 5, &quot;six&quot;);      # Fails when assigning to $zz, wants Int not Str
+c(&quot;four&quot;, 5, &quot;six&quot;); # Fails when binding $y, wants Str, not Int
+</pre>
+<p>Type captures may be used at the same time as <a href="/Documentable/integration-test/type/Signature#Type_constraints">type constraints</a>.</p>
+<pre class="pod-block-code">sub d(::T Numeric $x, T $y) {};
+d(4, 5);            # OK
+d(4e0, 5e0);        # OK
+d(4e0, 5);          # Fails when binding $y
+d(&quot;four&quot;, &quot;five&quot;);  # Fails when binding $x
+</pre>
+<h2 id="method_sub_signature"><a class="u" href="#___top" title="go to top of document">method sub_signature</a></h2>
+<p>If the parameter has a <a href="/Documentable/integration-test/type/Signature#Destructuring_Parameters">sub-signature</a>, returns a <code>Signature</code> object for it. Otherwise returns <code>Any</code>.</p>
+<h2 id="method_prefix"><a class="u" href="#___top" title="go to top of document">method prefix</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method prefix(Parameter:D: --&gt; Str:D)</pre>
+<p>If the parameter is <a href="/Documentable/integration-test/type/Signature#Slurpy_(A.K.A._variadic)_parameters">slurpy</a>, returns the marker (e.g., <code>*</code>, <code>**</code>, or <code>+</code>) the parameter was declared with. Otherwise, returns an empty string.</p>
+<pre class="pod-block-code">my Signature $flat-slurpy = :($a, *@b);
+say $flat-slurpy.params[0].prefix; # OUTPUT:«&quot;&quot;␤»
+say $flat-slurpy.params[1].prefix; # OUTPUT:«*␤»
+
+my Signature $unflat-slurpy = :($a, **@b);
+say $unflat-slurpy.params[0].prefix; # OUTPUT:«&quot;&quot;␤»
+say $unflat-slurpy.params[1].prefix; # OUTPUT:«**␤»
+
+my Signature $sar-slurpy = :($a, +@b);
+say $sar-slurpy.params[0].prefix; # OUTPUT:«&quot;&quot;␤»
+say $sar-slurpy.params[1].prefix; # OUTPUT:«+␤»</pre>
+<h2 id="method_suffix"><a class="u" href="#___top" title="go to top of document">method suffix</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method suffix(Parameter:D: --&gt; Str:D)</pre>
+<p>Returns the <code>?</code> or <code>!</code> marker a parameter was declared with, if any. Otherwise, returns the empty string.</p>
+<pre class="pod-block-code">my Signature $pos-sig = :($a, $b?);
+say $pos-sig.params[0].suffix; # OUTPUT: «&quot;&quot;␤»
+say $pos-sig.params[1].suffix; # OUTPUT: «?␤»
+
+my Signature $named-sig = :(:$a!, :$b);
+say $named-sig.params[0].suffix; # OUTPUT: «!␤»
+say $named-sig.params[1].suffix; # OUTPUT: «&quot;&quot;␤»</pre>
+<h1 id="Runtime_creation_of_Parameter_objects_(6.d,_2019.03_and_later)"><a class="u" href="#___top" title="go to top of document">Runtime creation of Parameter objects (6.d, 2019.03 and later)</a></h1>
+<pre class="pod-block-code">Parameter.new( ... )</pre>
+<p>In some situations, specifically when working with the <a href="/Documentable/integration-test/language/mop">MetaObject Protocol</a>, it makes sense to create <code>Parameter</code> objects programmatically. For this purpose, you can call the <code>new</code> method with the following named parameters:</p>
+<ul><li><p>name</p>
+</li>
+</ul>
+<p>Optional. The name of the variable, if any. Can be specified in the same way as in a <code>Signature</code>. So it may contain specific additional information, such as a sigil (<code>$</code>, <code>@</code>, <code>%</code> or <code>&amp;</code>), a <code>:</code> prefix to indicate a named parameter, a twigil (<code>.</code> or <code>!</code>) to indicate public / private attribute binding, a postfix <code>!</code> or <code>?</code> to indicate an optional / mandatory parameter, and the various combinations of <code>+</code>, <code>*</code>, <code>**</code> prefixes to indicate slurpiness types and <code>|</code> to indicate a <code>Capture</code>.</p>
+<ul><li><p>type</p>
+</li>
+</ul>
+<p>Optional. The type of the parameter. Assumes <code>Any</code> if not specified.</p>
+<ul><li><p>default</p>
+</li>
+</ul>
+<p>Optional. The value of the parameter if the parameter is optional and no argument has been given for that parameter. Assumes not initialization if no argument has been given, which would fall back to the (implicit) type of the parameter.</p>
+<ul><li><p>where</p>
+</li>
+</ul>
+<p>Optional. Additional constraints to be applied to any argument to match with this parameter. Does not set any additional constraints by default.</p>
+<ul><li><p>is-copy</p>
+</li>
+</ul>
+<p>Optional. Allows one to set the &quot;is copy&quot; flag on the parameter. Does not set the flag by default.</p>
+<ul><li><p>is-raw</p>
+</li>
+</ul>
+<p>Optional. Allows one to set the &quot;is raw&quot; flag on the parameter. Does not set the flag by default.</p>
+<ul><li><p>is-rw</p>
+</li>
+</ul>
+<p>Optional. Allows one to set the &quot;is rw&quot; flag on the parameter. Does not set the flag by default.</p>
+<ul><li><p>named</p>
+</li>
+</ul>
+<p>Optional. Indicates whether the parameter is a named parameter or not. Should only be specified if the <code>:</code> prefix is <strong>not</strong> specified in the name and a named parameter is required.</p>
+<ul><li><p>optional</p>
+</li>
+</ul>
+<p>Optional. Indicates whether the parameter is optional or not. Should only be specified if the <code>?</code> postfix is <strong>not</strong> specified in the name and an optional parameter is required.</p>
+<ul><li><p>mandatory</p>
+</li>
+</ul>
+<p>Optional. Indicates whether the parameter is mandatory or not. Should only be specified if the <code>!</code> postfix is <strong>not</strong> specified in the name and a mandatory parameter is required.</p>
+<ul><li><p>multi-invocant</p>
+</li>
+</ul>
+<p>Optional. Indicates whether the parameter should be considered in multi-dispatch or not. Defaults to <code>True</code>, so one would need to do <code>:!multi-invocant</code> to make the parameter <strong>not</strong> be considered in multi-dispatch.</p>
+<ul><li><p>sub-signature</p>
+</li>
+</ul>
+<p>Optional. Specifies any <code>Signature</code> that should be applied to the parameter to deconstruct it. By default, no signature is to be applied.</p>
+<h1 id="Type_Graph"><a class="u" href="#___top" title="go to top of document">Type Graph</a></h1>
+<figure>
+  <figcaption>Type relations for <code>Parameter</code></figcaption>
+  <svg width="117pt" height="188pt"
+ viewBox="0.00 0.00 117.19 188.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 184)">
+<title>perl6&#45;type&#45;graph</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-184 113.19,-184 113.19,4 -4,4"/>
+<!-- Parameter -->
+<g id="node1" class="node">
+<title>Parameter</title>
+<g id="a_node1"><a xlink:href="/type/Parameter" xlink:title="Parameter">
+<ellipse fill="none" stroke="#000000" cx="54.6" cy="-18" rx="54.69" ry="18"/>
+<text text-anchor="middle" x="54.6" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">Parameter</text>
+</a>
+</g>
+</g>
+<!-- Any -->
+<g id="node3" class="node">
+<title>Any</title>
+<g id="a_node3"><a xlink:href="/type/Any" xlink:title="Any">
+<ellipse fill="none" stroke="#000000" cx="54.6" cy="-90" rx="27" ry="18"/>
+<text text-anchor="middle" x="54.6" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Any</text>
+</a>
+</g>
+</g>
+<!-- Parameter&#45;&gt;Any -->
+<g id="edge1" class="edge">
+<title>Parameter&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M54.6,-36.3C54.6,-44.02 54.6,-53.29 54.6,-61.89"/>
+<polygon fill="#000000" stroke="#000000" points="51.1,-61.9 54.6,-71.9 58.1,-61.9 51.1,-61.9"/>
+</g>
+<!-- Mu -->
+<g id="node2" class="node">
+<title>Mu</title>
+<g id="a_node2"><a xlink:href="/type/Mu" xlink:title="Mu">
+<ellipse fill="none" stroke="#000000" cx="54.6" cy="-162" rx="27" ry="18"/>
+<text text-anchor="middle" x="54.6" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#000000">Mu</text>
+</a>
+</g>
+</g>
+<!-- Any&#45;&gt;Mu -->
+<g id="edge2" class="edge">
+<title>Any&#45;&gt;Mu</title>
+<path fill="none" stroke="#000000" d="M54.6,-108.3C54.6,-116.02 54.6,-125.29 54.6,-133.89"/>
+<polygon fill="#000000" stroke="#000000" points="51.1,-133.9 54.6,-143.9 58.1,-133.9 51.1,-133.9"/>
+</g>
+</g>
+</svg>
+
+  <p class="fallback">
+    <a
+      rel="alternate"
+      href="/images/type-graph-Parameter.svg"
+      type="image/svg+xml"
+      >Expand above chart</a
+    >
+  </p>
+</figure>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Type/Parameter.pod6">https://github.com/Raku/doc/blob/master/doc/Type/Parameter.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

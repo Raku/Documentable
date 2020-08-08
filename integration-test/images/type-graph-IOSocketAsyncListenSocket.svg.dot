@@ -1,0 +1,17 @@
+digraph "perl6-type-graph" {
+    rankdir=BT;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "IO::Socket::Async::ListenSocket" [color="#000000", fontcolor="#000000", href="/type/IO::Socket::Async::ListenSocket", fontname="FreeSans"];
+    "Mu" [color="#000000", fontcolor="#000000", href="/type/Mu", fontname="FreeSans"];
+    "Any" [color="#000000", fontcolor="#000000", href="/type/Any", fontname="FreeSans"];
+    "Tap" [color="#000000", fontcolor="#000000", href="/type/Tap", fontname="FreeSans"];
+
+    // Superclasses
+    "IO::Socket::Async::ListenSocket" -> "Tap" [color="#000000"];
+    "Any" -> "Mu" [color="#000000"];
+    "Tap" -> "Any" [color="#000000"];
+
+    // Roles
+}

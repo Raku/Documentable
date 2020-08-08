@@ -1,0 +1,80 @@
+digraph "perl6-type-graph" {
+    rankdir=BT;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "Cool" [color="#000000", fontcolor="#000000", href="/type/Cool", fontname="FreeSans"];
+    "Mu" [color="#000000", fontcolor="#000000", href="/type/Mu", fontname="FreeSans"];
+    "Any" [color="#000000", fontcolor="#000000", href="/type/Any", fontname="FreeSans"];
+    "IO" [color="#6666FF", fontcolor="#6666FF", href="/type/IO", fontname="FreeSans"];
+    "IO::Path" [color="#000000", fontcolor="#000000", href="/type/IO::Path", fontname="FreeSans"];
+    "Numeric" [color="#6666FF", fontcolor="#6666FF", href="/type/Numeric", fontname="FreeSans"];
+    "Real" [color="#6666FF", fontcolor="#6666FF", href="/type/Real", fontname="FreeSans"];
+    "Int" [color="#000000", fontcolor="#000000", href="/type/Int", fontname="FreeSans"];
+    "Complex" [color="#000000", fontcolor="#000000", href="/type/Complex", fontname="FreeSans"];
+    "Instant" [color="#000000", fontcolor="#000000", href="/type/Instant", fontname="FreeSans"];
+    "Capture" [color="#000000", fontcolor="#000000", href="/type/Capture", fontname="FreeSans"];
+    "Match" [color="#000000", fontcolor="#000000", href="/type/Match", fontname="FreeSans"];
+    "Positional" [color="#6666FF", fontcolor="#6666FF", href="/type/Positional", fontname="FreeSans"];
+    "Iterable" [color="#6666FF", fontcolor="#6666FF", href="/type/Iterable", fontname="FreeSans"];
+    "Range" [color="#000000", fontcolor="#000000", href="/type/Range", fontname="FreeSans"];
+    "Stringy" [color="#6666FF", fontcolor="#6666FF", href="/type/Stringy", fontname="FreeSans"];
+    "Str" [color="#000000", fontcolor="#000000", href="/type/Str", fontname="FreeSans"];
+    "StrDistance" [color="#000000", fontcolor="#000000", href="/type/StrDistance", fontname="FreeSans"];
+    "Duration" [color="#000000", fontcolor="#000000", href="/type/Duration", fontname="FreeSans"];
+    "Nil" [color="#000000", fontcolor="#000000", href="/type/Nil", fontname="FreeSans"];
+    "List" [color="#000000", fontcolor="#000000", href="/type/List", fontname="FreeSans"];
+    "Num" [color="#000000", fontcolor="#000000", href="/type/Num", fontname="FreeSans"];
+    "Associative" [color="#6666FF", fontcolor="#6666FF", href="/type/Associative", fontname="FreeSans"];
+    "Map" [color="#000000", fontcolor="#000000", href="/type/Map", fontname="FreeSans"];
+    "Rational" [color="#6666FF", fontcolor="#6666FF", href="/type/Rational", fontname="FreeSans"];
+    "Rat" [color="#000000", fontcolor="#000000", href="/type/Rat", fontname="FreeSans"];
+    "FatRat" [color="#000000", fontcolor="#000000", href="/type/FatRat", fontname="FreeSans"];
+    "PositionalBindFailover" [color="#6666FF", fontcolor="#6666FF", href="/type/PositionalBindFailover", fontname="FreeSans"];
+    "Sequence" [color="#6666FF", fontcolor="#6666FF", href="/type/Sequence", fontname="FreeSans"];
+    "Seq" [color="#000000", fontcolor="#000000", href="/type/Seq", fontname="FreeSans"];
+
+    // Superclasses
+    "Cool" -> "Any" [color="#000000"];
+    "Any" -> "Mu" [color="#000000"];
+    "IO::Path" -> "Cool" [color="#000000"];
+    "Int" -> "Cool" [color="#000000"];
+    "Complex" -> "Cool" [color="#000000"];
+    "Instant" -> "Cool" [color="#000000"];
+    "Capture" -> "Any" [color="#000000"];
+    "Match" -> "Capture" [color="#000000"];
+    "Match" -> "Cool" [color="#000000"];
+    "Range" -> "Cool" [color="#000000"];
+    "Str" -> "Cool" [color="#000000"];
+    "StrDistance" -> "Cool" [color="#000000"];
+    "Duration" -> "Cool" [color="#000000"];
+    "Nil" -> "Cool" [color="#000000"];
+    "List" -> "Cool" [color="#000000"];
+    "Num" -> "Cool" [color="#000000"];
+    "Map" -> "Cool" [color="#000000"];
+    "Rat" -> "Cool" [color="#000000"];
+    "FatRat" -> "Cool" [color="#000000"];
+    "Seq" -> "Cool" [color="#000000"];
+
+    // Roles
+    "IO::Path" -> "IO" [color="#6666FF"];
+    "Real" -> "Numeric" [color="#6666FF"];
+    "Int" -> "Real" [color="#6666FF"];
+    "Complex" -> "Numeric" [color="#6666FF"];
+    "Instant" -> "Real" [color="#6666FF"];
+    "Range" -> "Positional" [color="#6666FF"];
+    "Range" -> "Iterable" [color="#6666FF"];
+    "Str" -> "Stringy" [color="#6666FF"];
+    "Duration" -> "Real" [color="#6666FF"];
+    "List" -> "Positional" [color="#6666FF"];
+    "List" -> "Iterable" [color="#6666FF"];
+    "Num" -> "Real" [color="#6666FF"];
+    "Map" -> "Iterable" [color="#6666FF"];
+    "Map" -> "Associative" [color="#6666FF"];
+    "Rational" -> "Real" [color="#6666FF"];
+    "Rat" -> "Rational" [color="#6666FF"];
+    "FatRat" -> "Rational" [color="#6666FF"];
+    "Sequence" -> "PositionalBindFailover" [color="#6666FF"];
+    "Seq" -> "Iterable" [color="#6666FF"];
+    "Seq" -> "Sequence" [color="#6666FF"];
+}

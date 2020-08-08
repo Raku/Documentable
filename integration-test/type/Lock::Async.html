@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>class Lock::Async</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/type.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-basic.html"> Basic </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-composite.html"> Composite </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-domain-specific.html"> Domain-specific </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-exception.html"> Exceptions </a>
+            </div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Type/Lock/Async.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">class Lock::Async</h1>
+        <p class="subtitle">A non-blocking, non-re-entrant, mutual exclusion lock</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+                                                <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#method_lock">method lock</a></td></tr>
+                  <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#method_unlock">method unlock</a></td></tr>
+                             <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#method_protect">method protect</a></td></tr>
+                                                                                                      <tr class="toc-level-2"><td class="toc-number">1.4</td><td class="toc-text"><a href="#method_protect-or-queue-on-recursion">method protect-or-queue-on-recursion</a></td></tr>
+                   <tr class="toc-level-2"><td class="toc-number">1.5</td><td class="toc-text"><a href="#method_with-lock-hidden-from-recursion-check">method with-lock-hidden-from-recursion-check</a></td></tr>
+         <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Type_Graph">Type Graph</a></td></tr>
+ 
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <pre class="pod-block-code">class Lock::Async {}</pre>
+<p>A <code>Lock::Async</code> instance provides a mutual exclusion mechanism: when the lock is held, any other code wishing to <code>lock</code> must wait until the holder calls <code>unlock</code>, which helps against all kinds of issues resulting from data being read and modified simultaneously from different threads.</p>
+<p>Unlike <a href="/Documentable/integration-test/type/Lock">Lock</a>, which provides a traditional OS-backed mutual exclusion mechanism, <code>Lock::Async</code> works with the high-level concurrency features of Raku. The <code>lock</code> method returns a <code>Promise</code>, which will be kept when the lock is available. This <code>Promise</code> can be used with non-blocking <code>await</code>. This means that a thread from the thread pool need not be consumed while waiting for the <code>Lock::Async</code> to be available, and the code trying to obtain the lock will be resumed once it is available.</p>
+<p>The result is that it&#39;s quite possible to have many thousands of outstanding <code>Lock::Async</code> lock requests, but just a small number of threads in the pool. Attempting that with a traditional <a href="/Documentable/integration-test/type/Lock">Lock</a> would not go so well!</p>
+<p>There is no requirement that a <code>Lock::Async</code> is locked and unlocked by the same physical thread, meaning it is possible to do a non-blocking <code>await</code> while holding the lock. The flip side of this is <code>Lock::Async</code> is not re-entrant.</p>
+<p>While <code>Lock::Async</code> works in terms of higher-level Raku concurrency mechanisms, it should be considered a building block. Indeed, it lies at the heart of the <code>Supply</code> concurrency model. Prefer to structure programs so that they communicate results rather than mutate shared data structures, using mechanisms like <a href="/Documentable/integration-test/type/Promise">Promise</a>, <a href="/Documentable/integration-test/type/Channel">Channel</a> and <a href="/Documentable/integration-test/type/Supply">Supply</a>.</p>
+<h1 id="Methods"><a class="u" href="#___top" title="go to top of document">Methods</a></h1>
+<h2 id="method_lock"><a class="u" href="#___top" title="go to top of document">method lock</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method lock(Lock::Async:D: --&gt; Promise:D)</pre>
+<p>Returns a <a href="/Documentable/integration-test/type/Promise">Promise</a> that will be kept when the lock is available. In the case that the lock is already available, an already kept <code>Promise</code> will be returned. Use <code>await</code> to wait for the lock to be available in a non-blocking manner.</p>
+<pre class="pod-block-code">my $l = Lock::Async.new;
+await $l.lock;</pre>
+<p>Prefer to use <a href="/Documentable/integration-test/type/Lock::Async#method_protect">protect</a> instead of explicit calls to <code>lock</code> and <code>unlock</code>.</p>
+<h2 id="method_unlock"><a class="u" href="#___top" title="go to top of document">method unlock</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method unlock(Lock::Async:D: --&gt; Nil)</pre>
+<p>Releases the lock. If there are any outstanding <code>lock</code> <code>Promise</code>s, the one at the head of the queue will then be kept, and potentially code scheduled on the thread pool (so the cost of calling <code>unlock</code> is limited to the work needed to schedule another piece of code that wants to obtain the lock, but not to execute that code).</p>
+<pre class="pod-block-code">my $l = Lock::Async.new;
+await $l.lock;
+$l.unlock;</pre>
+<p>Prefer to use <a href="/Documentable/integration-test/type/Lock::Async#method_protect">protect</a> instead of explicit calls to <code>lock</code> and <code>unlock</code>. However, if wishing to use the methods separately, it is wise to use a <code>LEAVE</code> block to ensure that <code>unlock</code> is reliably called. Failing to <code>unlock</code> will mean that nobody can ever <code>lock</code> this particular <code>Lock::Async</code> instance again.</p>
+<pre class="pod-block-code">my $l = Lock::Async.new;
+{
+    await $l.lock;
+    LEAVE $l.unlock;
+}</pre>
+<h2 id="method_protect"><a class="u" href="#___top" title="go to top of document">method protect</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method protect(Lock::Async:D: &amp;code)</pre>
+<p>This method reliably wraps code passed to <code>&amp;code</code> parameter with a lock it is called on. It calls <code>lock</code>, does an <code>await</code> to wait for the lock to be available, and reliably calls <code>unlock</code> afterwards, even if the code throws an exception.</p>
+<p>Note that the <a href="/Documentable/integration-test/type/Lock::Async">Lock::Async</a> itself needs to be created outside the portion of the code that gets threaded and it needs to protect. In the first example below, <a href="/Documentable/integration-test/type/Lock::Async">Lock::Async</a> is first created and assigned to <code>$lock</code>, which is then used <em>inside</em> the <a href="/Documentable/integration-test/type/Promise">Promises</a> code to protect the sensitive code. In the second example, a mistake is made, the <code>Lock::Async</code> is created right inside the <a href="/Documentable/integration-test/type/Promise">Promise</a>, so the code ends up with a bunch of different locks, created in a bunch of threads, and thus they don&#39;t actually protect the code we want to protect. Modifying an Array <em>simultaneously</em> from different in the second example is not safe and leads to memory errors.</p>
+<pre class="pod-block-code">    # Compute how many prime numbers there are in first 10 000 of them
+    # using 50 threads
+    my @primes = 0 .. 10_000;
+    my @results;
+    my @threads;
+
+    # Right: $lock is instantiated outside the portion of the
+    # code that will get threaded and be in need of protection,
+    # so all threads share the lock
+    my $lock = Lock::Async.new;
+    for ^50 -&gt; $thread {
+        @threads.push: start {
+            $lock.protect: {
+                my $from = $thread * 200;
+                my $to = ($thread + 1) * 200;
+                @results.append: @primes[$from..$to].map(*.is-prime);
+            }
+        }
+    }
+
+    # await for all threads to finish calculation
+    await Promise.allof(@writers);
+    # say how many prime numbers we found
+    say &quot;We found &quot; ~ @results.grep(*.value).elems ~ &quot; prime numbers&quot;;
+</pre>
+<p>The example below demonstrates the wrong approach: without proper locking this code will work most of the time, but occasionally will result in bogus error messages or low-level memory errors:</p>
+<pre class="pod-block-code">    # !!! WRONG !!! Lock::Async is instantiated inside threaded area,
+    # so all the 20 threads use 20 different locks, not syncing with
+    # each other
+    for ^50 -&gt; $thread {
+        @threads.push: start {
+            my $lock = Lock::Async.new;
+            $lock.protect: {
+                my $from = $thread * 200;
+                my $to = ($thread + 1) * 200;
+                @results.append: @primes[$from..$to].map(*.is-prime);
+            }
+        }
+    }
+</pre>
+<h2 id="method_protect-or-queue-on-recursion"><a class="u" href="#___top" title="go to top of document">method protect-or-queue-on-recursion</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method protect-or-queue-on-recursion(Lock::Async:D: &amp;code)</pre>
+<p>When calling <a href="/Documentable/integration-test/type/Lock::Async#method_protect">protect</a> on a <code>Lock::Async</code> instance that is already locked, the method is forced to block until the lock gets unlocked. <code>protect-or-queue-on-recursion</code> avoids this issue by either behaving the same as <a href="/Documentable/integration-test/type/Lock::Async#method_protect">protect</a> if the lock is unlocked or the lock was locked by something outside the caller chain, returning <code>Nil</code>, or queueing the call to <code>&amp;code</code> and returning a <code>Promise</code> if the lock had already been locked at another point in the caller chain.</p>
+<pre class="pod-block-code">my Lock::Async $lock .= new;
+my Int         $count = 0;
+
+# The lock is unlocked, so the code runs instantly.
+$lock.protect-or-queue-on-recursion({
+    $count++
+});
+
+# Here, we have caller recursion. The outer call only returns a Promise
+# because the inner one does. If we try to await the inner call&#39;s Promise
+# from the outer call, the two calls will block forever since the inner
+# caller&#39;s Promise return value is just the outer&#39;s with a then block.
+$lock.protect-or-queue-on-recursion({
+    $lock.protect-or-queue-on-recursion({
+        $count++
+    }).then({
+        $count++
+    })
+});
+
+# Here, the lock is locked, but not by anything else on the caller chain.
+# This behaves just like calling protect would in this scenario.
+for 0..^2 {
+    $lock.protect-or-queue-on-recursion({
+        $count++;
+    });
+}
+
+say $count; # OUTPUT: 5</pre>
+<h2 id="method_with-lock-hidden-from-recursion-check"><a class="u" href="#___top" title="go to top of document">method with-lock-hidden-from-recursion-check</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method with-lock-hidden-from-recursion-check(&amp;code)</pre>
+<p>Temporarily resets the Lock::Async recursion list so that it no longer includes the lock this method is called on and runs the given <code>&amp;code</code> immediately if the call to the method occurred in a caller chain where <a href="/Documentable/integration-test/type/Lock::Async/#method_protect-or-queue-on-recursion">protect-or-queue-on-recursion</a> has already been called and the lock has been placed on the recursion list.</p>
+<pre class="pod-block-code">my Lock::Async $lock .= new;
+my Int         $count = 0;
+
+$lock.protect-or-queue-on-recursion({
+    my Int $count = 0;
+
+    # Runs instantly.
+    $lock.with-lock-hidden-from-recursion-check({
+        $count++;
+    });
+
+    # Runs after the outer caller&#39;s protect-or-queue-on-recursion call has
+    # finished running.
+    $lock.protect-or-queue-on-recursion({
+        $count++;
+    }).then({
+        say $count; # OUTPUT: 2
+    });
+
+    say $count; # OUTPUT: 1
+});</pre>
+<h1 id="Type_Graph"><a class="u" href="#___top" title="go to top of document">Type Graph</a></h1>
+<figure>
+  <figcaption>Type relations for <code>Lock::Async</code></figcaption>
+  <svg width="137pt" height="188pt"
+ viewBox="0.00 0.00 136.69 188.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 184)">
+<title>perl6&#45;type&#45;graph</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-184 132.69,-184 132.69,4 -4,4"/>
+<!-- Lock::Async -->
+<g id="node1" class="node">
+<title>Lock::Async</title>
+<g id="a_node1"><a xlink:href="/type/Lock::Async" xlink:title="Lock::Async">
+<ellipse fill="none" stroke="#000000" cx="64.34" cy="-18" rx="64.19" ry="18"/>
+<text text-anchor="middle" x="64.34" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">Lock::Async</text>
+</a>
+</g>
+</g>
+<!-- Any -->
+<g id="node3" class="node">
+<title>Any</title>
+<g id="a_node3"><a xlink:href="/type/Any" xlink:title="Any">
+<ellipse fill="none" stroke="#000000" cx="64.34" cy="-90" rx="27" ry="18"/>
+<text text-anchor="middle" x="64.34" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Any</text>
+</a>
+</g>
+</g>
+<!-- Lock::Async&#45;&gt;Any -->
+<g id="edge1" class="edge">
+<title>Lock::Async&#45;&gt;Any</title>
+<path fill="none" stroke="#000000" d="M64.34,-36.3C64.34,-44.02 64.34,-53.29 64.34,-61.89"/>
+<polygon fill="#000000" stroke="#000000" points="60.84,-61.9 64.34,-71.9 67.84,-61.9 60.84,-61.9"/>
+</g>
+<!-- Mu -->
+<g id="node2" class="node">
+<title>Mu</title>
+<g id="a_node2"><a xlink:href="/type/Mu" xlink:title="Mu">
+<ellipse fill="none" stroke="#000000" cx="64.34" cy="-162" rx="27" ry="18"/>
+<text text-anchor="middle" x="64.34" y="-158.3" font-family="FreeSans" font-size="14.00" fill="#000000">Mu</text>
+</a>
+</g>
+</g>
+<!-- Any&#45;&gt;Mu -->
+<g id="edge2" class="edge">
+<title>Any&#45;&gt;Mu</title>
+<path fill="none" stroke="#000000" d="M64.34,-108.3C64.34,-116.02 64.34,-125.29 64.34,-133.89"/>
+<polygon fill="#000000" stroke="#000000" points="60.84,-133.9 64.34,-143.9 67.84,-133.9 60.84,-133.9"/>
+</g>
+</g>
+</svg>
+
+  <p class="fallback">
+    <a
+      rel="alternate"
+      href="/images/type-graph-Lock%3A%3AAsync.svg"
+      type="image/svg+xml"
+      >Expand above chart</a
+    >
+  </p>
+</figure>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Type/Lock/Async.pod6">https://github.com/Raku/doc/blob/master/doc/Type/Lock/Async.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

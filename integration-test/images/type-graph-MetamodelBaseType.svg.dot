@@ -1,0 +1,39 @@
+digraph "perl6-type-graph" {
+    rankdir=BT;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "Metamodel::BaseType" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::BaseType", fontname="FreeSans"];
+    "Mu" [color="#000000", fontcolor="#000000", href="/type/Mu", fontname="FreeSans"];
+    "Any" [color="#000000", fontcolor="#000000", href="/type/Any", fontname="FreeSans"];
+    "Metamodel::Naming" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::Naming", fontname="FreeSans"];
+    "Metamodel::Stashing" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::Stashing", fontname="FreeSans"];
+    "Metamodel::AttributeContainer" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::AttributeContainer", fontname="FreeSans"];
+    "Metamodel::MethodContainer" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::MethodContainer", fontname="FreeSans"];
+    "Metamodel::MultiMethodContainer" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::MultiMethodContainer", fontname="FreeSans"];
+    "Metamodel::RoleContainer" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::RoleContainer", fontname="FreeSans"];
+    "Metamodel::MROBasedMethodDispatch" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::MROBasedMethodDispatch", fontname="FreeSans"];
+    "Metamodel::MROBasedTypeChecking" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::MROBasedTypeChecking", fontname="FreeSans"];
+    "Metamodel::BUILDPLAN" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::BUILDPLAN", fontname="FreeSans"];
+    "Metamodel::BoolificationProtocol" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::BoolificationProtocol", fontname="FreeSans"];
+    "Metamodel::Mixins" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::Mixins", fontname="FreeSans"];
+    "Metamodel::EnumHOW" [color="#000000", fontcolor="#000000", href="/type/Metamodel::EnumHOW", fontname="FreeSans"];
+
+    // Superclasses
+    "Any" -> "Mu" [color="#000000"];
+    "Metamodel::EnumHOW" -> "Any" [color="#000000"];
+
+    // Roles
+    "Metamodel::EnumHOW" -> "Metamodel::Naming" [color="#6666FF"];
+    "Metamodel::EnumHOW" -> "Metamodel::Stashing" [color="#6666FF"];
+    "Metamodel::EnumHOW" -> "Metamodel::AttributeContainer" [color="#6666FF"];
+    "Metamodel::EnumHOW" -> "Metamodel::MethodContainer" [color="#6666FF"];
+    "Metamodel::EnumHOW" -> "Metamodel::MultiMethodContainer" [color="#6666FF"];
+    "Metamodel::EnumHOW" -> "Metamodel::RoleContainer" [color="#6666FF"];
+    "Metamodel::EnumHOW" -> "Metamodel::BaseType" [color="#6666FF"];
+    "Metamodel::EnumHOW" -> "Metamodel::MROBasedMethodDispatch" [color="#6666FF"];
+    "Metamodel::EnumHOW" -> "Metamodel::MROBasedTypeChecking" [color="#6666FF"];
+    "Metamodel::EnumHOW" -> "Metamodel::BUILDPLAN" [color="#6666FF"];
+    "Metamodel::EnumHOW" -> "Metamodel::BoolificationProtocol" [color="#6666FF"];
+    "Metamodel::EnumHOW" -> "Metamodel::Mixins" [color="#6666FF"];
+}

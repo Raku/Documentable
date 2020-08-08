@@ -1,0 +1,20 @@
+digraph "perl6-type-graph" {
+    rankdir=BT;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "Dateish" [color="#6666FF", fontcolor="#6666FF", href="/type/Dateish", fontname="FreeSans"];
+    "Mu" [color="#000000", fontcolor="#000000", href="/type/Mu", fontname="FreeSans"];
+    "Any" [color="#000000", fontcolor="#000000", href="/type/Any", fontname="FreeSans"];
+    "DateTime" [color="#000000", fontcolor="#000000", href="/type/DateTime", fontname="FreeSans"];
+    "Date" [color="#000000", fontcolor="#000000", href="/type/Date", fontname="FreeSans"];
+
+    // Superclasses
+    "Any" -> "Mu" [color="#000000"];
+    "DateTime" -> "Any" [color="#000000"];
+    "Date" -> "Any" [color="#000000"];
+
+    // Roles
+    "DateTime" -> "Dateish" [color="#6666FF"];
+    "Date" -> "Dateish" [color="#6666FF"];
+}

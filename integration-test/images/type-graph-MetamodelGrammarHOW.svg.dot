@@ -1,0 +1,56 @@
+digraph "perl6-type-graph" {
+    rankdir=BT;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "Metamodel::GrammarHOW" [color="#000000", fontcolor="#000000", href="/type/Metamodel::GrammarHOW", fontname="FreeSans"];
+    "Mu" [color="#000000", fontcolor="#000000", href="/type/Mu", fontname="FreeSans"];
+    "Any" [color="#000000", fontcolor="#000000", href="/type/Any", fontname="FreeSans"];
+    "Metamodel::Naming" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::Naming", fontname="FreeSans"];
+    "Metamodel::Documenting" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::Documenting", fontname="FreeSans"];
+    "Metamodel::Versioning" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::Versioning", fontname="FreeSans"];
+    "Metamodel::Stashing" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::Stashing", fontname="FreeSans"];
+    "Metamodel::AttributeContainer" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::AttributeContainer", fontname="FreeSans"];
+    "Metamodel::Finalization" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::Finalization", fontname="FreeSans"];
+    "Metamodel::MethodContainer" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::MethodContainer", fontname="FreeSans"];
+    "Metamodel::PrivateMethodContainer" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::PrivateMethodContainer", fontname="FreeSans"];
+    "Metamodel::MultiMethodContainer" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::MultiMethodContainer", fontname="FreeSans"];
+    "Metamodel::RoleContainer" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::RoleContainer", fontname="FreeSans"];
+    "Metamodel::MultipleInheritance" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::MultipleInheritance", fontname="FreeSans"];
+    "Metamodel::DefaultParent" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::DefaultParent", fontname="FreeSans"];
+    "Metamodel::C3MRO" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::C3MRO", fontname="FreeSans"];
+    "Metamodel::MROBasedMethodDispatch" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::MROBasedMethodDispatch", fontname="FreeSans"];
+    "Metamodel::MROBasedTypeChecking" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::MROBasedTypeChecking", fontname="FreeSans"];
+    "Metamodel::Trusting" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::Trusting", fontname="FreeSans"];
+    "Metamodel::BUILDPLAN" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::BUILDPLAN", fontname="FreeSans"];
+    "Metamodel::Mixins" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::Mixins", fontname="FreeSans"];
+    "Metamodel::BoolificationProtocol" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::BoolificationProtocol", fontname="FreeSans"];
+    "Metamodel::ClassHOW" [color="#000000", fontcolor="#000000", href="/type/Metamodel::ClassHOW", fontname="FreeSans"];
+
+    // Superclasses
+    "Metamodel::GrammarHOW" -> "Metamodel::ClassHOW" [color="#000000"];
+    "Any" -> "Mu" [color="#000000"];
+    "Metamodel::ClassHOW" -> "Any" [color="#000000"];
+
+    // Roles
+    "Metamodel::GrammarHOW" -> "Metamodel::DefaultParent" [color="#6666FF"];
+    "Metamodel::ClassHOW" -> "Metamodel::Naming" [color="#6666FF"];
+    "Metamodel::ClassHOW" -> "Metamodel::Documenting" [color="#6666FF"];
+    "Metamodel::ClassHOW" -> "Metamodel::Versioning" [color="#6666FF"];
+    "Metamodel::ClassHOW" -> "Metamodel::Stashing" [color="#6666FF"];
+    "Metamodel::ClassHOW" -> "Metamodel::AttributeContainer" [color="#6666FF"];
+    "Metamodel::ClassHOW" -> "Metamodel::Finalization" [color="#6666FF"];
+    "Metamodel::ClassHOW" -> "Metamodel::MethodContainer" [color="#6666FF"];
+    "Metamodel::ClassHOW" -> "Metamodel::PrivateMethodContainer" [color="#6666FF"];
+    "Metamodel::ClassHOW" -> "Metamodel::MultiMethodContainer" [color="#6666FF"];
+    "Metamodel::ClassHOW" -> "Metamodel::RoleContainer" [color="#6666FF"];
+    "Metamodel::ClassHOW" -> "Metamodel::MultipleInheritance" [color="#6666FF"];
+    "Metamodel::ClassHOW" -> "Metamodel::DefaultParent" [color="#6666FF"];
+    "Metamodel::ClassHOW" -> "Metamodel::C3MRO" [color="#6666FF"];
+    "Metamodel::ClassHOW" -> "Metamodel::MROBasedMethodDispatch" [color="#6666FF"];
+    "Metamodel::ClassHOW" -> "Metamodel::MROBasedTypeChecking" [color="#6666FF"];
+    "Metamodel::ClassHOW" -> "Metamodel::Trusting" [color="#6666FF"];
+    "Metamodel::ClassHOW" -> "Metamodel::BUILDPLAN" [color="#6666FF"];
+    "Metamodel::ClassHOW" -> "Metamodel::Mixins" [color="#6666FF"];
+    "Metamodel::ClassHOW" -> "Metamodel::BoolificationProtocol" [color="#6666FF"];
+}

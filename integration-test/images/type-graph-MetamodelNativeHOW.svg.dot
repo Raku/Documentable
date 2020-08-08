@@ -1,0 +1,31 @@
+digraph "perl6-type-graph" {
+    rankdir=BT;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "Metamodel::NativeHOW" [color="#000000", fontcolor="#000000", href="/type/Metamodel::NativeHOW", fontname="FreeSans"];
+    "Mu" [color="#000000", fontcolor="#000000", href="/type/Mu", fontname="FreeSans"];
+    "Any" [color="#000000", fontcolor="#000000", href="/type/Any", fontname="FreeSans"];
+    "Metamodel::Naming" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::Naming", fontname="FreeSans"];
+    "Metamodel::Documenting" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::Documenting", fontname="FreeSans"];
+    "Metamodel::Versioning" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::Versioning", fontname="FreeSans"];
+    "Metamodel::Stashing" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::Stashing", fontname="FreeSans"];
+    "Metamodel::MultipleInheritance" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::MultipleInheritance", fontname="FreeSans"];
+    "Metamodel::C3MRO" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::C3MRO", fontname="FreeSans"];
+    "Metamodel::MROBasedMethodDispatch" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::MROBasedMethodDispatch", fontname="FreeSans"];
+    "Metamodel::MROBasedTypeChecking" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::MROBasedTypeChecking", fontname="FreeSans"];
+
+    // Superclasses
+    "Metamodel::NativeHOW" -> "Any" [color="#000000"];
+    "Any" -> "Mu" [color="#000000"];
+
+    // Roles
+    "Metamodel::NativeHOW" -> "Metamodel::Naming" [color="#6666FF"];
+    "Metamodel::NativeHOW" -> "Metamodel::Documenting" [color="#6666FF"];
+    "Metamodel::NativeHOW" -> "Metamodel::Versioning" [color="#6666FF"];
+    "Metamodel::NativeHOW" -> "Metamodel::Stashing" [color="#6666FF"];
+    "Metamodel::NativeHOW" -> "Metamodel::MultipleInheritance" [color="#6666FF"];
+    "Metamodel::NativeHOW" -> "Metamodel::C3MRO" [color="#6666FF"];
+    "Metamodel::NativeHOW" -> "Metamodel::MROBasedMethodDispatch" [color="#6666FF"];
+    "Metamodel::NativeHOW" -> "Metamodel::MROBasedTypeChecking" [color="#6666FF"];
+}

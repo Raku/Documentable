@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>CompUnits and where to find them</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/compilation.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">CompUnits and where to find them</h1>
+        <p class="subtitle">How and when Raku modules are compiled, where they are stored, and how to access them in compiled form.</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+  <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Overview">Overview</a></td></tr>
+                                                <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Introduction">Introduction</a></td></tr>
+                                                      <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#Why_change?">Why change?</a></td></tr>
+              <tr class="toc-level-2"><td class="toc-number">2.2</td><td class="toc-text"><a href="#Long_names">Long names</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">2.3</td><td class="toc-text"><a href="#$*REPO">$*REPO</a></td></tr>
+                                                                   <tr class="toc-level-2"><td class="toc-number">2.4</td><td class="toc-text"><a href="#Repositories">Repositories</a></td></tr>
+                            <tr class="toc-level-2"><td class="toc-number">2.5</td><td class="toc-text"><a href="#Resources">Resources</a></td></tr>
+                                        <tr class="toc-level-2"><td class="toc-number">2.6</td><td class="toc-text"><a href="#Dependencies">Dependencies</a></td></tr>
+              <tr class="toc-level-2"><td class="toc-number">2.7</td><td class="toc-text"><a href="#Precomp_stores">Precomp stores</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">2.8</td><td class="toc-text"><a href="#Credit">Credit</a></td></tr>
+     
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <h1 id="Overview"><a class="u" href="#___top" title="go to top of document">Overview</a></h1>
+<p>Programs in Raku, as a member of the Perl language family, tend at the top level to be more at the interpreted end of the interpreted-compiled spectrum. In this tutorial, an &#39;interpreted&#39; program means that the source code, namely the human-readable text such as <code>say &#39;hello world&#39;;</code>, is immediately processed by the <code>Raku</code> program into code that can be executed by the computer, with any intermediate stages being stored in memory.</p>
+<p>A compiled program, by contrast, is one where the human readable source is first processed into machine-executable code and some form of this code is stored &#39;on disc&#39;. In order to execute the program, the machine-readable version is loaded into memory and then run by the computer.</p>
+<p>Both compiled and interpreted forms have advantages. Briefly, interpreted programs can be &#39;whipped up&#39; quickly and the source changed quickly. Compiled programs can be complex and take a significant time to pre-process into machine-readable code, but then running them is much faster for a user, who only &#39;sees&#39; the loading and running time, not the compilation time.</p>
+<p><code>Raku</code> has both paradigms. At the <strong>top level</strong> a Raku program is interpreted, but if code that is separated out into a Module will be compiled and the preprocessed version is then loaded when necessary. In practice, Modules that have been written by the community will only need to be precompiled once by a user when they are &#39;installed&#39;, for example by a Module manager such as <code>zef</code>. Then they can be <code>use</code>d by a developer in her own program. The effect is to make <code>Raku</code> top level programs run quickly.</p>
+<p>One of the great strengths of the <code>Perl</code> family of languages was the ability to integrate a whole ecosystem of modules written by competent programmers into a small program. This strength was widely copied and is now the norm for all languages. <code>Raku</code> takes integration even further, making it relatively easy for <code>Raku</code> programs to incorporate system libraries written in other languages into <code>Raku</code> programs, see <a href="/Documentable/integration-test/language/nativecall">Native Call</a>.</p>
+<p>The experience from <code>Perl</code> and other languages is that the distributive nature of Modules generate several practical difficulties:</p>
+<ul><li><p>a popular module may go through several iterations as the API gets improved, without a guarantee that there is backward compatibility. So, if a program relies on some specific function or return, then there has to be a way to specify the <strong>Version</strong>.</p>
+</li>
+<li><p>a module may have been written by Bob, a very competent programmer, who moves on in life, leaving the module unmaintained, so Alice takes over. This means that the same module, with the same name, and the same general API may have have two versions in the wild. Alternatively, two developers (e.g., Alice and Bob) who initially cooperated on a module, then part company about its development. Consequently, it sometimes is necessary for there to be a way to define the <strong>Auth</strong> of the module.</p>
+</li>
+<li><p>a module may be enhanced over time and the maintainer keeps two versions up to date, but with different APIs. So it is may be necessary to define the <strong>API</strong> required.</p>
+</li>
+<li><p>when developing a new program a developer may want to have the modules written by both Alice and Bob installed locally. So it is not possible simply to have only one version of a module with a single name installed.</p>
+</li>
+</ul>
+<p><code>Raku</code> enables all of these possibilities, allowing for multiple versions, multiple authorities, and multiple APIs to be present, installed, and available locally. The way classes and modules can be accessed with specific attributes is explained <a href="/Documentable/integration-test/language/typesystem#Versioning_and_authorship">elsewhere</a>. This tutorial is about how <code>Raku</code> handles these possibilities.</p>
+<h1 id="Introduction"><a class="u" href="#___top" title="go to top of document">Introduction</a></h1>
+<p>Before considering the <code>Raku</code> framework, let&#39;s have a look at how languages like <code>Perl</code> or <code>Python</code> handle module installation and loading.</p>
+<pre class="pod-block-code">ACME::Foo::Bar -&gt; ACME/Foo/Bar.pm
+os.path -&gt; os/path.py
+</pre>
+<p>In those languages, module names have a 1:1 relation with filesystem paths. We simply replace the double colons or periods with slashes and add a <code>.pm</code> or <code>.py</code>.</p>
+<p>Note that these are relative paths. Both <code>Python</code> and <code>Perl</code> use a list of include paths, to complete these paths. In <code>Perl</code> they are available in the global <code>@INC</code> array.</p>
+<pre class="pod-block-code">@INC
+
+/usr/lib/perl5/site_perl/5.22.1/x86_64-linux-thread-multi
+/usr/lib/perl5/site_perl/5.22.1/
+/usr/lib/perl5/vendor_perl/5.22.1/x86_64-linux-thread-multi
+/usr/lib/perl5/vendor_perl/5.22.1/
+/usr/lib/perl5/5.22.1/x86_64-linux-thread-multi
+/usr/lib/perl5/5.22.1/
+</pre>
+<p>Each of these include directories is checked for whether it contains a relative path determined from the module name. If the shoe fits, the file is loaded.</p>
+<p>Of course that&#39;s a bit of a simplified version. Both languages support caching compiled versions of modules. So instead of just the <code>.pm</code> file <code>Perl</code> first looks for a <code>.pmc</code> file. And <code>Python</code> first looks for <code>.pyc</code> files.</p>
+<p>Module installation in both cases means mostly copying files into locations determined by the same simple mapping. The system is easy to explain, easy to understand, simple and robust.</p>
+<h2 id="Why_change?"><a class="u" href="#___top" title="go to top of document">Why change?</a></h2>
+<p>Why would <code>Raku</code> need another framework? The reason is there are features that those languages lack, namely:</p>
+<ul><li><p>Unicode module names</p>
+</li>
+<li><p>Modules published under the same names by different authors</p>
+</li>
+<li><p>Having multiple versions of a module installed</p>
+</li>
+</ul>
+<p>The set of 26 Latin characters is too restrictive for virtually all real modern languages, including English, which have diacritics for many commonly-used words.</p>
+<p>With a 1:1 relation between module names and filesystem paths, you enter a world of pain once you try to support Unicode on multiple platforms and filesystems.</p>
+<p>Then there&#39;s sharing module names between multiple authors. This one may or may not work out well in practice. I can imagine using it for example for publishing a module with some fix until the original author includes the fix in the &quot;official&quot; version.</p>
+<p>Finally there&#39;s multiple versions. Usually people who need certain versions of modules reach for local::lib or containers or some home grown workarounds. They all have their own disadvantages. None of them would be necessary if applications could just say, hey I need good old, trusty version 2.9 or maybe a bug fix release of that branch.</p>
+<p>If you had any hopes of continuing using the simple name mapping solution, you probably gave up at the versioning requirement. Because, how would you find version 3.2 of a module when looking for a 2.9 or higher?</p>
+<p>Popular ideas included collecting information about installed modules in JSON files but when those turned out to be toe-nail growing slow, text files were replace by putting the metadata into SQLite databases. However, these ideas can be easily shot down by introducing another requirement: distribution packages.</p>
+<p>Packages for Linux distributions are mostly just archives containing some files plus some metadata. Ideally the process of installing such a package means just unpacking the files and updating the central package database. Uninstalling means deleting the files installed this way and again updating the package database. Changing existing files on install and uninstall makes packagers&#39; lives much harder, so we really want to avoid that. Also the names of the installed files may not depend on what was previously installed. We must know at the time of packaging what the names are going to be.</p>
+<h2 id="Long_names"><a class="u" href="#___top" title="go to top of document">Long names</a></h2>
+<pre class="pod-block-code">Foo::Bar:auth&lt;cpan:nine&gt;:ver&lt;0.3&gt;:api&lt;1&gt;
+</pre>
+<p>Step 0 in getting us back out of this mess is to define a long name. A full module name in <code>Raku</code> consists of the short-name, auth, version and API</p>
+<p>At the same time, the thing you install is usually not a single module but a distribution which probably contains one or more modules. Distribution names work just the same way as module names. Indeed, distributions often will just be called after their main module. An important property of distributions is that they are immutable. <code>Foo:auth&lt;cpan:nine&gt;:ver&lt;0.3&gt;:api&lt;1&gt; </code> will always be the name for exactly the same code.</p>
+<h2 id="$*REPO"><a class="u" href="#___top" title="go to top of document">$*REPO</a></h2>
+<p>In <code>Perl</code> and <code>Python</code> you deal with include paths pointing to filesystem directories. In <code>Raku</code> we call such directories &quot;repositories&quot; and each of these repositories is governed by an object that does the <code>CompUnit::Repository</code> role. Instead of an <code>B&lt;@INC&gt;</code> array, there&#39;s the <code>$*REPO</code> variable. It contains a single repository object. This object has a <strong>next-repo</strong> attribute that may contain another repository. In other words: repositories are managed as a <em>linked list</em>. The important difference to the traditional array is, that when going through the list, each object has a say in whether to pass along a request to the next-repo or not. <code>Raku</code> sets up a standard set of repositories, i.e. the &quot;core&quot;, &quot;vendor&quot; and &quot;site&quot; repositories, just like you know them from <code>Perl</code>. In addition, we set up a &quot;home&quot; repository for the current user.</p>
+<p>Repositories must implement the <code>need</code> method. A <code>use</code> or <code>require</code> statement in <code>Raku</code> code is basically translated to a call to <code>B&lt;$*REPO&gt;</code>&#39;s <code>need</code> method. This method may in turn delegate the request to the next-repo.</p>
+<pre class="pod-block-code">role CompUnit::Repository {
+    has CompUnit::Repository $.next is rw;
+
+    method need(CompUnit::DependencySpecification $spec,
+                CompUnit::PrecompilationRepository $precomp,
+                CompUnit::Store :@precomp-stores
+                --&gt; CompUnit:D
+                )
+        { ... }
+    method loaded(
+                --&gt; Iterable
+                )
+        { ... }
+
+    method id( --&gt; Str )
+        { ... }
+}
+</pre>
+<h2 id="Repositories"><a class="u" href="#___top" title="go to top of document">Repositories</a></h2>
+<p>Rakudo comes with several classes that can be used for repositories. The most important ones are <code>CompUnit::Repository::FileSystem</code> and <code>CompUnit::Repository::Installation</code>. The FileSystem repo is meant to be used during module development and actually works just like <code>Perl</code> when looking for a module. It doesn&#39;t support versions or <code>auth</code>s and simply maps the short-name to a filesystem path.</p>
+<p>The Installation repository is where the real smarts are. When requesting a module, you will usually either do it via its exact long name, or you say something along the lines of &quot;give me a module that matches this filter.&quot; Such a filter is given by way of a <code>CompUnit::DependencySpecification</code> object which has fields for</p>
+<ul><li><p>short-name,</p>
+</li>
+<li><p>auth-matcher,</p>
+</li>
+<li><p>version-matcher and</p>
+</li>
+<li><p>api-matcher.</p>
+</li>
+</ul>
+<p>When looking through candidates, the Installation repository will smartmatch a module&#39;s long name against this DependencySpecification or rather the individual fields against the individual matchers. Thus a matcher may be some concrete value, a version range, or even a regex (though an arbitrary regex, such as <code>.*</code>, would not produce a useful result, but something like <code>3.20.1+</code> will only find candidates higher than 3.20.1).</p>
+<p>Loading the metadata of all installed distributions would be prohibitively slow. The current implementation of the <code>Raku</code> framework uses the filesystem as a kind of database. However, another implementation may use another strategy. The following description shows how one implementation works and is included here to illustrate what is happening.</p>
+<p>We store not only a distribution&#39;s files but also create indices for speeding up lookups. One of these indices comes in the form of directories named after the short-name of installed modules. However most of the filesystems in common use today cannot handle Unicode names, so we cannot just use module names directly. This is where the now infamous SHA-1 hashes enter the game. The directory names are the ASCII encoded SHA-1 hashes of the UTF-8 encoded module short-names.</p>
+<p>In these directories we find one file per distribution that contains a module with a matching short name. These files again contain the ID of the dist and the other fields that make up the long name: auth, version, and api. So by reading these files we have a usually short list of auth-version-api triplets which we can match against our DependencySpecification. We end up with the winning distribution&#39;s ID, which we use to look up the metadata, stored in a JSON encoded file. This metadata contains the name of the file in the sources/ directory containing the requested module&#39;s code. This is what we can load.</p>
+<p>Finding names for source files is again a bit tricky, as there&#39;s still the Unicode issue and in addition the same relative file names may be used by different installed distributions (think versions). So for now at least, we use SHA-1 hashes of the long-names.</p>
+<h2 id="Resources"><a class="u" href="#___top" title="go to top of document">Resources</a></h2>
+<pre class="pod-block-code">%?RESOURCES
+%?RESOURCES&lt;libraries/p5helper&gt;
+%?RESOURCES&lt;icons/foo.png&gt;
+%?RESOURCES&lt;schema.sql&gt;
+
+Foo
+|___ lib
+|     |____ Foo.rakumod
+|
+|___ resources
+      |___ schema.sql
+      |
+      |___ libraries
+            |____ p5helper
+            |        |___
+            |___ icons
+                     |___ foo.png
+
+</pre>
+<p>It&#39;s not only source files that are stored and found this way. Distributions may also contain arbitrary resource files. These could be images, language files or shared libraries that are compiled on installation. They can be accessed from within the module through the <code>%?RESOURCES</code> hash</p>
+<p>As long as you stick to the standard layout conventions for distributions, this even works during development without installing anything.</p>
+<p>A nice result of this architecture is that it&#39;s fairly easy to create special purpose repositories.</p>
+<h2 id="Dependencies"><a class="u" href="#___top" title="go to top of document">Dependencies</a></h2>
+<p>Luckily precompilation at least works quite well in most cases. Yet it comes with its own set of challenges. Loading a single module is easy. The fun starts when a module has dependencies and those dependencies have again dependencies of their own.</p>
+<p>When loading a precompiled file in <code>Raku</code> we need to load the precompiled files of all its dependencies, too. And those dependencies <strong>must</strong> be precompiled, we cannot load them from source files. Even worse, the precomp files of the dependencies <strong>must</strong> be exactly the same files we used for precompiling our module in the first place.</p>
+<p>To top it off, precompiled files work only with the exact <code>Raku</code> binary, that was used for compilation.</p>
+<p>All of that would still be quite manageable if it weren&#39;t for an additional requirement: as a user you expect a new version of a module you just installed to be actually used, don&#39;t you?</p>
+<p>In other words: if you upgrade a dependency of a precompiled module, we have to detect this and precompile the module again with the new dependency.</p>
+<h2 id="Precomp_stores"><a class="u" href="#___top" title="go to top of document">Precomp stores</a></h2>
+<p>Now remember that while we have a standard repository chain, the user may prepend additional repositories by way of <code>-I</code> on the command line or &quot;use lib&quot; in the code.</p>
+<p>These repositories may contain the dependencies of precompiled modules.</p>
+<p>Our first solution to this riddle was that each repository gets its own precomp store where precompiled files are stored. We only ever load precomp files from the precomp store of the very first repository in the chain because this is the only repository that has direct or at least indirect access to all the candidates.</p>
+<p>If this repository is a FileSystem repository, we create a precomp store in a <code>.precomp</code> directory.</p>
+<p>While being the safe option, this has the consequence that whenever you use a new repository, we will start out without access to precompiled files.</p>
+<p>Instead, we will precompile the modules used when they are first loaded.</p>
+<h2 id="Credit"><a class="u" href="#___top" title="go to top of document">Credit</a></h2>
+<p>This tutorial is based on a <code>niner</code> <a href="http://niner.name/talks/A%20look%20behind%20the%20curtains%20-%20module%20loading%20in%20Perl%206/">talk</a>.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/compilation.pod6">https://github.com/Raku/doc/blob/master/doc/Language/compilation.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

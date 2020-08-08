@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>declarator state</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">declarator state</h1>
+        <p class="subtitle"></p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#language_documentation_Variables">language documentation Variables</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#(Variables)_declarator_state">(Variables) declarator state</a></td></tr>
+                                                                 <tr class="toc-level-3"><td class="toc-number">1.1.1</td><td class="toc-text"><a href="#The_$_variable">The <code class="pod-code-inline">$</code> variable</a></td></tr>
+                                                 <tr class="toc-level-3"><td class="toc-number">1.1.2</td><td class="toc-text"><a href="#The_@_variable">The <code class="pod-code-inline">@</code> variable</a></td></tr>
+                    <tr class="toc-level-3"><td class="toc-number">1.1.3</td><td class="toc-text"><a href="#The_%_variable">The <code class="pod-code-inline">%</code> variable</a></td></tr>
+           
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Documentation for declarator <code>state</code> assembled from the following types:</p>
+<h1 id="language_documentation_Variables"><a class="u" href="#___top" title="go to top of document">language documentation Variables</a></h1>
+<p>From <a href="/Documentable/integration-test/language/variables#The_state_declarator">Variables</a></p>
+<h2 id="(Variables)_declarator_state"><a href="/Documentable/integration-test/language/variables#The_state_declarator">(Variables) declarator state</a></h2>
+<p><code>state</code> declares lexically scoped variables, just like <code>my</code>. However, initialization happens exactly once the first time the initialization is encountered in the normal flow of execution. Thus, state variables will retain their value across multiple executions of the enclosing block or routine.</p>
+<p>Therefore, the subroutine</p>
+<pre class="pod-block-code">sub a {
+    state @x;
+    state $l = &#39;A&#39;;
+    @x.push($l++);
+};
+
+say a for 1..6;</pre>
+<p>will continue to increment <code>$l</code> and append it to <code>@x</code> each time it is called. So it will output:</p>
+<pre class="pod-block-code">[A]
+[A B]
+[A B C]
+[A B C D]
+[A B C D E]
+[A B C D E F]
+</pre>
+<p>Since they have a lexical scope, they are tied to the block in which they are declared.</p>
+<pre class="pod-block-code">sub foo () {
+  for 0..1 {
+    state $foo = 1;
+    say $foo++;
+  }
+};
+foo;  # OUTPUT: «1␤2␤»
+foo;  # OUTPUT: «1␤2␤»
+</pre>
+<p>In this case, a new state variable is created every time the block that runs the for loop is entered, which is why the state variable is reset in every call to <code>foo</code>.</p>
+<p>This works per &quot;clone&quot; of the containing code object, as in this example:</p>
+<pre class="pod-block-code">({ state $i = 1; $i++.say; } xx 3).map: {$_(), $_()}; # says 1 then 2 thrice
+</pre>
+<p>Note that this is <strong>not</strong> a thread-safe construct when the same clone of the same block is run by multiple threads. Also remember that methods only have one clone per class, not per object.</p>
+<p>As with <code>my</code>, a declaration of multiple <code>state</code> variables must be placed in parentheses which can be omitted for a single variable.</p>
+<p>Many operators come with implicit binding which can lead to actions at a distance.</p>
+<p>Use <code>.clone</code> or coercion to create a new container that can be bound to.</p>
+<pre class="pod-block-code">my @a;
+my @a-cloned;
+sub f() {
+    state $i;
+    $i++;
+    @a\      .push: &quot;k$i&quot; =&gt; $i;
+    @a-cloned.push: &quot;k$i&quot; =&gt; $i.clone;
+};
+
+f for 1..3;
+say @a;        # OUTPUT: «[k1 =&gt; 3 k2 =&gt; 3 k3 =&gt; 3]␤»
+say @a-cloned; # OUTPUT: «[k1 =&gt; 1 k2 =&gt; 2 k3 =&gt; 3]␤»</pre>
+<p>State variables are shared between all threads. The result can be unexpected.</p>
+<pre class="pod-block-code">sub code(){ state $i = 0; say ++$i; $i };
+await
+    start { loop { last if code() &gt;= 5 } },
+    start { loop { last if code() &gt;= 5 } };
+
+# OUTPUT: «1␤2␤3␤4␤4␤3␤5␤»
+# OUTPUT: «2␤1␤3␤4␤5␤»
+# many other more or less odd variations can be produced</pre>
+<p><a name="Documentable/integration-test/index-entry-anon_state_variables"></a><a name="Documentable/integration-test/index-entry-nameless_variables"></a><a name="Documentable/integration-test/index-entry-$_(variable)"></a></p>
+<h3 id="The_$_variable"><a class="u" href="#___top" title="go to top of document">The <code>$</code> variable</a></h3>
+<p>In addition to explicitly declared named state variables, <code>$</code> can be used as an anonymous state variable without an explicit <code>state</code> declaration.</p>
+<pre class="pod-block-code">say &quot;1-a 2-b 3-c&quot;.subst(:g, /\d/, {&lt;one two three&gt;[$++]});
+# OUTPUT: «one-a two-b three-c␤»</pre>
+<p>Furthermore, state variables can be used outside of subroutines. You could, for example, use <code>$</code> in a one-liner to number the lines in a file.</p>
+<pre class="pod-block-code">raku -ne &#39;say ++$ ~ &quot; $_&quot;&#39; example.txt
+</pre>
+<p>Each reference to <code>$</code> within a lexical scope is in effect a separate variable.</p>
+<pre class="pod-block-code">raku -e &#39;{ say ++$; say $++  } for ^5&#39;
+# OUTPUT: «1␤0␤2␤1␤3␤2␤4␤3␤5␤4␤»
+</pre>
+<p>That is why, if you need to reference the same $ variable (or, for that matter, any of the other anon state variables <code>@</code> and <code>%</code>) more than once, a possible solution is to bind another variable to it, although in this example it would be more straightforward to just declare state $x and not use the magical/anonymous <code>$</code> variable:</p>
+<pre class="pod-block-code">sub foo () {
+    my $x := $;
+    $x++;
+    say $x;
+    $x = $x + 1;
+}
+
+foo() for ^3; # OUTPUT: «1␤3␤5␤»
+</pre>
+<p>In general, it is better style to declare a named state variable in case you have to refer to it several times.</p>
+<p>Note that the implicit state declarator is only applied to the variable itself, not the expression that may contain an initializer. If the initializer has to be called exactly once, the <code>state</code> declarator has to be provided.</p>
+<pre class="pod-block-code">for ^3 {       $ = .say } # OUTPUT: «0␤1␤2␤»
+for ^3 { state $ = .say } # OUTPUT: «0␤»
+</pre>
+<h3 id="The_@_variable"><a class="u" href="#___top" title="go to top of document">The <code>@</code> variable</a></h3>
+<p>Similar to the <code>$</code> variable, there is also a <a href="/Documentable/integration-test/type/Positional">Positional</a> anonymous state variable <code>@</code>.</p>
+<pre class="pod-block-code">sub foo($x) {
+    say (@).push($x);
+}
+
+foo($_) for ^3;
+
+# OUTPUT: «[0]
+#          [0 1]
+#          [0 1 2]␤»</pre>
+<p>The <code>@</code> here is parenthesized in order to disambiguate the expression from a class member variable named <code>@.push</code>. Indexed access doesn&#39;t require this disambiguation but you will need to copy the value in order to do anything useful with it.</p>
+<pre class="pod-block-code">sub foo($x) {
+    my $v = @;
+    $v[$x] = $x;
+    say $v;
+}
+
+foo($_) for ^3;
+
+# OUTPUT: «[0]
+#          [0 1]
+#          [0 1 2]␤»</pre>
+<p>As with <code>$</code>, each mention of <code>@</code> in a scope introduces a new anonymous array.</p>
+<h3 id="The_%_variable"><a class="u" href="#___top" title="go to top of document">The <code>%</code> variable</a></h3>
+<p>In addition, there&#39;s an <a href="/Documentable/integration-test/type/Associative">Associative</a> anonymous state variable <code>%</code>.</p>
+<pre class="pod-block-code">sub foo($x) {
+    say (%).push($x =&gt; $x);
+}
+
+foo($_) for ^3;
+
+# OUTPUT: «{0 =&gt; 0}
+#          {0 =&gt; 0, 1 =&gt; 1}
+#          {0 =&gt; 0, 1 =&gt; 1, 2 =&gt; 2}␤»</pre>
+<p>The same caveat about disambiguation applies. As you may expect, indexed access is also possible (with copying to make it useful).</p>
+<pre class="pod-block-code">sub foo($x) {
+    my $v = %;
+    $v{$x} = $x;
+    say $v;
+}
+
+foo($_) for ^3;
+
+# OUTPUT: «{0 =&gt; 0}
+#          {0 =&gt; 0, 1 =&gt; 1}
+#          {0 =&gt; 0, 1 =&gt; 1, 2 =&gt; 2}␤»</pre>
+<p>As with the other anonymous state variables, each mention of <code>%</code> within a given scope will effectively introduce a separate variable.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

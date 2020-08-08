@@ -1,0 +1,23 @@
+digraph "perl6-type-graph" {
+    rankdir=BT;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "FatRat" [color="#000000", fontcolor="#000000", href="/type/FatRat", fontname="FreeSans"];
+    "Mu" [color="#000000", fontcolor="#000000", href="/type/Mu", fontname="FreeSans"];
+    "Any" [color="#000000", fontcolor="#000000", href="/type/Any", fontname="FreeSans"];
+    "Cool" [color="#000000", fontcolor="#000000", href="/type/Cool", fontname="FreeSans"];
+    "Numeric" [color="#6666FF", fontcolor="#6666FF", href="/type/Numeric", fontname="FreeSans"];
+    "Real" [color="#6666FF", fontcolor="#6666FF", href="/type/Real", fontname="FreeSans"];
+    "Rational" [color="#6666FF", fontcolor="#6666FF", href="/type/Rational", fontname="FreeSans"];
+
+    // Superclasses
+    "FatRat" -> "Cool" [color="#000000"];
+    "Any" -> "Mu" [color="#000000"];
+    "Cool" -> "Any" [color="#000000"];
+
+    // Roles
+    "FatRat" -> "Rational" [color="#6666FF"];
+    "Real" -> "Numeric" [color="#6666FF"];
+    "Rational" -> "Real" [color="#6666FF"];
+}

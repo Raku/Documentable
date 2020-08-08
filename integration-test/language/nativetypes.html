@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Raku native types</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/nativetypes.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Raku native types</h1>
+        <p class="subtitle">Using the types the compiler and hardware make available to you</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+           <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Types_with_native_representation">Types with native representation</a></td></tr>
+                                                                                                                <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Types_with_native_representation_and_size">Types with native representation and size</a></td></tr>
+                                         <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#The_void_type">The <code class="pod-code-inline">void</code> type</a></td></tr>
+                                      <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#Atomic_types">Atomic types</a></td></tr>
+          <tr class="toc-level-1"><td class="toc-number">5</td><td class="toc-text"><a href="#Rakudo_specific_native_types">Rakudo specific native types</a></td></tr>
+                             
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Raku offers a set of <em>native</em> types with a fixed, and known, representation in memory. This page shows which ones exist and how they can be used. Please check also the page on <a href="/Documentable/integration-test/language/numerics#Native_numerics">native numerics</a> for more information on them.</p>
+<p><a name="Documentable/integration-test/index-entry-int"></a><a name="Documentable/integration-test/index-entry-uint"></a><a name="Documentable/integration-test/index-entry-num"></a><a name="Documentable/integration-test/index-entry-str"></a></p>
+<h1 id="Types_with_native_representation"><a class="u" href="#___top" title="go to top of document">Types with native representation</a></h1>
+<p>Some simple types in Raku have a <em>native</em> representation, indicating that they will use the C language representation provided by the compiler, operating system and machine. These are the four native types available:</p>
+<table class="pod-table">
+<tbody>
+<tr> <td>int</td> <td>Equivalent to Int (with limited range)</td> </tr> <tr> <td>uint</td> <td>Equivalent to Int (with limited range) with the unsigned trait</td> </tr> <tr> <td>num</td> <td>Equivalent to Num</td> </tr> <tr> <td>str</td> <td>Equivalent to Str</td> </tr>
+</tbody>
+</table><p>However, these types do not necessarily have the size that is required by the <a href="/Documentable/integration-test/language/nativecall">NativeCall</a> interface (e.g., Raku&#39;s <code>int</code> can be 8 bytes but C&#39;s <code>int</code> is only 4 bytes); the types below will have to be used instead of the types <code>int</code> or <code>num</code> listed above.</p>
+<p>In general, these variables will behave in the same way as regular scalar variables, in a behavior that is called <a href="/Documentable/integration-test/language/numerics#Auto-boxing"><em>auto-boxing</em></a>; however, there are some differences, since what you are actually declaring is how they will be represented, not their actual type. The first one is that their type will be actually their equivalent type, not their native type.</p>
+<pre class="pod-block-code">my int $intillo = 3;
+say $intillo.^name; # OUTPUT: «Int␤»</pre>
+<p>This obviously means that they will smartmatch their equivalent (auto-boxed) type, not their native type:</p>
+<pre class="pod-block-code">my str $strillo = &quot;tres&quot;;
+say $strillo ~~ str; # OUTPUT: «False␤»
+say $strillo ~~ Str; # OUTPUT: «True␤»</pre>
+<p>And also that they will always have a default value, unlike their non-native counterparts:</p>
+<pre class="pod-block-code">say (my Str $); # OUTPUT: «(Str)␤»
+say (my str $); # OUTPUT: «␤»
+say (my num $); # OUTPUT: «0␤»</pre>
+<p><strong>Note</strong>: In v6.c, the default value for <code>num</code> would have been a NaN.</p>
+<p>This is due to the fact that Natives don&#39;t know their types because they&#39;re just values, without any metadata. In <a href="/Documentable/integration-test/language/glossary#Multi-Dispatch">multi-dispatch</a>, you can have a native candidate, but you cannot differentiate different sizes or signedness of the same native type. That is, you can have an <a href="/Documentable/integration-test/type/Int">Int</a> and <a href="/Documentable/integration-test/type/int">int</a> candidates, but there would be an ambiguity between, for instance <a href="/Documentable/integration-test/type/int">int</a>, <a href="/Documentable/integration-test/language/nativetypes#index-entry-uint">uint</a>, <a href="/Documentable/integration-test/type/atomicint">atomicint</a> or <a href="/Documentable/integration-test/language/nativetypes#index-entry-int64">int64</a> candidates.</p>
+<p>They cannot be bound either. Trying to do <code>my num $numillo := 3.5</code> will raise the exception <code>Cannot bind to natively typed variable &#39;$variable-name&#39;; use assignment instead</code>.</p>
+<p><a name="Documentable/integration-test/index-entry-int_@"></a> <a name="Documentable/integration-test/index-entry-num_@"></a> <a name="Documentable/integration-test/index-entry-str_@"></a> Native types can also be composite.</p>
+<pre class="pod-block-code">my int @intillos = ^10_000_000;
+say [+] @intillos; # OUTPUT: «49999995000000␤»</pre>
+<p><a name="Documentable/integration-test/index-entry-native_array"></a><a name="Documentable/integration-test/index-entry-array"></a> In this case, <em>native</em>ness extends to the composite type, which will be <code>array</code></p>
+<pre class="pod-block-code">my num @many-pi  = ^8 »*» π ; say @many-pi.^name;  # OUTPUT: «array[num]␤»</pre>
+<p>Native <code>array</code>s are <a href="/Documentable/integration-test/type/Iterable">Iterable</a>, but they are not a subclass of List. However, they behave similarly to <a href="/Documentable/integration-test/type/Array">Array</a>s; for instance, they can be shaped:</p>
+<pre class="pod-block-code">my str @letter-pairs[10] = &#39;a&#39;..&#39;j&#39; Z~ &#39;A&#39;..&#39;J&#39;;
+say @letter-pairs.raku;
+# OUTPUT: «array[str].new(:shape(10,), [&quot;aA&quot;, &quot;bB&quot;, &quot;cC&quot;, &quot;dD&quot;, &quot;eE&quot;, &quot;fF&quot;, &quot;gG&quot;, &quot;hH&quot;, &quot;iI&quot;, &quot;jJ&quot;])␤»
+</pre>
+<p>Native arrays of <code>str</code> can only be used from version 6.d.</p>
+<p>These native types can also be used as attributes in classes, and as such they can be used as bound targets, for instance in submethods like <code>BUILD</code>:</p>
+<pre class="pod-block-code">class Foo {
+    has num $.numillo;
+    submethod BUILD( :$!numillo = 3.5e0 ) {}
+};
+my $foo = Foo.new;
+say $foo.raku; # OUTPUT: «Foo.new(numillo =&gt; 3.5e0)␤»
+</pre>
+<p><a name="Documentable/integration-test/index-entry-int8"></a><a name="Documentable/integration-test/index-entry-int16"></a><a name="Documentable/integration-test/index-entry-int32"></a><a name="Documentable/integration-test/index-entry-int64"></a><a name="Documentable/integration-test/index-entry-uint8"></a><a name="Documentable/integration-test/index-entry-uint16"></a><a name="Documentable/integration-test/index-entry-uint32"></a><a name="Documentable/integration-test/index-entry-uint64"></a> <a name="Documentable/integration-test/index-entry-num32"></a><a name="Documentable/integration-test/index-entry-num64"></a><a name="Documentable/integration-test/index-entry-byte"></a></p>
+<h1 id="Types_with_native_representation_and_size"><a class="u" href="#___top" title="go to top of document">Types with native representation and size</a></h1>
+<p>What has been mentioned about types with native representation also applies here; they will be auto-boxed to Raku types and will not be boundable. However, these types, which are listed in the table below, have the characteristic of being usable in <a href="/Documentable/integration-test/language/nativecall#Passing_and_returning_values">NativeCall</a> functions.</p>
+<table class="pod-table">
+<tbody>
+<tr> <td>int8</td> <td>(int8_t in C)</td> </tr> <tr> <td>int16</td> <td>(int16_t in C)</td> </tr> <tr> <td>int32</td> <td>(int32_t in C)</td> </tr> <tr> <td>int64</td> <td>(int64_t in C)</td> </tr> <tr> <td>byte, uint8</td> <td>(uint8_t in C)</td> </tr> <tr> <td>uint16</td> <td>(uint16_t in C)</td> </tr> <tr> <td>uint32</td> <td>(uint32_t in C)</td> </tr> <tr> <td>uint64</td> <td>(uint64_t in C)</td> </tr> <tr> <td>num32</td> <td>(float in C)</td> </tr> <tr> <td>num64</td> <td>(double in C)</td> </tr>
+</tbody>
+</table><p>These types have a fixed size representation which is independent of the platform, and thus can be used safely for those native calls. Nothing prevents us from using them in any other environment, if we so wish. In the same way as the types above, this size will have to be taken into account when assigning values to variables of this type:</p>
+<pre class="pod-block-code">my byte $intillo = 257;
+say $intillo; # OUTPUT: «1␤»</pre>
+<p>Since <code>byte</code> is able to hold only 8 bits, it will <em>wrap over</em> and assign the result of the original value modulo 256, which is what is shown.</p>
+<p>The main difference between types with declared native size and those without is the use of <a name="Documentable/integration-test/index-entry-is_nativesize"><span class="index-entry">is nativesize</span></a> in their declaration. For instance, <code>int8</code> is declared in this way:</p>
+<pre class="pod-block-code">my native int8 is repr(&#39;P6int&#39;) is Int is nativesize(8) { }</pre>
+<p>Indicating that it will use, besides an integer representation (<code>P6int</code>), a native size of only 8 bits. This trait, however, is not intended to be used in your programs since it is not part of the Raku specification.</p>
+<p><a name="Documentable/integration-test/index-entry-void_type_(NativeCall)"></a></p>
+<h1 id="The_void_type"><a class="u" href="#___top" title="go to top of document">The <code>void</code> type</a></h1>
+<p>The native <code>void</code> type corresponds to the C <code>void</code> type. Although, being a valid type, you can use it in expressions:</p>
+<pre class="pod-block-code">use NativeCall;
+my void $nothing;
+say $nothing.raku; # OUTPUT: «NativeCall::Types::void␤»</pre>
+<p>In practice, it is an <code>Uninstantiable</code> type that can rarely be used by itself, and in fact it is <a href="/Documentable/integration-test/language/nativecall#Passing_and_returning_values">explicitly forbidden in <code>return</code> types</a>. However, it is generally found in typed pointers representing the equivalent to the <code>void *</code> pointer in C.</p>
+<pre class="pod-block-code">sub malloc( int32 $size --&gt; Pointer[void] ) is native { * };
+my Pointer[void] $for-malloc = malloc( 32 );
+say $for-malloc.raku;
+</pre>
+<p>You can also <a href="/Documentable/integration-test/routine/nativecast">nativecast</a> <a href="/Documentable/integration-test/type/Blob">Blob</a>s to this kind of pointer in case you need to work with them in native functions that use the type</p>
+<pre class="pod-block-code">use NativeCall;
+my Pointer[void] $native = nativecast(Pointer[void], Blob.new(0x22, 0x33));
+</pre>
+<p>However, outside that, the functionality it offers is quite limited, since pointers to void cannot be dereferenced:</p>
+<pre class="pod-block-code">use NativeCall;
+my Pointer[void] $native = nativecast(Pointer[void], Buf.new(0x22, 0x33));
+say $native.deref; # ERROR OUTPUT: «Internal error: unhandled target type␤»
+</pre>
+<h1 id="Atomic_types"><a class="u" href="#___top" title="go to top of document"><em>Atomic</em> types</a></h1>
+<p>In this context, <em>atomic</em> refers to safe operation under threading. Raku provides a type, <a href="/Documentable/integration-test/type/atomicint"><code>atomicint</code></a>, and <a href="/Documentable/integration-test/type/atomicint#Routines">some operations</a> which, together, guarantee this. Please check <a href="/Documentable/integration-test/language/numerics#Atomic_operations">the atomic operations section on the Numerics page</a> for more information on this.</p>
+<h1 id="Rakudo_specific_native_types"><a class="u" href="#___top" title="go to top of document">Rakudo specific native types</a></h1>
+<p>The types described in this section are Rakudo specific, so they are not guaranteed to be in other implementations or remain the same in future versions.</p>
+<table class="pod-table">
+<tbody>
+<tr> <td>long</td> <td>(long in C)</td> </tr> <tr> <td>longlong</td> <td>(longlong in C)</td> </tr> <tr> <td>ulong</td> <td>(long and unsigned in C)</td> </tr> <tr> <td>ulonglong</td> <td>(longlong and unsigned in C)</td> </tr> <tr> <td>size_t</td> <td>(size_t and unsigned in C)</td> </tr> <tr> <td>ssize_t</td> <td>(size_t in C)</td> </tr> <tr> <td>bool</td> <td>(bool in C)</td> </tr>
+</tbody>
+</table><p>You can use them in the same way they would be used in native C:</p>
+<pre class="pod-block-code">use NativeCall;
+
+my $just-an-array = CArray[int32].new( 1, 2, 3, 4, 5 );
+
+loop ( my size_t $i = 0; $i &lt; $just-an-array.elems; $i++ ) {
+    say $just-an-array[$i];
+}
+</pre>
+<p>Which would print the five elements of the array, as it should be expected.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/nativetypes.pod6">https://github.com/Raku/doc/blob/master/doc/Language/nativetypes.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

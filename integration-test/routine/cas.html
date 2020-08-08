@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>sub cas</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/routine.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-sub.html"> Sub </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-method.html"> Method </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-term.html"> Term </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-operator.html"> Operator </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-trait.html"> Trait </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-submethod.html"> Submethod </a>
+            </div></div></div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">sub cas</h1>
+        <p class="subtitle"></p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#class_Scalar">class Scalar</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#(Scalar)_sub_cas">(Scalar) sub cas</a></td></tr>
+                                        <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#class_atomicint">class atomicint</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#(atomicint)_sub_cas">(atomicint) sub cas</a></td></tr>
+                                             
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Documentation for sub <code>cas</code> assembled from the following types:</p>
+<h1 id="class_Scalar"><a class="u" href="#___top" title="go to top of document">class Scalar</a></h1>
+<p>From <a href="/Documentable/integration-test/type/Scalar#sub_cas">Scalar</a></p>
+<h2 id="(Scalar)_sub_cas"><a href="/Documentable/integration-test/type/Scalar#sub_cas">(Scalar) sub cas</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub cas($target is rw, $expected, $value)
+multi sub cas($target is rw, &amp;operation)</pre>
+<p>Performs an atomic compare and swap of the value in the <code>Scalar</code> <code>$target</code>. The first form has semantics like:</p>
+<pre class="pod-block-code">my $seen = $target;
+if $seen&lt;&gt; =:= $expected&lt;&gt; {
+    $target = $value;
+}
+return $seen;
+</pre>
+<p>Except it is performed as a single hardware-supported atomic instruction, as if all memory access to <code>$target</code> were blocked while it took place. Therefore it is safe to attempt the operation from multiple threads without any other synchronization. Since it is a reference comparison, this operation is usually not sensible on value types.</p>
+<p>For example:</p>
+<pre class="pod-block-code">constant NOT_STARTED = Any.new;
+constant STARTED = Any.new;
+my $master = NOT_STARTED;
+await start {
+    if cas($master, NOT_STARTED, STARTED) === NOT_STARTED {
+        say &quot;Master!&quot;
+    }
+} xx 4</pre>
+<p>Will reliably only ever print <code>Master!</code> one time, as only one of the threads will be successful in changing the <code>Scalar</code> from <code>NOT_STARTED</code> to <code>STARTED</code>.</p>
+<p>The second form, taking a code object, will first do an atomic fetch of the current value and invoke the code object with it. It will then try to do an atomic compare and swap of the target, using the value passed to the code object as <code>$expected</code> and the result of the code object as <code>$value</code>. If this fails, it will read the latest value, and retry, until a CAS operation succeeds.</p>
+<p>Therefore, an item could be added to the head of a linked list in a lock free manner as follows:</p>
+<pre class="pod-block-code">class Node {
+    has $.value;
+    has Node $.next;
+}
+my Node $head = Node;
+await start {
+    for ^1000 -&gt; $value {
+        cas $head, -&gt; $next { Node.new(:$value, :$next) }
+    }
+} xx 4;</pre>
+<p>This will reliably build up a linked list of 4000 items, with 4 nodes with each value ranging from 0 up to 999.</p>
+<h1 id="class_atomicint"><a class="u" href="#___top" title="go to top of document">class atomicint</a></h1>
+<p>From <a href="/Documentable/integration-test/type/atomicint#sub_cas">atomicint</a></p>
+<h2 id="(atomicint)_sub_cas"><a href="/Documentable/integration-test/type/atomicint#sub_cas">(atomicint) sub cas</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub cas(atomicint $target is rw, int $expected, int $value)
+multi sub cas(atomicint $target is rw, Int() $expected, Int() $value)
+multi sub cas(atomicint $target is rw, &amp;operation)</pre>
+<p>Performs an atomic compare and swap of the native integer value in location <code>$target</code>. The first two forms have semantics like:</p>
+<pre class="pod-block-code">my int $seen = $target;
+if $seen == $expected {
+    $target = $value;
+}
+return $seen;
+</pre>
+<p>Except it is performed as a single hardware-supported atomic instruction, as if all memory access to <code>$target</code> were blocked while it took place. Therefore it is safe to attempt the operation from multiple threads without any other synchronization. For example:</p>
+<pre class="pod-block-code">my atomicint $master = 0;
+await start {
+    if cas($master, 0, 1) == 0 {
+        say &quot;Master!&quot;
+    }
+} xx 4</pre>
+<p>Will reliably only ever print <code>Master!</code> one time, as only one of the threads will be successful in changing the 0 into a 1.</p>
+<p>Both <code>$expected</code> and <code>$value</code> will be coerced to <code>Int</code> and unboxed if needed. An exception will be thrown if the value cannot be represented as a 64-bit integer. If the size of <code>atomicint</code> is only 32 bits then the values will be silently truncated to this size.</p>
+<p>The third form, taking a code object, will first do an atomic fetch of the current value and invoke the code object with it. It will then try to do an atomic compare and swap of the target, using the value passed to the code object as <code>$expected</code> and the result of the code object as <code>$value</code>. If this fails, it will read the latest value, and retry, until a CAS operation succeeds. Therefore, an atomic multiply of an <code>atomicint</code> <code>$i</code> by 2 could be implemented as:</p>
+<pre class="pod-block-code">cas $i, -&gt; int $current { $current * 2 }
+</pre>
+<p>If another thread changed the value while <code>$current * 2</code> was being calculated then the block would be called again with the latest value for a further attempt, and this would be repeated until success.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

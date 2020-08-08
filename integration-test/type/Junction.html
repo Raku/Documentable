@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>class Junction</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/type.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-basic.html"> Basic </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-composite.html"> Composite </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-domain-specific.html"> Domain-specific </a>
+                    <a class="menu-item" href="/Documentable/integration-test/type-exception.html"> Exceptions </a>
+            </div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Type/Junction.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">class Junction</h1>
+        <p class="subtitle">Logical superposition of values</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+                                                                                                                                                              <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Failures_and_exceptions">Failures and exceptions</a></td></tr>
+                                                         <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Smartmatching">Smartmatching</a></td></tr>
+                 <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#method_new">method new</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">3.2</td><td class="toc-text"><a href="#method_defined">method defined</a></td></tr>
+         <tr class="toc-level-2"><td class="toc-number">3.3</td><td class="toc-text"><a href="#method_Bool">method Bool</a></td></tr>
+                          <tr class="toc-level-2"><td class="toc-number">3.4</td><td class="toc-text"><a href="#method_Str">method Str</a></td></tr>
+                <tr class="toc-level-2"><td class="toc-number">3.5</td><td class="toc-text"><a href="#method_gist">method gist</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">3.6</td><td class="toc-text"><a href="#method_perl">method perl</a></td></tr>
+               <tr class="toc-level-2"><td class="toc-number">3.7</td><td class="toc-text"><a href="#infix_~">infix <code class="pod-code-inline">~</code></a></td></tr>
+                              <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#See_Also">See Also</a></td></tr>
+    <tr class="toc-level-1"><td class="toc-number">5</td><td class="toc-text"><a href="#Type_Graph">Type Graph</a></td></tr>
+ 
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <pre class="pod-block-code">class Junction is Mu { }</pre>
+<p>A junction is an unordered composite value of zero or more values. Junctions <em>autothread</em> over many operations, which means that the operation is carried out for each junction element (also known as <em>eigenstate</em>), and the result is the junction of the return values of all those operators.</p>
+<p>Junctions collapse into a single value in Boolean context, so when used in a conditional, a negation or an explicit coercion to Bool through the <code>so</code> or <code>?</code> prefix operators. The semantics of this collapse depend on the <em>junction type</em>, which can be <code>all</code>, <code>any</code>, <code>one</code> or <code>none</code>.</p>
+<table class="pod-table">
+<thead><tr>
+<th>type</th> <th>constructor</th> <th>operator</th> <th>True if ...</th>
+</tr></thead>
+<tbody>
+<tr> <td>all</td> <td>all</td> <td>&amp;</td> <td>no value evaluates to False</td> </tr> <tr> <td>any</td> <td>any</td> <td>|</td> <td>at least one value evaluates to True</td> </tr> <tr> <td>one</td> <td>one</td> <td>^</td> <td>exactly one value evaluates to True</td> </tr> <tr> <td>none</td> <td>none</td> <td></td> <td>no value evaluates to True</td> </tr>
+</tbody>
+</table><p>As the table shows, in order to create junctions you use the command that represents the type of <code>Junction</code> followed by any object, or else call <a href="/Documentable/integration-test/routine/all"><code>.all</code></a>, <a href="/Documentable/integration-test/routine/none"><code>.none</code></a> or <a href="/Documentable/integration-test/routine/one"><code>.one</code></a> on the object.</p>
+<pre class="pod-block-code">say so 3 == (1..30).one;         # OUTPUT: «True␤»
+say so (&quot;a&quot; ^ &quot;b&quot; ^ &quot;c&quot;) eq &quot;a&quot;; # OUTPUT: «True␤»</pre>
+<p>Junctions are very special objects. They fall outside the <code>Any</code> hierarchy, being only, as any other object, subclasses of <code>Mu</code>. That enables a feature for most methods: autothreading. Autothreading happens when a junction is bound to a parameter of a code object that doesn&#39;t accept values of type <code>Junction</code>. Instead of producing an error, the signature binding is repeated for each value of the junction.</p>
+<p>Example:</p>
+<pre class="pod-block-code">my $j = 1|2;
+if 3 == $j + 1 {
+    say &#39;yes&#39;;
+}</pre>
+<p>First autothreads over the <code>infix:&lt;+&gt; </code> operator, producing the Junction <code>2|3</code>. The next autothreading step is over <code>infix:&lt;==&gt; </code>, which produces <code>False|True</code>. The <code>if</code> conditional evaluates the junction in Boolean context, which collapses it to <code>True</code>. So the code prints <code>yes\n</code>.</p>
+<p>The type of a <code>Junction</code> does <em>not</em> affect the number of items in the resultant <code>Junction</code> after autothreading. For example, using a <a href="/Documentable/integration-test/routine/one">one</a> <code>Junction</code> during <a href="/Documentable/integration-test/type/Hash">Hash</a> key lookup, still results in a <code>Junction</code> with several items. It is only in Boolean context would the type of the <code>Junction</code> come into play:</p>
+<pre class="pod-block-code">my %h = :42foo, :70bar;
+say    %h{one &lt;foo meow&gt;}:exists; # OUTPUT: «one(True, False)␤»
+say so %h{one &lt;foo meow&gt;}:exists; # OUTPUT: «True␤»
+say    %h{one &lt;foo  bar&gt;}:exists; # OUTPUT: «one(True, True)␤»
+say so %h{one &lt;foo  bar&gt;}:exists; # OUTPUT: «False␤»</pre>
+<p>Note that the compiler is allowed, but not required, to parallelize autothreading (and Junction behavior in general), so it is usually an error to autothread junctions over code with side effects.</p>
+<p>Autothreading implies that the function that&#39;s autothreaded will also return a Junction of the values that it would usually return.</p>
+<pre class="pod-block-code">(1..3).head( 2|3 ).say; # OUTPUT: «any((1 2), (1 2 3))␤»</pre>
+<p>Since <a href="/Documentable/integration-test/routine/head"><code>.head</code></a> returns a list, the autothreaded version returns a <code>Junction</code> of lists.</p>
+<pre class="pod-block-code">(1..3).contains( 2&amp;3 ).say; # OUTPUT: «all(True, True)␤»</pre>
+<p>Likewise, <a href="/Documentable/integration-test/routine/contains"><code>.contains</code></a> returns a Boolean; thus, the autothreaded version returns a <code>Junction</code> of Booleans. In general, all methods and routines that take an argument of type <code>T</code> and return type <code>TT</code>, will also accept junctions of <code>T</code>, returning junctions of <code>TT</code>.</p>
+<p>Implementations are allowed to short-circuit Junctions. For example one or more routine calls (<code>a()</code>, <code>b()</code>, or <code>c()</code>) in the code below might not get executed at all, if the result of the conditional has been fully determined from routine calls already performed (only one truthy return value is enough to know the entire Junction is true):</p>
+<pre class="pod-block-code">if a() | b() | c() {
+    say &quot;At least one of the routines was called and returned a truthy value&quot;
+}
+</pre>
+<p>Junctions are meant to be used as matchers in Boolean context; introspection of junctions is not supported. If you feel the urge to introspect a junction, use a <a href="/Documentable/integration-test/type/Set">Set</a> or a related type instead.</p>
+<p>Usage examples:</p>
+<pre class="pod-block-code">my @list = &lt;1 2 &quot;Great&quot;&gt;;
+@list.append(True).append(False);
+my @bool_or_int = grep Bool|Int, @list;
+
+sub is_prime(Int $x) returns Bool {
+    # &#39;so&#39; is for Boolean context
+    so $x %% none(2..$x.sqrt);
+}
+my @primes_ending_in_1 = grep &amp;is_prime &amp; / 1$ /, 2..100;
+say @primes_ending_in_1;        # OUTPUT: «[11 31 41 61 71]␤»
+
+my @exclude = &lt;~ .git&gt;;
+for dir(&quot;.&quot;) { say .Str if .Str.ends-with(none @exclude) }</pre>
+<p>Special care should be taken when using <code>all</code> with arguments that may produce an empty list:</p>
+<pre class="pod-block-code">my @a = ();
+say so all(@a) # True, because there are 0 False&#39;s</pre>
+<p>To express &quot;all, but at least one&quot;, you can use <code>@a &amp;&amp; all(@a)</code></p>
+<pre class="pod-block-code">my @a = ();
+say so @a &amp;&amp; all(@a);   # OUTPUT: «False␤»</pre>
+<p>Negated operators are special-cased when it comes to autothreading. <code>$a !op $b</code> is rewritten internally as <code>!($a op $b)</code>. The outer negation collapses any junctions, so the return value always a plain <a href="/Documentable/integration-test/type/Bool">Bool</a>.</p>
+<pre class="pod-block-code">my $word = &#39;yes&#39;;
+my @negations = &lt;no none never&gt;;
+if $word !eq any @negations {
+    say &#39;&quot;yes&quot; is not a negation&#39;;
+}</pre>
+<p>Note that without this special-casing, an expression like <code>$word ne any @words</code> would always evaluate to <code>True</code> for non-trivial lists on one side.</p>
+<p>For this purpose, <code>infix:&lt;ne&gt; </code> counts as a negation of <code>infix:&lt;eq&gt; </code>.</p>
+<p>In general it is more readable to use a positive comparison operator and a negated junction:</p>
+<pre class="pod-block-code">my $word = &#39;yes&#39;;
+my @negations = &lt;no none never&gt;;
+if $word eq none @negations {
+    say &#39;&quot;yes&quot; is not a negation&#39;;
+}</pre>
+<h1 id="Failures_and_exceptions"><a class="u" href="#___top" title="go to top of document">Failures and exceptions</a></h1>
+<p><a href="/Documentable/integration-test/type/Failure">Failures</a> are just values like any other, as far as Junctions are concerned:</p>
+<pre class="pod-block-code">my $j = +any &quot;not a number&quot;, &quot;42&quot;, &quot;2.1&quot;;
+my @list = gather for $j -&gt; $e {
+    take $e if $e.defined;
+}
+@list.say; # OUTPUT: «[42 2.1]␤»</pre>
+<p>Above, we&#39;ve used prefix <code>+</code> operator on a <a href="/Documentable/integration-test/type/Junction">Junction</a> to coerce the strings inside of it to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>. Since the operator returns a <a href="/Documentable/integration-test/type/Failure">Failure</a> when a <a href="/Documentable/integration-test/type/Str">Str</a> that doesn&#39;t contain a number gets coerced to <code>Numeric</code>, one of the elements in the <code>Junction</code> is a <code>Failure</code>. Failures do not turn into exceptions until they are used or sunk, but we can check for definedness to avoid that. That is what we do in the loop that runs over the elements of the junction, adding them to a list only if they are defined.</p>
+<p>The exception <em>will</em> be thrown, if you try to use the <code>Failure</code> as a value—just like as if this <code>Failure</code> were on its own and not part of the <code>Junction</code>:</p>
+<pre class="pod-block-code">my $j = +any &quot;not a number&quot;, &quot;42&quot;, &quot;2.1&quot;;
+try say $j == 42;
+$! and say &quot;Got exception: $!.^name()&quot;;
+# OUTPUT: «Got exception: X::Str::Numeric␤»
+</pre>
+<p>Note that if an exception gets thrown when <em>any</em> of the values in a <a href="/Documentable/integration-test/type/Junction">Junction</a> get computed, it will be thrown just as if the problematic value were computed on its own and not with a <code>Junction</code>; you can&#39;t just compute the values that work while ignoring exceptions:</p>
+<pre class="pod-block-code">sub calc ($_) { die when 13 }
+my $j = any 1..42;
+say try calc $j; # OUTPUT: «Nil␤»</pre>
+<p>Only one value above causes an exception, but the result of the <a href="/Documentable/integration-test/language/exceptions#index-entry-try_blocks-try"><code>try</code> block</a> is still a <a href="/Documentable/integration-test/type/Nil">Nil</a>. A possible way around it is to cheat and evaluate the values of the <code>Junction</code> individually and then re-create the <code>Junction</code> from the result:</p>
+<pre class="pod-block-code">sub calc ($_) { die when 13 }
+my $j = any 1..42;
+$j = any (gather $j».take).grep: {Nil !=== try calc $_};
+say so $j == 42; # OUTPUT: «True␤»</pre>
+<h1 id="Smartmatching"><a class="u" href="#___top" title="go to top of document">Smartmatching</a></h1>
+<p>Note that using <code>Junction</code>s on the right-hand side of <code>~~</code> works slightly differently than using Junctions with other operators.</p>
+<p>Consider this example:</p>
+<pre class="pod-block-code">say 25 == (25 | 42);    # OUTPUT: «any(True, False)␤» – Junction
+say 25 ~~ (25 | 42);    # OUTPUT: «True␤»             – Bool</pre>
+<p>The reason is that <code>==</code> (and most other operators) are subject to auto-threading, and therefore you will get a Junction as a result. On the other hand, <code>~~</code> will call <code>.ACCEPTS</code> on the right-hand-side (in this case on a Junction) and the result will be a <code>Bool</code>.</p>
+<h1 id="Methods"><a class="u" href="#___top" title="go to top of document">Methods</a></h1>
+<h2 id="method_new"><a class="u" href="#___top" title="go to top of document">method new</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method new(Junction: \values, Str :$type!)
+multi method new(Junction: Str:D \type, \values)</pre>
+<p>Constructor to define a new Junction from the type that defines a Junction and a set of values.</p>
+<pre class="pod-block-code">my $j = Junction.new(&lt;Þor Oðinn Loki&gt;, type =&gt; &quot;all&quot;);
+my $n = Junction.new( &quot;one&quot;, 1..6 )</pre>
+<h2 id="method_defined"><a class="u" href="#___top" title="go to top of document">method defined</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method defined(Junction:D:)</pre>
+<p>Checks for definedness instead of Boolean values.</p>
+<pre class="pod-block-code">say ( 3 | Str).defined ;   # OUTPUT: «True␤»
+say (one 3, Str).defined;  # OUTPUT: «True␤»
+say (none 3, Str).defined; # OUTPUT: «False␤»</pre>
+<p><code>Failure</code>s are also considered non-defined:</p>
+<pre class="pod-block-code">my $foo=Failure.new;
+say (one 3, $foo).defined; # OUTPUT: «True␤»</pre>
+<p>Since 6.d, this method will autothread.</p>
+<h2 id="method_Bool"><a class="u" href="#___top" title="go to top of document">method Bool</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method Bool(Junction:D:)</pre>
+<p>Collapses the <code>Junction</code> and returns a single Boolean value according to the type and the values it holds. Every element is transformed to <code>Bool</code>.</p>
+<pre class="pod-block-code">my $n = Junction.new( &quot;one&quot;, 1..6 );
+say $n.Bool;                         # OUTPUT: «False␤»
+</pre>
+<p>All elements in this case are converted to <code>True</code>, so it&#39;s false to assert that only one of them is.</p>
+<pre class="pod-block-code">my $n = Junction.new( &quot;one&quot;, &lt;0 1&gt; );
+say $n.Bool;                         # OUTPUT: «True␤»
+</pre>
+<p>Just one of them is truish in this case, <code>1</code>, so the coercion to <code>Bool</code> returns <code>True</code>.</p>
+<h2 id="method_Str"><a class="u" href="#___top" title="go to top of document">method Str</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method Str(Junction:D:)</pre>
+<p>Autothreads the <code>.Str</code> method over its elements and returns results as a <a href="/Documentable/integration-test/type/Junction">Junction</a>. Output methods that use <code>.Str</code> method (<a href="/Documentable/integration-test/routine/print">print</a> and <a href="/Documentable/integration-test/routine/put">put</a>) are special-cased to autothread junctions, despite being able to accept a <a href="/Documentable/integration-test/type/Mu">Mu</a> type.</p>
+<h2 id="method_gist"><a class="u" href="#___top" title="go to top of document">method gist</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method gist(Junction:D:)</pre>
+<p>Collapses the <a href="/Documentable/integration-test/type/Junction">Junction</a> and returns a <a href="/Documentable/integration-test/type/Str">Str</a> composed of the type of the junction and the <a href="/Documentable/integration-test/routine/gist">gists</a> of its components:</p>
+<pre class="pod-block-code">&lt;a 42 c&gt;.all.say; # OUTPUT: «all(a, 42, c)␤»</pre>
+<h2 id="method_perl"><a class="u" href="#___top" title="go to top of document">method perl</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi method perl(Junction:D:)</pre>
+<p>Collapses the <a href="/Documentable/integration-test/type/Junction">Junction</a> and returns a <a href="/Documentable/integration-test/type/Str">Str</a> composed of <a href="/Documentable/integration-test/routine/perl">perls</a> of its components that <a href="/Documentable/integration-test/routine/EVAL">evaluates</a> to the equivalent <a href="/Documentable/integration-test/type/Junction">Junction</a> with equivalent components:</p>
+<pre class="pod-block-code">&lt;a 42 c&gt;.all.raku.put; # OUTPUT: «all(&quot;a&quot;, IntStr.new(42, &quot;42&quot;), &quot;c&quot;)␤»</pre>
+<h2 id="infix_~"><a class="u" href="#___top" title="go to top of document">infix <code>~</code></a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">multi sub infix:&lt;~&gt;(Str:D $a, Junction:D $b)
+multi sub infix:&lt;~&gt;(Junction:D $a, Str:D $b)
+multi sub infix:&lt;~&gt;(Junction:D \a, Junction:D \b)</pre>
+<p>The infix <code>~</code> concatenation can be used to merge junctions into a single one or merge Junctions with strings. The resulting junction will have all elements merged as if they were joined into a nested loop:</p>
+<pre class="pod-block-code">my $odd  = 1|3|5;
+my $even = 2|4|6;
+
+my $merged = $odd ~ $even;
+say $merged; #OUTPUT: «any(12, 14, 16, 32, 34, 36, 52, 54, 56)␤»
+
+say &quot;Found 34!&quot; if 34 == $merged; #OUTPUT: «Found 34!␤»
+my $prefixed = &quot;0&quot; ~ $odd;
+say &quot;Found 03&quot; if &quot;03&quot; == $prefixed; #OUTPUT: «Found 03!␤»
+
+my $postfixed = $odd ~ &quot;1&quot;;
+say &quot;Found 11&quot; if 11 == $postfixed; #OUTPUT: «Found 11!␤»
+</pre>
+<p>On the other hand, the versions of <code>~</code> that use a string as one argument will just concatenate the string to every member of the Junction, creating another Junction with the same number of elements.</p>
+<h1 id="See_Also"><a class="u" href="#___top" title="go to top of document">See Also</a></h1>
+<ul><li><p><a href="https://perlgeek.de/blog-en/perl-5-to-6/08-junctions.html">https://perlgeek.de/blog-en/perl-5-to-6/08-junctions.html</a></p>
+</li>
+<li><p><a href="http://perl6maven.com/perl6-is-a-value-in-a-given-list-of-values">http://perl6maven.com/perl6-is-a-value-in-a-given-list-of-values</a></p>
+</li>
+<li><p><a href="https://perl6advent.wordpress.com/2009/12/13/day-13-junctions/">https://perl6advent.wordpress.com/2009/12/13/day-13-junctions/</a></p>
+</li>
+</ul>
+<h1 id="Type_Graph"><a class="u" href="#___top" title="go to top of document">Type Graph</a></h1>
+<figure>
+  <figcaption>Type relations for <code>Junction</code></figcaption>
+  <svg width="108pt" height="116pt"
+ viewBox="0.00 0.00 108.09 116.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 112)">
+<title>perl6&#45;type&#45;graph</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-112 104.09,-112 104.09,4 -4,4"/>
+<!-- Junction -->
+<g id="node1" class="node">
+<title>Junction</title>
+<g id="a_node1"><a xlink:href="/type/Junction" xlink:title="Junction">
+<ellipse fill="none" stroke="#000000" cx="50.05" cy="-18" rx="50.09" ry="18"/>
+<text text-anchor="middle" x="50.05" y="-14.3" font-family="FreeSans" font-size="14.00" fill="#000000">Junction</text>
+</a>
+</g>
+</g>
+<!-- Mu -->
+<g id="node2" class="node">
+<title>Mu</title>
+<g id="a_node2"><a xlink:href="/type/Mu" xlink:title="Mu">
+<ellipse fill="none" stroke="#000000" cx="50.05" cy="-90" rx="27" ry="18"/>
+<text text-anchor="middle" x="50.05" y="-86.3" font-family="FreeSans" font-size="14.00" fill="#000000">Mu</text>
+</a>
+</g>
+</g>
+<!-- Junction&#45;&gt;Mu -->
+<g id="edge1" class="edge">
+<title>Junction&#45;&gt;Mu</title>
+<path fill="none" stroke="#000000" d="M50.05,-36.3C50.05,-44.02 50.05,-53.29 50.05,-61.89"/>
+<polygon fill="#000000" stroke="#000000" points="46.55,-61.9 50.05,-71.9 53.55,-61.9 46.55,-61.9"/>
+</g>
+</g>
+</svg>
+
+  <p class="fallback">
+    <a
+      rel="alternate"
+      href="/images/type-graph-Junction.svg"
+      type="image/svg+xml"
+      >Expand above chart</a
+    >
+  </p>
+</figure>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Type/Junction.pod6">https://github.com/Raku/doc/blob/master/doc/Type/Junction.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

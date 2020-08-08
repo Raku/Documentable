@@ -1,0 +1,83 @@
+digraph "perl6-type-graph" {
+    rankdir=BT;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "X::OS" [color="#6666FF", fontcolor="#6666FF", href="/type/X::OS", fontname="FreeSans"];
+    "Mu" [color="#000000", fontcolor="#000000", href="/type/Mu", fontname="FreeSans"];
+    "Any" [color="#000000", fontcolor="#000000", href="/type/Any", fontname="FreeSans"];
+    "Exception" [color="#000000", fontcolor="#000000", href="/type/Exception", fontname="FreeSans"];
+    "X::IO" [color="#6666FF", fontcolor="#6666FF", href="/type/X::IO", fontname="FreeSans"];
+    "X::IO::Chdir" [color="#000000", fontcolor="#000000", href="/type/X::IO::Chdir", fontname="FreeSans"];
+    "X::IO::Dir" [color="#000000", fontcolor="#000000", href="/type/X::IO::Dir", fontname="FreeSans"];
+    "X::IO::Link" [color="#000000", fontcolor="#000000", href="/type/X::IO::Link", fontname="FreeSans"];
+    "X::IO::Rmdir" [color="#000000", fontcolor="#000000", href="/type/X::IO::Rmdir", fontname="FreeSans"];
+    "X::IO::Mkdir" [color="#000000", fontcolor="#000000", href="/type/X::IO::Mkdir", fontname="FreeSans"];
+    "X::IO::Chmod" [color="#000000", fontcolor="#000000", href="/type/X::IO::Chmod", fontname="FreeSans"];
+    "X::IO::Move" [color="#000000", fontcolor="#000000", href="/type/X::IO::Move", fontname="FreeSans"];
+    "X::IO::Cwd" [color="#000000", fontcolor="#000000", href="/type/X::IO::Cwd", fontname="FreeSans"];
+    "X::IO::Unlink" [color="#000000", fontcolor="#000000", href="/type/X::IO::Unlink", fontname="FreeSans"];
+    "X::IO::Copy" [color="#000000", fontcolor="#000000", href="/type/X::IO::Copy", fontname="FreeSans"];
+    "X::IO::DoesNotExist" [color="#000000", fontcolor="#000000", href="/type/X::IO::DoesNotExist", fontname="FreeSans"];
+    "X::IO::Symlink" [color="#000000", fontcolor="#000000", href="/type/X::IO::Symlink", fontname="FreeSans"];
+    "X::IO::Rename" [color="#000000", fontcolor="#000000", href="/type/X::IO::Rename", fontname="FreeSans"];
+
+    // Superclasses
+    "X::OS" -> "Exception" [color="#000000"];
+    "Any" -> "Mu" [color="#000000"];
+    "Exception" -> "Any" [color="#000000"];
+    "X::IO" -> "Exception" [color="#000000"];
+    "X::IO::Chdir" -> "Exception" [color="#000000"];
+    "X::IO::Chdir" -> "Exception" [color="#000000"];
+    "X::IO::Dir" -> "Exception" [color="#000000"];
+    "X::IO::Dir" -> "Exception" [color="#000000"];
+    "X::IO::Link" -> "Exception" [color="#000000"];
+    "X::IO::Link" -> "Exception" [color="#000000"];
+    "X::IO::Link" -> "Exception" [color="#000000"];
+    "X::IO::Rmdir" -> "Exception" [color="#000000"];
+    "X::IO::Rmdir" -> "Exception" [color="#000000"];
+    "X::IO::Rmdir" -> "Exception" [color="#000000"];
+    "X::IO::Mkdir" -> "Exception" [color="#000000"];
+    "X::IO::Mkdir" -> "Exception" [color="#000000"];
+    "X::IO::Mkdir" -> "Exception" [color="#000000"];
+    "X::IO::Chmod" -> "Exception" [color="#000000"];
+    "X::IO::Chmod" -> "Exception" [color="#000000"];
+    "X::IO::Chmod" -> "Exception" [color="#000000"];
+    "X::IO::Move" -> "Exception" [color="#000000"];
+    "X::IO::Move" -> "Exception" [color="#000000"];
+    "X::IO::Move" -> "Exception" [color="#000000"];
+    "X::IO::Cwd" -> "Exception" [color="#000000"];
+    "X::IO::Cwd" -> "Exception" [color="#000000"];
+    "X::IO::Cwd" -> "Exception" [color="#000000"];
+    "X::IO::Unlink" -> "Exception" [color="#000000"];
+    "X::IO::Unlink" -> "Exception" [color="#000000"];
+    "X::IO::Unlink" -> "Exception" [color="#000000"];
+    "X::IO::Copy" -> "Exception" [color="#000000"];
+    "X::IO::Copy" -> "Exception" [color="#000000"];
+    "X::IO::Copy" -> "Exception" [color="#000000"];
+    "X::IO::DoesNotExist" -> "Exception" [color="#000000"];
+    "X::IO::DoesNotExist" -> "Exception" [color="#000000"];
+    "X::IO::DoesNotExist" -> "Exception" [color="#000000"];
+    "X::IO::Symlink" -> "Exception" [color="#000000"];
+    "X::IO::Symlink" -> "Exception" [color="#000000"];
+    "X::IO::Symlink" -> "Exception" [color="#000000"];
+    "X::IO::Rename" -> "Exception" [color="#000000"];
+    "X::IO::Rename" -> "Exception" [color="#000000"];
+    "X::IO::Rename" -> "Exception" [color="#000000"];
+
+    // Roles
+    "X::IO" -> "X::OS" [color="#6666FF"];
+    "X::IO::Chdir" -> "X::IO" [color="#6666FF"];
+    "X::IO::Dir" -> "X::IO" [color="#6666FF"];
+    "X::IO::Link" -> "X::IO" [color="#6666FF"];
+    "X::IO::Rmdir" -> "X::IO" [color="#6666FF"];
+    "X::IO::Mkdir" -> "X::IO" [color="#6666FF"];
+    "X::IO::Chmod" -> "X::IO" [color="#6666FF"];
+    "X::IO::Move" -> "X::IO" [color="#6666FF"];
+    "X::IO::Cwd" -> "X::IO" [color="#6666FF"];
+    "X::IO::Unlink" -> "X::IO" [color="#6666FF"];
+    "X::IO::Copy" -> "X::IO" [color="#6666FF"];
+    "X::IO::DoesNotExist" -> "X::IO" [color="#6666FF"];
+    "X::IO::Symlink" -> "X::IO" [color="#6666FF"];
+    "X::IO::Rename" -> "X::IO" [color="#6666FF"];
+}

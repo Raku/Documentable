@@ -1,0 +1,11 @@
+digraph "perl6-type-graph" {
+    rankdir=BT;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "StringyEnumeration" [color="#6666FF", fontcolor="#6666FF", href="/type/StringyEnumeration", fontname="FreeSans"];
+
+    // Superclasses
+
+    // Roles
+}

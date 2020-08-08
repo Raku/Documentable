@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Hashes and maps</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/hashmap.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Hashes and maps</h1>
+        <p class="subtitle">Working with associative arrays/dictionaries/hashes</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+  <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#The_associative_role_and_associative_classes">The associative role and associative classes</a></td></tr>
+                                                                                                                                    <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Mutable_hashes_and_immutable_maps">Mutable hashes and immutable maps</a></td></tr>
+                         <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Hash_assignment">Hash assignment</a></td></tr>
+                                                                                                                           <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#Hash_slices">Hash slices</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">3.2</td><td class="toc-text"><a href="#Non-string_keys_(object_hash)">Non-string keys (object hash)</a></td></tr>
+                                                                                                                     <tr class="toc-level-2"><td class="toc-number">3.3</td><td class="toc-text"><a href="#Constraint_value_types">Constraint value types</a></td></tr>
+               <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#Looping_over_hash_keys_and_values">Looping over hash keys and values</a></td></tr>
+                                                <tr class="toc-level-2"><td class="toc-number">4.1</td><td class="toc-text"><a href="#In_place_editing_of_values">In place editing of values</a></td></tr>
+                                      
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <h1 id="The_associative_role_and_associative_classes"><a class="u" href="#___top" title="go to top of document">The associative role and associative classes</a></h1>
+<p>The <a href="/Documentable/integration-test/type/Associative">Associative</a> role underlies hashes and maps, as well as other classes such as <a href="/Documentable/integration-test/type/MixHash">MixHash</a>. It defines the two types that will be used in associative classes; by default, you can use anything (literally, since any class that subclasses <a href="/Documentable/integration-test/type/Any">Any</a> can be used) <a href="#Non-string_keys_%28object_hash%29">as a key</a>, although it will be coerced to a string, and any object as value. You can access these types using the <code>of</code> and <code>keyof</code> methods.</p>
+<p>By default, any object declared with the <code>%</code> sigil will get the Associative role, and will by default behave like a hash, but this role will only provide the two methods above, as well as the default Hash behavior.</p>
+<pre class="pod-block-code">say (%).^name ; # OUTPUT: «Hash␤»</pre>
+<p>Inversely, you cannot use the <code>%</code> sigil if the <code>Associative</code> role is not mixed in, but since this role does not have any associated properties, you will have to redefine the behavior of the <a href="/Documentable/integration-test/language/operators#postcircumfix_{_}">hash subscript operator</a>. In order to do that, there are several functions you will have to override:</p>
+<pre class="pod-block-code">class Logger does Associative[Cool,DateTime] {
+    has %.store;
+
+    method log( Cool $event ) {
+        %.store{ DateTime.new( now ) } = $event;
+    }
+
+    multi method AT-KEY ( ::?CLASS:D: $key) {
+        my @keys = %.store.keys.grep( /$key/ );
+        %.store{ @keys };
+    }
+
+    multi method EXISTS-KEY (::?CLASS:D: $key) {
+        %.store.keys.grep( /$key/ )??True!!False;
+    }
+
+    multi method DELETE-KEY (::?CLASS:D: $key) {
+        X::Assignment::RO.new.throw;
+    }
+
+    multi method ASSIGN-KEY (::?CLASS:D: $key, $new) {
+        X::Assignment::RO.new.throw;
+    }
+
+    multi method BIND-KEY (::?CLASS:D: $key, \new){
+        X::Assignment::RO.new.throw;
+    }
+}
+say Logger.of;                   # OUTPUT: «(Cool)»
+my %logger := Logger.new;
+say %logger.of;                  # OUTPUT: «(Cool)»
+
+%logger.log( &quot;Stuff&quot; );
+%logger.log( &quot;More stuff&quot;);
+
+say %logger&lt;2018-05-26&gt;;         # OUTPUT: «(More stuff Stuff)»
+say %logger&lt;2018-04-22&gt;:exists;  # OUTPUT: «False»
+
+</pre>
+<p>In this case, we are defining a logger with Associative semantics that will be able to use dates (or a part of them) as keys. Since we are parameterizing <code>Associative</code> to those particular classes, <code>of</code> will return the value type we have used, <code>Cool</code> in this case (we can log lists or strings only). Mixing the <code>Associative</code> role gives it the right to use the <code>%</code> sigil; binding is needed in the definition since <code>%</code>-sigiled variables get by default the <code>Hash</code> type.</p>
+<p>This log is going to be append-only, which is why we escape the associative array metaphor to use a <code>log</code> method to add new events to the log. Once they have been added, however, we can retrieve them by date or check if they exist. For the first we have to override the <code>AT-KEY</code> multi method, for the latter <code>EXIST-KEY</code>. In the last two statements, we show how the subscript operation invokes <code>AT-KEY</code>, while the <code>:exists</code> adverb invokes <code>EXISTS-KEY</code>.</p>
+<p>We override <code>DELETE-KEY</code>, <code>ASSIGN-KEY</code> and <code>BIND-KEY</code>, but only to throw an exception. Attempting to assign, delete, or bind a value to a key will result in a <code>Cannot modify an immutable Str (value)</code> exception thrown.</p>
+<p>Making classes associative provides a very convenient way of using and working with them using hashes; an example can be seen in <a href="https://cro.services/docs/reference/cro-http-client#Setting_the_request_body">Cro</a>, which uses it extensively for the convenience of using hashes to define structured requests and express its response.</p>
+<h1 id="Mutable_hashes_and_immutable_maps"><a class="u" href="#___top" title="go to top of document">Mutable hashes and immutable maps</a></h1>
+<p>A <code>Hash</code> is a mutable mapping from keys to values (called <em>dictionary</em>, <em>hash table</em> or <em>map</em> in other programming languages). The values are all scalar containers, which means you can assign to them. <a href="/Documentable/integration-test/type/Map">Map</a>s are, on the other hand, immutable. Once a key has been paired with a value, this pairing cannot be changed.</p>
+<p>Maps and hashes are usually stored in variables with the percent <code>%</code> sigil, which is used to indicate they are Associative.</p>
+<p>Hash and map elements are accessed by key via the <code>{ }</code> postcircumfix operator:</p>
+<pre class="pod-block-code">say %*ENV{&#39;HOME&#39;, &#39;PATH&#39;}.raku;
+# OUTPUT: «(&quot;/home/camelia&quot;, &quot;/usr/bin:/sbin:/bin&quot;)␤»</pre>
+<p>The general <a href="/Documentable/integration-test/language/subscripts">Subscript</a> rules apply providing shortcuts for lists of literal strings, with and without interpolation.</p>
+<pre class="pod-block-code">my %h = oranges =&gt; &#39;round&#39;, bananas =&gt; &#39;bendy&#39;;
+say %h&lt;oranges bananas&gt;;
+# OUTPUT: «(round bendy)␤»
+
+my $fruit = &#39;bananas&#39;;
+say %h«oranges &quot;$fruit&quot;»;
+# OUTPUT: «(round bendy)␤»</pre>
+<p>You can add new pairs simply by assigning to an unused key:</p>
+<pre class="pod-block-code">my %h;
+%h{&#39;new key&#39;} = &#39;new value&#39;;</pre>
+<h1 id="Hash_assignment"><a class="u" href="#___top" title="go to top of document">Hash assignment</a></h1>
+<p>Assigning a list of elements to a hash variable first empties the variable, and then iterates the elements of the right-hand side (which must contain an even number of elements). Note that hash keys are always coerced to be strings even if they are unquoted, but keys with spaces in their names must be quoted. For example, using the common <a href="/Documentable/integration-test/type/Pair">Pair</a> syntax:</p>
+<pre class="pod-block-code">my %h = 1 =&gt; &#39;a&#39;, b =&gt; 2, &#39;1 2&#39; =&gt; 3;
+say %h.keys.sort.raku;       # OUTPUT: «(&quot;1&quot;, &quot;1 2&quot;, &quot;b&quot;).Seq␤»
+say %h.values.sort.raku      # OUTPUT: «(2, 3, &quot;a&quot;).Seq␤»</pre>
+<p>The stringification of the keys can lead to surprising results. For example, the Raku module <code>CSV::Parser</code> in one mode returns a CSV data line as a hash of <code>{UInt =</code> &#39;value&#39;}&gt; pairs which can look like this fragment of a 20-field line:</p>
+<pre class="pod-block-code">my %csv = &#39;2&#39; =&gt; &#39;a&#39;, &#39;10&#39; =&gt; &#39;b&#39;;
+say %csv.keys.sort.raku;           # OUTPUT: «(&quot;10&quot;, &quot;2&quot;).Seq␤»</pre>
+<p>The sort result is not what one would normally want. We can use the power of Raku to coerce the string values into integers for the sort. There are several ways that can be done but this method may present the least &quot;line noise&quot; to novices or non-Raku viewers:</p>
+<pre class="pod-block-code">    say %csv.keys.map(+*).sort.raku;   # OUTPUT: «(2, 10).Seq␤»
+</pre>
+<p>In a hash constructor list the <code>Pair</code> syntax doesn&#39;t have to be used, or it may be intermixed with ordinary list values as long as the list has an even number of elements in total as well as between <code>Pair</code>s. If an element is a <code>Pair</code> type (e.g., &#39;a =&gt; 1&#39;), its key is taken as a new hash key, and its value as the new hash value for that key. Otherwise the value is coerced to <a href="/Documentable/integration-test/type/Str">Str</a> and used as a hash key, while the next element of the list is taken as the corresponding value.</p>
+<pre class="pod-block-code">my %h = &#39;a&#39;, &#39;b&#39;, c =&gt; &#39;d&#39;, &#39;e&#39;, &#39;f&#39;;</pre>
+<p>Same as</p>
+<pre class="pod-block-code">my %h = a =&gt; &#39;b&#39;, c =&gt; &#39;d&#39;, e =&gt; &#39;f&#39;;</pre>
+<p>or</p>
+<pre class="pod-block-code">my %h = &lt;a b c d e f&gt;;</pre>
+<p>or even</p>
+<pre class="pod-block-code">my %h = %( a =&gt; &#39;b&#39;, c =&gt; &#39;d&#39;, e =&gt; &#39;f&#39; );</pre>
+<p>If you have an odd number of elements using most constructors you will see an error:</p>
+<pre class="pod-block-code">my %h = &lt;a b c&gt;; # OUTPUT: «hash initializer expected...␤»</pre>
+<p>There are two other valid ways of constructing a hash, but the user should be wary:</p>
+<pre class="pod-block-code">my %h = [ a =&gt; &#39;b&#39;, c =&gt; &#39;d&#39;, e =&gt; &#39;f&#39; ]; # This format is NOT recommended.
+                                          # It cannot be a constant and there
+                                          # will be problems with nested hashes</pre>
+<p>or</p>
+<pre class="pod-block-code">my $h = { a =&gt; &#39;b&#39;, c =&gt; &#39;d&#39;, e =&gt; &#39;f&#39;};</pre>
+<p>Please note that curly braces are used only in the case that we are not assigning it to a <code>%</code>-sigiled variable; in case we use it for a <code>%</code>-sigiled variable we will get an <code>Potential difficulties:␤ Useless use of hash composer on right side of hash assignment; did you mean := instead?</code> error. As this error indicates, however, we can use curly braces as long as we use also binding:</p>
+<pre class="pod-block-code">my %h := { a =&gt; &#39;b&#39;, c =&gt; &#39;d&#39;, e =&gt; &#39;f&#39;};
+say %h; # OUTPUT: «{a =&gt; b, c =&gt; d, e =&gt; f}␤»</pre>
+<p>Nested hashes can also be defined using the same syntax:</p>
+<pre class="pod-block-code">my %h =  e =&gt; f =&gt; &#39;g&#39;;
+say %h&lt;e&gt;&lt;f&gt;; # OUTPUT: «g␤»</pre>
+<p>However, what you are defining here is a key pointing to a <a href="/Documentable/integration-test/type/Pair">Pair</a>, which is fine if that is what you want and your nested hash has a single key. But <code>%h&lt;e&gt;</code> will point to a <code>Pair</code> which will have these consequences:</p>
+<pre class="pod-block-code">my %h =  e =&gt; f =&gt; &#39;g&#39;;
+%h&lt;e&gt;&lt;q&gt; = &#39;k&#39;;
+# OUTPUT: «Pair␤Cannot modify an immutable Str (Nil)␤  in block &lt;unit&gt;»
+</pre>
+<p>This, however, will effectively define a nested hash:</p>
+<pre class="pod-block-code">my %h =  e =&gt; { f =&gt; &#39;g&#39; };
+say %h&lt;e&gt;.^name;  # OUTPUT: «Hash␤»
+say %h&lt;e&gt;&lt;f&gt;;     # OUTPUT: «g␤»</pre>
+<p>If a <a href="/Documentable/integration-test/type/Pair">Pair</a> is encountered where a value is expected, it is used as a hash value:</p>
+<pre class="pod-block-code">my %h = &#39;a&#39;, &#39;b&#39; =&gt; &#39;c&#39;;
+say %h&lt;a&gt;.^name;            # OUTPUT: «Pair␤»
+say %h&lt;a&gt;.key;              # OUTPUT: «b␤»</pre>
+<p>If the same key appears more than once, the value associated with its last occurrence is stored in the hash:</p>
+<pre class="pod-block-code">my %h = a =&gt; 1, a =&gt; 2;
+say %h&lt;a&gt;;                  # OUTPUT: «2␤»</pre>
+<p>To assign a hash to a variable which does not have the <code>%</code> sigil, you may use the <code>%()</code> hash constructor:</p>
+<pre class="pod-block-code">my $h = %( a =&gt; 1, b =&gt; 2 );
+say $h.^name;               # OUTPUT: «Hash␤»
+say $h&lt;a&gt;;                  # OUTPUT: «1␤»</pre>
+<p>If one or more values reference the topic variable, <code>$_</code>, the right-hand side of the assignment will be interpreted as a <a href="/Documentable/integration-test/type/Block">Block</a>, not a Hash:</p>
+<pre class="pod-block-code">my @people = [
+    %( id =&gt; &quot;1A&quot;, firstName =&gt; &quot;Andy&quot;, lastName =&gt; &quot;Adams&quot; ),
+    %( id =&gt; &quot;2B&quot;, firstName =&gt; &quot;Beth&quot;, lastName =&gt; &quot;Burke&quot; ),
+    # ...
+];
+
+sub lookup-user (Hash $h) { #`(Do something...) $h }
+
+my @names = map {
+    # While this creates a hash:
+    my  $query = { name =&gt; &quot;$person&lt;firstName&gt; $person&lt;lastName&gt;&quot; };
+    say $query.^name;      # OUTPUT: «Hash␤»
+
+    # Doing this will create a Block. Oh no!
+    my  $query2 = { name =&gt; &quot;$_&lt;firstName&gt; $_&lt;lastName&gt;&quot; };
+    say $query2.^name;       # OUTPUT: «Block␤»
+    say $query2&lt;name&gt;;       # fails
+
+    CATCH { default { put .^name, &#39;: &#39;, .Str } };
+    # OUTPUT: «X::AdHoc: Type Block does not support associative indexing.␤»
+    lookup-user($query);
+    # Type check failed in binding $h; expected Hash but got Block
+}, @people;
+</pre>
+<p>This would have been avoided if you had used the <code>%()</code> hash constructor. Only use curly braces for creating Blocks.</p>
+<h2 id="Hash_slices"><a class="u" href="#___top" title="go to top of document">Hash slices</a></h2>
+<p>You can assign to multiple keys at the same time with a slice.</p>
+<pre class="pod-block-code">my %h; %h&lt;a b c&gt; = 2 xx *; %h.raku.say;  # OUTPUT: «{:a(2), :b(2), :c(2)}␤»
+my %h; %h&lt;a b c&gt; = ^3;     %h.raku.say;  # OUTPUT: «{:a(0), :b(1), :c(2)}␤»</pre>
+<p><a name="Documentable/integration-test/index-entry-non-string_keys"></a> <a name="Documentable/integration-test/index-entry-object_hash"></a> <a name="Documentable/integration-test/index-entry-:{}"></a></p>
+<h2 id="Non-string_keys_(object_hash)"><a class="u" href="#___top" title="go to top of document">Non-string keys (object hash)</a></h2>
+<p>By default keys in <code>{ }</code> are forced to strings. To compose a hash with non-string keys, use a colon prefix:</p>
+<pre class="pod-block-code">my $when = :{ (now) =&gt; &quot;Instant&quot;, (DateTime.now) =&gt; &quot;DateTime&quot; };</pre>
+<p>Note that with objects as keys, you often cannot use the <code>&lt;...&gt;</code> construct for key lookup, as it creates only strings and <a href="/Documentable/integration-test/language/glossary#index-entry-Allomorph">allomorphs</a>. Use the <code>{...}</code> instead:</p>
+<pre class="pod-block-code">:{  0  =&gt; 42 }&lt;0&gt;.say;   # Int    as key, IntStr in lookup; OUTPUT: «(Any)␤»
+:{  0  =&gt; 42 }{0}.say;   # Int    as key, Int    in lookup; OUTPUT: «42␤»
+:{ &#39;0&#39; =&gt; 42 }&lt;0&gt;.say;   # Str    as key, IntStr in lookup; OUTPUT: «(Any)␤»
+:{ &#39;0&#39; =&gt; 42 }{&#39;0&#39;}.say; # Str    as key, Str    in lookup; OUTPUT: «42␤»
+:{ &lt;0&gt; =&gt; 42 }&lt;0&gt;.say;   # IntStr as key, IntStr in lookup; OUTPUT: «42␤»</pre>
+<p><em>Note</em>: Rakudo implementation currently erroneously applies <a href="/Documentable/integration-test/routine/{ }#(Operators)_term_{_}">the same rules</a> for <code>:{ }</code> as it does for <code>{ }</code> and can construct a <a href="/Documentable/integration-test/type/Block">Block</a> in certain circumstances. To avoid that, you can instantiate a parameterized Hash directly. Parameterization of <code>%</code>-sigiled variables is also supported:</p>
+<pre class="pod-block-code">my Num %foo1      = &quot;0&quot; =&gt; 0e0; # Str keys and Num values
+my     %foo2{Int} =  0  =&gt; &quot;x&quot;; # Int keys and Any values
+my Num %foo3{Int} =  0  =&gt; 0e0; # Int keys and Num values
+Hash[Num,Int].new: 0, 0e0;      # Int keys and Num values</pre>
+<p>Now if you want to define a hash to preserve the objects you are using as keys <em>as the <strong>exact</strong> objects you are providing to the hash to use as keys</em>, then object hashes are what you are looking for.</p>
+<pre class="pod-block-code">my %intervals{Instant};
+my $first-instant = now;
+%intervals{ $first-instant } = &quot;Our first milestone.&quot;;
+sleep 1;
+my $second-instant = now;
+%intervals{ $second-instant } = &quot;Logging this Instant for spurious raisins.&quot;;
+for %intervals.sort -&gt; (:$key, :$value) {
+    state $last-instant //= $key;
+    say &quot;We noted &#39;$value&#39; at $key, with an interval of {$key - $last-instant}&quot;;
+    $last-instant = $key;
+}
+</pre>
+<p>This example uses an object hash that only accepts keys of type <a href="/Documentable/integration-test/type/Instant">Instant</a> to implement a rudimentary, yet type-safe, logging mechanism. We utilize a named <a href="/Documentable/integration-test/language/variables#The_state_declarator">state</a> variable for keeping track of the previous <code>Instant</code> so that we can provide an interval.</p>
+<p>The whole point of object hashes is to keep keys as objects-in-themselves. Currently object hashes utilize the <a href="/Documentable/integration-test/routine/WHICH">WHICH</a> method of an object, which returns a unique identifier for every mutable object. This is the keystone upon which the object identity operator (<a href="/Documentable/integration-test/routine/===">===</a>) rests. Order and containers really matter here as the order of <code>.keys</code> is undefined and one anonymous list is never <a href="/Documentable/integration-test/routine/===">===</a> to another.</p>
+<pre class="pod-block-code">my %intervals{Instant};
+my $first-instant = now;
+%intervals{ $first-instant } = &quot;Our first milestone.&quot;;
+sleep 1;
+my $second-instant = now;
+%intervals{ $second-instant } = &quot;Logging this Instant for spurious raisins.&quot;;
+say ($first-instant, $second-instant) ~~ %intervals.keys;       # OUTPUT: «False␤»
+say ($first-instant, $second-instant) ~~ %intervals.keys.sort;  # OUTPUT: «True␤»
+say ($first-instant, $second-instant) === %intervals.keys.sort; # OUTPUT: «False␤»
+say $first-instant === %intervals.keys.sort[0];                 # OUTPUT: «True␤»
+</pre>
+<p>Since <code>Instant</code> defines its own comparison methods, in our example a sort according to <a href="/Documentable/integration-test/routine/cmp">cmp</a> will always provide the earliest instant object as the first element in the <a href="/Documentable/integration-test/type/List">List</a> it returns.</p>
+<p>If you would like to accept any object whatsoever in your hash, you can use <a href="/Documentable/integration-test/type/Any">Any</a>!</p>
+<pre class="pod-block-code">my %h{Any};
+%h{(now)} = &quot;This is an Instant&quot;;
+%h{(DateTime.now)} = &quot;This is a DateTime, which is not an Instant&quot;;
+%h{&quot;completely different&quot;} = &quot;Monty Python references are neither DateTimes nor Instants&quot;;</pre>
+<p>There is a more concise syntax which uses binding.</p>
+<pre class="pod-block-code">my %h := :{ (now) =&gt; &quot;Instant&quot;, (DateTime.now) =&gt; &quot;DateTime&quot; };</pre>
+<p>The binding is necessary because an object hash is about very solid, specific objects, which is something that binding is great at keeping track of but about which assignment doesn&#39;t concern itself much.</p>
+<p>Since 6.d was released, <a href="/Documentable/integration-test/type/Junction"><code>Junction</code>s</a> can also be used as hash keys. The result will also be a <code>Junction</code> of the same type used as key.</p>
+<pre class="pod-block-code">my %hash = %( a =&gt; 1, b =&gt; 2, c=&gt; 3);
+say %hash{&quot;a&quot;|&quot;c&quot;};   # OUTPUT: «any(1, 3)␤»
+say %hash{&quot;b&quot;^&quot;c&quot;};   # OUTPUT: «one(2, 3)␤»
+say %hash{&quot;a&quot; &amp; &quot;c&quot;}; # OUTPUT: «all(1, 3)␤»</pre>
+<p>If a Junction of any kind is used to define a key, it will have the same effect of defining elements of the <code>Junction</code> as separate keys:</p>
+<pre class="pod-block-code">my %hash = %( &quot;a&quot;|&quot;b&quot; =&gt; 1, c =&gt; 2 );
+say %hash{&quot;b&quot;|&quot;c&quot;};       # OUTPUT: «any(1, 2)␤»
+</pre>
+<h2 id="Constraint_value_types"><a class="u" href="#___top" title="go to top of document">Constraint value types</a></h2>
+<p>Place a type object in-between the declarator and the name to constrain the type of all values of a <code>Hash</code>.</p>
+<pre class="pod-block-code">my Int %h;
+put %h&lt;Goku&gt;   = 900;
+
+try {
+    %h&lt;Vegeta&gt; = &quot;string&quot;;
+    CATCH { when X::TypeCheck::Binding { .message.put } }
+}
+
+# OUTPUT:
+# 9001
+# Type check failed in assignment to %h; expected Int but got Str (&quot;string&quot;)</pre>
+<p>You can do the same by a more readable syntax.</p>
+<pre class="pod-block-code">my %h of Int; # the same as my Int %h</pre>
+<p>If you want to constraint the type of all keys of a <code>Hash</code>, add <code>{Type}</code> following the name of variable.</p>
+<pre class="pod-block-code">my %h{Int};</pre>
+<p>Even put these two constraints together.</p>
+<pre class="pod-block-code">my %h{Int} of Int;
+put %h{21} = 42;
+
+try {
+    %h{0} = &quot;String&quot;;
+    CATCH { when X::TypeCheck::Binding { .message.put } }
+}
+
+try {
+    %h&lt;string&gt; = 42;
+    CATCH { when X::TypeCheck::Binding { .message.put } }
+}
+
+try {
+    %h&lt;string&gt; = &quot;String&quot;;
+    CATCH { when X::TypeCheck::Binding { .message.put } }
+}
+
+# OUTPUT:
+# 42
+# Type check failed in binding to parameter &#39;assignval&#39;; expected Int but got Str (&quot;String&quot;)
+# Type check failed in binding to parameter &#39;key&#39;; expected Int but got Str (&quot;string&quot;)
+# Type check failed in binding to parameter &#39;key&#39;; expected Int but got Str (&quot;string&quot;)</pre>
+<h1 id="Looping_over_hash_keys_and_values"><a class="u" href="#___top" title="go to top of document">Looping over hash keys and values</a></h1>
+<p>A common idiom for processing the elements in a hash is to loop over the keys and values, for instance,</p>
+<pre class="pod-block-code">my %vowels = &#39;a&#39; =&gt; 1, &#39;e&#39; =&gt; 2, &#39;i&#39; =&gt; 3, &#39;o&#39; =&gt; 4, &#39;u&#39; =&gt; 5;
+for %vowels.kv -&gt; $vowel, $index {
+  &quot;$vowel: $index&quot;.say;
+}</pre>
+<p>gives output similar to this:</p>
+<pre class="pod-block-code">a: 1
+e: 2
+o: 4
+u: 5
+i: 3
+</pre>
+<p>where we have used the <code>kv</code> method to extract the keys and their respective values from the hash, so that we can pass these values into the loop.</p>
+<p>Note that the order of the keys and values printed cannot be relied upon; the elements of a hash are not always stored the same way in memory for different runs of the same program. In fact, since version 2018.05, the order is guaranteed to be different in every invocation. Sometimes one wishes to process the elements sorted on, e.g., the keys of the hash. If one wishes to print the list of vowels in alphabetical order then one would write</p>
+<pre class="pod-block-code">my %vowels = &#39;a&#39; =&gt; 1, &#39;e&#39; =&gt; 2, &#39;i&#39; =&gt; 3, &#39;o&#39; =&gt; 4, &#39;u&#39; =&gt; 5;
+for %vowels.sort(*.key)&gt;&gt;.kv -&gt; ($vowel, $index) {
+  &quot;$vowel: $index&quot;.say;
+}</pre>
+<p>which prints</p>
+<pre class="pod-block-code">a: 1
+e: 2
+i: 3
+o: 4
+u: 5
+</pre>
+<p>in alphabetical order as desired. To achieve this result, we sorted the hash of vowels by key (<code>%vowels.sort(*.key)</code>) which we then ask for its keys and values by applying the <code>.kv</code> method to each element via the unary <code>&gt;&gt;</code> hyperoperator resulting in a <a href="/Documentable/integration-test/type/List">List</a> of key/value lists. To extract the key/value the variables thus need to be wrapped in parentheses.</p>
+<p>An alternative solution is to flatten the resulting list. Then the key/value pairs can be accessed in the same way as with plain <code>.kv</code>:</p>
+<pre class="pod-block-code">my %vowels = &#39;a&#39; =&gt; 1, &#39;e&#39; =&gt; 2, &#39;i&#39; =&gt; 3, &#39;o&#39; =&gt; 4, &#39;u&#39; =&gt; 5;
+for %vowels.sort(*.key)&gt;&gt;.kv.flat -&gt; $vowel, $index {
+  &quot;$vowel: $index&quot;.say;
+}</pre>
+<p>You can also loop over a <code>Hash</code> using <a href="/Documentable/integration-test/type/Signature#Destructuring_arguments">destructuring</a>.</p>
+<h2 id="In_place_editing_of_values"><a class="u" href="#___top" title="go to top of document">In place editing of values</a></h2>
+<p>There may be times when you would like to modify the values of a hash while iterating over them.</p>
+<pre class="pod-block-code">my %answers = illuminatus =&gt; 23, hitchhikers =&gt; 42;
+# OUTPUT: «hitchhikers =&gt; 42, illuminatus =&gt; 23»
+for %answers.values -&gt; $v { $v += 10 }; # Fails
+CATCH { default { put .^name, &#39;: &#39;, .Str } };
+# OUTPUT: «X::AdHoc: Cannot assign to a readonly variable or a value␤»</pre>
+<p>This is traditionally accomplished by sending both the key and the value as follows.</p>
+<pre class="pod-block-code">my %answers = illuminatus =&gt; 23, hitchhikers =&gt; 42;
+for %answers.kv -&gt; $k,$v { %answers{$k} = $v + 10 };</pre>
+<p>However, it is possible to leverage the signature of the block in order to specify that you would like read-write access to the values.</p>
+<pre class="pod-block-code">my %answers = illuminatus =&gt; 23, hitchhikers =&gt; 42;
+for %answers.values -&gt; $v is rw { $v += 10 };</pre>
+<p>It is not possible directly to do in-place editing of hash keys, even in the case of object hashes; however, a key can be deleted and a new key/value pair added to achieve the same results. For example, given this hash:</p>
+<pre class="pod-block-code">my %h = a =&gt; 1, b =&gt; 2;
+for %h.keys.sort -&gt; $k {
+    # use sort to ease output comparisons
+    print &quot;$k =&gt; {%h{$k}}; &quot;;
+}
+say &#39;&#39;; # OUTPUT: «a =&gt; 1; b =&gt; 2;»␤
+</pre>
+<p>replace key &#39;b&#39; with &#39;bb&#39; but retain &#39;b&#39;s value as the new key&#39;s value:</p>
+<pre class="pod-block-code">for %h.keys -&gt; $k {
+    if $k eq &#39;b&#39; {
+        %h&lt;bb&gt; = %h{$k}:delete;
+    }
+}
+for %h.keys.sort -&gt; $k {
+    print &quot;$k =&gt; {%h{$k}}; &quot;;
+}
+say &#39;&#39;; # OUTPUT: «a =&gt; 1; bb =&gt; 2;»␤
+</pre>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/hashmap.pod6">https://github.com/Raku/doc/blob/master/doc/Language/hashmap.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

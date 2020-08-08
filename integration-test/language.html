@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Raku Language Documentation</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Raku Language Documentation</h1>
+        <p class="subtitle"></p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+  <tr class="toc-level-2"><td class="toc-number">0.1</td><td class="toc-text"><a href="#At_the_beginning">At the beginning</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">0.2</td><td class="toc-text"><a href="#Migration_guides">Migration guides</a></td></tr>
+                     <tr class="toc-level-2"><td class="toc-number">0.3</td><td class="toc-text"><a href="#Tutorials">Tutorials</a></td></tr>
+                                 <tr class="toc-level-2"><td class="toc-number">0.4</td><td class="toc-text"><a href="#Fundamental_topics">Fundamental topics</a></td></tr>
+                                                                       <tr class="toc-level-2"><td class="toc-number">0.5</td><td class="toc-text"><a href="#General_reference">General reference</a></td></tr>
+                   <tr class="toc-level-2"><td class="toc-number">0.6</td><td class="toc-text"><a href="#Advanced_topics">Advanced topics</a></td></tr>
+  
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Tutorials, general reference, migration guides and meta pages for the Raku language.</p>
+<h2 id="At_the_beginning"><a class="u" href="#___top" title="go to top of document">At the beginning</a></h2>
+<table class="pod-table">
+<tbody>
+<tr> <td><a href="/Documentable/integration-test/language/intro">Brief introduction</a></td> <td>Using Raku official documentation</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/101-basics">Raku by example 101</a></td> <td>A basic introductory example of a Raku program</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/about">About the docs</a></td> <td>How to contribute to Raku and to the documents, how to generate the docs locally</td> </tr>
+</tbody>
+</table><h2 id="Migration_guides"><a class="u" href="#___top" title="go to top of document">Migration guides</a></h2>
+<table class="pod-table">
+<tbody>
+<tr> <td><a href="/Documentable/integration-test/language/haskell-to-p6">Haskell to Raku - nutshell</a></td> <td>Learning Raku from Haskell, in a nutshell: what do I already know?</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/5to6-perlvar">Perl to Raku guide - special variables</a></td> <td>A comparison of special variables in Perl and Raku</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/5to6-nutshell">Perl to Raku guide - in a nutshell</a></td> <td>How do I do what I used to do? (Raku in a nutshell)</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/5to6-perlop">Perl to Raku guide - operators</a></td> <td>Operators in Perl to Raku: equivalencies and variations</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/5to6-perlfunc">Perl to Raku guide - functions</a></td> <td>Builtin functions in Perl to Raku</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/5to6-perlsyn">Perl to Raku guide - syntax</a></td> <td>Syntactic differences between Perl and Raku</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/js-nutshell">JavaScript (Node.js) to Raku - nutshell</a></td> <td>Learning Raku from Node.js, in a nutshell</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/py-nutshell">Python to Raku - nutshell</a></td> <td>Learning Raku from Python, in a nutshell</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/5to6-overview">Perl to Raku guide - overview</a></td> <td>How do I do what I used to do?</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/rb-nutshell">Ruby to Raku - nutshell</a></td> <td>Learning Raku from Ruby, in a nutshell: what do I already know?</td> </tr>
+</tbody>
+</table><h2 id="Tutorials"><a class="u" href="#___top" title="go to top of document">Tutorials</a></h2>
+<table class="pod-table">
+<tbody>
+<tr> <td><a href="/Documentable/integration-test/language/ipc">Inter-process communication</a></td> <td>Programs running other programs and communicating with them</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/math">Doing math with Raku</a></td> <td>Different mathematical paradigms and how they are implemented in this language</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/optut">Creating operators</a></td> <td>A short tutorial on how to declare operators and create new ones.</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/concurrency">Concurrency</a></td> <td>Concurrency and asynchronous programming</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/modules-extra">Module development utilities</a></td> <td>What can help you write/test/improve your module(s)</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/io">Input/Output</a></td> <td>File-related operations</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/compilation">CompUnits and where to find them</a></td> <td>How and when Raku modules are compiled, where they are stored, and how to access them in compiled form.</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/module-packages">Module packages</a></td> <td>Creating module packages for code reuse</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/unicode_entry">Entering unicode characters</a></td> <td>Input methods for unicode characters in terminals, the shell, and editors</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/grammar_tutorial">Grammar tutorial</a></td> <td>An introduction to grammars</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/classtut">Classes and objects</a></td> <td>A tutorial about creating and using classes in Raku</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/create-cli">Command line interface</a></td> <td>Creating your own CLI in Raku</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/modules">Modules</a></td> <td>How to create, use, and distribute Raku modules</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/iterating">Iterating</a></td> <td>Functionalities available for visiting all items in a complex data structure</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/regexes-best-practices">Regexes: best practices and gotchas</a></td> <td>Some tips on regexes and grammars</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/modules-core">Core modules</a></td> <td>Core modules that may be useful to module authors</td> </tr>
+</tbody>
+</table><h2 id="Fundamental_topics"><a class="u" href="#___top" title="go to top of document">Fundamental topics</a></h2>
+<table class="pod-table">
+<tbody>
+<tr> <td><a href="/Documentable/integration-test/language/operators">Operators</a></td> <td>Common Raku infixes, prefixes, postfixes, and more!</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/regexes">Regexes</a></td> <td>Pattern matching against strings</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/exceptions">Exceptions</a></td> <td>Using exceptions in Raku</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/grammars">Grammars</a></td> <td>Parsing and interpreting text</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/nativetypes">Raku native types</a></td> <td>Using the types the compiler and hardware make available to you</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/unicode">Unicode</a></td> <td>Unicode support in Raku</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/structures">Data structures</a></td> <td>How Raku deals with data structures and what we can expect from them</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/contexts">Contexts and contextualizers</a></td> <td>What are contexts and how to switch into them</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/syntax">Syntax</a></td> <td>General rules of Raku syntax</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/setbagmix">Sets, bags, and mixes</a></td> <td>Unordered collections of unique and weighted objects in Raku</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/traits">Traits</a></td> <td>Compile-time specification of behavior made easy</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/mop">Metaobject protocol (MOP)</a></td> <td>Introspection and the Raku object system</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/control">Control flow</a></td> <td>Statements used to control the flow of execution</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/variables">Variables</a></td> <td>Variables in Raku</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/numerics">Numerics</a></td> <td>Numeric types available in Raku</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/typesystem">Type system</a></td> <td>Introduction to the type system of Raku</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/performance">Performance</a></td> <td>Measuring and improving runtime or compile-time performance</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/unicode_ascii">Unicode versus ASCII symbols</a></td> <td>Unicode symbols and their ASCII equivalents</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/pragmas">Pragmas</a></td> <td>Special modules that define certain aspects of the behavior of the code</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/objects">Object orientation</a></td> <td>Object orientation in Raku</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/system">System interaction</a></td> <td>Working with the underlying operating system and running applications</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/list">Lists, sequences, and arrays</a></td> <td>Positional data constructs</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/hashmap">Hashes and maps</a></td> <td>Working with associative arrays/dictionaries/hashes</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/quoting">Quoting constructs</a></td> <td>Writing strings, word lists, and regexes in Raku</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/subscripts">Subscripts</a></td> <td>Accessing data structure elements by index or key</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/containers">Containers</a></td> <td>A low-level explanation of Raku containers</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/io-guide">Input/Output the definitive guide</a></td> <td>Correctly use Raku IO</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/statement-prefixes">Statement prefixes</a></td> <td>Prefixes that alter the behavior of a statement or a set of them</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/phasers">Phasers</a></td> <td>Program execution phases and corresponding phaser blocks</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/temporal">Date and time functions</a></td> <td>Processing date and time in Raku</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/functions">Functions</a></td> <td>Functions and functional programming in Raku</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/newline">Newline handling in Raku</a></td> <td>How the different newline characters are handled, and how to change the behavior</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/packages">Packages</a></td> <td>Organizing and referencing namespaced program elements</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/enumeration">Enumeration</a></td> <td>An example using the enum type</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/nativecall">Native calling interface</a></td> <td>Call into dynamic libraries that follow the C calling convention</td> </tr>
+</tbody>
+</table><h2 id="General_reference"><a class="u" href="#___top" title="go to top of document">General reference</a></h2>
+<table class="pod-table">
+<tbody>
+<tr> <td><a href="/Documentable/integration-test/language/traps">Traps to avoid</a></td> <td>Traps to avoid when getting started with Raku</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/pod">Pod6</a></td> <td>An easy-to-use markup language for documenting Raku&nbsp;modules and programs</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/testing">Testing</a></td> <td>Writing and running tests in Raku</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/glossary">Glossary</a></td> <td>Glossary of Raku terminology</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/terms">Terms</a></td> <td>Raku terms</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/tables">Pod6 tables</a></td> <td>The good, the bad and the ugly</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/opener-chars">Opener graphemes</a></td> <td>Valid opening paired delimiters</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/faq">FAQ</a></td> <td>Frequently asked questions about Raku</td> </tr> <tr> <td><a href="/Documentable/integration-test/language/community">Community</a></td> <td>Information about the people working on and using Raku</td> </tr>
+</tbody>
+</table><h2 id="Advanced_topics"><a class="u" href="#___top" title="go to top of document">Advanced topics</a></h2>
+<table class="pod-table">
+<tbody>
+<tr> <td><a href="/Documentable/integration-test/language/experimental">Experimental features</a></td> <td>Preview of upcoming new language features available for user evaluation</td> </tr>
+</tbody>
+</table>
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

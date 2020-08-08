@@ -1,0 +1,1278 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Traps to avoid</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/traps.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Traps to avoid</h1>
+        <p class="subtitle">Traps to avoid when getting started with Raku</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+     <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Variables_and_constants">Variables and constants</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#Constants_are_computed_at_compile_time">Constants are computed at compile time</a></td></tr>
+                        <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#Assigning_to_Nil_produces_a_different_value,_usually_Any">Assigning to <code class="pod-code-inline">Nil</code> produces a different value, usually <code class="pod-code-inline">Any</code></a></td></tr>
+                                               <tr class="toc-level-2"><td class="toc-number">1.3</td><td class="toc-text"><a href="#Using_a_block_to_interpolate_anon_state_vars">Using a block to interpolate anon state vars</a></td></tr>
+                                                                            <tr class="toc-level-2"><td class="toc-number">1.4</td><td class="toc-text"><a href="#Using_set_subroutines_on_Associative_when_the_value_is_falsy">Using set subroutines on <code class="pod-code-inline">Associative</code> when the value is falsy</a></td></tr>
+                                       <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Blocks">Blocks</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#Beware_of_empty_&quot;blocks&quot;">Beware of empty &quot;blocks&quot;</a></td></tr>
+            <tr class="toc-level-1"><td class="toc-number">3</td><td class="toc-text"><a href="#Objects">Objects</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">3.1</td><td class="toc-text"><a href="#Assigning_to_attributes">Assigning to attributes</a></td></tr>
+                                                            <tr class="toc-level-2"><td class="toc-number">3.2</td><td class="toc-text"><a href="#BUILD_prevents_automatic_attribute_initialization_from_constructor_arguments"><code class="pod-code-inline">BUILD</code> prevents automatic attribute initialization from constructor arguments</a></td></tr>
+                                                    <tr class="toc-level-1"><td class="toc-number">4</td><td class="toc-text"><a href="#Whitespace">Whitespace</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">4.1</td><td class="toc-text"><a href="#Whitespace_in_regexes_does_not_match_literally">Whitespace in regexes does not match literally</a></td></tr>
+                          <tr class="toc-level-2"><td class="toc-number">4.2</td><td class="toc-text"><a href="#Ambiguities_in_parsing">Ambiguities in parsing</a></td></tr>
+     <tr class="toc-level-3"><td class="toc-number">4.2.1</td><td class="toc-text"><a href="#Block_vs._Hash_slice_ambiguity">Block vs. Hash slice ambiguity</a></td></tr>
+              <tr class="toc-level-3"><td class="toc-number">4.2.2</td><td class="toc-text"><a href="#Reduction_vs._Array_constructor_ambiguity">Reduction vs. Array constructor ambiguity</a></td></tr>
+              <tr class="toc-level-3"><td class="toc-number">4.2.3</td><td class="toc-text"><a href="#Less_than_vs._Word_quoting/Associative_indexing">Less than vs. Word quoting/Associative indexing</a></td></tr>
+         <tr class="toc-level-3"><td class="toc-number">4.2.4</td><td class="toc-text"><a href="#Exclusive_sequences_vs._sequences_with_Ranges">Exclusive sequences vs. sequences with Ranges</a></td></tr>
+          <tr class="toc-level-1"><td class="toc-number">5</td><td class="toc-text"><a href="#Captures">Captures</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">5.1</td><td class="toc-text"><a href="#Containers_versus_values_in_a_capture">Containers versus values in a capture</a></td></tr>
+                                                                              <tr class="toc-level-1"><td class="toc-number">6</td><td class="toc-text"><a href="#Cool_tricks"><code class="pod-code-inline">Cool</code> tricks</a></td></tr>
+              <tr class="toc-level-2"><td class="toc-number">6.1</td><td class="toc-text"><a href="#Strings_are_not_Lists,_so_beware_indexing">Strings are not <code class="pod-code-inline">List</code> s, so beware indexing</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">6.2</td><td class="toc-text"><a href="#Lists_become_strings,_so_beware_.index()ing"><code class="pod-code-inline">List</code> s become strings, so beware <code class="pod-code-inline">.index()</code> ing</a></td></tr>
+                            <tr class="toc-level-2"><td class="toc-number">6.3</td><td class="toc-text"><a href="#Lists_become_strings,_so_beware_.contains()"><code class="pod-code-inline">List</code> s become strings, so beware <code class="pod-code-inline">.contains()</code></a></td></tr>
+                                    <tr class="toc-level-2"><td class="toc-number">6.4</td><td class="toc-text"><a href="#Numeric_literals_are_parsed_before_coercion"><code class="pod-code-inline">Numeric</code> literals are parsed before coercion</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">6.5</td><td class="toc-text"><a href="#Getting_a_random_item_from_a_List">Getting a random item from a <code class="pod-code-inline">List</code></a></td></tr>
+                          <tr class="toc-level-2"><td class="toc-number">6.6</td><td class="toc-text"><a href="#Lists_numify_to_their_number_of_elements_in_numeric_context"><code class="pod-code-inline">List</code> s numify to their number of elements in numeric context</a></td></tr>
+             <tr class="toc-level-1"><td class="toc-number">7</td><td class="toc-text"><a href="#Arrays">Arrays</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">7.1</td><td class="toc-text"><a href="#Referencing_the_last_element_of_an_array">Referencing the last element of an array</a></td></tr>
+                    <tr class="toc-level-2"><td class="toc-number">7.2</td><td class="toc-text"><a href="#Typed_array_parameters">Typed array parameters</a></td></tr>
+                            <tr class="toc-level-2"><td class="toc-number">7.3</td><td class="toc-text"><a href="#Using_«»_quoting_when_you_don't_need_it">Using <code class="pod-code-inline">«»</code> quoting when you don&#39;t need it</a></td></tr>
+                                     <tr class="toc-level-1"><td class="toc-number">8</td><td class="toc-text"><a href="#Strings">Strings</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">8.1</td><td class="toc-text"><a href="#Quotes_and_interpolation">Quotes and interpolation</a></td></tr>
+                                  <tr class="toc-level-2"><td class="toc-number">8.2</td><td class="toc-text"><a href="#Strings_are_not_iterable">Strings are not iterable</a></td></tr>
+              <tr class="toc-level-2"><td class="toc-number">8.3</td><td class="toc-text"><a href="#.chars_gets_the_number_of_graphemes,_not_Codepoints"><code class="pod-code-inline">.chars</code> gets the number of graphemes, not Codepoints</a></td></tr>
+            <tr class="toc-level-2"><td class="toc-number">8.4</td><td class="toc-text"><a href="#All_text_is_normalized_by_default">All text is normalized by default</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">8.5</td><td class="toc-text"><a href="#Allomorphs_generally_follow_numeric_semantics">Allomorphs generally follow numeric semantics</a></td></tr>
+                                       <tr class="toc-level-2"><td class="toc-number">8.6</td><td class="toc-text"><a href="#Case-insensitive_comparison_of_strings">Case-insensitive comparison of strings</a></td></tr>
+                     <tr class="toc-level-1"><td class="toc-number">9</td><td class="toc-text"><a href="#Pairs">Pairs</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">9.1</td><td class="toc-text"><a href="#Constants_on_the_left-hand_side_of_pair_notation">Constants on the left-hand side of pair notation</a></td></tr>
+                         <tr class="toc-level-2"><td class="toc-number">9.2</td><td class="toc-text"><a href="#Scalar_values_within_Pair">Scalar values within <code class="pod-code-inline">Pair</code></a></td></tr>
+                              <tr class="toc-level-1"><td class="toc-number">10</td><td class="toc-text"><a href="#Sets,_bags_and_mixes">Sets, bags and mixes</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">10.1</td><td class="toc-text"><a href="#Sets,_bags_and_mixes_do_not_have_a_fixed_order">Sets, bags and mixes do not have a fixed order</a></td></tr>
+              <tr class="toc-level-1"><td class="toc-number">11</td><td class="toc-text"><a href="#Operators">Operators</a></td></tr>
+  <tr class="toc-level-2"><td class="toc-number">11.1</td><td class="toc-text"><a href="#Junctions">Junctions</a></td></tr>
+                          <tr class="toc-level-2"><td class="toc-number">11.2</td><td class="toc-text"><a href="#Exclusive_sequence_operator">Exclusive sequence operator</a></td></tr>
+                      <tr class="toc-level-2"><td class="toc-number">11.3</td><td class="toc-text"><a href="#String_ranges/Sequences">String ranges/Sequences</a></td></tr>
+                                <tr class="toc-level-2"><td class="toc-number">11.4</td><td class="toc-text"><a href="#Topicalizing_operators">Topicalizing operators</a></td></tr>
+                                 <tr class="toc-level-2"><td class="toc-number">11.5</td><td class="toc-text"><a href="#Fat_arrow_and_constants">Fat arrow and constants</a></td></tr>
+                <tr class="toc-level-2"><td class="toc-number">11.6</td><td class="toc-text"><a href="#Infix_operator_assignment">Infix operator assignment</a></td></tr>
+                                    <tr class="toc-level-1"><td class="toc-number">12</td><td class="toc-text"><a href="#Regexes">Regexes</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">12.1</td><td class="toc-text"><a href="#$x_vs_&lt;$x&gt;,_and_$(code)_vs_&lt;{code}&gt;"><code class="pod-code-inline">$x</code> vs <code class="pod-code-inline">&lt;$x&gt;</code> , and <code class="pod-code-inline">$(code)</code> vs <code class="pod-code-inline">&lt;{code}&gt;</code></a></td></tr>
+                                        <tr class="toc-level-2"><td class="toc-number">12.2</td><td class="toc-text"><a href="#|_vs_||:_which_branch_will_win"><code class="pod-code-inline">|</code> vs <code class="pod-code-inline">||</code> : which branch will win</a></td></tr>
+                                  <tr class="toc-level-2"><td class="toc-number">12.3</td><td class="toc-text"><a href="#$/_changes_each_time_a_regular_expression_is_matched"><code class="pod-code-inline">$/</code> changes each time a regular expression is matched</a></td></tr>
+              <tr class="toc-level-2"><td class="toc-number">12.4</td><td class="toc-text"><a href="#&lt;foo&gt;_vs._&lt;_foo&gt;:_named_rules_vs._quoted_lists"><code class="pod-code-inline">&lt;foo&gt;</code> vs. <code class="pod-code-inline">&lt; foo&gt;</code> : named rules vs. quoted lists</a></td></tr>
+                    <tr class="toc-level-2"><td class="toc-number">12.5</td><td class="toc-text"><a href="#Non-capturing,_non-global_matching_in_list_context">Non-capturing, non-global matching in list context</a></td></tr>
+       <tr class="toc-level-1"><td class="toc-number">13</td><td class="toc-text"><a href="#Common_precedence_mistakes">Common precedence mistakes</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">13.1</td><td class="toc-text"><a href="#Adverbs_and_precedence">Adverbs and precedence</a></td></tr>
+              <tr class="toc-level-2"><td class="toc-number">13.2</td><td class="toc-text"><a href="#Ranges_and_precedence">Ranges and precedence</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">13.3</td><td class="toc-text"><a href="#Loose_Boolean_operators">Loose Boolean operators</a></td></tr>
+                      <tr class="toc-level-2"><td class="toc-number">13.4</td><td class="toc-text"><a href="#Exponentiation_operator_and_prefix_minus">Exponentiation operator and prefix minus</a></td></tr>
+                    <tr class="toc-level-2"><td class="toc-number">13.5</td><td class="toc-text"><a href="#Method_operator_calls_and_prefix_minus">Method operator calls and prefix minus</a></td></tr>
+      <tr class="toc-level-1"><td class="toc-number">14</td><td class="toc-text"><a href="#Subroutine_and_method_calls">Subroutine and method calls</a></td></tr>
+                                  <tr class="toc-level-2"><td class="toc-number">14.1</td><td class="toc-text"><a href="#Named_parameters">Named parameters</a></td></tr>
+                                                         <tr class="toc-level-2"><td class="toc-number">14.2</td><td class="toc-text"><a href="#Argument_count_limit">Argument count limit</a></td></tr>
+                             <tr class="toc-level-2"><td class="toc-number">14.3</td><td class="toc-text"><a href="#Phasers_and_implicit_return">Phasers and implicit return</a></td></tr>
+                                                            <tr class="toc-level-2"><td class="toc-number">14.4</td><td class="toc-text"><a href="#LEAVE_needs_explicit_return_from_a_sub_to_run"><code class="pod-code-inline">LEAVE</code> needs explicit return from a sub to run</a></td></tr>
+                      <tr class="toc-level-1"><td class="toc-number">15</td><td class="toc-text"><a href="#Input_and_output">Input and output</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">15.1</td><td class="toc-text"><a href="#Closing_open_filehandles_and_pipes">Closing open filehandles and pipes</a></td></tr>
+                            <tr class="toc-level-2"><td class="toc-number">15.2</td><td class="toc-text"><a href="#IO::Path_stringification">IO::Path stringification</a></td></tr>
+                                                          <tr class="toc-level-2"><td class="toc-number">15.3</td><td class="toc-text"><a href="#Splitting_the_input_data_into_lines">Splitting the input data into lines</a></td></tr>
+                                                                    <tr class="toc-level-2"><td class="toc-number">15.4</td><td class="toc-text"><a href="#Proc::Async_and_print">Proc::Async and <code class="pod-code-inline">print</code></a></td></tr>
+                                                           <tr class="toc-level-2"><td class="toc-number">15.5</td><td class="toc-text"><a href="#Using_.stdout_without_.lines">Using <code class="pod-code-inline">.stdout</code> without <code class="pod-code-inline">.lines</code></a></td></tr>
+                                                              <tr class="toc-level-1"><td class="toc-number">16</td><td class="toc-text"><a href="#Exception_handling">Exception handling</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">16.1</td><td class="toc-text"><a href="#Sunk_Proc">Sunk <code class="pod-code-inline">Proc</code></a></td></tr>
+                                          <tr class="toc-level-1"><td class="toc-number">17</td><td class="toc-text"><a href="#Using_shortcuts">Using shortcuts</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">17.1</td><td class="toc-text"><a href="#The_^_twigil">The ^ twigil</a></td></tr>
+                                      <tr class="toc-level-2"><td class="toc-number">17.2</td><td class="toc-text"><a href="#Using_»_and_map_interchangeably">Using <code class="pod-code-inline">»</code> and <code class="pod-code-inline">map</code> interchangeably</a></td></tr>
+                                    <tr class="toc-level-2"><td class="toc-number">17.3</td><td class="toc-text"><a href="#Word_splitting_in_«_»">Word splitting in <code class="pod-code-inline">« »</code></a></td></tr>
+              <tr class="toc-level-1"><td class="toc-number">18</td><td class="toc-text"><a href="#Scope">Scope</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">18.1</td><td class="toc-text"><a href="#Using_a_once_block">Using a <code class="pod-code-inline">once</code> block</a></td></tr>
+                                                                                                                              <tr class="toc-level-2"><td class="toc-number">18.2</td><td class="toc-text"><a href="#LEAVE_phaser_and_exit"><code class="pod-code-inline">LEAVE</code> phaser and <code class="pod-code-inline">exit</code></a></td></tr>
+                                                <tr class="toc-level-2"><td class="toc-number">18.3</td><td class="toc-text"><a href="#LEAVE_phaser_may_run_sooner_than_you_think"><code class="pod-code-inline">LEAVE</code> phaser may run sooner than you think</a></td></tr>
+                                                         <tr class="toc-level-1"><td class="toc-number">19</td><td class="toc-text"><a href="#Grammars">Grammars</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">19.1</td><td class="toc-text"><a href="#Using_regexes_within_grammar's_actions">Using regexes within grammar&#39;s actions</a></td></tr>
+                             <tr class="toc-level-2"><td class="toc-number">19.2</td><td class="toc-text"><a href="#Using_certain_names_for_rules/token/regexes">Using certain names for rules/token/regexes</a></td></tr>
+                                          <tr class="toc-level-1"><td class="toc-number">20</td><td class="toc-text"><a href="#Unfortunate_generalization">Unfortunate generalization</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">20.1</td><td class="toc-text"><a href="#:exists_with_more_than_one_key"><code class="pod-code-inline">:exists</code> with more than one key</a></td></tr>
+                                          <tr class="toc-level-2"><td class="toc-number">20.2</td><td class="toc-text"><a href="#Using_[…]_metaoperator_with_a_list_of_lists">Using <code class="pod-code-inline">[…]</code> metaoperator with a list of lists</a></td></tr>
+                      <tr class="toc-level-2"><td class="toc-number">20.3</td><td class="toc-text"><a href="#Using_[~]_for_concatenating_a_list_of_blobs">Using [~] for concatenating a list of blobs</a></td></tr>
+                                                          <tr class="toc-level-1"><td class="toc-number">21</td><td class="toc-text"><a href="#Maps">Maps</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-number">21.1</td><td class="toc-text"><a href="#Beware_of_nesting_Maps_in_sink_context">Beware of nesting <code class="pod-code-inline">Map</code> s in sink context</a></td></tr>
+                                            <tr class="toc-level-1"><td class="toc-number">22</td><td class="toc-text"><a href="#Smartmatching">Smartmatching</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">22.1</td><td class="toc-text"><a href="#Smartmatch_and_WhateverCode">Smartmatch and <code class="pod-code-inline">WhateverCode</code></a></td></tr>
+                              
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>When learning a programming language, possibly with the background of being familiar with another programming language, there are always some things that can surprise you and might cost valuable time in debugging and discovery.</p>
+<p>This document aims to show common misconceptions in order to avoid them.</p>
+<p>During the making of Raku great pains were taken to get rid of warts in the syntax. When you whack one wart, though, sometimes another pops up. So a lot of time was spent finding the minimum number of warts or trying to put them where they would rarely be seen. Because of this, Raku&#39;s warts are in different places than you may expect them to be when coming from another language.</p>
+<h1 id="Variables_and_constants"><a class="u" href="#___top" title="go to top of document">Variables and constants</a></h1>
+<h2 id="Constants_are_computed_at_compile_time"><a class="u" href="#___top" title="go to top of document">Constants are computed at compile time</a></h2>
+<p>Constants are computed at compile time, so if you use them in modules keep in mind that their values will be frozen due to precompilation of the module itself:</p>
+<pre class="pod-block-code"># WRONG (most likely):
+unit module Something::Or::Other;
+constant $config-file = &quot;config.txt&quot;.IO.slurp;
+</pre>
+<p>The <code>$config-file</code> will be slurped during precompilation and changes to <code>config.txt</code> file won&#39;t be re-loaded when you start the script again; only when the module is re-compiled.</p>
+<p>Avoid <a href="/Documentable/integration-test/language/containers">using a container</a> and prefer <a href="/Documentable/integration-test/language/containers#Binding">binding a value</a> to a variable that offers a behavior similar to a constant, but allowing the value to get updated:</p>
+<pre class="pod-block-code"># Good; file gets updated from &#39;config.txt&#39; file on each script run:
+unit module Something::Or::Other;
+my $config-file := &quot;config.txt&quot;.IO.slurp;
+</pre>
+<h2 id="Assigning_to_Nil_produces_a_different_value,_usually_Any"><a class="u" href="#___top" title="go to top of document">Assigning to <code>Nil</code> produces a different value, usually <code>Any</code></a></h2>
+<p>Actually, assigning to <code>Nil</code> <a href="/Documentable/integration-test/type/Nil">reverts the variable to its default value</a>. So:</p>
+<pre class="pod-block-code">my @a = 4, 8, 15, 16;
+@a[2] = Nil;
+say @a; # OUTPUT: «[4 8 (Any) 16]␤»
+</pre>
+<p>In this case, <code>Any</code> is the default value of an <code>Array</code> element.</p>
+<p>You can purposefully assign <code>Nil</code> as a default value:</p>
+<pre class="pod-block-code">my %h is default(Nil) = a =&gt; Nil;
+say %h; # OUTPUT: «Hash %h = {:a(Nil)}␤»
+</pre>
+<p>Or bind a value to <code>Nil</code> if that is the result you want:</p>
+<pre class="pod-block-code">@a[3] := Nil;
+say @a; # OUTPUT: «[4 8 (Any) Nil]␤»
+</pre>
+<p>This trap might be hidden in the result of functions, such as matches:</p>
+<pre class="pod-block-code">my $result2 = &#39;abcdef&#39; ~~ / dex /;
+say &quot;Result2 is { $result2.^name }&quot;; # OUTPUT: «Result2 is Any␤»
+</pre>
+<p>A <a href="/Documentable/integration-test/language/regexes#Literals"><code>Match</code> will be <code>Nil</code></a> if it finds nothing; however assigning <code>Nil</code> to <code>$result2</code> above will result in its default value, which is <code>Any</code> as shown.</p>
+<h2 id="Using_a_block_to_interpolate_anon_state_vars"><a class="u" href="#___top" title="go to top of document">Using a block to interpolate anon state vars</a></h2>
+<p>The programmer intended for the code to count the number of times the routine is called, but the counter is not increasing:</p>
+<pre class="pod-block-code">sub count-it { say &quot;Count is {$++}&quot; }
+count-it;
+count-it;
+
+# OUTPUT:
+# Count is 0
+# Count is 0
+</pre>
+<p>When it comes to state variables, the block in which the vars are declared gets cloned —and vars get initialized anew— whenever that block&#39;s block is re-entered. This lets constructs like the one below behave appropriately; the state variable inside the loop gets initialized anew each time the sub is called:</p>
+<pre class="pod-block-code">sub count-it {
+    for ^3 {
+        state $count = 0;
+        say &quot;Count is $count&quot;;
+        $count++;
+    }
+}
+
+count-it;
+say &quot;…and again…&quot;;
+count-it;
+
+
+# OUTPUT:
+# Count is 0
+# Count is 1
+# Count is 2
+# …and again…
+# Count is 0
+# Count is 1
+# Count is 2
+</pre>
+<p>The same layout exists in our buggy program. The <code>{ }</code> inside a double-quoted string isn&#39;t merely an interpolation to execute a piece of code. It&#39;s actually its own block, which is just as in the example above gets cloned each time the sub is entered, re-initializing our state variable. To get the right count, we need to get rid of that inner block, using a scalar contextualizer to interpolate our piece of code instead:</p>
+<pre class="pod-block-code">sub count-it { say &quot;Count is $($++)&quot; }
+count-it;
+count-it;
+
+# OUTPUT:
+# Count is 0
+# Count is 1
+</pre>
+<p>Alternatively, you can also use the <a href="/Documentable/integration-test/routine/~">concatenation operator</a> instead:</p>
+<pre class="pod-block-code">sub count-it { say &quot;Count is &quot; ~ $++ }
+</pre>
+<h2 id="Using_set_subroutines_on_Associative_when_the_value_is_falsy"><a class="u" href="#___top" title="go to top of document">Using set subroutines on <code>Associative</code> when the value is falsy</a></h2>
+<p>Using <a href="/Documentable/integration-test/routine/(cont) , infix  ∋">(cont)</a>, <a href="/Documentable/integration-test/routine/(cont),%20infix%20∋">∋</a>, <a href="/Documentable/integration-test/routine/∌">∌</a>, <a href="/Documentable/integration-test/routine/(elem), infix ∈">(elem)</a>, <a href="/Documentable/integration-test/routine/(elem), infix ∈">∈</a>, or <a href="/Documentable/integration-test/routine/∉">∉</a> on classes implementing <a href="/Documentable/integration-test/type/Associative">Associative</a> will return <code>False</code> if the value of the key is falsy:</p>
+<pre class="pod-block-code">enum Foo «a b»;
+say Foo.enums ∋ &#39;a&#39;;
+
+# OUTPUT:
+# False
+</pre>
+<p>Instead, use <code>:exists</code>:</p>
+<pre class="pod-block-code">enum Foo «a b»;
+say Foo.enums&lt;a&gt;:exists;
+
+# OUTPUT:
+# True
+</pre>
+<h1 id="Blocks"><a class="u" href="#___top" title="go to top of document">Blocks</a></h1>
+<h2 id="Beware_of_empty_&quot;blocks&quot;"><a class="u" href="#___top" title="go to top of document">Beware of empty &quot;blocks&quot;</a></h2>
+<p>Curly braces are used to declare blocks. However, empty curly braces will declare a hash.</p>
+<pre class="pod-block-code">$ = {say 42;} # Block
+$ = {;}       # Block
+$ = {…}       # Block
+$ = { }       # Hash
+</pre>
+<p>You can use the second form if you effectively want to declare an empty block:</p>
+<pre class="pod-block-code">my &amp;does-nothing = {;};
+say does-nothing(33); # OUTPUT: «Nil␤»</pre>
+<h1 id="Objects"><a class="u" href="#___top" title="go to top of document">Objects</a></h1>
+<h2 id="Assigning_to_attributes"><a class="u" href="#___top" title="go to top of document">Assigning to attributes</a></h2>
+<p>Newcomers often think that, because attributes with accessors are declared as <code>has $.x</code>, they can assign to <code>$.x</code> inside the class. That&#39;s not the case.</p>
+<p>For example</p>
+<pre class="pod-block-code">class Point {
+    has $.x;
+    has $.y;
+    method double {
+        $.x *= 2;   # WRONG
+        $.y *= 2;   # WRONG
+        self;
+    }
+}
+
+say Point.new(x =&gt; 1, y =&gt; -2).double.x
+# OUTPUT: «Cannot assign to an immutable value␤»
+</pre>
+<p>the first line inside the method <code>double</code> is marked with <code># WRONG</code> because <code>$.x</code>, short for <code>$( self.x )</code>, is a call to a read-only accessor.</p>
+<p>The syntax <code>has $.x</code> is short for something like <code>has $!x; method x() { $!x }</code>, so the actual attribute is called <code>$!x</code>, and a read-only accessor method is automatically generated.</p>
+<p>Thus the correct way to write the method <code>double</code> is</p>
+<pre class="pod-block-code">method double {
+    $!x *= 2;
+    $!y *= 2;
+    self;
+}
+</pre>
+<p>which operates on the attributes directly.</p>
+<h2 id="BUILD_prevents_automatic_attribute_initialization_from_constructor_arguments"><a class="u" href="#___top" title="go to top of document"><code>BUILD</code> prevents automatic attribute initialization from constructor arguments</a></h2>
+<p>When you define your own <code>BUILD</code> submethod, you must take care of initializing all attributes by yourself. For example</p>
+<pre class="pod-block-code">class A {
+    has $.x;
+    has $.y;
+    submethod BUILD {
+        $!y = 18;
+    }
+}
+
+say A.new(x =&gt; 42).x;       # OUTPUT: «Any␤»
+</pre>
+<p>leaves <code>$!x</code> uninitialized, because the custom <code>BUILD</code> doesn&#39;t initialize it.</p>
+<p><strong>Note:</strong> Consider using <a href="/Documentable/integration-test/language/objects#index-entry-TWEAK">TWEAK</a> instead. <a href="/Documentable/integration-test/language/glossary#Rakudo">Rakudo</a> supports <a href="/Documentable/integration-test/language/objects#index-entry-TWEAK">TWEAK</a> method since release 2016.11.</p>
+<p>One possible remedy is to explicitly initialize the attribute in <code>BUILD</code>:</p>
+<pre class="pod-block-code">submethod BUILD(:$x) {
+    $!y = 18;
+    $!x := $x;
+}
+</pre>
+<p>which can be shortened to:</p>
+<pre class="pod-block-code">submethod BUILD(:$!x) {
+    $!y = 18;
+}
+</pre>
+<h1 id="Whitespace"><a class="u" href="#___top" title="go to top of document">Whitespace</a></h1>
+<h2 id="Whitespace_in_regexes_does_not_match_literally"><a class="u" href="#___top" title="go to top of document">Whitespace in regexes does not match literally</a></h2>
+<pre class="pod-block-code">say &#39;a b&#39; ~~ /a b/; # OUTPUT: «False␤»
+</pre>
+<p>Whitespace in regexes is, by default, considered an optional filler without semantics, just like in the rest of the Raku language.</p>
+<p>Ways to match whitespace:</p>
+<ul><li><p><code>\s</code> to match any one whitespace, <code>\s+</code> to match at least one</p>
+</li>
+<li><p><code>&#39; &#39;</code> (a blank in quotes) to match a single blank</p>
+</li>
+<li><p><code>\t</code>, <code>\n</code> for specific whitespace (tab, newline)</p>
+</li>
+<li><p><code>\h</code>, <code>\v</code> for horizontal, vertical whitespace</p>
+</li>
+<li><p><code>.ws</code>, a built-in rule for whitespace that oftentimes does what you actually want it to do</p>
+</li>
+<li><p>with <code>m:s/a b/</code> or <code>m:sigspace/a b/</code>, the blank in the regexes matches arbitrary whitespace</p>
+</li>
+</ul>
+<h2 id="Ambiguities_in_parsing"><a class="u" href="#___top" title="go to top of document">Ambiguities in parsing</a></h2>
+<p>While some languages will let you get away with removing as much whitespace between tokens as possible, Raku is less forgiving. The overarching mantra is we discourage code golf, so don&#39;t scrimp on whitespace (the more serious underlying reason behind these restrictions is single-pass parsing and ability to parse Raku programs with virtually no <a href="https://en.wikipedia.org/wiki/Backtracking">backtracking</a>).</p>
+<p>The common areas you should watch out for are:</p>
+<h3 id="Block_vs._Hash_slice_ambiguity"><a class="u" href="#___top" title="go to top of document">Block vs. Hash slice ambiguity</a></h3>
+<pre class="pod-block-code"># WRONG; trying to hash-slice a Bool:
+while ($++ &gt; 5){ .say }
+</pre>
+<pre class="pod-block-code"># RIGHT:
+while ($++ &gt; 5) { .say }
+
+# EVEN BETTER; Raku does not require parentheses there:
+while $++ &gt; 5 { .say }
+</pre>
+<h3 id="Reduction_vs._Array_constructor_ambiguity"><a class="u" href="#___top" title="go to top of document">Reduction vs. Array constructor ambiguity</a></h3>
+<pre class="pod-block-code"># WRONG; ambiguity with `[&lt;]` metaop:
+my @a = [[&lt;foo&gt;],];
+</pre>
+<pre class="pod-block-code"># RIGHT; reductions cannot have spaces in them, so put one in:
+my @a = [[ &lt;foo&gt;],];
+
+# No ambiguity here, natural spaces between items suffice to resolve it:
+my @a = [[&lt;foo bar ber&gt;],];
+</pre>
+<h3 id="Less_than_vs._Word_quoting/Associative_indexing"><a class="u" href="#___top" title="go to top of document">Less than vs. Word quoting/Associative indexing</a></h3>
+<pre class="pod-block-code"># WRONG; trying to index 3 associatively:
+say 3&lt;5&gt;4
+</pre>
+<pre class="pod-block-code"># RIGHT; prefer some extra whitespace around infix operators:
+say 3 &lt; 5 &gt; 4
+</pre>
+<h3 id="Exclusive_sequences_vs._sequences_with_Ranges"><a class="u" href="#___top" title="go to top of document">Exclusive sequences vs. sequences with Ranges</a></h3>
+<p>See the section on <a href="#Exclusive_sequence_operator">operator traps</a> for more information about how the <code>...^</code> operator can be mistaken for the <code>...</code> operator with a <code>^</code> operator immediately following it. You must use whitespace correctly to indicate which interpretation will be followed.</p>
+<h1 id="Captures"><a class="u" href="#___top" title="go to top of document">Captures</a></h1>
+<h2 id="Containers_versus_values_in_a_capture"><a class="u" href="#___top" title="go to top of document">Containers versus values in a capture</a></h2>
+<p>Beginners might expect a variable in a <code>Capture</code> to supply its current value when that <code>Capture</code> is later used. For example:</p>
+<pre class="pod-block-code">my $a = 2; say join &quot;,&quot;, ($a, ++$a);  # OUTPUT: «3,3␤»
+</pre>
+<p>Here the <code>Capture</code> contained the <strong>container</strong> pointed to by <code>$a</code> and the <strong>value</strong> of the result of the expression <code>++$a</code>. Since the <code>Capture</code> must be reified before <code>&amp;say</code> can use it, the <code>++$a</code> may happen before <code>&amp;say</code> looks inside the container in <code>$a</code> (and before the <code>List</code> is created with the two terms) and so it may already be incremented.</p>
+<p>Instead, use an expression that produces a value when you want a value.</p>
+<pre class="pod-block-code">my $a = 2; say join &quot;,&quot;, (+$a, ++$a); # OUTPUT: «2,3␤»
+</pre>
+<p>Or even simpler</p>
+<pre class="pod-block-code">my $a = 2; say  &quot;$a, {++$a}&quot;; # OUTPUT: «2, 3␤»
+</pre>
+<p>The same happens in this case:</p>
+<pre class="pod-block-code">my @arr;
+my ($a, $b) = (1,1);
+for ^5 {
+    ($a,$b) = ($b, $a+$b);
+    @arr.push: ($a, $b);
+    say @arr
+};
+</pre>
+<p>Outputs <code>«[(1 2)]␤[(2 3) (2 3)]␤[(3 5) (3 5) (3 5)]␤...</code>. <code>$a</code> and <code>$b</code> are not reified until <code>say</code> is called, the value that they have in that precise moment is the one printed. To avoid that, decontainerize values or take them out of the variable in some way before using them.</p>
+<pre class="pod-block-code">my @arr;
+my ($a, $b) = (1,1);
+for ^5 {
+    ($a,$b) = ($b, $a+$b);
+    @arr.push: ($a.item, $b.item);
+    say @arr
+};
+</pre>
+<p>With <a href="/Documentable/integration-test/routine/item">item</a>, the container will be evaluated in item context, its value extracted, and the desired outcome achieved.</p>
+<h1 id="Cool_tricks"><a class="u" href="#___top" title="go to top of document"><code>Cool</code> tricks</a></h1>
+<p>Raku includes a <a href="/Documentable/integration-test/type/Cool">Cool</a> class, which provides some of the DWIM behaviors we got used to by coercing arguments when necessary. However, DWIM is never perfect. Especially with <a href="/Documentable/integration-test/type/List">List</a>s, which are <code>Cool</code>, there are many methods that will not do what you probably think they do, including <code>contains</code>, <code>starts-with</code> or <code>index</code>. Please see some examples in the section below.</p>
+<h2 id="Strings_are_not_Lists,_so_beware_indexing"><a class="u" href="#___top" title="go to top of document">Strings are not <code>List</code>s, so beware indexing</a></h2>
+<p>In Raku, <a href="/Documentable/integration-test/type/Str">strings</a> are not lists of characters. One <a href="#Strings_are_not_iterable">cannot iterate</a> over them or index into them as you can with <a href="/Documentable/integration-test/type/List">lists</a>, despite the name of the <a href="/Documentable/integration-test/type/Str#routine_index">.index routine</a>.</p>
+<h2 id="Lists_become_strings,_so_beware_.index()ing"><a class="u" href="#___top" title="go to top of document"><code>List</code>s become strings, so beware <code>.index()</code>ing</a></h2>
+<p><a href="/Documentable/integration-test/type/List">List</a> inherits from <a href="/Documentable/integration-test/type/Cool">Cool</a>, which provides access to <a href="/Documentable/integration-test/type/Str#routine_index">.index</a>. Because of the way <code>.index</code> <a href="/Documentable/integration-test/type/List#method_Str">coerces</a> a <code>List</code> into a <a href="/Documentable/integration-test/type/Str">Str</a>, this can sometimes appear to be returning the index of an element in the list, but that is not how the behavior is defined.</p>
+<pre class="pod-block-code">my @a = &lt;a b c d&gt;;
+say @a.index(‘a’);    # 0
+say @a.index(&#39;c&#39;);    # 4 -- not 2!
+say @a.index(&#39;b c&#39;);  # 2 -- not undefined!
+say @a.index(&lt;a b&gt;);  # 0 -- not undefined!
+</pre>
+<p>These same caveats apply to <a href="/Documentable/integration-test/type/Str#routine_rindex">.rindex</a>.</p>
+<h2 id="Lists_become_strings,_so_beware_.contains()"><a class="u" href="#___top" title="go to top of document"><code>List</code>s become strings, so beware <code>.contains()</code></a></h2>
+<p>Similarly, <a href="/Documentable/integration-test/type/List#(Cool)_method_contains">.contains</a> does not look for elements in the list.</p>
+<pre class="pod-block-code">my @menu = &lt;hamburger fries milkshake&gt;;
+say @menu.contains(&#39;hamburger&#39;);            # True
+say @menu.contains(&#39;hot dog&#39;);              # False
+say @menu.contains(&#39;milk&#39;);                 # True!
+say @menu.contains(&#39;er fr&#39;);                # True!
+say @menu.contains(&lt;es mi&gt;);                # True!
+</pre>
+<p>If you actually want to check for the presence of an element, use the <a href="/Documentable/integration-test/routine/(elem), infix ∈">(cont)</a> operator for single elements, and the <a href="/Documentable/integration-test/language/operators#infix_(>=),_infix_⊇">superset</a> and <a href="/Documentable/integration-test/language/operators#infix_(>),_infix_⊃">strict superset</a> operators for multiple elements.</p>
+<pre class="pod-block-code">my @menu = &lt;hamburger fries milkshake&gt;;
+say @menu (cont) &#39;fries&#39;;                   # True
+say @menu (cont) &#39;milk&#39;;                    # False
+say @menu (&gt;) &lt;hamburger fries&gt;;            # True
+say @menu (&gt;) &lt;milkshake fries&gt;;            # True (! NB: order doesn&#39;t matter)
+</pre>
+<p>If you are doing a lot of element testing, you may be better off using a <a href="/Documentable/integration-test/type/Set">Set</a>.</p>
+<h2 id="Numeric_literals_are_parsed_before_coercion"><a class="u" href="#___top" title="go to top of document"><code>Numeric</code> literals are parsed before coercion</a></h2>
+<p>Experienced programmers will probably not be surprised by this, but Numeric literals will be parsed into their numeric value before being coerced into a string, which may create nonintuitive results.</p>
+<pre class="pod-block-code">say 0xff.contains(55);      # True
+say 0xff.contains(0xf);     # False
+say 12_345.contains(&quot;23&quot;);  # True
+say 12_345.contains(&quot;2_&quot;);  # False
+</pre>
+<h2 id="Getting_a_random_item_from_a_List"><a class="u" href="#___top" title="go to top of document">Getting a random item from a <code>List</code></a></h2>
+<p>A common task is to retrieve one or more random elements from a collection, but <code>List.rand</code> isn&#39;t the way to do that. <a href="/Documentable/integration-test/type/Cool">Cool</a> provides <a href="/Documentable/integration-test/routine/rand#class_Cool">rand</a>, but that first coerces the <code>List</code> into the number of items in the list, and returns a random real number between 0 and that value. To get random elements, see <a href="/Documentable/integration-test/routine/pick">pick</a> and <a href="/Documentable/integration-test/routine/roll">roll</a>.</p>
+<pre class="pod-block-code">my @colors = &lt;red orange yellow green blue indigo violet&gt;;
+say @colors.rand;       # 2.21921955680514
+say @colors.pick;       # orange
+say @colors.roll;       # blue
+say @colors.pick(2);    # yellow violet  (cannot repeat)
+say @colors.roll(3);    # red green red  (can repeat)
+</pre>
+<h2 id="Lists_numify_to_their_number_of_elements_in_numeric_context"><a class="u" href="#___top" title="go to top of document"><code>List</code>s numify to their number of elements in numeric context</a></h2>
+<p>You want to check whether a number is divisible by any of a set of numbers:</p>
+<pre class="pod-block-code">say 42 %% &lt;11 33 88 55 111 20325&gt;; # OUTPUT: «True␤»</pre>
+<p>What? There&#39;s no single number 42 should be divisible by. However, that list has 6 elements, and 42 is divisible by 6. That&#39;s why the output is true. In this case, you should turn the <code>List</code> into a <a href="/Documentable/integration-test/type/Junction">Junction</a>:</p>
+<pre class="pod-block-code">say 42 %% &lt;11 33 88 55 111 20325&gt;.any;
+# OUTPUT: «any(False, False, False, False, False, False)␤»
+</pre>
+<p>which will clearly reveal the falsehood of the divisiveness of all the numbers in the list, which will be numified separately.</p>
+<h1 id="Arrays"><a class="u" href="#___top" title="go to top of document">Arrays</a></h1>
+<h2 id="Referencing_the_last_element_of_an_array"><a class="u" href="#___top" title="go to top of document">Referencing the last element of an array</a></h2>
+<p>In some languages one could reference the last element of an array by asking for the &quot;-1th&quot; element of the array, e.g.:</p>
+<pre class="pod-block-code">my @array = qw{victor alice bob charlie eve};
+say @array[-1];    # OUTPUT: «eve␤»
+</pre>
+<p>In Raku it is not possible to use negative subscripts, however the same is achieved by actually using a function, namely <code>*-1</code>. Thus, accessing the last element of an array becomes:</p>
+<pre class="pod-block-code">my @array = qw{victor alice bob charlie eve};
+say @array[*-1];   # OUTPUT: «eve␤»
+</pre>
+<p>Yet another way is to utilize the array&#39;s tail method:</p>
+<pre class="pod-block-code">my @array = qw{victor alice bob charlie eve};
+say @array.tail;      # OUTPUT: «eve␤»
+say @array.tail(2);   # OUTPUT: «(charlie eve)␤»
+</pre>
+<h2 id="Typed_array_parameters"><a class="u" href="#___top" title="go to top of document">Typed array parameters</a></h2>
+<p>Quite often new users will happen to write something like:</p>
+<pre class="pod-block-code">sub foo(Array @a) { ... }
+</pre>
+<p>...before they have gotten far enough in the documentation to realize that this is asking for an Array of Arrays. To say that <code>@a</code> should only accept Arrays, use instead:</p>
+<pre class="pod-block-code">sub foo(@a where Array) { ... }
+</pre>
+<p>It is also common to expect this to work, when it does not:</p>
+<pre class="pod-block-code">sub bar(Int @a) { 42.say };
+bar([1, 2, 3]);             # expected Positional[Int] but got Array
+</pre>
+<p>The problem here is that [1, 2, 3] is not an <code>Array[Int]</code>, it is a plain old Array that just happens to have Ints in it. To get it to work, the argument must also be an <code>Array[Int]</code>.</p>
+<pre class="pod-block-code">my Int @b = 1, 2, 3;
+bar(@b);                    # OUTPUT: «42␤»
+bar(Array[Int].new(1, 2, 3));
+</pre>
+<p>This may seem inconvenient, but on the upside it moves the type-check on what is assigned to <code>@b</code> to where the assignment happens, rather than requiring every element to be checked on every call.</p>
+<h2 id="Using_«»_quoting_when_you_don't_need_it"><a class="u" href="#___top" title="go to top of document">Using <code>«»</code> quoting when you don&#39;t need it</a></h2>
+<p>This trap can be seen in different varieties. Here are some of them:</p>
+<pre class="pod-block-code">my $x = ‘hello’;
+my $y = ‘foo bar’;
+
+my %h = $x =&gt; 42, $y =&gt; 99;
+say %h«$x»;   # ← WRONG; assumption that $x has no whitespace
+say %h«$y»;   # ← WRONG; splits ‘foo bar’ by whitespace
+say %h«&quot;$y&quot;»; # ← KINDA OK; it works but there is no good reason to do that
+say %h{$y};   # ← RIGHT; this is what should be used
+
+run «touch $x»;        # ← WRONG; assumption that only one file will be created
+run «touch $y»;        # ← WRONG; will touch file ‘foo’ and ‘bar’
+run «touch &quot;$y&quot;»;      # ← WRONG; better, but has a different issue if $y starts with -
+run «touch -- &quot;$y&quot;»;   # ← KINDA OK; it works but there is no good enough reason to do that
+run ‘touch’, ‘--’, $y; # ← RIGHT; explicit and *always* correct
+run &lt;touch --&gt;, $y;    # ← RIGHT; &lt; &gt; are OK, this is short and correct
+</pre>
+<p>Basically, <code>«»</code> quoting is only safe to use if you remember to <em>always</em> quote your variables. The problem is that it inverts the default behavior to unsafe variant, so just by forgetting some quotes you are risking to introduce either a bug or maybe even a security hole. To stay on the safe side, refrain from using <code>«»</code>.</p>
+<h1 id="Strings"><a class="u" href="#___top" title="go to top of document">Strings</a></h1>
+<p>Some problems that might arise when dealing with <a href="/Documentable/integration-test/type/Str">strings</a>.</p>
+<h2 id="Quotes_and_interpolation"><a class="u" href="#___top" title="go to top of document">Quotes and interpolation</a></h2>
+<p>Interpolation in string literals can be too clever for your own good.</p>
+<pre class="pod-block-code"># &quot;HTML tags&quot; interpreted as associative indexing:
+&quot;$foo&lt;html&gt;&lt;/html&gt;&quot; eq
+&quot;$foo{&#39;html&#39;}{&#39;/html&#39;}&quot;
+</pre>
+<pre class="pod-block-code"># Parentheses interpreted as call with argument:
+&quot;$foo(&quot; ~ @args ~ &quot;)&quot; eq
+&quot;$foo(&#39; ~ @args ~ &#39;)&quot;
+</pre>
+<p>You can avoid those problems using non-interpolating single quotes and switching to more liberal interpolation with <code>\qq[]</code> escape sequence:</p>
+<pre class="pod-block-code">my $a = 1;
+say &#39;\qq[$a]()$b()&#39;;
+# OUTPUT: «1()$b()␤»
+</pre>
+<p>Another alternative is to use <code>Q:c</code> quoter, and use code blocks <code>{}</code> for all interpolation:</p>
+<pre class="pod-block-code">my $a = 1;
+say Q:c«{$a}()$b()»;
+# OUTPUT: «1()$b()␤»
+</pre>
+<h2 id="Strings_are_not_iterable"><a class="u" href="#___top" title="go to top of document">Strings are not iterable</a></h2>
+<p>There are methods that <a href="/Documentable/integration-test/type/Str">Str</a> inherits from <a href="/Documentable/integration-test/type/Any">Any</a> that work on iterables like lists. Iterators on strings contain one element that is the whole string. To use list-based methods like <code>sort</code>, <code>reverse</code>, you need to convert the string into a list first.</p>
+<pre class="pod-block-code">say &quot;cba&quot;.sort;              # OUTPUT: «(cba)␤»
+say &quot;cba&quot;.comb.sort.join;    # OUTPUT: «abc␤»
+</pre>
+<h2 id=".chars_gets_the_number_of_graphemes,_not_Codepoints"><a class="u" href="#___top" title="go to top of document"><code>.chars</code> gets the number of graphemes, not Codepoints</a></h2>
+<p>In Raku, <a href="/Documentable/integration-test/routine/chars"><code>.chars</code></a> returns the number of graphemes, or user visible characters. These graphemes could be made up of a letter plus an accent for example. If you need the number of codepoints, you should use <a href="/Documentable/integration-test/routine/codes"><code>.codes</code></a>. If you need the number of bytes when encoded as UTF8, you should use <code>.encode.bytes</code> to encode the string as UTF8 and then get the number of bytes.</p>
+<pre class="pod-block-code">say &quot;\c[LATIN SMALL LETTER J WITH CARON, COMBINING DOT BELOW]&quot;; # OUTPUT: «ǰ̣»
+say &#39;ǰ̣&#39;.codes;        # OUTPUT: «2»
+say &#39;ǰ̣&#39;.chars;        # OUTPUT: «1»
+say &#39;ǰ̣&#39;.encode.bytes; # OUTPUT: «4»</pre>
+<p>For more information on how strings work in Raku, see the <a href="/Documentable/integration-test/language/unicode">Unicode page</a>.</p>
+<h2 id="All_text_is_normalized_by_default"><a class="u" href="#___top" title="go to top of document">All text is normalized by default</a></h2>
+<p>Raku normalizes all text into Unicode NFC form (Normalization Form Canonical). Filenames are the only text not normalized by default. If you are expecting your strings to maintain a byte for byte representation as the original, you need to use <a href="/Documentable/integration-test/language/unicode#UTF8-C8"><code>UTF8-C8</code></a> when reading or writing to any filehandles.</p>
+<h2 id="Allomorphs_generally_follow_numeric_semantics"><a class="u" href="#___top" title="go to top of document">Allomorphs generally follow numeric semantics</a></h2>
+<p><a href="/Documentable/integration-test/type/Str">Str</a> <code>&quot;0&quot;</code> is <code>True</code>, while <a href="/Documentable/integration-test/type/Numeric">Numeric</a> is <code>False</code>. So what&#39;s the <a href="/Documentable/integration-test/type/Bool">Bool</a> value of <a href="/Documentable/integration-test/language/glossary#index-entry-Allomorph">allomorph</a> <code>&lt;0&gt;</code>?</p>
+<p>In general, allomorphs follow <a href="/Documentable/integration-test/type/Numeric">Numeric</a> semantics, so the ones that <em>numerically</em> evaluate to zero are <code>False</code>:</p>
+<pre class="pod-block-code">say so   &lt;0&gt;; # OUTPUT: «False␤»
+say so &lt;0e0&gt;; # OUTPUT: «False␤»
+say so &lt;0.0&gt;; # OUTPUT: «False␤»</pre>
+<p>To force comparison being done for the <a href="/Documentable/integration-test/type/Stringy">Stringy</a> part of the allomorph, use <a href="/Documentable/integration-test/routine/~">prefix <code>~</code> operator</a> or the <a href="/Documentable/integration-test/type/Str">Str</a> method to coerce the allomorph to <a href="/Documentable/integration-test/type/Str">Str</a>, or use the <a href="/Documentable/integration-test/routine/chars">chars</a> routine to test whether the allomorph has any length:</p>
+<pre class="pod-block-code">say so      ~&lt;0&gt;;     # OUTPUT: «True␤»
+say so       &lt;0&gt;.Str; # OUTPUT: «True␤»
+say so chars &lt;0&gt;;     # OUTPUT: «True␤»</pre>
+<h2 id="Case-insensitive_comparison_of_strings"><a class="u" href="#___top" title="go to top of document">Case-insensitive comparison of strings</a></h2>
+<p>In order to do case-insensitive comparison, you can use <code>.fc</code> (fold-case). The problem is that people tend to use <code>.lc</code> or <code>.uc</code>, and it does seem to work within the ASCII range, but fails on other characters. This is not just a Raku trap, the same applies to other languages.</p>
+<pre class="pod-block-code">say ‘groß’.lc eq ‘GROSS’.lc; # ← WRONG; False
+say ‘groß’.uc eq ‘GROSS’.uc; # ← WRONG; True, but that&#39;s just luck
+say ‘groß’.fc eq ‘GROSS’.fc; # ← RIGHT; True
+</pre>
+<p>If you are working with regexes, then there is no need to use <code>.fc</code> and you can use <code>:i</code> (<code>:ignorecase</code>) adverb instead.</p>
+<h1 id="Pairs"><a class="u" href="#___top" title="go to top of document">Pairs</a></h1>
+<h2 id="Constants_on_the_left-hand_side_of_pair_notation"><a class="u" href="#___top" title="go to top of document">Constants on the left-hand side of pair notation</a></h2>
+<p>Consider this code:</p>
+<pre class="pod-block-code">enum Animals &lt;Dog Cat&gt;;
+my %h := :{ Dog =&gt; 42 };
+say %h{Dog}; # OUTPUT: «(Any)␤»
+</pre>
+<p>The <code>:{ … }</code> syntax is used to create <a href="/Documentable/integration-test/type/Hash#Non-string_keys_(object_hash)">object hashes</a>. The intentions of someone who wrote that code were to create a hash with Enum objects as keys (and <code>say %h{Dog}</code> attempts to get a value using the Enum object to perform the lookup). However, that&#39;s not how pair notation works.</p>
+<p>For example, in <code>Dog =&gt; 42</code> the key will be a <code>Str</code>. That is, it doesn&#39;t matter if there is a constant, or an enumeration with the same name. The pair notation will always use the left-hand side as a string literal, as long as it looks like an identifier.</p>
+<p>To avoid this, use <code>(Dog) =&gt; 42</code> or <code>::Dog =&gt; 42</code>.</p>
+<h2 id="Scalar_values_within_Pair"><a class="u" href="#___top" title="go to top of document">Scalar values within <code>Pair</code></a></h2>
+<p>When dealing with <a href="/Documentable/integration-test/type/Scalar">Scalar</a> values, the <code>Pair</code> holds the container to the value. This means that it is possible to reflect changes to the <code>Scalar</code> value from outside the <code>Pair</code>:</p>
+<pre class="pod-block-code">my $v = &#39;value A&#39;;
+my $pair = Pair.new( &#39;a&#39;, $v );
+$pair.say;  # OUTPUT: a =&gt; value A
+
+$v = &#39;value B&#39;;
+$pair.say; # OUTPUT: a =&gt; value B
+</pre>
+<p>Use the method <a href="/Documentable/integration-test/type/Pair#method_freeze">freeze</a> to force the removal of the <code>Scalar</code> container from the <code>Pair</code>. For more details see the documentation about <a href="/Documentable/integration-test/type/Pair">Pair</a>.</p>
+<h1 id="Sets,_bags_and_mixes"><a class="u" href="#___top" title="go to top of document">Sets, bags and mixes</a></h1>
+<h2 id="Sets,_bags_and_mixes_do_not_have_a_fixed_order"><a class="u" href="#___top" title="go to top of document">Sets, bags and mixes do not have a fixed order</a></h2>
+<p>When iterating over this kind of objects, an order is not defined.</p>
+<pre class="pod-block-code">my $set = &lt;a b c&gt;.Set;
+.say for $set.list; # OUTPUT: «a =&gt; True␤c =&gt; True␤b =&gt; True␤»
+# OUTPUT: «a =&gt; True␤c =&gt; True␤b =&gt; True␤»
+# OUTPUT: «c =&gt; True␤b =&gt; True␤a =&gt; True␤»
+</pre>
+<p>Every iteration might (and will) yield a different order, so you cannot trust a particular sequence of the elements of a set. If order does not matter, just use them that way. If it does, use <code>sort</code></p>
+<pre class="pod-block-code">my $set = &lt;a b c&gt;.Set;
+.say for $set.list.sort;  # OUTPUT: «a =&gt; True␤b =&gt; True␤c =&gt; True␤»</pre>
+<p>In general, sets, bags and mixes are unordered, so you should not depend on them having a particular order.</p>
+<h1 id="Operators"><a class="u" href="#___top" title="go to top of document">Operators</a></h1>
+<p>Some operators commonly shared among other languages were repurposed in Raku for other, more common, things:</p>
+<h2 id="Junctions"><a class="u" href="#___top" title="go to top of document">Junctions</a></h2>
+<p>The <code>^</code>, <code>|</code>, and <code>&amp;</code> are <em>not</em> bitwise operators, they create <a href="/Documentable/integration-test/type/Junction">Junctions</a>. The corresponding bitwise operators in Raku are: <code>+^</code>, <code>+|</code>, <code>+&amp;</code> for integers and <code>?^</code>, <code>?|</code>, <code>?&amp;</code> for <a href="/Documentable/integration-test/type/Bool">Bools</a>.</p>
+<h2 id="Exclusive_sequence_operator"><a class="u" href="#___top" title="go to top of document">Exclusive sequence operator</a></h2>
+<p>Lavish use of whitespace helps readability, but keep in mind infix operators cannot have any whitespace in them. One such operator is the sequence operator that excludes right point: <code>...^</code> (or its <a href="/Documentable/integration-test/language/unicode_ascii">Unicode equivalent</a> <code>…^</code>).</p>
+<pre class="pod-block-code">say 1... ^5; # OUTPUT: «(1 0 1 2 3 4)␤»
+say 1...^5;  # OUTPUT: «(1 2 3 4)␤»</pre>
+<p>If you place whitespace between the ellipsis (<code>…</code>) and the caret (<code>^</code>), it&#39;s no longer a single infix operator, but an infix inclusive sequence operator (<code>…</code>) and a prefix <a href="/Documentable/integration-test/type/Range">Range</a> operator (<code>^</code>). <a href="/Documentable/integration-test/type/Iterable">Iterables</a> are valid endpoints for the sequence operator, so the result you&#39;ll get might not be what you expected.</p>
+<h2 id="String_ranges/Sequences"><a class="u" href="#___top" title="go to top of document">String ranges/Sequences</a></h2>
+<p>In some languages, using strings as range end points, considers the entire string when figuring out what the next string should be; loosely treating the strings as numbers in a large base. Here&#39;s the Perl version:</p>
+<pre class="pod-block-code">say join &quot;, &quot;, &quot;az&quot;..&quot;bc&quot;;
+# OUTPUT: «az, ba, bb, bc␤»
+</pre>
+<p>Such a range in Raku will produce a different result, where <em>each letter</em> will be ranged to a corresponding letter in the end point, producing more complex sequences:</p>
+<pre class="pod-block-code">say join &quot;, &quot;, &quot;az&quot;..&quot;bc&quot;;
+#`{ OUTPUT: «
+    az, ay, ax, aw, av, au, at, as, ar, aq, ap, ao, an, am, al, ak, aj, ai, ah,
+    ag, af, ae, ad, ac, bz, by, bx, bw, bv, bu, bt, bs, br, bq, bp, bo, bn, bm,
+    bl, bk, bj, bi, bh, bg, bf, be, bd, bc
+␤»}
+</pre>
+<pre class="pod-block-code">say join &quot;, &quot;, &quot;r2&quot;..&quot;t3&quot;;
+# OUTPUT: «r2, r3, s2, s3, t2, t3␤»
+</pre>
+<p>To achieve simpler behavior, similar to the Perl example above, use a sequence operator that calls <code>.succ</code> method on the starting string:</p>
+<pre class="pod-block-code">say join &quot;, &quot;, (&quot;az&quot;, *.succ ... &quot;bc&quot;);
+# OUTPUT: «az, ba, bb, bc␤»
+</pre>
+<h2 id="Topicalizing_operators"><a class="u" href="#___top" title="go to top of document">Topicalizing operators</a></h2>
+<p>The smartmatch operator <code>~~</code> and <code>andthen</code> set the topic <code>$_</code> to their left-hand-side. In conjunction with implicit method calls on the topic this can lead to surprising results.</p>
+<pre class="pod-block-code">my &amp;method = { note $_; $_ };
+$_ = &#39;object&#39;;
+say .&amp;method;
+# OUTPUT: «object␤object␤»
+say &#39;topic&#39; ~~ .&amp;method;
+# OUTPUT: «topic␤True␤»
+</pre>
+<p>In many cases flipping the method call to the LHS will work.</p>
+<pre class="pod-block-code">my &amp;method = { note $_; $_ };
+$_ = &#39;object&#39;;
+say .&amp;method;
+# OUTPUT: «object␤object␤»
+say .&amp;method ~~ &#39;topic&#39;;
+# OUTPUT: «object␤False␤»
+</pre>
+<h2 id="Fat_arrow_and_constants"><a class="u" href="#___top" title="go to top of document">Fat arrow and constants</a></h2>
+<p>The fat arrow operator <code>=&gt;</code> will turn words on its left-hand side to <code>Str</code> without checking the scope for constants or <code>\</code>-sigiled variables. Use explicit scoping to get what you mean.</p>
+<pre class="pod-block-code">constant V = &#39;x&#39;;
+my %h = V =&gt; &#39;oi‽&#39;, ::V =&gt; 42;
+say %h.raku
+# OUTPUT: «{:V(&quot;oi‽&quot;), :x(42)}␤»
+</pre>
+<h2 id="Infix_operator_assignment"><a class="u" href="#___top" title="go to top of document">Infix operator assignment</a></h2>
+<p>Infix operators, both built in and user defined, can be combined with the assignment operator as this addition example demonstrates:</p>
+<pre class="pod-block-code">my $x = 10;
+$x += 20;
+say $x;     # OUTPUT: «30␤»</pre>
+<p>For any given infix operator <code>op</code>, <code>L op= R</code> is equivalent to <code>L = L op R</code> (where <code>L</code> and <code>R</code> are the left and right arguments, respectively). This means that the following code may not behave as expected:</p>
+<pre class="pod-block-code">my @a = 1, 2, 3;
+@a += 10;
+say @a;  # OUTPUT: «[13]␤»</pre>
+<p>Coming from a language like C++, this might seem odd. It is important to bear in mind that <code>+=</code> isn&#39;t defined as method on the left hand argument (here the <code>@a</code> array) but is simply shorthand for:</p>
+<pre class="pod-block-code">my @a = 1, 2, 3;
+@a = @a + 10;
+say @a;  # OUTPUT: «[13]␤»</pre>
+<p>Here <code>@a</code> is assigned the result of adding <code>@a</code> (which has three elements) and <code>10</code>; <code>13</code> is therefore placed in <code>@a</code>.</p>
+<p>Use the <a href="/Documentable/integration-test/language/operators#Hyper_operators">hyper form</a> of the assignment operators instead:</p>
+<pre class="pod-block-code">my @a = 1, 2, 3;
+@a »+=» 10;
+say @a;  # OUTPUT: «[11 12 13]␤»</pre>
+<h1 id="Regexes"><a class="u" href="#___top" title="go to top of document">Regexes</a></h1>
+<h2 id="$x_vs_<$x>,_and_$(code)_vs_<{code}>"><a class="u" href="#___top" title="go to top of document"><code>$x</code> vs <code>&lt;$x&gt;</code>, and <code>$(code)</code> vs <code>&lt;{code}&gt;</code></a></h2>
+<p>Raku offers several constructs to generate regexes at runtime through interpolation (see their detailed description <a href="/Documentable/integration-test/language/regexes#Regex_interpolation">here</a>). When a regex generated this way contains only literals, the above constructs behave (pairwise) identically, as if they are equivalent alternatives. As soon as the generated regex contains metacharacters, however, they behave differently, which may come as a confusing surprise.</p>
+<p>The first two constructs that may easily be confused with each other are <code>$variable</code> and <code>&lt;$variable&gt;</code>:</p>
+<pre class="pod-block-code">my $variable = &#39;camelia&#39;;
+say ‘I ♥ camelia’ ~~ /  $variable  /;   # OUTPUT: ｢camelia｣
+say ‘I ♥ camelia’ ~~ / &lt;$variable&gt; /;   # OUTPUT: ｢camelia｣</pre>
+<p>Here they act the same because the value of <code>$variable</code> consists of literals. But when the variable is changed to comprise regex metacharacters the outputs become different:</p>
+<pre class="pod-block-code">my $variable = &#39;#camelia&#39;;
+say ‘I ♥ #camelia’ ~~ /  $variable  /;   # OUTPUT: ｢#camelia｣
+say ‘I ♥ #camelia’ ~~ / &lt;$variable&gt; /;   # !! Error: malformed regex</pre>
+<p>What happens here is that the string <code>#camelia</code> contains the metacharacter <code>#</code>. In the context of a regex, this character should be quoted to match literally; without quoting, the <code>#</code> is parsed as the start of a comment that runs until the end of the line, which in turn causes the regex not to be terminated, and thus to be malformed.</p>
+<p>Two other constructs that must similarly be distinguished from one another are <code>$(code)</code> and <code>&lt;{code}&gt;</code>. Like before, as long as the (stringified) return value of <code>code</code> comprises only literals, there is no distinction between the two:</p>
+<pre class="pod-block-code">my $variable = &#39;ailemac&#39;;
+say ‘I ♥ camelia’ ~~ / $($variable.flip)   /;   # OUTPUT: ｢camelia｣
+say ‘I ♥ camelia’ ~~ / &lt;{$variable.flip}&gt;  /;   # OUTPUT: ｢camelia｣</pre>
+<p>But when the return value is changed to comprise regex metacharacters, the outputs diverge:</p>
+<pre class="pod-block-code">my $variable = &#39;ailema.&#39;;
+say ‘I ♥ camelia’ ~~ / $($variable.flip)   /;   # OUTPUT: Nil
+say ‘I ♥ camelia’ ~~ / &lt;{$variable.flip}&gt;  /;   # OUTPUT: ｢camelia｣</pre>
+<p>In this case the return value of the code is the string <code>.amelia</code>, which contains the metacharacter <code>.</code>. The above attempt by <code>$(code)</code> to match the dot literally fails; the attempt by <code>&lt;{code}&gt;</code> to match the dot as a regex wildcard succeeds. Hence the different outputs.</p>
+<h2 id="|_vs_||:_which_branch_will_win"><a class="u" href="#___top" title="go to top of document"><code>|</code> vs <code>||</code>: which branch will win</a></h2>
+<p>To match one of several possible alternatives, <code>||</code> or <code>|</code> will be used. But they are so different.</p>
+<p>When there are multiple matching alternations, for those separated by <code>||</code>, the first matching alternation wins; for those separated by <code>|</code>, which to win is decided by LTM strategy. See also: <a href="/Documentable/integration-test/language/regexes#Alternation:_||">documentation on <code>||</code></a> and <a href="/Documentable/integration-test/language/regexes#Longest_alternation:_|">documentation on <code>|</code></a>.</p>
+<p>For simple regexes just using <code>||</code> instead of <code>|</code> will get you familiar semantics, but if writing grammars then it&#39;s useful to learn about LTM and declarative prefixes and prefer <code>|</code>. And keep yourself away from using them in one regex. When you have to do that, add parentheses and ensure that you know how LTM strategy works to make the code do what you want.</p>
+<p>The trap typically arises when you try to mix both <code>|</code> and <code>||</code> in the same regex:</p>
+<pre class="pod-block-code">say 42 ~~ / [  0 || 42 ] | 4/; # OUTPUT: «｢4｣␤»
+say 42 ~~ / [ 42 ||  0 ] | 4/; # OUTPUT: «｢42｣␤»
+</pre>
+<p>The code above may seem like it is producing a wrong result, but the implementation is actually right.</p>
+<h2 id="$/_changes_each_time_a_regular_expression_is_matched"><a class="u" href="#___top" title="go to top of document"><code>$/</code> changes each time a regular expression is matched</a></h2>
+<p>Each time a regular expression is matched against something, the special variable <code>$/</code> holding the result <a href="/Documentable/integration-test/type/Match">Match object</a> is changed accordingly to the result of the match (that could also be <code>Nil</code>).</p>
+<p>The <code>$/</code> is changed without any regard to the scope the regular expression is matched within.</p>
+<p>For further information and examples please see the <a href="/Documentable/integration-test/language/regexes.html#$/_changes_each_time_a_regular_expression_is_matched">related section in the Regular Expressions documentation</a>.</p>
+<h2 id="<foo>_vs._<_foo>:_named_rules_vs._quoted_lists"><a class="u" href="#___top" title="go to top of document"><code>&lt;foo&gt;</code> vs. <code>&lt; foo&gt;</code>: named rules vs. quoted lists</a></h2>
+<p>Regexes can contain quoted lists; longest token matching is performed on the list&#39;s elements as if a <code>|</code> alternation had been specified (see <a href="/Documentable/integration-test/language/regexes#Quoted_lists_are_LTM_matches">here</a> for further information).</p>
+<p>Within a regex, the following are lists with a single item, <code>&#39;foo&#39;</code>:</p>
+<pre class="pod-block-code">say &#39;foo&#39; ~~ /&lt; foo &gt;/;  # OUTPUT: «｢foo｣␤»
+say &#39;foo&#39; ~~ /&lt; foo&gt;/;   # OUTPUT: «｢foo｣␤»</pre>
+<p>but this is a call to the named rule <code>foo</code>:</p>
+<pre class="pod-block-code">say &#39;foo&#39; ~~ /&lt;foo&gt;/;
+# OUTPUT: «No such method &#39;foo&#39; for invocant of type &#39;Match&#39;␤ in block &lt;unit&gt; at &lt;unknown file&gt; line 1␤»
+</pre>
+<p>Be wary of the difference; if you intend to use a quoted list, ensure that whitespace follows the initial <code>&lt;</code>.</p>
+<h2 id="Non-capturing,_non-global_matching_in_list_context"><a class="u" href="#___top" title="go to top of document">Non-capturing, non-global matching in list context</a></h2>
+<p>Unlike Perl, non-capturing and non-global matching in list context doesn&#39;t produce any values:</p>
+<pre class="pod-block-code">if  &#39;x&#39; ~~ /./ { say &#39;yes&#39; }  # OUTPUT: «yes␤»
+for &#39;x&#39; ~~ /./ { say &#39;yes&#39; }  # NO OUTPUT</pre>
+<p>This is because its &#39;list&#39; slot (inherited from Capture class) doesn&#39;t get populated with the original Match object:</p>
+<pre class="pod-block-code">say (&#39;x&#39; ~~ /./).list  # OUTPUT: «()␤»</pre>
+<p>To achieve the desired result, use global matching, capturing parentheses or a list with a trailing comma:</p>
+<pre class="pod-block-code">for &#39;x&#39; ~~ m:g/./ { say &#39;yes&#39; }  # OUTPUT: «yes␤»
+for &#39;x&#39; ~~ /(.)/  { say &#39;yes&#39; }  # OUTPUT: «yes␤»
+for (&#39;x&#39; ~~ /./,) { say &#39;yes&#39; }  # OUTPUT: «yes␤»</pre>
+<h1 id="Common_precedence_mistakes"><a class="u" href="#___top" title="go to top of document">Common precedence mistakes</a></h1>
+<h2 id="Adverbs_and_precedence"><a class="u" href="#___top" title="go to top of document">Adverbs and precedence</a></h2>
+<p>Adverbs do have a precedence that may not follow the order of operators that is displayed on your screen. If two operators of equal precedence are followed by an adverb it will pick the first operator it finds in the abstract syntax tree. Use parentheses to help Raku understand what you mean or use operators with looser precedence.</p>
+<pre class="pod-block-code">my %x = a =&gt; 42;
+say !%x&lt;b&gt;:exists;            # dies with X::AdHoc
+say %x&lt;b&gt;:!exists;            # this works
+say !(%x&lt;b&gt;:exists);          # works too
+say not %x&lt;b&gt;:exists;         # works as well
+say True unless %x&lt;b&gt;:exists; # avoid negation altogether
+</pre>
+<h2 id="Ranges_and_precedence"><a class="u" href="#___top" title="go to top of document">Ranges and precedence</a></h2>
+<p>The loose precedence of <code>..</code> can lead to some errors. It is usually best to parenthesize ranges when you want to operate on the entire range.</p>
+<pre class="pod-block-code">1..3.say;    # OUTPUT: «3␤» (and warns about useless use of &quot;..&quot;)
+(1..3).say;  # OUTPUT: «1..3␤»
+</pre>
+<h2 id="Loose_Boolean_operators"><a class="u" href="#___top" title="go to top of document">Loose Boolean operators</a></h2>
+<p>The precedence of <code>and</code>, <code>or</code>, etc. is looser than routine calls. This can have surprising results for calls to routines that would be operators or statements in other languages like <code>return</code>, <code>last</code> and many others.</p>
+<pre class="pod-block-code">sub f {
+    return True and False;
+    # this is actually
+    # (return True) and False;
+}
+say f; # OUTPUT: «True␤»
+</pre>
+<h2 id="Exponentiation_operator_and_prefix_minus"><a class="u" href="#___top" title="go to top of document">Exponentiation operator and prefix minus</a></h2>
+<pre class="pod-block-code">say -1²;   # OUTPUT: «-1␤»
+say -1**2; # OUTPUT: «-1␤»
+</pre>
+<p>When performing a <a href="https://www.wolframalpha.com/input/?i=-1%C2%B2">regular mathematical calculation</a>, the power takes precedence over the minus; so <code>-1²</code> can be written as <code>-(1²)</code>. Raku matches these rules of mathematics and the precedence of <code>**</code> operator is tighter than that of the prefix <code>-</code>. If you wish to raise a negative number to a power, use parentheses:</p>
+<pre class="pod-block-code">say (-1)²;   # OUTPUT: «1␤»
+say (-1)**2; # OUTPUT: «1␤»
+</pre>
+<h2 id="Method_operator_calls_and_prefix_minus"><a class="u" href="#___top" title="go to top of document">Method operator calls and prefix minus</a></h2>
+<p>Prefix minus binds looser than dotty method op calls. The prefix minus will be applied to the return value from the method. To ensure the minus gets passed as part of the argument, enclose in parenthesis.</p>
+<pre class="pod-block-code">say  -1.abs;  # OUTPUT: «-1␤»
+say (-1).abs; # OUTPUT: «1␤»
+</pre>
+<h1 id="Subroutine_and_method_calls"><a class="u" href="#___top" title="go to top of document">Subroutine and method calls</a></h1>
+<p>Subroutine and method calls can be made using one of two forms:</p>
+<pre class="pod-block-code">foo(...); # function call form, where ... represent the required arguments
+foo ...;  # list op form, where ... represent the required arguments
+</pre>
+<p>The function call form can cause problems for the unwary when whitespace is added after the function or method name and before the opening parenthesis.</p>
+<p>First we consider functions with zero or one parameter:</p>
+<pre class="pod-block-code">sub foo() { say &#39;no arg&#39; }
+sub bar($a) { say &quot;one arg: $a&quot; }
+</pre>
+<p>Then execute each with and without a space after the name:</p>
+<pre class="pod-block-code">foo();    # okay: no arg
+foo ();   # FAIL: Too many positionals passed; expected 0 arguments but got 1
+bar($a);  # okay: one arg: 1
+bar ($a); # okay: one arg: 1
+</pre>
+<p>Now declare a function of two parameters:</p>
+<pre class="pod-block-code">sub foo($a, $b) { say &quot;two args: $a, $b&quot; }
+</pre>
+<p>Execute it with and without the space after the name:</p>
+<pre class="pod-block-code">foo($a, $b);  # okay: two args: 1, 2
+foo ($a, $b); # FAIL: Too few positionals passed; expected 2 arguments but got 1
+</pre>
+<p>The lesson is: &quot;be careful with spaces following sub and method names when using the function call format.&quot; As a general rule, good practice might be to avoid the space after a function name when using the function call format.</p>
+<p>Note that there are clever ways to eliminate the error with the function call format and the space, but that is bordering on hackery and will not be mentioned here. For more information, consult <a href="/Documentable/integration-test/language/functions#Functions">Functions</a>.</p>
+<p>Finally, note that, currently, when declaring the functions whitespace may be used between a function or method name and the parentheses surrounding the parameter list without problems.</p>
+<h2 id="Named_parameters"><a class="u" href="#___top" title="go to top of document">Named parameters</a></h2>
+<p>Many built-in subroutines and method calls accept named parameters and your own code may accept them as well, but be sure the arguments you pass when calling your routines are actually named parameters:</p>
+<pre class="pod-block-code">sub foo($a, :$b) { ... }
+foo(1, &#39;b&#39; =&gt; 2); # FAIL: Too many positionals passed; expected 1 argument but got 2
+</pre>
+<p>What happened? That second argument is not a named parameter argument, but a <a href="/Documentable/integration-test/type/Pair">Pair</a> passed as a positional argument. If you want a named parameter it has to look like a name to Perl:</p>
+<pre class="pod-block-code">foo(1, b =&gt; 2); # okay
+foo(1, :b(2));  # okay
+foo(1, :b&lt;it&gt;); # okay
+
+my $b = 2;
+foo(1, :b($b)); # okay, but redundant
+foo(1, :$b);    # okay
+
+# Or even...
+my %arg = &#39;b&#39; =&gt; 2;
+foo(1, |%arg);  # okay too
+</pre>
+<p>That last one may be confusing, but since it uses the <code>|</code> prefix on a <a href="/Documentable/integration-test/type/Hash">Hash</a>, which is a special compiler construct indicating you want to use <em>the contents</em> of the variable as arguments, which for hashes means to treat them as named arguments.</p>
+<p>If you really do want to pass them as pairs you should use a <a href="/Documentable/integration-test/type/List">List</a> or <a href="/Documentable/integration-test/type/Capture">Capture</a> instead:</p>
+<pre class="pod-block-code">my $list = (&#39;b&#39; =&gt; 2),; # this is a List containing a single Pair
+foo(|$list, :$b);       # okay: we passed the pair &#39;b&#39; =&gt; 2 to the first argument
+foo(1, |$list);         # FAIL: Too many positionals passed; expected 1 argument but got 2
+foo(1, |$list.Capture); # OK: .Capture call converts all Pair objects to named args in a Capture
+</pre>
+<pre class="pod-block-code">my $cap = \(&#39;b&#39; =&gt; 2); # a Capture with a single positional value
+foo(|$cap, :$b); # okay: we passed the pair &#39;b&#39; =&gt; 2 to the first argument
+foo(1, |$cap);   # FAIL: Too many positionals passed; expected 1 argument but got 2
+</pre>
+<p>A Capture is usually the best option for this as it works exactly like the usual capturing of routine arguments during a regular call.</p>
+<p>The nice thing about the distinction here is that it gives the developer the option of passing pairs as either named or positional arguments, which can be handy in various instances.</p>
+<h2 id="Argument_count_limit"><a class="u" href="#___top" title="go to top of document">Argument count limit</a></h2>
+<p>While it is typically unnoticeable, there is a backend-dependent argument count limit. Any code that does flattening of arbitrarily sized arrays into arguments won&#39;t work if there are too many elements.</p>
+<pre class="pod-block-code">my @a = 1 xx 9999;
+my @b;
+@b.push: |@a;
+say @b.elems # OUTPUT: «9999␤»
+</pre>
+<pre class="pod-block-code">my @a = 1 xx 999999;
+my @b;
+@b.push: |@a; # OUTPUT: «Too many arguments in flattening array.␤  in block &lt;unit&gt; at &lt;tmp&gt; line 1␤␤»
+</pre>
+<p>Avoid this trap by rewriting the code so that there is no flattening. In the example above, you can replace <code>push</code> with <code>append</code>. This way, no flattening is required because the array can be passed as is.</p>
+<pre class="pod-block-code">my @a = 1 xx 999999;
+my @b;
+@b.append: @a;
+say @b.elems # OUTPUT: «999999␤»
+</pre>
+<h2 id="Phasers_and_implicit_return"><a class="u" href="#___top" title="go to top of document">Phasers and implicit return</a></h2>
+<pre class="pod-block-code">sub returns-ret () {
+    CATCH {
+        default {}
+    }
+    &quot;ret&quot;;
+}
+
+sub doesn&#39;t-return-ret () {
+    &quot;ret&quot;;
+    CATCH {
+        default {}
+    }
+}
+
+say returns-ret;        # OUTPUT: «ret»
+say doesn&#39;t-return-ret;
+# BAD: outputs «Nil» and a warning «Useless use of constant string &quot;ret&quot; in sink context (line 13)»
+</pre>
+<p>Code for <code>returns-ret</code> and <code>doesn&#39;t-return-ret</code> might look exactly the same, since in principle it does not matter where the <a href="/Documentable/integration-test/language/phasers#index-entry-Phasers__CATCH-CATCH"><code>CATCH</code></a> block goes. However, a block is an object and the last object in a <code>sub</code> will be returned, so the <code>doesn&#39;t-return-ret</code> will return <code>Nil</code>, and, besides, since &quot;ret&quot; will be now in sink context, it will issue a warning. In case you want to place phasers last for conventional reasons, use the explicit form of <code>return</code>.</p>
+<pre class="pod-block-code">sub explicitly-return-ret () {
+    return &quot;ret&quot;;
+    CATCH {
+        default {}
+    }
+}
+</pre>
+<h2 id="LEAVE_needs_explicit_return_from_a_sub_to_run"><a class="u" href="#___top" title="go to top of document"><code>LEAVE</code> needs explicit return from a sub to run</a></h2>
+<p>As the documentation for the <a href="/Documentable/integration-test/language/phasers#index-entry-Phasers__LEAVE-LEAVE"><code>LEAVE</code> phaser indicates</a> <code>LEAVE</code> runs when a block is exited, &quot;... except when the program exits abruptly&quot;. That is, unlike <code>END</code>, it&#39;s going to be invoked only if the block actually returns in an orderly way. This is why:</p>
+<pre class="pod-block-code">sub a() { LEAVE say &quot;left&quot;; exit 1 }; # No output, it will simply exit
+</pre>
+<p>will not run the <code>LEAVE</code> code, since technically it&#39;s not returning. On the other hand, <a href="/Documentable/integration-test/language/phasers#END"><code>END</code></a> is a program execution phaser and will run no matter what</p>
+<pre class="pod-block-code">sub a() {
+    END say &quot;Begone&quot;; exit 1
+}; a; # OUTPUT: «Begone␤»
+</pre>
+<h1 id="Input_and_output"><a class="u" href="#___top" title="go to top of document">Input and output</a></h1>
+<h2 id="Closing_open_filehandles_and_pipes"><a class="u" href="#___top" title="go to top of document">Closing open filehandles and pipes</a></h2>
+<p>Unlike some other languages, Raku does not use reference counting, and so <strong>the filehandles are NOT closed when they go out of scope</strong>. You have to explicitly close them either by using <a href="/Documentable/integration-test/routine/close">close</a> routine or using the <code>:close</code> argument several of <a href="/Documentable/integration-test/type/IO::Handle">IO::Handle&#39;s</a> methods accept. See <a href="/Documentable/integration-test/type/IO::Handle#routine_close"><code>IO::Handle.close</code></a> for details.</p>
+<p>The same rules apply to <a href="/Documentable/integration-test/type/IO::Handle">IO::Handle&#39;s</a> subclass <a href="/Documentable/integration-test/type/IO::Pipe">IO::Pipe</a>, which is what you operate on when reading from a <a href="/Documentable/integration-test/type/Proc">Proc</a> you get with routines <a href="/Documentable/integration-test/routine/run">run</a> and <a href="/Documentable/integration-test/routine/shell">shell</a>.</p>
+<p>The caveat applies to <a href="/Documentable/integration-test/type/IO::CatHandle">IO::CatHandle</a> type as well, though not as severely. See <a href="/Documentable/integration-test/type/IO::CatHandle#method_close"><code>IO::CatHandle.close</code></a> for details.</p>
+<h2 id="IO::Path_stringification"><a class="u" href="#___top" title="go to top of document">IO::Path stringification</a></h2>
+<p>Partly for historical reasons and partly by design, an <a href="/Documentable/integration-test/type/IO::Path">IO::Path</a> object <a href="/Documentable/integration-test/type/IO::Path#method_Str">stringifies</a> without considering its <a href="/Documentable/integration-test/type/IO::Path#attribute_CWD"><code>CWD</code> attribute</a>, which means if you <a href="/Documentable/integration-test/routine/chdir">chdir</a> and then stringify an <a href="/Documentable/integration-test/type/IO::Path">IO::Path</a>, or stringify an <a href="/Documentable/integration-test/type/IO::Path">IO::Path</a> with custom <code>$!CWD</code> attribute, the resultant string won&#39;t reference the original filesystem object:</p>
+<pre class="pod-block-code">with &#39;foo&#39;.IO {
+    .Str.say;       # OUTPUT: «foo␤»
+    .relative.say;  # OUTPUT: «foo␤»
+
+    chdir &quot;/tmp&quot;;
+    .Str.say;       # OUTPUT: «foo␤»
+    .relative.say   # OUTPUT: «../home/camelia/foo␤»
+}
+
+# Deletes ./foo, not /bar/foo
+unlink IO::Path.new(&quot;foo&quot;, :CWD&lt;/bar&gt;).Str
+</pre>
+<p>The easy way to avoid this issue is to not stringify an <a href="/Documentable/integration-test/type/IO::Path">IO::Path</a> object at all. Core routines that work with paths can take an <a href="/Documentable/integration-test/type/IO::Path">IO::Path</a> object, so you don&#39;t need to stringify the paths.</p>
+<p>If you do have a case where you need a stringified version of an <a href="/Documentable/integration-test/type/IO::Path">IO::Path</a>, use <a href="/Documentable/integration-test/routine/absolute">absolute</a> or <a href="/Documentable/integration-test/routine/relative">relative</a> methods to stringify it into an absolute or relative path, respectively.</p>
+<p>If you are facing this issue because you use <a href="/Documentable/integration-test/routine/chdir">chdir</a> in your code, consider rewriting it in a way that does not involve changing the current directory. For example, you can pass <code>cwd</code> named argument to <a href="/Documentable/integration-test/routine/run">run</a> without having to use <code>chdir</code> around it.</p>
+<h2 id="Splitting_the_input_data_into_lines"><a class="u" href="#___top" title="go to top of document">Splitting the input data into lines</a></h2>
+<p>There is a difference between using <code>.lines</code> on <a href="/Documentable/integration-test/type/IO::Handle#routine_lines"><code>IO::Handle</code></a> and on a <a href="/Documentable/integration-test/type/Str#routine_lines"><code>Str</code></a>. The trap arises if you start assuming that both split data the same way.</p>
+<pre class="pod-block-code">say $_.raku for $*IN.lines # .lines called on IO::Handle
+# OUTPUT:
+# &quot;foox&quot;
+# &quot;fooy\rbar&quot;
+# &quot;fooz&quot;
+</pre>
+<p>As you can see in the example above, there was a line which contained <code>\r</code> (“carriage return” control character). However, the input is split strictly by <code>\n</code>, so <code>\r</code> was kept as part of the string.</p>
+<p>On the other hand, <a href="/Documentable/integration-test/type/Str#routine_lines"><code>Str.lines</code></a> attempts to be “smart” about processing data from different operating systems. Therefore, it will split by all possible variations of a newline.</p>
+<pre class="pod-block-code">say $_.raku for $*IN.slurp(:bin).decode.lines # .lines called on a Str
+# OUTPUT:
+# &quot;foox&quot;
+# &quot;fooy&quot;
+# &quot;bar&quot;
+# &quot;fooz&quot;
+</pre>
+<p>The rule is quite simple: use <a href="/Documentable/integration-test/type/IO::Handle#routine_lines"><code>IO::Handle.lines</code></a> when working with programmatically generated output, and <a href="/Documentable/integration-test/type/Str#routine_lines"><code>Str.lines</code></a> when working with user-written texts.</p>
+<p>Use <code>$data.split(“\n”)</code> in cases where you need the behavior of <a href="/Documentable/integration-test/type/IO::Handle#routine_lines"><code>IO::Handle.lines</code></a> but the original <a href="/Documentable/integration-test/type/IO::Handle">IO::Handle</a> is not available.</p>
+<p>Note that if you really want to slurp the data first, then you will have to use <code>.IO.slurp(:bin).decode.split(“\n”)</code>. Notice how we use <code>:bin</code> to prevent it from doing the decoding, only to call <code>.decode</code> later anyway. All that is needed because <code>.slurp</code> is assuming that you are working with text and therefore it attempts to be smart about newlines.</p>
+<p>If you are using <a href="/Documentable/integration-test/type/Proc::Async">Proc::Async</a>, then there is currently no easy way to make it split data the right way. You can try reading the whole output and then using <a href="/Documentable/integration-test/type/Str#routine_split"><code>Str.split</code></a> (not viable if you are dealing with large data) or writing your own logic to split the incoming data the way you need. Same applies if your data is null-separated.</p>
+<h2 id="Proc::Async_and_print"><a class="u" href="#___top" title="go to top of document">Proc::Async and <code>print</code></a></h2>
+<p>When using Proc::Async you should not assume that <code>.print</code> (or any other similar method) is synchronous. The biggest issue of this trap is that you will likely not notice the problem by running the code once, so it may cause a hard-to-detect intermittent fail.</p>
+<p>Here is an example that demonstrates the issue:</p>
+<pre class="pod-block-code">loop {
+    my $proc = Proc::Async.new: :w, ‘head’, ‘-n’, ‘1’;
+    my $got-something;
+    react {
+        whenever $proc.stdout.lines { $got-something = True }
+        whenever $proc.start        { die ‘FAIL!’ unless $got-something }
+
+        $proc.print: “one\ntwo\nthree\nfour”;
+        $proc.close-stdin;
+    }
+    say $++;
+}
+</pre>
+<p>And the output it may produce:</p>
+<pre class="pod-block-code">0
+1
+2
+3
+An operation first awaited:
+  in block &lt;unit&gt; at print.p6 line 4
+
+Died with the exception:
+    FAIL!
+      in block  at print.p6 line 6
+</pre>
+<p>Resolving this is easy because <code>.print</code> returns a promise that you can await on. The solution is even more beautiful if you are working in a <a href="/Documentable/integration-test/language/concurrency#index-entry-react">react</a> block:</p>
+<pre class="pod-block-code">whenever $proc.print: “one\ntwo\nthree\nfour” {
+    $proc.close-stdin;
+}
+</pre>
+<h2 id="Using_.stdout_without_.lines"><a class="u" href="#___top" title="go to top of document">Using <code>.stdout</code> without <code>.lines</code></a></h2>
+<p>Method <code>.stdout</code> of <a href="/Documentable/integration-test/type/Proc::Async">Proc::Async</a> returns a supply that emits <em>chunks</em> of data, not lines. The trap is that sometimes people assume it to give lines right away.</p>
+<pre class="pod-block-code">my $proc = Proc::Async.new(‘cat’, ‘/usr/share/dict/words’);
+react {
+    whenever $proc.stdout.head(1) { .say } # ← WRONG (most likely)
+    whenever $proc.start { }
+}
+</pre>
+<p>The output is clearly not just 1 line:</p>
+<pre class="pod-block-code">A
+A&#39;s
+AMD
+AMD&#39;s
+AOL
+AOL&#39;s
+Aachen
+Aachen&#39;s
+Aaliyah
+Aaliyah&#39;s
+Aaron
+Aaron&#39;s
+Abbas
+Abbas&#39;s
+Abbasid
+Abbasid&#39;s
+Abbott
+Abbott&#39;s
+Abby
+</pre>
+<p>If you want to work with lines, then use <code>$proc.stdout.lines</code>. If you&#39;re after the whole output, then something like this should do the trick: <code>whenever $proc.stdout { $out ~= $_ }</code>.</p>
+<h1 id="Exception_handling"><a class="u" href="#___top" title="go to top of document">Exception handling</a></h1>
+<h2 id="Sunk_Proc"><a class="u" href="#___top" title="go to top of document">Sunk <code>Proc</code></a></h2>
+<p>Some methods return a <a href="/Documentable/integration-test/type/Proc">Proc</a> object. If it represents a failed process, <code>Proc</code> itself won&#39;t be exception-like, but <strong>sinking it</strong> will cause an <a href="/Documentable/integration-test/type/X::Proc::Unsuccessful">X::Proc::Unsuccessful</a> exception to be thrown. That means this construct will throw, despite the <code>try</code> in place:</p>
+<pre class="pod-block-code">try run(&quot;raku&quot;, &quot;-e&quot;, &quot;exit 42&quot;);
+say &quot;still alive&quot;;
+# OUTPUT: «The spawned process exited unsuccessfully (exit code: 42)␤»
+</pre>
+<p>This is because <code>try</code> receives a <code>Proc</code> and returns it, at which point it sinks and throws. Explicitly sinking it inside the <code>try</code> avoids the issue and ensures the exception is thrown inside the <code>try</code>:</p>
+<pre class="pod-block-code">try sink run(&quot;raku&quot;, &quot;-e&quot;, &quot;exit 42&quot;);
+say &quot;still alive&quot;;
+# OUTPUT: «still alive␤»
+</pre>
+<p>If you&#39;re not interested in catching any exceptions, then use an anonymous variable to keep the returned <code>Proc</code> in; this way it&#39;ll never sink:</p>
+<pre class="pod-block-code">$ = run(&quot;raku&quot;, &quot;-e&quot;, &quot;exit 42&quot;);
+say &quot;still alive&quot;;
+# OUTPUT: «still alive␤»
+</pre>
+<h1 id="Using_shortcuts"><a class="u" href="#___top" title="go to top of document">Using shortcuts</a></h1>
+<h2 id="The_^_twigil"><a class="u" href="#___top" title="go to top of document">The ^ twigil</a></h2>
+<p>Using the <code>^</code> twigil can save a fair amount of time and space when writing out small blocks of code. As an example:</p>
+<pre class="pod-block-code">for 1..8 -&gt; $a, $b { say $a + $b; }
+</pre>
+<p>can be shortened to just</p>
+<pre class="pod-block-code">for 1..8 { say $^a + $^b; }
+</pre>
+<p>The trouble arises when a person wants to use more complex names for the variables, instead of just one letter. The <code>^</code> twigil is able to have the positional variables be out of order and named whatever you want, but assigns values based on the variable&#39;s Unicode ordering. In the above example, we can have <code>$^a</code> and <code>$^b</code> switch places, and those variables will keep their positional values. This is because the Unicode character &#39;a&#39; comes before the character &#39;b&#39;. For example:</p>
+<pre class="pod-block-code"># In order
+sub f1 { say &quot;$^first $^second&quot;; }
+f1 &quot;Hello&quot;, &quot;there&quot;;    # OUTPUT: «Hello there␤»
+</pre>
+<pre class="pod-block-code"># Out of order
+sub f2 { say &quot;$^second $^first&quot;; }
+f2 &quot;Hello&quot;, &quot;there&quot;;    # OUTPUT: «there Hello␤»
+</pre>
+<p>Due to the variables allowed to be called anything, this can cause some problems if you are not accustomed to how Raku handles these variables.</p>
+<pre class="pod-block-code"># BAD NAMING: alphabetically `four` comes first and gets value `1` in it:
+for 1..4 { say &quot;$^one $^two $^three $^four&quot;; }    # OUTPUT: «2 4 3 1␤»
+
+# GOOD NAMING: variables&#39; naming makes it clear how they sort alphabetically:
+for 1..4 { say &quot;$^a $^b $^c $^d&quot;; }               # OUTPUT: «1 2 3 4␤»
+</pre>
+<h2 id="Using_»_and_map_interchangeably"><a class="u" href="#___top" title="go to top of document">Using <code>»</code> and <code>map</code> interchangeably</a></h2>
+<p>While <a href="/Documentable/integration-test/language/operators#index-entry-hyper_%3C%3C-hyper_%3E%3E-hyper_%C2%AB-hyper_%C2%BB-Hyper_Operators"><code>»</code></a> may look like a shorter way to write <code>map</code>, they differ in some key aspects.</p>
+<p>First, the <code>»</code> includes a <em>hint</em> to the compiler that it may autothread the execution, thus if you&#39;re using it to call a routine that produces side effects, those side effects may be produced out of order (the result of the operator <em>is</em> kept in order, however). Also if the routine being invoked accesses a resource, there&#39;s the possibility of a race condition, as multiple invocations may happen simultaneously, from different threads.</p>
+<pre class="pod-block-code">&lt;a b c d&gt;».say # OUTPUT: «d␤b␤c␤a␤»
+</pre>
+<p>Second, <code>»</code> checks the <a href="/Documentable/integration-test/routine/is%20nodal">nodality</a> of the routine being invoked and based on that will use either <a href="/Documentable/integration-test/routine/deepmap">deepmap</a> or <a href="/Documentable/integration-test/routine/nodemap">nodemap</a> to map over the list, which can be different from how a <a href="/Documentable/integration-test/routine/map">map</a> call would map over it:</p>
+<pre class="pod-block-code">say ((1, 2, 3), [^4], &#39;5&#39;)».Numeric;       # OUTPUT: «((1 2 3) [0 1 2 3] 5)␤»
+say ((1, 2, 3), [^4], &#39;5&#39;).map: *.Numeric; # OUTPUT: «(3 4 5)␤»
+</pre>
+<p>The bottom line is that <code>map</code> and <code>»</code> are not interchangeable, but using one instead of the other is OK as long as you understand the differences.</p>
+<h2 id="Word_splitting_in_«_»"><a class="u" href="#___top" title="go to top of document">Word splitting in <code>« »</code></a></h2>
+<p>Keep in mind that <code>« »</code> performs word splitting similarly to how shells do it, so <a href="https://mywiki.wooledge.org/BashPitfalls">many shell pitfalls</a> apply here as well (especially when using in combination with <code>run</code>):</p>
+<pre class="pod-block-code">my $file = ‘--my arbitrary filename’;
+run ‘touch’, ‘--’, $file;  # RIGHT
+run &lt;touch --&gt;, $file;     # RIGHT
+
+run «touch -- &quot;$file&quot;»;    # RIGHT but WRONG if you forget quotes
+run «touch -- $file»;      # WRONG; touches ‘--my’, ‘arbitrary’ and ‘filename’
+run ‘touch’, $file;        # WRONG; error from `touch`
+run «touch &quot;$file&quot;»;       # WRONG; error from `touch`</pre>
+<p>Note that <code>--</code> is required for many programs to disambiguate between command-line arguments and <a href="https://mywiki.wooledge.org/BashPitfalls#Filenames_with_leading_dashes">filenames that begin with hyphens</a>.</p>
+<h1 id="Scope"><a class="u" href="#___top" title="go to top of document">Scope</a></h1>
+<h2 id="Using_a_once_block"><a class="u" href="#___top" title="go to top of document">Using a <code>once</code> block</a></h2>
+<p>The <code>once</code> block is a block of code that will only run once when its parent block is run. As an example:</p>
+<pre class="pod-block-code">my $var = 0;
+for 1..10 {
+    once { $var++; }
+}
+say &quot;Variable = $var&quot;;    # OUTPUT: «Variable = 1␤»
+</pre>
+<p>This functionality also applies to other code blocks like <code>sub</code> and <code>while</code>, not just <code>for</code> loops. Problems arise though, when trying to nest <code>once</code> blocks inside of other code blocks:</p>
+<pre class="pod-block-code">my $var = 0;
+for 1..10 {
+    do { once { $var++; } }
+}
+say &quot;Variable = $var&quot;;    # OUTPUT: «Variable = 10␤»
+</pre>
+<p>In the above example, the <code>once</code> block was nested inside of a code block which was inside of a <code>for</code> loop code block. This causes the <code>once</code> block to run multiple times, because the <code>once</code> block uses state variables to determine whether it has run previously. This means that if the parent code block goes out of scope, then the state variable the <code>once</code> block uses to keep track of if it has run previously, goes out of scope as well. This is why <code>once</code> blocks and <code>state</code> variables can cause some unwanted behavior when buried within more than one code block.</p>
+<p>If you want to have something that will emulate the functionality of a once block, but still work when buried a few code blocks deep, we can manually build the functionality of a <code>once</code> block. Using the above example, we can change it so that it will only run once, even when inside the <code>do</code> block by changing the scope of the <code>state</code> variable.</p>
+<pre class="pod-block-code">my $var = 0;
+for 1..10 {
+    state $run-code = True;
+    do { if ($run-code) { $run-code = False; $var++; } }
+}
+say &quot;Variable = $var&quot;;    # OUTPUT: «Variable = 1␤»
+</pre>
+<p>In this example, we essentially manually build a <code>once</code> block by making a <code>state</code> variable called <code>$run-code</code> at the highest level that will be run more than once, then checking to see if <code>$run-code</code> is <code>True</code> using a regular <code>if</code>. If the variable <code>$run-code</code> is <code>True</code>, then make the variable <code>False</code> and continue with the code that should only be completed once.</p>
+<p>The main difference between using a <code>state</code> variable like the above example and using a regular <code>once</code> block is what scope the <code>state</code> variable is in. The scope for the <code>state</code> variable created by the <code>once</code> block, is the same as where you put the block (imagine that the word &#39;<code>once</code>&#39; is replaced with a state variable and an <code>if</code> to look at the variable). The example above using <code>state</code> variables works because the variable is at the highest scope that will be repeated; whereas the example that has a <code>once</code> block inside of a <code>do</code>, made the variable within the <code>do</code> block which is not the highest scope that is repeated.</p>
+<p>Using a <code>once</code> block inside a class method will cause the once state to carry across all instances of that class. For example:</p>
+<pre class="pod-block-code">class A {
+    method sayit() { once say &#39;hi&#39; }
+}
+my $a = A.new;
+$a.sayit;      # OUTPUT: «hi␤»
+my $b = A.new;
+$b.sayit;      # nothing
+</pre>
+<h2 id="LEAVE_phaser_and_exit"><a class="u" href="#___top" title="go to top of document"><code>LEAVE</code> phaser and <code>exit</code></a></h2>
+<p>Using <a href="/Documentable/integration-test/language/phasers#LEAVE"><code>LEAVE</code></a> phaser to perform graceful resource termination is a common pattern, but it does not cover the case when the program is stopped with <a href="/Documentable/integration-test/routine/exit"><code>exit</code></a>.</p>
+<p>The following nondeterministic example should demonstrate the complications of this trap:</p>
+<pre class="pod-block-code">my $x = say ‘Opened some resource’;
+LEAVE say ‘Closing the resource gracefully’ with $x;
+
+exit 42 if rand &lt; ⅓; # ① ｢exit｣ is bad
+die ‘Dying because of unhandled exception’ if rand &lt; ½; # ② ｢die｣ is ok
+# fallthru ③
+</pre>
+<p>There are three possible results:</p>
+<pre class="pod-block-code">①
+Opened some resource
+
+②
+Opened some resource
+Closing the resource gracefully
+Dying because of unhandled exception
+  in block &lt;unit&gt; at print.p6 line 5
+
+③
+Opened some resource
+Closing the resource gracefully
+</pre>
+<p>A call to <code>exit</code> is part of normal operation for many programs, so beware unintentional combination of <code>LEAVE</code> phasers and <code>exit</code> calls.</p>
+<h2 id="LEAVE_phaser_may_run_sooner_than_you_think"><a class="u" href="#___top" title="go to top of document"><code>LEAVE</code> phaser may run sooner than you think</a></h2>
+<p>Parameter binding is executed when we&#39;re &quot;inside&quot; the routine&#39;s block, which means <code>LEAVE</code> phaser would run when we leave that block if parameter binding fails when wrong arguments are given:</p>
+<pre class="pod-block-code">sub foo(Int) {
+    my $x = 42;
+    LEAVE say $x.Int; # ← WRONG; assumes that $x is set
+}
+say foo rand; # OUTPUT: «No such method &#39;Int&#39; for invocant of type &#39;Any&#39;␤»
+</pre>
+<p>A simple way to avoid this issue is to declare your sub or method a multi, so the candidate is eliminated during dispatch and the code never gets to binding anything inside the sub, thus never entering the routine&#39;s body:</p>
+<pre class="pod-block-code">multi foo(Int) {
+    my $x = 42;
+    LEAVE say $x.Int;
+}
+say foo rand; # OUTPUT: «Cannot resolve caller foo(Num); none of these signatures match: (Int)␤»
+</pre>
+<p>Another alternative is placing the <code>LEAVE</code> into another block (assuming it&#39;s appropriate for it to be executed when <em>that</em> block is left, not the routine&#39;s body:</p>
+<pre class="pod-block-code">sub foo(Int) {
+    my $x = 42;
+    { LEAVE say $x.Int; }
+}
+say foo rand; # OUTPUT: «Type check failed in binding to parameter &#39;&lt;anon&gt;&#39;; expected Int but got Num (0.7289418947969465e0)␤»
+</pre>
+<p>You can also ensure <code>LEAVE</code> can be executed even if the routine is left due to failed argument binding. In our example, we check <code>$x</code> <a href="/Documentable/integration-test/routine/andthen">is defined</a> before doing anything with it.</p>
+<pre class="pod-block-code">sub foo(Int) {
+    my $x = 42;
+    LEAVE $x andthen .Int.say;
+}
+say foo rand; # OUTPUT: «Type check failed in binding to parameter &#39;&lt;anon&gt;&#39;; expected Int but got Num (0.8517160389079508e0)␤»
+</pre>
+<h1 id="Grammars"><a class="u" href="#___top" title="go to top of document">Grammars</a></h1>
+<h2 id="Using_regexes_within_grammar's_actions"><a class="u" href="#___top" title="go to top of document">Using regexes within grammar&#39;s actions</a></h2>
+<pre class="pod-block-code">grammar will-fail {
+    token TOP {^ &lt;word&gt; $}
+    token word { \w+ }
+}
+
+class will-fail-actions {
+    method TOP ($/) { my $foo = ~$/; say $foo ~~ /foo/;  }
+}
+</pre>
+<p>Will fail with <code>Cannot assign to a readonly variable ($/) or a value</code> on method <code>TOP</code>. The problem here is that regular expressions also affect <code>$/</code>. Since it is in <code>TOP</code>&#39;s signature, it is a read-only variable, which is what produces the error. You can safely either use another variable in the signature or add <code>is copy</code>, this way:</p>
+<pre class="pod-block-code">method TOP ($/ is copy) { my $foo = ~$/; my $v = $foo ~~ /foo/;  }
+</pre>
+<h2 id="Using_certain_names_for_rules/token/regexes"><a class="u" href="#___top" title="go to top of document">Using certain names for rules/token/regexes</a></h2>
+<p>Grammars are actually a type of classes.</p>
+<pre class="pod-block-code">grammar G {};
+say G.^mro; # OUTPUT: «((G) (Grammar) (Match) (Capture) (Cool) (Any) (Mu))␤»</pre>
+<p><code>^mro</code> prints the class hierarchy of this empty grammar, showing all the superclasses. And these superclasses have their very own methods. Defining a method in that grammar might clash with the ones inhabiting the class hierarchy:</p>
+<pre class="pod-block-code">grammar g {
+    token TOP { &lt;item&gt; };
+    token item { &#39;defined&#39; }
+};
+say g.parse(&#39;defined&#39;);
+# OUTPUT: «Too many positionals passed; expected 1 argument but got 2␤  in regex item at /tmp/grammar-clash.p6 line 3␤  in regex TOP at /tmp/grammar-clash.p6 line 2␤  in block &lt;unit&gt; at /tmp/grammar-clash.p6 line 5»
+</pre>
+<p><code>item</code> seems innocuous enough, but it is a <a href="/Documentable/integration-test/routine/item"><code>sub</code> defined in class <code>Mu</code></a>. The message is a bit cryptic and totally unrelated to that fact, but that is why this is listed as a trap. In general, all subs defined in any part of the hierarchy are going to cause problems; some methods will too. For instance, <code>CREATE</code>, <code>take</code> and <code>defined</code> (which are defined in <a href="/Documentable/integration-test/type/Mu">Mu</a>). In general, multi methods and simple methods will not have any problem, but it might not be a good practice to use them as rule names.</p>
+<p>Also avoid <a href="/Documentable/integration-test/language/objects#Object_construction">phasers</a> for rule/token/regex names: <code>TWEAK</code>, <code>BUILD</code>, <code>BUILD-ALL</code> will throw another kind of exception if you do that: <code>Cannot find method &#39;match&#39;: no method cache and no .^find_method</code>, once again only slightly related to what is actually going on.</p>
+<h1 id="Unfortunate_generalization"><a class="u" href="#___top" title="go to top of document">Unfortunate generalization</a></h1>
+<h2 id=":exists_with_more_than_one_key"><a class="u" href="#___top" title="go to top of document"><code>:exists</code> with more than one key</a></h2>
+<p>Let&#39;s say you have a hash and you want to use <code>:exists</code> on more than one element:</p>
+<pre class="pod-block-code">my %h = a =&gt; 1, b =&gt; 2;
+say ‘a exists’ if %h&lt;a&gt;:exists;   # ← OK; True
+say ‘y exists’ if %h&lt;y&gt;:exists;   # ← OK; False
+say ‘Huh‽’     if %h&lt;x y&gt;:exists; # ← WRONG; returns a 2-item list
+</pre>
+<p>Did you mean “if <code>any</code> of them exists”, or did you mean that <code>all</code> of them should exist? Use <code>any</code> or <code>all</code> <a href="/Documentable/integration-test/type/Junction">Junction</a> to clarify:</p>
+<pre class="pod-block-code">my %h = a =&gt; 1, b =&gt; 2;
+say ‘x or y’     if any %h&lt;x y&gt;:exists;   # ← RIGHT (any); False
+say ‘a, x or y’  if any %h&lt;a x y&gt;:exists; # ← RIGHT (any); True
+say ‘a, x and y’ if all %h&lt;a x y&gt;:exists; # ← RIGHT (all); False
+say ‘a and b’    if all %h&lt;a b&gt;:exists;   # ← RIGHT (all); True
+</pre>
+<p>The reason why it is always <code>True</code> (without using a junction) is that it returns a list with <a href="/Documentable/integration-test/type/Bool">Bool</a> values for each requested lookup. Non-empty lists always give <code>True</code> when you <a href="/Documentable/integration-test/type/Bool">Bool</a>ify them, so the check always succeeds no matter what keys you give it.</p>
+<h2 id="Using_[…]_metaoperator_with_a_list_of_lists"><a class="u" href="#___top" title="go to top of document">Using <code>[…]</code> metaoperator with a list of lists</a></h2>
+<p>Every now and then, someone gets the idea that they can use <code>[Z]</code> to create the transpose of a list-of-lists:</p>
+<pre class="pod-block-code">my @matrix = &lt;X Y&gt;, &lt;a b&gt;, &lt;1 2&gt;;
+my @transpose = [Z] @matrix; # ← WRONG; but so far so good ↙
+say @transpose;              # [(X a 1) (Y b 2)]
+</pre>
+<p>And everything works fine, until you get an input @matrix with <em>exactly one</em> row (child list):</p>
+<pre class="pod-block-code">my @matrix = &lt;X Y&gt;,;
+my @transpose = [Z] @matrix; # ← WRONG; ↙
+say @transpose;              # [(X Y)] – not the expected transpose [(X) (Y)]
+</pre>
+<p>This happens partly because of the <a href="/Documentable/integration-test/language/functions#Slurpy_conventions">single argument rule</a>, and there are other cases when this kind of a generalization may not work.</p>
+<h2 id="Using_[~]_for_concatenating_a_list_of_blobs"><a class="u" href="#___top" title="go to top of document">Using [~] for concatenating a list of blobs</a></h2>
+<p>The <a href="/Documentable/integration-test/routine/~#(Operators)_infix_~"><code>~</code> infix operator</a> can be used to concatenate <a href="/Documentable/integration-test/type/Str">Str</a>s <em>or</em> <a href="/Documentable/integration-test/type/Blob">Blob</a>s. However, an empty list will <em>always</em> be reduced to an empty <code>Str</code>. This is due to the fact that, in the presence of a list with no elements, the <a href="/Documentable/integration-test/language/operators#Reduction_operators">reduction</a> metaoperator returns the <a href="/Documentable/integration-test/language/operators#Identity">identity element</a> for the given operator. Identity element for <code>~</code> is an empty string, regardless of the kind of elements the list could be populated with.</p>
+<pre class="pod-block-code">my Blob @chunks;
+say ([~] @chunks).raku; # OUTPUT: «&quot;&quot;␤»
+</pre>
+<p>This might cause a problem if you attempt to use the result while assuming that it is a Blob:</p>
+<pre class="pod-block-code">my Blob @chunks;
+say ([~] @chunks).decode;
+# OUTPUT: «No such method &#39;decode&#39; for invocant of type &#39;Str&#39;. Did you mean &#39;encode&#39;?␤…»
+</pre>
+<p>There are many ways to cover that case. You can avoid <code>[ ]</code> metaoperator altogether:</p>
+<pre class="pod-block-code">my @chunks;
+# …
+say Blob.new: |«@chunks; # OUTPUT: «Blob:0x&lt;&gt;␤»
+</pre>
+<p>Alternatively, you can initialize the array with an empty Blob:</p>
+<pre class="pod-block-code">my @chunks = Blob.new;
+# …
+say [~] @chunks; # OUTPUT: «Blob:0x&lt;&gt;␤»
+</pre>
+<p>Or you can utilize <a href="/Documentable/integration-test/language/operators#infix || "><code>||</code></a> operator to make it use an empty Blob in case the list is empty:</p>
+<pre class="pod-block-code">my @chunks;
+# …
+say [~] @chunks || Blob.new; # OUTPUT: «Blob:0x&lt;&gt;␤»
+</pre>
+<p>Please note that a similar issue may arise when reducing lists with other operators.</p>
+<h1 id="Maps"><a class="u" href="#___top" title="go to top of document">Maps</a></h1>
+<h2 id="Beware_of_nesting_Maps_in_sink_context"><a class="u" href="#___top" title="go to top of document">Beware of nesting <code>Map</code>s in sink context</a></h2>
+<p>Maps apply an expression to every element of a <a href="/Documentable/integration-test/type/List">List</a> and return a <a href="/Documentable/integration-test/type/Seq">Seq</a>:</p>
+<pre class="pod-block-code">say &lt;þor oðin loki&gt;.map: *.codes; # OUTPUT: «(3 4 4)␤»</pre>
+<p>Maps are often used as a compact substitute for a loop, performing some kind of action in the map code block:</p>
+<pre class="pod-block-code">&lt;þor oðin loki&gt;.map: *.codes.say; # OUTPUT: «3␤4␤4␤»</pre>
+<p>The problem might arise when maps are nested and <a href="/Documentable/integration-test/language/contexts#index-entry-sink_context">in a sink context</a>.</p>
+<pre class="pod-block-code">&lt;foo bar ber&gt;.map: { $^a.comb.map: { $^b.say}}; # OUTPUT: «»</pre>
+<p>You might expect the innermost map to <em>bubble</em> the result up to the outermost map, but it simply does nothing. Maps return <code>Seq</code>s, and in sink context the innermost map will iterate and discard the produced values, which is why it yields nothing.</p>
+<p>Simply using <code>say</code> at the beginning of the sentence will save the result from sink context:</p>
+<pre class="pod-block-code">say &lt;foo bar ber&gt;.map: *.comb.map: *.say ;
+# OUTPUT: «f␤o␤o␤b␤a␤r␤b␤e␤r␤((True True True) (True True True) (True True True))␤»</pre>
+<p>However, it will not be working as intended; the first <code>f␤o␤o␤b␤a␤r␤b␤e␤r␤</code> is the result of the innermost <code>say</code>, but then <a href="/Documentable/integration-test/routine/say#(Mu)_method_say"><code>say</code> returns a <code>Bool</code></a>, <code>True</code> in this case. Those <code>True</code>s are what get printed by the outermost <code>say</code>, one for every letter. A much better option would be to <code>flat</code>ten the outermost sequence:</p>
+<pre class="pod-block-code">&lt;foo bar ber&gt;.map({ $^a.comb.map: { $^b.say}}).flat
+# OUTPUT: «f␤o␤o␤b␤a␤r␤b␤e␤r␤»</pre>
+<p>Of course, saving <code>say</code> for the result will also produce the intended result, as it will be saving the two nested sequences from void context:</p>
+<pre class="pod-block-code">say &lt;foo bar ber&gt;.map: { $^þ.comb }; # OUTPUT: « ((f o o) (b a r) (b e r))»</pre>
+<h1 id="Smartmatching"><a class="u" href="#___top" title="go to top of document">Smartmatching</a></h1>
+<p>The <a href="/Documentable/integration-test/language/operators#index-entry-smartmatch_operator">smartmatch operator</a> shortcuts to the right hand side <em>accepting</em> the left hand side. This may cause some confusion.</p>
+<h2 id="Smartmatch_and_WhateverCode"><a class="u" href="#___top" title="go to top of document">Smartmatch and <code>WhateverCode</code></a></h2>
+<p>Using <code>WhateverCode</code> in the left hand side of a smartmatch does not work as expected, or at all:</p>
+<pre class="pod-block-code">my @a = &lt;1 2 3&gt;;
+say @a.grep( *.Int ~~ 2 );
+# OUTPUT: «Cannot use Bool as Matcher with &#39;.grep&#39;.  Did you mean to
+# use $_ inside a block?␤␤␤»
+</pre>
+<p>The error message does not make a lot of sense. It does, however, if you put it in terms of the <code>ACCEPTS</code> method: that code is equivalent to <code>2.ACCEPTS( *.Int )</code>, but <code>*.Int</code> cannot be <a href="/Documentable/integration-test/routine/ACCEPTS#(Numeric)_method_ACCEPTS">coerced to <code>Numeric</code></a>, being as it is a <code>Block</code>.</p>
+<p>Solution: don&#39;t use <code>WhateverCode</code> in the left hand side of a smartmatch:</p>
+<pre class="pod-block-code">my @a = &lt;1 2 3&gt;;
+say @a.grep( 2 ~~ *.Int ); # OUTPUT: «(2)␤»
+</pre>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/traps.pod6">https://github.com/Raku/doc/blob/master/doc/Language/traps.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

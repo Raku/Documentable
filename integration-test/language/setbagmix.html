@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Sets, bags, and mixes</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/setbagmix.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Sets, bags, and mixes</h1>
+        <p class="subtitle">Unordered collections of unique and weighted objects in Raku</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+  <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#Introduction">Introduction</a></td></tr>
+                                                                                                                       <tr class="toc-level-1"><td class="toc-number">2</td><td class="toc-text"><a href="#Operators_with_set_semantics">Operators with set semantics</a></td></tr>
+                                      <tr class="toc-level-2"><td class="toc-number">2.1</td><td class="toc-text"><a href="#Set_operators_that_return_Bool">Set operators that return <code class="pod-code-inline">Bool</code></a></td></tr>
+ <tr class="toc-level-3"><td class="toc-number">2.1.1</td><td class="toc-text"><a href="#infix_(elem),_infix_∈">infix (elem), infix ∈</a></td></tr>
+                <tr class="toc-level-3"><td class="toc-number">2.1.2</td><td class="toc-text"><a href="#infix_∉">infix ∉</a></td></tr>
+                <tr class="toc-level-3"><td class="toc-number">2.1.3</td><td class="toc-text"><a href="#infix_(cont),_infix_∋">infix (cont), infix ∋</a></td></tr>
+                <tr class="toc-level-3"><td class="toc-number">2.1.4</td><td class="toc-text"><a href="#infix_∌">infix ∌</a></td></tr>
+                <tr class="toc-level-3"><td class="toc-number">2.1.5</td><td class="toc-text"><a href="#infix_(&lt;=),_infix_⊆">infix (&lt;=), infix ⊆</a></td></tr>
+                <tr class="toc-level-3"><td class="toc-number">2.1.6</td><td class="toc-text"><a href="#infix_⊈">infix ⊈</a></td></tr>
+                  <tr class="toc-level-3"><td class="toc-number">2.1.7</td><td class="toc-text"><a href="#infix_(&lt;),_infix_⊂">infix (&lt;), infix ⊂</a></td></tr>
+                <tr class="toc-level-3"><td class="toc-number">2.1.8</td><td class="toc-text"><a href="#infix_⊄">infix ⊄</a></td></tr>
+                  <tr class="toc-level-3"><td class="toc-number">2.1.9</td><td class="toc-text"><a href="#infix_(&gt;=),_infix_⊇">infix (&gt;=), infix ⊇</a></td></tr>
+                <tr class="toc-level-3"><td class="toc-number">2.1.10</td><td class="toc-text"><a href="#infix_⊉">infix ⊉</a></td></tr>
+                  <tr class="toc-level-3"><td class="toc-number">2.1.11</td><td class="toc-text"><a href="#infix_(&gt;),_infix_⊃">infix (&gt;), infix ⊃</a></td></tr>
+                <tr class="toc-level-3"><td class="toc-number">2.1.12</td><td class="toc-text"><a href="#infix_⊅">infix ⊅</a></td></tr>
+                  <tr class="toc-level-2"><td class="toc-number">2.2</td><td class="toc-text"><a href="#Set_operators_that_return_a_QuantHash">Set operators that return a <code class="pod-code-inline">QuantHash</code></a></td></tr>
+ <tr class="toc-level-3"><td class="toc-number">2.2.1</td><td class="toc-text"><a href="#infix_(|),_infix_∪">infix (|), infix ∪</a></td></tr>
+        <tr class="toc-level-3"><td class="toc-number">2.2.2</td><td class="toc-text"><a href="#infix_(&amp;),_infix_∩">infix (&amp;), infix ∩</a></td></tr>
+        <tr class="toc-level-3"><td class="toc-number">2.2.3</td><td class="toc-text"><a href="#infix_(-),_infix_∖">infix (-), infix ∖</a></td></tr>
+        <tr class="toc-level-3"><td class="toc-number">2.2.4</td><td class="toc-text"><a href="#infix_(^),_infix_⊖">infix (^), infix ⊖</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">2.3</td><td class="toc-text"><a href="#Set_operators_that_return_a_Baggy">Set operators that return a <code class="pod-code-inline">Baggy</code></a></td></tr>
+ <tr class="toc-level-3"><td class="toc-number">2.3.1</td><td class="toc-text"><a href="#infix_(.),_infix_⊍">infix (.), infix ⊍</a></td></tr>
+      <tr class="toc-level-3"><td class="toc-number">2.3.2</td><td class="toc-text"><a href="#infix_(+),_infix_⊎">infix (+), infix ⊎</a></td></tr>
+      <tr class="toc-level-2"><td class="toc-number">2.4</td><td class="toc-text"><a href="#Terms_related_to_set_operators">Terms related to set operators</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-number">2.4.1</td><td class="toc-text"><a href="#term_∅">term ∅</a></td></tr>
+     
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <h1 id="Introduction"><a class="u" href="#___top" title="go to top of document">Introduction</a></h1>
+<p>The six collection classes are <a href="/Documentable/integration-test/type/Set">Set</a>, <a href="/Documentable/integration-test/type/SetHash">SetHash</a>, <a href="/Documentable/integration-test/type/Bag">Bag</a>, <a href="/Documentable/integration-test/type/BagHash">BagHash</a>, <a href="/Documentable/integration-test/type/Mix">Mix</a> and <a href="/Documentable/integration-test/type/MixHash">MixHash</a>. They all share similar semantics.</p>
+<p>In a nutshell, these classes hold, in general, unordered collections of objects, much like an <a href="/Documentable/integration-test/type/Hash#index-entry-object_hash">object hash</a>. The <a href="/Documentable/integration-test/type/QuantHash">QuantHash</a> role is the role that is implemented by all of these classes: therefore they are also referenced as <code>QuantHash</code>es.</p>
+<p><code>Set</code> and <code>SetHash</code> also implement the <a href="/Documentable/integration-test/type/Setty">Setty</a> role, <code>Bag</code> and <code>BagHash</code> implement the <a href="/Documentable/integration-test/type/Baggy">Baggy</a> role, <code>Mix</code> and <code>MixHash</code> implement the <a href="/Documentable/integration-test/type/Mixy">Mixy</a> role (which itself implements the <code>Baggy</code> role).</p>
+<p>Sets only consider if objects in the collection are present or not, bags can hold several objects of the same kind, and mixes also allow fractional (and negative) weights. The regular versions are immutable, the <em>-Hash</em> versions are mutable.</p>
+<p>Let&#39;s elaborate on that. If you want to collect objects in a container but you do not care about the order of these objects, Raku provides these <em>unordered</em> collection types. Being unordered, these containers can be more efficient than <a href="/Documentable/integration-test/type/List">Lists</a> or <a href="/Documentable/integration-test/type/Array">Arrays</a> for looking up elements or dealing with repeated items.</p>
+<p>On the other hand, if you want to get the contained objects (elements) <strong>without duplicates</strong> and you only care <em>whether</em> an element is in the collection or not, you can use a <a href="/Documentable/integration-test/type/Set">Set</a> or <a href="/Documentable/integration-test/type/SetHash">SetHash</a>.</p>
+<p>If you want to get rid of duplicates but still preserve order, take a look at the <a href="/Documentable/integration-test/routine/unique">unique</a> routine for <a href="/Documentable/integration-test/type/List">List</a>.</p>
+<p>If you want to keep track of the <strong>number of times each object appeared</strong>, you can use a <a href="/Documentable/integration-test/type/Bag">Bag</a> or <a href="/Documentable/integration-test/type/BagHash">BagHash</a>. In these <code>Baggy</code> containers each element has a weight (an unsigned integer) indicating the number of times the same object has been included in the collection.</p>
+<p>The types <a href="/Documentable/integration-test/type/Mix">Mix</a> and <a href="/Documentable/integration-test/type/MixHash">MixHash</a> are similar to <a href="/Documentable/integration-test/type/Bag">Bag</a> and <a href="/Documentable/integration-test/type/BagHash">BagHash</a>, but they also allow <strong>fractional and negative weights</strong>.</p>
+<p><a href="/Documentable/integration-test/type/Set">Set</a>, <a href="/Documentable/integration-test/type/Bag">Bag</a>, and <a href="/Documentable/integration-test/type/Mix">Mix</a> are <em>immutable</em> types. Use the mutable variants <a href="/Documentable/integration-test/type/SetHash">SetHash</a>, <a href="/Documentable/integration-test/type/BagHash">BagHash</a>, and <a href="/Documentable/integration-test/type/MixHash">MixHash</a> if you want to add or remove elements after the container has been constructed.</p>
+<p>For one thing, as far as they are concerned, identical objects refer to the same element – where identity is determined using the <a href="/Documentable/integration-test/routine/WHICH">WHICH</a> method (i.e. the same way that the <a href="/Documentable/integration-test/routine/===">===</a> operator checks identity). For value types like <code>Str</code>, this means having the same value; for reference types like <code>Array</code>, it means referring to the same object instance.</p>
+<p>Secondly, they provide a Hash-like interface where the actual elements of the collection (which can be objects of any type) are the &#39;keys&#39;, and the associated weights are the &#39;values&#39;:</p>
+<table class="pod-table">
+<thead><tr>
+<th>type of $a</th> <th>value of $a{$b} if $b is an element</th> <th>value of $a{$b} if $b is not an element</th>
+</tr></thead>
+<tbody>
+<tr> <td>Set / SetHash</td> <td>True</td> <td>False</td> </tr> <tr> <td>Bag / BagHash</td> <td>a positive integer</td> <td>0</td> </tr> <tr> <td>Mix / MixHash</td> <td>a non-zero real number</td> <td>0</td> </tr>
+</tbody>
+</table><h1 id="Operators_with_set_semantics"><a class="u" href="#___top" title="go to top of document">Operators with set semantics</a></h1>
+<p>There are several infix operators devoted to performing common operations using <code>QuantHash</code> semantics. Since that is a mouthful, these operators are usually referred to as &quot;set operators&quot;.</p>
+<p>This does <strong>not</strong> mean that the parameters of these operators must always be <code>Set</code>, or even a more generic <code>QuantHash</code>. It just means that the logic that is applied to the operators is the logic of <a href="https://en.wikipedia.org/wiki/Set_theory">Set Theory</a>.</p>
+<p>These infixes can be written using the Unicode character that represents the function (like <code>∈</code> or <code>∪</code>), or with an equivalent ASCII version (like <code>(elem)</code> or <code>(|)</code>).</p>
+<p>So explicitly using <code>Set</code> (or <code>Bag</code> or <code>Mix</code>) objects with these infixes is unnecessary. All set operators work with all possible arguments, including (since 6.d) those that are not explicitly set-like. If necessary, a coercion will take place internally: but in many cases that is not actually needed.</p>
+<p>However, if a <code>Bag</code> or <code>Mix</code> is one of the parameters to these set operators, then the semantics will be upgraded to that type (where <code>Mix</code> supersedes <code>Bag</code> if both types happen to be used).</p>
+<h2 id="Set_operators_that_return_Bool"><a class="u" href="#___top" title="go to top of document">Set operators that return <code>Bool</code></a></h2>
+<h3 id="infix_(elem),_infix_∈"><a class="u" href="#___top" title="go to top of document">infix (elem), infix ∈</a></h3>
+<p>Returns <code>True</code> if <code>$a</code> is an <strong>element</strong> of <code>$b</code>, else <code>False</code>. <a href="/Documentable/integration-test/language/operators#infix_(elem),_infix_∈">More information</a>, <a href="https://en.wikipedia.org/wiki/Element_(mathematics)#Notation_and_terminology">Wikipedia definition</a>.</p>
+<h3 id="infix_∉"><a class="u" href="#___top" title="go to top of document">infix ∉</a></h3>
+<p>Returns <code>True</code> if <code>$a</code> is <strong>not</strong> an element of <code>$b</code>, else <code>False</code>. <a href="/Documentable/integration-test/language/operators#infix_∉">More information</a>, <a href="https://en.wikipedia.org/wiki/Element_(mathematics)#Notation_and_terminology">Wikipedia definition</a>.</p>
+<h3 id="infix_(cont),_infix_∋"><a class="u" href="#___top" title="go to top of document">infix (cont), infix ∋</a></h3>
+<p>Returns <code>True</code> if <code>$a</code> <strong>contains</strong> <code>$b</code> as an element, else <code>False</code>. <a href="/Documentable/integration-test/language/operators#infix_(cont),_infix_∋">More information</a>, <a href="https://en.wikipedia.org/wiki/Element_(mathematics)#Notation_and_terminology">Wikipedia definition</a>.</p>
+<h3 id="infix_∌"><a class="u" href="#___top" title="go to top of document">infix ∌</a></h3>
+<p>Returns <code>True</code> if <code>$a</code> does <strong>not</strong> contain <code>$b</code>, else <code>False</code>. <a href="/Documentable/integration-test/language/operators#infix_∌">More information</a>, <a href="https://en.wikipedia.org/wiki/Element_(mathematics)#Notation_and_terminology">Wikipedia definition</a>.</p>
+<h3 id="infix_(<=),_infix_⊆"><a class="u" href="#___top" title="go to top of document">infix (&lt;=), infix ⊆</a></h3>
+<p>Returns <code>True</code> if <code>$a</code> is a <strong>subset</strong> or is equal to <code>$b</code>, else <code>False</code>. <a href="/Documentable/integration-test/language/operators#infix_(<=),_infix_⊆">More information</a>, <a href="https://en.wikipedia.org/wiki/Subset#Definitions">Wikipedia definition</a>.</p>
+<h3 id="infix_⊈"><a class="u" href="#___top" title="go to top of document">infix ⊈</a></h3>
+<p>Returns <code>True</code> if <code>$a</code> is <strong>not</strong> a <strong>subset</strong> nor equal to <code>$b</code>, else <code>False</code>. <a href="/Documentable/integration-test/language/operators#infix_⊈">More information</a>, <a href="https://en.wikipedia.org/wiki/Subset#Definitions">Wikipedia definition</a>.</p>
+<h3 id="infix_(<),_infix_⊂"><a class="u" href="#___top" title="go to top of document">infix (&lt;), infix ⊂</a></h3>
+<p>Returns <code>True</code> if <code>$a</code> is a <strong>strict subset</strong> of <code>$b</code>, else <code>False</code>. <a href="/Documentable/integration-test/language/operators#infix_(<),_infix_⊂">More information</a>, <a href="https://en.wikipedia.org/wiki/Subset#Definitions">Wikipedia definition</a>.</p>
+<h3 id="infix_⊄"><a class="u" href="#___top" title="go to top of document">infix ⊄</a></h3>
+<p>Returns <code>True</code> if <code>$a</code> is <strong>not</strong> a <strong>strict subset</strong> of <code>$b</code>, else <code>False</code>. <a href="/Documentable/integration-test/language/operators#infix_⊄">More information</a>, <a href="https://en.wikipedia.org/wiki/Subset#Definitions">Wikipedia definition</a>.</p>
+<h3 id="infix_(>=),_infix_⊇"><a class="u" href="#___top" title="go to top of document">infix (&gt;=), infix ⊇</a></h3>
+<p>Returns <code>True</code> if <code>$a</code> is a <strong>superset</strong> of or equal to <code>$b</code>, else <code>False</code>. <a href="/Documentable/integration-test/language/operators#infix_(>=),_infix_⊇">More information</a>, <a href="https://en.wikipedia.org/wiki/Subset#Definitions">Wikipedia definition</a>.</p>
+<h3 id="infix_⊉"><a class="u" href="#___top" title="go to top of document">infix ⊉</a></h3>
+<p>Returns <code>True</code> if <code>$a</code> is <strong>not</strong> a <strong>superset</strong> nor equal to <code>$b</code>, else <code>False</code>. <a href="/Documentable/integration-test/language/operators#infix_⊉">More information</a>, <a href="https://en.wikipedia.org/wiki/Subset#Definitions">Wikipedia definition</a>.</p>
+<h3 id="infix_(>),_infix_⊃"><a class="u" href="#___top" title="go to top of document">infix (&gt;), infix ⊃</a></h3>
+<p>Returns <code>True</code> if <code>$a</code> is a <strong>strict superset</strong> of <code>$b</code>, else <code>False</code>. <a href="/Documentable/integration-test/language/operators#infix_(>),_infix_⊃">More information</a>, <a href="https://en.wikipedia.org/wiki/Subset#Definitions">Wikipedia definition</a>.</p>
+<h3 id="infix_⊅"><a class="u" href="#___top" title="go to top of document">infix ⊅</a></h3>
+<p>Returns <code>True</code> if <code>$a</code> is <strong>not</strong> a <strong>strict superset</strong> of <code>$b</code>, else <code>False</code>. <a href="/Documentable/integration-test/language/operators#infix_⊅">More information</a>, <a href="https://en.wikipedia.org/wiki/Subset#Definitions">Wikipedia definition</a>.</p>
+<h2 id="Set_operators_that_return_a_QuantHash"><a class="u" href="#___top" title="go to top of document">Set operators that return a <code>QuantHash</code></a></h2>
+<h3 id="infix_(|),_infix_∪"><a class="u" href="#___top" title="go to top of document">infix (|), infix ∪</a></h3>
+<p>Returns the <strong>union</strong> of all its arguments. <a href="/Documentable/integration-test/language/operators#infix_(|),_infix_∪">More information</a>, <a href="https://en.wikipedia.org/wiki/Union_(set_theory)">Wikipedia definition</a>.</p>
+<h3 id="infix_(&),_infix_∩"><a class="u" href="#___top" title="go to top of document">infix (&amp;), infix ∩</a></h3>
+<p>Returns the <strong>intersection</strong> of all of its arguments. <a href="/Documentable/integration-test/language/operators#infix_(&),_infix_∩">More information</a>, <a href="https://en.wikipedia.org/wiki/Intersection_(set_theory)">Wikipedia definition</a>.</p>
+<h3 id="infix_(-),_infix_∖"><a class="u" href="#___top" title="go to top of document">infix (-), infix ∖</a></h3>
+<p>Returns the <strong>set difference</strong> of all its arguments. <a href="/Documentable/integration-test/language/operators#infix_(-),_infix_∖">More information</a>, <a href="https://en.wikipedia.org/wiki/Complement_(set_theory)#Relative_complement">Wikipedia definition</a>.</p>
+<h3 id="infix_(^),_infix_⊖"><a class="u" href="#___top" title="go to top of document">infix (^), infix ⊖</a></h3>
+<p>Returns the <strong>symmetric set difference</strong> of all its arguments. <a href="/Documentable/integration-test/language/operators#infix_($CIRCUMFLEX_ACCENT),_infix_⊖">More information</a>, <a href="https://en.wikipedia.org/wiki/Symmetric_difference">Wikipedia definition</a>.</p>
+<h2 id="Set_operators_that_return_a_Baggy"><a class="u" href="#___top" title="go to top of document">Set operators that return a <code>Baggy</code></a></h2>
+<h3 id="infix_(.),_infix_⊍"><a class="u" href="#___top" title="go to top of document">infix (.), infix ⊍</a></h3>
+<p>Returns the Baggy <strong>multiplication</strong> of its arguments. <a href="/Documentable/integration-test/language/operators#infix_(.),_infix_⊍">More information</a>.</p>
+<h3 id="infix_(+),_infix_⊎"><a class="u" href="#___top" title="go to top of document">infix (+), infix ⊎</a></h3>
+<p>Returns the Baggy <strong>addition</strong> of its arguments. <a href="/Documentable/integration-test/language/operators#infix_(+),_infix_⊎">More information</a>.</p>
+<h2 id="Terms_related_to_set_operators"><a class="u" href="#___top" title="go to top of document">Terms related to set operators</a></h2>
+<h3 id="term_∅"><a class="u" href="#___top" title="go to top of document">term ∅</a></h3>
+<p>The empty set. <a href="/Documentable/integration-test/language/terms#term_∅">More information</a>, <a href="https://en.wikipedia.org/wiki/Empty_set">Wikipedia definition</a>.</p>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/setbagmix.pod6">https://github.com/Raku/doc/blob/master/doc/Language/setbagmix.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

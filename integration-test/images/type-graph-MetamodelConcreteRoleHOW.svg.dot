@@ -1,0 +1,31 @@
+digraph "perl6-type-graph" {
+    rankdir=BT;
+    splines=polyline;
+    overlap=false; 
+    // Types
+    "Metamodel::ConcreteRoleHOW" [color="#000000", fontcolor="#000000", href="/type/Metamodel::ConcreteRoleHOW", fontname="FreeSans"];
+    "Mu" [color="#000000", fontcolor="#000000", href="/type/Mu", fontname="FreeSans"];
+    "Any" [color="#000000", fontcolor="#000000", href="/type/Any", fontname="FreeSans"];
+    "Metamodel::Naming" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::Naming", fontname="FreeSans"];
+    "Metamodel::Versioning" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::Versioning", fontname="FreeSans"];
+    "Metamodel::PrivateMethodContainer" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::PrivateMethodContainer", fontname="FreeSans"];
+    "Metamodel::MethodContainer" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::MethodContainer", fontname="FreeSans"];
+    "Metamodel::MultiMethodContainer" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::MultiMethodContainer", fontname="FreeSans"];
+    "Metamodel::AttributeContainer" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::AttributeContainer", fontname="FreeSans"];
+    "Metamodel::RoleContainer" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::RoleContainer", fontname="FreeSans"];
+    "Metamodel::MultipleInheritance" [color="#6666FF", fontcolor="#6666FF", href="/type/Metamodel::MultipleInheritance", fontname="FreeSans"];
+
+    // Superclasses
+    "Metamodel::ConcreteRoleHOW" -> "Any" [color="#000000"];
+    "Any" -> "Mu" [color="#000000"];
+
+    // Roles
+    "Metamodel::ConcreteRoleHOW" -> "Metamodel::Naming" [color="#6666FF"];
+    "Metamodel::ConcreteRoleHOW" -> "Metamodel::Versioning" [color="#6666FF"];
+    "Metamodel::ConcreteRoleHOW" -> "Metamodel::PrivateMethodContainer" [color="#6666FF"];
+    "Metamodel::ConcreteRoleHOW" -> "Metamodel::MethodContainer" [color="#6666FF"];
+    "Metamodel::ConcreteRoleHOW" -> "Metamodel::MultiMethodContainer" [color="#6666FF"];
+    "Metamodel::ConcreteRoleHOW" -> "Metamodel::AttributeContainer" [color="#6666FF"];
+    "Metamodel::ConcreteRoleHOW" -> "Metamodel::RoleContainer" [color="#6666FF"];
+    "Metamodel::ConcreteRoleHOW" -> "Metamodel::MultipleInheritance" [color="#6666FF"];
+}

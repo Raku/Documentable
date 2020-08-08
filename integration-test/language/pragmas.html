@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Pragmas</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:;">
+            <button title="Edit this page"  class="pencil" onclick="location='https://github.com/Raku/doc/edit/master/doc/Language/pragmas.pod6'">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">Pragmas</h1>
+        <p class="subtitle">Special modules that define certain aspects of the behavior of the code</p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+                 <tr class="toc-level-2"><td class="toc-number">0.1</td><td class="toc-text"><a href="#v6.x">v6.x</a></td></tr>
+                    <tr class="toc-level-2"><td class="toc-number">0.2</td><td class="toc-text"><a href="#MONKEY-GUTS">MONKEY-GUTS</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">0.3</td><td class="toc-text"><a href="#MONKEY-SEE-NO-EVAL">MONKEY-SEE-NO-EVAL</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">0.4</td><td class="toc-text"><a href="#MONKEY-TYPING">MONKEY-TYPING</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">0.5</td><td class="toc-text"><a href="#MONKEY">MONKEY</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">0.6</td><td class="toc-text"><a href="#dynamic-scope">dynamic-scope</a></td></tr>
+                                     <tr class="toc-level-2"><td class="toc-number">0.7</td><td class="toc-text"><a href="#experimental">experimental</a></td></tr>
+    <tr class="toc-level-2"><td class="toc-number">0.8</td><td class="toc-text"><a href="#fatal">fatal</a></td></tr>
+                                                <tr class="toc-level-2"><td class="toc-number">0.9</td><td class="toc-text"><a href="#internals">internals</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">0.10</td><td class="toc-text"><a href="#invocant">invocant</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">0.11</td><td class="toc-text"><a href="#isms">isms</a></td></tr>
+                         <tr class="toc-level-2"><td class="toc-number">0.12</td><td class="toc-text"><a href="#lib">lib</a></td></tr>
+               <tr class="toc-level-2"><td class="toc-number">0.13</td><td class="toc-text"><a href="#newline">newline</a></td></tr>
+           <tr class="toc-level-2"><td class="toc-number">0.14</td><td class="toc-text"><a href="#nqp">nqp</a></td></tr>
+          <tr class="toc-level-2"><td class="toc-number">0.15</td><td class="toc-text"><a href="#parameters">parameters</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">0.16</td><td class="toc-text"><a href="#precompilation">precompilation</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">0.17</td><td class="toc-text"><a href="#soft">soft</a></td></tr>
+     <tr class="toc-level-2"><td class="toc-number">0.18</td><td class="toc-text"><a href="#strict">strict</a></td></tr>
+        <tr class="toc-level-2"><td class="toc-number">0.19</td><td class="toc-text"><a href="#trace">trace</a></td></tr>
+       <tr class="toc-level-2"><td class="toc-number">0.20</td><td class="toc-text"><a href="#v6">v6</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">0.21</td><td class="toc-text"><a href="#variables">variables</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">0.22</td><td class="toc-text"><a href="#worries">worries</a></td></tr>
+                    
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>In Raku, <strong>pragmas</strong> are directive used to either identify a specific version of Raku to be used or to modify the compiler&#39;s normal behavior in some way. The <code>use</code> keyword enables a pragma (similar to how you can <code>use</code> a module). To disable a pragma, use the <code>no</code> keyword:</p>
+<pre class="pod-block-code">use v6.c;   # use 6.c language version
+no worries; # don&#39;t issue compile time warnings
+</pre>
+<p>Following is a list of pragmas with a short description of each pragma&#39;s purpose or a link to more details about its use. (Note: Pragmas marked &quot;[NYI]&quot; are not yet implemented, and those marked &quot;[TBD]&quot; are to be defined later.)</p>
+<p><a name="Documentable/integration-test/index-entry-v6.x__pragma"></a></p>
+<h2 id="v6.x"><a class="u" href="#___top" title="go to top of document">v6.x</a></h2>
+<p>This pragma states the version of the compiler that is going to be used, and turns on its features if they are optional.</p>
+<pre class="pod-block-code">use v6;   # Load latest supported version (non-PREVIEW).
+</pre>
+<pre class="pod-block-code">use v6.c;         # Use the &quot;Christmas&quot; version of Raku
+</pre>
+<pre class="pod-block-code">use v6.d;         # Use the &quot;Diwali&quot; version of Raku
+</pre>
+<p>From 2018.11, which implemented 6.d, this pragma does not do anything.</p>
+<pre class="pod-block-code">use v6.d.PREVIEW; # On 6.d-capable compilers, enables 6.d features,
+                  # otherwise enables the available experimental
+                  # preview features for 6.d language
+</pre>
+<p>Since these pragmas turn on the compiler version, they should be the first statement in the file (preceding comments and Pod are fine).</p>
+<p>Note that historically, <code>use v6;</code> was also intended to signal to Perl&nbsp;5 interpreters to error out and warn the user to use Perl&nbsp;6. This is no longer a consideration.</p>
+<p><a name="Documentable/integration-test/index-entry-MONKEY-GUTS__pragma"></a></p>
+<h2 id="MONKEY-GUTS"><a class="u" href="#___top" title="go to top of document">MONKEY-GUTS</a></h2>
+<p>This pragma is not currently part of any Raku specification, but is present in Rakudo as a synonym to <code>use nqp</code> (see below).</p>
+<p><a name="Documentable/integration-test/index-entry-MONKEY-SEE-NO-EVAL__pragma"></a></p>
+<h2 id="MONKEY-SEE-NO-EVAL"><a class="u" href="#___top" title="go to top of document">MONKEY-SEE-NO-EVAL</a></h2>
+<p><a href="/Documentable/integration-test/routine/EVAL">EVAL</a></p>
+<p><a name="Documentable/integration-test/index-entry-MONKEY-TYPING__pragma"></a></p>
+<h2 id="MONKEY-TYPING"><a class="u" href="#___top" title="go to top of document">MONKEY-TYPING</a></h2>
+<p><a href="/Documentable/integration-test/syntax/augment">augment</a></p>
+<p><a name="Documentable/integration-test/index-entry-MONKEY__pragma"></a></p>
+<h2 id="MONKEY"><a class="u" href="#___top" title="go to top of document">MONKEY</a></h2>
+<p><code>use MONKEY;</code></p>
+<p>Turns on all available <code>MONKEY</code> pragmas, currently the three above; thus, it would be equivalent to</p>
+<pre class="pod-block-code">use MONKEY-TYPING;
+use MONKEY-SEE-NO-EVAL;
+use MONKEY-GUTS;</pre>
+<p><a name="Documentable/integration-test/index-entry-dynamic-scope,_pragma"><span class="index-entry">dynamic-scope, pragma</span></a></p>
+<h2 id="dynamic-scope"><a class="u" href="#___top" title="go to top of document">dynamic-scope</a></h2>
+<p>Applies the <a href="/Documentable/integration-test/type/Variable#trait_is_dynamic">is dynamic</a> trait to variables in the pragma&#39;s lexical scope. The effect can be restricted to a subset of variables by listing their names as arguments. By default applies to <em>all</em> variables.</p>
+<pre class="pod-block-code"># Apply <code>is dynamic</code> only to $x, but not to $y
+use dynamic-scope &lt;$x&gt;;
+
+sub poke {
+    say $CALLER::x;
+    say $CALLER::y;
+}
+
+my $x = 23;
+my $y = 34;
+poke;
+
+# OUTPUT:
+# 23
+# Cannot access &#39;$y&#39; through CALLER, because it is not declared as dynamic
+</pre>
+<p>This pragma is not currently part of any Raku specification and was added in Rakudo 2019.03.</p>
+<p><a name="Documentable/integration-test/index-entry-experimental__pragma"></a></p>
+<h2 id="experimental"><a class="u" href="#___top" title="go to top of document">experimental</a></h2>
+<p>Allows use of <a href="/Documentable/integration-test/language/experimental">experimental features</a></p>
+<p><a name="Documentable/integration-test/index-entry-fatal__pragma"></a></p>
+<h2 id="fatal"><a class="u" href="#___top" title="go to top of document">fatal</a></h2>
+<p>A lexical pragma that makes <a href="/Documentable/integration-test/type/Failure">Failures</a> returned from routines fatal. For example, prefix <code>+</code> on a <a href="/Documentable/integration-test/type/Str">Str</a> coerces it to <a href="/Documentable/integration-test/type/Numeric">Numeric</a>, but will return a <a href="/Documentable/integration-test/type/Failure">Failure</a> if the string contains non-numeric characters. Saving that <a href="/Documentable/integration-test/type/Failure">Failure</a> in a variable prevents it from being sunk, and so the first code block below reaches the <code>say $x.^name;</code> line and prints <code>Failure</code> in output.</p>
+<p>In the second block, the <code>use fatal</code> pragma is enabled, so the <code>say</code> line is never reached because the <a href="/Documentable/integration-test/type/Exception">Exception</a> contained in the <a href="/Documentable/integration-test/type/Failure">Failure</a> returned from prefix <code>+</code> gets thrown and the <code>CATCH</code> block gets run, printing the <code>Caught...</code> line. Note that both blocks are the same program and <code>use fatal</code> only affects the lexical block it was used in:</p>
+<pre class="pod-block-code">{
+    my $x = +&quot;a&quot;;
+    say $x.^name;
+    CATCH { default { say &quot;Caught {.^name}&quot; } }
+} # OUTPUT: «Failure␤»
+
+{
+    use fatal;
+    my $x = +&quot;a&quot;;
+    say $x.^name;
+    CATCH { default { say &quot;Caught {.^name}&quot; } }
+} # OUTPUT: «Caught X::Str::Numeric␤»</pre>
+<p>Inside <a href="/Documentable/integration-test/language/exceptions#index-entry-try_blocks-try"><code>try</code> blocks</a>, the <code>fatal</code> pragma is enabled by default, and you can <em>disable</em> it with <code>no fatal</code>:</p>
+<pre class="pod-block-code">try {
+    my $x = +&quot;a&quot;;
+    say $x.^name;
+    CATCH { default { say &quot;Caught {.^name}&quot; } }
+} # OUTPUT: «Caught X::Str::Numeric␤»
+
+try {
+    no fatal;
+    my $x = +&quot;a&quot;;
+    say $x.^name;
+    CATCH { default { say &quot;Caught {.^name}&quot; } }
+} # OUTPUT: «Failure␤»</pre>
+<p><a name="Documentable/integration-test/index-entry-internals__pragma"></a></p>
+<h2 id="internals"><a class="u" href="#___top" title="go to top of document">internals</a></h2>
+<p>[NYI]</p>
+<p><a name="Documentable/integration-test/index-entry-invocant__pragma"></a></p>
+<h2 id="invocant"><a class="u" href="#___top" title="go to top of document">invocant</a></h2>
+<p>[NYI]</p>
+<p><a name="Documentable/integration-test/index-entry-isms__pragma"></a></p>
+<h2 id="isms"><a class="u" href="#___top" title="go to top of document">isms</a></h2>
+<p><code>[2018.09 and later]</code></p>
+<p>Allow for some other language constructs that were deemed to be a trap that warranted a warning and/or an error in normal Raku programming. Currently, <code>Perl</code> and <code>C++</code> are allowed.</p>
+<pre class="pod-block-code">sub abs() { say &quot;foo&quot; }
+abs;
+# Unsupported use of bare &quot;abs&quot;; in Raku please use .abs if you meant
+# to call it as a method on $_, or use an explicit invocant or argument,
+# or use &amp;abs to refer to the function as a noun
+</pre>
+<p>In this case, providing an <code>abs</code> sub that doesn&#39;t take any arguments, did not make the compilation error go away.</p>
+<pre class="pod-block-code">use isms &lt;Perl5&gt;;
+sub abs() { say &quot;foo&quot; }
+abs;   # foo</pre>
+<p>With this, the compiler will allow the offending Perl construct, allowing the code to actually be executed.</p>
+<p>If you do not specify any language, all known language constructs are allowed.</p>
+<pre class="pod-block-code">use isms;   # allow for Perl and C++ isms</pre>
+<p><a name="Documentable/integration-test/index-entry-lib__pragma"></a></p>
+<h2 id="lib"><a class="u" href="#___top" title="go to top of document">lib</a></h2>
+<p>This pragma adds subdirectories to the library search path so that the interpreter can <a href="/Documentable/integration-test/language/modules#Finding_modules">find the modules</a>.</p>
+<pre class="pod-block-code">use lib &lt;lib /opt/lib /usr/local/lib&gt;;
+
+#or a mixed list of IO::Path and Str
+use lib (&#39;.&#39;, &#39;.&#39;.IO, &#39;./lib&#39;.IO);
+</pre>
+<p>This will search the directories passed in a list. Please check <a href="/Documentable/integration-test/language/modules#use">the modules documentation</a> for more examples.</p>
+<p><a name="Documentable/integration-test/index-entry-newline__pragma"></a></p>
+<h2 id="newline"><a class="u" href="#___top" title="go to top of document">newline</a></h2>
+<p>Set the value of the <a href="/Documentable/integration-test/language/variables#Compile-time_variables">$?NL</a> constant in the scope it is called. Possible values are <code>:lf</code> (which is the default, indicating Line Feed), <code>:crlf</code> (indicating Carriage Return, Line Feed) and <code>:cr</code> (indicating Carriage Return).</p>
+<p><a name="Documentable/integration-test/index-entry-nqp__pragma"></a></p>
+<h2 id="nqp"><a class="u" href="#___top" title="go to top of document">nqp</a></h2>
+<p>Use at your own risk.</p>
+<p>This is a Rakudo-specific pragma. With it, Rakudo provides access to the <a href="https://github.com/Raku/nqp/blob/master/docs/ops.markdown">nqp opcodes</a> in a top level namespace:</p>
+<pre class="pod-block-code">use nqp;
+nqp::say(&quot;hello world&quot;);</pre>
+<p>This uses the underlying nqp <code>say</code> opcode instead of the Raku routine. This pragma may make your code rely on a particular version of nqp, and since that code is not part of the Raku specification, it&#39;s not guaranteed to be stable. You may find a large number of usages in the Rakudo core, which are used to make the core functionality as fast as possible. Future optimizations in the code generation of Rakudo may obsolete these usages.</p>
+<p><a name="Documentable/integration-test/index-entry-parameters__pragma"></a></p>
+<h2 id="parameters"><a class="u" href="#___top" title="go to top of document">parameters</a></h2>
+<p>[NYI]</p>
+<p><a name="Documentable/integration-test/index-entry-precompilation__pragma"></a></p>
+<h2 id="precompilation"><a class="u" href="#___top" title="go to top of document">precompilation</a></h2>
+<p>The default allows precompilation of source code, specifically if used in a module. If for whatever reason you do not want the code (of your module) to be precompiled, you can use <code>no precompilation</code>. This will prevent the entire compilation unit (usually a file) from being precompiled.</p>
+<p><a name="Documentable/integration-test/index-entry-soft__pragma"></a></p>
+<h2 id="soft"><a class="u" href="#___top" title="go to top of document">soft</a></h2>
+<p><a href="/Documentable/integration-test/language/functions#Re-dispatching">Re-dispatching</a>, <a href="/Documentable/integration-test/language/functions#index-entry-use_soft_(pragma)">inlining</a></p>
+<p><a name="Documentable/integration-test/index-entry-strict__pragma"></a></p>
+<h2 id="strict"><a class="u" href="#___top" title="go to top of document">strict</a></h2>
+<p><code>strict</code> is the default behavior, and requires that you declare variables before using them. You can relax this restriction with <code>no</code>.</p>
+<pre class="pod-block-code">no strict; $x = 42; # OK
+</pre>
+<p><a name="Documentable/integration-test/index-entry-trace__pragma"></a></p>
+<h2 id="trace"><a class="u" href="#___top" title="go to top of document">trace</a></h2>
+<p>When <code>use trace</code> is activated, any line of code executing will be written to STDERR. You can use <code>no trace</code> to switch off the feature, so this only happens for certain sections of code.</p>
+<p><a name="Documentable/integration-test/index-entry-v6__pragma"></a></p>
+<h2 id="v6"><a class="u" href="#___top" title="go to top of document">v6</a></h2>
+<p><a href="/Documentable/integration-test/language/testing#Writing_tests">Writing Tests</a></p>
+<p><a name="Documentable/integration-test/index-entry-variables__pragma"></a></p>
+<h2 id="variables"><a class="u" href="#___top" title="go to top of document">variables</a></h2>
+<p><a href="/Documentable/integration-test/language/variables#Default_defined_variables_pragma">Defined Variables Pragma</a></p>
+<p><a name="Documentable/integration-test/index-entry-worries__pragma"></a></p>
+<h2 id="worries"><a class="u" href="#___top" title="go to top of document">worries</a></h2>
+<p>Lexically controls whether compile-time warnings generated by the compiler get shown. Enabled by default.</p>
+<pre class="pod-block-code">$ perl6 -e &#39;say :foo&lt;&gt;.Pair&#39;
+Potential difficulties:
+  Pair with &lt;&gt; really means an empty list, not null string; use :foo(&#39;&#39;) to represent the null string,
+    or :foo() to represent the empty list more accurately
+  at -e:1
+  ------&gt; say :foo&lt;&gt;⏏.Pair
+foo =&gt; Nil
+
+$ perl6 -e &#39;no worries; say :foo&lt;&gt;.Pair&#39;
+foo =&gt; Nil
+</pre>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/Language/pragmas.pod6">https://github.com/Raku/doc/blob/master/doc/Language/pragmas.pod6</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

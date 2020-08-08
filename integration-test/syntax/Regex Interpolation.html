@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>syntax Regex Interpolation</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item " href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            
+            
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">syntax Regex Interpolation</h1>
+        <p class="subtitle"></p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#language_documentation_Regexes">language documentation Regexes</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#(Regexes)_regex_Regex_Interpolation_Regex_Interpolation">(Regexes) regex  Regex Interpolation Regex Interpolation</a></td></tr>
+                                                                                                                                                   <tr class="toc-level-2"><td class="toc-number">1.2</td><td class="toc-text"><a href="#Regex_Boolean_condition_check">Regex Boolean condition check</a></td></tr>
+                                                                            
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Documentation for syntax <code>Regex Interpolation</code> assembled from the following types:</p>
+<h1 id="language_documentation_Regexes"><a class="u" href="#___top" title="go to top of document">language documentation Regexes</a></h1>
+<p>From <a href="/Documentable/integration-test/language/regexes#Regex_interpolation">Regexes</a></p>
+<h2 id="(Regexes)_regex_Regex_Interpolation_Regex_Interpolation"><a href="/Documentable/integration-test/language/regexes#Regex_interpolation">(Regexes) regex  Regex Interpolation Regex Interpolation</a></h2>
+<p>Instead of using a literal pattern for a regex match, you can use a variable that holds that pattern. This variable can then be &#39;interpolated&#39; into a regex, such that its appearance in the regex is replaced with the pattern that it holds. The advantage of using interpolation this way, is that the pattern need not be hardcoded in the source of your Raku program, but may instead be variable and generated at runtime.</p>
+<p>There are four different ways of interpolating a variable into a regex as a pattern, which may be summarized as follows:</p>
+<table class="pod-table">
+<thead><tr>
+<th>Syntax</th> <th>Description</th>
+</tr></thead>
+<tbody>
+<tr> <td>$variable</td> <td>Interpolates stringified contents of variable literally.</td> </tr> <tr> <td>$(code)</td> <td>Runs Raku code inside the regex, and interpolates the stringified return value literally.</td> </tr> <tr> <td>&lt;$variable&gt;</td> <td>Interpolates stringified contents of variable as a regex.</td> </tr> <tr> <td>&lt;{code}&gt;</td> <td>Runs Raku code inside the regex, and interpolates the stringified return value as a regex.</td> </tr>
+</tbody>
+</table><p>Instead of the <code>$</code> sigil, you may use the <code>@</code> sigil for array interpolation. See below for how this works.</p>
+<p><a name="Documentable/integration-test/index-entry-regex__$variable"></a><a name="Documentable/integration-test/index-entry-regex__$(code)"></a> Let&#39;s start with the first two syntactical forms: <code>$variable</code> and <code>$(code)</code>. These forms will interpolate the stringified value of the variable or the stringified return value of the code literally, provided that the respective value isn&#39;t a <a href="/Documentable/integration-test/type/Regex"><code>Regex</code></a> object. If the value is a <code>Regex</code>, it will not be stringified, but instead be interpolated as such. &#39;Literally&#39; means <em>strictly literally</em>, that is: as if the respective stringified value is quoted with a basic <code>Q</code> string <a href="/Documentable/integration-test/language/quoting#Literal_strings:_Q"><code>Q[...]</code></a>. Consequently, the stringified value will not itself undergo any further interpolation.</p>
+<p>For <code>$variable</code> this means the following:</p>
+<pre class="pod-block-code">my $string   = &#39;Is this a regex or a string: 123\w+False$pattern1 ?&#39;;
+my $pattern1 = &#39;string&#39;;
+my $pattern2 = &#39;\w+&#39;;
+my $number   = 123;
+my $regex    = /\w+/;
+
+say $string.match: / &#39;string&#39; /;                      #  [1] OUTPUT: «｢string｣␤»
+say $string.match: / $pattern1 /;                     #  [2] OUTPUT: «｢string｣␤»
+say $string.match: / $pattern2 /;                     #  [3] OUTPUT: «｢\w+｣␤»
+say $string.match: / $regex /;                        #  [4] OUTPUT: «｢Is｣␤»
+say $string.match: / $number /;                       #  [5] OUTPUT: «｢123｣␤»</pre>
+<p>In this example, the statements <code>[1]</code> and <code>[2]</code> are equivalent and meant to illustrate a plain case of regex interpolation. Since unescaped/unquoted alphabetic characters in a regex match literally, the single quotes in the regex of statement <code>[1]</code> are functionally redundant; they have merely been included to emphasize the correspondence between the first two statements. Statement <code>[3]</code> unambiguously shows that the string pattern held by <code>$pattern2</code> is interpreted literally, and not as a regex. In case it would have been interpreted as a regex, it would have matched the first word of <code>$string</code>, i.e. <code>｢Is｣</code>, as can be seen in statement <code>[4]</code>. Statement <code>[5]</code> shows how the stringified number is used as a match pattern.</p>
+<p>This code exemplifies the use of the <code>$(code)</code> syntax:</p>
+<pre class="pod-block-code">my $string   = &#39;Is this a regex or a string: 123\w+False$pattern1 ?&#39;;
+my $pattern1 = &#39;string&#39;;
+my $pattern3 = &#39;gnirts&#39;;
+my $pattern4 = &#39;$pattern1&#39;;
+my $bool     = True;
+my sub f1    { return Q[$pattern1] };
+
+say $string.match: / $pattern3.flip /;                #  [6] OUTPUT: «Nil␤»
+say $string.match: / &quot;$pattern3.flip()&quot; /;            #  [7] OUTPUT: «｢string｣␤»
+say $string.match: / $($pattern3.flip) /;             #  [8] OUTPUT: «｢string｣␤»
+say $string.match: / $([~] $pattern3.comb.reverse) /; #  [9] OUTPUT: «｢string｣␤»
+say $string.match: / $(!$bool) /;                     # [10] OUTPUT: «｢False｣␤»
+
+say $string.match: / $pattern4 /;                     # [11] OUTPUT: «｢$pattern1｣␤»
+say $string.match: / $(f1) /;                         # [12] OUTPUT: «｢$pattern1｣␤»</pre>
+<p>Statement <code>[6]</code> does not work as probably intended. To the human reader, the dot <code>.</code> may seem to represent the <a href="/Documentable/integration-test/language/operators#methodop_..html">method call operator</a>, but since a dot is not a valid character for an <a href="/Documentable/integration-test/language/syntax#Ordinary_identifiers">ordinary identifier</a>, and given the regex context, the compiler will parse it as the regex wildcard <a href="/Documentable/integration-test/language/regexes#Wildcards">.</a> that matches any character. The apparent ambiguity may be resolved in various ways, for instance through the use of straightforward <a href="/Documentable/integration-test/language/quoting#Interpolation:_qq">string interpolation</a> from the regex as in statement <code>[7]</code> (note that the inclusion of the call operator <code>()</code> is key here), or by using the second syntax form from the above table as in statement <code>[8]</code>, in which case the match pattern <code>string</code> first emerges as the return value of the <code>flip</code> method call. Since general Raku code may be run from within the parentheses of <code>$( )</code>, the same effect can also be achieved with a bit more effort, like in statement <code>[9]</code>. Statement <code>[10]</code> illustrates how the stringified version of the code&#39;s return value (the Boolean value <code>False</code>) is matched literally.</p>
+<p>Finally, statements <code>[11]</code> and <code>[12]</code> show how the value of <code>$pattern4</code> and the return value of <code>f1</code> are <em>not</em> subject to a further round of interpolation. Hence, in general, after possible stringification, <code>$variable</code> and <code>$(code)</code> provide for a strictly literal match of the variable or return value.</p>
+<p><a name="Documentable/integration-test/index-entry-regex__<$variable>"></a><a name="Documentable/integration-test/index-entry-regex__<{code}>"></a> Now consider the second two syntactical forms from the table above: <code>&lt;$variable&gt;</code> and <code>&lt;{code}&gt;</code>. These forms will stringify the value of the variable or the return value of the code and interpolate it as a regex. If the respective value is a <code>Regex</code>, it is interpolated as such:</p>
+<pre class="pod-block-code">my $string         = &#39;Is this a regex or a string: 123\w+$x ?&#39;;
+my $pattern1       = &#39;\w+&#39;;
+my $number         = 123;
+my sub f1          { return /s\w+/ };
+
+say $string.match: / &lt;$pattern1&gt;  /;                  # OUTPUT: «｢Is｣␤»
+say $string.match: / &lt;$number&gt;    /;                  # OUTPUT: «｢123｣␤»
+say $string.match: / &lt;{ f1 }&gt;     /;                  # OUTPUT: «｢string｣␤»</pre>
+<p>Importantly, &#39;to interpolate as a regex&#39; means to interpolate/insert into the target regex without protective quoting. Consequently, if the value of the variable <code>$variable1</code> is itself of the form <code>$variable2</code>, evaluation of <code>&lt;$variable1&gt;</code> or <code>&lt;{ $variable1 }&gt;</code> inside a target regex <code>/.../</code> will cause the target regex to assume the form <code>/$variable2/</code>. As described above, the evaluation of this regex will then trigger further interpolation of <code>$variable2</code>:</p>
+<pre class="pod-block-code">my $string    = Q[Mindless \w+ $variable1 $variable2];
+my $variable1 = Q[\w+];
+my $variable2 = Q[$variable1];
+my sub f1     { return Q[$variable2] };
+
+# /&lt;{ f1 }&gt;/ ==&gt; /$variable2/ ==&gt; / &#39;$variable1&#39; /
+say $string.match: / &lt;{ f1 }&gt;     /; # OUTPUT: «｢$variable1｣␤»
+
+# /&lt;$variable2&gt;/ ==&gt; /$variable1/ ==&gt; / &#39;\w+&#39; /
+say $string.match: /&lt;$variable2&gt;/;   # OUTPUT: «｢\w+｣␤»
+
+# /&lt;$variable1&gt;/ ==&gt; /\w+/
+say $string.match: /&lt;$variable1&gt;/;   # OUTPUT: «｢Mindless｣␤»</pre>
+<p>When an array variable is interpolated into a regex, the regex engine handles it like a <code>|</code> alternative of the regex elements (see the documentation on <a href="/Documentable/integration-test/language/regexes#Quoted_lists_are_LTM_matches">embedded lists</a>, above). The interpolation rules for individual elements are the same as for scalars, so strings and numbers match literally, and <a href="/Documentable/integration-test/type/Regex"><code>Regex</code></a> objects match as regexes. Just as with ordinary <code>|</code> interpolation, the longest match succeeds:</p>
+<pre class="pod-block-code">my @a = &#39;2&#39;, 23, rx/a.+/;
+say (&#39;b235&#39; ~~ /  b @a /).Str;      # OUTPUT: «b23»</pre>
+<p>If you have an expression that evaluates to a list, but you do not want to assign it to an @-sigiled variable first, you can interpolate it with <code>@(code)</code>. In this example, both regexes are equivalent:</p>
+<pre class="pod-block-code">my %h = a =&gt; 1, b =&gt; 2;
+my @a = %h.keys;
+say S:g/@(%h.keys)/%h{$/}/ given &#39;abc&#39;;    # OUTPUT: «12c&gt;
+say S:g/@a/%h{$/}/ given &#39;abc&#39;;            # OUTPUT: «12c&gt;</pre>
+<p>The use of hashes in regexes is reserved.</p>
+<h2 id="Regex_Boolean_condition_check"><a class="u" href="#___top" title="go to top of document">Regex Boolean condition check</a></h2>
+<p><a name="Documentable/integration-test/index-entry-regex__<?{}>-regex__<!{}>"></a> The special operator <code>&lt;?{}&gt;</code> allows the evaluation of a Boolean expression that can perform a semantic evaluation of the match before the regular expression continues. In other words, it is possible to check in a Boolean context a part of a regular expression and therefore invalidate the whole match (or allow it to continue) even if the match succeeds from a syntactic point of view.</p>
+<p>In particular the <code>&lt;?{}&gt;</code> operator requires a <code>True</code> value in order to allow the regular expression to match, while its negated form <code>&lt;!{}&gt;</code> requires a <code>False</code> value.</p>
+<p>In order to demonstrate the above operator, please consider the following example that involves a simple IPv4 address matching:</p>
+<pre class="pod-block-code">my $localhost = &#39;127.0.0.1&#39;;
+my regex ipv4-octet { \d ** 1..3 &lt;?{ True }&gt; }
+$localhost ~~ / ^ &lt;ipv4-octet&gt; ** 4 % &quot;.&quot; $ /;
+say $/&lt;ipv4-octet&gt;;   # OUTPUT: «[｢127｣ ｢0｣ ｢0｣ ｢1｣]␤»
+</pre>
+<p>The <code>octet</code> regular expression matches against a number made by one up to three digits. Each match is driven by the result of the <code>&lt;?{}&gt;</code>, that being the fixed value of <code>True</code> means that the regular expression match has to be always considered as good. As a counter-example, using the special constant value <code>False</code> will invalidate the match even if the regular expression matches from a syntactic point of view:</p>
+<pre class="pod-block-code">my $localhost = &#39;127.0.0.1&#39;;
+my regex ipv4-octet { \d ** 1..3 &lt;?{ False }&gt; }
+$localhost ~~ / ^ &lt;ipv4-octet&gt; ** 4 % &quot;.&quot; $ /;
+say $/&lt;ipv4-octet&gt;;   # OUTPUT: «Nil␤»
+</pre>
+<p>From the above examples, it should be clear that it is possible to improve the semantic check, for instance ensuring that each <em>octet</em> is really a valid IPv4 octet:</p>
+<pre class="pod-block-code">my $localhost = &#39;127.0.0.1&#39;;
+my regex ipv4-octet { \d ** 1..3 &lt;?{ $/.Int &lt;= 255 &amp;&amp; $/.Int &gt;= 0 }&gt; }
+$localhost ~~ / ^ &lt;ipv4-octet&gt; ** 4 % &quot;.&quot; $ /;
+say $/&lt;ipv4-octet&gt;;   # OUTPUT: «[｢127｣ ｢0｣ ｢0｣ ｢1｣]␤»
+</pre>
+<p>Please note that it is not required to evaluate the regular expression in-line, but also a regular method can be called to get the Boolean value:</p>
+<pre class="pod-block-code">my $localhost = &#39;127.0.0.1&#39;;
+sub check-octet ( Int $o ){ $o &lt;= 255 &amp;&amp; $o &gt;= 0 }
+my regex ipv4-octet { \d ** 1..3 &lt;?{ &amp;check-octet( $/.Int ) }&gt; }
+$localhost ~~ / ^ &lt;ipv4-octet&gt; ** 4 % &quot;.&quot; $ /;
+say $/&lt;ipv4-octet&gt;;   # OUTPUT: «[｢127｣ ｢0｣ ｢0｣ ｢1｣]␤»
+</pre>
+<p>Of course, being <code>&lt;!{}&gt;</code> the negation form of <code>&lt;?{}&gt;</code> the same Boolean evaluation can be rewritten in a negated form:</p>
+<pre class="pod-block-code">my $localhost = &#39;127.0.0.1&#39;;
+sub invalid-octet( Int $o ){ $o &lt; 0 || $o &gt; 255 }
+my regex ipv4-octet { \d ** 1..3 &lt;!{ &amp;invalid-octet( $/.Int ) }&gt; }
+$localhost ~~ / ^ &lt;ipv4-octet&gt; ** 4 % &quot;.&quot; $ /;
+say $/&lt;ipv4-octet&gt;;   # OUTPUT: «[｢127｣ ｢0｣ ｢0｣ ｢1｣]␤»
+</pre>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+

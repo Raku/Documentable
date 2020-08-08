@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>routine sprintf</title>
+    <meta charset="UTF-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/Documentable/integration-test/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/Documentable/integration-test/css/app.css" media="screen" title="default" />
+    <noscript> <style> #search { visibility: hidden; } </style> </noscript>
+</head>
+
+<body class="pod">
+
+    <div id="___top"></div>
+
+    <div id="header" class="pretty-box green">
+
+        <a href="/Documentable/integration-test/">
+            <img src="/Documentable/integration-test/images/Camelia.svg"alt="»ö«"id="logo"width="62"height="48"/> &nbsp;Raku Documentation
+        </a>
+
+        <div id="search" class="ui-widget">
+            <div class="green">
+                <input placeholder="Loading..." id="query" accesskey="f" title="Enter term to search for (hit Esc to focus)"/>
+            </div>
+            <p id="not-found-message">
+                Not in Index (<a href="" id="try-web-search">try site search</a>)
+            </p>
+        </div>
+        
+        <div class="menu">
+            
+            <div class="menu-items dark-green">
+                <a class='menu-item darker-green' href='https://raku.org'><strong>Raku homepage</strong></a>
+                    <a class="menu-item " href="/Documentable/integration-test/language.html"> Language </a>
+                    <a class="menu-item " href="/Documentable/integration-test/type.html"> Types </a>
+                    <a class="menu-item selected darker-green" href="/Documentable/integration-test/routine.html"> Routines </a>
+                    <a class="menu-item " href="/Documentable/integration-test/programs.html"> Programs </a>
+                    <a class="menu-item " href="https://webchat.freenode.net/?channels=#raku"> Chat with us </a>
+            </div>
+            
+            <div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green"><div class="menu-items darker-green">
+                    <a class="menu-item" href="/Documentable/integration-test/routine.html"> All </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-sub.html"> Sub </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-method.html"> Method </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-term.html"> Term </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-operator.html"> Operator </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-trait.html"> Trait </a>
+                    <a class="menu-item" href="/Documentable/integration-test/routine-submethod.html"> Submethod </a>
+            </div></div></div></div></div></div></div>
+        
+        </div>
+    </div>
+
+    <div id="content" class="pretty-box yellow content_fragment">
+
+        <div align="right" style="display:none;">
+            <button title="Edit this page"  class="pencil" onclick="location=''">
+                <svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs></defs>
+                    <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="pencil" fill="#000000">
+                            <path d="M0,12 L0,15 L3,15 L11,7 L8,4 L0,12 L0,12 Z M3,14 L1,14 L1,12 L2,12 L2,13 L3,13 L3,14 L3,14 Z M13.3,4.7 L12,6 L9,3 L10.3,1.7 C10.69,1.31 11.32,1.31 11.71,1.7 L13.3,3.29 C13.69,3.68 13.69,4.31 13.3,4.7 L13.3,4.7 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="title">routine sprintf</h1>
+        <p class="subtitle"></p>
+
+        <nav class="indexgroup">
+<table id="TOC">
+<caption><h2 id="TOC_Title">Table of Contents</h2></caption>
+    <tr class="toc-level-1"><td class="toc-number">1</td><td class="toc-text"><a href="#language_documentation_Independent_routines">language documentation Independent routines</a></td></tr>
+   <tr class="toc-level-2"><td class="toc-number">1.1</td><td class="toc-text"><a href="#(Independent_routines)_routine_sprintf">(Independent routines) routine sprintf</a></td></tr>
+                                                                      <tr class="toc-level-3"><td class="toc-number">1.1.1</td><td class="toc-text"><a href="#Directives">Directives</a></td></tr>
+                                       
+</table>
+</nav>
+
+        <div class="pod-body ">
+            <p>Documentation for routine <code>sprintf</code> assembled from the following types:</p>
+<h1 id="language_documentation_Independent_routines"><a class="u" href="#___top" title="go to top of document">language documentation Independent routines</a></h1>
+<p>From <a href="/Documentable/integration-test/language/independent-routines#routine_sprintf">Independent routines</a></p>
+<h2 id="(Independent_routines)_routine_sprintf"><a href="/Documentable/integration-test/language/independent-routines#routine_sprintf">(Independent routines) routine sprintf</a></h2>
+<p>Defined as:</p>
+<pre class="pod-block-code">method sprintf(*@args)
+multi sub sprintf(Cool:D $format, *@args)</pre>
+<p>Formats and returns a string, following <a href="/Documentable/integration-test/routine/sprintf">the same language as <code>Str.sprintf</code></a>, using as such format either the object (if called in method form) or the first argument (if called as a routine)</p>
+<pre class="pod-block-code">sprintf( &quot;%s the %d%s&quot;, &quot;þor&quot;, 1, &quot;st&quot;).put; # OUTPUT: «þor the 1st␤»
+sprintf( &quot;%s is %s&quot;, &quot;þor&quot;, &quot;mighty&quot;).put;   # OUTPUT: «þor is mighty␤»
+&quot;%s&#39;s weight is %.2f %s&quot;.sprintf( &quot;Mjölnir&quot;, 3.3392, &quot;kg&quot;).put;
+# OUTPUT: «Mjölnir&#39;s weight is 3.34 kg␤»</pre>
+<p>This function is mostly identical to the C library&#39;s <code>sprintf</code> and <code>printf</code> functions. The only difference between the two functions is that <code>sprintf</code> returns a string while the <code>printf</code> function writes to a filehandle. <code>sprintf</code> returns a <code>Str</code>, not a literal.</p>
+<p>The <code>$format</code> is scanned for <code>%</code> characters. Any <code>%</code> introduces a format token. Directives guide the use (if any) of the arguments. When a directive other than <code>%</code> is used, it indicates how the next argument passed is to be formatted into the string to be created. <em>Parameter indexes</em> may also be used in the format tokens. They take the form <code>N$</code> and are explained in more detail below.</p>
+<p>The <code>$format</code> may be defined enclosed in single or double quotes. The double-quoted <code>$format</code> string is interpolated before being scanned and any embedded string whose interpolated value contains a <code>%</code> character will cause an exception. For example:</p>
+<pre class="pod-block-code">my $prod = &quot;Ab-%x-42&quot;;
+my $cost = &quot;30&quot;;
+sprintf(&quot;Product $prod; cost: \$%d&quot;, $cost).put;
+# OUTPUT: «Your printf-style directives specify 2 arguments, but 1 argument was supplied␤»
+          «  in block &lt;unit&gt; at &lt;unknown file&gt; line 1␤»
+</pre>
+<p>When handling unknown input you should avoid using such syntax by putting all variables in the <code>*@args</code> array and have one <code>%</code> for each in <code>$format</code>. If you need to include a <code>$</code> symbol in the format string (even as a <em>parameter index</em>) either escape it or use the single-quoted form. For example, either of the following forms works without error:</p>
+<pre class="pod-block-code">sprintf(&quot;2 x \$20 = \$%d&quot;, 2*20).put; # OUTPUT: «2 x $20 = $40␤»
+sprintf(&#39;2 x $20 = $%d&#39;, 2*20).put;   # OUTPUT: «2 x $20 = $40␤»
+</pre>
+<p>In summary, unless you need something very special, you will have fewer unexpected problems by using the single-quoted format string and not using interpolated strings inside the format string.</p>
+<p><a href="#fn-1" id="fn-ref-1">[1]</a></p>
+<h3 id="Directives"><a class="u" href="#___top" title="go to top of document">Directives</a></h3>
+<table class="pod-table">
+<tbody>
+<tr> <td>%</td> <td>a literal percent sign</td> </tr> <tr> <td>c</td> <td>a character with the given codepoint</td> </tr> <tr> <td>s</td> <td>a string</td> </tr> <tr> <td>d</td> <td>a signed integer, in decimal</td> </tr> <tr> <td>u</td> <td>an unsigned integer, in decimal</td> </tr> <tr> <td>o</td> <td>an unsigned integer, in octal</td> </tr> <tr> <td>x</td> <td>an unsigned integer, in hexadecimal</td> </tr> <tr> <td>e</td> <td>a floating-point number, in scientific notation</td> </tr> <tr> <td>f</td> <td>a floating-point number, in fixed decimal notation</td> </tr> <tr> <td>g</td> <td>a floating-point number, in %e or %f notation</td> </tr> <tr> <td>X</td> <td>like x, but using uppercase letters</td> </tr> <tr> <td>E</td> <td>like e, but using an uppercase &quot;E&quot;</td> </tr> <tr> <td>G</td> <td>like g, but with an uppercase &quot;E&quot; (if applicable)</td> </tr> <tr> <td>b</td> <td>an unsigned integer, in binary</td> </tr>
+</tbody>
+</table><p>Compatibility:</p>
+<table class="pod-table">
+<tbody>
+<tr> <td>i</td> <td>a synonym for %d</td> </tr> <tr> <td>D</td> <td>a synonym for %ld</td> </tr> <tr> <td>U</td> <td>a synonym for %lu</td> </tr> <tr> <td>O</td> <td>a synonym for %lo</td> </tr> <tr> <td>F</td> <td>a synonym for %f</td> </tr>
+</tbody>
+</table>
+        </div>
+    </div>
+
+    <aside><ol start="1">
+<li><a href="#fn-ref-1" id="fn-1">[↑]</a> The information below is for a fully functioning <code>sprintf</code> implementation which hasn&#39;t been achieved yet. Formats or features not yet implemented are marked NYI. </li>
+</ol></aside>
+
+
+    <footer class="pretty-box yellow">
+        <p>
+            Generated from <a href="https://github.com/Raku/doc/blob/master/doc/">https://github.com/Raku/doc/blob/master/doc/</a>.
+        </p>
+        <p>
+            This is a work in progress to document Raku (formerly known as Perl 6), and
+            known to be incomplete.
+        </p>
+        <p>
+            <a href="https://github.com/raku/doc/blob/master/CONTRIBUTING.md#reporting-bugs">
+                Please report any issues
+            </a>
+            Your contribution is appreciated.
+        </p>
+        <p>
+            This documentation is provided under the terms of the
+            <a href="https://raw.githubusercontent.com/raku/doc/master/LICENSE">
+                Artistic License 2.0
+            </a>. The Camelia image is
+            <a href="https://raw.githubusercontent.com/raku/mu/master/misc/camelia.txt">
+                copyright © 2009 by Larry Wall.
+            </a>
+            <!-- CREDITS -->
+            <!--External Link Image by Zapyon, CCA-SA 4.0. Derived from Wikimedia Foundation https://commons.wikimedia.org/wiki/File:External-link-04-bold-12x12.svg -->
+        </p>
+    </footer>
+
+    <script type="text/javascript" src="/Documentable/integration-test/js/app.js?v=1"></script>
+    <script type="text/javascript" src="/Documentable/integration-test/js/search.js?v=3"></script>
+</body>
+</html>
+
