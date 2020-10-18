@@ -16,6 +16,7 @@ RUN cd highlights \
     && npm config set unsafe-perm true \
     && npm install -g sass \
     && npm install . \
+    && git clone --depth 1 https://github.com/Raku/atom-language-perl6 \
     && cd ..
 
 USER raku
