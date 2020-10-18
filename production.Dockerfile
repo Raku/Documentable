@@ -11,7 +11,6 @@ USER raku
 WORKDIR /home/raku
 RUN git clone -b $branch_name --single-branch https://github.com/Raku/Documentable.git \
     && cd Documentable \
-    && zef install --deps-only --/test . \
     && zef install . \
     && cd .. \
     && mkdir documentable
