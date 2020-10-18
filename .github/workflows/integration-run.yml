@@ -36,9 +36,9 @@ jobs:
     runs-on: ubuntu-latest
     container: antoniogamiz/documentable-nightly
     steps:
-      - name: Generate docs
-        uses: actions/checkout@master
+      - uses: actions/checkout@master
         path: /home/raku
+      - name: Generate docs
         run: |
           documentable setup -o
           documentable start --topdir=docs -v -a --highlight --highlight-path="/highlights"
