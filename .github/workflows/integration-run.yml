@@ -37,7 +37,8 @@ jobs:
     container: antoniogamiz/documentable-nightly
     steps:
       - uses: actions/checkout@master
-        path: /home/raku
+        with:
+          path: /home/raku
       - name: Generate docs
         run: |
           documentable setup -o
@@ -57,7 +58,8 @@ jobs:
     container: antoniogamiz/documentable-nightly
     steps:
       - uses: actions/checkout@master
-        path: /home/raku
+        with:
+          path: /home/raku
       - name: Generate docs container
         run: |
           git clone --depth 1 -b master --single-branch https://github.com/Raku/doc.git
