@@ -36,11 +36,12 @@ jobs:
     runs-on: ubuntu-latest
     container: antoniogamiz/documentable-nightly
     steps:
-      - uses: actions/checkout@master
-      - run: |
+      - name: Generate docs
+        uses: actions/checkout@master
+        path: /home/raku
+        run: |
           documentable setup -o
           documentable start --topdir=docs -v -a --highlight --highlight-path="/highlights"
-        name: Generate docs
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.5.7
         with:
@@ -55,9 +56,11 @@ jobs:
     runs-on: ubuntu-latest
     container: antoniogamiz/documentable-nightly
     steps:
-      - uses: actions/checkout@master
-      - run: |
-          git clone -b master --single-branch https://github.com/Raku/doc.git
+      - name: Generate docs container
+        uses: actions/checkout@master
+        path: /home/raku
+        run: |
+          git clone --depth 1 -b master --single-branch https://github.com/Raku/doc.git
           cd doc
           documentable setup -o
           rm documentable.json && rm type-graph.txt
