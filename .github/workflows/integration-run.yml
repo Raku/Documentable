@@ -56,9 +56,9 @@ jobs:
     runs-on: ubuntu-latest
     container: antoniogamiz/documentable-nightly
     steps:
-      - name: Generate docs container
-        uses: actions/checkout@master
+      - uses: actions/checkout@master
         path: /home/raku
+      - name: Generate docs container
         run: |
           git clone --depth 1 -b master --single-branch https://github.com/Raku/doc.git
           cd doc
