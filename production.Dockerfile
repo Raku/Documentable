@@ -6,6 +6,7 @@ ARG branch_name=master
 
 USER root
 RUN apk add --no-cache bash
+RUN mkdir /__w && chown raku /__w
 
 USER raku
 WORKDIR /home/raku
