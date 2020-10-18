@@ -3,7 +3,8 @@
 In this repository you can find all logic responsible for generating the
 [official Raku documentation](https://docs.Raku.org/) or any other
 repository that follows the same specification. Could be used for modules that
-include a substantial amount of documentation, for instance.
+include a substantial amount of documentation, for instance (as long
+as the layout of the different parts is still the same).
 
 ## Table of contents
 
@@ -100,13 +101,14 @@ _Note:_ Do not forget to add `--highlight --highlight-path="/highlights"` option
 
 You need Raku installed. You can install the Rakudo Raku compiler by
 downloading the latest Rakudo Star release from
-[rakudo.org/downloads/star/](http://rakudo.org/downloads/star/).
+[rakudo.org/downloads/star/](http://rakudo.org/downloads/star/) or the
+latests releases via [Rakubrew](https://rakubrew.org/).
 
 #### `zef`
 
 [Zef](https://modules.raku.org/repo/zef) is a Raku module installer. If you
 installed Rakudo Star package, it should already be there. Feel free to
-use any other module installer for the modules needed (see below).
+use any other way to  install the modules needed (see below).
 
 #### Mojolicious / Web Server (OPTIONAL)
 
@@ -146,10 +148,13 @@ the `sass` command
     $ sudo apt-get install ruby-sass
 ```
 
-#### curl and tar
+#### `curl` and `tar`
 
 These programs are used by `documentable setup` to download the default assets
-and extract them. If you are on Ubuntu/Debian you will not have any problem (probably). If you are using Windows I recommend you to download the assets yourself from [this link](https://github.com/raku/Documentable/releases/download/v1.0.1/assets.tar.gz).
+and extract them. If you are on Ubuntu/Debian you will (probably) not
+have any problem. If you are using Windows I recommend you to download
+the assets yourself from
+[this link](https://github.com/raku/Documentable/releases/download/v1.0.1/documentable-assets.tar.gz).
 
 ## FAQ
 
@@ -159,7 +164,7 @@ _Answer:_ No, you can execute `documentable update` to only regenerate those pag
 
 ##
 
-Is not your question here? Then, please [raise an issue](https://github.com/raku/Documentable/issues/new).
+Is your question not here? Then, please [raise an issue](https://github.com/raku/Documentable/issues/new).
 
 # AUTHORS
 
@@ -197,7 +202,7 @@ Wenzel P. P. Peppmeyer <@gfldex>
 
 # COPYRIGHT AND LICENSE
 
-Copyright 2019 Raku Team
+Copyright 2019, 2020 Raku Team
 
 This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
 

@@ -66,8 +66,6 @@ assets
 assets/*
 html
 html/*
-highlights
-highlights/*
 package-lock.json
 *.epub
 .vscode
@@ -76,5 +74,6 @@ app-start
 Makefile
 .cache-*
 .t
-.*
 *.iml
+
+.idea/
