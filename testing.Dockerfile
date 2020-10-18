@@ -20,6 +20,6 @@ RUN cd highlights \
 
 USER raku
 
-RUN zef install --deps-only . \
+RUN zef install --deps-only .
 
 ENTRYPOINT raku -v && zef test .
