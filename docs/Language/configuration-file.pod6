@@ -9,7 +9,10 @@
 C<Documentable> uses a JSON file to read custom configuration. You
 have three different options to specify it:
 
-=item Create a file named C<documentable.json> in the same directory where C<documentable> will be executed.
+=item Create a file named C<documentable.json> in the same directory where
+C<documentable> will be executed. An example is hosted at the [`Raku/doc`]
+(https://github.com/Raku/doc/blob/master/documentable.json) repository.
+
 =item Provide a custom path to a JSON file with the C<--conf> option.
 =item Do nothing. In that case, the L<default configuration file|https://github.com/Raku/Documentable/blob/master/resources/documentable.json> will be used.
 
@@ -49,7 +52,9 @@ Array where each of the elements is written as:
 C<pod-root-path>: Base link of the directory containing the documentation. It will be used to enable
 the edit button at the beginning of every primary page.
 
-For instance: C<"pod-root-path": "https://github.com/Raku/Documentable/tree/master/docs">.
+For instance: C<"pod-root-path": "https://github
+.com/Raku/Documentable/tree/master/docs"> if you want it to point to the
+current repository.
 
 =end item
 

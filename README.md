@@ -71,7 +71,10 @@ Usage:
     -a|--all                  Equivalent to -t -p -s -i --search-index
 ```
 
-See the [CLI documentation](https://raku.github.io/Documentable/language/cli) to learn more.
+See the [CLI documentation](https://raku.github.io/Documentable/language/cli
+) to learn more, or [the documentation on `documentable.json`](https://raku
+.github.io/Documentable/language/configuration-file) to create your own
+ configuration file.
 
 ## Docker container
 
