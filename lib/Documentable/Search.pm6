@@ -3,6 +3,7 @@ use Documentable;
 class Documentable::Search {
 
     has Str $.prefix;
+    has %.seen;
 
     submethod BUILD(
         :$!prefix = ''
@@ -11,32 +12,42 @@ class Documentable::Search {
     method generate-entries($registry) {
         say "Generating entries";
         my @entries;
-        for Kind::Type, Kind::Language, Kind::Programs -> $kind {
-            @entries.append: $registry.lookup($kind.Str, :by<kind>).map(-> $doc {
-                self.search-entry(
-                    category => $doc.subkinds[0],
-                    value    => $doc.name,
-                    url      => $doc.url
-                )
-            }).Slip;
+        self.consume-entries-by-kind(@entries, $registry, Kind::Type, 'Types');
+        self.consume-entries-by-kind(@entries, $registry, Kind::Language, 'Language');
+        self.consume-entries-by-kind(@entries, $registry, Kind::Programs, 'Programs');
+
+        for Kind::Routine.Str -> $kind {
+            @entries.append: $registry.lookup($kind, :by<kind>)
+                    .categorize({ .name })
+                    .pairs.sort({ .key })
+                    .map(-> (:key($name), :value(@docs)) {
+                        my $category = self.calculate-category(@docs, $kind);
+                        self.search-entry(:$category,
+                                value => escape($name), url => escape-json("/{ $kind.lc }/{ good-name($name) }"));
+                    });
         }
 
-        for Kind::Routine, Kind::Syntax.Str -> $kind {
-            @entries.append:  $registry.lookup($kind, :by<kind>)
-                            .categorize({.name})
-                            .pairs.sort({.key})
-                            .map( -> (:key($name), :value(@docs)) {
-                                    self.search-entry(
-                                        category => @docs > 1 ?? $kind.gist !! @docs[0].subkinds[0] || $kind.gist,
-                                        value    => escape($name),
-                                        url      => escape-json("/{$kind.lc}/{good-name($name)}")
+        for Kind::Syntax.Str -> $kind {
+            @entries.append: $registry.lookup($kind, :by<kind>)
+                    .categorize({ .name })
+                    .pairs.sort({ .key })
+                    .map(-> (:key($name), :value(@docs)) {
+                        if @docs.elems > 1 {
+                            my $category = self.calculate-category(@docs, $kind);
+                            self.search-entry(
+                                    :$category,
+                                    value => escape($name),
+                                    url => escape-json("/{ $kind.lc }/{ good-name($name) }")
                                     )
-                            });
+                        } else {
+                            Slip.new;
+                        }
+                    });
         }
 
         @entries.append: $registry.lookup(Kind::Reference.Str, :by<kind>).map(-> $doc {
             self.search-entry(
-                    category => $doc.kind.gist,
+                    category => $doc.categories[0],
                     value    => escape($doc.name),
                     url      => escape-json($doc.url)
                 )
@@ -45,10 +56,36 @@ class Documentable::Search {
         @entries
     }
 
+    method calculate-category(@docs, $kind) {
+        if @docs.elems == 1 {
+            return @docs[0].categories[0];
+        } else {
+            return 'Operators' if @docs.map(*.categories).map(* ~~ /'operators'/).any;
+        }
+
+        given $kind {
+            when 'routine' { 'Routines' }
+            when 'syntax'  { 'Syntax'  }
+            default { die $kind }
+        }
+    }
+
+    method consume-entries-by-kind(@entries, $registry, $kind, $category) {
+        @entries.append: $registry.lookup($kind.Str, :by<kind>).map(-> $doc {
+            self.search-entry(:$category, value => $doc.name, url => $doc.url)
+        }).Slip;
+    }
+
     method search-entry(Str :$category, Str :$value, Str :$url is copy) {
+        if %!seen{"$category - $value"}:exists {
+            warn "There is a duplicate index: $category - $value";
+        } else {
+            %!seen{"$category - $value"} = True;
+        }
+
         $url = $.prefix ?? "/" ~ $.prefix ~ $url !! $url;
         if ($url ~~ /\.$/) { $url = "{$url}.html" }
-        qq[[\{ category: "{$category}", value: "{$value}", url: "{$url}" \}\n]]
+        qq[[\{ category: "{ $category }", value: "{ $value }", url: "{ $url }" \}\n]]
     }
 
 }

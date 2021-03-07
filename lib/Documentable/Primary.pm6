@@ -130,12 +130,12 @@ class Documentable::Primary is Documentable {
             %attr = name       => $name.trim,
                     kind       => Kind::Syntax,
                     subkinds   => @meta || (),
-                    categories => @meta || ();
+                    categories => @(@meta[0]) || ();
 
         } else {
             my $g = Documentable::Heading::Grammar.parse(
                 textify-pod(@header, '').trim,
-                :actions(Documentable::Heading::Actions.new)
+                :actions($*HEADING-TO-ANCHOR-TRANSFORMER-ACTIONS // Documentable::Heading::Actions.new)
             ).actions;
 
             # no match, no valid definition

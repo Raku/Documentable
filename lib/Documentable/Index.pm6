@@ -13,18 +13,17 @@ method new(
     :$meta!,
     :$origin!
 ) {
-
-    my $name;
-    if $meta.elems > 1 {
-        my $last = textify-pod $meta[*-1];
-        my $rest = $meta[0..*-2];
-        $name = "$last ($rest)";
+    my ($name, $category);
+    if $meta.elems == 2 {
+        $category = $meta[0];
+        $name = $meta[1];
     } else {
-        $name = textify-pod $meta;
+        warn "At $origin.url() $meta.raku() is not formatted properly";
     }
 
     nextwith(
         kind     => Kind::Reference,
+        categories => [$category.trim],
         subkinds => ['reference'],
         name     => $name.trim,
         :$pod,
@@ -35,8 +34,8 @@ method new(
 
 method url() {
     my $index-text = recurse-until-str($.pod).join;
-    my @indices    = $.pod.meta;
-    my $fragment = qq[index-entry{@indices ?? '-' !! ''}{@indices.join('-')}{$index-text ?? '-' !! ''}$index-text]
+    my $indices    = $.pod.meta[0];
+    my $fragment = qq[index-entry{$indices ?? "-$indices[1]" !! ''}{$index-text ?? '-' !! ''}$index-text]
                  .subst('_', '__', :g).subst(' ', '_', :g);
 
     return $.origin.url ~ "#" ~ good-name($fragment);
