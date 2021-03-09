@@ -33,11 +33,11 @@ order to find definitions. The other ones are ignored.
 
 All heads below should be parsed as possible definitions, but ignored afterwards.
 
-=head1 X<INTRODUCTION|p6doc>
+=head1 X<INTRODUCTION|category,p6doc>
 
     Unambiguous definition.
 
-=head1 X<p6doc>
+=head1 X<p6doc|category,p6doc>
 
     Unambiguous definition without meta info (this has to be indexed as category only)
 
