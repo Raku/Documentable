@@ -15,11 +15,11 @@ my $origin = Documentable::Primary.new(
     source-path => "t/test-doc/Programs/02-reading-docs.pod6"
 );
 
-my @names := ("url", "meta (multi)", "part", "nometa");
+my @names := ("url", "meta", "part", "nometa");
 my %urls =
     "url"           => "/programs/test#index-entry-url-new_reference",
-    "meta (multi)"  => "/programs/test#index-entry-multi__meta-part-no_meta_part",
-    "part"          => "/programs/test#index-entry-multi__meta-part-no_meta_part",
+    "meta"          => "/programs/test#index-entry-_meta-no_meta_part",
+    "part"          => "/programs/test#index-entry-_meta-no_meta_part",
     "nometa"        => "/programs/test#index-entry-nometa";
 
 subtest "Reference detection" => {
@@ -34,19 +34,19 @@ subtest "URL handling" => {
     }
 }
 
-subtest "leading whitespace references" => {
-    my $reference = Pod::FormattingCode.new(
-        type     => 'X',
-        meta => [["meta", " meta1"]],
-    );
-    my @references = Documentable::Index.new(
-        pod    => $reference,
-        origin => Documentable::Primary,
-        meta   => [["meta", " meta1"]]
-    );
-    for @references -> $ref {
-        is $ref.name.starts-with(" "), False, "leading whitespace";
-    }
-}
+#subtest "leading whitespace references" => {
+#    my $reference = Pod::FormattingCode.new(
+#        type     => 'X',
+#        meta => [["meta", " meta1"]],
+#    );
+#    my @references = Documentable::Index.new(
+#        pod    => $reference,
+#        origin => Documentable::Primary,
+#        meta   => [["meta", " meta1"]]
+#    );
+#    for @references -> $ref {
+#        is $ref.name.starts-with(" "), False, "leading whitespace";
+#    }
+#}
 
 done-testing;

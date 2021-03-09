@@ -20,7 +20,7 @@ Operators used as infix
 
     multi sub infix:<..>($a, $b --> Range:D) is assoc<non>
 
-X<Range operator>: Constructs a L<Range|/type/Range> from the arguments.
+X<Range operator|Infix operators,Range operator>: Constructs a L<Range|/type/Range> from the arguments.
 
 
 =end pod

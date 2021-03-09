@@ -6,11 +6,11 @@
 
 All X formatting elements are considered references.
 
-=head1 X<new reference|url>
+=head1 X<new reference|category,url>
 
-References like this X<no meta part|multi, meta;part>.
+References like this X<no meta part|multi, meta;category,part>.
 
-This reference does not have meta part X<nometa>
+This reference does not have meta part X<|category,nometa>
 
 =end pod
 

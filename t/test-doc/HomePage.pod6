@@ -52,3 +52,8 @@ Raku compiler developers may also be interested in
 =end Html
 
 # vim: expandtab softtabstop=4 shiftwidth=4 ft=perl6
+
+ # comment to modify the file
+ # comment to modify the file
+ # comment to modify the file
+ # comment to modify the file
