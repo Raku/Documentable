@@ -62,8 +62,7 @@ subtest 'not regenerate all subindexes' => {
     Documentable::CLI::MAIN(
         'update',
         :topdir('t/test-doc'),
-        :typegraph-file("t/test-doc/type-graph.txt"),
-        :!verbose
+        :typegraph-file("t/test-doc/type-graph.txt")
     );
 
     for @subindexes-path Z @modified-date -> ($path, $date) {
