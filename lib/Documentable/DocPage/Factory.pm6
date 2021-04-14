@@ -17,7 +17,7 @@ class Documentable::DocPage::Factory {
    has Documentable::Registry $.registry;
    has Documentable::To::HTML::Wrapper $.wrapper;
 
-    method BUILD(
+    submethod BUILD(
         Documentable::Config :$!config,
         Documentable::Registry :$registry,
     ) {
@@ -28,20 +28,19 @@ class Documentable::DocPage::Factory {
     }
 
     method generate-home-page() {
-        my $path = "{$!registry.topdir}/HomePage.pod6";
-        my $pod = $!registry.load(:$path)[0];
-        %(
-          document => $!wrapper.render($pod, :pod-path("HomePage.pod6")),
-          url => '/index'
-        )
+        self.generate-main-page( "HomePage" => "index" )
     }
 
     method generate-error-page() {
-        my $path = "{$!registry.topdir}/404.pod6";
+        self.generate-main-page( "404" => "404")
+    }
+
+    method generate-main-page( Pair $file-url ) {
+        my $path = "{$!registry.topdir}/{$file-url.key}.pod6";
         my $pod = $!registry.load(:$path)[0];
         %(
-          document => $!wrapper.render($pod, :pod-path("404.pod6")),
-          url => '/404'
+            document => $!wrapper.render($pod, :pod-path("{$file-url.key}.pod6")),
+            url => $file-url.value
         )
     }
 
