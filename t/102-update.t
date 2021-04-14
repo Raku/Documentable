@@ -7,7 +7,7 @@ plan *;
 
 rmtree("t/.cache-test-doc");
 
-subtest 'update option' => {
+subtest 'update after initial creation' => {
     # create the cache
     Documentable::CLI::MAIN(
         'start',
@@ -20,9 +20,8 @@ subtest 'update option' => {
     my @paths = <Programs/01-debugging.pod6 Language/terms.pod6 Native/int.pod6 Type/Map.pod6 HomePage.pod6>;
     @paths    .= map({"t/test-doc/$_"});
 
-    # store untouched files to restore them (avoid they appear in 'git status')
+    # store untouched files to restore them (prevent them from appearing in 'git status')
     my @files = @paths.map({slurp $_});
-    # modification date
     my @modified-date = @paths.map({.IO.modified});
 
     # modify files
@@ -39,11 +38,10 @@ subtest 'update option' => {
         is $path.IO.modified > $date, True, "$path updated correctly"
     }
 
-    # restore previous files
     for @paths Z @files -> ($path, $file) { spurt $path, $file }
 }
 
-subtest 'not regenerate all subindexes' => {
+subtest 'regenerate only modified subindexes' => {
     my @paths = <Native/int.pod6 Type/Map.pod6>.map({"t/test-doc/$_"});
     my @files = @paths.map({slurp $_});
 
