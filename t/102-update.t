@@ -47,7 +47,7 @@ subtest 'not regenerate all subindexes' => {
     my @paths = <Native/int.pod6 Type/Map.pod6>.map({"t/test-doc/$_"});
     my @files = @paths.map({slurp $_});
 
-    # only these subindex should be modifed
+    # only these subindices should be modified
     my @subindexes-path = <type-basic type-composite routine-method routine>.map({"html/$_.html"});
     my @modified-date = @subindexes-path.map({.IO.modified});
 
