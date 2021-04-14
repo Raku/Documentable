@@ -40,7 +40,7 @@ class Documentable::DocPage::Factory {
         my $pod = $!registry.load(:$path)[0];
         %(
             document => $!wrapper.render($pod, :pod-path("{$file-url.key}.pod6")),
-            url => $file-url.value
+            url => '/'~ $file-url.value
         )
     }
 
