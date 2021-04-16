@@ -401,7 +401,6 @@ package Documentable::CLI {
         my $search-doc = $factory.generate-search-file;
         spurt "html{$search-doc<url>}", $search-doc<document>;
 
-        say "Docs to modify, ", @docs.map: *<url>;
         @docs.map(-> $doc { spurt "html{$doc<url>}.html", $doc<document> });
         print-time("Updating files", $now, $verbose);
     }

@@ -12,7 +12,7 @@ Documentable::CLI::MAIN(
     :a,
     :topdir('t/test-doc'),
     :typegraph-file("t/test-doc/type-graph.txt"),
-    :verbose
+    :!verbose
 );
 
 my @paths = <Native/int.pod6 Type/Map.pod6>.map({"t/test-doc/$_"});
@@ -32,7 +32,8 @@ for @paths Z @files -> ($path, $file) { spurt $path, add-line( $file ) }
 Documentable::CLI::MAIN(
     'update',
     :topdir('t/test-doc'),
-    :typegraph-file("t/test-doc/type-graph.txt")
+    :typegraph-file("t/test-doc/type-graph.txt"),
+    :!verbose
 );
 
 for @subindexes-path Z @modified-date -> ($path, $date) {
