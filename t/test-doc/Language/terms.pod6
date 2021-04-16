@@ -8,3 +8,6 @@ Most CHANGED POD constructs in Perl 6 can be categorized in terms.
 
 =end pod
 
+
+ # comment to modify the file
+ # comment to modify the file

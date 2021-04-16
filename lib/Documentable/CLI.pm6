@@ -350,8 +350,14 @@ package Documentable::CLI {
         my @type-subindexes;
 
         for @files -> $filename {
-            if ($filename ~~ /HomePage/) { @docs.push($factory.generate-home-page());  next; }
-            if ($filename ~~ /404/)      { @docs.push($factory.generate-error-page()); next; }
+            if ($filename ~~ /HomePage/) {
+                @docs.push($factory.generate-home-page());
+                next;
+            }
+            if ($filename ~~ /404/)      {
+                @docs.push($factory.generate-error-page());
+                next;
+            }
 
             my $doc = $registry.documentables.grep({.source-path eq $filename.IO.absolute}).first;
 
@@ -359,7 +365,9 @@ package Documentable::CLI {
             @docs.push($factory.generate-primary($doc));
 
             # type subindex
-            if ($doc.kind eq Kind::Type) {@type-subindexes.append: $doc.categories.Slip}
+            if ($doc.kind eq Kind::Type) {
+                @type-subindexes.append: $doc.categories.Slip
+            }
 
             # per kind
             my @routine-docs = $doc.defs.grep({.kind eq Kind::Routine});
@@ -393,6 +401,7 @@ package Documentable::CLI {
         my $search-doc = $factory.generate-search-file;
         spurt "html{$search-doc<url>}", $search-doc<document>;
 
+        say "Docs to modify, ", @docs.map: *<url>;
         @docs.map(-> $doc { spurt "html{$doc<url>}.html", $doc<document> });
         print-time("Updating files", $now, $verbose);
     }

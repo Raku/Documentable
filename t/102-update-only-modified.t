@@ -11,7 +11,7 @@ Documentable::CLI::MAIN(
     'start',
     :topdir('t/test-doc'),
     :typegraph-file("t/test-doc/type-graph.txt"),
-    :!verbose
+    :verbose
 );
 
 my @paths = <Native/int.pod6 Type/Map.pod6>.map({"t/test-doc/$_"});
@@ -22,9 +22,8 @@ my @subindexes-path = <type-basic type-composite routine-method routine>.map({"h
 my @modified-date = @subindexes-path.map({.IO.modified});
 
 my @immutable-subindexes-path =
-        <404 routine-trait routine-sub routine-routine>
-            .map({"html/$_.html"});
-my @not-modified-date = @subindexes-path.map({.IO.modified});
+        <404 index>.map({"html/$_.html"});
+my @not-modified-date = @immutable-subindexes-path.map({.IO.modified});
 
 # modify files
 for @paths Z @files -> ($path, $file) { spurt $path, add-line( $file ) }
