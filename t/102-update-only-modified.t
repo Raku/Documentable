@@ -9,6 +9,7 @@ rmtree("t/.cache-test-doc");
 
 Documentable::CLI::MAIN(
     'start',
+    :a,
     :topdir('t/test-doc'),
     :typegraph-file("t/test-doc/type-graph.txt"),
     :verbose
@@ -22,7 +23,7 @@ my @subindexes-path = <type-basic type-composite routine-method routine>.map({"h
 my @modified-date = @subindexes-path.map({.IO.modified});
 
 my @immutable-subindexes-path =
-        <404 index>.map({"html/$_.html"});
+        <404 index routine-trait routine-term type-exception>.map({"html/$_.html"});
 my @not-modified-date = @immutable-subindexes-path.map({.IO.modified});
 
 # modify files
