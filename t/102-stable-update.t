@@ -17,8 +17,7 @@ Documentable::CLI::MAIN(
 my @paths = <Native/int.pod6 Type/Map.pod6>.map({"t/test-doc/$_"});
 my @files = @paths.map({slurp $_});
 
-# only these subindexes should be modified
-my @subindexes-path = <type-basic type-composite routine-method routine 404 index>.map({"html/$_.html"});
+my @subindexes-path = <404 index>.map({"html/$_.html"});
 my @modified-date = @subindexes-path.map({.IO.modified});
 
 Documentable::CLI::MAIN(
@@ -27,8 +26,10 @@ Documentable::CLI::MAIN(
     :typegraph-file("t/test-doc/type-graph.txt")
 );
 
+say @subindexes-path, @modified-date;
 for @subindexes-path Z @modified-date -> ($path, $date) {
-    is $path.IO.modified == $date, "$path updated correctly"
+    say "Checking $path, $date";
+    ok $path.IO.modified == $date, "$path updated correctly"
 }
 
 done-testing;

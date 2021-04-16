@@ -45,8 +45,6 @@ for @immutable-subindexes-path Z @not-modified-date -> ($path, $date) {
 # restore previous files
 for @paths Z @files -> ($path, $file) { spurt $path, $file }
 
-
-
 sub add-line($file) {
     $file ~ "\n # comment to modify the file"
 }

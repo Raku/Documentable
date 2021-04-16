@@ -307,7 +307,7 @@ package Documentable::CLI {
         my @files = $cache.list-files;
         if (! @files) {
             DEBUG("Everything already updated. There are no changes.", $verbose);
-            exit 0;
+            return 0;
         }
 
         DEBUG(+@files ~ " file(s) modified. Starting regeneration ...", $verbose);
