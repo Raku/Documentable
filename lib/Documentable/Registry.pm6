@@ -4,7 +4,7 @@ use Pod::Utilities::Build;
 
 use URI::Escape;
 use Documentable::Utils::IO;
-use Perl6::TypeGraph;
+use Doc::TypeGraph;
 use Documentable;
 use Documentable::Primary;
 
@@ -12,14 +12,14 @@ use Terminal::Spinners;
 
 unit class Documentable::Registry;
 
-has                  @.documentables;
-has                  @.definitions;
-has                  @.references;
-has                  @.docs;
-has Bool             $.composed;
-has                  %.cache;
-has Perl6::TypeGraph $.tg;
-has                  %.routines-by-type;
+has                 @.documentables;
+has                 @.definitions;
+has                 @.references;
+has                 @.docs;
+has Bool            $.composed;
+has                 %.cache;
+has Doc::TypeGraph  $.tg;
+has                 %.routines-by-type;
 
 has Pod::From::Cache $.pod-cache;
 
@@ -32,8 +32,8 @@ submethod BUILD (
     Bool    :$!verbose    = True,
     Str     :$typegraph-file
 ) {
-    $!tg = $typegraph-file ?? Perl6::TypeGraph.new-from-file($typegraph-file)
-                           !! Perl6::TypeGraph.new-from-file;
+    $!tg = $typegraph-file ?? Doc::TypeGraph.new-from-file($typegraph-file)
+                           !! Doc::TypeGraph.new-from-file;
 
     try {
         $!topdir      = $topdir.IO.absolute;

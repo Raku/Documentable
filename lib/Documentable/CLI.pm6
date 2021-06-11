@@ -7,8 +7,8 @@ use Documentable::DocPage::Factory;
 use Pod::From::Cache;
 use File::Temp;
 use Documentable::Utils::IO;
-use Perl6::TypeGraph;
-use Perl6::TypeGraph::Viz;
+use Doc::TypeGraph;
+use Doc::TypeGraph::Viz;
 use JSON::Fast;
 use File::Directory::Tree;
 
@@ -168,8 +168,8 @@ package Documentable::CLI {
             $now = now;
 
             DEBUG("Writing type-graph representations...", $v);
-            my $viz = Perl6::TypeGraph::Viz.new;
-            my $tg  = Perl6::TypeGraph.new-from-file;
+            my $viz = Doc::TypeGraph::Viz.new;
+            my $tg  = Doc::TypeGraph.new-from-file;
             $viz.write-type-graph-images(path       => "html/images",
                                         force      => $f,
                                         type-graph => $tg);
