@@ -1,6 +1,6 @@
 {
   "name": "Documentable",
-  "description": "An API for Raku documentation",
+  "description": "A static generator for Raku documentation",
   "version": "2.0.1",
   "perl": "6.d",
   "authors": [
