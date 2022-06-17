@@ -18,14 +18,14 @@ method new(
         $category = $meta[0];
         $name = $meta[1];
     } else {
-        warn "At $origin.url() $meta.raku() is not formatted properly";
+        warn "At $origin.url() $meta.raku() is not formatted properly, must have 2 elements (category, term)";
     }
 
     nextwith(
         kind     => Kind::Reference,
-        categories => [$category.trim],
+        categories => [$category.?trim],
         subkinds => ['reference'],
-        name     => $name.trim,
+        name     => $name.?trim,
         :$pod,
         :$origin,
         :$meta
@@ -34,8 +34,8 @@ method new(
 
 method url() {
     my $index-text = recurse-until-str($.pod).join;
-    my $indices    = $.pod.meta[0];
-    my $fragment = qq[index-entry{$indices ?? "-$indices[1]" !! ''}{$index-text ?? '-' !! ''}$index-text]
+    my @indices    = $.pod.meta;
+    my $fragment = qq[index-entry{@indices ?? "-@indices.map(*[1]).join('-')" !! ''}{$index-text ?? '-' !! ''}$index-text]
                  .subst('_', '__', :g).subst(' ', '_', :g);
 
     return $.origin.url ~ "#" ~ good-name($fragment);

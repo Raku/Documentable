@@ -130,7 +130,7 @@ class Documentable::Primary is Documentable {
             %attr = name       => $name.trim,
                     kind       => Kind::Syntax,
                     subkinds   => @meta || (),
-                    categories => @(@meta[0]) || ();
+                    categories => @meta || ();
 
         } else {
             my $g = Documentable::Heading::Grammar.parse(

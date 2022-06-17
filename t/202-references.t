@@ -3,33 +3,44 @@ use Documentable::Index;
 use Pod::Load;
 use Pod::Utilities;
 use Pod::Utilities::Build;
+use Test::Output;
 
 use Test;
 
 plan *;
 
 my $pod = load("t/test-doc/Programs/02-reading-docs.pod6")[0];
-my $origin = Documentable::Primary.new(
-    pod         => $pod,
-    filename    => "test",
-    source-path => "t/test-doc/Programs/02-reading-docs.pod6"
-);
+
+my $origin;
+
+output-like {
+    $origin = Documentable::Primary.new(
+        pod => $pod,
+        filename => "test",
+        source-path => "t/test-doc/Programs/02-reading-docs.pod6"
+    );
+}, /'At /programs/test "foo"' .+? 'At /programs/test "item,item2,item3"' /,
+    'detects wrong format of references';
 
 my @names := ("url", "meta", "part", "nometa");
 my %urls =
     "url"           => "/programs/test#index-entry-url-new_reference",
-    "meta"          => "/programs/test#index-entry-_meta-no_meta_part",
-    "part"          => "/programs/test#index-entry-_meta-no_meta_part",
+    "meta"          => "/programs/test#index-entry-_meta-part-no_meta_part",
+    "part"          => "/programs/test#index-entry-_meta-part-no_meta_part",
     "nometa"        => "/programs/test#index-entry-nometa";
 
 subtest "Reference detection" => {
     for $origin.refs -> $ref {
+        # we skip references without a name, as we have
+        # bogus syntax references in the test file to test out we can detect it
+        next unless $ref.name;
         is $ref.name ∈ @names, True, "$ref.name() detected";
     }
 }
 
 subtest "URL handling" => {
     for $origin.refs -> $ref {
+        next unless $ref.name;
         is $ref.url, %urls{$ref.name()}, "$ref.name() url";
     }
 }

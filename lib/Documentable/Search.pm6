@@ -3,7 +3,6 @@ use Documentable;
 class Documentable::Search {
 
     has Str $.prefix;
-    has %.seen;
 
     submethod BUILD(
         :$!prefix = ''
@@ -16,18 +15,7 @@ class Documentable::Search {
         self.consume-entries-by-kind(@entries, $registry, Kind::Language, 'Language');
         self.consume-entries-by-kind(@entries, $registry, Kind::Programs, 'Programs');
 
-        for Kind::Routine.Str -> $kind {
-            @entries.append: $registry.lookup($kind, :by<kind>)
-                    .categorize({ .name })
-                    .pairs.sort({ .key })
-                    .map(-> (:key($name), :value(@docs)) {
-                        my $category = self.calculate-category(@docs, $kind);
-                        self.search-entry(:$category,
-                                value => escape($name), url => escape-json("/{ $kind.lc }/{ good-name($name) }"));
-                    });
-        }
-
-        for Kind::Syntax.Str -> $kind {
+        for Kind::Syntax.Str, Kind::Routine.Str -> $kind {
             @entries.append: $registry.lookup($kind, :by<kind>)
                     .categorize({ .name })
                     .pairs.sort({ .key })
@@ -36,9 +24,7 @@ class Documentable::Search {
                             my $category = self.calculate-category(@docs, $kind);
                             self.search-entry(
                                     :$category,
-                                    value => escape($name),
-                                    url => escape-json("/{ $kind.lc }/{ good-name($name) }")
-                                    )
+                                    value => escape($name), url => escape-json("/{ $kind.lc }/{ good-name($name) }"))
                         } else {
                             Slip.new;
                         }
@@ -46,11 +32,14 @@ class Documentable::Search {
         }
 
         @entries.append: $registry.lookup(Kind::Reference.Str, :by<kind>).map(-> $doc {
-            self.search-entry(
-                    category => $doc.categories[0],
-                    value    => escape($doc.name),
-                    url      => escape-json($doc.url)
-                )
+            # only valid references has to be put into the index
+            if $doc.name and $doc.url {
+                self.search-entry(
+                        category => $doc.categories[0],
+                        value => escape($doc.name),
+                        url => escape-json($doc.url)
+                        )
+            }
         }).Slip;
 
         @entries
@@ -77,12 +66,6 @@ class Documentable::Search {
     }
 
     method search-entry(Str :$category, Str :$value, Str :$url is copy) {
-        if %!seen{"$category - $value"}:exists {
-            warn "There is a duplicate index: $category - $value";
-        } else {
-            %!seen{"$category - $value"} = True;
-        }
-
         $url = $.prefix ?? "/" ~ $.prefix ~ $url !! $url;
         if ($url ~~ /\.$/) { $url = "{$url}.html" }
         qq[[\{ category: "{ $category }", value: "{ $value }", url: "{ $url }" \}\n]]
