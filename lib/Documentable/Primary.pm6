@@ -135,7 +135,7 @@ class Documentable::Primary is Documentable {
         } else {
             my $g = Documentable::Heading::Grammar.parse(
                 textify-pod(@header, '').trim,
-                :actions(Documentable::Heading::Actions.new)
+                :actions($*HEADING-TO-ANCHOR-TRANSFORMER-ACTIONS // Documentable::Heading::Actions.new)
             ).actions;
 
             # no match, no valid definition

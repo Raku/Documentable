@@ -12,7 +12,7 @@ This class is used to represent integers that are native to the compiler.
 
 This heading should not be indexed!
 
-Some reference X<aa|aa>.
+Some reference X<aa|category,aa>.
 
 =head2 method ACCEPTS
 
