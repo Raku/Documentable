@@ -24,9 +24,9 @@ output-like {
 
 my @names := ("url", "meta", "part", "nometa");
 my %urls =
-    "url"           => "/programs/test#index-entry-url-new_reference",
-    "meta"          => "/programs/test#index-entry-_meta-part-no_meta_part",
-    "part"          => "/programs/test#index-entry-_meta-part-no_meta_part",
+    "url"           => "/programs/test#index-entry-url",
+    "meta"          => "/programs/test#index-entry-%20meta",
+    "part"          => "/programs/test#index-entry-%20meta",
     "nometa"        => "/programs/test#index-entry-nometa";
 
 subtest "Reference detection" => {
