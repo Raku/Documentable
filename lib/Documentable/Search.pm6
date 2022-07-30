@@ -1,4 +1,5 @@
 use Documentable;
+use URI::Escape;
 
 class Documentable::Search {
 
@@ -20,11 +21,11 @@ class Documentable::Search {
                     .categorize({ .name })
                     .pairs.sort({ .key })
                     .map(-> (:key($name), :value(@docs)) {
-                        if @docs.elems > 1 {
+                        if @docs.elems >= 1 {
                             my $category = self.calculate-category(@docs, $kind);
                             self.search-entry(
                                     :$category,
-                                    value => escape($name), url => escape-json("/{ $kind.lc }/{ good-name($name) }"))
+                                    value => escape($name), url => escape-json("/{ $kind.lc }/{ uri-escape($name) }"))
                         } else {
                             Slip.new;
                         }
@@ -68,9 +69,8 @@ class Documentable::Search {
     method search-entry(Str :$category, Str :$value, Str :$url is copy) {
         $url = $.prefix ?? "/" ~ $.prefix ~ $url !! $url;
         if ($url ~~ /\.$/) { $url = "{$url}.html" }
-        qq[[\{ category: "{ $category }", value: "{ $value }", url: "{ $url }" \}\n]]
+        qq[[\{ "category": "{ $category }", "value": "{ $value }", "url": "{ $url }" \}\n]]
     }
-
 }
 
 #| We need to escape names like \. Otherwise, if we convert them to JSON, we

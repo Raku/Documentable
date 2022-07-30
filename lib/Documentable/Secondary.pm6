@@ -2,6 +2,7 @@ use Documentable;
 use Documentable::Utils::Text;
 use Pod::Utilities;
 use Pod::Utilities::Build;
+use URI::Escape;
 
 class Documentable::Secondary is Documentable {
 
@@ -18,7 +19,7 @@ class Documentable::Secondary is Documentable {
         :$origin
     ) {
 
-        my $url = "/{$kind.Str.lc}/{good-name($name)}";
+        my $url = "/{$kind.Str.lc}/{uri-escape($name)}";
         my $url-in-origin = $origin.url ~ "#" ~textify-pod($pod[0]).trim.subst(/\s+/, '_', :g);
 
         # normalize the pod

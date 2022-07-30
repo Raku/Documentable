@@ -2,6 +2,7 @@ use Documentable;
 use Documentable::Utils::Text;
 use Pod::Utilities;
 use Pod::Utilities::Build;
+use URI::Escape;
 
 unit class Documentable::Index is Documentable;
 
@@ -33,12 +34,14 @@ method new(
 }
 
 method url() {
-    my $index-text = recurse-until-str($.pod).join;
     my @indices    = $.pod.meta;
-    my $fragment = qq[index-entry{@indices ?? "-@indices.map(*[1]).join('-')" !! ''}{$index-text ?? '-' !! ''}$index-text]
-                 .subst('_', '__', :g).subst(' ', '_', :g);
-
-    return $.origin.url ~ "#" ~ good-name($fragment);
+    # meta is by default a list of lists, so take the first element
+    # and then take `foo` part of `X<Text?|Category,foo>`.
+    my $index-entry-text = @indices[0][1];
+    my $fragment = "index-entry-$index-entry-text";
+    # don't forget to properly HTML escape the fragment, as it might
+    # contain various special characters
+    return $.origin.url ~ "#" ~ uri-escape($fragment);
 }
 
 # vim: expandtab shiftwidth=4 ft=perl6
